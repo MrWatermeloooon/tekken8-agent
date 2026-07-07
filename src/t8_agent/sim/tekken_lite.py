@@ -176,6 +176,11 @@ class TekkenLiteEnv:
     def legal_actions(self) -> list[SimAction]:
         return list(SimAction)
 
+    def legal_action_mask(self, player: int):
+        from t8_agent.sim.action_space import legal_action_mask
+
+        return legal_action_mask(self.state, player)
+
     def sample_action(self) -> SimAction:
         return self.rng.choice(self.legal_actions())
 

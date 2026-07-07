@@ -21,6 +21,7 @@ gamepad = [
     "vgamepad>=0.1.0",
 ]
 rl = [
+    "sb3-contrib>=2.3",
     "stable-baselines3>=2.3",
     "torch>=2.2",
 ]

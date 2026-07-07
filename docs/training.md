@@ -65,3 +65,37 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 2. Add self-play checkpoint opponents.
 3. Add PPO once the simulator reward is stable.
 4. Evaluate sim-trained policies against DIAMBRA and then real Tekken 8 CV.
+
+## PPO Training
+
+Install the RL dependencies:
+
+```powershell
+.\.venv\Scripts\python -m pip install -e ".[rl]"
+```
+
+Train MaskablePPO:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints\sim_ppo_policy.zip
+```
+
+Evaluate:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\evaluate_sim_ppo.py --checkpoint checkpoints\sim_ppo_policy.zip --episodes 50
+```
+
+## PPO Self-Play
+
+Train in chunks and add saved PPO checkpoints into the opponent pool:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
+```
+
+The pool samples scripted opponents, mostly recent checkpoints, and occasionally
+older checkpoints.

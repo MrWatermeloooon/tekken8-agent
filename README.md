@@ -65,6 +65,21 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 This is prototype training, not the final bot. It is meant to verify that the
 simulator has a learnable signal before we add PPO and larger self-play pools.
 
+PPO training is available through MaskablePPO:
+
+```powershell
+.\.venv\Scripts\python -m pip install -e ".[rl]"
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints\sim_ppo_policy.zip
+```
+
+Checkpoint-pool PPO self-play:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
+```
+
 Evaluate and bug-check:
 
 ```powershell

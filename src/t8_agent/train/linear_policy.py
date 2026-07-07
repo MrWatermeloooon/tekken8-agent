@@ -5,22 +5,9 @@ from pathlib import Path
 
 import numpy as np
 
+from t8_agent.sim.action_space import ACTION_SPACE
 from t8_agent.sim.observations import observation_size, vector_observation
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
-
-ACTION_SPACE = [
-    SimAction.NEUTRAL,
-    SimAction.WALK_FORWARD,
-    SimAction.WALK_BACK,
-    SimAction.BLOCK_HIGH,
-    SimAction.BLOCK_LOW,
-    SimAction.JAB,
-    SimAction.DF1,
-    SimAction.F2,
-    SimAction.DB3,
-    SimAction.HOPKICK,
-    SimAction.THROW,
-]
 
 
 @dataclass
