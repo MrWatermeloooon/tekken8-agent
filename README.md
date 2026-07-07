@@ -1,0 +1,119 @@
+# Tekken 8 Agent
+
+Local-only research scaffold for building a Tekken 8 self-play agent.
+
+This repository is for offline lab work and local versus testing only. Do not use
+it for online play, matchmaking, anti-cheat bypassing, or anything that violates
+the game or platform rules.
+
+## Roadmap Focus
+
+The source roadmap says Tekken 8 is the capstone because there is no ready-made
+Gym environment. We are now taking the faster route: build a compact
+Jun-focused simulator first, train self-play there at high speed, then use
+DIAMBRA and real Tekken 8 as validation/calibration targets.
+
+1. Build a fast Tekken-lite simulator with spacing, walls, frame data, blocking,
+   whiffs, hitstun/blockstun, and round outcomes.
+2. Train self-play policies in many parallel simulator instances.
+3. Use DIAMBRA/Tekken Tag as a fighting-game reference environment.
+4. Use Tekken 8 computer vision and virtual controller input for final
+   validation and live local play.
+
+Current target choices:
+
+- Usage: offline local training and local versus only.
+- Tekken 8 character: Jun Kazama.
+- Main training backend: fast surrogate simulator.
+- Tekken 8 state extraction: computer vision first.
+- DIAMBRA role: optional/reference on-ramp, not the main training bottleneck.
+
+## Current Scaffold
+
+- `src/t8_agent/core/types.py` defines the state/action/reward data shapes.
+- `src/t8_agent/env/mock_env.py` is a fake environment for testing loops before
+  Tekken integration works.
+- `src/t8_agent/sim/tekken_lite.py` is the fast surrogate simulator for
+  simulator-first self-play.
+- `src/t8_agent/sim/moves.py` contains the first Jun-style frame-data move
+  table.
+- `src/t8_agent/io/input_backend.py` defines the controller output interface.
+- `src/t8_agent/io/state_backend.py` defines the game-state reader interface.
+- `scripts/run_sim_episode.py` runs fast simulator episodes without Tekken 8.
+- `scripts/diambra_random_episode.py` runs a DIAMBRA random-policy smoke test.
+- `scripts/check_setup.py` reports local dependency/setup status.
+- `docs/tekken8_implementation_plan.md` captures the Tekken-only plan from the
+  PDF roadmap.
+- `docs/diambra_onramp.md` captures the DIAMBRA setup and first milestones.
+
+## Quick Smoke Test
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+python scripts/run_sim_episode.py --episodes 5
+```
+
+## First Training
+
+This starts the lightweight simulator trainer and writes a checkpoint:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_linear.py --generations 8 --population 16 --episodes-per-candidate 3 --eval-episodes 10 --max-decisions 1000 --checkpoint checkpoints\sim_linear_policy.npz
+```
+
+This is prototype training, not the final bot. It is meant to verify that the
+simulator has a learnable signal before we add PPO and larger self-play pools.
+
+Evaluate and bug-check:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\evaluate_sim_policy.py --checkpoint checkpoints\sim_linear_policy.npz --episodes 50
+.\.venv\Scripts\python scripts\bug_check.py
+```
+
+## Visualizer
+
+Watch the trained simulator policy fight a scripted opponent:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\visualize_sim.py --checkpoint checkpoints\sim_linear_policy.npz
+```
+
+Controls:
+
+- `Space`: pause/resume
+- `R`: reset episode
+- `+` / `-`: speed up or slow down
+
+The older mock environment still exists for interface tests:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+python -m t8_agent.env.mock_env
+```
+
+## DIAMBRA On-Ramp
+
+DIAMBRA currently requires a free account, Docker Desktop, the `diambra` CLI,
+`diambra-arena`, and a valid supported ROM. The repo does not include ROMs.
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+python scripts/check_setup.py
+python -m diambra arena list-roms
+python -m diambra arena check-roms C:\path\to\roms\tektagt.zip
+python -m diambra run -r C:\path\to\roms python scripts/diambra_random_episode.py --game tektagt --characters Jun Jin --render
+```
+
+## Next Decisions
+
+Before wiring the real game, decide:
+
+- Which Jun moves should be added after jab, df1, f2, low poke, hopkick, and
+  throw?
+- Should the next learned policy be PPO or a stronger custom self-play loop?
+- Which real Tekken 8 observations should calibrate the simulator first:
+  movement speed, health/damage, move timing, or wall spacing?

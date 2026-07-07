@@ -1,0 +1,404 @@
+from __future__ import annotations
+
+import random
+from dataclasses import dataclass, replace
+from enum import Enum
+from typing import Mapping
+
+from t8_agent.core.types import GameState, PlayerState, StepResult
+from t8_agent.sim.moves import HitLevel, JUN_MOVES, MoveSpec
+
+
+class SimAction(str, Enum):
+    NEUTRAL = "neutral"
+    WALK_FORWARD = "walk_forward"
+    WALK_BACK = "walk_back"
+    BLOCK_HIGH = "block_high"
+    BLOCK_LOW = "block_low"
+    JAB = "jab"
+    DF1 = "df1"
+    F2 = "f2"
+    DB3 = "db3"
+    HOPKICK = "hopkick"
+    THROW = "throw"
+
+
+@dataclass(frozen=True)
+class SimConfig:
+    max_health: float = 180.0
+    stage_half_width: float = 3.6
+    decision_frames: int = 4
+    max_frames: int = 60 * 60
+    walk_speed: float = 0.025
+    body_radius: float = 0.22
+    round_win_reward: float = 50.0
+    idle_penalty: float = -0.002
+    whiff_penalty: float = -0.02
+
+
+@dataclass(frozen=True)
+class FighterRuntime:
+    health: float
+    x: float
+    guard: HitLevel | None = None
+    move_key: str | None = None
+    move_frame: int = 0
+    has_hit: bool = False
+    hitstun: int = 0
+    blockstun: int = 0
+    launches_taken: int = 0
+    whiffs: int = 0
+
+    @property
+    def busy(self) -> bool:
+        return self.move_key is not None or self.hitstun > 0 or self.blockstun > 0
+
+
+@dataclass(frozen=True)
+class SimState:
+    p1: FighterRuntime
+    p2: FighterRuntime
+    frame: int
+    round_over: bool = False
+    winner: int | None = None
+
+    @property
+    def distance(self) -> float:
+        return abs(self.p2.x - self.p1.x)
+
+
+@dataclass(frozen=True)
+class SimStepResult:
+    state: SimState
+    observation: GameState
+    reward_p1: float
+    reward_p2: float
+    terminated: bool
+    truncated: bool
+    info: Mapping[str, float | int | bool | str]
+
+
+class TekkenLiteEnv:
+    """Fast Jun-focused surrogate simulator for self-play experiments.
+
+    The model is intentionally compact: it is not trying to clone Tekken 8.
+    It captures the learning-relevant fundamentals first: spacing, walls,
+    frame commitment, whiffs, blocking, damage, and round outcomes.
+    """
+
+    def __init__(self, config: SimConfig | None = None, seed: int | None = None) -> None:
+        self.config = config or SimConfig()
+        self.rng = random.Random(seed)
+        self.state = self._initial_state()
+
+    def reset(self, seed: int | None = None) -> GameState:
+        if seed is not None:
+            self.rng.seed(seed)
+        self.state = self._initial_state()
+        return self._to_observation(self.state)
+
+    def step(self, p1_action: SimAction, p2_action: SimAction) -> SimStepResult:
+        previous = self.state
+        damage_to_p1 = 0.0
+        damage_to_p2 = 0.0
+        p1_whiffs = 0
+        p2_whiffs = 0
+        p1_blocks = 0
+        p2_blocks = 0
+
+        state = self._start_actions(previous, p1_action, p2_action)
+        for _ in range(self.config.decision_frames):
+            state, frame_info = self._advance_frame(state, p1_action, p2_action)
+            damage_to_p1 += frame_info["damage_to_p1"]
+            damage_to_p2 += frame_info["damage_to_p2"]
+            p1_whiffs += int(frame_info["p1_whiff"])
+            p2_whiffs += int(frame_info["p2_whiff"])
+            p1_blocks += int(frame_info["p1_block"])
+            p2_blocks += int(frame_info["p2_block"])
+            if state.round_over:
+                break
+
+        self.state = state
+        truncated = state.frame >= self.config.max_frames and not state.round_over
+        reward_p1 = damage_to_p2 - damage_to_p1
+        reward_p2 = damage_to_p1 - damage_to_p2
+
+        if state.winner == 1:
+            reward_p1 += self.config.round_win_reward
+            reward_p2 -= self.config.round_win_reward
+        elif state.winner == 2:
+            reward_p1 -= self.config.round_win_reward
+            reward_p2 += self.config.round_win_reward
+
+        if p1_action == SimAction.NEUTRAL:
+            reward_p1 += self.config.idle_penalty
+        if p2_action == SimAction.NEUTRAL:
+            reward_p2 += self.config.idle_penalty
+        reward_p1 += self.config.whiff_penalty * p1_whiffs
+        reward_p2 += self.config.whiff_penalty * p2_whiffs
+
+        observation = self._to_observation(state)
+        return SimStepResult(
+            state=state,
+            observation=observation,
+            reward_p1=reward_p1,
+            reward_p2=reward_p2,
+            terminated=state.round_over,
+            truncated=truncated,
+            info={
+                "damage_to_p1": damage_to_p1,
+                "damage_to_p2": damage_to_p2,
+                "p1_whiffs": p1_whiffs,
+                "p2_whiffs": p2_whiffs,
+                "p1_blocks": p1_blocks,
+                "p2_blocks": p2_blocks,
+                "frame": state.frame,
+            },
+        )
+
+    def step_single_agent(self, p1_action: SimAction, opponent_action: SimAction) -> StepResult:
+        result = self.step(p1_action, opponent_action)
+        return StepResult(
+            observation=result.observation,
+            reward=result.reward_p1,
+            terminated=result.terminated,
+            truncated=result.truncated,
+            info=result.info,
+        )
+
+    def legal_actions(self) -> list[SimAction]:
+        return list(SimAction)
+
+    def sample_action(self) -> SimAction:
+        return self.rng.choice(self.legal_actions())
+
+    def _start_actions(self, state: SimState, p1_action: SimAction, p2_action: SimAction) -> SimState:
+        p1 = self._start_action(state.p1, p1_action)
+        p2 = self._start_action(state.p2, p2_action)
+        return replace(state, p1=p1, p2=p2)
+
+    def _start_action(self, fighter: FighterRuntime, action: SimAction) -> FighterRuntime:
+        if fighter.busy:
+            return fighter
+        if action == SimAction.BLOCK_HIGH:
+            return replace(fighter, guard=HitLevel.MID)
+        if action == SimAction.BLOCK_LOW:
+            return replace(fighter, guard=HitLevel.LOW)
+        move_key = _ACTION_TO_MOVE.get(action)
+        if move_key is not None:
+            return replace(fighter, guard=None, move_key=move_key, move_frame=0, has_hit=False)
+        return replace(fighter, guard=None)
+
+    def _advance_frame(
+        self,
+        state: SimState,
+        p1_action: SimAction,
+        p2_action: SimAction,
+    ) -> tuple[SimState, dict[str, float | bool]]:
+        p1 = self._tick_timers(state.p1)
+        p2 = self._tick_timers(state.p2)
+
+        if not p1.busy:
+            p1 = self._move(p1, p1_action, forward=1)
+        if not p2.busy:
+            p2 = self._move(p2, p2_action, forward=-1)
+        p1, p2 = self._separate_and_clip(p1, p2)
+
+        damage_to_p1 = 0.0
+        damage_to_p2 = 0.0
+        p1_whiff = False
+        p2_whiff = False
+        p1_block = False
+        p2_block = False
+
+        p1_attack = self._active_move(p1)
+        p2_attack = self._active_move(p2)
+
+        if p1_attack is not None and not p1.has_hit:
+            p1, p2, damage, blocked = self._resolve_attack(attacker=p1, defender=p2, move=p1_attack, direction=1)
+            damage_to_p2 += damage
+            p2_block = blocked
+        if p2_attack is not None and not p2.has_hit:
+            p2, p1, damage, blocked = self._resolve_attack(attacker=p2, defender=p1, move=p2_attack, direction=-1)
+            damage_to_p1 += damage
+            p1_block = blocked
+
+        p1, p1_whiff = self._finish_move_if_needed(p1, p1_attack is not None and damage_to_p2 <= 0 and not p2_block)
+        p2, p2_whiff = self._finish_move_if_needed(p2, p2_attack is not None and damage_to_p1 <= 0 and not p1_block)
+
+        next_state = replace(state, p1=p1, p2=p2, frame=state.frame + 1)
+        next_state = self._check_round_over(next_state)
+        return next_state, {
+            "damage_to_p1": damage_to_p1,
+            "damage_to_p2": damage_to_p2,
+            "p1_whiff": p1_whiff,
+            "p2_whiff": p2_whiff,
+            "p1_block": p1_block,
+            "p2_block": p2_block,
+        }
+
+    def _tick_timers(self, fighter: FighterRuntime) -> FighterRuntime:
+        hitstun = max(0, fighter.hitstun - 1)
+        blockstun = max(0, fighter.blockstun - 1)
+        move_frame = fighter.move_frame
+        if fighter.move_key is not None:
+            move_frame += 1
+        return replace(fighter, hitstun=hitstun, blockstun=blockstun, move_frame=move_frame)
+
+    def _move(self, fighter: FighterRuntime, action: SimAction, forward: int) -> FighterRuntime:
+        x = fighter.x
+        if action == SimAction.WALK_FORWARD:
+            x += self.config.walk_speed * forward
+        elif action == SimAction.WALK_BACK:
+            x -= self.config.walk_speed * forward
+        return replace(fighter, x=x)
+
+    def _separate_and_clip(self, p1: FighterRuntime, p2: FighterRuntime) -> tuple[FighterRuntime, FighterRuntime]:
+        min_gap = self.config.body_radius * 2
+        p1_x = max(-self.config.stage_half_width, min(self.config.stage_half_width, p1.x))
+        p2_x = max(-self.config.stage_half_width, min(self.config.stage_half_width, p2.x))
+        if p2_x - p1_x < min_gap:
+            center = (p1_x + p2_x) / 2.0
+            p1_x = center - min_gap / 2.0
+            p2_x = center + min_gap / 2.0
+        p1_x = max(-self.config.stage_half_width, min(self.config.stage_half_width, p1_x))
+        p2_x = max(-self.config.stage_half_width, min(self.config.stage_half_width, p2_x))
+        return replace(p1, x=p1_x), replace(p2, x=p2_x)
+
+    def _active_move(self, fighter: FighterRuntime) -> MoveSpec | None:
+        if fighter.move_key is None:
+            return None
+        move = JUN_MOVES[fighter.move_key]
+        if fighter.move_frame > move.startup and fighter.move_frame <= move.startup + move.active:
+            return move
+        return None
+
+    def _resolve_attack(
+        self,
+        attacker: FighterRuntime,
+        defender: FighterRuntime,
+        move: MoveSpec,
+        direction: int,
+    ) -> tuple[FighterRuntime, FighterRuntime, float, bool]:
+        if abs(defender.x - attacker.x) > move.range:
+            return attacker, defender, 0.0, False
+
+        blocked = self._is_blocked(defender.guard, move.hit_level)
+        attacker = replace(attacker, has_hit=True)
+        if blocked:
+            defender = replace(defender, blockstun=max(defender.blockstun, move.blockstun))
+            attacker, defender = self._apply_pushback(attacker, defender, direction, move.pushback * 0.6)
+            return attacker, defender, 0.0, True
+
+        launches_taken = defender.launches_taken + int(move.launches)
+        defender = replace(
+            defender,
+            health=max(0.0, defender.health - move.damage),
+            hitstun=max(defender.hitstun, move.hitstun),
+            blockstun=0,
+            guard=None,
+            move_key=None,
+            move_frame=0,
+            has_hit=False,
+            launches_taken=launches_taken,
+        )
+        attacker, defender = self._apply_pushback(attacker, defender, direction, move.pushback)
+        return attacker, defender, move.damage, False
+
+    @staticmethod
+    def _is_blocked(guard: HitLevel | None, hit_level: HitLevel) -> bool:
+        if hit_level == HitLevel.THROW:
+            return False
+        if guard == HitLevel.LOW:
+            return hit_level == HitLevel.LOW
+        if guard == HitLevel.MID:
+            return hit_level in {HitLevel.HIGH, HitLevel.MID}
+        return False
+
+    def _apply_pushback(
+        self,
+        attacker: FighterRuntime,
+        defender: FighterRuntime,
+        direction: int,
+        amount: float,
+    ) -> tuple[FighterRuntime, FighterRuntime]:
+        defender_x = defender.x + amount * direction
+        defender_x = max(-self.config.stage_half_width, min(self.config.stage_half_width, defender_x))
+        return attacker, replace(defender, x=defender_x)
+
+    def _finish_move_if_needed(self, fighter: FighterRuntime, active_whiff: bool) -> tuple[FighterRuntime, bool]:
+        if fighter.move_key is None:
+            return fighter, False
+        move = JUN_MOVES[fighter.move_key]
+        whiffed = False
+        if active_whiff and not fighter.has_hit and fighter.move_frame == move.startup + move.active:
+            whiffed = True
+            fighter = replace(fighter, whiffs=fighter.whiffs + 1)
+        if fighter.move_frame >= move.total_frames:
+            fighter = replace(fighter, move_key=None, move_frame=0, has_hit=False)
+        return fighter, whiffed
+
+    def _check_round_over(self, state: SimState) -> SimState:
+        winner = None
+        if state.p1.health <= 0.0:
+            winner = 2
+        elif state.p2.health <= 0.0:
+            winner = 1
+        elif state.frame >= self.config.max_frames:
+            winner = 1 if state.p1.health >= state.p2.health else 2
+        return replace(state, round_over=winner is not None, winner=winner)
+
+    def _to_observation(self, state: SimState) -> GameState:
+        round_timer = max(0.0, (self.config.max_frames - state.frame) / 60.0)
+        return GameState(
+            p1=PlayerState(
+                health=state.p1.health,
+                position_x=state.p1.x,
+                facing=1,
+                move_id=state.p1.move_key,
+                is_attacking=state.p1.move_key is not None,
+                is_blocking=state.p1.guard is not None or state.p1.blockstun > 0,
+                is_in_hitstun=state.p1.hitstun > 0,
+            ),
+            p2=PlayerState(
+                health=state.p2.health,
+                position_x=state.p2.x,
+                facing=-1,
+                move_id=state.p2.move_key,
+                is_attacking=state.p2.move_key is not None,
+                is_blocking=state.p2.guard is not None or state.p2.blockstun > 0,
+                is_in_hitstun=state.p2.hitstun > 0,
+            ),
+            round_timer=round_timer,
+            round_over=state.round_over,
+            winner=state.winner,
+            raw={
+                "frame": state.frame,
+                "p1_blockstun": state.p1.blockstun,
+                "p2_blockstun": state.p2.blockstun,
+                "p1_hitstun": state.p1.hitstun,
+                "p2_hitstun": state.p2.hitstun,
+                "p1_whiffs": state.p1.whiffs,
+                "p2_whiffs": state.p2.whiffs,
+                "p1_launches_taken": state.p1.launches_taken,
+                "p2_launches_taken": state.p2.launches_taken,
+            },
+        )
+
+    def _initial_state(self) -> SimState:
+        return SimState(
+            p1=FighterRuntime(health=self.config.max_health, x=-0.85),
+            p2=FighterRuntime(health=self.config.max_health, x=0.85),
+            frame=0,
+        )
+
+
+_ACTION_TO_MOVE: dict[SimAction, str] = {
+    SimAction.JAB: "jab",
+    SimAction.DF1: "df1",
+    SimAction.F2: "f2",
+    SimAction.DB3: "db3",
+    SimAction.HOPKICK: "hopkick",
+    SimAction.THROW: "throw",
+}
+

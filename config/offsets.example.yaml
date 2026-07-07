@@ -1,0 +1,10 @@
+# Placeholder only. Real offsets must be discovered for the installed Tekken 8
+# build and kept out of training code.
+process_name: Tekken8.exe
+module_name: Tekken8.exe
+signals:
+  p1_health: null
+  p2_health: null
+  p1_position_x: null
+  p2_position_x: null
+  round_timer: null
