@@ -51,4 +51,8 @@ class LinearPolicy:
     @classmethod
     def load(cls, path: str | Path) -> "LinearPolicy":
         data = np.load(path, allow_pickle=False)
-        return cls(weights=data["weights"].astype(np.float32))
+        weights = data["weights"].astype(np.float32)
+        expected_shape = (len(ACTION_SPACE), observation_size())
+        if weights.shape != expected_shape:
+            raise ValueError(f"checkpoint weights shape {weights.shape} does not match expected {expected_shape}")
+        return cls(weights=weights)

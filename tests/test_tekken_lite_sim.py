@@ -1,5 +1,6 @@
 from t8_agent.sim import SimAction, TekkenLiteEnv
 from t8_agent.sim.opponents import SCRIPTED_POLICIES
+from t8_agent.sim.tekken_lite import FighterRuntime, SimState
 
 
 def advance(env: TekkenLiteEnv, p1_action: SimAction, p2_action: SimAction, decisions: int = 20):
@@ -97,3 +98,19 @@ def test_p2_rushdown_can_damage_p1() -> None:
 
     assert damage_to_p1 > 0
     assert env.state.p1.health < env.config.max_health
+
+
+def test_simultaneous_trade_is_symmetric() -> None:
+    env = TekkenLiteEnv(seed=7)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.82),
+        frame=0,
+    )
+
+    result = advance(env, SimAction.JAB, SimAction.JAB)
+
+    assert result.state.p1.health == 173.0
+    assert result.state.p2.health == 173.0
+    assert result.info["damage_to_p1"] >= 0.0
+    assert result.info["damage_to_p2"] >= 0.0

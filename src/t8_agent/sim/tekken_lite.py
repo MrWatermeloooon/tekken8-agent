@@ -78,6 +78,13 @@ class SimStepResult:
     info: Mapping[str, float | int | bool | str]
 
 
+@dataclass(frozen=True)
+class AttackCheck:
+    in_range: bool
+    blocked: bool
+    damage: float
+
+
 class TekkenLiteEnv:
     """Fast Jun-focused surrogate simulator for self-play experiments.
 
@@ -214,17 +221,28 @@ class TekkenLiteEnv:
         p1_attack = self._active_move(p1)
         p2_attack = self._active_move(p2)
 
-        if p1_attack is not None and not p1.has_hit:
-            p1, p2, damage, blocked = self._resolve_attack(attacker=p1, defender=p2, move=p1_attack, direction=1)
-            damage_to_p2 += damage
-            p2_block = blocked
-        if p2_attack is not None and not p2.has_hit:
-            p2, p1, damage, blocked = self._resolve_attack(attacker=p2, defender=p1, move=p2_attack, direction=-1)
-            damage_to_p1 += damage
-            p1_block = blocked
+        p1_check = (
+            self._check_attack(attacker=p1, defender=p2, move=p1_attack)
+            if p1_attack is not None and not p1.has_hit
+            else None
+        )
+        p2_check = (
+            self._check_attack(attacker=p2, defender=p1, move=p2_attack)
+            if p2_attack is not None and not p2.has_hit
+            else None
+        )
 
-        p1, p1_whiff = self._finish_move_if_needed(p1, p1_attack is not None and damage_to_p2 <= 0 and not p2_block)
-        p2, p2_whiff = self._finish_move_if_needed(p2, p2_attack is not None and damage_to_p1 <= 0 and not p1_block)
+        if p1_attack is not None and p1_check is not None:
+            p1, p2 = self._apply_attack(attacker=p1, defender=p2, move=p1_attack, check=p1_check, direction=1)
+            damage_to_p2 += p1_check.damage
+            p2_block = p1_check.blocked
+        if p2_attack is not None and p2_check is not None:
+            p2, p1 = self._apply_attack(attacker=p2, defender=p1, move=p2_attack, check=p2_check, direction=-1)
+            damage_to_p1 += p2_check.damage
+            p1_block = p2_check.blocked
+
+        p1, p1_whiff = self._finish_move_if_needed(p1, p1_check is not None and not p1_check.in_range)
+        p2, p2_whiff = self._finish_move_if_needed(p2, p2_check is not None and not p2_check.in_range)
 
         next_state = replace(state, p1=p1, p2=p2, frame=state.frame + 1)
         next_state = self._check_round_over(next_state)
@@ -273,27 +291,34 @@ class TekkenLiteEnv:
             return move
         return None
 
-    def _resolve_attack(
+    def _check_attack(self, attacker: FighterRuntime, defender: FighterRuntime, move: MoveSpec) -> AttackCheck:
+        if abs(defender.x - attacker.x) > move.range:
+            return AttackCheck(in_range=False, blocked=False, damage=0.0)
+
+        blocked = self._is_blocked(defender.guard, move.hit_level)
+        return AttackCheck(in_range=True, blocked=blocked, damage=0.0 if blocked else move.damage)
+
+    def _apply_attack(
         self,
         attacker: FighterRuntime,
         defender: FighterRuntime,
         move: MoveSpec,
+        check: AttackCheck,
         direction: int,
-    ) -> tuple[FighterRuntime, FighterRuntime, float, bool]:
-        if abs(defender.x - attacker.x) > move.range:
-            return attacker, defender, 0.0, False
+    ) -> tuple[FighterRuntime, FighterRuntime]:
+        if not check.in_range:
+            return attacker, defender
 
-        blocked = self._is_blocked(defender.guard, move.hit_level)
         attacker = replace(attacker, has_hit=True)
-        if blocked:
+        if check.blocked:
             defender = replace(defender, blockstun=max(defender.blockstun, move.blockstun))
             attacker, defender = self._apply_pushback(attacker, defender, direction, move.pushback * 0.6)
-            return attacker, defender, 0.0, True
+            return attacker, defender
 
         launches_taken = defender.launches_taken + int(move.launches)
         defender = replace(
             defender,
-            health=max(0.0, defender.health - move.damage),
+            health=max(0.0, defender.health - check.damage),
             hitstun=max(defender.hitstun, move.hitstun),
             blockstun=0,
             guard=None,
@@ -303,7 +328,7 @@ class TekkenLiteEnv:
             launches_taken=launches_taken,
         )
         attacker, defender = self._apply_pushback(attacker, defender, direction, move.pushback)
-        return attacker, defender, move.damage, False
+        return attacker, defender
 
     @staticmethod
     def _is_blocked(guard: HitLevel | None, hit_level: HitLevel) -> bool:
@@ -401,4 +426,3 @@ _ACTION_TO_MOVE: dict[SimAction, str] = {
     SimAction.HOPKICK: "hopkick",
     SimAction.THROW: "throw",
 }
-
