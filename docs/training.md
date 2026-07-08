@@ -32,6 +32,13 @@ A good result here means the simulator supports basic learnable fighting
 behavior against scripted opponents. It does not mean the policy is ready for
 Tekken 8.
 
+The default scripted curriculum now skips the easy `random` opponent and trains
+against `poke`, `rushdown`, `turtle`, `whiff_punish`, `keepout`, `frame_trap`,
+and `anti_throw`. Use `--opponents random` only for smoke tests or chaos checks.
+The simulator reward also discounts throw-only damage, rewards clean blocks,
+penalizes blocked attacks and whiffs more strongly, and adds a round-end health
+margin bonus so the policy has to win cleanly instead of farming one trick.
+
 ## Watch A Checkpoint
 
 ```powershell
@@ -61,9 +68,10 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 
 ## Next Training Upgrade
 
-1. Add richer Jun moves and better scripted opponents.
-2. Add self-play checkpoint opponents.
-3. Add PPO once the simulator reward is stable.
+1. Add richer Jun moves and unsafe-on-block punish windows.
+2. Run longer PPO self-play against the harder curriculum.
+3. Track whether checkpoint-pool win rate stays informative instead of
+   saturating.
 4. Evaluate sim-trained policies against DIAMBRA and then real Tekken 8 CV.
 
 ## PPO Training
@@ -97,8 +105,8 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
 ```
 
-The pool samples scripted opponents, mostly recent checkpoints, and occasionally
-older checkpoints.
+The pool samples the harder scripted opponents, mostly recent checkpoints, and
+occasionally older checkpoints.
 
 Use Elo-weighted checkpoint sampling:
 

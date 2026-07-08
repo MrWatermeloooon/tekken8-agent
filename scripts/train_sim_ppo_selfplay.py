@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from time import strftime
 
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.curves import plot_selfplay_metrics
 from t8_agent.train.elo import rank_checkpoints
 from t8_agent.train.ppo_eval import evaluate_maskable_model, evaluate_model_vs_checkpoints
@@ -34,7 +35,7 @@ def main() -> int:
     parser.add_argument(
         "--scripted-opponents",
         nargs="+",
-        default=["poke", "rushdown", "turtle", "whiff_punish", "random"],
+        default=DEFAULT_SCRIPTED_OPPONENTS,
     )
     args = parser.parse_args()
 

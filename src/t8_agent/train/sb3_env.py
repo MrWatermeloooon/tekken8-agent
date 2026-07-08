@@ -8,7 +8,7 @@ from gymnasium import spaces
 
 from t8_agent.sim.action_space import action_count, index_to_action, legal_action_mask
 from t8_agent.sim.observations import observation_size, vector_observation
-from t8_agent.sim.opponents import SCRIPTED_POLICIES
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, SimConfig, TekkenLiteEnv
 
 OpponentSampler = Callable[[], tuple[str, Callable[[TekkenLiteEnv, int], SimAction]]]
@@ -27,7 +27,7 @@ class TekkenLiteSingleAgentEnv(gym.Env):
     ) -> None:
         super().__init__()
         self.sim = TekkenLiteEnv(config=config, seed=seed)
-        self.opponent_names = list(opponent_names or ["poke", "rushdown", "turtle", "whiff_punish", "random"])
+        self.opponent_names = list(opponent_names or DEFAULT_SCRIPTED_OPPONENTS)
         unknown = [name for name in self.opponent_names if name not in SCRIPTED_POLICIES]
         if unknown:
             known = ", ".join(sorted(SCRIPTED_POLICIES))

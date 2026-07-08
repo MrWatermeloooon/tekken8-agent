@@ -1,5 +1,5 @@
 from t8_agent.sim import SimAction, TekkenLiteEnv
-from t8_agent.sim.opponents import SCRIPTED_POLICIES
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import FighterRuntime, SimState
 
 
@@ -98,6 +98,65 @@ def test_p2_rushdown_can_damage_p1() -> None:
 
     assert damage_to_p1 > 0
     assert env.state.p1.health < env.config.max_health
+
+
+def test_default_curriculum_uses_harder_scripted_opponents() -> None:
+    assert "random" not in DEFAULT_SCRIPTED_OPPONENTS
+    assert {"keepout", "frame_trap", "anti_throw"}.issubset(DEFAULT_SCRIPTED_OPPONENTS)
+    assert all(name in SCRIPTED_POLICIES for name in DEFAULT_SCRIPTED_OPPONENTS)
+
+
+def test_hard_scripted_opponents_can_apply_pressure() -> None:
+    for idx, name in enumerate(["keepout", "frame_trap", "anti_throw"], start=1):
+        env = TekkenLiteEnv(seed=100 + idx)
+        env.reset()
+        policy = SCRIPTED_POLICIES[name]
+        damage_to_p1 = 0.0
+
+        for _ in range(600):
+            result = env.step(SimAction.NEUTRAL, policy(env, 2))
+            damage_to_p1 += float(result.info["damage_to_p1"])
+            if damage_to_p1 > 0:
+                break
+
+        assert damage_to_p1 > 0, name
+
+
+def test_block_reward_favors_defender() -> None:
+    env = TekkenLiteEnv(seed=8)
+    env.reset()
+    walk_into_range(env)
+
+    result = None
+    for idx in range(20):
+        action = SimAction.DF1 if idx == 0 else SimAction.NEUTRAL
+        result = env.step(action, SimAction.BLOCK_HIGH)
+        if result.info["p2_blocks"] > 0:
+            break
+    assert result is not None
+
+    assert result.info["p2_blocks"] > 0
+    assert result.reward_p2 > result.reward_p1
+
+
+def test_throw_damage_is_discounted_as_training_reward() -> None:
+    env = TekkenLiteEnv(seed=9)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.48),
+        frame=0,
+    )
+
+    result = None
+    for idx in range(20):
+        action = SimAction.THROW if idx == 0 else SimAction.NEUTRAL
+        result = env.step(action, SimAction.NEUTRAL)
+        if result.info["p1_throw_damage"] > 0:
+            break
+    assert result is not None
+
+    assert result.info["p1_throw_damage"] > 0
+    assert result.reward_p1 < float(result.info["damage_to_p2"]) * 0.5
 
 
 def test_simultaneous_trade_is_symmetric() -> None:

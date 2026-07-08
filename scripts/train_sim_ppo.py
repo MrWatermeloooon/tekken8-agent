@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from time import strftime
 
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.ppo_eval import evaluate_maskable_model
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
@@ -25,7 +26,7 @@ def main() -> int:
     parser.add_argument(
         "--opponents",
         nargs="+",
-        default=["poke", "rushdown", "turtle", "whiff_punish", "random"],
+        default=DEFAULT_SCRIPTED_OPPONENTS,
     )
     args = parser.parse_args()
 

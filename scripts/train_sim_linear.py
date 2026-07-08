@@ -5,6 +5,7 @@ import json
 from pathlib import Path
 from time import strftime
 
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.cem import evaluate_policy, train_cem
 
 
@@ -23,7 +24,7 @@ def main() -> int:
     parser.add_argument(
         "--opponents",
         nargs="+",
-        default=["poke", "turtle", "whiff_punish", "random"],
+        default=DEFAULT_SCRIPTED_OPPONENTS,
         help="Scripted opponent names.",
     )
     args = parser.parse_args()

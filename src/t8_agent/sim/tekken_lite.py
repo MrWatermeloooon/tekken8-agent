@@ -31,9 +31,16 @@ class SimConfig:
     max_frames: int = 60 * 60
     walk_speed: float = 0.025
     body_radius: float = 0.22
-    round_win_reward: float = 50.0
+    round_win_reward: float = 80.0
+    health_margin_reward: float = 20.0
+    damage_dealt_scale: float = 0.65
+    damage_taken_scale: float = 0.85
+    throw_reward_scale: float = 0.35
+    block_reward: float = 0.12
+    blocked_attack_penalty: float = -0.08
     idle_penalty: float = -0.002
-    whiff_penalty: float = -0.02
+    far_spacing_penalty: float = -0.01
+    whiff_penalty: float = -0.18
 
 
 @dataclass(frozen=True)
@@ -112,12 +119,16 @@ class TekkenLiteEnv:
         p2_whiffs = 0
         p1_blocks = 0
         p2_blocks = 0
+        p1_throw_damage = 0.0
+        p2_throw_damage = 0.0
 
         state = self._start_actions(previous, p1_action, p2_action)
         for _ in range(self.config.decision_frames):
             state, frame_info = self._advance_frame(state, p1_action, p2_action)
             damage_to_p1 += frame_info["damage_to_p1"]
             damage_to_p2 += frame_info["damage_to_p2"]
+            p1_throw_damage += frame_info["p1_throw_damage"]
+            p2_throw_damage += frame_info["p2_throw_damage"]
             p1_whiffs += int(frame_info["p1_whiff"])
             p2_whiffs += int(frame_info["p2_whiff"])
             p1_blocks += int(frame_info["p1_block"])
@@ -127,8 +138,10 @@ class TekkenLiteEnv:
 
         self.state = state
         truncated = state.frame >= self.config.max_frames and not state.round_over
-        reward_p1 = damage_to_p2 - damage_to_p1
-        reward_p2 = damage_to_p1 - damage_to_p2
+        reward_damage_to_p2 = (damage_to_p2 - p1_throw_damage) + self.config.throw_reward_scale * p1_throw_damage
+        reward_damage_to_p1 = (damage_to_p1 - p2_throw_damage) + self.config.throw_reward_scale * p2_throw_damage
+        reward_p1 = self.config.damage_dealt_scale * reward_damage_to_p2 - self.config.damage_taken_scale * damage_to_p1
+        reward_p2 = self.config.damage_dealt_scale * reward_damage_to_p1 - self.config.damage_taken_scale * damage_to_p2
 
         if state.winner == 1:
             reward_p1 += self.config.round_win_reward
@@ -136,11 +149,24 @@ class TekkenLiteEnv:
         elif state.winner == 2:
             reward_p1 -= self.config.round_win_reward
             reward_p2 += self.config.round_win_reward
+        if state.round_over:
+            health_margin = (state.p1.health - state.p2.health) / self.config.max_health
+            reward_p1 += self.config.health_margin_reward * health_margin
+            reward_p2 -= self.config.health_margin_reward * health_margin
 
         if p1_action == SimAction.NEUTRAL:
             reward_p1 += self.config.idle_penalty
         if p2_action == SimAction.NEUTRAL:
             reward_p2 += self.config.idle_penalty
+        if state.distance > 1.5:
+            if p1_action != SimAction.WALK_FORWARD:
+                reward_p1 += self.config.far_spacing_penalty
+            if p2_action != SimAction.WALK_FORWARD:
+                reward_p2 += self.config.far_spacing_penalty
+        reward_p1 += self.config.block_reward * p1_blocks
+        reward_p2 += self.config.block_reward * p2_blocks
+        reward_p1 += self.config.blocked_attack_penalty * p2_blocks
+        reward_p2 += self.config.blocked_attack_penalty * p1_blocks
         reward_p1 += self.config.whiff_penalty * p1_whiffs
         reward_p2 += self.config.whiff_penalty * p2_whiffs
 
@@ -155,6 +181,8 @@ class TekkenLiteEnv:
             info={
                 "damage_to_p1": damage_to_p1,
                 "damage_to_p2": damage_to_p2,
+                "p1_throw_damage": p1_throw_damage,
+                "p2_throw_damage": p2_throw_damage,
                 "p1_whiffs": p1_whiffs,
                 "p2_whiffs": p2_whiffs,
                 "p1_blocks": p1_blocks,
@@ -218,6 +246,8 @@ class TekkenLiteEnv:
 
         damage_to_p1 = 0.0
         damage_to_p2 = 0.0
+        p1_throw_damage = 0.0
+        p2_throw_damage = 0.0
         p1_whiff = False
         p2_whiff = False
         p1_block = False
@@ -240,10 +270,14 @@ class TekkenLiteEnv:
         if p1_attack is not None and p1_check is not None:
             p1, p2 = self._apply_attack(attacker=p1, defender=p2, move=p1_attack, check=p1_check, direction=1)
             damage_to_p2 += p1_check.damage
+            if p1_attack.hit_level == HitLevel.THROW:
+                p1_throw_damage += p1_check.damage
             p2_block = p1_check.blocked
         if p2_attack is not None and p2_check is not None:
             p2, p1 = self._apply_attack(attacker=p2, defender=p1, move=p2_attack, check=p2_check, direction=-1)
             damage_to_p1 += p2_check.damage
+            if p2_attack.hit_level == HitLevel.THROW:
+                p2_throw_damage += p2_check.damage
             p1_block = p2_check.blocked
 
         p1, p1_whiff = self._finish_move_if_needed(p1, p1_check is not None and not p1_check.in_range)
@@ -254,6 +288,8 @@ class TekkenLiteEnv:
         return next_state, {
             "damage_to_p1": damage_to_p1,
             "damage_to_p2": damage_to_p2,
+            "p1_throw_damage": p1_throw_damage,
+            "p2_throw_damage": p2_throw_damage,
             "p1_whiff": p1_whiff,
             "p2_whiff": p2_whiff,
             "p1_block": p1_block,

@@ -37,6 +37,9 @@ Current target choices:
   simulator-first self-play.
 - `src/t8_agent/sim/moves.py` contains the first Jun-style frame-data move
   table.
+- `src/t8_agent/sim/opponents.py` contains the default hard scripted
+  curriculum: poke, rushdown, turtle, whiff-punish, keepout, frame-trap, and
+  anti-throw.
 - `src/t8_agent/io/input_backend.py` defines the controller output interface.
 - `src/t8_agent/io/state_backend.py` defines the game-state reader interface.
 - `scripts/run_sim_episode.py` runs fast simulator episodes without Tekken 8.
@@ -64,6 +67,8 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 
 This is prototype training, not the final bot. It is meant to verify that the
 simulator has a learnable signal before we add PPO and larger self-play pools.
+The default training opponents intentionally exclude the old random policy
+because it saturated too quickly.
 
 PPO training is available through MaskablePPO:
 
@@ -144,6 +149,7 @@ Before wiring the real game, decide:
 
 - Which Jun moves should be added after jab, df1, f2, low poke, hopkick, and
   throw?
-- Should the next learned policy be PPO or a stronger custom self-play loop?
+- Which reward terms still create abusable behavior after the harder scripted
+  curriculum?
 - Which real Tekken 8 observations should calibrate the simulator first:
   movement speed, health/damage, move timing, or wall spacing?

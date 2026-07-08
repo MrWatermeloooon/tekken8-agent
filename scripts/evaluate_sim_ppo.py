@@ -4,6 +4,7 @@ import argparse
 import json
 from pathlib import Path
 
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.ppo_eval import evaluate_maskable_model
 
 
@@ -16,7 +17,7 @@ def main() -> int:
     parser.add_argument(
         "--opponents",
         nargs="+",
-        default=["poke", "rushdown", "turtle", "whiff_punish", "random"],
+        default=DEFAULT_SCRIPTED_OPPONENTS,
     )
     parser.add_argument("--json-out", default=None)
     args = parser.parse_args()
