@@ -94,6 +94,11 @@ Each PPO checkpoint saves a matching `.vecnormalize.pkl` file beside the `.zip`
 so evaluation, visualization, and checkpoint-pool opponents can use the same
 observation scale. Pass `--no-normalize` only for debugging.
 
+The current PPO action space includes Tekken movement and defense basics:
+walking, forward dash, backdash, crouch, stand, jump, sidestep, sidewalk, high
+block, low block, low parry, and the compact Jun attack set. Checkpoints from
+before this expanded action space should not be mixed into new self-play pools.
+
 Evaluate:
 
 ```powershell

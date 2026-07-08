@@ -4,16 +4,24 @@ import numpy as np
 
 from t8_agent.sim.tekken_lite import FighterRuntime, SimAction, SimState
 
-# Full real-game-ish vocabulary. Not all of these are promoted into the current
-# PPO training action space yet, because old checkpoints use the compact space.
 FULL_ACTION_SPACE = list(SimAction)
 
 ACTION_SPACE = [
     SimAction.NEUTRAL,
     SimAction.WALK_FORWARD,
     SimAction.WALK_BACK,
+    SimAction.DASH_FORWARD,
+    SimAction.DASH_BACK,
+    SimAction.CROUCH,
+    SimAction.STAND,
+    SimAction.JUMP,
+    SimAction.SIDESTEP_LEFT,
+    SimAction.SIDESTEP_RIGHT,
+    SimAction.SIDEWALK_LEFT,
+    SimAction.SIDEWALK_RIGHT,
     SimAction.BLOCK_HIGH,
     SimAction.BLOCK_LOW,
+    SimAction.LOW_PARRY,
     SimAction.JAB,
     SimAction.DF1,
     SimAction.F2,
@@ -25,6 +33,7 @@ ACTION_SPACE = [
 ATTACK_OR_GUARD_ACTIONS = {
     SimAction.BLOCK_HIGH,
     SimAction.BLOCK_LOW,
+    SimAction.LOW_PARRY,
     SimAction.JAB,
     SimAction.DF1,
     SimAction.F2,

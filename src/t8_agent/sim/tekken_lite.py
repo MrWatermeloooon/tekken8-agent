@@ -47,6 +47,7 @@ class SimConfig:
     max_frames: int = 60 * 60
     walk_speed: float = 0.025
     dash_speed: float = 0.07
+    jump_frames: int = 32
     sidestep_speed: float = 0.045
     sidewalk_speed: float = 0.075
     lateral_return_speed: float = 0.012
@@ -76,6 +77,7 @@ class FighterRuntime:
     has_hit: bool = False
     hitstun: int = 0
     blockstun: int = 0
+    airborne: int = 0
     launches_taken: int = 0
     whiffs: int = 0
 
@@ -263,6 +265,8 @@ class TekkenLiteEnv:
             return replace(fighter, guard=HitLevel.LOW)
         if action == SimAction.STAND:
             return replace(fighter, guard=None)
+        if action == SimAction.JUMP:
+            return replace(fighter, guard=None, airborne=self.config.jump_frames)
         if action in {SimAction.THROW_BREAK_1, SimAction.THROW_BREAK_2, SimAction.THROW_BREAK_1_2}:
             return replace(fighter, guard=None)
         move_key = _ACTION_TO_MOVE.get(action)
@@ -351,6 +355,7 @@ class TekkenLiteEnv:
     def _tick_timers(self, fighter: FighterRuntime) -> FighterRuntime:
         hitstun = max(0, fighter.hitstun - 1)
         blockstun = max(0, fighter.blockstun - 1)
+        airborne = max(0, fighter.airborne - 1)
         move_frame = fighter.move_frame
         if fighter.move_key is not None:
             move_frame += 1
@@ -361,7 +366,7 @@ class TekkenLiteEnv:
             y -= self.config.lateral_return_speed
         else:
             y += self.config.lateral_return_speed
-        return replace(fighter, hitstun=hitstun, blockstun=blockstun, move_frame=move_frame, y=y)
+        return replace(fighter, hitstun=hitstun, blockstun=blockstun, airborne=airborne, move_frame=move_frame, y=y)
 
     def _move(self, fighter: FighterRuntime, action: SimAction, forward: int) -> FighterRuntime:
         x = fighter.x
@@ -412,6 +417,8 @@ class TekkenLiteEnv:
         if abs(defender.x - attacker.x) > move.range:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
         if abs(defender.y - attacker.y) > self.config.sidestep_evasion_width:
+            return AttackCheck(in_range=False, blocked=False, damage=0.0)
+        if defender.airborne > 0 and move.hit_level in {HitLevel.LOW, HitLevel.THROW}:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
 
         blocked = self._is_blocked(defender.guard, move.hit_level)
@@ -529,6 +536,8 @@ class TekkenLiteEnv:
                 "frame": state.frame,
                 "p1_blockstun": state.p1.blockstun,
                 "p2_blockstun": state.p2.blockstun,
+                "p1_airborne": state.p1.airborne,
+                "p2_airborne": state.p2.airborne,
                 "p1_hitstun": state.p1.hitstun,
                 "p2_hitstun": state.p2.hitstun,
                 "p1_whiffs": state.p1.whiffs,

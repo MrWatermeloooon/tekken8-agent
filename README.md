@@ -85,6 +85,11 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 PPO uses observation/reward normalization by default and saves a matching
 `.vecnormalize.pkl` file beside each checkpoint.
 
+The trainable action space now includes walking, forward dash, backdash,
+crouch, stand, jump, sidestep, sidewalk, high block, low block, low parry, and
+the compact Jun attack set. Start fresh checkpoint pools after action-space
+changes.
+
 Checkpoint-pool PPO self-play:
 
 ```powershell

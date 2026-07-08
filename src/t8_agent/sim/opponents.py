@@ -26,6 +26,13 @@ ATTACKS = [
     SimAction.THROW,
 ]
 
+LATERAL_MOVEMENT = [
+    SimAction.SIDESTEP_LEFT,
+    SimAction.SIDESTEP_RIGHT,
+    SimAction.SIDEWALK_LEFT,
+    SimAction.SIDEWALK_RIGHT,
+]
+
 
 def random_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     _ = player
@@ -38,6 +45,8 @@ def poke_policy(env: TekkenLiteEnv, player: int) -> SimAction:
         return SimAction.NEUTRAL
     if opponent.move_key is not None and env.state.distance < 1.05:
         return _guard_against(env, player)
+    if env.rng.random() < 0.08:
+        return env.rng.choice(LATERAL_MOVEMENT)
     if env.state.distance > 1.05:
         return SimAction.WALK_FORWARD
     if env.rng.random() < 0.18:
@@ -53,6 +62,8 @@ def turtle_policy(env: TekkenLiteEnv, player: int) -> SimAction:
         return SimAction.WALK_FORWARD
     if opponent.move_key is not None:
         return _guard_against(env, player)
+    if env.rng.random() < 0.12:
+        return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, *LATERAL_MOVEMENT])
     if env.rng.random() < 0.25:
         return env.rng.choice([SimAction.JAB, SimAction.DF1, SimAction.DB3])
     return env.rng.choice([SimAction.BLOCK_HIGH, SimAction.BLOCK_LOW])
@@ -67,7 +78,7 @@ def whiff_punish_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None and env.state.distance < 1.1:
         return _guard_against(env, player)
     if env.state.distance < 0.65:
-        return env.rng.choice([SimAction.WALK_BACK, SimAction.BLOCK_HIGH, SimAction.THROW])
+        return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, SimAction.SIDESTEP_LEFT, SimAction.SIDESTEP_RIGHT, SimAction.BLOCK_HIGH, SimAction.THROW])
     if env.state.distance > 1.25:
         return SimAction.WALK_FORWARD
     return env.rng.choice([SimAction.BLOCK_HIGH, SimAction.DF1, SimAction.F2])
@@ -80,7 +91,9 @@ def rushdown_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None and env.state.distance < 0.95:
         return env.rng.choice([_guard_against(env, player), SimAction.JAB])
     if env.state.distance > 0.82:
-        return SimAction.WALK_FORWARD
+        return SimAction.DASH_FORWARD if env.state.distance > 1.25 and env.rng.random() < 0.35 else SimAction.WALK_FORWARD
+    if env.rng.random() < 0.10:
+        return env.rng.choice([SimAction.SIDESTEP_LEFT, SimAction.SIDESTEP_RIGHT])
     if env.rng.random() < 0.08:
         return SimAction.BLOCK_HIGH
     return env.rng.choice([SimAction.JAB, SimAction.DF1, SimAction.DB3, SimAction.THROW])
@@ -95,7 +108,7 @@ def keepout_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None and env.state.distance < 1.2:
         return _guard_against(env, player)
     if env.state.distance < 0.68:
-        return env.rng.choice([SimAction.WALK_BACK, SimAction.WALK_BACK, SimAction.DF1, SimAction.BLOCK_HIGH])
+        return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, SimAction.SIDESTEP_LEFT, SimAction.SIDESTEP_RIGHT, SimAction.DF1, SimAction.BLOCK_HIGH])
     if env.state.distance > 1.25:
         return SimAction.WALK_FORWARD
     if env.state.distance > 0.95:
@@ -112,9 +125,9 @@ def frame_trap_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None and env.state.distance < 1.05:
         return _guard_against(env, player)
     if env.state.distance > 0.95:
-        return SimAction.WALK_FORWARD
+        return SimAction.DASH_FORWARD if env.state.distance > 1.35 and env.rng.random() < 0.25 else SimAction.WALK_FORWARD
     if env.state.distance < 0.55:
-        return env.rng.choice([SimAction.WALK_BACK, SimAction.JAB, SimAction.DF1])
+        return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, SimAction.SIDESTEP_LEFT, SimAction.SIDESTEP_RIGHT, SimAction.JAB, SimAction.DF1])
 
     roll = env.rng.random()
     if roll < 0.35:
@@ -137,7 +150,7 @@ def anti_throw_policy(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None and env.state.distance < 1.05:
         return _guard_against(env, player)
     if env.state.distance < 0.58:
-        return env.rng.choice([SimAction.WALK_BACK, SimAction.WALK_BACK, SimAction.HOPKICK, SimAction.DF1])
+        return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, SimAction.JUMP, SimAction.HOPKICK, SimAction.DF1])
     if env.state.distance > 1.15:
         return SimAction.WALK_FORWARD
     return env.rng.choice([SimAction.DF1, SimAction.DB3, SimAction.F2, SimAction.BLOCK_HIGH])
@@ -154,9 +167,9 @@ def _guard_against(env: TekkenLiteEnv, player: int) -> SimAction:
     if opponent.move_key is not None:
         move = JUN_MOVES[opponent.move_key]
         if move.hit_level == HitLevel.LOW:
-            return SimAction.BLOCK_LOW
+            return env.rng.choice([SimAction.BLOCK_LOW, SimAction.LOW_PARRY, SimAction.JUMP])
         if move.hit_level == HitLevel.THROW and env.state.distance < 0.58:
-            return SimAction.WALK_BACK
+            return env.rng.choice([SimAction.WALK_BACK, SimAction.DASH_BACK, SimAction.JUMP, SimAction.THROW_BREAK_1, SimAction.THROW_BREAK_2])
     return env.rng.choice([SimAction.BLOCK_HIGH, SimAction.BLOCK_HIGH, SimAction.BLOCK_LOW])
 
 

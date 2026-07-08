@@ -17,6 +17,17 @@ def walk_into_range(env: TekkenLiteEnv, decisions: int = 12) -> None:
         env.step(SimAction.WALK_FORWARD, SimAction.WALK_FORWARD)
 
 
+def first_decision_then_neutral(env: TekkenLiteEnv, p1_action: SimAction, p2_action: SimAction, decisions: int = 20):
+    result = None
+    for idx in range(decisions):
+        result = env.step(
+            p1_action if idx == 0 else SimAction.NEUTRAL,
+            p2_action if idx == 0 else SimAction.NEUTRAL,
+        )
+    assert result is not None
+    return result
+
+
 def test_mid_attack_damages_in_range() -> None:
     env = TekkenLiteEnv(seed=1)
     env.reset()
@@ -229,3 +240,32 @@ def test_sidestepping_can_make_linear_attack_whiff() -> None:
 
     assert result.state.p2.health == 180.0
     assert result.state.p1.whiffs >= 1
+
+
+def test_jump_avoids_lows_and_throws_but_not_mids() -> None:
+    low_env = TekkenLiteEnv(seed=14)
+    low_env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.82),
+        frame=0,
+    )
+    low_result = first_decision_then_neutral(low_env, SimAction.JUMP, SimAction.DB3)
+    assert low_result.state.p1.health == 180.0
+
+    throw_env = TekkenLiteEnv(seed=15)
+    throw_env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.48),
+        frame=0,
+    )
+    throw_result = first_decision_then_neutral(throw_env, SimAction.JUMP, SimAction.THROW)
+    assert throw_result.state.p1.health == 180.0
+
+    mid_env = TekkenLiteEnv(seed=16)
+    mid_env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.82),
+        frame=0,
+    )
+    mid_result = first_decision_then_neutral(mid_env, SimAction.JUMP, SimAction.DF1)
+    assert mid_result.state.p1.health < 180.0
