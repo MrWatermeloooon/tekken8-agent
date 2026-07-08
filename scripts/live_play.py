@@ -16,10 +16,12 @@ def main() -> int:
     parser.add_argument("--hotkey", default="f8")
     parser.add_argument("--quit-hotkey", default="f12")
     parser.add_argument("--interval", type=float, default=0.12)
-    parser.add_argument("--tap-seconds", type=float, default=0.055)
+    parser.add_argument("--tap-seconds", type=float, default=0.10)
     parser.add_argument("--facing", type=int, default=1, choices=[-1, 1])
     parser.add_argument("--agent", choices=["checkpoint", "scripted"], default="checkpoint")
     parser.add_argument("--checkpoint", default="latest")
+    parser.add_argument("--deterministic", action="store_true", help="Use deterministic PPO actions. Live testing defaults to stochastic.")
+    parser.add_argument("--no-unstick-filter", action="store_true", help="Disable the live anti-crouch action filter.")
     parser.add_argument("--dry-run", action="store_true", help="Capture screen and print actions without pressing gamepad.")
     parser.add_argument("--self-test", action="store_true", help="Capture one frame, print status, and exit.")
     args = parser.parse_args()
@@ -43,10 +45,11 @@ def main() -> int:
     controller = None if args.dry_run else VGamepadInputBackend(facing=args.facing, tap_seconds=args.tap_seconds)
     if args.agent == "checkpoint":
         checkpoint = find_latest_checkpoint() if args.checkpoint == "latest" else Path(args.checkpoint)
-        agent = LivePpoCheckpointAgent(checkpoint)
-        print(f"loaded_checkpoint={checkpoint}")
+        agent = LivePpoCheckpointAgent(checkpoint, deterministic=args.deterministic)
+        print(f"loaded_checkpoint={checkpoint}", flush=True)
     else:
         agent = LiveScriptedAgent(seed=8080)
+    action_filter = LiveActionFilter(enabled=not args.no_unstick_filter)
     enabled = False
 
     def toggle() -> None:
@@ -54,17 +57,18 @@ def main() -> int:
         enabled = not enabled
         if not enabled and controller is not None:
             controller.release_all()
-        print(f"{'enabled' if enabled else 'paused'}")
+        print(f"{'enabled' if enabled else 'paused'}", flush=True)
 
     keyboard.add_hotkey(args.hotkey, toggle)
-    print("Offline/local live runner ready.")
-    print(f"Press {args.hotkey.upper()} to start/pause. Press {args.quit_hotkey.upper()} to quit.")
-    print("Keep this in Practice/Offline mode only. The controller is released whenever paused.")
+    print("Offline/local live runner ready.", flush=True)
+    print(f"Press {args.hotkey.upper()} to start/pause. Press {args.quit_hotkey.upper()} to quit.", flush=True)
+    print("Keep this in Practice/Offline mode only. The controller is released whenever paused.", flush=True)
     try:
         while not keyboard.is_pressed(args.quit_hotkey):
             state = state_backend.read()
             if enabled:
                 action = agent.act(state)
+                action = action_filter.filter(action)
                 if controller is not None:
                     controller.send_action(action)
                 _print_status(action, state)
@@ -73,8 +77,43 @@ def main() -> int:
         if controller is not None:
             controller.release_all()
         state_backend.close()
-    print("stopped")
+    print("stopped", flush=True)
     return 0
+
+
+class LiveActionFilter:
+    def __init__(self, *, enabled: bool) -> None:
+        self.enabled = enabled
+        self.low_block_streak = 0
+        self.neutral_streak = 0
+        self.replacements = [
+            SimAction.WALK_FORWARD,
+            SimAction.JAB,
+            SimAction.DF1,
+            SimAction.F2,
+            SimAction.DB3,
+            SimAction.HOPKICK,
+        ]
+        self.replacement_idx = 0
+
+    def filter(self, action: SimAction) -> SimAction:
+        if not self.enabled:
+            return action
+        if action == SimAction.BLOCK_LOW:
+            self.low_block_streak += 1
+        else:
+            self.low_block_streak = 0
+        if action == SimAction.NEUTRAL:
+            self.neutral_streak += 1
+        else:
+            self.neutral_streak = 0
+        if self.low_block_streak < 3 and self.neutral_streak < 4:
+            return action
+        replacement = self.replacements[self.replacement_idx % len(self.replacements)]
+        self.replacement_idx += 1
+        self.low_block_streak = 0
+        self.neutral_streak = 0
+        return replacement
 
 
 def _print_status(action: SimAction, state) -> None:
@@ -82,7 +121,8 @@ def _print_status(action: SimAction, state) -> None:
     print(
         f"action={action.value:<12} "
         f"p1_hp={state.p1.health:6.1f} p2_hp={state.p2.health:6.1f} "
-        f"screen={raw.get('screen_width', '?')}x{raw.get('screen_height', '?')}"
+        f"screen={raw.get('screen_width', '?')}x{raw.get('screen_height', '?')}",
+        flush=True,
     )
 
 

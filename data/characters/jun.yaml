@@ -1,0 +1,212 @@
+character_id: jun
+display_name: Jun Kazama
+game: tekken_8
+source_url: https://tekkendocs.com/t8/jun
+source_note: >
+  Seed catalog from TekkenDocs frame-data page. This is the first curated core
+  move/route set, not the final exhaustive movelist dump.
+
+moves:
+  - id: jab_1
+    command: "1"
+    hit_level: h
+    damage: "5"
+    startup: "i10"
+    block: "+1"
+    hit: "+8"
+    tier: core
+    tags: [jab, punish, fast]
+    notes: "Fastest standing check."
+  - id: one_two_12
+    command: "1,2"
+    hit_level: "h,h"
+    damage: "5,8"
+    startup: "i10,i16"
+    block: "-3"
+    hit: "+6"
+    tier: core
+    tags: [punish, string]
+  - id: high_2
+    command: "2"
+    hit_level: h
+    damage: "7"
+    startup: "i12"
+    block: "-4"
+    hit: "+7"
+    tier: core
+    tags: [fast, punish]
+  - id: magic_4
+    command: "4"
+    hit_level: h
+    damage: "17"
+    startup: "i12"
+    block: "-9"
+    hit: "+7"
+    counter_hit: "+32d"
+    tier: core
+    tags: [counter_hit, keepout]
+  - id: heat_engager_1p2
+    command: "1+2"
+    hit_level: m
+    damage: "26"
+    startup: "i13"
+    block: "-12"
+    hit: "+28a"
+    tier: core
+    tags: [heat_engager, mid, punish]
+  - id: df1
+    command: "df+1"
+    hit_level: m
+    damage: "10"
+    startup: "i13~14"
+    block: "-3"
+    hit: "+8"
+    tier: core
+    tags: [mid, poke]
+  - id: df2
+    command: "df+2"
+    hit_level: m
+    damage: "14"
+    startup: "i16~17"
+    block: "-12"
+    hit: "+29a"
+    tier: core
+    tags: [launcher, punish]
+  - id: df3
+    command: "df+3"
+    hit_level: m
+    damage: "22"
+    startup: "i17"
+    block: "-8"
+    hit: "+19a"
+    tier: core
+    tags: [homing, mid]
+  - id: df4
+    command: "df+4"
+    hit_level: m
+    damage: "22"
+    startup: "i15"
+    block: "-14"
+    hit: "+48a"
+    counter_hit: "+52a"
+    tier: core
+    tags: [tornado, launcher, punish]
+  - id: f2
+    command: "f+2"
+    hit_level: M
+    damage: "20"
+    startup: "i17~18"
+    block: "-18"
+    hit: "+33a"
+    tier: core
+    tags: [long_range, whiff_punish]
+  - id: f2_1p2
+    command: "f+2,1+2"
+    hit_level: "M,M"
+    damage: "20,20"
+    startup: "i17~18,i29~32"
+    block: "-9"
+    hit: "+32a"
+    tier: core
+    tags: [heat_engager, followup]
+  - id: d4
+    command: "d+4"
+    hit_level: L
+    damage: "10"
+    startup: "i15"
+    block: "-12"
+    hit: "-1"
+    tier: core
+    tags: [low, poke]
+  - id: db3
+    command: "db+3"
+    hit_level: L
+    damage: "14"
+    startup: "i18"
+    block: "-12"
+    hit: "+2"
+    tier: core
+    tags: [low, poke]
+  - id: db4
+    command: "db+4"
+    hit_level: L
+    damage: "14"
+    startup: "i22~24"
+    block: "-11~-9"
+    hit: "+0~+2"
+    tier: core
+    tags: [low, high_crush]
+  - id: b2
+    command: "b+2"
+    hit_level: m
+    damage: "10"
+    startup: "i14~15"
+    block: "-9"
+    hit: "+2"
+    tier: core
+    tags: [mid, string_starter]
+  - id: b21
+    command: "b+2,1"
+    hit_level: "m,h"
+    damage: "10,7"
+    startup: "i14~15,i15~16"
+    block: "-9"
+    hit: "+2"
+    tier: core
+    tags: [string, stance_transition]
+  - id: b3
+    command: "b+3"
+    hit_level: m
+    damage: "20"
+    startup: "i16~17"
+    block: "-19~-18"
+    hit: "+22a"
+    tier: specialist
+    tags: [low_crush, launcher]
+  - id: b4
+    command: "b+4"
+    hit_level: m
+    damage: "14"
+    startup: "i13~14"
+    block: "-7"
+    hit: "+5"
+    tier: core
+    tags: [mid, knee]
+  - id: uf4
+    command: "uf+4"
+    hit_level: m
+    damage: "10"
+    startup: "i16~18"
+    block: "-20"
+    hit: "-9"
+    tier: core
+    tags: [hopkick, low_crush]
+  - id: ff2
+    command: "f,F+2"
+    hit_level: m
+    damage: "16"
+    startup: "i16~17"
+    block: "-12"
+    hit: "+3"
+    tier: core
+    tags: [approach, stance_transition]
+
+combos:
+  - id: df2_basic_wall_carry
+    starter: df2
+    route: [f2, df1, b21, ff2]
+    difficulty: easy
+    purpose: launcher conversion
+    notes: "Placeholder route for simulator curriculum; verify exact Tekken 8 route in practice."
+  - id: uf4_basic_conversion
+    starter: uf4
+    route: [df1, f2, b21, ff2]
+    difficulty: easy
+    purpose: low-crush launcher conversion
+    notes: "Training route until combo calibration is recorded from the real game."
+  - id: f2_whiff_punish_route
+    starter: f2
+    route: [f2_1p2, ff2]
+    difficulty: medium
+    purpose: whiff punish and heat followup
+    notes: "Use for spacing/whiff-punish curriculum."

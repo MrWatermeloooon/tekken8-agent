@@ -54,6 +54,12 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 
 `--checkpoint latest` searches under `checkpoints/`. It intentionally ignores
 throwaway smoke runs under `runs/`.
+Live checkpoint mode samples stochastically by default because deterministic
+PPO can collapse into repeated low block with the current coarse CV. Add
+`--deterministic` only when debugging exact policy output.
+It also uses a small live unstick filter by default so repeated `block_low` or
+`neutral` outputs get replaced with active test actions. Add
+`--no-unstick-filter` if you want raw checkpoint output.
 
 ## Health Bar Calibration
 

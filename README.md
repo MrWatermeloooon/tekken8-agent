@@ -40,6 +40,8 @@ Current target choices:
 - `src/t8_agent/sim/opponents.py` contains the default hard scripted
   curriculum: poke, rushdown, turtle, whiff-punish, keepout, frame-trap, and
   anti-throw.
+- `data/characters/jun.yaml` starts the Jun character catalog: core moves,
+  training tags, and starter combo routes sourced from TekkenDocs.
 - `src/t8_agent/io/input_backend.py` defines the controller output interface.
 - `src/t8_agent/io/state_backend.py` defines the game-state reader interface.
 - `scripts/run_sim_episode.py` runs fast simulator episodes without Tekken 8.
@@ -146,6 +148,18 @@ See `docs/live_game_test.md` before enabling controller output. The current live
 agent is a scripted controller/screen test; calibrated CV is still needed before
 the simulator PPO can play from real Tekken 8 pixels.
 
+## Character Curriculum
+
+Jun should become strong first, then we add one matchup character at a time.
+Inspect the current Jun catalog with:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\character_catalog.py data\characters\jun.yaml
+```
+
+See `docs/character_curriculum.md` for the full character-by-character plan.
+
 ## DIAMBRA On-Ramp
 
 DIAMBRA currently requires a free account, Docker Desktop, the `diambra` CLI,
@@ -163,8 +177,8 @@ python -m diambra run -r C:\path\to\roms python scripts/diambra_random_episode.p
 
 Before wiring the real game, decide:
 
-- Which Jun moves should be added after jab, df1, f2, low poke, hopkick, and
-  throw?
+- Which Jun TekkenDocs entries should be promoted from raw catalog to simulator
+  actions first?
 - Which reward terms still create abusable behavior after the harder scripted
   curriculum?
 - Which real Tekken 8 observations should calibrate the simulator first:

@@ -6,7 +6,8 @@ from pathlib import Path
 from t8_agent.core.types import GameState
 from t8_agent.sim.action_space import index_to_action, legal_action_mask
 from t8_agent.sim.observations import vector_observation
-from t8_agent.sim.tekken_lite import FighterRuntime, SimAction, SimConfig, SimState
+from t8_agent.sim.opponents import SCRIPTED_POLICIES
+from t8_agent.sim.tekken_lite import FighterRuntime, SimAction, SimConfig, SimState, TekkenLiteEnv
 
 
 class LiveScriptedAgent:
@@ -48,26 +49,52 @@ class LivePpoCheckpointAgent:
         self.model = MaskablePPO.load(self.checkpoint)
         self.config = config or SimConfig()
         self.deterministic = deterministic
-        self.frame = 0
+        self.shadow_env = TekkenLiteEnv(config=self.config, seed=9090)
+        self.opponent_policy = SCRIPTED_POLICIES["rushdown"]
 
     def act(self, state: GameState) -> SimAction:
-        sim_state = self._to_sim_state(state)
-        obs = vector_observation(sim_state, self.config, player=1)
+        sim_state = self._sync_shadow_health(state)
+        obs = vector_observation(sim_state, self.shadow_env.config, player=1)
         mask = legal_action_mask(sim_state, player=1)
         action, _model_state = self.model.predict(obs, deterministic=self.deterministic, action_masks=mask)
-        return index_to_action(int(action))
+        sim_action = index_to_action(int(action))
+        opponent_action = self.opponent_policy(self.shadow_env, 2)
+        result = self.shadow_env.step(sim_action, opponent_action)
+        if result.terminated or result.truncated:
+            self.shadow_env.reset()
+        return sim_action
 
-    def _to_sim_state(self, state: GameState) -> SimState:
-        self.frame += 1
+    def _sync_shadow_health(self, state: GameState) -> SimState:
+        sim_state = self.shadow_env.state
         p1_x = float((state.raw or {}).get("p1_x", -0.65))
         p2_x = float((state.raw or {}).get("p2_x", 0.65))
-        return SimState(
-            p1=FighterRuntime(health=float(state.p1.health), x=p1_x),
-            p2=FighterRuntime(health=float(state.p2.health), x=p2_x),
-            frame=min(self.frame, self.config.max_frames),
+        sim_state = SimState(
+            p1=FighterRuntime(
+                health=float(state.p1.health),
+                x=p1_x,
+                guard=sim_state.p1.guard,
+                move_key=sim_state.p1.move_key,
+                move_frame=sim_state.p1.move_frame,
+                has_hit=sim_state.p1.has_hit,
+                hitstun=sim_state.p1.hitstun,
+                blockstun=sim_state.p1.blockstun,
+            ),
+            p2=FighterRuntime(
+                health=float(state.p2.health),
+                x=p2_x,
+                guard=sim_state.p2.guard,
+                move_key=sim_state.p2.move_key,
+                move_frame=sim_state.p2.move_frame,
+                has_hit=sim_state.p2.has_hit,
+                hitstun=sim_state.p2.hitstun,
+                blockstun=sim_state.p2.blockstun,
+            ),
+            frame=sim_state.frame,
             round_over=state.round_over,
             winner=state.winner,
         )
+        self.shadow_env.state = sim_state
+        return sim_state
 
 
 def find_latest_checkpoint(root: str | Path = "checkpoints") -> Path:
