@@ -34,11 +34,19 @@ class OpponentPool:
         checkpoint_paths: Sequence[str | Path] | None = None,
         checkpoint_ratings: dict[str, float] | None = None,
         target_rating: float | None = None,
+        scripted_sample_rate: float = 0.35,
         old_checkpoint_sample_rate: float = 0.15,
         max_recent_checkpoints: int = 8,
         rng: random.Random | None = None,
     ) -> None:
         self.scripted_names = list(scripted_names)
+        if not 0.0 <= scripted_sample_rate <= 1.0:
+            raise ValueError("scripted_sample_rate must be between 0 and 1")
+        if not 0.0 <= old_checkpoint_sample_rate <= 1.0:
+            raise ValueError("old_checkpoint_sample_rate must be between 0 and 1")
+        if max_recent_checkpoints < 1:
+            raise ValueError("max_recent_checkpoints must be at least 1")
+        self.scripted_sample_rate = scripted_sample_rate
         self.old_checkpoint_sample_rate = old_checkpoint_sample_rate
         self.max_recent_checkpoints = max_recent_checkpoints
         self.checkpoint_ratings = checkpoint_ratings or {}
@@ -55,7 +63,7 @@ class OpponentPool:
         self._loaded: dict[Path, PpoCheckpointOpponent] = {}
 
     def sample(self) -> tuple[str, OpponentPolicy]:
-        if not self.checkpoints or self.rng.random() < 0.35:
+        if not self.checkpoints or self.rng.random() < self.scripted_sample_rate:
             return self.rng.choice(self.scripted)
 
         if self.checkpoint_ratings and self.target_rating is not None:

@@ -1,5 +1,8 @@
+import random
+
 import pytest
 
+from t8_agent.sim.tekken_lite import SimAction
 from t8_agent.train.ppo_opponents import OpponentPool
 
 
@@ -32,3 +35,45 @@ def test_opponent_pool_can_sample_by_rating(tmp_path) -> None:
     sampled = pool._sample_by_rating()
 
     assert sampled in {first, second}
+
+
+def test_opponent_pool_can_disable_scripted_sampling_when_checkpoints_exist(tmp_path) -> None:
+    checkpoint = tmp_path / "iter_001.zip"
+    checkpoint.write_text("placeholder", encoding="utf-8")
+    pool = OpponentPool(
+        scripted_names=["rushdown"],
+        checkpoint_paths=[checkpoint],
+        scripted_sample_rate=0.0,
+        rng=random.Random(123),
+    )
+    pool._load = lambda path: (lambda env, player: SimAction.NEUTRAL)  # type: ignore[method-assign]
+
+    name, policy = pool.sample()
+
+    assert name == "checkpoint:iter_001.zip"
+    assert callable(policy)
+
+
+def test_opponent_pool_can_force_scripted_sampling_when_checkpoints_exist(tmp_path) -> None:
+    checkpoint = tmp_path / "iter_001.zip"
+    checkpoint.write_text("placeholder", encoding="utf-8")
+    pool = OpponentPool(
+        scripted_names=["rushdown"],
+        checkpoint_paths=[checkpoint],
+        scripted_sample_rate=1.0,
+        rng=random.Random(123),
+    )
+
+    name, policy = pool.sample()
+
+    assert name == "rushdown"
+    assert callable(policy)
+
+
+def test_opponent_pool_rejects_invalid_sample_rates() -> None:
+    with pytest.raises(ValueError, match="scripted_sample_rate"):
+        OpponentPool(scripted_names=["rushdown"], scripted_sample_rate=-0.1)
+    with pytest.raises(ValueError, match="old_checkpoint_sample_rate"):
+        OpponentPool(scripted_names=["rushdown"], old_checkpoint_sample_rate=1.1)
+    with pytest.raises(ValueError, match="max_recent_checkpoints"):
+        OpponentPool(scripted_names=["rushdown"], max_recent_checkpoints=0)

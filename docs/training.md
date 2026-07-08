@@ -105,19 +105,41 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
 ```
 
-The pool samples the harder scripted opponents, mostly recent checkpoints, and
-occasionally older checkpoints.
+By default this is hybrid self-play: the pool samples the harder scripted
+opponents some of the time, mostly recent checkpoints, and occasionally older
+checkpoints. This keeps a stable curriculum while the checkpoint pool is still
+small.
+
+Run full checkpoint-pool self-play after one bootstrap iteration:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --full-self-play --bootstrap-iterations 1
+```
+
+In full self-play mode, the first checkpoint is bootstrapped from scripted
+opponents. Once a checkpoint exists and bootstrap is over, training samples only
+from saved older versions. Use `--old-sample-rate` to keep older checkpoints in
+the mix and `--max-recent` to control the recent-checkpoint window.
+
+Adjust the hybrid scripted mix:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --scripted-sample-rate 0.20 --old-sample-rate 0.25
+```
 
 Use Elo-weighted checkpoint sampling:
 
 ```powershell
 $env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000 --elo-sampling
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --full-self-play --bootstrap-iterations 1 --old-sample-rate 0.25 --elo-sampling
 ```
 
 Each self-play run writes:
 
 - `metrics.json` with scripted and checkpoint-pool evaluation per iteration.
+- The active self-play mode and effective scripted sample rate per iteration.
 - `curves.png` with win-rate and reward curves.
 
 Re-plot an existing run:

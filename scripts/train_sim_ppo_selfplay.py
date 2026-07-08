@@ -28,6 +28,23 @@ def main() -> int:
     parser.add_argument("--checkpoint-dir", default="checkpoints/selfplay")
     parser.add_argument("--final-checkpoint", default="checkpoints/sim_ppo_selfplay_policy.zip")
     parser.add_argument("--run-dir", default=None)
+    parser.add_argument(
+        "--scripted-sample-rate",
+        type=float,
+        default=0.35,
+        help="Probability of sampling a scripted opponent after checkpoints exist.",
+    )
+    parser.add_argument(
+        "--full-self-play",
+        action="store_true",
+        help="After bootstrap, train only against the checkpoint pool instead of scripted opponents.",
+    )
+    parser.add_argument(
+        "--bootstrap-iterations",
+        type=int,
+        default=1,
+        help="Number of early iterations allowed to use scripted opponents before full self-play takes over.",
+    )
     parser.add_argument("--old-sample-rate", type=float, default=0.15)
     parser.add_argument("--max-recent", type=int, default=8)
     parser.add_argument("--elo-sampling", action="store_true", help="Sample checkpoint opponents near the latest Elo rating.")
@@ -38,6 +55,14 @@ def main() -> int:
         default=DEFAULT_SCRIPTED_OPPONENTS,
     )
     args = parser.parse_args()
+    if not 0.0 <= args.scripted_sample_rate <= 1.0:
+        parser.error("--scripted-sample-rate must be between 0 and 1")
+    if not 0.0 <= args.old_sample_rate <= 1.0:
+        parser.error("--old-sample-rate must be between 0 and 1")
+    if args.max_recent < 1:
+        parser.error("--max-recent must be at least 1")
+    if args.bootstrap_iterations < 0:
+        parser.error("--bootstrap-iterations must be 0 or greater")
 
     try:
         from sb3_contrib import MaskablePPO
@@ -56,11 +81,16 @@ def main() -> int:
     history = []
 
     for iteration in range(1, args.iterations + 1):
+        if args.full_self_play and checkpoint_paths and iteration > args.bootstrap_iterations:
+            effective_scripted_sample_rate = 0.0
+        else:
+            effective_scripted_sample_rate = args.scripted_sample_rate
         pool = OpponentPool(
             scripted_names=args.scripted_opponents,
             checkpoint_paths=checkpoint_paths,
             checkpoint_ratings=checkpoint_ratings if args.elo_sampling else None,
             target_rating=checkpoint_ratings.get(str(checkpoint_paths[-1])) if args.elo_sampling and checkpoint_paths else None,
+            scripted_sample_rate=effective_scripted_sample_rate,
             old_checkpoint_sample_rate=args.old_sample_rate,
             max_recent_checkpoints=args.max_recent,
         )
@@ -114,6 +144,10 @@ def main() -> int:
             "iteration": iteration,
             "checkpoint": str(checkpoint),
             "pool_size": len(checkpoint_paths),
+            "full_self_play": args.full_self_play,
+            "bootstrap_iterations": args.bootstrap_iterations,
+            "scripted_sample_rate": args.scripted_sample_rate,
+            "effective_scripted_sample_rate": effective_scripted_sample_rate,
             "scripted_eval_win_rate": scripted_eval.win_rate,
             "scripted_eval_avg_reward": scripted_eval.avg_reward,
             "scripted_eval_avg_frames": scripted_eval.avg_frames,
@@ -125,6 +159,7 @@ def main() -> int:
         history.append(item)
         print(
             f"iteration={iteration} checkpoint={checkpoint} pool_size={len(checkpoint_paths)} "
+            f"scripted_sample_rate={effective_scripted_sample_rate:.2f} "
             f"scripted_win_rate={scripted_eval.win_rate:.2f} scripted_reward={scripted_eval.avg_reward:.2f} "
             f"checkpoint_win_rate={checkpoint_eval.win_rate if checkpoint_eval else 'na'}"
         )
@@ -139,6 +174,9 @@ def main() -> int:
         "timesteps_per_iteration": args.timesteps_per_iteration,
         "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
         "scripted_opponents": args.scripted_opponents,
+        "scripted_sample_rate": args.scripted_sample_rate,
+        "full_self_play": args.full_self_play,
+        "bootstrap_iterations": args.bootstrap_iterations,
         "old_sample_rate": args.old_sample_rate,
         "max_recent": args.max_recent,
         "elo_sampling": args.elo_sampling,
