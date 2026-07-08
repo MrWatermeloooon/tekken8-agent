@@ -23,6 +23,8 @@ def make_selfplay_env(
     use_elo_sampling: bool,
     target_rating: float | None,
     scripted_sample_rate: float,
+    best_checkpoint_sample_rate: float,
+    latest_checkpoint_sample_rate: float,
     old_sample_rate: float,
     max_recent: int,
     seed: int,
@@ -35,6 +37,8 @@ def make_selfplay_env(
             checkpoint_ratings=checkpoint_ratings if use_elo_sampling else None,
             target_rating=target_rating,
             scripted_sample_rate=scripted_sample_rate,
+            best_checkpoint_sample_rate=best_checkpoint_sample_rate,
+            latest_checkpoint_sample_rate=latest_checkpoint_sample_rate,
             old_checkpoint_sample_rate=old_sample_rate,
             max_recent_checkpoints=max_recent,
             rng=random.Random(seed),
@@ -57,6 +61,8 @@ def build_training_env(
     use_elo_sampling: bool,
     target_rating: float | None,
     scripted_sample_rate: float,
+    best_checkpoint_sample_rate: float,
+    latest_checkpoint_sample_rate: float,
     old_sample_rate: float,
     max_recent: int,
     seed: int,
@@ -72,6 +78,8 @@ def build_training_env(
             use_elo_sampling=use_elo_sampling,
             target_rating=target_rating,
             scripted_sample_rate=scripted_sample_rate,
+            best_checkpoint_sample_rate=best_checkpoint_sample_rate,
+            latest_checkpoint_sample_rate=latest_checkpoint_sample_rate,
             old_sample_rate=old_sample_rate,
             max_recent=max_recent,
             seed=seed,
@@ -88,6 +96,8 @@ def build_training_env(
             use_elo_sampling=use_elo_sampling,
             target_rating=target_rating,
             scripted_sample_rate=scripted_sample_rate,
+            best_checkpoint_sample_rate=best_checkpoint_sample_rate,
+            latest_checkpoint_sample_rate=latest_checkpoint_sample_rate,
             old_sample_rate=old_sample_rate,
             max_recent=max_recent,
             seed=seed + env_idx * 10_000,
@@ -156,6 +166,18 @@ def main() -> int:
         help="Number of early iterations allowed to use scripted opponents before full self-play takes over.",
     )
     parser.add_argument("--old-sample-rate", type=float, default=0.15)
+    parser.add_argument(
+        "--best-checkpoint-rate",
+        type=float,
+        default=0.0,
+        help="Probability of sampling the highest-Elo previous checkpoint when checkpoints exist.",
+    )
+    parser.add_argument(
+        "--latest-checkpoint-rate",
+        type=float,
+        default=0.0,
+        help="Probability of sampling the most recent previous checkpoint when checkpoints exist.",
+    )
     parser.add_argument("--max-recent", type=int, default=8)
     parser.add_argument("--elo-sampling", action="store_true", help="Sample checkpoint opponents near the latest Elo rating.")
     parser.add_argument("--elo-episodes-per-pair", type=int, default=1)
@@ -169,6 +191,12 @@ def main() -> int:
         parser.error("--scripted-sample-rate must be between 0 and 1")
     if not 0.0 <= args.old_sample_rate <= 1.0:
         parser.error("--old-sample-rate must be between 0 and 1")
+    if not 0.0 <= args.best_checkpoint_rate <= 1.0:
+        parser.error("--best-checkpoint-rate must be between 0 and 1")
+    if not 0.0 <= args.latest_checkpoint_rate <= 1.0:
+        parser.error("--latest-checkpoint-rate must be between 0 and 1")
+    if args.best_checkpoint_rate + args.latest_checkpoint_rate > 1.0:
+        parser.error("--best-checkpoint-rate + --latest-checkpoint-rate must be at most 1")
     if args.max_recent < 1:
         parser.error("--max-recent must be at least 1")
     if args.bootstrap_iterations < 0:
@@ -205,6 +233,8 @@ def main() -> int:
             use_elo_sampling=args.elo_sampling,
             target_rating=checkpoint_ratings.get(str(checkpoint_paths[-1])) if args.elo_sampling and checkpoint_paths else None,
             scripted_sample_rate=effective_scripted_sample_rate,
+            best_checkpoint_sample_rate=args.best_checkpoint_rate,
+            latest_checkpoint_sample_rate=args.latest_checkpoint_rate,
             old_sample_rate=args.old_sample_rate,
             max_recent=args.max_recent,
             seed=args.seed + iteration,
@@ -275,6 +305,8 @@ def main() -> int:
             "bootstrap_iterations": args.bootstrap_iterations,
             "scripted_sample_rate": args.scripted_sample_rate,
             "effective_scripted_sample_rate": effective_scripted_sample_rate,
+            "best_checkpoint_rate": args.best_checkpoint_rate,
+            "latest_checkpoint_rate": args.latest_checkpoint_rate,
             "scripted_eval_win_rate": scripted_eval.win_rate,
             "scripted_eval_avg_reward": scripted_eval.avg_reward,
             "scripted_eval_avg_frames": scripted_eval.avg_frames,
@@ -288,6 +320,7 @@ def main() -> int:
             f"iteration={iteration} checkpoint={checkpoint} pool_size={len(checkpoint_paths)} "
             f"n_envs={args.n_envs} "
             f"scripted_sample_rate={effective_scripted_sample_rate:.2f} "
+            f"best_checkpoint_rate={args.best_checkpoint_rate:.2f} latest_checkpoint_rate={args.latest_checkpoint_rate:.2f} "
             f"scripted_win_rate={scripted_eval.win_rate:.2f} scripted_reward={scripted_eval.avg_reward:.2f} "
             f"checkpoint_win_rate={checkpoint_eval.win_rate if checkpoint_eval else 'na'}"
         )
@@ -315,6 +348,8 @@ def main() -> int:
         "full_self_play": args.full_self_play,
         "bootstrap_iterations": args.bootstrap_iterations,
         "old_sample_rate": args.old_sample_rate,
+        "best_checkpoint_rate": args.best_checkpoint_rate,
+        "latest_checkpoint_rate": args.latest_checkpoint_rate,
         "max_recent": args.max_recent,
         "elo_sampling": args.elo_sampling,
         "elo_episodes_per_pair": args.elo_episodes_per_pair,

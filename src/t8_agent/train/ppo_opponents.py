@@ -51,6 +51,8 @@ class OpponentPool:
         checkpoint_ratings: dict[str, float] | None = None,
         target_rating: float | None = None,
         scripted_sample_rate: float = 0.35,
+        best_checkpoint_sample_rate: float = 0.0,
+        latest_checkpoint_sample_rate: float = 0.0,
         old_checkpoint_sample_rate: float = 0.15,
         max_recent_checkpoints: int = 8,
         rng: random.Random | None = None,
@@ -58,11 +60,19 @@ class OpponentPool:
         self.scripted_names = list(scripted_names)
         if not 0.0 <= scripted_sample_rate <= 1.0:
             raise ValueError("scripted_sample_rate must be between 0 and 1")
+        if not 0.0 <= best_checkpoint_sample_rate <= 1.0:
+            raise ValueError("best_checkpoint_sample_rate must be between 0 and 1")
+        if not 0.0 <= latest_checkpoint_sample_rate <= 1.0:
+            raise ValueError("latest_checkpoint_sample_rate must be between 0 and 1")
+        if best_checkpoint_sample_rate + latest_checkpoint_sample_rate > 1.0:
+            raise ValueError("best_checkpoint_sample_rate + latest_checkpoint_sample_rate must be at most 1")
         if not 0.0 <= old_checkpoint_sample_rate <= 1.0:
             raise ValueError("old_checkpoint_sample_rate must be between 0 and 1")
         if max_recent_checkpoints < 1:
             raise ValueError("max_recent_checkpoints must be at least 1")
         self.scripted_sample_rate = scripted_sample_rate
+        self.best_checkpoint_sample_rate = best_checkpoint_sample_rate
+        self.latest_checkpoint_sample_rate = latest_checkpoint_sample_rate
         self.old_checkpoint_sample_rate = old_checkpoint_sample_rate
         self.max_recent_checkpoints = max_recent_checkpoints
         self.checkpoint_ratings = checkpoint_ratings or {}
@@ -82,6 +92,10 @@ class OpponentPool:
         if not self.checkpoints or self.rng.random() < self.scripted_sample_rate:
             return self.rng.choice(self.scripted)
 
+        preferred = self._sample_preferred_checkpoint()
+        if preferred is not None:
+            return f"checkpoint:{preferred.name}", self._load(preferred)
+
         if self.checkpoint_ratings and self.target_rating is not None:
             path = self._sample_by_rating()
             return f"checkpoint:{path.name}", self._load(path)
@@ -93,6 +107,22 @@ class OpponentPool:
         else:
             path = self.rng.choice(recent)
         return f"checkpoint:{path.name}", self._load(path)
+
+    def _sample_preferred_checkpoint(self) -> Path | None:
+        roll = self.rng.random()
+        if roll < self.best_checkpoint_sample_rate:
+            return self._best_checkpoint()
+        if roll < self.best_checkpoint_sample_rate + self.latest_checkpoint_sample_rate:
+            return self.checkpoints[-1]
+        return None
+
+    def _best_checkpoint(self) -> Path:
+        if not self.checkpoint_ratings:
+            return self.checkpoints[-1]
+        return max(
+            self.checkpoints,
+            key=lambda path: self.checkpoint_ratings.get(str(path), float("-inf")),
+        )
 
     def _sample_by_rating(self) -> Path:
         weighted: list[tuple[Path, float]] = []

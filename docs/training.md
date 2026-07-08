@@ -138,6 +138,18 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 start with 8 parallel games, then raise it if CPU stays below about 85% and RAM
 still has comfortable headroom.
 
+For the main self-play curriculum, mostly train against the latest previous
+self, with some fights against the strongest older checkpoint:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 20 --timesteps-per-iteration 32768 --full-self-play --bootstrap-iterations 1 --elo-sampling --latest-checkpoint-rate 0.80 --best-checkpoint-rate 0.20 --n-envs 16 --n-steps 256 --batch-size 512
+```
+
+With those rates, once at least one previous checkpoint exists, scripted
+opponents are removed after bootstrap, 80% of checkpoint opponents are the most
+recent previous version, and 20% are the highest-Elo older version.
+
 Adjust the hybrid scripted mix:
 
 ```powershell
