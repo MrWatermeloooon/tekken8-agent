@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 from dataclasses import dataclass
 from pathlib import Path
+from time import monotonic
 from tkinter import BOTH, BOTTOM, Canvas, Label, Tk
 
 from t8_agent.sim.action_space import index_to_action, legal_action_mask
@@ -30,20 +31,27 @@ class PolicyController:
         self.ppo_model = None
         self.normalizer = None
         if spec.kind == "checkpoint" and spec.checkpoint:
-            if spec.checkpoint.suffix.lower() == ".zip":
-                from sb3_contrib import MaskablePPO
+            self.reload_checkpoint(spec.checkpoint)
 
-                self.ppo_model = MaskablePPO.load(spec.checkpoint)
-                normalizer_path = vecnormalize_path(spec.checkpoint)
-                if normalizer_path.exists():
-                    from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+    def reload_checkpoint(self, checkpoint: Path) -> None:
+        self.spec.checkpoint = checkpoint
+        self.policy = None
+        self.ppo_model = None
+        self.normalizer = None
+        if checkpoint.suffix.lower() == ".zip":
+            from sb3_contrib import MaskablePPO
 
-                    dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
-                    self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
-                    self.normalizer.training = False
-                    self.normalizer.norm_reward = False
-            else:
-                self.policy = LinearPolicy.load(spec.checkpoint)
+            self.ppo_model = MaskablePPO.load(checkpoint)
+            normalizer_path = vecnormalize_path(checkpoint)
+            if normalizer_path.exists():
+                from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+
+                dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
+                self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
+                self.normalizer.training = False
+                self.normalizer.norm_reward = False
+        else:
+            self.policy = LinearPolicy.load(checkpoint)
 
     def act(self, env: TekkenLiteEnv, player: int) -> SimAction:
         own = env.state.p1 if player == 1 else env.state.p2
@@ -81,6 +89,8 @@ class SimVisualizer:
         env: TekkenLiteEnv,
         p1: PolicyController,
         p2: PolicyController,
+        follow_p1_dir: Path | None = None,
+        follow_check_seconds: float = 2.0,
         width: int = 1100,
         height: int = 620,
         steps_per_tick: int = 2,
@@ -88,6 +98,9 @@ class SimVisualizer:
         self.env = env
         self.p1 = p1
         self.p2 = p2
+        self.follow_p1_dir = follow_p1_dir
+        self.follow_check_seconds = follow_check_seconds
+        self.last_follow_check = 0.0
         self.width = width
         self.height = height
         self.steps_per_tick = steps_per_tick
@@ -95,6 +108,8 @@ class SimVisualizer:
         self.last_p1_action = SimAction.NEUTRAL
         self.last_p2_action = SimAction.NEUTRAL
         self.last_reward = 0.0
+        self.episode_damage_to_p1 = 0.0
+        self.episode_damage_to_p2 = 0.0
         self.episode = 1
         self.root = Tk()
         self.root.title("Tekken-lite Simulator Visualizer")
@@ -128,22 +143,40 @@ class SimVisualizer:
         self.last_reward = 0.0
         self.last_p1_action = SimAction.NEUTRAL
         self.last_p2_action = SimAction.NEUTRAL
+        self.episode_damage_to_p1 = 0.0
+        self.episode_damage_to_p2 = 0.0
 
     def change_speed(self, delta: int) -> None:
         self.steps_per_tick = max(1, min(12, self.steps_per_tick + delta))
 
     def tick(self) -> None:
+        self._maybe_reload_followed_checkpoint()
         if not self.paused:
             for _ in range(self.steps_per_tick):
                 self.last_p1_action = self.p1.act(self.env, 1)
                 self.last_p2_action = self.p2.act(self.env, 2)
                 result = self.env.step(self.last_p1_action, self.last_p2_action)
                 self.last_reward = result.reward_p1
+                self.episode_damage_to_p1 += float(result.info["damage_to_p1"])
+                self.episode_damage_to_p2 += float(result.info["damage_to_p2"])
                 if result.terminated or result.truncated:
                     self.reset()
                     break
         self.draw()
         self.root.after(33, self.tick)
+
+    def _maybe_reload_followed_checkpoint(self) -> None:
+        if self.follow_p1_dir is None:
+            return
+        now = monotonic()
+        if now - self.last_follow_check < self.follow_check_seconds:
+            return
+        self.last_follow_check = now
+        latest = latest_complete_checkpoint(self.follow_p1_dir)
+        if latest is None or latest == self.p1.spec.checkpoint:
+            return
+        self.p1.reload_checkpoint(latest)
+        self.root.title(f"Tekken-lite Simulator Visualizer - {latest.name}")
 
     def draw(self) -> None:
         c = self.canvas
@@ -231,6 +264,7 @@ class SimVisualizer:
             f"P1 action: {self.last_p1_action.value} | move: {p1_move} | hitstun {state.p1.hitstun} | blockstun {state.p1.blockstun}",
             f"P2 action: {self.last_p2_action.value} | move: {p2_move} | hitstun {state.p2.hitstun} | blockstun {state.p2.blockstun}",
             f"Distance {state.distance:.2f} | P1 whiffs {state.p1.whiffs} | P2 whiffs {state.p2.whiffs}",
+            f"Episode damage: to P1 {self.episode_damage_to_p1:.0f} | to P2 {self.episode_damage_to_p2:.0f}",
         ]
         for idx, line in enumerate(lines):
             self.canvas.create_text(42, 86 + idx * 22, text=line, anchor="w", fill="#d8e1e8", font=("Consolas", 12))
@@ -261,6 +295,16 @@ def build_policy(kind: str, checkpoint: str, scripted_name: str, label: str = ""
     return PolicyController(PolicySpec(kind="scripted", scripted_name=scripted_name, label=label))
 
 
+def latest_complete_checkpoint(checkpoint_dir: Path) -> Path | None:
+    checkpoints = sorted(checkpoint_dir.glob("*.zip"), key=lambda path: path.stat().st_mtime, reverse=True)
+    if not checkpoints:
+        return None
+    normalized = [path for path in checkpoints if vecnormalize_path(path).exists()]
+    if normalized:
+        return normalized[0]
+    return checkpoints[0]
+
+
 def run_headless(env: TekkenLiteEnv, p1: PolicyController, p2: PolicyController, steps: int) -> None:
     for _ in range(steps):
         result = env.step(p1.act(env, 1), p2.act(env, 2))
@@ -278,21 +322,37 @@ def main() -> int:
     parser.add_argument("--p2", choices=["checkpoint", "scripted", "random"], default="scripted")
     parser.add_argument("--checkpoint", default="checkpoints/sim_linear_policy.npz")
     parser.add_argument("--p2-checkpoint", default=None)
+    parser.add_argument("--follow-dir", default=None, help="Reload P1 from the newest complete checkpoint in this directory.")
+    parser.add_argument("--follow-check-seconds", type=float, default=2.0)
     parser.add_argument("--p1-scripted", default="poke", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--p2-scripted", default="rushdown", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--speed", type=int, default=2)
     parser.add_argument("--headless-steps", type=int, default=0)
     args = parser.parse_args()
+    checkpoint = args.checkpoint
+    follow_dir = Path(args.follow_dir) if args.follow_dir else None
+    if follow_dir is not None:
+        latest = latest_complete_checkpoint(follow_dir)
+        if latest is None:
+            raise FileNotFoundError(f"no checkpoint found in follow dir: {follow_dir}")
+        checkpoint = str(latest)
 
     env = TekkenLiteEnv(seed=args.seed)
-    p1 = build_policy(args.p1, args.checkpoint, args.p1_scripted)
+    p1 = build_policy(args.p1, checkpoint, args.p1_scripted)
     p2 = build_policy(args.p2, args.p2_checkpoint or args.checkpoint, args.p2_scripted)
     if args.headless_steps > 0:
         run_headless(env, p1, p2, args.headless_steps)
         return 0
 
-    app = SimVisualizer(env=env, p1=p1, p2=p2, steps_per_tick=args.speed)
+    app = SimVisualizer(
+        env=env,
+        p1=p1,
+        p2=p2,
+        follow_p1_dir=follow_dir,
+        follow_check_seconds=args.follow_check_seconds,
+        steps_per_tick=args.speed,
+    )
     app.run()
     return 0
 
