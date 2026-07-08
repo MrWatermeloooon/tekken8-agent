@@ -8,8 +8,13 @@ from t8_agent.sim.action_space import index_to_action, legal_action_mask
 from t8_agent.sim.opponents import SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
 from t8_agent.sim.observations import vector_observation
+from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 OpponentPolicy = Callable[[TekkenLiteEnv, int], SimAction]
+
+
+def vecnormalize_path(checkpoint: str | Path) -> Path:
+    return Path(checkpoint).with_suffix(".vecnormalize.pkl")
 
 
 class PpoCheckpointOpponent:
@@ -18,10 +23,21 @@ class PpoCheckpointOpponent:
 
         self.checkpoint = Path(checkpoint)
         self.model = MaskablePPO.load(self.checkpoint)
+        self.normalizer = None
+        normalizer_path = vecnormalize_path(self.checkpoint)
+        if normalizer_path.exists():
+            from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+
+            dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
+            self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
+            self.normalizer.training = False
+            self.normalizer.norm_reward = False
         self.deterministic = deterministic
 
     def __call__(self, env: TekkenLiteEnv, player: int) -> SimAction:
         obs = vector_observation(env.state, env.config, player)
+        if self.normalizer is not None:
+            obs = self.normalizer.normalize_obs(obs)
         mask = legal_action_mask(env.state, player)
         action, _state = self.model.predict(obs, deterministic=self.deterministic, action_masks=mask)
         return index_to_action(int(action))

@@ -7,6 +7,7 @@ from time import strftime
 
 from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.ppo_eval import evaluate_maskable_model
+from t8_agent.train.ppo_opponents import vecnormalize_path
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 
@@ -23,6 +24,7 @@ def main() -> int:
     parser.add_argument("--checkpoint", default="checkpoints/sim_ppo_policy.zip")
     parser.add_argument("--run-dir", default=None)
     parser.add_argument("--tensorboard", action="store_true", help="Write TensorBoard logs under the run directory.")
+    parser.add_argument("--no-normalize", action="store_true", help="Disable VecNormalize observation/reward normalization.")
     parser.add_argument(
         "--opponents",
         nargs="+",
@@ -32,6 +34,7 @@ def main() -> int:
 
     try:
         from sb3_contrib import MaskablePPO
+        from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
     except ImportError as exc:
         raise SystemExit(
             "Missing RL dependencies. Install with: .\\.venv\\Scripts\\python -m pip install -e \".[rl]\""
@@ -39,11 +42,16 @@ def main() -> int:
 
     run_dir = Path(args.run_dir or f"runs/sim_ppo_{strftime('%Y%m%d_%H%M%S')}")
     run_dir.mkdir(parents=True, exist_ok=True)
-    env = TekkenLiteSingleAgentEnv(
-        opponent_names=args.opponents,
-        seed=args.seed,
-        max_decisions=args.max_decisions,
+    raw_env = DummyVecEnv(
+        [
+            lambda: TekkenLiteSingleAgentEnv(
+                opponent_names=args.opponents,
+                seed=args.seed,
+                max_decisions=args.max_decisions,
+            )
+        ]
     )
+    env = raw_env if args.no_normalize else VecNormalize(raw_env, norm_obs=True, norm_reward=True)
     model = MaskablePPO(
         "MlpPolicy",
         env,
@@ -60,6 +68,10 @@ def main() -> int:
     checkpoint = Path(args.checkpoint)
     checkpoint.parent.mkdir(parents=True, exist_ok=True)
     model.save(checkpoint)
+    normalizer_path = None
+    if isinstance(env, VecNormalize):
+        normalizer_path = vecnormalize_path(checkpoint)
+        env.save(str(normalizer_path))
 
     evaluation = evaluate_maskable_model(
         model=model,
@@ -67,6 +79,7 @@ def main() -> int:
         seed=args.seed + 500_000,
         max_decisions=args.max_decisions,
         opponent_names=args.opponents,
+        normalizer=env if isinstance(env, VecNormalize) else None,
     )
     metrics = {
         "checkpoint": str(checkpoint),
@@ -78,6 +91,8 @@ def main() -> int:
         "batch_size": args.batch_size,
         "learning_rate": args.learning_rate,
         "gamma": args.gamma,
+        "normalize": not args.no_normalize,
+        "vecnormalize": str(normalizer_path) if normalizer_path else None,
         "opponents": args.opponents,
         "eval": {
             "win_rate": evaluation.win_rate,

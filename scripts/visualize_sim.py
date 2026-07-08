@@ -11,6 +11,8 @@ from t8_agent.sim.observations import vector_observation
 from t8_agent.sim.opponents import SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
 from t8_agent.train.linear_policy import LinearPolicy
+from t8_agent.train.ppo_opponents import vecnormalize_path
+from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 
 @dataclass
@@ -26,11 +28,20 @@ class PolicyController:
         self.spec = spec
         self.policy = None
         self.ppo_model = None
+        self.normalizer = None
         if spec.kind == "checkpoint" and spec.checkpoint:
             if spec.checkpoint.suffix.lower() == ".zip":
                 from sb3_contrib import MaskablePPO
 
                 self.ppo_model = MaskablePPO.load(spec.checkpoint)
+                normalizer_path = vecnormalize_path(spec.checkpoint)
+                if normalizer_path.exists():
+                    from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+
+                    dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
+                    self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
+                    self.normalizer.training = False
+                    self.normalizer.norm_reward = False
             else:
                 self.policy = LinearPolicy.load(spec.checkpoint)
 
@@ -41,6 +52,8 @@ class PolicyController:
         if self.spec.kind == "checkpoint":
             if self.ppo_model is not None:
                 obs = vector_observation(env.state, env.config, player)
+                if self.normalizer is not None:
+                    obs = self.normalizer.normalize_obs(obs)
                 mask = legal_action_mask(env.state, player)
                 action, _state = self.ppo_model.predict(obs, deterministic=True, action_masks=mask)
                 return index_to_action(int(action))

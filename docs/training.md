@@ -89,6 +89,11 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints\sim_ppo_policy.zip
 ```
 
+PPO training uses `VecNormalize(norm_obs=True, norm_reward=True)` by default.
+Each PPO checkpoint saves a matching `.vecnormalize.pkl` file beside the `.zip`
+so evaluation, visualization, and checkpoint-pool opponents can use the same
+observation scale. Pass `--no-normalize` only for debugging.
+
 Evaluate:
 
 ```powershell
@@ -152,6 +157,7 @@ Each self-play run writes:
 - `metrics.json` with scripted and checkpoint-pool evaluation per iteration.
 - The active self-play mode and effective scripted sample rate per iteration.
 - `curves.png` with win-rate and reward curves.
+- `.vecnormalize.pkl` files beside PPO checkpoints when normalization is on.
 
 Re-plot an existing run:
 

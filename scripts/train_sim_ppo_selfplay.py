@@ -3,6 +3,7 @@ from __future__ import annotations
 import argparse
 import json
 import random
+from copy import deepcopy
 from pathlib import Path
 from time import strftime
 
@@ -10,7 +11,7 @@ from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.curves import plot_selfplay_metrics
 from t8_agent.train.elo import rank_checkpoints
 from t8_agent.train.ppo_eval import evaluate_maskable_model, evaluate_model_vs_checkpoints
-from t8_agent.train.ppo_opponents import OpponentPool
+from t8_agent.train.ppo_opponents import OpponentPool, vecnormalize_path
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 
@@ -99,6 +100,21 @@ def build_training_env(
     return SubprocVecEnv(env_fns, start_method="spawn")
 
 
+def wrap_normalized_env(raw_env, *, normalize: bool, previous_env=None):
+    if not normalize:
+        return raw_env
+
+    from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
+
+    if not hasattr(raw_env, "num_envs"):
+        raw_env = DummyVecEnv([lambda: raw_env])
+    env = VecNormalize(raw_env, norm_obs=True, norm_reward=True)
+    if isinstance(previous_env, VecNormalize):
+        env.obs_rms = deepcopy(previous_env.obs_rms)
+        env.ret_rms = deepcopy(previous_env.ret_rms)
+    return env
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Train MaskablePPO with a simple checkpoint opponent pool.")
     parser.add_argument("--iterations", type=int, default=4)
@@ -116,6 +132,7 @@ def main() -> int:
     )
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--no-normalize", action="store_true", help="Disable VecNormalize observation/reward normalization.")
     parser.add_argument("--eval-episodes", type=int, default=30)
     parser.add_argument("--checkpoint-eval-episodes", type=int, default=4)
     parser.add_argument("--checkpoint-dir", default="checkpoints/selfplay")
@@ -161,6 +178,7 @@ def main() -> int:
 
     try:
         from sb3_contrib import MaskablePPO
+        from stable_baselines3.common.vec_env import VecNormalize
     except ImportError as exc:
         raise SystemExit(
             "Missing RL dependencies. Install with: .\\.venv\\Scripts\\python -m pip install -e \".[rl]\""
@@ -180,7 +198,7 @@ def main() -> int:
             effective_scripted_sample_rate = 0.0
         else:
             effective_scripted_sample_rate = args.scripted_sample_rate
-        env = build_training_env(
+        raw_env = build_training_env(
             scripted_opponents=args.scripted_opponents,
             checkpoint_paths=checkpoint_paths,
             checkpoint_ratings=checkpoint_ratings,
@@ -195,6 +213,7 @@ def main() -> int:
             vec_env=args.vec_env,
         )
         if model is None:
+            env = wrap_normalized_env(raw_env, normalize=not args.no_normalize)
             model = MaskablePPO(
                 "MlpPolicy",
                 env,
@@ -207,6 +226,7 @@ def main() -> int:
             )
         else:
             previous_env = model.get_env()
+            env = wrap_normalized_env(raw_env, normalize=not args.no_normalize, previous_env=previous_env)
             model.set_env(env)
             if previous_env is not None:
                 previous_env.close()
@@ -214,6 +234,11 @@ def main() -> int:
         model.learn(total_timesteps=args.timesteps_per_iteration, reset_num_timesteps=False, progress_bar=False)
         checkpoint = checkpoint_dir / f"iter_{iteration:03d}.zip"
         model.save(checkpoint)
+        normalizer_path = None
+        active_env = model.get_env()
+        if isinstance(active_env, VecNormalize):
+            normalizer_path = vecnormalize_path(checkpoint)
+            active_env.save(str(normalizer_path))
         previous_checkpoints = list(checkpoint_paths)
         checkpoint_paths.append(checkpoint)
         if args.elo_sampling and len(checkpoint_paths) >= 2:
@@ -229,6 +254,7 @@ def main() -> int:
             seed=args.seed + 700_000 + iteration * 1000,
             max_decisions=args.max_decisions,
             opponent_names=args.scripted_opponents,
+            normalizer=active_env if isinstance(active_env, VecNormalize) else None,
         )
         checkpoint_eval = evaluate_model_vs_checkpoints(
             model=model,
@@ -236,10 +262,12 @@ def main() -> int:
             episodes_per_checkpoint=args.checkpoint_eval_episodes,
             seed=args.seed + 800_000 + iteration * 1000,
             max_decisions=args.max_decisions,
+            normalizer=active_env if isinstance(active_env, VecNormalize) else None,
         )
         item = {
             "iteration": iteration,
             "checkpoint": str(checkpoint),
+            "vecnormalize": str(normalizer_path) if normalizer_path else None,
             "pool_size": len(checkpoint_paths),
             "n_envs": args.n_envs,
             "vec_env": args.vec_env if args.n_envs > 1 else "single",
@@ -267,14 +295,21 @@ def main() -> int:
     final_checkpoint = Path(args.final_checkpoint)
     final_checkpoint.parent.mkdir(parents=True, exist_ok=True)
     model.save(final_checkpoint)
+    final_normalizer_path = None
+    active_env = model.get_env()
+    if isinstance(active_env, VecNormalize):
+        final_normalizer_path = vecnormalize_path(final_checkpoint)
+        active_env.save(str(final_normalizer_path))
     metrics = {
         "final_checkpoint": str(final_checkpoint),
+        "final_vecnormalize": str(final_normalizer_path) if final_normalizer_path else None,
         "run_dir": str(run_dir),
         "iterations": args.iterations,
         "timesteps_per_iteration": args.timesteps_per_iteration,
         "n_envs": args.n_envs,
         "vec_env": args.vec_env if args.n_envs > 1 else "single",
         "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
+        "normalize": not args.no_normalize,
         "scripted_opponents": args.scripted_opponents,
         "scripted_sample_rate": args.scripted_sample_rate,
         "full_self_play": args.full_self_play,

@@ -175,6 +175,48 @@ def test_simultaneous_trade_is_symmetric() -> None:
     assert result.info["damage_to_p2"] >= 0.0
 
 
+def test_round_win_reward_scales_with_remaining_health() -> None:
+    full_health_env = TekkenLiteEnv(seed=11)
+    full_health_env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=1.0, x=0.82),
+        frame=0,
+    )
+    low_health_env = TekkenLiteEnv(seed=12)
+    low_health_env.state = SimState(
+        p1=FighterRuntime(health=1.0, x=0.0),
+        p2=FighterRuntime(health=1.0, x=0.82),
+        frame=0,
+    )
+
+    full_health_result = advance(full_health_env, SimAction.JAB, SimAction.NEUTRAL)
+    low_health_result = advance(low_health_env, SimAction.JAB, SimAction.NEUTRAL)
+
+    assert full_health_result.terminated
+    assert low_health_result.terminated
+    assert full_health_result.reward_p1 > low_health_result.reward_p1
+
+
+def test_whiff_punish_bonus_rewards_hitting_recovery() -> None:
+    env = TekkenLiteEnv(seed=13)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.82, move_key="jab", move_frame=13, has_hit=False),
+        frame=0,
+    )
+
+    result = None
+    for idx in range(20):
+        action = SimAction.JAB if idx == 0 else SimAction.NEUTRAL
+        result = env.step(action, SimAction.NEUTRAL)
+        if result.info["p1_whiff_punish_bonus"] > 0:
+            break
+    assert result is not None
+
+    assert result.info["damage_to_p2"] > 0
+    assert result.info["p1_whiff_punish_bonus"] > 0
+
+
 def test_sidestepping_can_make_linear_attack_whiff() -> None:
     env = TekkenLiteEnv(seed=10)
     env.state = SimState(

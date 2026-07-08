@@ -2,9 +2,8 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from t8_agent.sim.action_space import index_to_action, legal_action_mask
-from t8_agent.sim.observations import vector_observation
 from t8_agent.sim.tekken_lite import TekkenLiteEnv
+from t8_agent.train.ppo_opponents import PpoCheckpointOpponent
 
 
 def expected_score(rating_a: float, rating_b: float) -> float:
@@ -17,21 +16,11 @@ def update_elo(rating_a: float, rating_b: float, score_a: float, k: float) -> tu
     return rating_a + k * (score_a - expected_a), rating_b + k * ((1.0 - score_a) - expected_b)
 
 
-def play_match(model_a, model_b, seed: int, max_decisions: int) -> float:
+def play_match(policy_a, policy_b, seed: int, max_decisions: int) -> float:
     env = TekkenLiteEnv(seed=seed)
     env.reset(seed=seed)
     for _ in range(max_decisions):
-        action_a, _ = model_a.predict(
-            vector_observation(env.state, env.config, player=1),
-            deterministic=True,
-            action_masks=legal_action_mask(env.state, player=1),
-        )
-        action_b, _ = model_b.predict(
-            vector_observation(env.state, env.config, player=2),
-            deterministic=True,
-            action_masks=legal_action_mask(env.state, player=2),
-        )
-        result = env.step(index_to_action(int(action_a)), index_to_action(int(action_b)))
+        result = env.step(policy_a(env, 1), policy_b(env, 2))
         if result.terminated or result.truncated:
             break
     if env.state.winner == 1:
@@ -48,21 +37,19 @@ def rank_checkpoints(
     max_decisions: int,
     k: float = 32.0,
 ) -> dict[str, float]:
-    from sb3_contrib import MaskablePPO
-
     checkpoints = [Path(path) for path in checkpoint_paths]
     if len(checkpoints) < 2:
         return {str(path): 1000.0 for path in checkpoints}
 
-    models = {path: MaskablePPO.load(path) for path in checkpoints}
+    policies = {path: PpoCheckpointOpponent(path) for path in checkpoints}
     ratings = {path: 1000.0 for path in checkpoints}
     match_idx = 0
     for i, path_a in enumerate(checkpoints):
         for path_b in checkpoints[i + 1 :]:
             for episode in range(episodes_per_pair):
                 score_a = play_match(
-                    models[path_a],
-                    models[path_b],
+                    policies[path_a],
+                    policies[path_b],
                     seed=seed + match_idx * 100 + episode,
                     max_decisions=max_decisions,
                 )

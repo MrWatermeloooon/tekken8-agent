@@ -82,6 +82,9 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints\sim_ppo_policy.zip
 ```
 
+PPO uses observation/reward normalization by default and saves a matching
+`.vecnormalize.pkl` file beside each checkpoint.
+
 Checkpoint-pool PPO self-play:
 
 ```powershell
