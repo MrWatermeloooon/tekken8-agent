@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import random
 from pathlib import Path
 from time import strftime
 
@@ -13,6 +14,91 @@ from t8_agent.train.ppo_opponents import OpponentPool
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 
+def make_selfplay_env(
+    *,
+    scripted_opponents: list[str],
+    checkpoint_paths: list[Path],
+    checkpoint_ratings: dict[str, float],
+    use_elo_sampling: bool,
+    target_rating: float | None,
+    scripted_sample_rate: float,
+    old_sample_rate: float,
+    max_recent: int,
+    seed: int,
+    max_decisions: int,
+):
+    def _init() -> TekkenLiteSingleAgentEnv:
+        pool = OpponentPool(
+            scripted_names=scripted_opponents,
+            checkpoint_paths=checkpoint_paths,
+            checkpoint_ratings=checkpoint_ratings if use_elo_sampling else None,
+            target_rating=target_rating,
+            scripted_sample_rate=scripted_sample_rate,
+            old_checkpoint_sample_rate=old_sample_rate,
+            max_recent_checkpoints=max_recent,
+            rng=random.Random(seed),
+        )
+        return TekkenLiteSingleAgentEnv(
+            opponent_names=scripted_opponents,
+            seed=seed,
+            max_decisions=max_decisions,
+            opponent_sampler=pool.sample,
+        )
+
+    return _init
+
+
+def build_training_env(
+    *,
+    scripted_opponents: list[str],
+    checkpoint_paths: list[Path],
+    checkpoint_ratings: dict[str, float],
+    use_elo_sampling: bool,
+    target_rating: float | None,
+    scripted_sample_rate: float,
+    old_sample_rate: float,
+    max_recent: int,
+    seed: int,
+    max_decisions: int,
+    n_envs: int,
+    vec_env: str,
+):
+    if n_envs == 1:
+        return make_selfplay_env(
+            scripted_opponents=scripted_opponents,
+            checkpoint_paths=list(checkpoint_paths),
+            checkpoint_ratings=dict(checkpoint_ratings),
+            use_elo_sampling=use_elo_sampling,
+            target_rating=target_rating,
+            scripted_sample_rate=scripted_sample_rate,
+            old_sample_rate=old_sample_rate,
+            max_recent=max_recent,
+            seed=seed,
+            max_decisions=max_decisions,
+        )()
+
+    from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
+
+    env_fns = [
+        make_selfplay_env(
+            scripted_opponents=scripted_opponents,
+            checkpoint_paths=list(checkpoint_paths),
+            checkpoint_ratings=dict(checkpoint_ratings),
+            use_elo_sampling=use_elo_sampling,
+            target_rating=target_rating,
+            scripted_sample_rate=scripted_sample_rate,
+            old_sample_rate=old_sample_rate,
+            max_recent=max_recent,
+            seed=seed + env_idx * 10_000,
+            max_decisions=max_decisions,
+        )
+        for env_idx in range(n_envs)
+    ]
+    if vec_env == "dummy":
+        return DummyVecEnv(env_fns)
+    return SubprocVecEnv(env_fns, start_method="spawn")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description="Train MaskablePPO with a simple checkpoint opponent pool.")
     parser.add_argument("--iterations", type=int, default=4)
@@ -21,6 +107,13 @@ def main() -> int:
     parser.add_argument("--max-decisions", type=int, default=1200)
     parser.add_argument("--n-steps", type=int, default=512)
     parser.add_argument("--batch-size", type=int, default=64)
+    parser.add_argument("--n-envs", type=int, default=1, help="Number of parallel simulator games for PPO rollouts.")
+    parser.add_argument(
+        "--vec-env",
+        choices=["subproc", "dummy"],
+        default="subproc",
+        help="Vector-env backend used when --n-envs is greater than 1.",
+    )
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--eval-episodes", type=int, default=30)
@@ -63,6 +156,8 @@ def main() -> int:
         parser.error("--max-recent must be at least 1")
     if args.bootstrap_iterations < 0:
         parser.error("--bootstrap-iterations must be 0 or greater")
+    if args.n_envs < 1:
+        parser.error("--n-envs must be at least 1")
 
     try:
         from sb3_contrib import MaskablePPO
@@ -85,20 +180,19 @@ def main() -> int:
             effective_scripted_sample_rate = 0.0
         else:
             effective_scripted_sample_rate = args.scripted_sample_rate
-        pool = OpponentPool(
-            scripted_names=args.scripted_opponents,
+        env = build_training_env(
+            scripted_opponents=args.scripted_opponents,
             checkpoint_paths=checkpoint_paths,
-            checkpoint_ratings=checkpoint_ratings if args.elo_sampling else None,
+            checkpoint_ratings=checkpoint_ratings,
+            use_elo_sampling=args.elo_sampling,
             target_rating=checkpoint_ratings.get(str(checkpoint_paths[-1])) if args.elo_sampling and checkpoint_paths else None,
             scripted_sample_rate=effective_scripted_sample_rate,
-            old_checkpoint_sample_rate=args.old_sample_rate,
-            max_recent_checkpoints=args.max_recent,
-        )
-        env = TekkenLiteSingleAgentEnv(
-            opponent_names=args.scripted_opponents,
+            old_sample_rate=args.old_sample_rate,
+            max_recent=args.max_recent,
             seed=args.seed + iteration,
             max_decisions=args.max_decisions,
-            opponent_sampler=pool.sample,
+            n_envs=args.n_envs,
+            vec_env=args.vec_env,
         )
         if model is None:
             model = MaskablePPO(
@@ -112,7 +206,10 @@ def main() -> int:
                 verbose=1,
             )
         else:
+            previous_env = model.get_env()
             model.set_env(env)
+            if previous_env is not None:
+                previous_env.close()
 
         model.learn(total_timesteps=args.timesteps_per_iteration, reset_num_timesteps=False, progress_bar=False)
         checkpoint = checkpoint_dir / f"iter_{iteration:03d}.zip"
@@ -144,6 +241,8 @@ def main() -> int:
             "iteration": iteration,
             "checkpoint": str(checkpoint),
             "pool_size": len(checkpoint_paths),
+            "n_envs": args.n_envs,
+            "vec_env": args.vec_env if args.n_envs > 1 else "single",
             "full_self_play": args.full_self_play,
             "bootstrap_iterations": args.bootstrap_iterations,
             "scripted_sample_rate": args.scripted_sample_rate,
@@ -159,6 +258,7 @@ def main() -> int:
         history.append(item)
         print(
             f"iteration={iteration} checkpoint={checkpoint} pool_size={len(checkpoint_paths)} "
+            f"n_envs={args.n_envs} "
             f"scripted_sample_rate={effective_scripted_sample_rate:.2f} "
             f"scripted_win_rate={scripted_eval.win_rate:.2f} scripted_reward={scripted_eval.avg_reward:.2f} "
             f"checkpoint_win_rate={checkpoint_eval.win_rate if checkpoint_eval else 'na'}"
@@ -172,6 +272,8 @@ def main() -> int:
         "run_dir": str(run_dir),
         "iterations": args.iterations,
         "timesteps_per_iteration": args.timesteps_per_iteration,
+        "n_envs": args.n_envs,
+        "vec_env": args.vec_env if args.n_envs > 1 else "single",
         "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
         "scripted_opponents": args.scripted_opponents,
         "scripted_sample_rate": args.scripted_sample_rate,

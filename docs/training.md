@@ -122,6 +122,17 @@ opponents. Once a checkpoint exists and bootstrap is over, training samples only
 from saved older versions. Use `--old-sample-rate` to keep older checkpoints in
 the mix and `--max-recent` to control the recent-checkpoint window.
 
+Use parallel simulator games when CPU/RAM has headroom:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 20 --timesteps-per-iteration 20000 --full-self-play --bootstrap-iterations 1 --old-sample-rate 0.25 --elo-sampling --n-envs 8 --n-steps 256 --batch-size 256
+```
+
+`--n-envs` runs multiple simulator games per PPO rollout. On a 32 GB machine,
+start with 8 parallel games, then raise it if CPU stays below about 85% and RAM
+still has comfortable headroom.
+
 Adjust the hybrid scripted mix:
 
 ```powershell

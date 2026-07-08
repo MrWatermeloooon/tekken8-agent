@@ -98,6 +98,9 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --full-self-play --bootstrap-iterations 1 --old-sample-rate 0.25
 ```
 
+Use `--n-envs 8 --n-steps 256 --batch-size 256` when CPU/RAM has headroom to
+run more simulator games in parallel.
+
 Use Elo-weighted checkpoint sampling:
 
 ```powershell
