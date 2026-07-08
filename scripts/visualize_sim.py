@@ -18,6 +18,7 @@ class PolicySpec:
     kind: str
     checkpoint: Path | None = None
     scripted_name: str = "poke"
+    label: str = ""
 
 
 class PolicyController:
@@ -49,6 +50,16 @@ class PolicyController:
         if self.spec.kind == "random":
             return env.sample_action()
         return SCRIPTED_POLICIES[self.spec.scripted_name](env, player)
+
+    @property
+    def label(self) -> str:
+        if self.spec.label:
+            return self.spec.label
+        if self.spec.kind == "checkpoint" and self.spec.checkpoint:
+            return self.spec.checkpoint.stem
+        if self.spec.kind == "random":
+            return "random"
+        return self.spec.scripted_name
 
 
 class SimVisualizer:
@@ -181,7 +192,8 @@ class SimVisualizer:
         self.canvas.create_rectangle(x - w / 2, floor - h, x + w / 2, floor, fill=color, outline=outline, width=3)
         head_r = 18
         self.canvas.create_oval(x - head_r, floor - h - 36, x + head_r, floor - h, fill=color, outline=outline, width=3)
-        label = "P1 Jun" if player == 1 else "P2 Rush"
+        controller = self.p1 if player == 1 else self.p2
+        label = f"P{player} {controller.label}"
         self.canvas.create_text(x, floor + 28, text=label, fill="#e2e8f0", font=("Segoe UI", 12, "bold"))
 
     def _draw_attack_range(self, player: int) -> None:
@@ -222,18 +234,18 @@ class SimVisualizer:
         return self.height - 118
 
 
-def build_policy(kind: str, checkpoint: str, scripted_name: str) -> PolicyController:
+def build_policy(kind: str, checkpoint: str, scripted_name: str, label: str = "") -> PolicyController:
     if kind == "checkpoint":
         path = Path(checkpoint)
         if not path.exists():
             raise FileNotFoundError(f"checkpoint not found: {path}")
-        return PolicyController(PolicySpec(kind="checkpoint", checkpoint=path))
+        return PolicyController(PolicySpec(kind="checkpoint", checkpoint=path, label=label))
     if kind == "random":
-        return PolicyController(PolicySpec(kind="random"))
+        return PolicyController(PolicySpec(kind="random", label=label))
     if scripted_name not in SCRIPTED_POLICIES:
         known = ", ".join(sorted(SCRIPTED_POLICIES))
         raise ValueError(f"unknown scripted policy {scripted_name!r}; known: {known}")
-    return PolicyController(PolicySpec(kind="scripted", scripted_name=scripted_name))
+    return PolicyController(PolicySpec(kind="scripted", scripted_name=scripted_name, label=label))
 
 
 def run_headless(env: TekkenLiteEnv, p1: PolicyController, p2: PolicyController, steps: int) -> None:
@@ -250,8 +262,9 @@ def run_headless(env: TekkenLiteEnv, p1: PolicyController, p2: PolicyController,
 def main() -> int:
     parser = argparse.ArgumentParser(description="Visualize the Tekken-lite simulator.")
     parser.add_argument("--p1", choices=["checkpoint", "scripted", "random"], default="checkpoint")
-    parser.add_argument("--p2", choices=["scripted", "random"], default="scripted")
+    parser.add_argument("--p2", choices=["checkpoint", "scripted", "random"], default="scripted")
     parser.add_argument("--checkpoint", default="checkpoints/sim_linear_policy.npz")
+    parser.add_argument("--p2-checkpoint", default=None)
     parser.add_argument("--p1-scripted", default="poke", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--p2-scripted", default="rushdown", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--seed", type=int, default=2026)
@@ -261,7 +274,7 @@ def main() -> int:
 
     env = TekkenLiteEnv(seed=args.seed)
     p1 = build_policy(args.p1, args.checkpoint, args.p1_scripted)
-    p2 = build_policy(args.p2, args.checkpoint, args.p2_scripted)
+    p2 = build_policy(args.p2, args.p2_checkpoint or args.checkpoint, args.p2_scripted)
     if args.headless_steps > 0:
         run_headless(env, p1, p2, args.headless_steps)
         return 0
