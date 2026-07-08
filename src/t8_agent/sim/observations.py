@@ -2,11 +2,12 @@ from __future__ import annotations
 
 import numpy as np
 
+from t8_agent.sim.moves import JUN_MOVES
 from t8_agent.sim.tekken_lite import FighterRuntime, SimConfig, SimState
 
 
 def observation_size() -> int:
-    return 16
+    return 18
 
 
 def vector_observation(state: SimState, config: SimConfig, player: int) -> np.ndarray:
@@ -31,6 +32,8 @@ def vector_observation(state: SimState, config: SimConfig, player: int) -> np.nd
             min(1.0, opponent.blockstun / 60.0),
             1.0 if own.move_key is not None else 0.0,
             1.0 if opponent.move_key is not None else 0.0,
+            _move_frames_remaining(own),
+            _move_frames_remaining(opponent),
             1.0 if own.guard is not None else 0.0,
             1.0 if opponent.guard is not None else 0.0,
             1.0,
@@ -45,3 +48,11 @@ def _fighters_for_player(state: SimState, player: int) -> tuple[FighterRuntime, 
     if player == 2:
         return state.p2, state.p1
     raise ValueError(f"player must be 1 or 2, got {player}")
+
+
+def _move_frames_remaining(fighter: FighterRuntime) -> float:
+    if fighter.move_key is None:
+        return 0.0
+    move = JUN_MOVES[fighter.move_key]
+    remaining = max(0, move.total_frames - fighter.move_frame)
+    return min(1.0, remaining / move.total_frames)

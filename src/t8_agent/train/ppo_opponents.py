@@ -32,6 +32,8 @@ class OpponentPool:
         self,
         scripted_names: Sequence[str],
         checkpoint_paths: Sequence[str | Path] | None = None,
+        checkpoint_ratings: dict[str, float] | None = None,
+        target_rating: float | None = None,
         old_checkpoint_sample_rate: float = 0.15,
         max_recent_checkpoints: int = 8,
         rng: random.Random | None = None,
@@ -39,6 +41,8 @@ class OpponentPool:
         self.scripted_names = list(scripted_names)
         self.old_checkpoint_sample_rate = old_checkpoint_sample_rate
         self.max_recent_checkpoints = max_recent_checkpoints
+        self.checkpoint_ratings = checkpoint_ratings or {}
+        self.target_rating = target_rating
         self.rng = rng or random.Random()
         unknown = [name for name in self.scripted_names if name not in SCRIPTED_POLICIES]
         if unknown:
@@ -54,6 +58,10 @@ class OpponentPool:
         if not self.checkpoints or self.rng.random() < 0.35:
             return self.rng.choice(self.scripted)
 
+        if self.checkpoint_ratings and self.target_rating is not None:
+            path = self._sample_by_rating()
+            return f"checkpoint:{path.name}", self._load(path)
+
         recent = self.checkpoints[-self.max_recent_checkpoints :]
         older = self.checkpoints[: -self.max_recent_checkpoints]
         if older and self.rng.random() < self.old_checkpoint_sample_rate:
@@ -61,6 +69,21 @@ class OpponentPool:
         else:
             path = self.rng.choice(recent)
         return f"checkpoint:{path.name}", self._load(path)
+
+    def _sample_by_rating(self) -> Path:
+        weighted: list[tuple[Path, float]] = []
+        for path in self.checkpoints:
+            rating = self.checkpoint_ratings.get(str(path), self.target_rating or 1000.0)
+            distance = abs(rating - (self.target_rating or rating))
+            weighted.append((path, 1.0 / (1.0 + distance / 100.0)))
+        total = sum(weight for _path, weight in weighted)
+        roll = self.rng.random() * total
+        upto = 0.0
+        for path, weight in weighted:
+            upto += weight
+            if upto >= roll:
+                return path
+        return weighted[-1][0]
 
     def _load(self, path: Path) -> PpoCheckpointOpponent:
         if path not in self._loaded:

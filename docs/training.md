@@ -99,3 +99,29 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 
 The pool samples scripted opponents, mostly recent checkpoints, and occasionally
 older checkpoints.
+
+Use Elo-weighted checkpoint sampling:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000 --elo-sampling
+```
+
+Each self-play run writes:
+
+- `metrics.json` with scripted and checkpoint-pool evaluation per iteration.
+- `curves.png` with win-rate and reward curves.
+
+Re-plot an existing run:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\plot_training_curves.py --metrics runs\ppo_selfplay_latest\metrics.json
+```
+
+Rank a checkpoint pool with Elo:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\rank_ppo_checkpoints.py --checkpoint-dir checkpoints\selfplay
+```
