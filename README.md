@@ -130,6 +130,22 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 python -m t8_agent.env.mock_env
 ```
 
+## Offline Live Test
+
+The repo now includes a first real-game bridge for offline/local testing:
+screen capture through `dxcam`, virtual controller output through `vgamepad`,
+and an `F8` hotkey toggle.
+
+```powershell
+.\.venv\Scripts\python -m pip install -e ".[live]"
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\live_play.py --dry-run
+```
+
+See `docs/live_game_test.md` before enabling controller output. The current live
+agent is a scripted controller/screen test; calibrated CV is still needed before
+the simulator PPO can play from real Tekken 8 pixels.
+
 ## DIAMBRA On-Ramp
 
 DIAMBRA currently requires a free account, Docker Desktop, the `diambra` CLI,

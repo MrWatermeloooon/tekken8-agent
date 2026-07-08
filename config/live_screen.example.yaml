@@ -1,0 +1,6 @@
+# Copy this file to config/live_screen.yaml and tune the crops for your screen.
+# Regions are [left, top, right, bottom] in screen pixels.
+# Run scripts/live_play.py --dry-run first to confirm capture and health ratios.
+
+p1_health_region: null
+p2_health_region: null

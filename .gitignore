@@ -11,5 +11,6 @@ runs/
 logs/
 recordings/
 datasets/
+config/live_screen.yaml
 
 *.zip

@@ -35,6 +35,9 @@ def main() -> int:
     print(f"diambra module CLI: {command_output([sys.executable, '-m', 'diambra', '--version'])}")
     print(f"diambra executable: {shutil.which('diambra') or 'not on PATH'}")
     print(f"diambra.arena module: {'ok' if has_module('diambra.arena') else 'missing'}")
+    print(f"dxcam module: {'ok' if has_module('dxcam') else 'missing'}")
+    print(f"vgamepad module: {'ok' if has_module('vgamepad') else 'missing'}")
+    print(f"keyboard module: {'ok' if has_module('keyboard') else 'missing'}")
     return 0
 
 
