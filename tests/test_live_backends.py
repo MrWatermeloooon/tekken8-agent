@@ -1,9 +1,12 @@
 from __future__ import annotations
 
+import os
+
 import numpy as np
 
 from t8_agent.io.controller_backend import VGamepadInputBackend
 from t8_agent.io.screen_backend import DxcamScreenStateBackend
+from t8_agent.live.agents import find_latest_checkpoint
 from t8_agent.sim.tekken_lite import SimAction
 
 
@@ -77,3 +80,15 @@ def test_screen_backend_reads_calibrated_health_regions(tmp_path) -> None:
     assert state.raw is not None
     assert state.raw["has_health_calibration"] is True
     assert camera.stopped is True
+
+
+def test_find_latest_checkpoint_uses_checkpoint_tree(tmp_path) -> None:
+    older = tmp_path / "old.zip"
+    newer = tmp_path / "nested" / "new.zip"
+    newer.parent.mkdir()
+    older.write_text("old", encoding="utf-8")
+    newer.write_text("new", encoding="utf-8")
+    os.utime(older, (100.0, 100.0))
+    os.utime(newer, (200.0, 200.0))
+
+    assert find_latest_checkpoint(tmp_path) == newer

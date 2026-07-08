@@ -39,10 +39,21 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\live_play.py
 ```
 
-The current live agent is a simple scripted controller test. It is meant to
-prove that hotkeys, screen capture, and controller output work in the real game.
-The trained simulator PPO still needs calibrated computer vision before it can
-use real Tekken 8 observations.
+The scripted live agent is still available with `--agent scripted`; it is meant
+to prove that hotkeys, screen capture, and controller output work in the real
+game. Checkpoint mode can load the simulator PPO, but it still needs calibrated
+computer vision before it can make smart decisions from real Tekken 8 pixels.
+
+To test the newest PPO checkpoint instead of the scripted controller test:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\live_play.py --agent checkpoint --checkpoint latest --dry-run
+.\.venv\Scripts\python scripts\live_play.py --agent checkpoint --checkpoint latest
+```
+
+`--checkpoint latest` searches under `checkpoints/`. It intentionally ignores
+throwaway smoke runs under `runs/`.
 
 ## Health Bar Calibration
 

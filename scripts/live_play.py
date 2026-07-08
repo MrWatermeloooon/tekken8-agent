@@ -6,7 +6,7 @@ from pathlib import Path
 
 from t8_agent.io.controller_backend import VGamepadInputBackend
 from t8_agent.io.screen_backend import DxcamScreenStateBackend
-from t8_agent.live.agents import LiveScriptedAgent
+from t8_agent.live.agents import LivePpoCheckpointAgent, LiveScriptedAgent, find_latest_checkpoint
 from t8_agent.sim.tekken_lite import SimAction
 
 
@@ -18,6 +18,8 @@ def main() -> int:
     parser.add_argument("--interval", type=float, default=0.12)
     parser.add_argument("--tap-seconds", type=float, default=0.055)
     parser.add_argument("--facing", type=int, default=1, choices=[-1, 1])
+    parser.add_argument("--agent", choices=["checkpoint", "scripted"], default="checkpoint")
+    parser.add_argument("--checkpoint", default="latest")
     parser.add_argument("--dry-run", action="store_true", help="Capture screen and print actions without pressing gamepad.")
     parser.add_argument("--self-test", action="store_true", help="Capture one frame, print status, and exit.")
     args = parser.parse_args()
@@ -39,7 +41,12 @@ def main() -> int:
         ) from exc
 
     controller = None if args.dry_run else VGamepadInputBackend(facing=args.facing, tap_seconds=args.tap_seconds)
-    agent = LiveScriptedAgent(seed=8080)
+    if args.agent == "checkpoint":
+        checkpoint = find_latest_checkpoint() if args.checkpoint == "latest" else Path(args.checkpoint)
+        agent = LivePpoCheckpointAgent(checkpoint)
+        print(f"loaded_checkpoint={checkpoint}")
+    else:
+        agent = LiveScriptedAgent(seed=8080)
     enabled = False
 
     def toggle() -> None:
