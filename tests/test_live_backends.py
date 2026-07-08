@@ -58,6 +58,21 @@ def test_virtual_controller_respects_facing_for_forward() -> None:
     assert "left" in gamepad.pressed
 
 
+def test_virtual_controller_maps_expanded_actions() -> None:
+    gamepad = FakeGamepad()
+    backend = VGamepadInputBackend(gamepad=gamepad, facing=1, tap_seconds=0.0)
+
+    backend.send_action(SimAction.LOW_PARRY)
+    backend.send_action(SimAction.THROW_BREAK_1_2)
+    backend.send_action(SimAction.HEAT_BURST)
+
+    assert "down" in gamepad.pressed
+    assert "right" in gamepad.pressed
+    assert "lp" in gamepad.pressed
+    assert "rp" in gamepad.pressed
+    assert "lk" in gamepad.pressed
+
+
 def test_screen_backend_reads_calibrated_health_regions(tmp_path) -> None:
     frame = np.zeros((20, 40, 3), dtype=np.uint8)
     frame[0:10, 0:10] = [180, 40, 40]

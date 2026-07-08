@@ -173,3 +173,17 @@ def test_simultaneous_trade_is_symmetric() -> None:
     assert result.state.p2.health == 173.0
     assert result.info["damage_to_p1"] >= 0.0
     assert result.info["damage_to_p2"] >= 0.0
+
+
+def test_sidestepping_can_make_linear_attack_whiff() -> None:
+    env = TekkenLiteEnv(seed=10)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0, y=0.5),
+        p2=FighterRuntime(health=180.0, x=0.82, y=0.0),
+        frame=0,
+    )
+
+    result = advance(env, SimAction.JAB, SimAction.NEUTRAL)
+
+    assert result.state.p2.health == 180.0
+    assert result.state.p1.whiffs >= 1

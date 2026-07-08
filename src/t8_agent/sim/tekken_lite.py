@@ -13,14 +13,30 @@ class SimAction(str, Enum):
     NEUTRAL = "neutral"
     WALK_FORWARD = "walk_forward"
     WALK_BACK = "walk_back"
+    DASH_FORWARD = "dash_forward"
+    DASH_BACK = "dash_back"
+    CROUCH = "crouch"
+    STAND = "stand"
+    JUMP = "jump"
+    SIDESTEP_LEFT = "sidestep_left"
+    SIDESTEP_RIGHT = "sidestep_right"
+    SIDEWALK_LEFT = "sidewalk_left"
+    SIDEWALK_RIGHT = "sidewalk_right"
     BLOCK_HIGH = "block_high"
     BLOCK_LOW = "block_low"
+    LOW_PARRY = "low_parry"
+    THROW_BREAK_1 = "throw_break_1"
+    THROW_BREAK_2 = "throw_break_2"
+    THROW_BREAK_1_2 = "throw_break_1p2"
     JAB = "jab"
     DF1 = "df1"
     F2 = "f2"
     DB3 = "db3"
     HOPKICK = "hopkick"
     THROW = "throw"
+    HEAT_BURST = "heat_burst"
+    HEAT_SMASH = "heat_smash"
+    RAGE_ART = "rage_art"
 
 
 @dataclass(frozen=True)
@@ -30,6 +46,11 @@ class SimConfig:
     decision_frames: int = 4
     max_frames: int = 60 * 60
     walk_speed: float = 0.025
+    dash_speed: float = 0.07
+    sidestep_speed: float = 0.045
+    sidewalk_speed: float = 0.075
+    lateral_return_speed: float = 0.012
+    sidestep_evasion_width: float = 0.33
     body_radius: float = 0.22
     round_win_reward: float = 80.0
     health_margin_reward: float = 20.0
@@ -47,6 +68,7 @@ class SimConfig:
 class FighterRuntime:
     health: float
     x: float
+    y: float = 0.0
     guard: HitLevel | None = None
     move_key: str | None = None
     move_frame: int = 0
@@ -224,6 +246,14 @@ class TekkenLiteEnv:
             return replace(fighter, guard=HitLevel.MID)
         if action == SimAction.BLOCK_LOW:
             return replace(fighter, guard=HitLevel.LOW)
+        if action == SimAction.CROUCH:
+            return replace(fighter, guard=HitLevel.LOW)
+        if action == SimAction.LOW_PARRY:
+            return replace(fighter, guard=HitLevel.LOW)
+        if action == SimAction.STAND:
+            return replace(fighter, guard=None)
+        if action in {SimAction.THROW_BREAK_1, SimAction.THROW_BREAK_2, SimAction.THROW_BREAK_1_2}:
+            return replace(fighter, guard=None)
         move_key = _ACTION_TO_MOVE.get(action)
         if move_key is not None:
             return replace(fighter, guard=None, move_key=move_key, move_frame=0, has_hit=False)
@@ -302,7 +332,14 @@ class TekkenLiteEnv:
         move_frame = fighter.move_frame
         if fighter.move_key is not None:
             move_frame += 1
-        return replace(fighter, hitstun=hitstun, blockstun=blockstun, move_frame=move_frame)
+        y = fighter.y
+        if abs(y) <= self.config.lateral_return_speed:
+            y = 0.0
+        elif y > 0:
+            y -= self.config.lateral_return_speed
+        else:
+            y += self.config.lateral_return_speed
+        return replace(fighter, hitstun=hitstun, blockstun=blockstun, move_frame=move_frame, y=y)
 
     def _move(self, fighter: FighterRuntime, action: SimAction, forward: int) -> FighterRuntime:
         x = fighter.x
@@ -310,7 +347,20 @@ class TekkenLiteEnv:
             x += self.config.walk_speed * forward
         elif action == SimAction.WALK_BACK:
             x -= self.config.walk_speed * forward
-        return replace(fighter, x=x)
+        elif action == SimAction.DASH_FORWARD:
+            x += self.config.dash_speed * forward
+        elif action == SimAction.DASH_BACK:
+            x -= self.config.dash_speed * forward
+        y = fighter.y
+        if action == SimAction.SIDESTEP_LEFT:
+            y += self.config.sidestep_speed
+        elif action == SimAction.SIDESTEP_RIGHT:
+            y -= self.config.sidestep_speed
+        elif action == SimAction.SIDEWALK_LEFT:
+            y += self.config.sidewalk_speed
+        elif action == SimAction.SIDEWALK_RIGHT:
+            y -= self.config.sidewalk_speed
+        return replace(fighter, x=x, y=max(-1.0, min(1.0, y)))
 
     def _separate_and_clip(self, p1: FighterRuntime, p2: FighterRuntime) -> tuple[FighterRuntime, FighterRuntime]:
         min_gap = self.config.body_radius * 2
@@ -334,6 +384,8 @@ class TekkenLiteEnv:
 
     def _check_attack(self, attacker: FighterRuntime, defender: FighterRuntime, move: MoveSpec) -> AttackCheck:
         if abs(defender.x - attacker.x) > move.range:
+            return AttackCheck(in_range=False, blocked=False, damage=0.0)
+        if abs(defender.y - attacker.y) > self.config.sidestep_evasion_width:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
 
         blocked = self._is_blocked(defender.guard, move.hit_level)
@@ -420,6 +472,7 @@ class TekkenLiteEnv:
             p1=PlayerState(
                 health=state.p1.health,
                 position_x=state.p1.x,
+                position_y=state.p1.y,
                 facing=1,
                 move_id=state.p1.move_key,
                 is_attacking=state.p1.move_key is not None,
@@ -429,6 +482,7 @@ class TekkenLiteEnv:
             p2=PlayerState(
                 health=state.p2.health,
                 position_x=state.p2.x,
+                position_y=state.p2.y,
                 facing=-1,
                 move_id=state.p2.move_key,
                 is_attacking=state.p2.move_key is not None,
@@ -448,6 +502,8 @@ class TekkenLiteEnv:
                 "p2_whiffs": state.p2.whiffs,
                 "p1_launches_taken": state.p1.launches_taken,
                 "p2_launches_taken": state.p2.launches_taken,
+                "p1_y": state.p1.y,
+                "p2_y": state.p2.y,
             },
         )
 

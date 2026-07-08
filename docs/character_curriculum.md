@@ -30,13 +30,24 @@ Character data lives under `data/characters/`. Each catalog has:
 - `tier`: `core` for moves the bot should learn first, `specialist` for later.
 - `source_url`: where the data came from.
 
-Jun's first catalog is seeded from TekkenDocs:
+Jun's catalog is imported from TekkenDocs:
 
 ```powershell
 $env:PYTHONPATH = "D:\tekken 8\src"
 .\.venv\Scripts\python scripts\character_catalog.py data\characters\jun.yaml
 ```
 
-The current Jun catalog is a curated core seed, not the final exhaustive list.
-Next we should import/verify every TekkenDocs Jun entry, then record practical
-combo routes in Practice mode.
+The current Jun catalog contains the full raw TekkenDocs table, plus our `core`
+training labels and starter combo routes. Universal non-character actions live
+in `data/universal_actions.yaml`, including dash, sidestep, sidewalk, high/low
+block, low parry, throw breaks, heat actions, and rage art.
+
+Regenerate Jun from a downloaded TekkenDocs page:
+
+```powershell
+$env:PYTHONPATH = "D:\tekken 8\src"
+.\.venv\Scripts\python scripts\import_tekkendocs_catalog.py --html $env:TEMP\jun_tekkendocs.html --out data\characters\jun.yaml
+```
+
+Next we should promote the most useful imported moves into simulator actions,
+then record practical combo routes in Practice mode.

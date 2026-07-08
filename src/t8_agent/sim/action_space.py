@@ -4,6 +4,10 @@ import numpy as np
 
 from t8_agent.sim.tekken_lite import FighterRuntime, SimAction, SimState
 
+# Full real-game-ish vocabulary. Not all of these are promoted into the current
+# PPO training action space yet, because old checkpoints use the compact space.
+FULL_ACTION_SPACE = list(SimAction)
+
 ACTION_SPACE = [
     SimAction.NEUTRAL,
     SimAction.WALK_FORWARD,

@@ -61,6 +61,15 @@ It also uses a small live unstick filter by default so repeated `block_low` or
 `neutral` outputs get replaced with active test actions. Add
 `--no-unstick-filter` if you want raw checkpoint output.
 
+For direct input calibration:
+
+```powershell
+.\.venv\Scripts\python scripts\controller_calibration.py --start-delay 5
+```
+
+The calibration sequence covers forward/back, dashes, sidestep, high/low block,
+low parry, core attacks, throw breaks, heat burst, and rage-art input.
+
 ## Health Bar Calibration
 
 Copy the example config:

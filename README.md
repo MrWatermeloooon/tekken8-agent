@@ -40,8 +40,10 @@ Current target choices:
 - `src/t8_agent/sim/opponents.py` contains the default hard scripted
   curriculum: poke, rushdown, turtle, whiff-punish, keepout, frame-trap, and
   anti-throw.
-- `data/characters/jun.yaml` starts the Jun character catalog: core moves,
-  training tags, and starter combo routes sourced from TekkenDocs.
+- `data/characters/jun.yaml` contains the full imported Jun TekkenDocs table
+  plus core training tags and starter combo routes.
+- `data/universal_actions.yaml` tracks movement, blocking, sidestep, throw
+  breaks, heat, and rage actions for live control and future training.
 - `src/t8_agent/io/input_backend.py` defines the controller output interface.
 - `src/t8_agent/io/state_backend.py` defines the game-state reader interface.
 - `scripts/run_sim_episode.py` runs fast simulator episodes without Tekken 8.
@@ -159,6 +161,7 @@ $env:PYTHONPATH = "D:\tekken 8\src"
 ```
 
 See `docs/character_curriculum.md` for the full character-by-character plan.
+The current Jun catalog has 149 imported frame-data rows from TekkenDocs.
 
 ## DIAMBRA On-Ramp
 

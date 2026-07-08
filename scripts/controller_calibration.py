@@ -10,14 +10,24 @@ from t8_agent.sim.tekken_lite import SimAction
 DEFAULT_SEQUENCE = [
     SimAction.WALK_FORWARD,
     SimAction.WALK_BACK,
+    SimAction.DASH_FORWARD,
+    SimAction.DASH_BACK,
+    SimAction.SIDESTEP_LEFT,
+    SimAction.SIDESTEP_RIGHT,
     SimAction.BLOCK_HIGH,
     SimAction.BLOCK_LOW,
+    SimAction.LOW_PARRY,
     SimAction.JAB,
     SimAction.DF1,
     SimAction.F2,
     SimAction.DB3,
     SimAction.HOPKICK,
     SimAction.THROW,
+    SimAction.THROW_BREAK_1,
+    SimAction.THROW_BREAK_2,
+    SimAction.THROW_BREAK_1_2,
+    SimAction.HEAT_BURST,
+    SimAction.RAGE_ART,
 ]
 
 
