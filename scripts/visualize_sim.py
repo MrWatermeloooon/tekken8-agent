@@ -5,7 +5,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from tkinter import BOTH, BOTTOM, Canvas, Label, Tk
 
+from t8_agent.sim.action_space import index_to_action, legal_action_mask
 from t8_agent.sim.moves import JUN_MOVES
+from t8_agent.sim.observations import vector_observation
 from t8_agent.sim.opponents import SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
 from t8_agent.train.linear_policy import LinearPolicy
@@ -21,13 +23,26 @@ class PolicySpec:
 class PolicyController:
     def __init__(self, spec: PolicySpec) -> None:
         self.spec = spec
-        self.policy = LinearPolicy.load(spec.checkpoint) if spec.kind == "checkpoint" and spec.checkpoint else None
+        self.policy = None
+        self.ppo_model = None
+        if spec.kind == "checkpoint" and spec.checkpoint:
+            if spec.checkpoint.suffix.lower() == ".zip":
+                from sb3_contrib import MaskablePPO
+
+                self.ppo_model = MaskablePPO.load(spec.checkpoint)
+            else:
+                self.policy = LinearPolicy.load(spec.checkpoint)
 
     def act(self, env: TekkenLiteEnv, player: int) -> SimAction:
         own = env.state.p1 if player == 1 else env.state.p2
         if own.busy:
             return SimAction.NEUTRAL
         if self.spec.kind == "checkpoint":
+            if self.ppo_model is not None:
+                obs = vector_observation(env.state, env.config, player)
+                mask = legal_action_mask(env.state, player)
+                action, _state = self.ppo_model.predict(obs, deterministic=True, action_masks=mask)
+                return index_to_action(int(action))
             if self.policy is None:
                 raise RuntimeError("checkpoint policy requested without loaded checkpoint")
             return self.policy.act(env, player=player)
