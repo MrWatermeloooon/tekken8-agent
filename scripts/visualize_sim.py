@@ -41,7 +41,7 @@ class PolicyController:
         if checkpoint.suffix.lower() == ".zip":
             from sb3_contrib import MaskablePPO
 
-            self.ppo_model = MaskablePPO.load(checkpoint)
+            self.ppo_model = MaskablePPO.load(checkpoint, device="cpu")
             normalizer_path = vecnormalize_path(checkpoint)
             if normalizer_path.exists():
                 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
@@ -90,6 +90,8 @@ class SimVisualizer:
         p1: PolicyController,
         p2: PolicyController,
         follow_p1_dir: Path | None = None,
+        follow_p2_dir: Path | None = None,
+        follow_p2_previous: bool = False,
         follow_check_seconds: float = 2.0,
         width: int = 1100,
         height: int = 620,
@@ -99,6 +101,8 @@ class SimVisualizer:
         self.p1 = p1
         self.p2 = p2
         self.follow_p1_dir = follow_p1_dir
+        self.follow_p2_dir = follow_p2_dir
+        self.follow_p2_previous = follow_p2_previous
         self.follow_check_seconds = follow_check_seconds
         self.last_follow_check = 0.0
         self.width = width
@@ -115,9 +119,15 @@ class SimVisualizer:
         self.root.title("Tekken-lite Simulator Visualizer")
         self.canvas = Canvas(self.root, width=width, height=height, bg="#101418", highlightthickness=0)
         self.canvas.pack(fill=BOTH, expand=True)
+        follow_text = "P1 vs P2"
+        if self.follow_p1_dir is not None and self.follow_p2_dir is not None:
+            p2_mode = "previous" if self.follow_p2_previous else "latest"
+            follow_text = f"following checkpoints: P1 latest vs P2 {p2_mode}"
+        elif self.follow_p1_dir is not None:
+            follow_text = "following checkpoints: P1 latest"
         self.status = Label(
             self.root,
-            text="Space: pause | R: reset | +/-: speed | default: trained P1 vs active rushdown P2",
+            text=f"Space: pause | R: reset | +/-: speed | {follow_text}",
             anchor="w",
             bg="#101418",
             fg="#d8e1e8",
@@ -166,17 +176,28 @@ class SimVisualizer:
         self.root.after(33, self.tick)
 
     def _maybe_reload_followed_checkpoint(self) -> None:
-        if self.follow_p1_dir is None:
+        if self.follow_p1_dir is None and self.follow_p2_dir is None:
             return
         now = monotonic()
         if now - self.last_follow_check < self.follow_check_seconds:
             return
         self.last_follow_check = now
-        latest = latest_complete_checkpoint(self.follow_p1_dir)
-        if latest is None or latest == self.p1.spec.checkpoint:
-            return
-        self.p1.reload_checkpoint(latest)
-        self.root.title(f"Tekken-lite Simulator Visualizer - {latest.name}")
+        title_parts: list[str] = []
+        if self.follow_p1_dir is not None:
+            latest = latest_complete_checkpoint(self.follow_p1_dir)
+            if latest is not None and latest != self.p1.spec.checkpoint:
+                self.p1.reload_checkpoint(latest)
+            if self.p1.spec.checkpoint is not None:
+                title_parts.append(f"P1 {self.p1.spec.checkpoint.name}")
+        if self.follow_p2_dir is not None:
+            skip_latest = 1 if self.follow_p2_previous else 0
+            latest = latest_complete_checkpoint(self.follow_p2_dir, skip_latest=skip_latest)
+            if latest is not None and latest != self.p2.spec.checkpoint:
+                self.p2.reload_checkpoint(latest)
+            if self.p2.spec.checkpoint is not None:
+                title_parts.append(f"P2 {self.p2.spec.checkpoint.name}")
+        if title_parts:
+            self.root.title(f"Tekken-lite Simulator Visualizer - {' vs '.join(title_parts)}")
 
     def draw(self) -> None:
         c = self.canvas
@@ -295,14 +316,14 @@ def build_policy(kind: str, checkpoint: str, scripted_name: str, label: str = ""
     return PolicyController(PolicySpec(kind="scripted", scripted_name=scripted_name, label=label))
 
 
-def latest_complete_checkpoint(checkpoint_dir: Path) -> Path | None:
+def latest_complete_checkpoint(checkpoint_dir: Path, skip_latest: int = 0) -> Path | None:
     checkpoints = sorted(checkpoint_dir.glob("*.zip"), key=lambda path: path.stat().st_mtime, reverse=True)
     if not checkpoints:
         return None
     normalized = [path for path in checkpoints if vecnormalize_path(path).exists()]
-    if normalized:
-        return normalized[0]
-    return checkpoints[0]
+    candidates = normalized or checkpoints
+    index = min(max(skip_latest, 0), len(candidates) - 1)
+    return candidates[index]
 
 
 def run_headless(env: TekkenLiteEnv, p1: PolicyController, p2: PolicyController, steps: int) -> None:
@@ -323,6 +344,12 @@ def main() -> int:
     parser.add_argument("--checkpoint", default="checkpoints/sim_linear_policy.npz")
     parser.add_argument("--p2-checkpoint", default=None)
     parser.add_argument("--follow-dir", default=None, help="Reload P1 from the newest complete checkpoint in this directory.")
+    parser.add_argument("--p2-follow-dir", default=None, help="Reload P2 from a complete checkpoint in this directory.")
+    parser.add_argument(
+        "--p2-follow-previous",
+        action="store_true",
+        help="When --p2-follow-dir is set, use the previous complete checkpoint instead of the newest.",
+    )
     parser.add_argument("--follow-check-seconds", type=float, default=2.0)
     parser.add_argument("--p1-scripted", default="poke", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--p2-scripted", default="rushdown", choices=sorted(SCRIPTED_POLICIES))
@@ -337,10 +364,19 @@ def main() -> int:
         if latest is None:
             raise FileNotFoundError(f"no checkpoint found in follow dir: {follow_dir}")
         checkpoint = str(latest)
+    p2_checkpoint = args.p2_checkpoint or args.checkpoint
+    p2_follow_dir = Path(args.p2_follow_dir) if args.p2_follow_dir else None
+    if p2_follow_dir is not None:
+        if args.p2 != "checkpoint":
+            raise ValueError("--p2-follow-dir requires --p2 checkpoint")
+        latest = latest_complete_checkpoint(p2_follow_dir, skip_latest=1 if args.p2_follow_previous else 0)
+        if latest is None:
+            raise FileNotFoundError(f"no checkpoint found in P2 follow dir: {p2_follow_dir}")
+        p2_checkpoint = str(latest)
 
     env = TekkenLiteEnv(seed=args.seed)
     p1 = build_policy(args.p1, checkpoint, args.p1_scripted)
-    p2 = build_policy(args.p2, args.p2_checkpoint or args.checkpoint, args.p2_scripted)
+    p2 = build_policy(args.p2, p2_checkpoint, args.p2_scripted)
     if args.headless_steps > 0:
         run_headless(env, p1, p2, args.headless_steps)
         return 0
@@ -350,6 +386,8 @@ def main() -> int:
         p1=p1,
         p2=p2,
         follow_p1_dir=follow_dir,
+        follow_p2_dir=p2_follow_dir,
+        follow_p2_previous=args.p2_follow_previous,
         follow_check_seconds=args.follow_check_seconds,
         steps_per_tick=args.speed,
     )

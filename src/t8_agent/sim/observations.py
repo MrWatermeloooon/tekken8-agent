@@ -7,7 +7,7 @@ from t8_agent.sim.tekken_lite import FighterRuntime, SimConfig, SimState
 
 
 def observation_size() -> int:
-    return 18
+    return 19
 
 
 def vector_observation(state: SimState, config: SimConfig, player: int) -> np.ndarray:
@@ -36,6 +36,7 @@ def vector_observation(state: SimState, config: SimConfig, player: int) -> np.nd
             _move_frames_remaining(opponent),
             1.0 if own.guard is not None else 0.0,
             1.0 if opponent.guard is not None else 0.0,
+            1.0 if _is_throw_threat(opponent) else 0.0,
             1.0,
         ],
         dtype=np.float32,
@@ -56,3 +57,10 @@ def _move_frames_remaining(fighter: FighterRuntime) -> float:
     move = JUN_MOVES[fighter.move_key]
     remaining = max(0, move.total_frames - fighter.move_frame)
     return min(1.0, remaining / move.total_frames)
+
+
+def _is_throw_threat(fighter: FighterRuntime) -> bool:
+    if fighter.move_key is None:
+        return False
+    move = JUN_MOVES[fighter.move_key]
+    return move.hit_level.value == "throw" and fighter.move_frame <= move.startup + move.active

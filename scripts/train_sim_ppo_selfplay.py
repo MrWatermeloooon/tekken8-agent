@@ -9,7 +9,7 @@ from time import strftime
 
 from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
 from t8_agent.train.curves import plot_selfplay_metrics
-from t8_agent.train.elo import rank_checkpoints
+from t8_agent.train.elo import update_checkpoint_ratings
 from t8_agent.train.ppo_eval import evaluate_maskable_model, evaluate_model_vs_checkpoints
 from t8_agent.train.ppo_opponents import OpponentPool, vecnormalize_path
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
@@ -110,7 +110,7 @@ def build_training_env(
     return SubprocVecEnv(env_fns, start_method="spawn")
 
 
-def wrap_normalized_env(raw_env, *, normalize: bool, previous_env=None):
+def wrap_normalized_env(raw_env, *, normalize: bool, previous_env=None, load_path: str | Path | None = None):
     if not normalize:
         return raw_env
 
@@ -118,11 +118,56 @@ def wrap_normalized_env(raw_env, *, normalize: bool, previous_env=None):
 
     if not hasattr(raw_env, "num_envs"):
         raw_env = DummyVecEnv([lambda: raw_env])
+    if load_path is not None:
+        env = VecNormalize.load(str(load_path), raw_env)
+        env.training = True
+        env.norm_reward = True
+        return env
     env = VecNormalize(raw_env, norm_obs=True, norm_reward=True)
     if isinstance(previous_env, VecNormalize):
         env.obs_rms = deepcopy(previous_env.obs_rms)
         env.ret_rms = deepcopy(previous_env.ret_rms)
     return env
+
+
+def load_checkpoint_pool(pool_dir: str | Path | None) -> list[Path]:
+    if pool_dir is None:
+        return []
+    root = Path(pool_dir)
+    if not root.exists():
+        raise FileNotFoundError(root)
+    return sorted(root.glob("*.zip"), key=lambda path: path.stat().st_mtime)
+
+
+def resolve_vecnormalize_path(checkpoint: str | Path | None, explicit_path: str | Path | None) -> Path | None:
+    if explicit_path is not None:
+        return Path(explicit_path)
+    if checkpoint is None:
+        return None
+    candidate = vecnormalize_path(checkpoint)
+    return candidate if candidate.exists() else None
+
+
+def append_unique_path(paths: list[Path], path: str | Path) -> None:
+    candidate = Path(path)
+    if candidate not in paths:
+        paths.append(candidate)
+
+
+def load_initial_ratings(ratings_path: str | Path | None, checkpoint_paths: list[Path]) -> dict[str, float]:
+    ratings = {str(path): 1000.0 for path in checkpoint_paths}
+    if ratings_path is None:
+        return ratings
+    path = Path(ratings_path)
+    data = json.loads(path.read_text(encoding="utf-8"))
+    raw_ratings = data.get("checkpoint_ratings", data)
+    if not isinstance(raw_ratings, dict):
+        raise ValueError(f"ratings file must contain a checkpoint_ratings object: {path}")
+    for checkpoint in checkpoint_paths:
+        key = str(checkpoint)
+        if key in raw_ratings:
+            ratings[key] = float(raw_ratings[key])
+    return ratings
 
 
 def main() -> int:
@@ -142,12 +187,29 @@ def main() -> int:
     )
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--device", default="auto", help="PyTorch device for PPO updates: auto, cpu, cuda, cuda:0, etc.")
     parser.add_argument("--no-normalize", action="store_true", help="Disable VecNormalize observation/reward normalization.")
     parser.add_argument("--eval-episodes", type=int, default=30)
     parser.add_argument("--checkpoint-eval-episodes", type=int, default=4)
     parser.add_argument("--checkpoint-dir", default="checkpoints/selfplay")
     parser.add_argument("--final-checkpoint", default="checkpoints/sim_ppo_selfplay_policy.zip")
     parser.add_argument("--run-dir", default=None)
+    parser.add_argument("--initial-checkpoint", default=None, help="Resume PPO weights from this checkpoint.")
+    parser.add_argument(
+        "--initial-vecnormalize",
+        default=None,
+        help="VecNormalize state for --initial-checkpoint. Defaults to the checkpoint sidecar if present.",
+    )
+    parser.add_argument(
+        "--initial-pool-dir",
+        default=None,
+        help="Seed the self-play opponent pool with existing PPO checkpoints from this directory.",
+    )
+    parser.add_argument(
+        "--initial-ratings",
+        default=None,
+        help="Optional metrics/rating JSON used to seed best-checkpoint sampling for the initial pool.",
+    )
     parser.add_argument(
         "--scripted-sample-rate",
         type=float,
@@ -180,7 +242,7 @@ def main() -> int:
     )
     parser.add_argument("--max-recent", type=int, default=8)
     parser.add_argument("--elo-sampling", action="store_true", help="Sample checkpoint opponents near the latest Elo rating.")
-    parser.add_argument("--elo-episodes-per-pair", type=int, default=1)
+    parser.add_argument("--elo-episodes-per-pair", type=int, default=5)
     parser.add_argument(
         "--scripted-opponents",
         nargs="+",
@@ -216,10 +278,13 @@ def main() -> int:
     checkpoint_dir = Path(args.checkpoint_dir)
     run_dir.mkdir(parents=True, exist_ok=True)
     checkpoint_dir.mkdir(parents=True, exist_ok=True)
-    checkpoint_paths: list[Path] = []
-    checkpoint_ratings: dict[str, float] = {}
+    checkpoint_paths: list[Path] = load_checkpoint_pool(args.initial_pool_dir)
+    if args.initial_checkpoint is not None:
+        append_unique_path(checkpoint_paths, args.initial_checkpoint)
+    checkpoint_ratings = load_initial_ratings(args.initial_ratings, checkpoint_paths)
     model = None
     history = []
+    initial_vecnormalize = resolve_vecnormalize_path(args.initial_checkpoint, args.initial_vecnormalize)
 
     for iteration in range(1, args.iterations + 1):
         if args.full_self_play and checkpoint_paths and iteration > args.bootstrap_iterations:
@@ -243,17 +308,22 @@ def main() -> int:
             vec_env=args.vec_env,
         )
         if model is None:
-            env = wrap_normalized_env(raw_env, normalize=not args.no_normalize)
-            model = MaskablePPO(
-                "MlpPolicy",
-                env,
-                learning_rate=args.learning_rate,
-                n_steps=args.n_steps,
-                batch_size=args.batch_size,
-                gamma=args.gamma,
-                seed=args.seed,
-                verbose=1,
-            )
+            env = wrap_normalized_env(raw_env, normalize=not args.no_normalize, load_path=initial_vecnormalize)
+            if args.initial_checkpoint is not None:
+                model = MaskablePPO.load(Path(args.initial_checkpoint), env=env, device=args.device)
+                model.verbose = 1
+            else:
+                model = MaskablePPO(
+                    "MlpPolicy",
+                    env,
+                    learning_rate=args.learning_rate,
+                    n_steps=args.n_steps,
+                    batch_size=args.batch_size,
+                    gamma=args.gamma,
+                    seed=args.seed,
+                    device=args.device,
+                    verbose=1,
+                )
         else:
             previous_env = model.get_env()
             env = wrap_normalized_env(raw_env, normalize=not args.no_normalize, previous_env=previous_env)
@@ -272,8 +342,9 @@ def main() -> int:
         previous_checkpoints = list(checkpoint_paths)
         checkpoint_paths.append(checkpoint)
         if args.elo_sampling and len(checkpoint_paths) >= 2:
-            checkpoint_ratings = rank_checkpoints(
+            checkpoint_ratings = update_checkpoint_ratings(
                 checkpoint_paths=checkpoint_paths,
+                current_ratings=checkpoint_ratings,
                 episodes_per_pair=args.elo_episodes_per_pair,
                 seed=args.seed + 900_000 + iteration * 1000,
                 max_decisions=args.max_decisions,
@@ -337,10 +408,15 @@ def main() -> int:
         "final_checkpoint": str(final_checkpoint),
         "final_vecnormalize": str(final_normalizer_path) if final_normalizer_path else None,
         "run_dir": str(run_dir),
+        "initial_checkpoint": args.initial_checkpoint,
+        "initial_vecnormalize": str(initial_vecnormalize) if initial_vecnormalize else None,
+        "initial_pool_dir": args.initial_pool_dir,
+        "initial_ratings": args.initial_ratings,
         "iterations": args.iterations,
         "timesteps_per_iteration": args.timesteps_per_iteration,
         "n_envs": args.n_envs,
         "vec_env": args.vec_env if args.n_envs > 1 else "single",
+        "device": args.device,
         "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
         "normalize": not args.no_normalize,
         "scripted_opponents": args.scripted_opponents,

@@ -33,3 +33,6 @@ def test_training_action_space_includes_movement_and_blocking() -> None:
     assert SimAction.SIDEWALK_RIGHT in ACTION_SPACE
     assert SimAction.BLOCK_HIGH in ACTION_SPACE
     assert SimAction.BLOCK_LOW in ACTION_SPACE
+    assert SimAction.THROW_BREAK_1 in ACTION_SPACE
+    assert SimAction.THROW_BREAK_2 in ACTION_SPACE
+    assert SimAction.THROW_BREAK_1_2 in ACTION_SPACE

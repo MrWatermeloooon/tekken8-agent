@@ -1,6 +1,13 @@
 # Copy this file to config/live_screen.yaml and tune the crops for your screen.
 # Regions are [left, top, right, bottom] in screen pixels.
-# Run scripts/live_play.py --dry-run first to confirm capture and health ratios.
+# Run scripts/live_play.py --dry-run first to confirm capture, health ratios,
+# and coarse fighter spacing.
 
 p1_health_region: null
 p2_health_region: null
+
+# Optional lower-body/silhouette crops. When set, the live PPO bridge estimates
+# p1_x and p2_x from foreground pixels in these regions instead of using the
+# broad left/right fallback crops.
+p1_body_region: null
+p2_body_region: null

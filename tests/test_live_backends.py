@@ -44,8 +44,8 @@ def test_virtual_controller_maps_sim_actions_to_buttons() -> None:
 
     backend.send_action(SimAction.THROW)
 
-    assert "lp" in gamepad.pressed
-    assert "lk" in gamepad.pressed
+    assert "x" in gamepad.pressed
+    assert "a" in gamepad.pressed
     assert gamepad.updates >= 2
 
 
@@ -68,9 +68,38 @@ def test_virtual_controller_maps_expanded_actions() -> None:
 
     assert "down" in gamepad.pressed
     assert "right" in gamepad.pressed
-    assert "lp" in gamepad.pressed
-    assert "rp" in gamepad.pressed
-    assert "lk" in gamepad.pressed
+    assert "x" in gamepad.pressed
+    assert "y" in gamepad.pressed
+    assert "a" in gamepad.pressed
+
+
+def test_virtual_controller_can_remap_attack_buttons() -> None:
+    gamepad = FakeGamepad()
+    backend = VGamepadInputBackend(
+        gamepad=gamepad,
+        facing=1,
+        tap_seconds=0.0,
+        lp_button="a",
+        rp_button="b",
+        lk_button="x",
+        rk_button="y",
+    )
+
+    backend.send_action(SimAction.THROW)
+    backend.send_action(SimAction.HOPKICK)
+
+    assert "a" in gamepad.pressed
+    assert "x" in gamepad.pressed
+    assert "y" in gamepad.pressed
+
+
+def test_virtual_controller_double_taps_dash_actions() -> None:
+    gamepad = FakeGamepad()
+    backend = VGamepadInputBackend(gamepad=gamepad, facing=1, tap_seconds=0.0, dash_gap_seconds=0.0)
+
+    backend.send_action(SimAction.DASH_FORWARD)
+
+    assert gamepad.pressed.count("right") == 2
 
 
 def test_screen_backend_reads_calibrated_health_regions(tmp_path) -> None:
@@ -95,6 +124,27 @@ def test_screen_backend_reads_calibrated_health_regions(tmp_path) -> None:
     assert state.raw is not None
     assert state.raw["has_health_calibration"] is True
     assert camera.stopped is True
+
+
+def test_screen_backend_estimates_fighter_positions_from_body_regions(tmp_path) -> None:
+    frame = np.zeros((40, 80, 3), dtype=np.uint8)
+    frame[25:35, 12:18] = [40, 180, 40]
+    frame[25:35, 60:66] = [40, 40, 180]
+    config = tmp_path / "screen.yaml"
+    config.write_text(
+        "p1_body_region: [0, 20, 40, 40]\n"
+        "p2_body_region: [40, 20, 80, 40]\n",
+        encoding="utf-8",
+    )
+    backend = DxcamScreenStateBackend(config_path=config, camera=FakeCamera(frame))
+
+    state = backend.read()
+
+    assert state.raw is not None
+    assert state.raw["has_position_calibration"] is True
+    assert state.raw["p1_x"] < state.raw["p2_x"]
+    assert state.p1.position_x == state.raw["p1_x"]
+    assert state.p2.position_x == state.raw["p2_x"]
 
 
 def test_find_latest_checkpoint_uses_checkpoint_tree(tmp_path) -> None:
