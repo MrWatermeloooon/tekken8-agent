@@ -48,21 +48,35 @@ class SimConfig:
     walk_speed: float = 0.025
     dash_speed: float = 0.07
     jump_frames: int = 32
+    throw_break_frames: int = 9
     sidestep_speed: float = 0.045
     sidewalk_speed: float = 0.075
     lateral_return_speed: float = 0.012
     sidestep_evasion_width: float = 0.33
     body_radius: float = 0.22
-    round_win_reward: float = 80.0
-    health_margin_reward: float = 20.0
+    stall_distance: float = 1.5
+    max_stall_frames: int = 360
+    round_win_base_reward: float = 40.0
+    round_win_health_reward: float = 60.0
+    round_loss_penalty: float = 160.0
+    timeout_ahead_penalty: float = 60.0
+    timeout_even_penalty: float = 120.0
+    timeout_behind_penalty: float = 240.0
+    stalemate_penalty: float = 260.0
     damage_dealt_scale: float = 0.65
     damage_taken_scale: float = 0.85
-    throw_reward_scale: float = 0.35
+    throw_reward_scale: float = 0.70
+    successful_throw_reward: float = 1.0
+    throw_break_reward: float = 0.35
+    throw_broken_penalty: float = -0.20
     whiff_punish_reward_scale: float = 0.15
     block_reward: float = 0.12
     blocked_attack_penalty: float = -0.08
-    idle_penalty: float = -0.002
-    far_spacing_penalty: float = -0.01
+    idle_penalty: float = -0.02
+    far_spacing_penalty: float = 0.0
+    lateral_passivity_penalty: float = -0.04
+    wall_camping_penalty: float = -0.05
+    late_round_passivity_penalty: float = -0.03
     whiff_penalty: float = -0.18
 
 
@@ -78,12 +92,13 @@ class FighterRuntime:
     hitstun: int = 0
     blockstun: int = 0
     airborne: int = 0
+    throw_break_active: int = 0
     launches_taken: int = 0
     whiffs: int = 0
 
     @property
     def busy(self) -> bool:
-        return self.move_key is not None or self.hitstun > 0 or self.blockstun > 0
+        return self.move_key is not None or self.hitstun > 0 or self.blockstun > 0 or self.airborne > 0
 
 
 @dataclass(frozen=True)
@@ -91,6 +106,7 @@ class SimState:
     p1: FighterRuntime
     p2: FighterRuntime
     frame: int
+    stall_frames: int = 0
     round_over: bool = False
     winner: int | None = None
 
@@ -115,6 +131,7 @@ class AttackCheck:
     in_range: bool
     blocked: bool
     damage: float
+    throw_broken: bool = False
 
 
 class TekkenLiteEnv:
@@ -146,6 +163,8 @@ class TekkenLiteEnv:
         p2_blocks = 0
         p1_throw_damage = 0.0
         p2_throw_damage = 0.0
+        p1_throw_breaks = 0
+        p2_throw_breaks = 0
         p1_whiff_punish_bonus = 0.0
         p2_whiff_punish_bonus = 0.0
 
@@ -156,6 +175,8 @@ class TekkenLiteEnv:
             damage_to_p2 += frame_info["damage_to_p2"]
             p1_throw_damage += frame_info["p1_throw_damage"]
             p2_throw_damage += frame_info["p2_throw_damage"]
+            p1_throw_breaks += int(frame_info["p1_throw_break"])
+            p2_throw_breaks += int(frame_info["p2_throw_break"])
             p1_whiff_punish_bonus += frame_info["p1_whiff_punish_bonus"]
             p2_whiff_punish_bonus += frame_info["p2_whiff_punish_bonus"]
             p1_whiffs += int(frame_info["p1_whiff"])
@@ -167,39 +188,76 @@ class TekkenLiteEnv:
 
         self.state = state
         truncated = state.frame >= self.config.max_frames and not state.round_over
+        timed_out = state.round_over and state.frame >= self.config.max_frames and state.p1.health > 0.0 and state.p2.health > 0.0
+        stalemate = state.round_over and state.winner is None
         reward_damage_to_p2 = (damage_to_p2 - p1_throw_damage) + self.config.throw_reward_scale * p1_throw_damage
         reward_damage_to_p1 = (damage_to_p1 - p2_throw_damage) + self.config.throw_reward_scale * p2_throw_damage
         reward_p1 = self.config.damage_dealt_scale * reward_damage_to_p2 - self.config.damage_taken_scale * damage_to_p1
         reward_p2 = self.config.damage_dealt_scale * reward_damage_to_p1 - self.config.damage_taken_scale * damage_to_p2
+        if p1_throw_damage > 0.0:
+            reward_p1 += self.config.successful_throw_reward
+        if p2_throw_damage > 0.0:
+            reward_p2 += self.config.successful_throw_reward
         reward_p1 += p1_whiff_punish_bonus
         reward_p2 += p2_whiff_punish_bonus
 
-        if state.winner == 1:
+        if state.winner == 1 and not timed_out:
             win_reward = self._scaled_win_reward(state.p1.health)
             reward_p1 += win_reward
             reward_p2 -= win_reward
-        elif state.winner == 2:
+            reward_p2 -= self.config.round_loss_penalty
+        elif state.winner == 2 and not timed_out:
             win_reward = self._scaled_win_reward(state.p2.health)
             reward_p1 -= win_reward
+            reward_p1 -= self.config.round_loss_penalty
             reward_p2 += win_reward
         if state.round_over:
             health_margin = (state.p1.health - state.p2.health) / self.config.max_health
-            reward_p1 += self.config.health_margin_reward * health_margin
-            reward_p2 -= self.config.health_margin_reward * health_margin
+            if timed_out:
+                reward_p1 -= self._scaled_timeout_penalty(health_margin)
+                reward_p2 -= self._scaled_timeout_penalty(-health_margin)
+            if stalemate:
+                reward_p1 -= self.config.stalemate_penalty
+                reward_p2 -= self.config.stalemate_penalty
 
         if p1_action == SimAction.NEUTRAL:
             reward_p1 += self.config.idle_penalty
         if p2_action == SimAction.NEUTRAL:
             reward_p2 += self.config.idle_penalty
+        lateral_actions = {
+            SimAction.SIDESTEP_LEFT,
+            SimAction.SIDESTEP_RIGHT,
+            SimAction.SIDEWALK_LEFT,
+            SimAction.SIDEWALK_RIGHT,
+        }
+        no_contact = damage_to_p1 == 0.0 and damage_to_p2 == 0.0 and p1_blocks == 0 and p2_blocks == 0
+        if no_contact and p1_action in lateral_actions and p2_whiffs == 0:
+            reward_p1 += self.config.lateral_passivity_penalty
+        if no_contact and p2_action in lateral_actions and p1_whiffs == 0:
+            reward_p2 += self.config.lateral_passivity_penalty
         if state.distance > 1.5:
-            if p1_action != SimAction.WALK_FORWARD:
+            if p1_action not in {SimAction.WALK_FORWARD, SimAction.DASH_FORWARD}:
                 reward_p1 += self.config.far_spacing_penalty
-            if p2_action != SimAction.WALK_FORWARD:
+            if p2_action not in {SimAction.WALK_FORWARD, SimAction.DASH_FORWARD}:
                 reward_p2 += self.config.far_spacing_penalty
+        own_wall = self.config.stage_half_width - 0.35
+        if state.p1.x < -own_wall and p1_action not in {SimAction.WALK_FORWARD, SimAction.DASH_FORWARD}:
+            reward_p1 += self.config.wall_camping_penalty
+        if state.p2.x > own_wall and p2_action not in {SimAction.WALK_FORWARD, SimAction.DASH_FORWARD}:
+            reward_p2 += self.config.wall_camping_penalty
+        if state.frame > self.config.max_frames * 0.65 and damage_to_p1 == 0.0 and damage_to_p2 == 0.0:
+            if p1_action in {SimAction.NEUTRAL, SimAction.WALK_BACK, SimAction.DASH_BACK}:
+                reward_p1 += self.config.late_round_passivity_penalty
+            if p2_action in {SimAction.NEUTRAL, SimAction.WALK_BACK, SimAction.DASH_BACK}:
+                reward_p2 += self.config.late_round_passivity_penalty
         reward_p1 += self.config.block_reward * p1_blocks
         reward_p2 += self.config.block_reward * p2_blocks
         reward_p1 += self.config.blocked_attack_penalty * p2_blocks
         reward_p2 += self.config.blocked_attack_penalty * p1_blocks
+        reward_p1 += self.config.throw_break_reward * p1_throw_breaks
+        reward_p2 += self.config.throw_break_reward * p2_throw_breaks
+        reward_p1 += self.config.throw_broken_penalty * p2_throw_breaks
+        reward_p2 += self.config.throw_broken_penalty * p1_throw_breaks
         reward_p1 += self.config.whiff_penalty * p1_whiffs
         reward_p2 += self.config.whiff_penalty * p2_whiffs
 
@@ -216,12 +274,17 @@ class TekkenLiteEnv:
                 "damage_to_p2": damage_to_p2,
                 "p1_throw_damage": p1_throw_damage,
                 "p2_throw_damage": p2_throw_damage,
+                "p1_throw_breaks": p1_throw_breaks,
+                "p2_throw_breaks": p2_throw_breaks,
                 "p1_whiff_punish_bonus": p1_whiff_punish_bonus,
                 "p2_whiff_punish_bonus": p2_whiff_punish_bonus,
                 "p1_whiffs": p1_whiffs,
                 "p2_whiffs": p2_whiffs,
                 "p1_blocks": p1_blocks,
                 "p2_blocks": p2_blocks,
+                "timed_out": timed_out,
+                "stalemate": stalemate,
+                "stall_frames": state.stall_frames,
                 "frame": state.frame,
             },
         )
@@ -256,23 +319,25 @@ class TekkenLiteEnv:
         if fighter.busy:
             return fighter
         if action == SimAction.BLOCK_HIGH:
-            return replace(fighter, guard=HitLevel.MID)
+            return replace(fighter, guard=HitLevel.MID, throw_break_active=0)
         if action == SimAction.BLOCK_LOW:
-            return replace(fighter, guard=HitLevel.LOW)
+            return replace(fighter, guard=HitLevel.LOW, throw_break_active=0)
         if action == SimAction.CROUCH:
-            return replace(fighter, guard=HitLevel.LOW)
+            return replace(fighter, guard=HitLevel.LOW, throw_break_active=0)
         if action == SimAction.LOW_PARRY:
-            return replace(fighter, guard=HitLevel.LOW)
+            return replace(fighter, guard=HitLevel.LOW, throw_break_active=0)
         if action == SimAction.STAND:
-            return replace(fighter, guard=None)
+            return replace(fighter, guard=HitLevel.MID, throw_break_active=0)
+        if action == SimAction.NEUTRAL:
+            return replace(fighter, guard=HitLevel.MID, throw_break_active=0)
         if action == SimAction.JUMP:
-            return replace(fighter, guard=None, airborne=self.config.jump_frames)
+            return replace(fighter, guard=None, airborne=self.config.jump_frames, throw_break_active=0)
         if action in {SimAction.THROW_BREAK_1, SimAction.THROW_BREAK_2, SimAction.THROW_BREAK_1_2}:
-            return replace(fighter, guard=None)
+            return replace(fighter, guard=None, throw_break_active=self.config.throw_break_frames)
         move_key = _ACTION_TO_MOVE.get(action)
         if move_key is not None:
-            return replace(fighter, guard=None, move_key=move_key, move_frame=0, has_hit=False)
-        return replace(fighter, guard=None)
+            return replace(fighter, guard=None, move_key=move_key, move_frame=0, has_hit=False, throw_break_active=0)
+        return replace(fighter, guard=None, throw_break_active=0)
 
     def _advance_frame(
         self,
@@ -293,6 +358,8 @@ class TekkenLiteEnv:
         damage_to_p2 = 0.0
         p1_throw_damage = 0.0
         p2_throw_damage = 0.0
+        p1_throw_break = False
+        p2_throw_break = False
         p1_whiff_punish_bonus = 0.0
         p2_whiff_punish_bonus = 0.0
         p1_whiff = False
@@ -322,6 +389,7 @@ class TekkenLiteEnv:
             damage_to_p2 += p1_check.damage
             if p1_attack.hit_level == HitLevel.THROW:
                 p1_throw_damage += p1_check.damage
+                p2_throw_break = p1_check.throw_broken
             if p1_punishes_recovery:
                 p1_whiff_punish_bonus += self.config.whiff_punish_reward_scale * p1_check.damage
             p2_block = p1_check.blocked
@@ -330,6 +398,7 @@ class TekkenLiteEnv:
             damage_to_p1 += p2_check.damage
             if p2_attack.hit_level == HitLevel.THROW:
                 p2_throw_damage += p2_check.damage
+                p1_throw_break = p2_check.throw_broken
             if p2_punishes_recovery:
                 p2_whiff_punish_bonus += self.config.whiff_punish_reward_scale * p2_check.damage
             p1_block = p2_check.blocked
@@ -338,12 +407,15 @@ class TekkenLiteEnv:
         p2, p2_whiff = self._finish_move_if_needed(p2, p2_check is not None and not p2_check.in_range)
 
         next_state = replace(state, p1=p1, p2=p2, frame=state.frame + 1)
+        next_state = self._check_stalemate(next_state, damage_to_p1=damage_to_p1, damage_to_p2=damage_to_p2)
         next_state = self._check_round_over(next_state)
         return next_state, {
             "damage_to_p1": damage_to_p1,
             "damage_to_p2": damage_to_p2,
             "p1_throw_damage": p1_throw_damage,
             "p2_throw_damage": p2_throw_damage,
+            "p1_throw_break": p1_throw_break,
+            "p2_throw_break": p2_throw_break,
             "p1_whiff_punish_bonus": p1_whiff_punish_bonus,
             "p2_whiff_punish_bonus": p2_whiff_punish_bonus,
             "p1_whiff": p1_whiff,
@@ -356,6 +428,7 @@ class TekkenLiteEnv:
         hitstun = max(0, fighter.hitstun - 1)
         blockstun = max(0, fighter.blockstun - 1)
         airborne = max(0, fighter.airborne - 1)
+        throw_break_active = max(0, fighter.throw_break_active - 1)
         move_frame = fighter.move_frame
         if fighter.move_key is not None:
             move_frame += 1
@@ -366,7 +439,15 @@ class TekkenLiteEnv:
             y -= self.config.lateral_return_speed
         else:
             y += self.config.lateral_return_speed
-        return replace(fighter, hitstun=hitstun, blockstun=blockstun, airborne=airborne, move_frame=move_frame, y=y)
+        return replace(
+            fighter,
+            hitstun=hitstun,
+            blockstun=blockstun,
+            airborne=airborne,
+            throw_break_active=throw_break_active,
+            move_frame=move_frame,
+            y=y,
+        )
 
     def _move(self, fighter: FighterRuntime, action: SimAction, forward: int) -> FighterRuntime:
         x = fighter.x
@@ -391,7 +472,19 @@ class TekkenLiteEnv:
 
     def _scaled_win_reward(self, winner_health: float) -> float:
         health_ratio = max(0.0, min(1.0, winner_health / self.config.max_health))
-        return self.config.round_win_reward * (0.5 + 0.5 * health_ratio)
+        return self.config.round_win_base_reward + self.config.round_win_health_reward * health_ratio
+
+    def _scaled_timeout_penalty(self, health_margin: float) -> float:
+        margin = max(-1.0, min(1.0, health_margin))
+        if margin > 0.0:
+            return self.config.timeout_ahead_penalty + (
+                self.config.timeout_even_penalty - self.config.timeout_ahead_penalty
+            ) * (1.0 - margin)
+        if margin < 0.0:
+            return self.config.timeout_even_penalty + (
+                self.config.timeout_behind_penalty - self.config.timeout_even_penalty
+            ) * (-margin)
+        return self.config.timeout_even_penalty
 
     def _separate_and_clip(self, p1: FighterRuntime, p2: FighterRuntime) -> tuple[FighterRuntime, FighterRuntime]:
         min_gap = self.config.body_radius * 2
@@ -416,10 +509,12 @@ class TekkenLiteEnv:
     def _check_attack(self, attacker: FighterRuntime, defender: FighterRuntime, move: MoveSpec) -> AttackCheck:
         if abs(defender.x - attacker.x) > move.range:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
-        if abs(defender.y - attacker.y) > self.config.sidestep_evasion_width:
+        if move.hit_level != HitLevel.THROW and abs(defender.y - attacker.y) > self.config.sidestep_evasion_width:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
         if defender.airborne > 0 and move.hit_level in {HitLevel.LOW, HitLevel.THROW}:
             return AttackCheck(in_range=False, blocked=False, damage=0.0)
+        if move.hit_level == HitLevel.THROW and defender.throw_break_active > 0:
+            return AttackCheck(in_range=True, blocked=True, damage=0.0, throw_broken=True)
 
         blocked = self._is_blocked(defender.guard, move.hit_level)
         return AttackCheck(in_range=True, blocked=blocked, damage=0.0 if blocked else move.damage)
@@ -497,6 +592,8 @@ class TekkenLiteEnv:
         return fighter, whiffed
 
     def _check_round_over(self, state: SimState) -> SimState:
+        if state.round_over:
+            return state
         winner = None
         if state.p1.health <= 0.0:
             winner = 2
@@ -505,6 +602,17 @@ class TekkenLiteEnv:
         elif state.frame >= self.config.max_frames:
             winner = 1 if state.p1.health >= state.p2.health else 2
         return replace(state, round_over=winner is not None, winner=winner)
+
+    def _check_stalemate(self, state: SimState, damage_to_p1: float, damage_to_p2: float) -> SimState:
+        if state.round_over:
+            return state
+        no_damage = damage_to_p1 == 0.0 and damage_to_p2 == 0.0
+        disengaged = state.distance > self.config.stall_distance
+        no_active_attack = state.p1.move_key is None and state.p2.move_key is None
+        stall_frames = state.stall_frames + 1 if no_damage and disengaged and no_active_attack else 0
+        if stall_frames >= self.config.max_stall_frames:
+            return replace(state, stall_frames=stall_frames, round_over=True, winner=None)
+        return replace(state, stall_frames=stall_frames)
 
     def _to_observation(self, state: SimState) -> GameState:
         round_timer = max(0.0, (self.config.max_frames - state.frame) / 60.0)
@@ -538,6 +646,10 @@ class TekkenLiteEnv:
                 "p2_blockstun": state.p2.blockstun,
                 "p1_airborne": state.p1.airborne,
                 "p2_airborne": state.p2.airborne,
+                "p1_throw_break_active": state.p1.throw_break_active,
+                "p2_throw_break_active": state.p2.throw_break_active,
+                "p1_throw_threat": self._is_throw_threat(state.p1),
+                "p2_throw_threat": self._is_throw_threat(state.p2),
                 "p1_hitstun": state.p1.hitstun,
                 "p2_hitstun": state.p2.hitstun,
                 "p1_whiffs": state.p1.whiffs,
@@ -548,6 +660,13 @@ class TekkenLiteEnv:
                 "p2_y": state.p2.y,
             },
         )
+
+    @staticmethod
+    def _is_throw_threat(fighter: FighterRuntime) -> bool:
+        if fighter.move_key is None:
+            return False
+        move = JUN_MOVES[fighter.move_key]
+        return move.hit_level == HitLevel.THROW and fighter.move_frame <= move.startup + move.active
 
     def _initial_state(self) -> SimState:
         return SimState(

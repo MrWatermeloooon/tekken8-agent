@@ -2,6 +2,7 @@ import random
 
 import pytest
 
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction
 from t8_agent.train.ppo_opponents import OpponentPool
 
@@ -20,6 +21,20 @@ def test_opponent_pool_rejects_unknown_scripted_policy() -> None:
         OpponentPool(scripted_names=["missing"])
 
 
+def test_default_scripted_roster_matches_registered_policies() -> None:
+    assert DEFAULT_SCRIPTED_OPPONENTS
+    assert len(DEFAULT_SCRIPTED_OPPONENTS) == len(set(DEFAULT_SCRIPTED_OPPONENTS))
+    assert set(DEFAULT_SCRIPTED_OPPONENTS).issubset(SCRIPTED_POLICIES)
+    assert {
+        "low_spammer",
+        "grappler",
+        "zoner",
+        "throw_looper",
+        "sparring_partner",
+        "ace",
+    }.issubset(DEFAULT_SCRIPTED_OPPONENTS)
+
+
 def test_opponent_pool_can_sample_by_rating(tmp_path) -> None:
     first = tmp_path / "a.zip"
     second = tmp_path / "b.zip"
@@ -35,6 +50,24 @@ def test_opponent_pool_can_sample_by_rating(tmp_path) -> None:
     sampled = pool._sample_by_rating()
 
     assert sampled in {first, second}
+
+
+def test_opponent_pool_respects_zero_target_rating(tmp_path) -> None:
+    first = tmp_path / "a.zip"
+    second = tmp_path / "b.zip"
+    first.write_text("placeholder", encoding="utf-8")
+    second.write_text("placeholder", encoding="utf-8")
+    pool = OpponentPool(
+        scripted_names=["rushdown"],
+        checkpoint_paths=[first, second],
+        checkpoint_ratings={str(first): 0.0, str(second): 1000.0},
+        target_rating=0.0,
+        rng=random.Random(0),
+    )
+
+    sampled = pool._sample_by_rating()
+
+    assert sampled == first
 
 
 def test_opponent_pool_can_disable_scripted_sampling_when_checkpoints_exist(tmp_path) -> None:

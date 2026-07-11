@@ -22,7 +22,7 @@ class PpoCheckpointOpponent:
         from sb3_contrib import MaskablePPO
 
         self.checkpoint = Path(checkpoint)
-        self.model = MaskablePPO.load(self.checkpoint)
+        self.model = MaskablePPO.load(self.checkpoint, device="cpu")
         self.normalizer = None
         normalizer_path = vecnormalize_path(self.checkpoint)
         if normalizer_path.exists():
@@ -127,8 +127,10 @@ class OpponentPool:
     def _sample_by_rating(self) -> Path:
         weighted: list[tuple[Path, float]] = []
         for path in self.checkpoints:
-            rating = self.checkpoint_ratings.get(str(path), self.target_rating or 1000.0)
-            distance = abs(rating - (self.target_rating or rating))
+            fallback_rating = self.target_rating if self.target_rating is not None else 1000.0
+            rating = self.checkpoint_ratings.get(str(path), fallback_rating)
+            target = self.target_rating if self.target_rating is not None else rating
+            distance = abs(rating - target)
             weighted.append((path, 1.0 / (1.0 + distance / 100.0)))
         total = sum(weight for _path, weight in weighted)
         roll = self.rng.random() * total

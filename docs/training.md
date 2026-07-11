@@ -96,8 +96,10 @@ observation scale. Pass `--no-normalize` only for debugging.
 
 The current PPO action space includes Tekken movement and defense basics:
 walking, forward dash, backdash, crouch, stand, jump, sidestep, sidewalk, high
-block, low block, low parry, and the compact Jun attack set. Checkpoints from
-before this expanded action space should not be mixed into new self-play pools.
+block, low block, low parry, generic throw breaks, and the compact Jun attack
+set. The observation vector also includes an incoming throw-threat bit. Start a
+fresh checkpoint pool after action-space or observation-size changes; older PPO
+checkpoints should not be mixed into the new self-play pool.
 
 Evaluate:
 

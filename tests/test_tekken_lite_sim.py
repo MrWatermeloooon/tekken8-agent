@@ -33,7 +33,7 @@ def test_mid_attack_damages_in_range() -> None:
     env.reset()
     walk_into_range(env)
 
-    result = advance(env, SimAction.DF1, SimAction.NEUTRAL)
+    result = advance(env, SimAction.DF1, SimAction.CROUCH)
 
     assert result.state.p2.health < env.config.max_health
     assert result.info["damage_to_p2"] >= 0.0
@@ -49,6 +49,23 @@ def test_high_block_stops_mid_damage() -> None:
     for idx in range(20):
         action = SimAction.DF1 if idx == 0 else SimAction.NEUTRAL
         result = env.step(action, SimAction.BLOCK_HIGH)
+        blocked = blocked or result.info["p2_blocks"] > 0
+    assert result is not None
+
+    assert result.state.p2.health == env.config.max_health
+    assert blocked
+
+
+def test_neutral_stance_auto_blocks_highs_and_mids() -> None:
+    env = TekkenLiteEnv(seed=21)
+    env.reset()
+    walk_into_range(env)
+
+    result = None
+    blocked = False
+    for idx in range(20):
+        action = SimAction.DF1 if idx == 0 else SimAction.NEUTRAL
+        result = env.step(action, SimAction.NEUTRAL)
         blocked = blocked or result.info["p2_blocks"] > 0
     assert result is not None
 
@@ -86,7 +103,7 @@ def test_round_can_terminate() -> None:
     env.reset()
     result = None
     for _ in range(5000):
-        result = env.step(SimAction.HOPKICK, SimAction.NEUTRAL)
+        result = env.step(SimAction.HOPKICK, SimAction.CROUCH)
         if result.terminated:
             break
 
@@ -112,8 +129,7 @@ def test_p2_rushdown_can_damage_p1() -> None:
 
 
 def test_default_curriculum_uses_harder_scripted_opponents() -> None:
-    assert "random" not in DEFAULT_SCRIPTED_OPPONENTS
-    assert {"keepout", "frame_trap", "anti_throw"}.issubset(DEFAULT_SCRIPTED_OPPONENTS)
+    assert {"random", "keepout", "frame_trap", "anti_throw", "ace"}.issubset(DEFAULT_SCRIPTED_OPPONENTS)
     assert all(name in SCRIPTED_POLICIES for name in DEFAULT_SCRIPTED_OPPONENTS)
 
 
@@ -125,7 +141,7 @@ def test_hard_scripted_opponents_can_apply_pressure() -> None:
         damage_to_p1 = 0.0
 
         for _ in range(600):
-            result = env.step(SimAction.NEUTRAL, policy(env, 2))
+            result = env.step(SimAction.CROUCH, policy(env, 2))
             damage_to_p1 += float(result.info["damage_to_p1"])
             if damage_to_p1 > 0:
                 break
@@ -150,7 +166,7 @@ def test_block_reward_favors_defender() -> None:
     assert result.reward_p2 > result.reward_p1
 
 
-def test_throw_damage_is_discounted_as_training_reward() -> None:
+def test_throw_damage_is_discounted_with_small_success_bonus() -> None:
     env = TekkenLiteEnv(seed=9)
     env.state = SimState(
         p1=FighterRuntime(health=180.0, x=0.0),
@@ -161,13 +177,46 @@ def test_throw_damage_is_discounted_as_training_reward() -> None:
     result = None
     for idx in range(20):
         action = SimAction.THROW if idx == 0 else SimAction.NEUTRAL
-        result = env.step(action, SimAction.NEUTRAL)
+        result = env.step(action, SimAction.CROUCH)
         if result.info["p1_throw_damage"] > 0:
             break
     assert result is not None
 
     assert result.info["p1_throw_damage"] > 0
+    discounted_without_bonus = (
+        env.config.damage_dealt_scale * env.config.throw_reward_scale * float(result.info["p1_throw_damage"])
+    )
+    assert result.reward_p1 > discounted_without_bonus
     assert result.reward_p1 < float(result.info["damage_to_p2"]) * 0.5
+
+
+def test_throw_break_voids_generic_throw() -> None:
+    env = TekkenLiteEnv(seed=22)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0, move_key="throw", move_frame=11),
+        p2=FighterRuntime(health=180.0, x=0.48),
+        frame=0,
+    )
+
+    result = env.step(SimAction.NEUTRAL, SimAction.THROW_BREAK_1)
+
+    assert result.state.p2.health == 180.0
+    assert result.info["p2_blocks"] > 0
+    assert result.info["p2_throw_breaks"] > 0
+    assert result.reward_p2 > result.reward_p1
+
+
+def test_throw_tracks_sidestepping_defender() -> None:
+    env = TekkenLiteEnv(seed=23)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0, y=0.5),
+        p2=FighterRuntime(health=180.0, x=0.48, y=0.0),
+        frame=0,
+    )
+
+    result = advance(env, SimAction.THROW, SimAction.CROUCH)
+
+    assert result.state.p2.health < 180.0
 
 
 def test_simultaneous_trade_is_symmetric() -> None:
@@ -200,12 +249,147 @@ def test_round_win_reward_scales_with_remaining_health() -> None:
         frame=0,
     )
 
-    full_health_result = advance(full_health_env, SimAction.JAB, SimAction.NEUTRAL)
-    low_health_result = advance(low_health_env, SimAction.JAB, SimAction.NEUTRAL)
+    full_health_result = advance(full_health_env, SimAction.DF1, SimAction.CROUCH)
+    low_health_result = advance(low_health_env, SimAction.DF1, SimAction.CROUCH)
 
     assert full_health_result.terminated
     assert low_health_result.terminated
     assert full_health_result.reward_p1 > low_health_result.reward_p1
+
+
+def test_round_loss_adds_large_terminal_penalty() -> None:
+    env = TekkenLiteEnv(seed=24)
+    env.state = SimState(
+        p1=FighterRuntime(health=1.0, x=0.0, move_key="jab", move_frame=1),
+        p2=FighterRuntime(health=180.0, x=0.82, move_key="df1", move_frame=13),
+        frame=0,
+    )
+
+    result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+
+    assert result.terminated
+    assert result.state.winner == 2
+    assert result.reward_p1 < -env.config.round_loss_penalty
+
+
+def test_timeout_penalty_discourages_timer_wins() -> None:
+    env = TekkenLiteEnv(seed=25)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=170.0, x=0.82),
+        frame=env.config.max_frames - 1,
+    )
+
+    result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+
+    assert result.terminated
+    assert result.state.winner == 1
+    assert result.info["timed_out"] is True
+    assert result.reward_p1 > -env.config.round_loss_penalty
+
+
+def test_timeout_penalty_scales_worse_when_behind() -> None:
+    ahead_env = TekkenLiteEnv(seed=28)
+    ahead_env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=0.0),
+        p2=FighterRuntime(health=90.0, x=0.82),
+        frame=ahead_env.config.max_frames - 1,
+    )
+    behind_env = TekkenLiteEnv(seed=29)
+    behind_env.state = SimState(
+        p1=FighterRuntime(health=90.0, x=0.0),
+        p2=FighterRuntime(health=180.0, x=0.82),
+        frame=behind_env.config.max_frames - 1,
+    )
+
+    ahead_result = ahead_env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+    behind_result = behind_env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+
+    assert ahead_result.info["timed_out"] is True
+    assert behind_result.info["timed_out"] is True
+    assert ahead_result.reward_p1 > behind_result.reward_p1
+
+
+def test_own_wall_camping_without_approach_is_penalized() -> None:
+    env = TekkenLiteEnv(seed=26)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=-env.config.stage_half_width + 0.05),
+        p2=FighterRuntime(health=180.0, x=env.config.stage_half_width - 0.05),
+        frame=0,
+    )
+
+    camp_result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=-env.config.stage_half_width + 0.05),
+        p2=FighterRuntime(health=180.0, x=env.config.stage_half_width - 0.05),
+        frame=0,
+    )
+    approach_result = env.step(SimAction.WALK_FORWARD, SimAction.WALK_FORWARD)
+
+    assert camp_result.reward_p1 < approach_result.reward_p1
+    assert camp_result.reward_p2 < approach_result.reward_p2
+
+
+def test_corner_pressure_is_not_penalized_as_wall_camping() -> None:
+    env = TekkenLiteEnv(seed=30)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=env.config.stage_half_width - 0.05),
+        p2=FighterRuntime(health=180.0, x=env.config.stage_half_width - 0.49),
+        frame=0,
+    )
+
+    result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+
+    assert result.reward_p1 == env.config.idle_penalty
+
+
+def test_holding_block_without_attack_has_no_block_reward() -> None:
+    env = TekkenLiteEnv(seed=31)
+    env.reset()
+
+    result = env.step(SimAction.BLOCK_HIGH, SimAction.NEUTRAL)
+
+    assert result.info["p1_blocks"] == 0
+    assert result.reward_p1 == 0.0
+
+
+def test_repeated_lateral_non_engagement_ends_as_stalemate() -> None:
+    env = TekkenLiteEnv(seed=32)
+    env.reset()
+
+    result = None
+    for _ in range(env.config.max_stall_frames // env.config.decision_frames + 2):
+        result = env.step(SimAction.SIDEWALK_LEFT, SimAction.SIDEWALK_LEFT)
+        if result.terminated:
+            break
+    assert result is not None
+
+    assert result.terminated
+    assert result.info["stalemate"] is True
+    assert result.reward_p1 < -env.config.stalemate_penalty
+    assert result.reward_p2 < -env.config.stalemate_penalty
+
+
+def test_long_disengagement_ends_as_penalized_stalemate() -> None:
+    env = TekkenLiteEnv(seed=27)
+    env.state = SimState(
+        p1=FighterRuntime(health=180.0, x=-env.config.stage_half_width + 0.05),
+        p2=FighterRuntime(health=180.0, x=env.config.stage_half_width - 0.05),
+        frame=0,
+    )
+
+    result = None
+    for _ in range(env.config.max_stall_frames // env.config.decision_frames + 2):
+        result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+        if result.terminated:
+            break
+    assert result is not None
+
+    assert result.terminated
+    assert result.info["stalemate"] is True
+    assert result.state.winner is None
+    assert result.reward_p1 < -env.config.stalemate_penalty
+    assert result.reward_p2 < -env.config.stalemate_penalty
 
 
 def test_whiff_punish_bonus_rewards_hitting_recovery() -> None:

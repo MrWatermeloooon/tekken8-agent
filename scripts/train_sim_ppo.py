@@ -20,6 +20,7 @@ def main() -> int:
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--device", default="auto", help="PyTorch device for PPO updates: auto, cpu, cuda, cuda:0, etc.")
     parser.add_argument("--eval-episodes", type=int, default=30)
     parser.add_argument("--checkpoint", default="checkpoints/sim_ppo_policy.zip")
     parser.add_argument("--run-dir", default=None)
@@ -60,6 +61,7 @@ def main() -> int:
         batch_size=args.batch_size,
         gamma=args.gamma,
         seed=args.seed,
+        device=args.device,
         verbose=1,
         tensorboard_log=str(run_dir / "tb") if args.tensorboard else None,
     )

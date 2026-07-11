@@ -17,6 +17,10 @@ class PpoEvalResult:
     avg_frames: float
 
 
+def _clean_p1_win(winner: object, info: dict) -> bool:
+    return winner == 1 and not info.get("timed_out") and not info.get("stalemate")
+
+
 def _normalize_obs(normalizer, obs):
     if normalizer is None:
         return obs
@@ -45,7 +49,7 @@ def evaluate_maskable_model(
             action, _state = model.predict(_normalize_obs(normalizer, obs), deterministic=True, action_masks=env.action_masks())
             obs, reward, terminated, truncated, last_info = env.step(int(action))
             episode_reward += reward
-        wins += int(last_info.get("winner") == 1)
+        wins += int(_clean_p1_win(last_info.get("winner"), last_info))
         total_reward += episode_reward
         total_frames += int(last_info.get("frame", env.sim.state.frame))
     return PpoEvalResult(
@@ -76,6 +80,7 @@ def evaluate_model_vs_checkpoints(
             env = TekkenLiteEnv(seed=seed + checkpoint_idx * 10_000 + episode_idx)
             env.reset(seed=seed + checkpoint_idx * 10_000 + episode_idx)
             episode_reward = 0.0
+            last_info = {}
             for _ in range(max_decisions):
                 p1_action, _ = model.predict(
                     _normalize_obs(normalizer, vector_observation(env.state, env.config, player=1)),
@@ -83,10 +88,11 @@ def evaluate_model_vs_checkpoints(
                     action_masks=legal_action_mask(env.state, player=1),
                 )
                 result = env.step(index_to_action(int(p1_action)), opponent(env, 2))
+                last_info = result.info
                 episode_reward += result.reward_p1
                 if result.terminated or result.truncated:
                     break
-            wins += int(env.state.winner == 1)
+            wins += int(_clean_p1_win(env.state.winner, last_info))
             episodes += 1
             total_reward += episode_reward
             total_frames += env.state.frame

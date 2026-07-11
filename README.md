@@ -81,6 +81,11 @@ python scripts/train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints/sim_p
 
 ### PPO Self-Play
 
+The trainable action space now includes walking, forward dash, backdash,
+crouch, stand, jump, sidestep, sidewalk, high block, low block, low parry, and
+generic throw breaks, plus the compact Jun attack set. Start fresh checkpoint
+pools after action-space or observation-size changes.
+
 Trains against a growing pool of scripted opponents and past checkpoints:
 
 ```bash
@@ -108,7 +113,7 @@ See `docs/visualizer.md` for more run modes (scripted vs. scripted, random chaos
 
 ## Scripted Opponents
 
-Five hand-tuned baseline opponents are available for training and evaluation: `random`, `poke`, `turtle`, `rushdown`, `whiff_punish`. See `src/t8_agent/sim/opponents.py`.
+The default curriculum includes 28 scripted opponents, from simple baselines like `random`, `poke`, `turtle`, `rushdown`, and `whiff_punish` up through specialists such as `grappler`, `zoner`, `throw_looper`, `sparring_partner`, and `ace`. See `src/t8_agent/sim/opponents.py`.
 
 ## DIAMBRA On-Ramp
 

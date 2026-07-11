@@ -35,12 +35,25 @@ def main() -> int:
     parser = argparse.ArgumentParser(description="Press a known Tekken-lite action sequence for controller calibration.")
     parser.add_argument("--facing", type=int, default=1, choices=[-1, 1])
     parser.add_argument("--tap-seconds", type=float, default=0.12)
+    parser.add_argument("--dash-gap-seconds", type=float, default=0.035)
     parser.add_argument("--between-seconds", type=float, default=0.75)
     parser.add_argument("--start-delay", type=float, default=3.0)
+    parser.add_argument("--lp-button", choices=["x", "y", "a", "b"], default="x", help="Xbox button mapped to Tekken 1.")
+    parser.add_argument("--rp-button", choices=["x", "y", "a", "b"], default="y", help="Xbox button mapped to Tekken 2.")
+    parser.add_argument("--lk-button", choices=["x", "y", "a", "b"], default="a", help="Xbox button mapped to Tekken 3.")
+    parser.add_argument("--rk-button", choices=["x", "y", "a", "b"], default="b", help="Xbox button mapped to Tekken 4.")
     parser.add_argument("--actions", nargs="+", default=[action.value for action in DEFAULT_SEQUENCE])
     args = parser.parse_args()
 
-    controller = VGamepadInputBackend(facing=args.facing, tap_seconds=args.tap_seconds)
+    controller = VGamepadInputBackend(
+        facing=args.facing,
+        tap_seconds=args.tap_seconds,
+        dash_gap_seconds=args.dash_gap_seconds,
+        lp_button=args.lp_button,
+        rp_button=args.rp_button,
+        lk_button=args.lk_button,
+        rk_button=args.rk_button,
+    )
     try:
         print(f"Starting in {args.start_delay:.1f}s. Focus Tekken now.", flush=True)
         time.sleep(args.start_delay)
