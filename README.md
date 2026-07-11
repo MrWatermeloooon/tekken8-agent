@@ -1,216 +1,138 @@
-# Tekken 8 Agent
+# Tekken 8 Self-Play Agent
 
-Local-only research scaffold for building a Tekken 8 self-play agent.
+An offline, local-only research project for building a fighting-game agent, using a fast custom simulator as the primary training ground before validating against DIAMBRA Arena and real Tekken 8.
 
-This repository is for offline lab work and local versus testing only. Do not use
-it for online play, matchmaking, anti-cheat bypassing, or anything that violates
-the game or platform rules.
+> **Usage policy:** This project is for offline local training and local versus play only. No online play, matchmaking, anti-cheat bypassing, or stealth behavior.
 
-## Roadmap Focus
+## Why a Custom Simulator?
 
-The source roadmap says Tekken 8 is the capstone because there is no ready-made
-Gym environment. We are now taking the faster route: build a compact
-Jun-focused simulator first, train self-play there at high speed, then use
-DIAMBRA and real Tekken 8 as validation/calibration targets.
+Training directly against a real game is slow and hard to debug. This project trains first in **Tekken-lite**, a compact fighting-game simulator built from scratch, which gives:
 
-1. Build a fast Tekken-lite simulator with spacing, walls, frame data, blocking,
-   whiffs, hitstun/blockstun, and round outcomes.
-2. Train self-play policies in many parallel simulator instances.
-3. Use DIAMBRA/Tekken Tag as a fighting-game reference environment.
-4. Use Tekken 8 computer vision and virtual controller input for final
-   validation and live local play.
+- Episodes that run far faster than real time
+- Many parallel environments for self-play
+- Easy-to-inspect rewards
+- A place to validate policies before touching a real game client
 
-Current target choices:
+Tekken-lite currently models:
 
-- Usage: offline local training and local versus only.
-- Tekken 8 character: Jun Kazama.
-- Main training backend: fast surrogate simulator.
-- Tekken 8 state extraction: computer vision first.
-- DIAMBRA role: optional/reference on-ramp, not the main training bottleneck.
+- Health, round timer, and win/loss termination
+- 2.5D spacing with stage walls and body collision
+- Startup / active / recovery frame data
+- High / mid / low / throw hit levels, with high and low blocking
+- Hitstun, blockstun, whiffs, and a launch flag
+- A small Jun Kazama–style move set: jab, df1, f2, db3, hopkick, throw
 
-## Current Scaffold
+## Project Structure
 
-- `src/t8_agent/core/types.py` defines the state/action/reward data shapes.
-- `src/t8_agent/env/mock_env.py` is a fake environment for testing loops before
-  Tekken integration works.
-- `src/t8_agent/sim/tekken_lite.py` is the fast surrogate simulator for
-  simulator-first self-play.
-- `src/t8_agent/sim/moves.py` contains the first Jun-style frame-data move
-  table.
-- `src/t8_agent/sim/opponents.py` contains the default hard scripted
-  curriculum: poke, rushdown, turtle, whiff-punish, keepout, frame-trap, and
-  anti-throw.
-- `data/characters/jun.yaml` contains the full imported Jun TekkenDocs table
-  plus core training tags and starter combo routes.
-- `data/universal_actions.yaml` tracks movement, blocking, sidestep, throw
-  breaks, heat, and rage actions for live control and future training.
-- `src/t8_agent/io/input_backend.py` defines the controller output interface.
-- `src/t8_agent/io/state_backend.py` defines the game-state reader interface.
-- `scripts/run_sim_episode.py` runs fast simulator episodes without Tekken 8.
-- `scripts/diambra_random_episode.py` runs a DIAMBRA random-policy smoke test.
-- `scripts/check_setup.py` reports local dependency/setup status.
-- `docs/tekken8_implementation_plan.md` captures the Tekken-only plan from the
-  PDF roadmap.
-- `docs/diambra_onramp.md` captures the DIAMBRA setup and first milestones.
+- `src/t8_agent/sim/` — the Tekken-lite simulator, move data, scripted opponents, action space, and observation vectors
+- `src/t8_agent/train/` — training code: a CEM-based linear policy baseline and MaskablePPO self-play
+- `src/t8_agent/env/` — a minimal mock environment used for testing loops
+- `src/t8_agent/io/` — input/state backend interfaces (mock implementations included; real backends are not part of this repo)
+- `scripts/` — runnable entry points for training, evaluation, visualization, and setup checks
+- `docs/` — additional documentation on the simulator, training, and the visualizer
 
-## Quick Smoke Test
+## Installation
 
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
+```bash
+python -m venv .venv
+source .venv/bin/activate    # on Windows: .venv\Scripts\activate
+pip install -e ".[dev]"
+```
+
+Optional extras:
+
+```bash
+pip install -e ".[rl]"        # MaskablePPO / stable-baselines3
+pip install -e ".[diambra]"   # DIAMBRA Arena on-ramp
+pip install -e ".[cv]"        # computer-vision backend deps
+pip install -e ".[gamepad]"   # virtual controller input
+```
+
+## Quick Start
+
+Run a few fast simulator episodes with no training required:
+
+```bash
+export PYTHONPATH=src        # on Windows: $env:PYTHONPATH = "src"
 python scripts/run_sim_episode.py --episodes 5
 ```
 
-## First Training
+## Training
 
-This starts the lightweight simulator trainer and writes a checkpoint:
+### Baseline: Linear Policy (CEM)
 
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_linear.py --generations 8 --population 16 --episodes-per-candidate 3 --eval-episodes 10 --max-decisions 1000 --checkpoint checkpoints\sim_linear_policy.npz
+A lightweight optimizer that runs without a GPU and is useful for sanity-checking the reward signal:
+
+```bash
+python scripts/train_sim_linear.py \
+  --generations 8 --population 16 \
+  --episodes-per-candidate 3 --eval-episodes 10 \
+  --max-decisions 1000 \
+  --checkpoint checkpoints/sim_linear_policy.npz
 ```
 
-This is prototype training, not the final bot. It is meant to verify that the
-simulator has a learnable signal before we add PPO and larger self-play pools.
-The default training opponents intentionally exclude the old random policy
-because it saturated too quickly.
+### MaskablePPO
 
-PPO training is available through MaskablePPO:
+Requires the `rl` extra:
 
-```powershell
-.\.venv\Scripts\python -m pip install -e ".[rl]"
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints\sim_ppo_policy.zip
+```bash
+python scripts/train_sim_ppo.py --timesteps 20000 --checkpoint checkpoints/sim_ppo_policy.zip
 ```
 
-PPO uses observation/reward normalization by default and saves a matching
-`.vecnormalize.pkl` file beside each checkpoint.
+### PPO Self-Play
 
-The trainable action space now includes walking, forward dash, backdash,
-crouch, stand, jump, sidestep, sidewalk, high block, low block, low parry, and
-the compact Jun attack set. Start fresh checkpoint pools after action-space
-changes.
+Trains against a growing pool of scripted opponents and past checkpoints:
 
-Checkpoint-pool PPO self-play:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
+```bash
+python scripts/train_sim_ppo_selfplay.py --iterations 4 --timesteps-per-iteration 5000
 ```
 
-By default this is hybrid self-play: scripted opponents stay in the mix while
-the pool also samples saved older versions. For full self-play after one
-scripted bootstrap iteration:
+## Evaluation
 
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --full-self-play --bootstrap-iterations 1 --old-sample-rate 0.25
-```
-
-Use `--n-envs 8 --n-steps 256 --batch-size 256` when CPU/RAM has headroom to
-run more simulator games in parallel.
-
-For stronger self-play, train mostly against the latest previous checkpoint and
-sometimes against the best older checkpoint:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 20 --timesteps-per-iteration 32768 --full-self-play --bootstrap-iterations 1 --elo-sampling --latest-checkpoint-rate 0.80 --best-checkpoint-rate 0.20 --n-envs 16 --n-steps 256 --batch-size 512
-```
-
-Use Elo-weighted checkpoint sampling:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\train_sim_ppo_selfplay.py --iterations 8 --timesteps-per-iteration 10000 --full-self-play --bootstrap-iterations 1 --old-sample-rate 0.25 --elo-sampling
-```
-
-Plot curves and rank checkpoint pools:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\plot_training_curves.py --metrics runs\ppo_selfplay_latest\metrics.json
-.\.venv\Scripts\python scripts\rank_ppo_checkpoints.py --checkpoint-dir checkpoints\selfplay
-```
-
-Evaluate and bug-check:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\evaluate_sim_policy.py --checkpoint checkpoints\sim_linear_policy.npz --episodes 50
-.\.venv\Scripts\python scripts\bug_check.py
+```bash
+python scripts/evaluate_sim_policy.py --checkpoint checkpoints/sim_linear_policy.npz --episodes 50
+python scripts/evaluate_sim_ppo.py --checkpoint checkpoints/sim_ppo_policy.zip --episodes 50
 ```
 
 ## Visualizer
 
-Watch the trained simulator policy fight a scripted opponent:
+Watch any policy fight a scripted opponent in a live Tkinter window:
 
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\visualize_sim.py --checkpoint checkpoints\sim_linear_policy.npz
+```bash
+python scripts/visualize_sim.py --checkpoint checkpoints/sim_linear_policy.npz
 ```
 
-Controls:
+Controls: `Space` pause/resume, `R` reset episode, `+` / `-` speed up/slow down.
 
-- `Space`: pause/resume
-- `R`: reset episode
-- `+` / `-`: speed up or slow down
+See `docs/visualizer.md` for more run modes (scripted vs. scripted, random chaos testing, headless smoke tests).
 
-The older mock environment still exists for interface tests:
+## Scripted Opponents
 
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-python -m t8_agent.env.mock_env
-```
-
-## Offline Live Test
-
-The repo now includes a first real-game bridge for offline/local testing:
-screen capture through `dxcam`, virtual controller output through `vgamepad`,
-and an `F8` hotkey toggle.
-
-```powershell
-.\.venv\Scripts\python -m pip install -e ".[live]"
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\live_play.py --dry-run
-```
-
-See `docs/live_game_test.md` before enabling controller output. The current live
-agent is a scripted controller/screen test; calibrated CV is still needed before
-the simulator PPO can play from real Tekken 8 pixels.
-
-## Character Curriculum
-
-Jun should become strong first, then we add one matchup character at a time.
-Inspect the current Jun catalog with:
-
-```powershell
-$env:PYTHONPATH = "D:\tekken 8\src"
-.\.venv\Scripts\python scripts\character_catalog.py data\characters\jun.yaml
-```
-
-See `docs/character_curriculum.md` for the full character-by-character plan.
-The current Jun catalog has 149 imported frame-data rows from TekkenDocs.
+Five hand-tuned baseline opponents are available for training and evaluation: `random`, `poke`, `turtle`, `rushdown`, `whiff_punish`. See `src/t8_agent/sim/opponents.py`.
 
 ## DIAMBRA On-Ramp
 
-DIAMBRA currently requires a free account, Docker Desktop, the `diambra` CLI,
-`diambra-arena`, and a valid supported ROM. The repo does not include ROMs.
+[DIAMBRA Arena](https://diambra.ai) is used as an optional reference environment to validate the training loop against a supported fighting-game framework before targeting a real game client. Setup requires Docker Desktop, a DIAMBRA account, and a legally obtained ROM (not included in this repo). See `docs/diambra_onramp.md` for details.
 
-```powershell
-.\.venv\Scripts\Activate.ps1
+```bash
 python scripts/check_setup.py
-python -m diambra arena list-roms
-python -m diambra arena check-roms C:\path\to\roms\tektagt.zip
-python -m diambra run -r C:\path\to\roms python scripts/diambra_random_episode.py --game tektagt --characters Jun Jin --render
 ```
 
-## Next Decisions
+## Testing
 
-Before wiring the real game, decide:
+```bash
+pytest
+python scripts/bug_check.py   # compiles, runs tests, and smoke-tests scripts end to end
+```
 
-- Which Jun TekkenDocs entries should be promoted from raw catalog to simulator
-  actions first?
-- Which reward terms still create abusable behavior after the harder scripted
-  curriculum?
-- Which real Tekken 8 observations should calibrate the simulator first:
-  movement speed, health/damage, move timing, or wall spacing?
+## Documentation
+
+- `docs/simulator_first_plan.md` — design rationale for the simulator-first approach
+- `docs/training.md` — training workflow details
+- `docs/visualizer.md` — visualizer usage
+- `docs/diambra_onramp.md` — DIAMBRA setup and milestones
+- `docs/tekken8_implementation_plan.md` — plan for extending this toward a real game client (state extraction, input injection, self-play, calibration)
+
+## Disclaimer
+
+This is a research/hobby project. It does not include any game assets, ROMs, or licensed content. Any real-game integration is intended strictly for offline, local, single-player calibration and local versus play, and must comply with the applicable game's terms of use.
