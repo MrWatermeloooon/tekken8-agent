@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from time import sleep
+from time import perf_counter, sleep
 from typing import Any
 
 import numpy as np
@@ -50,6 +50,8 @@ class DxcamScreenStateBackend(StateBackend):
         self.p2_health_region = ScreenRegion.from_config(self.config.get("p2_health_region"))
         self.p1_body_region = ScreenRegion.from_config(self.config.get("p1_body_region"))
         self.p2_body_region = ScreenRegion.from_config(self.config.get("p2_body_region"))
+        self.capture_fps = int(self.config.get("capture_fps", 60))
+        self.position_sample_stride = max(1, int(self.config.get("position_sample_stride", 4)))
         self.last_frame: np.ndarray | None = None
         if camera is None:
             try:
@@ -61,14 +63,13 @@ class DxcamScreenStateBackend(StateBackend):
                 ) from exc
             camera = dxcam.create(output_idx=output_idx)
         self.camera = camera
+        self.streaming = hasattr(camera, "start") and hasattr(camera, "get_latest_frame")
+        if self.streaming:
+            self.camera.start(target_fps=self.capture_fps, video_mode=True)
 
     def read(self) -> GameState:
-        frame = None
-        for _attempt in range(5):
-            frame = self.camera.grab()
-            if frame is not None:
-                break
-            sleep(0.05)
+        read_started = perf_counter()
+        frame = self._capture_frame()
         if frame is None:
             frame = self.last_frame
         if frame is None:
@@ -96,7 +97,9 @@ class DxcamScreenStateBackend(StateBackend):
             self.stage_half_width,
             p1_region=self.p1_body_region,
             p2_region=self.p2_body_region,
+            sample_stride=self.position_sample_stride,
         )
+        processing_ms = (perf_counter() - read_started) * 1000.0
         return GameState(
             p1=PlayerState(health=self.max_health * p1_ratio, position_x=p1_x, facing=1),
             p2=PlayerState(health=self.max_health * p2_ratio, position_x=p2_x, facing=-1),
@@ -111,8 +114,20 @@ class DxcamScreenStateBackend(StateBackend):
                 "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                 "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
                 "capture_valid": True,
+                "capture_processing_ms": float(processing_ms),
+                "capture_fps_target": self.capture_fps,
             },
         )
+
+    def _capture_frame(self) -> np.ndarray | None:
+        if self.streaming:
+            return self.camera.get_latest_frame(copy=False)
+        for _attempt in range(2):
+            frame = self.camera.grab()
+            if frame is not None:
+                return frame
+            sleep(0.005)
+        return None
 
     def close(self) -> None:
         if hasattr(self.camera, "stop"):
@@ -140,10 +155,9 @@ def _estimate_health_ratio(frame: np.ndarray, region: ScreenRegion | None) -> fl
     red = crop[:, :, 0].astype(np.int16)
     green = crop[:, :, 1].astype(np.int16)
     blue = crop[:, :, 2].astype(np.int16)
-    bright = np.maximum.reduce([red, green, blue])
-    saturated = bright - np.minimum.reduce([red, green, blue])
-    filled = (bright > 70) & (saturated > 25)
-    ratio = float(filled.mean())
+    warm_fill = (red > 100) & (green > 30) & (red > green + 10) & (red > blue + 20)
+    filled_columns = warm_fill.mean(axis=0) > 0.12
+    ratio = float(filled_columns.mean())
     return max(0.0, min(1.0, ratio))
 
 
@@ -153,6 +167,7 @@ def _estimate_fighter_positions(
     *,
     p1_region: ScreenRegion | None,
     p2_region: ScreenRegion | None,
+    sample_stride: int = 4,
 ) -> tuple[float, float]:
     height, width = frame.shape[:2]
     p1_default = -stage_half_width * 0.28
@@ -161,8 +176,8 @@ def _estimate_fighter_positions(
         p1_region = ScreenRegion(0, int(height * 0.35), width // 2, height)
     if p2_region is None:
         p2_region = ScreenRegion(width // 2, int(height * 0.35), width, height)
-    p1_x = _estimate_position_x(frame, p1_region, stage_half_width, fallback=p1_default)
-    p2_x = _estimate_position_x(frame, p2_region, stage_half_width, fallback=p2_default)
+    p1_x = _estimate_position_x(frame, p1_region, stage_half_width, fallback=p1_default, sample_stride=sample_stride)
+    p2_x = _estimate_position_x(frame, p2_region, stage_half_width, fallback=p2_default, sample_stride=sample_stride)
     if p2_x <= p1_x:
         center = (p1_x + p2_x) / 2.0
         p1_x = center - 0.22
@@ -170,18 +185,25 @@ def _estimate_fighter_positions(
     return p1_x, p2_x
 
 
-def _estimate_position_x(frame: np.ndarray, region: ScreenRegion, stage_half_width: float, fallback: float) -> float:
+def _estimate_position_x(
+    frame: np.ndarray,
+    region: ScreenRegion,
+    stage_half_width: float,
+    fallback: float,
+    sample_stride: int,
+) -> float:
     crop = frame[region.top : region.bottom, region.left : region.right]
     if crop.size == 0:
         return fallback
-    channels = crop.astype(np.int16)
+    stride = sample_stride if crop.shape[0] * crop.shape[1] >= 100_000 else 1
+    channels = crop[::stride, ::stride].astype(np.int16)
     bright = channels.max(axis=2)
     dark = channels.min(axis=2)
     saturated = bright - dark
     foreground = (bright > 45) & (saturated > 18)
     if int(foreground.sum()) < 8:
         return fallback
-    xs = np.nonzero(foreground)[1] + region.left
+    xs = np.nonzero(foreground)[1] * stride + region.left
     screen_x = float(xs.mean())
     normalized = (screen_x / max(1, frame.shape[1] - 1)) * 2.0 - 1.0
     return max(-stage_half_width, min(stage_half_width, normalized * stage_half_width))

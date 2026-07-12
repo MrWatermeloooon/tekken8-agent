@@ -15,8 +15,8 @@ def main() -> int:
     parser.add_argument("--screen-config", default="config/live_screen.example.yaml")
     parser.add_argument("--hotkey", default="f8")
     parser.add_argument("--quit-hotkey", default="f12")
-    parser.add_argument("--interval", type=float, default=0.12)
-    parser.add_argument("--tap-seconds", type=float, default=0.10)
+    parser.add_argument("--interval", type=float, default=0.016)
+    parser.add_argument("--tap-seconds", type=float, default=0.035)
     parser.add_argument("--dash-gap-seconds", type=float, default=0.035)
     parser.add_argument("--facing", type=int, default=1, choices=[-1, 1])
     parser.add_argument("--lp-button", choices=["x", "y", "a", "b"], default="x", help="Xbox button mapped to Tekken 1.")
@@ -29,16 +29,30 @@ def main() -> int:
     parser.add_argument("--no-unstick-filter", action="store_true", help="Disable the live anti-crouch action filter.")
     parser.add_argument("--max-non-attack-streak", type=int, default=6)
     parser.add_argument("--dry-run", action="store_true", help="Capture screen and print actions without pressing gamepad.")
+    parser.add_argument("--start-enabled", action="store_true", help="Begin processing immediately instead of waiting for the toggle hotkey.")
     parser.add_argument("--self-test", action="store_true", help="Capture one frame, print status, and exit.")
+    parser.add_argument(
+        "--allow-uncalibrated-screen",
+        action="store_true",
+        help="Allow diagnostics with fallback screen estimates. Controller output remains unsafe for policy testing.",
+    )
     args = parser.parse_args()
 
     screen_config = Path(args.screen_config)
     state_backend = DxcamScreenStateBackend(config_path=screen_config if screen_config.exists() else None)
+    initial_state = state_backend.read()
     if args.self_test:
-        state = state_backend.read()
-        _print_status(SimAction.NEUTRAL, state)
+        _print_status(SimAction.NEUTRAL, initial_state)
         state_backend.close()
         return 0
+    raw = initial_state.raw or {}
+    calibrated = bool(raw.get("has_health_calibration") and raw.get("has_position_calibration"))
+    if not calibrated and not args.allow_uncalibrated_screen:
+        state_backend.close()
+        raise SystemExit(
+            "Live control blocked: screen calibration is missing. Set health/body regions in "
+            "config/live_screen.yaml, or use --allow-uncalibrated-screen only for dry-run diagnostics."
+        )
 
     try:
         import keyboard
@@ -65,7 +79,7 @@ def main() -> int:
     else:
         agent = LiveScriptedAgent(seed=8080)
     action_filter = LiveActionFilter(enabled=not args.no_unstick_filter, max_non_attack_streak=args.max_non_attack_streak)
-    enabled = False
+    enabled = args.start_enabled
 
     def toggle() -> None:
         nonlocal enabled
@@ -77,6 +91,7 @@ def main() -> int:
     keyboard.add_hotkey(args.hotkey, toggle)
     print("Offline/local live runner ready.", flush=True)
     print(f"Press {args.hotkey.upper()} to start/pause. Press {args.quit_hotkey.upper()} to quit.", flush=True)
+    print(f"initial_state={'enabled' if enabled else 'paused'} dry_run={args.dry_run}", flush=True)
     print("Keep this in Practice/Offline mode only. The controller is released whenever paused.", flush=True)
     try:
         while not keyboard.is_pressed(args.quit_hotkey):
@@ -88,11 +103,11 @@ def main() -> int:
                     _print_status(SimAction.NEUTRAL, state)
                     time.sleep(args.interval)
                     continue
-                action = agent.act(state)
-                action = action_filter.filter(action)
+                raw_action = agent.act(state)
+                action = action_filter.filter(raw_action)
                 if controller is not None:
                     controller.send_action(action)
-                _print_status(action, state)
+                _print_status(action, state, raw_action=raw_action)
             time.sleep(args.interval)
     finally:
         if controller is not None:
@@ -158,12 +173,16 @@ class LiveActionFilter:
         return replacement
 
 
-def _print_status(action: SimAction, state) -> None:
+def _print_status(action: SimAction, state, *, raw_action: SimAction | None = None) -> None:
     raw = state.raw or {}
+    policy_text = f"policy={raw_action.value:<12} sent={action.value:<12}" if raw_action is not None else f"action={action.value:<12}"
     print(
-        f"action={action.value:<12} "
+        policy_text,
         f"p1_hp={state.p1.health:6.1f} p2_hp={state.p2.health:6.1f} "
+        f"p1_x={float(raw.get('p1_x', 0.0)):5.2f} p2_x={float(raw.get('p2_x', 0.0)):5.2f} "
         f"screen={raw.get('screen_width', '?')}x{raw.get('screen_height', '?')}",
+        f"capture_ms={float(raw.get('capture_processing_ms', 0.0)):5.1f}",
+        f"health_cal={bool(raw.get('has_health_calibration'))} position_cal={bool(raw.get('has_position_calibration'))}",
         flush=True,
     )
 

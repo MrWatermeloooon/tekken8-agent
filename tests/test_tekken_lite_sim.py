@@ -1,6 +1,8 @@
+from dataclasses import replace
+
 from t8_agent.sim import SimAction, TekkenLiteEnv
 from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_POLICIES
-from t8_agent.sim.tekken_lite import FighterRuntime, SimState
+from t8_agent.sim.tekken_lite import FighterRuntime, SimConfig, SimState
 
 
 def advance(env: TekkenLiteEnv, p1_action: SimAction, p2_action: SimAction, decisions: int = 20):
@@ -390,6 +392,23 @@ def test_long_disengagement_ends_as_penalized_stalemate() -> None:
     assert result.state.winner is None
     assert result.reward_p1 < -env.config.stalemate_penalty
     assert result.reward_p2 < -env.config.stalemate_penalty
+
+
+def test_close_range_no_action_timeout_ends_after_five_seconds() -> None:
+    env = TekkenLiteEnv(config=SimConfig(no_action_timeout_frames=8, no_action_timeout_penalty=320.0), seed=303)
+    env.reset()
+    env.state = replace(env.state, p1=replace(env.state.p1, x=-0.3), p2=replace(env.state.p2, x=0.3))
+
+    result = None
+    for _ in range(3):
+        result = env.step(SimAction.NEUTRAL, SimAction.NEUTRAL)
+
+    assert result is not None
+    assert result.terminated
+    assert result.info["no_action_timeout"] is True
+    assert result.state.winner is None
+    assert result.reward_p1 <= -320.0
+    assert result.reward_p2 <= -320.0
 
 
 def test_whiff_punish_bonus_rewards_hitting_recovery() -> None:

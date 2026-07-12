@@ -4,13 +4,18 @@ import argparse
 import json
 import random
 from copy import deepcopy
+from dataclasses import asdict
 from pathlib import Path
 from time import strftime
 
-from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_DIFFICULTY_TIERS
 from t8_agent.train.curves import plot_selfplay_metrics
 from t8_agent.train.elo import update_checkpoint_ratings
-from t8_agent.train.ppo_eval import evaluate_maskable_model, evaluate_model_vs_checkpoints
+from t8_agent.train.ppo_eval import (
+    evaluate_maskable_model,
+    evaluate_model_per_scripted_opponent,
+    evaluate_model_vs_checkpoints,
+)
 from t8_agent.train.ppo_opponents import OpponentPool, vecnormalize_path
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
@@ -29,6 +34,7 @@ def make_selfplay_env(
     max_recent: int,
     seed: int,
     max_decisions: int,
+    observation_mode: str,
 ):
     def _init() -> TekkenLiteSingleAgentEnv:
         pool = OpponentPool(
@@ -48,6 +54,7 @@ def make_selfplay_env(
             seed=seed,
             max_decisions=max_decisions,
             opponent_sampler=pool.sample,
+            observation_mode=observation_mode,
         )
 
     return _init
@@ -69,6 +76,7 @@ def build_training_env(
     max_decisions: int,
     n_envs: int,
     vec_env: str,
+    observation_mode: str,
 ):
     if n_envs == 1:
         return make_selfplay_env(
@@ -84,6 +92,7 @@ def build_training_env(
             max_recent=max_recent,
             seed=seed,
             max_decisions=max_decisions,
+            observation_mode=observation_mode,
         )()
 
     from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv
@@ -102,6 +111,7 @@ def build_training_env(
             max_recent=max_recent,
             seed=seed + env_idx * 10_000,
             max_decisions=max_decisions,
+            observation_mode=observation_mode,
         )
         for env_idx in range(n_envs)
     ]
@@ -154,6 +164,16 @@ def append_unique_path(paths: list[Path], path: str | Path) -> None:
         paths.append(candidate)
 
 
+def scripted_curriculum_names(configured_names: list[str], stage: int) -> list[str]:
+    unlocked = {
+        name
+        for tier, names in SCRIPTED_DIFFICULTY_TIERS.items()
+        if tier <= stage
+        for name in names
+    }
+    return [name for name in configured_names if name in unlocked]
+
+
 def load_initial_ratings(ratings_path: str | Path | None, checkpoint_paths: list[Path]) -> dict[str, float]:
     ratings = {str(path): 1000.0 for path in checkpoint_paths}
     if ratings_path is None:
@@ -168,6 +188,56 @@ def load_initial_ratings(ratings_path: str | Path | None, checkpoint_paths: list
         if key in raw_ratings:
             ratings[key] = float(raw_ratings[key])
     return ratings
+
+
+def write_run_metrics(
+    path: Path,
+    *,
+    args,
+    run_dir: Path,
+    history: list[dict],
+    checkpoint_ratings: dict[str, float],
+    latest_checkpoint: Path | None,
+    initial_vecnormalize: Path | None,
+    completed: bool,
+    final_vecnormalize: Path | None = None,
+) -> None:
+    metrics = {
+        "completed": completed,
+        "latest_checkpoint": str(latest_checkpoint) if latest_checkpoint else None,
+        "final_checkpoint": str(latest_checkpoint) if completed and latest_checkpoint else None,
+        "final_vecnormalize": str(final_vecnormalize) if final_vecnormalize else None,
+        "run_dir": str(run_dir),
+        "initial_checkpoint": args.initial_checkpoint,
+        "initial_vecnormalize": str(initial_vecnormalize) if initial_vecnormalize else None,
+        "initial_pool_dir": args.initial_pool_dir,
+        "initial_ratings": args.initial_ratings,
+        "iterations": args.iterations,
+        "timesteps_per_iteration": args.timesteps_per_iteration,
+        "n_envs": args.n_envs,
+        "vec_env": args.vec_env if args.n_envs > 1 else "single",
+        "device": args.device,
+        "observation_mode": args.observation_mode,
+        "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
+        "per_opponent_eval_episodes": args.per_opponent_eval_episodes,
+        "detailed_eval_interval": args.detailed_eval_interval,
+        "normalize": not args.no_normalize,
+        "scripted_opponents": args.scripted_opponents,
+        "scripted_sample_rate": args.scripted_sample_rate,
+        "full_self_play": args.full_self_play,
+        "bootstrap_iterations": args.bootstrap_iterations,
+        "old_sample_rate": args.old_sample_rate,
+        "best_checkpoint_rate": args.best_checkpoint_rate,
+        "latest_checkpoint_rate": args.latest_checkpoint_rate,
+        "max_recent": args.max_recent,
+        "elo_sampling": args.elo_sampling,
+        "elo_episodes_per_pair": args.elo_episodes_per_pair,
+        "checkpoint_ratings": checkpoint_ratings,
+        "history": history,
+    }
+    temporary = path.with_suffix(path.suffix + ".tmp")
+    temporary.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    temporary.replace(path)
 
 
 def main() -> int:
@@ -189,8 +259,11 @@ def main() -> int:
     parser.add_argument("--gamma", type=float, default=0.99)
     parser.add_argument("--device", default="auto", help="PyTorch device for PPO updates: auto, cpu, cuda, cuda:0, etc.")
     parser.add_argument("--no-normalize", action="store_true", help="Disable VecNormalize observation/reward normalization.")
+    parser.add_argument("--observation-mode", choices=["privileged", "visual"], default="privileged")
     parser.add_argument("--eval-episodes", type=int, default=30)
     parser.add_argument("--checkpoint-eval-episodes", type=int, default=4)
+    parser.add_argument("--per-opponent-eval-episodes", type=int, default=0)
+    parser.add_argument("--detailed-eval-interval", type=int, default=5)
     parser.add_argument("--checkpoint-dir", default="checkpoints/selfplay")
     parser.add_argument("--final-checkpoint", default="checkpoints/sim_ppo_selfplay_policy.zip")
     parser.add_argument("--run-dir", default=None)
@@ -243,6 +316,15 @@ def main() -> int:
     parser.add_argument("--max-recent", type=int, default=8)
     parser.add_argument("--elo-sampling", action="store_true", help="Sample checkpoint opponents near the latest Elo rating.")
     parser.add_argument("--elo-episodes-per-pair", type=int, default=5)
+    parser.add_argument("--scripted-curriculum", action="store_true")
+    parser.add_argument("--curriculum-win-rate", type=float, default=0.70)
+    parser.add_argument(
+        "--curriculum-start-stage",
+        type=int,
+        choices=[1, 2, 3],
+        default=None,
+        help="Defaults to stage 3 when resuming a checkpoint and stage 1 for a fresh policy.",
+    )
     parser.add_argument(
         "--scripted-opponents",
         nargs="+",
@@ -265,6 +347,12 @@ def main() -> int:
         parser.error("--bootstrap-iterations must be 0 or greater")
     if args.n_envs < 1:
         parser.error("--n-envs must be at least 1")
+    if args.per_opponent_eval_episodes < 0:
+        parser.error("--per-opponent-eval-episodes must be 0 or greater")
+    if args.detailed_eval_interval < 1:
+        parser.error("--detailed-eval-interval must be at least 1")
+    if not 0.0 <= args.curriculum_win_rate <= 1.0:
+        parser.error("--curriculum-win-rate must be between 0 and 1")
 
     try:
         from sb3_contrib import MaskablePPO
@@ -285,14 +373,21 @@ def main() -> int:
     model = None
     history = []
     initial_vecnormalize = resolve_vecnormalize_path(args.initial_checkpoint, args.initial_vecnormalize)
+    metrics_path = run_dir / "metrics.json"
+    curriculum_stage = args.curriculum_start_stage or (3 if args.initial_checkpoint else 1)
 
     for iteration in range(1, args.iterations + 1):
         if args.full_self_play and checkpoint_paths and iteration > args.bootstrap_iterations:
             effective_scripted_sample_rate = 0.0
         else:
             effective_scripted_sample_rate = args.scripted_sample_rate
+        active_scripted_opponents = (
+            scripted_curriculum_names(args.scripted_opponents, curriculum_stage)
+            if args.scripted_curriculum
+            else args.scripted_opponents
+        )
         raw_env = build_training_env(
-            scripted_opponents=args.scripted_opponents,
+            scripted_opponents=active_scripted_opponents,
             checkpoint_paths=checkpoint_paths,
             checkpoint_ratings=checkpoint_ratings,
             use_elo_sampling=args.elo_sampling,
@@ -306,6 +401,7 @@ def main() -> int:
             max_decisions=args.max_decisions,
             n_envs=args.n_envs,
             vec_env=args.vec_env,
+            observation_mode=args.observation_mode,
         )
         if model is None:
             env = wrap_normalized_env(raw_env, normalize=not args.no_normalize, load_path=initial_vecnormalize)
@@ -354,8 +450,9 @@ def main() -> int:
             episodes=args.eval_episodes,
             seed=args.seed + 700_000 + iteration * 1000,
             max_decisions=args.max_decisions,
-            opponent_names=args.scripted_opponents,
+            opponent_names=active_scripted_opponents,
             normalizer=active_env if isinstance(active_env, VecNormalize) else None,
+            observation_mode=args.observation_mode,
         )
         checkpoint_eval = evaluate_model_vs_checkpoints(
             model=model,
@@ -365,6 +462,17 @@ def main() -> int:
             max_decisions=args.max_decisions,
             normalizer=active_env if isinstance(active_env, VecNormalize) else None,
         )
+        per_opponent_eval = {}
+        if args.per_opponent_eval_episodes and iteration % args.detailed_eval_interval == 0:
+            per_opponent_eval = evaluate_model_per_scripted_opponent(
+                model=model,
+                opponent_names=args.scripted_opponents,
+                episodes_per_opponent=args.per_opponent_eval_episodes,
+                seed=args.seed + 850_000 + iteration * 1000,
+                max_decisions=args.max_decisions,
+                normalizer=active_env if isinstance(active_env, VecNormalize) else None,
+                observation_mode=args.observation_mode,
+            )
         item = {
             "iteration": iteration,
             "checkpoint": str(checkpoint),
@@ -376,6 +484,8 @@ def main() -> int:
             "bootstrap_iterations": args.bootstrap_iterations,
             "scripted_sample_rate": args.scripted_sample_rate,
             "effective_scripted_sample_rate": effective_scripted_sample_rate,
+            "scripted_curriculum_stage": curriculum_stage,
+            "active_scripted_opponents": active_scripted_opponents,
             "best_checkpoint_rate": args.best_checkpoint_rate,
             "latest_checkpoint_rate": args.latest_checkpoint_rate,
             "scripted_eval_win_rate": scripted_eval.win_rate,
@@ -385,8 +495,21 @@ def main() -> int:
             "checkpoint_eval_avg_reward": checkpoint_eval.avg_reward if checkpoint_eval else None,
             "checkpoint_eval_avg_frames": checkpoint_eval.avg_frames if checkpoint_eval else None,
             "latest_checkpoint_elo": checkpoint_ratings.get(str(checkpoint)) if checkpoint_ratings else None,
+            "scripted_opponents": {name: asdict(result) for name, result in per_opponent_eval.items()},
         }
         history.append(item)
+        write_run_metrics(
+            metrics_path,
+            args=args,
+            run_dir=run_dir,
+            history=history,
+            checkpoint_ratings=checkpoint_ratings,
+            latest_checkpoint=checkpoint,
+            initial_vecnormalize=initial_vecnormalize,
+            completed=False,
+        )
+        if args.scripted_curriculum and curriculum_stage < 3 and scripted_eval.win_rate >= args.curriculum_win_rate:
+            curriculum_stage += 1
         print(
             f"iteration={iteration} checkpoint={checkpoint} pool_size={len(checkpoint_paths)} "
             f"n_envs={args.n_envs} "
@@ -404,36 +527,17 @@ def main() -> int:
     if isinstance(active_env, VecNormalize):
         final_normalizer_path = vecnormalize_path(final_checkpoint)
         active_env.save(str(final_normalizer_path))
-    metrics = {
-        "final_checkpoint": str(final_checkpoint),
-        "final_vecnormalize": str(final_normalizer_path) if final_normalizer_path else None,
-        "run_dir": str(run_dir),
-        "initial_checkpoint": args.initial_checkpoint,
-        "initial_vecnormalize": str(initial_vecnormalize) if initial_vecnormalize else None,
-        "initial_pool_dir": args.initial_pool_dir,
-        "initial_ratings": args.initial_ratings,
-        "iterations": args.iterations,
-        "timesteps_per_iteration": args.timesteps_per_iteration,
-        "n_envs": args.n_envs,
-        "vec_env": args.vec_env if args.n_envs > 1 else "single",
-        "device": args.device,
-        "checkpoint_eval_episodes": args.checkpoint_eval_episodes,
-        "normalize": not args.no_normalize,
-        "scripted_opponents": args.scripted_opponents,
-        "scripted_sample_rate": args.scripted_sample_rate,
-        "full_self_play": args.full_self_play,
-        "bootstrap_iterations": args.bootstrap_iterations,
-        "old_sample_rate": args.old_sample_rate,
-        "best_checkpoint_rate": args.best_checkpoint_rate,
-        "latest_checkpoint_rate": args.latest_checkpoint_rate,
-        "max_recent": args.max_recent,
-        "elo_sampling": args.elo_sampling,
-        "elo_episodes_per_pair": args.elo_episodes_per_pair,
-        "checkpoint_ratings": checkpoint_ratings,
-        "history": history,
-    }
-    metrics_path = run_dir / "metrics.json"
-    metrics_path.write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    write_run_metrics(
+        metrics_path,
+        args=args,
+        run_dir=run_dir,
+        history=history,
+        checkpoint_ratings=checkpoint_ratings,
+        latest_checkpoint=final_checkpoint,
+        initial_vecnormalize=initial_vecnormalize,
+        completed=True,
+        final_vecnormalize=final_normalizer_path,
+    )
     curves_path = plot_selfplay_metrics(metrics_path)
     print(f"saved={final_checkpoint} run_dir={run_dir} curves={curves_path}")
     return 0
