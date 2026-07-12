@@ -1,10 +1,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from copy import deepcopy
 from pathlib import Path
 
 from t8_agent.sim.action_space import index_to_action, legal_action_mask
-from t8_agent.sim.observations import vector_observation
+from t8_agent.sim.observations import vector_observation, visual_observation_size, visual_vector_observation
 from t8_agent.sim.tekken_lite import TekkenLiteEnv
 from t8_agent.train.ppo_opponents import PpoCheckpointOpponent
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
@@ -34,8 +35,14 @@ def evaluate_maskable_model(
     max_decisions: int,
     opponent_names: list[str],
     normalizer=None,
+    observation_mode: str = "privileged",
 ) -> PpoEvalResult:
-    env = TekkenLiteSingleAgentEnv(opponent_names=opponent_names, seed=seed, max_decisions=max_decisions)
+    env = TekkenLiteSingleAgentEnv(
+        opponent_names=opponent_names,
+        seed=seed,
+        max_decisions=max_decisions,
+        observation_mode=observation_mode,
+    )
     wins = 0
     total_reward = 0.0
     total_frames = 0
@@ -57,6 +64,31 @@ def evaluate_maskable_model(
         avg_reward=total_reward / episodes,
         avg_frames=total_frames / episodes,
     )
+
+
+def evaluate_model_per_scripted_opponent(
+    model,
+    opponent_names: list[str],
+    episodes_per_opponent: int,
+    seed: int,
+    max_decisions: int,
+    normalizer=None,
+    observation_mode: str = "privileged",
+) -> dict[str, PpoEvalResult]:
+    if episodes_per_opponent < 1:
+        return {}
+    return {
+        name: evaluate_maskable_model(
+            model=model,
+            episodes=episodes_per_opponent,
+            seed=seed + opponent_idx * 10_000,
+            max_decisions=max_decisions,
+            opponent_names=[name],
+            normalizer=normalizer,
+            observation_mode=observation_mode,
+        )
+        for opponent_idx, name in enumerate(opponent_names)
+    }
 
 
 def evaluate_model_vs_checkpoints(
@@ -81,12 +113,23 @@ def evaluate_model_vs_checkpoints(
             env.reset(seed=seed + checkpoint_idx * 10_000 + episode_idx)
             episode_reward = 0.0
             last_info = {}
+            previous_state = None
             for _ in range(max_decisions):
+                if int(model.observation_space.shape[0]) == visual_observation_size():
+                    policy_observation = visual_vector_observation(
+                        env.state,
+                        env.config,
+                        player=1,
+                        previous_state=previous_state,
+                    )
+                else:
+                    policy_observation = vector_observation(env.state, env.config, player=1)
                 p1_action, _ = model.predict(
-                    _normalize_obs(normalizer, vector_observation(env.state, env.config, player=1)),
+                    _normalize_obs(normalizer, policy_observation),
                     deterministic=True,
                     action_masks=legal_action_mask(env.state, player=1),
                 )
+                previous_state = deepcopy(env.state)
                 result = env.step(index_to_action(int(p1_action)), opponent(env, 2))
                 last_info = result.info
                 episode_reward += result.reward_p1

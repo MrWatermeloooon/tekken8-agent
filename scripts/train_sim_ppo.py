@@ -17,15 +17,18 @@ def main() -> int:
     parser.add_argument("--seed", type=int, default=2027)
     parser.add_argument("--max-decisions", type=int, default=1200)
     parser.add_argument("--n-steps", type=int, default=512)
+    parser.add_argument("--n-envs", type=int, default=1)
     parser.add_argument("--batch-size", type=int, default=64)
     parser.add_argument("--learning-rate", type=float, default=3e-4)
     parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--ent-coef", type=float, default=0.0)
     parser.add_argument("--device", default="auto", help="PyTorch device for PPO updates: auto, cpu, cuda, cuda:0, etc.")
     parser.add_argument("--eval-episodes", type=int, default=30)
     parser.add_argument("--checkpoint", default="checkpoints/sim_ppo_policy.zip")
     parser.add_argument("--run-dir", default=None)
     parser.add_argument("--tensorboard", action="store_true", help="Write TensorBoard logs under the run directory.")
     parser.add_argument("--no-normalize", action="store_true", help="Disable VecNormalize observation/reward normalization.")
+    parser.add_argument("--observation-mode", choices=["privileged", "visual"], default="privileged")
     parser.add_argument(
         "--opponents",
         nargs="+",
@@ -45,11 +48,13 @@ def main() -> int:
     run_dir.mkdir(parents=True, exist_ok=True)
     raw_env = DummyVecEnv(
         [
-            lambda: TekkenLiteSingleAgentEnv(
+            lambda env_idx=env_idx: TekkenLiteSingleAgentEnv(
                 opponent_names=args.opponents,
-                seed=args.seed,
+                seed=args.seed + env_idx * 10_000,
                 max_decisions=args.max_decisions,
+                observation_mode=args.observation_mode,
             )
+            for env_idx in range(args.n_envs)
         ]
     )
     env = raw_env if args.no_normalize else VecNormalize(raw_env, norm_obs=True, norm_reward=True)
@@ -60,6 +65,7 @@ def main() -> int:
         n_steps=args.n_steps,
         batch_size=args.batch_size,
         gamma=args.gamma,
+        ent_coef=args.ent_coef,
         seed=args.seed,
         device=args.device,
         verbose=1,
@@ -82,6 +88,7 @@ def main() -> int:
         max_decisions=args.max_decisions,
         opponent_names=args.opponents,
         normalizer=env if isinstance(env, VecNormalize) else None,
+        observation_mode=args.observation_mode,
     )
     metrics = {
         "checkpoint": str(checkpoint),
@@ -90,10 +97,13 @@ def main() -> int:
         "seed": args.seed,
         "max_decisions": args.max_decisions,
         "n_steps": args.n_steps,
+        "n_envs": args.n_envs,
         "batch_size": args.batch_size,
         "learning_rate": args.learning_rate,
         "gamma": args.gamma,
+        "ent_coef": args.ent_coef,
         "normalize": not args.no_normalize,
+        "observation_mode": args.observation_mode,
         "vecnormalize": str(normalizer_path) if normalizer_path else None,
         "opponents": args.opponents,
         "eval": {

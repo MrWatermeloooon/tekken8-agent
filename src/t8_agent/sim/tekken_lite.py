@@ -56,6 +56,8 @@ class SimConfig:
     body_radius: float = 0.22
     stall_distance: float = 1.5
     max_stall_frames: int = 360
+    no_action_timeout_frames: int = 300
+    no_action_timeout_penalty: float = 320.0
     round_win_base_reward: float = 40.0
     round_win_health_reward: float = 60.0
     round_loss_penalty: float = 160.0
@@ -107,6 +109,7 @@ class SimState:
     p2: FighterRuntime
     frame: int
     stall_frames: int = 0
+    no_action_frames: int = 0
     round_over: bool = False
     winner: int | None = None
 
@@ -186,10 +189,17 @@ class TekkenLiteEnv:
             if state.round_over:
                 break
 
+        no_action = self._is_no_action_window(previous, state, p1_action, p2_action, damage_to_p1, damage_to_p2)
+        no_action_frames = state.no_action_frames + self.config.decision_frames if no_action else 0
+        if no_action_frames >= self.config.no_action_timeout_frames and not state.round_over:
+            state = replace(state, no_action_frames=no_action_frames, round_over=True, winner=None)
+        else:
+            state = replace(state, no_action_frames=no_action_frames)
         self.state = state
         truncated = state.frame >= self.config.max_frames and not state.round_over
         timed_out = state.round_over and state.frame >= self.config.max_frames and state.p1.health > 0.0 and state.p2.health > 0.0
         stalemate = state.round_over and state.winner is None
+        no_action_timeout = state.round_over and state.no_action_frames >= self.config.no_action_timeout_frames
         reward_damage_to_p2 = (damage_to_p2 - p1_throw_damage) + self.config.throw_reward_scale * p1_throw_damage
         reward_damage_to_p1 = (damage_to_p1 - p2_throw_damage) + self.config.throw_reward_scale * p2_throw_damage
         reward_p1 = self.config.damage_dealt_scale * reward_damage_to_p2 - self.config.damage_taken_scale * damage_to_p1
@@ -219,6 +229,9 @@ class TekkenLiteEnv:
             if stalemate:
                 reward_p1 -= self.config.stalemate_penalty
                 reward_p2 -= self.config.stalemate_penalty
+            if no_action_timeout:
+                reward_p1 -= self.config.no_action_timeout_penalty
+                reward_p2 -= self.config.no_action_timeout_penalty
 
         if p1_action == SimAction.NEUTRAL:
             reward_p1 += self.config.idle_penalty
@@ -284,7 +297,9 @@ class TekkenLiteEnv:
                 "p2_blocks": p2_blocks,
                 "timed_out": timed_out,
                 "stalemate": stalemate,
+                "no_action_timeout": no_action_timeout,
                 "stall_frames": state.stall_frames,
+                "no_action_frames": state.no_action_frames,
                 "frame": state.frame,
             },
         )
@@ -613,6 +628,27 @@ class TekkenLiteEnv:
         if stall_frames >= self.config.max_stall_frames:
             return replace(state, stall_frames=stall_frames, round_over=True, winner=None)
         return replace(state, stall_frames=stall_frames)
+
+    @staticmethod
+    def _is_no_action_window(
+        previous: SimState,
+        state: SimState,
+        p1_action: SimAction,
+        p2_action: SimAction,
+        damage_to_p1: float,
+        damage_to_p2: float,
+    ) -> bool:
+        passive = {SimAction.NEUTRAL, SimAction.STAND, SimAction.CROUCH}
+        if damage_to_p1 > 0.0 or damage_to_p2 > 0.0:
+            return False
+        if p1_action not in passive or p2_action not in passive:
+            return False
+        return not (
+            previous.p1.busy
+            or previous.p2.busy
+            or state.p1.busy
+            or state.p2.busy
+        )
 
     def _to_observation(self, state: SimState) -> GameState:
         round_timer = max(0.0, (self.config.max_frames - state.frame) / 60.0)

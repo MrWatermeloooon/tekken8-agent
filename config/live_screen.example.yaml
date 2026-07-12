@@ -11,3 +11,6 @@ p2_health_region: null
 # broad left/right fallback crops.
 p1_body_region: null
 p2_body_region: null
+
+capture_fps: 60
+position_sample_stride: 4

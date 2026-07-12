@@ -10,6 +10,44 @@ def observation_size() -> int:
     return 19
 
 
+def visual_observation_size() -> int:
+    return 13
+
+
+def visual_vector_observation(
+    state: SimState,
+    config: SimConfig,
+    player: int,
+    previous_state: SimState | None = None,
+) -> np.ndarray:
+    own, opponent = _fighters_for_player(state, player)
+    previous_own, previous_opponent = _fighters_for_player(previous_state, player) if previous_state else (None, None)
+    own_velocity = 0.0 if previous_own is None else own.x - previous_own.x
+    opponent_velocity = 0.0 if previous_opponent is None else opponent.x - previous_opponent.x
+    own_hit = previous_own is not None and previous_own.health - own.health > 1.0
+    opponent_hit = previous_opponent is not None and previous_opponent.health - opponent.health > 1.0
+    own_motion = min(1.0, abs(own_velocity) + (0.08 if own.move_key is not None else 0.0))
+    opponent_motion = min(1.0, abs(opponent_velocity) + (0.08 if opponent.move_key is not None else 0.0))
+    return np.asarray(
+        [
+            own.health / config.max_health,
+            opponent.health / config.max_health,
+            own.x,
+            opponent.x,
+            state.distance,
+            own_velocity,
+            opponent_velocity,
+            own_motion,
+            opponent_motion,
+            float(own_hit),
+            float(opponent_hit),
+            _visual_attack_likelihood(own, state.distance),
+            _visual_attack_likelihood(opponent, state.distance),
+        ],
+        dtype=np.float32,
+    )
+
+
 def vector_observation(state: SimState, config: SimConfig, player: int) -> np.ndarray:
     own, opponent = _fighters_for_player(state, player)
     forward = 1.0 if player == 1 else -1.0
@@ -64,3 +102,12 @@ def _is_throw_threat(fighter: FighterRuntime) -> bool:
         return False
     move = JUN_MOVES[fighter.move_key]
     return move.hit_level.value == "throw" and fighter.move_frame <= move.startup + move.active
+
+
+def _visual_attack_likelihood(fighter: FighterRuntime, distance: float) -> float:
+    if fighter.move_key is None:
+        return 0.0
+    move = JUN_MOVES[fighter.move_key]
+    proximity = max(0.0, min(1.0, 1.0 - distance / max(move.range + 0.8, 0.1)))
+    active_window = fighter.move_frame <= move.startup + move.active
+    return (0.6 if active_window else 0.25) + 0.4 * proximity

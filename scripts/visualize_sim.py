@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import argparse
+import random
+from copy import deepcopy
 from dataclasses import dataclass
 from pathlib import Path
 from time import monotonic
@@ -8,8 +10,8 @@ from tkinter import BOTH, BOTTOM, Canvas, Label, Tk
 
 from t8_agent.sim.action_space import index_to_action, legal_action_mask
 from t8_agent.sim.moves import JUN_MOVES
-from t8_agent.sim.observations import vector_observation
-from t8_agent.sim.opponents import SCRIPTED_POLICIES
+from t8_agent.sim.observations import vector_observation, visual_observation_size, visual_vector_observation
+from t8_agent.sim.opponents import DEFAULT_SCRIPTED_OPPONENTS, SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
 from t8_agent.train.linear_policy import LinearPolicy
 from t8_agent.train.ppo_opponents import vecnormalize_path
@@ -30,6 +32,8 @@ class PolicyController:
         self.policy = None
         self.ppo_model = None
         self.normalizer = None
+        self.observation_dim = None
+        self.previous_states: dict[int, object] = {}
         if spec.kind == "checkpoint" and spec.checkpoint:
             self.reload_checkpoint(spec.checkpoint)
 
@@ -38,15 +42,18 @@ class PolicyController:
         self.policy = None
         self.ppo_model = None
         self.normalizer = None
+        self.previous_states = {}
         if checkpoint.suffix.lower() == ".zip":
             from sb3_contrib import MaskablePPO
 
             self.ppo_model = MaskablePPO.load(checkpoint, device="cpu")
+            self.observation_dim = int(self.ppo_model.observation_space.shape[0])
             normalizer_path = vecnormalize_path(checkpoint)
             if normalizer_path.exists():
                 from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
-                dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
+                observation_mode = "visual" if self.observation_dim == visual_observation_size() else "privileged"
+                dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv(observation_mode=observation_mode)])
                 self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
                 self.normalizer.training = False
                 self.normalizer.norm_reward = False
@@ -59,7 +66,15 @@ class PolicyController:
             return SimAction.NEUTRAL
         if self.spec.kind == "checkpoint":
             if self.ppo_model is not None:
-                obs = vector_observation(env.state, env.config, player)
+                env_key = id(env)
+                previous_state = self.previous_states.get(env_key)
+                if previous_state is not None and previous_state.frame >= env.state.frame:
+                    previous_state = None
+                if self.observation_dim == visual_observation_size():
+                    obs = visual_vector_observation(env.state, env.config, player, previous_state=previous_state)
+                else:
+                    obs = vector_observation(env.state, env.config, player)
+                self.previous_states[env_key] = deepcopy(env.state)
                 if self.normalizer is not None:
                     obs = self.normalizer.normalize_obs(obs)
                 mask = legal_action_mask(env.state, player)
@@ -83,6 +98,55 @@ class PolicyController:
         return self.spec.scripted_name
 
 
+class OpponentRotator:
+    def __init__(
+        self,
+        *,
+        mode: str,
+        scripted_names: list[str],
+        checkpoint_dir: Path | None,
+        scripted_rate: float,
+        seed: int,
+    ) -> None:
+        self.mode = mode
+        self.scripted_names = list(scripted_names)
+        self.checkpoint_dir = checkpoint_dir
+        self.scripted_rate = scripted_rate
+        self.rng = random.Random(seed)
+        self._scripted_cycle: list[str] = []
+        self._checkpoint_cycle: list[Path] = []
+
+    def next(self) -> PolicyController:
+        use_scripted = self.mode == "scripted"
+        if self.mode == "mixed":
+            checkpoints = self._checkpoints()
+            use_scripted = not checkpoints or self.rng.random() < self.scripted_rate
+        if use_scripted:
+            return build_policy("scripted", "", self._next_scripted())
+        checkpoint = self._next_checkpoint()
+        return build_policy("checkpoint", str(checkpoint), "")
+
+    def _next_scripted(self) -> str:
+        if not self._scripted_cycle:
+            self._scripted_cycle = list(self.scripted_names)
+            self.rng.shuffle(self._scripted_cycle)
+        return self._scripted_cycle.pop()
+
+    def _checkpoints(self) -> list[Path]:
+        if self.checkpoint_dir is None:
+            return []
+        return sorted(self.checkpoint_dir.glob("*.zip"), key=lambda path: path.stat().st_mtime)
+
+    def _next_checkpoint(self) -> Path:
+        available = self._checkpoints()
+        if not available:
+            raise FileNotFoundError(f"no checkpoints found for P2 rotation: {self.checkpoint_dir}")
+        if not self._checkpoint_cycle:
+            self._checkpoint_cycle = available
+            self.rng.shuffle(self._checkpoint_cycle)
+        return self._checkpoint_cycle.pop()
+
+
 class SimVisualizer:
     def __init__(
         self,
@@ -93,6 +157,7 @@ class SimVisualizer:
         follow_p2_dir: Path | None = None,
         follow_p2_previous: bool = False,
         follow_check_seconds: float = 2.0,
+        p2_rotator: OpponentRotator | None = None,
         width: int = 1100,
         height: int = 620,
         steps_per_tick: int = 2,
@@ -104,6 +169,7 @@ class SimVisualizer:
         self.follow_p2_dir = follow_p2_dir
         self.follow_p2_previous = follow_p2_previous
         self.follow_check_seconds = follow_check_seconds
+        self.p2_rotator = p2_rotator
         self.last_follow_check = 0.0
         self.width = width
         self.height = height
@@ -149,6 +215,9 @@ class SimVisualizer:
 
     def reset(self) -> None:
         self.episode += 1
+        if self.p2_rotator is not None:
+            self.p2 = self.p2_rotator.next()
+            self.root.title(f"Tekken-lite Simulator Visualizer - P1 {self.p1.label} vs P2 {self.p2.label}")
         self.env.reset()
         self.last_reward = 0.0
         self.last_p1_action = SimAction.NEUTRAL
@@ -353,10 +422,16 @@ def main() -> int:
     parser.add_argument("--follow-check-seconds", type=float, default=2.0)
     parser.add_argument("--p1-scripted", default="poke", choices=sorted(SCRIPTED_POLICIES))
     parser.add_argument("--p2-scripted", default="rushdown", choices=sorted(SCRIPTED_POLICIES))
+    parser.add_argument("--rotate-p2", choices=["off", "scripted", "mixed"], default="off")
+    parser.add_argument("--rotation-checkpoint-dir", default=None)
+    parser.add_argument("--rotation-scripted-rate", type=float, default=0.34)
+    parser.add_argument("--rotation-scripted-opponents", nargs="+", default=DEFAULT_SCRIPTED_OPPONENTS)
     parser.add_argument("--seed", type=int, default=2026)
     parser.add_argument("--speed", type=int, default=2)
     parser.add_argument("--headless-steps", type=int, default=0)
     args = parser.parse_args()
+    if not 0.0 <= args.rotation_scripted_rate <= 1.0:
+        parser.error("--rotation-scripted-rate must be between 0 and 1")
     checkpoint = args.checkpoint
     follow_dir = Path(args.follow_dir) if args.follow_dir else None
     if follow_dir is not None:
@@ -377,6 +452,16 @@ def main() -> int:
     env = TekkenLiteEnv(seed=args.seed)
     p1 = build_policy(args.p1, checkpoint, args.p1_scripted)
     p2 = build_policy(args.p2, p2_checkpoint, args.p2_scripted)
+    p2_rotator = None
+    if args.rotate_p2 != "off":
+        p2_rotator = OpponentRotator(
+            mode=args.rotate_p2,
+            scripted_names=args.rotation_scripted_opponents,
+            checkpoint_dir=Path(args.rotation_checkpoint_dir) if args.rotation_checkpoint_dir else None,
+            scripted_rate=args.rotation_scripted_rate,
+            seed=args.seed + 500_000,
+        )
+        p2 = p2_rotator.next()
     if args.headless_steps > 0:
         run_headless(env, p1, p2, args.headless_steps)
         return 0
@@ -389,6 +474,7 @@ def main() -> int:
         follow_p2_dir=p2_follow_dir,
         follow_p2_previous=args.p2_follow_previous,
         follow_check_seconds=args.follow_check_seconds,
+        p2_rotator=p2_rotator,
         steps_per_tick=args.speed,
     )
     app.run()

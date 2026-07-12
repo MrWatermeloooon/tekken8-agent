@@ -6,10 +6,14 @@ cd /d "%~dp0\.."
   --timesteps-per-iteration 32768 ^
   --bootstrap-iterations 0 ^
   --scripted-sample-rate 0.34 ^
+  --scripted-curriculum ^
+  --curriculum-start-stage 3 ^
   --elo-sampling ^
   --elo-episodes-per-pair 1 ^
   --eval-episodes 8 ^
   --checkpoint-eval-episodes 1 ^
+  --per-opponent-eval-episodes 3 ^
+  --detailed-eval-interval 5 ^
   --latest-checkpoint-rate 0.50 ^
   --best-checkpoint-rate 0.50 ^
   --old-sample-rate 0.0 ^

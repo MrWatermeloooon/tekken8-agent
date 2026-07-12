@@ -2,12 +2,13 @@ from __future__ import annotations
 
 import random
 from collections.abc import Callable, Sequence
+from copy import deepcopy
 from pathlib import Path
 
 from t8_agent.sim.action_space import index_to_action, legal_action_mask
 from t8_agent.sim.opponents import SCRIPTED_POLICIES
 from t8_agent.sim.tekken_lite import SimAction, TekkenLiteEnv
-from t8_agent.sim.observations import vector_observation
+from t8_agent.sim.observations import vector_observation, visual_observation_size, visual_vector_observation
 from t8_agent.train.sb3_env import TekkenLiteSingleAgentEnv
 
 OpponentPolicy = Callable[[TekkenLiteEnv, int], SimAction]
@@ -23,19 +24,30 @@ class PpoCheckpointOpponent:
 
         self.checkpoint = Path(checkpoint)
         self.model = MaskablePPO.load(self.checkpoint, device="cpu")
+        self.observation_dim = int(self.model.observation_space.shape[0])
+        self._previous_states: dict[int, object] = {}
         self.normalizer = None
         normalizer_path = vecnormalize_path(self.checkpoint)
         if normalizer_path.exists():
             from stable_baselines3.common.vec_env import DummyVecEnv, VecNormalize
 
-            dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv()])
+            observation_mode = "visual" if self.observation_dim == visual_observation_size() else "privileged"
+            dummy_env = DummyVecEnv([lambda: TekkenLiteSingleAgentEnv(observation_mode=observation_mode)])
             self.normalizer = VecNormalize.load(str(normalizer_path), dummy_env)
             self.normalizer.training = False
             self.normalizer.norm_reward = False
         self.deterministic = deterministic
 
     def __call__(self, env: TekkenLiteEnv, player: int) -> SimAction:
-        obs = vector_observation(env.state, env.config, player)
+        env_key = id(env)
+        previous_state = self._previous_states.get(env_key)
+        if previous_state is not None and previous_state.frame >= env.state.frame:
+            previous_state = None
+        if self.observation_dim == visual_observation_size():
+            obs = visual_vector_observation(env.state, env.config, player, previous_state=previous_state)
+        else:
+            obs = vector_observation(env.state, env.config, player)
+        self._previous_states[env_key] = deepcopy(env.state)
         if self.normalizer is not None:
             obs = self.normalizer.normalize_obs(obs)
         mask = legal_action_mask(env.state, player)
@@ -85,12 +97,13 @@ class OpponentPool:
         self.scripted: list[tuple[str, OpponentPolicy]] = [
             (name, SCRIPTED_POLICIES[name]) for name in self.scripted_names
         ]
+        self._scripted_cycle: list[tuple[str, OpponentPolicy]] = []
         self.checkpoints = [Path(path) for path in checkpoint_paths or []]
         self._loaded: dict[Path, PpoCheckpointOpponent] = {}
 
     def sample(self) -> tuple[str, OpponentPolicy]:
         if not self.checkpoints or self.rng.random() < self.scripted_sample_rate:
-            return self.rng.choice(self.scripted)
+            return self._sample_scripted()
 
         preferred = self._sample_preferred_checkpoint()
         if preferred is not None:
@@ -107,6 +120,12 @@ class OpponentPool:
         else:
             path = self.rng.choice(recent)
         return f"checkpoint:{path.name}", self._load(path)
+
+    def _sample_scripted(self) -> tuple[str, OpponentPolicy]:
+        if not self._scripted_cycle:
+            self._scripted_cycle = list(self.scripted)
+            self.rng.shuffle(self._scripted_cycle)
+        return self._scripted_cycle.pop()
 
     def _sample_preferred_checkpoint(self) -> Path | None:
         roll = self.rng.random()
