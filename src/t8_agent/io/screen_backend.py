@@ -52,6 +52,8 @@ class DxcamScreenStateBackend(StateBackend):
         self.p2_body_region = ScreenRegion.from_config(self.config.get("p2_body_region"))
         self.capture_fps = int(self.config.get("capture_fps", 60))
         self.position_sample_stride = max(1, int(self.config.get("position_sample_stride", 4)))
+        self.position_distance_scale = max(0.05, min(4.0, float(self.config.get("position_distance_scale", 1.0))))
+        self.position_distance_calibration = _load_distance_calibration(self.config)
         self.last_frame: np.ndarray | None = None
         if camera is None:
             try:
@@ -99,6 +101,17 @@ class DxcamScreenStateBackend(StateBackend):
             p2_region=self.p2_body_region,
             sample_stride=self.position_sample_stride,
         )
+        center_x = (p1_x + p2_x) / 2.0
+        raw_distance = p2_x - p1_x
+        calibrated_distance = _calibrate_distance(
+            raw_distance,
+            self.position_distance_scale,
+            self.position_distance_calibration,
+            self.stage_half_width * 2.0,
+        )
+        half_distance = calibrated_distance / 2.0
+        p1_x = center_x - half_distance
+        p2_x = center_x + half_distance
         processing_ms = (perf_counter() - read_started) * 1000.0
         return GameState(
             p1=PlayerState(health=self.max_health * p1_ratio, position_x=p1_x, facing=1),
@@ -111,6 +124,9 @@ class DxcamScreenStateBackend(StateBackend):
                 "p2_health_ratio": float(p2_ratio),
                 "p1_x": float(p1_x),
                 "p2_x": float(p2_x),
+                "position_distance_scale": self.position_distance_scale,
+                "raw_position_distance": float(raw_distance),
+                "position_distance_calibrated": self.position_distance_calibration is not None,
                 "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                 "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
                 "capture_valid": True,
@@ -183,6 +199,35 @@ def _estimate_fighter_positions(
         p1_x = center - 0.22
         p2_x = center + 0.22
     return p1_x, p2_x
+
+
+def _load_distance_calibration(config: dict[str, Any]) -> tuple[float, float, float, float] | None:
+    keys = (
+        "position_distance_near_raw",
+        "position_distance_near_sim",
+        "position_distance_far_raw",
+        "position_distance_far_sim",
+    )
+    if not all(key in config for key in keys):
+        return None
+    near_raw, near_sim, far_raw, far_sim = (float(config[key]) for key in keys)
+    if far_raw <= near_raw or far_sim <= near_sim:
+        raise ValueError("position distance calibration requires far values greater than near values")
+    return near_raw, near_sim, far_raw, far_sim
+
+
+def _calibrate_distance(
+    raw_distance: float,
+    scale: float,
+    calibration: tuple[float, float, float, float] | None,
+    max_distance: float,
+) -> float:
+    if calibration is None:
+        return max(0.0, min(max_distance, raw_distance * scale))
+    near_raw, near_sim, far_raw, far_sim = calibration
+    progress = (raw_distance - near_raw) / (far_raw - near_raw)
+    distance = near_sim + progress * (far_sim - near_sim)
+    return max(0.44, min(max_distance, distance))
 
 
 def _estimate_position_x(

@@ -48,6 +48,8 @@ def main() -> int:
     parser.add_argument("--ppo-checkpoint", default="checkpoints/visual_student_bootstrap.zip")
     parser.add_argument("--deterministic", action="store_true")
     parser.add_argument("--hotkey", default="f8", help="Global hotkey used to pause/resume controller output.")
+    parser.add_argument("--side-hotkey", default="f7", help="Global hotkey used to flip left/right directional inputs.")
+    parser.add_argument("--facing", type=int, choices=[-1, 1], default=1)
     parser.add_argument("--start-paused", action="store_true", help="Start with controller output paused until the hotkey is pressed.")
     args = parser.parse_args()
 
@@ -60,14 +62,18 @@ def main() -> int:
         ) from exc
 
     backend = DxcamScreenStateBackend(config_path=args.screen_config)
-    estimator = TemporalScreenEstimator(p1_region=backend.p1_body_region, p2_region=backend.p2_body_region)
+    estimator = TemporalScreenEstimator(
+        p1_region=backend.p1_body_region,
+        p2_region=backend.p2_body_region,
+        motion_threshold=float(backend.config.get("motion_threshold", 0.015)),
+    )
     learned_estimator = LearnedTemporalEstimator(args.model, device=args.device) if args.model else None
     agent = (
         LiveVisualPpoAgent(args.ppo_checkpoint, deterministic=args.deterministic)
         if args.agent == "ppo"
         else LiveVisionAgent()
     )
-    controller = None if args.dry_run else VGamepadInputBackend(tap_seconds=0.035)
+    controller = None if args.dry_run else VGamepadInputBackend(facing=args.facing, tap_seconds=0.035)
     commitment = ActionCommitmentFilter()
     enabled = not args.start_paused
 
@@ -78,8 +84,19 @@ def main() -> int:
             controller.release_all()
         print(f"controller={'on' if enabled else 'off'}", flush=True)
 
+    def flip_side() -> None:
+        if controller is None:
+            return
+        facing = controller.flip_facing()
+        print(f"facing={'right' if facing == 1 else 'left'}", flush=True)
+
     keyboard.add_hotkey(args.hotkey, toggle)
-    print(f"F8/controller hotkey={args.hotkey.upper()} initial={'off' if args.start_paused else 'on'}", flush=True)
+    keyboard.add_hotkey(args.side_hotkey, flip_side)
+    print(
+        f"controller_hotkey={args.hotkey.upper()} side_hotkey={args.side_hotkey.upper()} "
+        f"initial={'off' if args.start_paused else 'on'} facing={'right' if args.facing == 1 else 'left'}",
+        flush=True,
+    )
     deadline = time.perf_counter() + args.seconds
     try:
         while time.perf_counter() < deadline:

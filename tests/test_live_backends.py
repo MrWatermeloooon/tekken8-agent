@@ -102,6 +102,16 @@ def test_virtual_controller_double_taps_dash_actions() -> None:
     assert gamepad.pressed.count("right") == 2
 
 
+def test_virtual_controller_can_flip_facing_after_side_switch() -> None:
+    gamepad = FakeGamepad()
+    backend = VGamepadInputBackend(gamepad=gamepad, facing=1, tap_seconds=0.0)
+
+    assert backend.flip_facing() == -1
+    backend.send_action(SimAction.WALK_FORWARD)
+
+    assert "left" in gamepad.pressed
+
+
 def test_screen_backend_reads_calibrated_health_regions(tmp_path) -> None:
     frame = np.zeros((20, 40, 3), dtype=np.uint8)
     frame[0:10, 0:10] = [180, 40, 40]
@@ -133,7 +143,8 @@ def test_screen_backend_estimates_fighter_positions_from_body_regions(tmp_path) 
     config = tmp_path / "screen.yaml"
     config.write_text(
         "p1_body_region: [0, 20, 40, 40]\n"
-        "p2_body_region: [40, 20, 80, 40]\n",
+        "p2_body_region: [40, 20, 80, 40]\n"
+        "position_distance_scale: 0.25\n",
         encoding="utf-8",
     )
     backend = DxcamScreenStateBackend(config_path=config, camera=FakeCamera(frame))
@@ -145,6 +156,31 @@ def test_screen_backend_estimates_fighter_positions_from_body_regions(tmp_path) 
     assert state.raw["p1_x"] < state.raw["p2_x"]
     assert state.p1.position_x == state.raw["p1_x"]
     assert state.p2.position_x == state.raw["p2_x"]
+    assert state.distance < 1.2
+    assert state.raw["position_distance_scale"] == 0.25
+
+
+def test_screen_backend_applies_two_point_distance_calibration(tmp_path) -> None:
+    frame = np.zeros((40, 80, 3), dtype=np.uint8)
+    frame[25:35, 12:18] = [40, 180, 40]
+    frame[25:35, 60:66] = [40, 40, 180]
+    config = tmp_path / "screen.yaml"
+    config.write_text(
+        "p1_body_region: [0, 20, 40, 40]\n"
+        "p2_body_region: [40, 20, 80, 40]\n"
+        "position_distance_near_raw: 4.0\n"
+        "position_distance_near_sim: 0.7\n"
+        "position_distance_far_raw: 4.5\n"
+        "position_distance_far_sim: 3.0\n",
+        encoding="utf-8",
+    )
+    backend = DxcamScreenStateBackend(config_path=config, camera=FakeCamera(frame))
+
+    state = backend.read()
+
+    assert state.raw is not None
+    assert state.raw["position_distance_calibrated"] is True
+    assert 0.44 <= state.distance <= 7.2
 
 
 def test_find_latest_checkpoint_uses_checkpoint_tree(tmp_path) -> None:
