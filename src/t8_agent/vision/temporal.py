@@ -55,7 +55,7 @@ class TemporalScreenEstimator:
         max_health: float = 180.0,
         p1_region: ScreenRegion | None = None,
         p2_region: ScreenRegion | None = None,
-        motion_threshold: float = 0.0025,
+        motion_threshold: float = 0.015,
     ) -> None:
         self.max_health = max_health
         self.p1_region = p1_region
@@ -71,6 +71,12 @@ class TemporalScreenEstimator:
         p2_region = self.p2_region or ScreenRegion(width // 2, int(height * 0.2), width, height)
         p1_motion = self._motion_for_region(gray, p1_region, width, height)
         p2_motion = self._motion_for_region(gray, p2_region, width, height)
+        # Camera movement and hit shake affect both screen halves. Remove the
+        # shared component so the agent does not treat its own move as a new
+        # opponent attack and enter a repeated-attack feedback loop.
+        shared_motion = min(p1_motion, p2_motion)
+        p1_attack_motion = max(0.0, p1_motion - shared_motion)
+        p2_attack_motion = max(0.0, p2_motion - shared_motion)
 
         previous = self.previous_state
         p1_velocity = 0.0 if previous is None else state.p1.position_x - previous.p1.position_x
@@ -93,8 +99,8 @@ class TemporalScreenEstimator:
             p2_motion=p2_motion,
             p1_hit_event=p1_health_drop > 1.0,
             p2_hit_event=p2_health_drop > 1.0,
-            p1_attack_likelihood=_attack_likelihood(p1_motion, distance, self.motion_threshold),
-            p2_attack_likelihood=_attack_likelihood(p2_motion, distance, self.motion_threshold),
+            p1_attack_likelihood=_attack_likelihood(p1_attack_motion, distance, self.motion_threshold),
+            p2_attack_likelihood=_attack_likelihood(p2_attack_motion, distance, self.motion_threshold),
         )
 
     def _motion_for_region(self, gray: np.ndarray, region: ScreenRegion, width: int, height: int) -> float:

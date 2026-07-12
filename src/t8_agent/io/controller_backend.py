@@ -52,6 +52,12 @@ class VGamepadInputBackend(InputBackend):
     def send(self, action: DiscreteAction) -> None:
         self.send_action(action)
 
+    def flip_facing(self) -> int:
+        """Reverse directional inputs after the fighters switch sides."""
+        self.release_all()
+        self.facing *= -1
+        return self.facing
+
     def send_action(self, action: ActionLike) -> None:
         action_value = action.value if hasattr(action, "value") else str(action)
         self.release_all()

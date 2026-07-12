@@ -32,6 +32,22 @@ def test_temporal_estimator_detects_motion_and_health_drop() -> None:
     assert estimate.to_vector().shape == (13,)
 
 
+def test_temporal_estimator_rejects_shared_camera_motion_as_attack() -> None:
+    estimator = TemporalScreenEstimator(motion_threshold=0.015)
+    first = np.zeros((180, 320, 3), dtype=np.uint8)
+    second = first.copy()
+    second[40:140, 20:140] = 80
+    second[40:140, 180:300] = 80
+
+    estimator.update(_state(), first)
+    estimate = estimator.update(_state(), second)
+
+    assert estimate.p1_motion > 0.0
+    assert estimate.p2_motion > 0.0
+    assert estimate.p1_attack_likelihood < 0.2
+    assert estimate.p2_attack_likelihood < 0.2
+
+
 def test_vision_agent_approaches_at_long_range() -> None:
     estimate = VisualEstimate(1.0, 1.0, -2.0, 2.0, 4.0, 0.0, 0.0, 0.0, 0.0, False, False, 0.0, 0.0)
 
