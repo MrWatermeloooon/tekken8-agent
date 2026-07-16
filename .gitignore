@@ -1,16 +1,11 @@
-.venv/
-__pycache__/
-*.py[cod]
-*.egg-info/
+# Local V1 archive. V1 is versioned on the separate v1 branch.
+v1/
+
+# Generated V2 files
+build/
 .pytest_cache/
-
-checkpoints/*
-!checkpoints/.gitkeep
-!checkpoints/sim_linear_policy.npz
-runs/
-logs/
-recordings/
-datasets/
-config/live_screen.yaml
-
-*.zip
+*.obj
+*.pdb
+*.ilk
+*.lib
+*.exe
