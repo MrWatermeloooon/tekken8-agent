@@ -710,6 +710,8 @@ __global__ void step_kernel(
     std::uint8_t* masks_p2,
     float* rewards_p1,
     float* rewards_p2,
+    float* sparse_rewards_p1,
+    float* sparse_rewards_p2,
     std::uint8_t* terminated,
     std::uint8_t* truncated) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
@@ -833,6 +835,10 @@ __global__ void step_kernel(
     store_state(state_f, state_i, n, lane, state);
     rewards_p1[lane] = reward_p1;
     rewards_p2[lane] = reward_p2;
+    sparse_rewards_p1[lane] = state.round_over
+        ? (state.winner == 1 ? 1.0F : (state.winner == 2 ? -1.0F : 0.0F)) : 0.0F;
+    sparse_rewards_p2[lane] = state.round_over
+        ? (state.winner == 2 ? 1.0F : (state.winner == 1 ? -1.0F : 0.0F)) : 0.0F;
     terminated[lane] = static_cast<std::uint8_t>(state.round_over);
     truncated[lane] = static_cast<std::uint8_t>(was_truncated);
     write_all_outputs(state, config, lane, obs_p1, obs_p2, masks_p1, masks_p2);
@@ -849,6 +855,8 @@ __global__ void reset_kernel(
     std::uint8_t* masks_p2,
     float* rewards_p1,
     float* rewards_p2,
+    float* sparse_rewards_p1,
+    float* sparse_rewards_p2,
     std::uint8_t* terminated,
     std::uint8_t* truncated,
     bool only_done) {
@@ -858,6 +866,8 @@ __global__ void reset_kernel(
     store_state(state_f, state_i, n, lane, state);
     rewards_p1[lane] = 0.0F;
     rewards_p2[lane] = 0.0F;
+    sparse_rewards_p1[lane] = 0.0F;
+    sparse_rewards_p2[lane] = 0.0F;
     terminated[lane] = 0;
     truncated[lane] = 0;
     write_all_outputs(state, config, lane, obs_p1, obs_p2, masks_p1, masks_p2);
@@ -885,6 +895,8 @@ struct GpuSimulatorBatch::Impl {
     std::uint8_t* masks_p2 = nullptr;
     float* rewards_p1 = nullptr;
     float* rewards_p2 = nullptr;
+    float* sparse_rewards_p1 = nullptr;
+    float* sparse_rewards_p2 = nullptr;
     std::uint8_t* terminated = nullptr;
     std::uint8_t* truncated = nullptr;
     std::uint8_t* host_actions_p1 = nullptr;
@@ -901,6 +913,8 @@ struct GpuSimulatorBatch::Impl {
         check_cuda(cudaMalloc(&masks_p2, sizeof(std::uint8_t) * kActionCount * count), "allocate P2 masks");
         check_cuda(cudaMalloc(&rewards_p1, sizeof(float) * count), "allocate P1 rewards");
         check_cuda(cudaMalloc(&rewards_p2, sizeof(float) * count), "allocate P2 rewards");
+        check_cuda(cudaMalloc(&sparse_rewards_p1, sizeof(float) * count), "allocate sparse P1 rewards");
+        check_cuda(cudaMalloc(&sparse_rewards_p2, sizeof(float) * count), "allocate sparse P2 rewards");
         check_cuda(cudaMalloc(&terminated, sizeof(std::uint8_t) * count), "allocate terminated flags");
         check_cuda(cudaMalloc(&truncated, sizeof(std::uint8_t) * count), "allocate truncated flags");
         check_cuda(cudaMalloc(&host_actions_p1, sizeof(std::uint8_t) * count), "allocate debug P1 actions");
@@ -914,6 +928,8 @@ struct GpuSimulatorBatch::Impl {
         cudaFree(terminated);
         cudaFree(rewards_p2);
         cudaFree(rewards_p1);
+        cudaFree(sparse_rewards_p2);
+        cudaFree(sparse_rewards_p1);
         cudaFree(masks_p2);
         cudaFree(masks_p1);
         cudaFree(observations_p2);
@@ -926,7 +942,8 @@ struct GpuSimulatorBatch::Impl {
         reset_kernel<<<blocks_for(count), kThreads, 0, stream>>>(
             state_f, state_i, count, device_config,
             observations_p1, observations_p2, masks_p1, masks_p2,
-            rewards_p1, rewards_p2, terminated, truncated, only_done);
+            rewards_p1, rewards_p2, sparse_rewards_p1, sparse_rewards_p2,
+            terminated, truncated, only_done);
         check_cuda(cudaGetLastError(), only_done ? "launch reset-done kernel" : "launch reset kernel");
     }
 
@@ -938,7 +955,8 @@ struct GpuSimulatorBatch::Impl {
         step_kernel<<<blocks_for(count), kThreads, 0, stream>>>(
             state_f, state_i, count, device_config, p1_actions, p2_actions,
             observations_p1, observations_p2, masks_p1, masks_p2,
-            rewards_p1, rewards_p2, terminated, truncated);
+            rewards_p1, rewards_p2, sparse_rewards_p1, sparse_rewards_p2,
+            terminated, truncated);
         check_cuda(cudaGetLastError(), "launch GPU simulator step kernel");
     }
 };
@@ -961,7 +979,9 @@ GpuBatchDeviceView GpuSimulatorBatch::device_view() const noexcept {
         impl_->observations_p1, impl_->observations_p2,
         impl_->masks_p1, impl_->masks_p2,
         impl_->rewards_p1, impl_->rewards_p2,
-        impl_->terminated, impl_->truncated, impl_->count,
+        impl_->sparse_rewards_p1, impl_->sparse_rewards_p2,
+        impl_->terminated, impl_->truncated,
+        impl_->state_i + Winner * impl_->count, impl_->count,
     };
 }
 
@@ -1116,8 +1136,19 @@ std::vector<float> GpuSimulatorBatch::download_rewards(int player, void* stream)
                            impl_->count, stream, "download rewards");
 }
 
+std::vector<float> GpuSimulatorBatch::download_sparse_rewards(int player, void* stream) const {
+    if (player != 1 && player != 2) throw std::invalid_argument("player must be 1 or 2");
+    return download_buffer(player == 1 ? impl_->sparse_rewards_p1 : impl_->sparse_rewards_p2,
+                           impl_->count, stream, "download sparse rewards");
+}
+
 std::vector<std::uint8_t> GpuSimulatorBatch::download_terminated(void* stream) const {
     return download_buffer(impl_->terminated, impl_->count, stream, "download terminated flags");
+}
+
+std::vector<std::int32_t> GpuSimulatorBatch::download_winners(void* stream) const {
+    return download_buffer(impl_->state_i + Winner * impl_->count,
+                           impl_->count, stream, "download winners");
 }
 
 int cuda_device_count() noexcept {

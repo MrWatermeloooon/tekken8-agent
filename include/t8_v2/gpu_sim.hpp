@@ -19,8 +19,11 @@ struct GpuBatchDeviceView {
     std::uint8_t* action_masks_p2 = nullptr;
     float* rewards_p1 = nullptr;
     float* rewards_p2 = nullptr;
+    float* sparse_rewards_p1 = nullptr;
+    float* sparse_rewards_p2 = nullptr;
     std::uint8_t* terminated = nullptr;
     std::uint8_t* truncated = nullptr;
+    const std::int32_t* winners = nullptr;
     std::size_t environment_count = 0;
 };
 
@@ -74,7 +77,9 @@ public:
     [[nodiscard]] std::vector<float> download_observations(int player, void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::uint8_t> download_action_masks(int player, void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_rewards(int player, void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_sparse_rewards(int player, void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::uint8_t> download_terminated(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<std::int32_t> download_winners(void* stream = nullptr) const;
 
 private:
     struct Impl;

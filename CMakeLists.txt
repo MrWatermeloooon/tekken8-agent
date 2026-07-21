@@ -70,3 +70,6 @@ if(T8_V2_BUILD_BENCHMARKS)
     add_executable(t8_v2_gpu_benchmark benchmarks/gpu_throughput.cpp)
     target_link_libraries(t8_v2_gpu_benchmark PRIVATE t8_v2_gpu CUDA::cudart)
 endif()
+
+add_executable(t8_v2_train src/train.cpp)
+target_link_libraries(t8_v2_train PRIVATE t8_v2_ppo t8_v2_gpu)

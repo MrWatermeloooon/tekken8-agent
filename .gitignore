@@ -3,6 +3,7 @@ v1/
 
 # Generated V2 files
 build*/
+runs/
 .pytest_cache/
 *.obj
 *.pdb

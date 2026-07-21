@@ -58,3 +58,14 @@ configuration, moves, reset state, rewards, termination, and metrics at commit
 `7347212d036fcd6212fcf81864f6b2c96df0a524`.
 
 The implementation and training sequence is in `docs/roadmap.md`.
+
+## Train the CUDA PPO policy
+
+```powershell
+build-gpu/Release/t8_v2_train.exe --smoke --reward shaped --seed 2027
+build-gpu/Release/t8_v2_train.exe --smoke --reward sparse --seed 2027
+```
+
+For the paired three-seed Phase 0 experiment, run `scripts/run_phase0.ps1`.
+See `docs/training.md` for checkpoint/resume behavior, metrics, and the gate that
+must pass before return redistribution is implemented.

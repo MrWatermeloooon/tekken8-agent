@@ -127,6 +127,9 @@ void test_uploaded_timeout_fixture() {
     compare_state(gpu.download_states().front(), expected.state);
     near(gpu.download_rewards(1).front(), expected.reward_p1, "timeout P1 reward", 2e-3);
     near(gpu.download_rewards(2).front(), expected.reward_p2, "timeout P2 reward", 2e-3);
+    near(gpu.download_sparse_rewards(1).front(), 1.0, "timeout sparse P1 win reward");
+    near(gpu.download_sparse_rewards(2).front(), -1.0, "timeout sparse P2 loss reward");
+    check(gpu.download_winners().front() == 1, "GPU winner tensor exposes timeout winner");
 }
 
 }  // namespace
