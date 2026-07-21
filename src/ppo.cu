@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdint>
+#include <numeric>
 #include <random>
 #include <stdexcept>
 #include <string>
@@ -149,6 +150,188 @@ __global__ void masked_sample_kernel(
     entropies[lane] = entropy;
 }
 
+__global__ void gather_minibatch_kernel(
+    const float* source_observations,
+    const std::uint8_t* source_masks,
+    const std::int64_t* source_actions,
+    const float* source_old_log_probabilities,
+    const float* source_advantages,
+    const float* source_returns,
+    std::size_t sample_count,
+    std::size_t batch_offset,
+    std::size_t batch_size,
+    std::size_t permutation_stride,
+    std::size_t permutation_offset,
+    int observation_size,
+    int action_count,
+    float* observations,
+    std::uint8_t* masks,
+    std::int64_t* actions,
+    float* old_log_probabilities,
+    float* advantages,
+    float* returns) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= batch_size) return;
+    const std::size_t source = (permutation_offset +
+        (batch_offset + lane) * permutation_stride) % sample_count;
+    for (int feature = 0; feature < observation_size; ++feature) {
+        observations[lane * observation_size + feature] =
+            source_observations[source * observation_size + feature];
+    }
+    for (int action = 0; action < action_count; ++action) {
+        masks[lane * action_count + action] = source_masks[source * action_count + action];
+    }
+    actions[lane] = source_actions[source];
+    old_log_probabilities[lane] = source_old_log_probabilities[source];
+    advantages[lane] = source_advantages[source];
+    returns[lane] = source_returns[source];
+}
+
+__global__ void ppo_output_gradient_kernel(
+    const float* actor_critic_output,
+    const std::uint8_t* masks,
+    const std::int64_t* actions,
+    const float* old_log_probabilities,
+    const float* advantages,
+    const float* returns,
+    std::size_t batch_size,
+    int action_count,
+    float clip_range,
+    float value_coefficient,
+    float entropy_coefficient,
+    float* output_gradients,
+    float* metric_sums) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= batch_size) return;
+    const int width = action_count + 1;
+    const std::size_t base = lane * width;
+    const std::size_t mask_base = lane * action_count;
+    float maximum = -3.402823466e38F;
+    for (int action = 0; action < action_count; ++action) {
+        if (masks[mask_base + action]) maximum = fmaxf(maximum, actor_critic_output[base + action]);
+    }
+    float probability_sum = 0.0F;
+    for (int action = 0; action < action_count; ++action) {
+        if (masks[mask_base + action]) {
+            probability_sum += expf(actor_critic_output[base + action] - maximum);
+        }
+    }
+    probability_sum = fmaxf(probability_sum, 1e-20F);
+    const float log_sum = logf(probability_sum) + maximum;
+    const int selected = static_cast<int>(actions[lane]);
+    const float new_log_probability = actor_critic_output[base + selected] - log_sum;
+    const float log_ratio = new_log_probability - old_log_probabilities[lane];
+    const float ratio = expf(log_ratio);
+    const float advantage = advantages[lane];
+    const float unclipped = ratio * advantage;
+    const float clipped_ratio = fminf(1.0F + clip_range, fmaxf(1.0F - clip_range, ratio));
+    const float clipped = clipped_ratio * advantage;
+    const bool use_unclipped = unclipped <= clipped;
+    const float policy_loss = -fminf(unclipped, clipped);
+    const float log_probability_gradient = use_unclipped ? -advantage * ratio : 0.0F;
+
+    float entropy = 0.0F;
+    for (int action = 0; action < action_count; ++action) {
+        if (!masks[mask_base + action]) {
+            output_gradients[base + action] = 0.0F;
+            continue;
+        }
+        const float log_probability = actor_critic_output[base + action] - log_sum;
+        const float probability = expf(log_probability);
+        entropy -= probability * log_probability;
+        const float selected_delta = action == selected ? 1.0F : 0.0F;
+        output_gradients[base + action] =
+            (log_probability_gradient * (selected_delta - probability)) /
+            static_cast<float>(batch_size);
+    }
+    for (int action = 0; action < action_count; ++action) {
+        if (masks[mask_base + action]) {
+            const float log_probability = actor_critic_output[base + action] - log_sum;
+            const float probability = expf(log_probability);
+            output_gradients[base + action] += entropy_coefficient * probability *
+                (log_probability + entropy) / static_cast<float>(batch_size);
+        }
+    }
+    const float value_error = actor_critic_output[base + action_count] - returns[lane];
+    output_gradients[base + action_count] =
+        value_coefficient * value_error / static_cast<float>(batch_size);
+
+    atomicAdd(metric_sums + 0, policy_loss);
+    atomicAdd(metric_sums + 1, 0.5F * value_error * value_error);
+    atomicAdd(metric_sums + 2, entropy);
+    atomicAdd(metric_sums + 3, (ratio - 1.0F) - log_ratio);
+    atomicAdd(metric_sums + 4, fabsf(ratio - 1.0F) > clip_range ? 1.0F : 0.0F);
+}
+
+__global__ void tanh_backward_kernel(
+    const float* upstream,
+    const float* activation,
+    float* gradient,
+    std::size_t count) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index >= count) return;
+    gradient[index] = upstream[index] * (1.0F - activation[index] * activation[index]);
+}
+
+__global__ void bias_gradient_kernel(
+    const float* output_gradient,
+    float* bias_gradient,
+    std::size_t batch_size,
+    int width) {
+    const int feature = blockIdx.x * blockDim.x + threadIdx.x;
+    if (feature >= width) return;
+    float sum = 0.0F;
+    for (std::size_t lane = 0; lane < batch_size; ++lane) sum += output_gradient[lane * width + feature];
+    bias_gradient[feature] = sum;
+}
+
+__global__ void accumulate_square_kernel(const float* gradient, std::size_t count, float* sum) {
+    __shared__ float shared[kThreads];
+    float local = 0.0F;
+    for (std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+         index < count; index += static_cast<std::size_t>(gridDim.x) * blockDim.x) {
+        local += gradient[index] * gradient[index];
+    }
+    shared[threadIdx.x] = local;
+    __syncthreads();
+    for (int stride = kThreads / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) shared[threadIdx.x] += shared[threadIdx.x + stride];
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) atomicAdd(sum, shared[0]);
+}
+
+__global__ void accumulate_gradient_norm_metric_kernel(const float* square_sum, float* metrics) {
+    if (blockIdx.x == 0 && threadIdx.x == 0) atomicAdd(metrics + 5, sqrtf(square_sum[0]));
+}
+
+__global__ void adam_kernel(
+    float* parameters,
+    const float* gradients,
+    float* first_moment,
+    float* second_moment,
+    std::size_t count,
+    const float* gradient_square_sum,
+    float max_gradient_norm,
+    float learning_rate,
+    float beta1,
+    float beta2,
+    float epsilon,
+    float bias_correction1,
+    float bias_correction2) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index >= count) return;
+    const float norm = sqrtf(gradient_square_sum[0]);
+    const float scale = norm > max_gradient_norm ? max_gradient_norm / fmaxf(norm, 1e-12F) : 1.0F;
+    const float gradient = gradients[index] * scale;
+    const float m = beta1 * first_moment[index] + (1.0F - beta1) * gradient;
+    const float v = beta2 * second_moment[index] + (1.0F - beta2) * gradient * gradient;
+    first_moment[index] = m;
+    second_moment[index] = v;
+    parameters[index] -= learning_rate * (m / bias_correction1) /
+        (sqrtf(v / bias_correction2) + epsilon);
+}
+
 template <typename T>
 std::vector<T> download(
     const T* source,
@@ -185,6 +368,40 @@ struct GpuActorCritic::Impl {
     float* values = nullptr;
     float* entropies = nullptr;
 
+    float* train_observations = nullptr;
+    std::uint8_t* train_masks = nullptr;
+    std::int64_t* train_actions = nullptr;
+    float* train_old_log_probabilities = nullptr;
+    float* train_advantages = nullptr;
+    float* train_returns = nullptr;
+    float* output_gradients = nullptr;
+    float* hidden_2_upstream = nullptr;
+    float* hidden_2_gradients = nullptr;
+    float* hidden_1_upstream = nullptr;
+    float* hidden_1_gradients = nullptr;
+
+    float* gradient_weights_1 = nullptr;
+    float* gradient_bias_1 = nullptr;
+    float* gradient_weights_2 = nullptr;
+    float* gradient_bias_2 = nullptr;
+    float* gradient_weights_out = nullptr;
+    float* gradient_bias_out = nullptr;
+    float* moment1_weights_1 = nullptr;
+    float* moment1_bias_1 = nullptr;
+    float* moment1_weights_2 = nullptr;
+    float* moment1_bias_2 = nullptr;
+    float* moment1_weights_out = nullptr;
+    float* moment1_bias_out = nullptr;
+    float* moment2_weights_1 = nullptr;
+    float* moment2_bias_1 = nullptr;
+    float* moment2_weights_2 = nullptr;
+    float* moment2_bias_2 = nullptr;
+    float* moment2_weights_out = nullptr;
+    float* moment2_bias_out = nullptr;
+    float* gradient_square_sum = nullptr;
+    float* metric_sums = nullptr;
+    std::uint64_t optimizer_step = 0;
+
     Impl(std::size_t requested_capacity, ActorCriticConfig network_config, std::uint64_t seed)
         : capacity(requested_capacity), config(network_config) {
         if (capacity == 0) throw std::invalid_argument("policy capacity must be greater than zero");
@@ -208,6 +425,30 @@ struct GpuActorCritic::Impl {
         check_cuda(cudaMalloc(&values, sizeof(float) * capacity), "allocate values");
         check_cuda(cudaMalloc(&entropies, sizeof(float) * capacity), "allocate entropies");
 
+        check_cuda(cudaMalloc(&train_observations, sizeof(float) * capacity * config.observation_size), "allocate training observations");
+        check_cuda(cudaMalloc(&train_masks, sizeof(std::uint8_t) * capacity * config.action_count), "allocate training masks");
+        check_cuda(cudaMalloc(&train_actions, sizeof(std::int64_t) * capacity), "allocate training actions");
+        check_cuda(cudaMalloc(&train_old_log_probabilities, sizeof(float) * capacity), "allocate training old log probabilities");
+        check_cuda(cudaMalloc(&train_advantages, sizeof(float) * capacity), "allocate training advantages");
+        check_cuda(cudaMalloc(&train_returns, sizeof(float) * capacity), "allocate training returns");
+        check_cuda(cudaMalloc(&output_gradients, sizeof(float) * capacity * output_size), "allocate output gradients");
+        check_cuda(cudaMalloc(&hidden_2_upstream, sizeof(float) * capacity * config.hidden_size), "allocate hidden-2 upstream gradients");
+        check_cuda(cudaMalloc(&hidden_2_gradients, sizeof(float) * capacity * config.hidden_size), "allocate hidden-2 gradients");
+        check_cuda(cudaMalloc(&hidden_1_upstream, sizeof(float) * capacity * config.hidden_size), "allocate hidden-1 upstream gradients");
+        check_cuda(cudaMalloc(&hidden_1_gradients, sizeof(float) * capacity * config.hidden_size), "allocate hidden-1 gradients");
+
+        allocate_optimizer_tensor(weights_1, gradient_weights_1, moment1_weights_1, moment2_weights_1,
+                                  static_cast<std::size_t>(config.hidden_size) * config.observation_size);
+        allocate_optimizer_tensor(bias_1, gradient_bias_1, moment1_bias_1, moment2_bias_1, config.hidden_size);
+        allocate_optimizer_tensor(weights_2, gradient_weights_2, moment1_weights_2, moment2_weights_2,
+                                  static_cast<std::size_t>(config.hidden_size) * config.hidden_size);
+        allocate_optimizer_tensor(bias_2, gradient_bias_2, moment1_bias_2, moment2_bias_2, config.hidden_size);
+        allocate_optimizer_tensor(weights_out, gradient_weights_out, moment1_weights_out, moment2_weights_out,
+                                  static_cast<std::size_t>(output_size) * config.hidden_size);
+        allocate_optimizer_tensor(bias_out, gradient_bias_out, moment1_bias_out, moment2_bias_out, output_size);
+        check_cuda(cudaMalloc(&gradient_square_sum, sizeof(float)), "allocate gradient norm accumulator");
+        check_cuda(cudaMalloc(&metric_sums, sizeof(float) * 6), "allocate PPO metric sums");
+
         std::mt19937_64 random(seed);
         initialize_matrix(weights_1, config.hidden_size, config.observation_size, random);
         initialize_matrix(weights_2, config.hidden_size, config.hidden_size, random);
@@ -215,6 +456,20 @@ struct GpuActorCritic::Impl {
         check_cuda(cudaMemset(bias_1, 0, sizeof(float) * config.hidden_size), "zero layer-1 bias");
         check_cuda(cudaMemset(bias_2, 0, sizeof(float) * config.hidden_size), "zero layer-2 bias");
         check_cuda(cudaMemset(bias_out, 0, sizeof(float) * output_size), "zero output bias");
+    }
+
+    static void allocate_optimizer_tensor(
+        float* parameter,
+        float*& gradient,
+        float*& first_moment,
+        float*& second_moment,
+        std::size_t count) {
+        static_cast<void>(parameter);
+        check_cuda(cudaMalloc(&gradient, sizeof(float) * count), "allocate parameter gradient");
+        check_cuda(cudaMalloc(&first_moment, sizeof(float) * count), "allocate Adam first moment");
+        check_cuda(cudaMalloc(&second_moment, sizeof(float) * count), "allocate Adam second moment");
+        check_cuda(cudaMemset(first_moment, 0, sizeof(float) * count), "zero Adam first moment");
+        check_cuda(cudaMemset(second_moment, 0, sizeof(float) * count), "zero Adam second moment");
     }
 
     static void initialize_matrix(
@@ -234,6 +489,37 @@ struct GpuActorCritic::Impl {
     }
 
     ~Impl() {
+        cudaFree(metric_sums);
+        cudaFree(gradient_square_sum);
+        cudaFree(moment2_bias_out);
+        cudaFree(moment1_bias_out);
+        cudaFree(gradient_bias_out);
+        cudaFree(moment2_weights_out);
+        cudaFree(moment1_weights_out);
+        cudaFree(gradient_weights_out);
+        cudaFree(moment2_bias_2);
+        cudaFree(moment1_bias_2);
+        cudaFree(gradient_bias_2);
+        cudaFree(moment2_weights_2);
+        cudaFree(moment1_weights_2);
+        cudaFree(gradient_weights_2);
+        cudaFree(moment2_bias_1);
+        cudaFree(moment1_bias_1);
+        cudaFree(gradient_bias_1);
+        cudaFree(moment2_weights_1);
+        cudaFree(moment1_weights_1);
+        cudaFree(gradient_weights_1);
+        cudaFree(hidden_1_gradients);
+        cudaFree(hidden_1_upstream);
+        cudaFree(hidden_2_gradients);
+        cudaFree(hidden_2_upstream);
+        cudaFree(output_gradients);
+        cudaFree(train_returns);
+        cudaFree(train_advantages);
+        cudaFree(train_old_log_probabilities);
+        cudaFree(train_actions);
+        cudaFree(train_masks);
+        cudaFree(train_observations);
         cudaFree(entropies);
         cudaFree(values);
         cudaFree(log_probabilities);
@@ -266,6 +552,57 @@ struct GpuActorCritic::Impl {
             &alpha, weights, input_size,
             input, input_size,
             &beta, output, output_size), "actor-critic matrix multiply");
+    }
+
+    void forward_network(const float* input, int batch, cudaStream_t stream) {
+        check_cublas(cublasSetStream(cublas, stream), "set actor-critic CUDA stream");
+        const int hidden = config.hidden_size;
+        const int output_size = config.action_count + 1;
+        linear(input, weights_1, hidden_1, batch, config.observation_size, hidden);
+        const std::size_t hidden_elements = static_cast<std::size_t>(batch) * hidden;
+        bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, stream>>>(
+            hidden_1, bias_1, hidden_elements, hidden);
+        linear(hidden_1, weights_2, hidden_2, batch, hidden, hidden);
+        bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, stream>>>(
+            hidden_2, bias_2, hidden_elements, hidden);
+        linear(hidden_2, weights_out, actor_critic_output, batch, hidden, output_size);
+        const std::size_t output_elements = static_cast<std::size_t>(batch) * output_size;
+        bias_kernel<<<blocks_for(output_elements), kThreads, 0, stream>>>(
+            actor_critic_output, bias_out, output_elements, output_size);
+    }
+
+    void weight_gradient(
+        const float* input,
+        const float* output_gradient,
+        float* weight_gradient,
+        int batch,
+        int input_size,
+        int output_size) {
+        constexpr float alpha = 1.0F;
+        constexpr float beta = 0.0F;
+        check_cublas(cublasSgemm(
+            cublas, CUBLAS_OP_N, CUBLAS_OP_T,
+            input_size, output_size, batch,
+            &alpha, input, input_size,
+            output_gradient, output_size,
+            &beta, weight_gradient, input_size), "actor-critic weight gradient");
+    }
+
+    void input_gradient(
+        const float* weights,
+        const float* output_gradient,
+        float* input_gradient,
+        int batch,
+        int input_size,
+        int output_size) {
+        constexpr float alpha = 1.0F;
+        constexpr float beta = 0.0F;
+        check_cublas(cublasSgemm(
+            cublas, CUBLAS_OP_N, CUBLAS_OP_N,
+            input_size, batch, output_size,
+            &alpha, weights, input_size,
+            output_gradient, output_size,
+            &beta, input_gradient, input_size), "actor-critic input gradient");
     }
 };
 
@@ -306,23 +643,8 @@ GpuPolicyOutputView GpuActorCritic::forward(
         throw std::invalid_argument("environment_count exceeds policy capacity");
     }
     const auto cuda_stream = as_stream(stream);
-    check_cublas(cublasSetStream(impl_->cublas, cuda_stream), "set actor-critic CUDA stream");
     const int batch = static_cast<int>(environment_count);
-    const int hidden = impl_->config.hidden_size;
-    const int output_size = impl_->config.action_count + 1;
-    impl_->linear(device_observations, impl_->weights_1, impl_->hidden_1,
-                  batch, impl_->config.observation_size, hidden);
-    const std::size_t hidden_elements = environment_count * hidden;
-    bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, cuda_stream>>>(
-        impl_->hidden_1, impl_->bias_1, hidden_elements, hidden);
-    impl_->linear(impl_->hidden_1, impl_->weights_2, impl_->hidden_2, batch, hidden, hidden);
-    bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, cuda_stream>>>(
-        impl_->hidden_2, impl_->bias_2, hidden_elements, hidden);
-    impl_->linear(impl_->hidden_2, impl_->weights_out, impl_->actor_critic_output,
-                  batch, hidden, output_size);
-    const std::size_t output_elements = environment_count * output_size;
-    bias_kernel<<<blocks_for(output_elements), kThreads, 0, cuda_stream>>>(
-        impl_->actor_critic_output, impl_->bias_out, output_elements, output_size);
+    impl_->forward_network(device_observations, batch, cuda_stream);
     masked_sample_kernel<<<blocks_for(environment_count), kThreads, 0, cuda_stream>>>(
         impl_->actor_critic_output, device_action_masks, environment_count,
         impl_->config.action_count, sampling_seed, sampling_step, deterministic,
@@ -331,6 +653,150 @@ GpuPolicyOutputView GpuActorCritic::forward(
     check_cuda(cudaGetLastError(), "launch actor-critic inference kernels");
     return {impl_->logits, impl_->actions, impl_->log_probabilities,
             impl_->values, impl_->entropies, environment_count};
+}
+
+PpoUpdateMetrics GpuActorCritic::update_ppo(
+    const GpuRolloutView& rollout,
+    const PpoUpdateConfig& update_config,
+    std::uint64_t shuffle_seed,
+    void* stream) {
+    if (rollout.sample_count == 0 || !rollout.observations || !rollout.action_masks ||
+        !rollout.actions || !rollout.old_log_probabilities || !rollout.advantages || !rollout.returns) {
+        throw std::invalid_argument("rollout view is incomplete");
+    }
+    if (update_config.epochs <= 0 || update_config.minibatch_size == 0 ||
+        update_config.minibatch_size > impl_->capacity) {
+        throw std::invalid_argument("PPO epochs/minibatch size are invalid for policy capacity");
+    }
+    if (update_config.learning_rate <= 0.0F || update_config.clip_range < 0.0F ||
+        update_config.max_gradient_norm <= 0.0F) {
+        throw std::invalid_argument("PPO optimizer coefficients must be positive");
+    }
+    const auto cuda_stream = as_stream(stream);
+    check_cublas(cublasSetStream(impl_->cublas, cuda_stream), "set PPO CUDA stream");
+    check_cuda(cudaMemsetAsync(impl_->metric_sums, 0, sizeof(float) * 6, cuda_stream),
+               "clear PPO metric sums");
+    const int hidden = impl_->config.hidden_size;
+    const int output_size = impl_->config.action_count + 1;
+    const std::size_t weights_1_count = static_cast<std::size_t>(hidden) * impl_->config.observation_size;
+    const std::size_t weights_2_count = static_cast<std::size_t>(hidden) * hidden;
+    const std::size_t weights_out_count = static_cast<std::size_t>(output_size) * hidden;
+    std::size_t minibatches = 0;
+
+    const auto host_mix = [](std::uint64_t value) {
+        value += 0x9e3779b97f4a7c15ULL;
+        value = (value ^ (value >> 30U)) * 0xbf58476d1ce4e5b9ULL;
+        value = (value ^ (value >> 27U)) * 0x94d049bb133111ebULL;
+        return value ^ (value >> 31U);
+    };
+    for (int epoch = 0; epoch < update_config.epochs; ++epoch) {
+        std::size_t stride = static_cast<std::size_t>(host_mix(shuffle_seed + epoch) % rollout.sample_count);
+        if (stride == 0) stride = 1;
+        while (std::gcd(stride, rollout.sample_count) != 1) {
+            stride = stride + 1 == rollout.sample_count ? 1 : stride + 1;
+        }
+        const std::size_t permutation_offset =
+            static_cast<std::size_t>(host_mix(shuffle_seed ^ (0xD1B54A32D192ED03ULL + epoch)) % rollout.sample_count);
+
+        for (std::size_t batch_offset = 0; batch_offset < rollout.sample_count;
+             batch_offset += update_config.minibatch_size) {
+            const std::size_t batch_size = std::min(update_config.minibatch_size,
+                                                    rollout.sample_count - batch_offset);
+            const int batch = static_cast<int>(batch_size);
+            ++minibatches;
+            gather_minibatch_kernel<<<blocks_for(batch_size), kThreads, 0, cuda_stream>>>(
+                rollout.observations, rollout.action_masks, rollout.actions,
+                rollout.old_log_probabilities, rollout.advantages, rollout.returns,
+                rollout.sample_count, batch_offset, batch_size, stride, permutation_offset,
+                impl_->config.observation_size, impl_->config.action_count,
+                impl_->train_observations, impl_->train_masks, impl_->train_actions,
+                impl_->train_old_log_probabilities, impl_->train_advantages, impl_->train_returns);
+            impl_->forward_network(impl_->train_observations, batch, cuda_stream);
+            ppo_output_gradient_kernel<<<blocks_for(batch_size), kThreads, 0, cuda_stream>>>(
+                impl_->actor_critic_output, impl_->train_masks, impl_->train_actions,
+                impl_->train_old_log_probabilities, impl_->train_advantages, impl_->train_returns,
+                batch_size, impl_->config.action_count, update_config.clip_range,
+                update_config.value_coefficient, update_config.entropy_coefficient,
+                impl_->output_gradients, impl_->metric_sums);
+
+            const std::size_t hidden_elements = batch_size * hidden;
+            impl_->weight_gradient(impl_->hidden_2, impl_->output_gradients,
+                                   impl_->gradient_weights_out, batch, hidden, output_size);
+            bias_gradient_kernel<<<blocks_for(output_size), kThreads, 0, cuda_stream>>>(
+                impl_->output_gradients, impl_->gradient_bias_out, batch_size, output_size);
+            impl_->input_gradient(impl_->weights_out, impl_->output_gradients,
+                                  impl_->hidden_2_upstream, batch, hidden, output_size);
+            tanh_backward_kernel<<<blocks_for(hidden_elements), kThreads, 0, cuda_stream>>>(
+                impl_->hidden_2_upstream, impl_->hidden_2, impl_->hidden_2_gradients, hidden_elements);
+
+            impl_->weight_gradient(impl_->hidden_1, impl_->hidden_2_gradients,
+                                   impl_->gradient_weights_2, batch, hidden, hidden);
+            bias_gradient_kernel<<<blocks_for(hidden), kThreads, 0, cuda_stream>>>(
+                impl_->hidden_2_gradients, impl_->gradient_bias_2, batch_size, hidden);
+            impl_->input_gradient(impl_->weights_2, impl_->hidden_2_gradients,
+                                  impl_->hidden_1_upstream, batch, hidden, hidden);
+            tanh_backward_kernel<<<blocks_for(hidden_elements), kThreads, 0, cuda_stream>>>(
+                impl_->hidden_1_upstream, impl_->hidden_1, impl_->hidden_1_gradients, hidden_elements);
+
+            impl_->weight_gradient(impl_->train_observations, impl_->hidden_1_gradients,
+                                   impl_->gradient_weights_1, batch,
+                                   impl_->config.observation_size, hidden);
+            bias_gradient_kernel<<<blocks_for(hidden), kThreads, 0, cuda_stream>>>(
+                impl_->hidden_1_gradients, impl_->gradient_bias_1, batch_size, hidden);
+
+            check_cuda(cudaMemsetAsync(impl_->gradient_square_sum, 0, sizeof(float), cuda_stream),
+                       "clear gradient norm");
+            const auto add_squares = [&](const float* gradient, std::size_t count) {
+                const int blocks = std::min(blocks_for(count), 256);
+                accumulate_square_kernel<<<blocks, kThreads, 0, cuda_stream>>>(
+                    gradient, count, impl_->gradient_square_sum);
+            };
+            add_squares(impl_->gradient_weights_1, weights_1_count);
+            add_squares(impl_->gradient_bias_1, hidden);
+            add_squares(impl_->gradient_weights_2, weights_2_count);
+            add_squares(impl_->gradient_bias_2, hidden);
+            add_squares(impl_->gradient_weights_out, weights_out_count);
+            add_squares(impl_->gradient_bias_out, output_size);
+            accumulate_gradient_norm_metric_kernel<<<1, 1, 0, cuda_stream>>>(
+                impl_->gradient_square_sum, impl_->metric_sums);
+
+            ++impl_->optimizer_step;
+            const float correction1 = 1.0F - std::pow(update_config.adam_beta1,
+                                                       static_cast<float>(impl_->optimizer_step));
+            const float correction2 = 1.0F - std::pow(update_config.adam_beta2,
+                                                       static_cast<float>(impl_->optimizer_step));
+            const auto apply_adam = [&](float* parameters, const float* gradients,
+                                        float* moment1, float* moment2, std::size_t count) {
+                adam_kernel<<<blocks_for(count), kThreads, 0, cuda_stream>>>(
+                    parameters, gradients, moment1, moment2, count, impl_->gradient_square_sum,
+                    update_config.max_gradient_norm, update_config.learning_rate,
+                    update_config.adam_beta1, update_config.adam_beta2, update_config.adam_epsilon,
+                    correction1, correction2);
+            };
+            apply_adam(impl_->weights_1, impl_->gradient_weights_1,
+                       impl_->moment1_weights_1, impl_->moment2_weights_1, weights_1_count);
+            apply_adam(impl_->bias_1, impl_->gradient_bias_1,
+                       impl_->moment1_bias_1, impl_->moment2_bias_1, hidden);
+            apply_adam(impl_->weights_2, impl_->gradient_weights_2,
+                       impl_->moment1_weights_2, impl_->moment2_weights_2, weights_2_count);
+            apply_adam(impl_->bias_2, impl_->gradient_bias_2,
+                       impl_->moment1_bias_2, impl_->moment2_bias_2, hidden);
+            apply_adam(impl_->weights_out, impl_->gradient_weights_out,
+                       impl_->moment1_weights_out, impl_->moment2_weights_out, weights_out_count);
+            apply_adam(impl_->bias_out, impl_->gradient_bias_out,
+                       impl_->moment1_bias_out, impl_->moment2_bias_out, output_size);
+        }
+    }
+    check_cuda(cudaGetLastError(), "launch PPO update kernels");
+    std::vector<float> metrics(6);
+    check_cuda(cudaMemcpyAsync(metrics.data(), impl_->metric_sums, sizeof(float) * metrics.size(),
+                               cudaMemcpyDeviceToHost, cuda_stream), "download PPO metrics");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize PPO update");
+    const float sample_visits = static_cast<float>(rollout.sample_count * update_config.epochs);
+    return {metrics[0] / sample_visits, metrics[1] / sample_visits,
+            metrics[2] / sample_visits, metrics[3] / sample_visits,
+            metrics[4] / sample_visits, metrics[5] / static_cast<float>(minibatches),
+            minibatches};
 }
 
 void GpuActorCritic::synchronize(void* stream) const {
