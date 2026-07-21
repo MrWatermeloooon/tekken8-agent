@@ -4,6 +4,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <filesystem>
 #include <memory>
 #include <span>
 #include <vector>
@@ -86,6 +87,12 @@ public:
         const GpuRolloutView& rollout,
         const PpoUpdateConfig& update_config = {},
         std::uint64_t shuffle_seed = 2027,
+        void* stream = nullptr);
+
+    void save_checkpoint(const std::filesystem::path& path, void* stream = nullptr) const;
+    void load_checkpoint(
+        const std::filesystem::path& path,
+        bool load_optimizer_state = true,
         void* stream = nullptr);
 
     void synchronize(void* stream = nullptr) const;

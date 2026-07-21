@@ -4,8 +4,10 @@
 #include <cuda_runtime.h>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstdint>
+#include <fstream>
 #include <numeric>
 #include <random>
 #include <stdexcept>
@@ -797,6 +799,125 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
             metrics[2] / sample_visits, metrics[3] / sample_visits,
             metrics[4] / sample_visits, metrics[5] / static_cast<float>(minibatches),
             minibatches};
+}
+
+namespace {
+
+struct CheckpointHeader {
+    std::array<char, 8> magic{};
+    std::uint32_t version = 1;
+    std::uint32_t observation_size = 0;
+    std::uint32_t action_count = 0;
+    std::uint32_t hidden_size = 0;
+    std::uint64_t optimizer_step = 0;
+    std::uint64_t parameter_count = 0;
+};
+
+constexpr std::array<char, 8> kCheckpointMagic = {'T', '8', 'V', '2', 'P', 'P', 'O', '\0'};
+
+}  // namespace
+
+void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* stream) const {
+    const auto cuda_stream = as_stream(stream);
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize before checkpoint save");
+    if (!path.parent_path().empty()) std::filesystem::create_directories(path.parent_path());
+    std::ofstream output(path, std::ios::binary | std::ios::trunc);
+    if (!output) throw std::runtime_error("could not open checkpoint for writing: " + path.string());
+    const auto& c = impl_->config;
+    CheckpointHeader header{kCheckpointMagic, 1,
+                            static_cast<std::uint32_t>(c.observation_size),
+                            static_cast<std::uint32_t>(c.action_count),
+                            static_cast<std::uint32_t>(c.hidden_size),
+                            impl_->optimizer_step, parameter_count()};
+    output.write(reinterpret_cast<const char*>(&header), sizeof(header));
+    const auto write_tensor = [&](const float* device, std::size_t count) {
+        std::vector<float> host(count);
+        check_cuda(cudaMemcpy(host.data(), device, sizeof(float) * count, cudaMemcpyDeviceToHost),
+                   "download checkpoint tensor");
+        output.write(reinterpret_cast<const char*>(host.data()),
+                     static_cast<std::streamsize>(sizeof(float) * count));
+    };
+    const std::size_t w1 = static_cast<std::size_t>(c.hidden_size) * c.observation_size;
+    const std::size_t w2 = static_cast<std::size_t>(c.hidden_size) * c.hidden_size;
+    const std::size_t wo = static_cast<std::size_t>(c.action_count + 1) * c.hidden_size;
+    const std::size_t bo = static_cast<std::size_t>(c.action_count + 1);
+    write_tensor(impl_->weights_1, w1); write_tensor(impl_->bias_1, c.hidden_size);
+    write_tensor(impl_->weights_2, w2); write_tensor(impl_->bias_2, c.hidden_size);
+    write_tensor(impl_->weights_out, wo); write_tensor(impl_->bias_out, bo);
+    write_tensor(impl_->moment1_weights_1, w1); write_tensor(impl_->moment1_bias_1, c.hidden_size);
+    write_tensor(impl_->moment1_weights_2, w2); write_tensor(impl_->moment1_bias_2, c.hidden_size);
+    write_tensor(impl_->moment1_weights_out, wo); write_tensor(impl_->moment1_bias_out, bo);
+    write_tensor(impl_->moment2_weights_1, w1); write_tensor(impl_->moment2_bias_1, c.hidden_size);
+    write_tensor(impl_->moment2_weights_2, w2); write_tensor(impl_->moment2_bias_2, c.hidden_size);
+    write_tensor(impl_->moment2_weights_out, wo); write_tensor(impl_->moment2_bias_out, bo);
+    if (!output) throw std::runtime_error("checkpoint write failed: " + path.string());
+}
+
+void GpuActorCritic::load_checkpoint(
+    const std::filesystem::path& path,
+    bool load_optimizer_state,
+    void* stream) {
+    std::ifstream input(path, std::ios::binary);
+    if (!input) throw std::runtime_error("could not open checkpoint for reading: " + path.string());
+    CheckpointHeader header{};
+    input.read(reinterpret_cast<char*>(&header), sizeof(header));
+    const auto& c = impl_->config;
+    if (!input || header.magic != kCheckpointMagic || header.version != 1 ||
+        header.observation_size != static_cast<std::uint32_t>(c.observation_size) ||
+        header.action_count != static_cast<std::uint32_t>(c.action_count) ||
+        header.hidden_size != static_cast<std::uint32_t>(c.hidden_size) ||
+        header.parameter_count != parameter_count()) {
+        throw std::runtime_error("checkpoint architecture/version mismatch: " + path.string());
+    }
+    const auto cuda_stream = as_stream(stream);
+    const auto read_tensor = [&](float* device, std::size_t count, bool upload) {
+        std::vector<float> host(count);
+        input.read(reinterpret_cast<char*>(host.data()),
+                   static_cast<std::streamsize>(sizeof(float) * count));
+        if (!input) throw std::runtime_error("checkpoint tensor is truncated: " + path.string());
+        if (upload) {
+            check_cuda(cudaMemcpyAsync(device, host.data(), sizeof(float) * count,
+                                       cudaMemcpyHostToDevice, cuda_stream), "upload checkpoint tensor");
+            check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize checkpoint tensor upload");
+        }
+    };
+    const std::size_t w1 = static_cast<std::size_t>(c.hidden_size) * c.observation_size;
+    const std::size_t w2 = static_cast<std::size_t>(c.hidden_size) * c.hidden_size;
+    const std::size_t wo = static_cast<std::size_t>(c.action_count + 1) * c.hidden_size;
+    const std::size_t bo = static_cast<std::size_t>(c.action_count + 1);
+    read_tensor(impl_->weights_1, w1, true); read_tensor(impl_->bias_1, c.hidden_size, true);
+    read_tensor(impl_->weights_2, w2, true); read_tensor(impl_->bias_2, c.hidden_size, true);
+    read_tensor(impl_->weights_out, wo, true); read_tensor(impl_->bias_out, bo, true);
+    read_tensor(impl_->moment1_weights_1, w1, load_optimizer_state);
+    read_tensor(impl_->moment1_bias_1, c.hidden_size, load_optimizer_state);
+    read_tensor(impl_->moment1_weights_2, w2, load_optimizer_state);
+    read_tensor(impl_->moment1_bias_2, c.hidden_size, load_optimizer_state);
+    read_tensor(impl_->moment1_weights_out, wo, load_optimizer_state);
+    read_tensor(impl_->moment1_bias_out, bo, load_optimizer_state);
+    read_tensor(impl_->moment2_weights_1, w1, load_optimizer_state);
+    read_tensor(impl_->moment2_bias_1, c.hidden_size, load_optimizer_state);
+    read_tensor(impl_->moment2_weights_2, w2, load_optimizer_state);
+    read_tensor(impl_->moment2_bias_2, c.hidden_size, load_optimizer_state);
+    read_tensor(impl_->moment2_weights_out, wo, load_optimizer_state);
+    read_tensor(impl_->moment2_bias_out, bo, load_optimizer_state);
+    if (load_optimizer_state) {
+        impl_->optimizer_step = header.optimizer_step;
+    } else {
+        impl_->optimizer_step = 0;
+        check_cuda(cudaMemsetAsync(impl_->moment1_weights_1, 0, sizeof(float) * w1, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment1_bias_1, 0, sizeof(float) * c.hidden_size, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment1_weights_2, 0, sizeof(float) * w2, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment1_bias_2, 0, sizeof(float) * c.hidden_size, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment1_weights_out, 0, sizeof(float) * wo, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment1_bias_out, 0, sizeof(float) * bo, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_weights_1, 0, sizeof(float) * w1, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_bias_1, 0, sizeof(float) * c.hidden_size, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_weights_2, 0, sizeof(float) * w2, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_bias_2, 0, sizeof(float) * c.hidden_size, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_weights_out, 0, sizeof(float) * wo, cuda_stream), "reset Adam state");
+        check_cuda(cudaMemsetAsync(impl_->moment2_bias_out, 0, sizeof(float) * bo, cuda_stream), "reset Adam state");
+    }
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize checkpoint load");
 }
 
 void GpuActorCritic::synchronize(void* stream) const {

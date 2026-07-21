@@ -4,6 +4,7 @@
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
+#include <filesystem>
 #include <iostream>
 #include <string_view>
 #include <vector>
@@ -88,12 +89,36 @@ void test_zero_copy_policy_to_simulator_chain() {
     for (const auto& state : states) check(state.frame == 4, "GPU policy actions advance GPU simulator");
 }
 
+void test_checkpoint_round_trip() {
+    constexpr std::size_t environments = 1024;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuActorCritic original(environments, {}, 5150);
+    t8::v2::GpuActorCritic restored(environments, {}, 9191);
+    const auto view = simulator.device_view();
+    static_cast<void>(original.forward(
+        view.observations_p1, view.action_masks_p1, environments, 1, 1, true));
+    const auto expected_actions = original.download_actions(environments);
+    const auto expected_values = original.download_values(environments);
+    const auto checkpoint = std::filesystem::temp_directory_path() / "t8_v2_policy_roundtrip.t8ppo";
+    original.save_checkpoint(checkpoint);
+    restored.load_checkpoint(checkpoint);
+    static_cast<void>(restored.forward(
+        view.observations_p1, view.action_masks_p1, environments, 999, 999, true));
+    check(restored.download_actions(environments) == expected_actions,
+          "checkpoint restores deterministic actions exactly");
+    check(restored.download_values(environments) == expected_values,
+          "checkpoint restores values exactly");
+    std::error_code error;
+    std::filesystem::remove(checkpoint, error);
+}
+
 }  // namespace
 
 int main() {
     test_policy_shapes_and_sampling();
     test_determinism_and_busy_mask();
     test_zero_copy_policy_to_simulator_chain();
+    test_checkpoint_round_trip();
     if (failures != 0) {
         std::cerr << failures << " policy assertion(s) failed\n";
         return EXIT_FAILURE;

@@ -6,19 +6,21 @@
    rewards, termination, and metrics are captured in `contracts/v1_contract.json`.
 2. **Build a scalar oracle — complete.** The C++ scalar simulator reproduces
    deterministic V1 fixtures and exists only to detect behavior drift.
-3. **Move the entire environment hot loop to CUDA — current.** Device-resident
+3. **Move the entire environment hot loop to CUDA — complete.** Device-resident
    SoA state, movement, combat, rewards, termination, observations, masks, and
    reset execute on the GPU. Both uint8 and native int64 policy actions are
    accepted without a host round trip.
-4. **Validate and profile on target hardware.** GPU trace parity must pass before
+4. **Validate and profile on target hardware — complete for the foundation.** GPU trace parity must pass before
    throughput numbers count. Nsight profiling will guide kernel fusion, launch
    amortization, occupancy, and memory-layout changes.
-5. **Add the GPU PPO learner.** Rollouts, GAE, minibatches, policy/value updates,
-   action selection, and simulator stepping remain on one CUDA device.
+5. **Add the GPU PPO learner — complete.** Rollouts, GAE, minibatches,
+   policy/value updates, action selection, and simulator stepping remain on one
+   CUDA device. Checkpoints include Adam state and evaluation uses frozen sparse
+   outcomes.
 
 ## Reward-lean training plan
 
-### Phase 0 — controlled baselines
+### Phase 0 — controlled baselines (workflow complete; full runs pending)
 
 Train shaped-reward and sparse-reward baselines with identical seeds, compute,
 opponent pools, and evaluation. Keep optimization, selection, and audit signals
