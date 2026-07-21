@@ -3,6 +3,7 @@
 #include <cublas_v2.h>
 #include <cuda_runtime.h>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <random>
@@ -356,6 +357,241 @@ std::vector<float> GpuActorCritic::download_log_probabilities(
 std::vector<float> GpuActorCritic::download_entropies(std::size_t count, void* stream) const {
     if (count > impl_->capacity) throw std::invalid_argument("download count exceeds capacity");
     return download(impl_->entropies, count, as_stream(stream), "download entropies");
+}
+
+namespace {
+
+__global__ void gae_kernel(
+    const float* rewards,
+    const float* values,
+    const std::uint8_t* terminated,
+    const float* bootstrap_values,
+    std::size_t environments,
+    std::size_t horizon,
+    float gamma,
+    float gae_lambda,
+    float* advantages,
+    float* returns) {
+    const std::size_t environment = blockIdx.x * blockDim.x + threadIdx.x;
+    if (environment >= environments) return;
+    float next_advantage = 0.0F;
+    for (std::size_t reverse = 0; reverse < horizon; ++reverse) {
+        const std::size_t step = horizon - 1 - reverse;
+        const std::size_t index = step * environments + environment;
+        const float next_value = step + 1 == horizon
+            ? bootstrap_values[environment]
+            : values[(step + 1) * environments + environment];
+        const float non_terminal = terminated[index] ? 0.0F : 1.0F;
+        const float delta = rewards[index] + gamma * next_value * non_terminal - values[index];
+        next_advantage = delta + gamma * gae_lambda * non_terminal * next_advantage;
+        advantages[index] = next_advantage;
+        returns[index] = next_advantage + values[index];
+    }
+}
+
+__global__ void advantage_stats_kernel(
+    const float* advantages,
+    std::size_t count,
+    float* statistics) {
+    __shared__ float shared_sum[kThreads];
+    __shared__ float shared_square_sum[kThreads];
+    float local_sum = 0.0F;
+    float local_square_sum = 0.0F;
+    for (std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+         index < count;
+         index += static_cast<std::size_t>(gridDim.x) * blockDim.x) {
+        const float value = advantages[index];
+        local_sum += value;
+        local_square_sum += value * value;
+    }
+    shared_sum[threadIdx.x] = local_sum;
+    shared_square_sum[threadIdx.x] = local_square_sum;
+    __syncthreads();
+    for (int stride = kThreads / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) {
+            shared_sum[threadIdx.x] += shared_sum[threadIdx.x + stride];
+            shared_square_sum[threadIdx.x] += shared_square_sum[threadIdx.x + stride];
+        }
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        atomicAdd(statistics + 0, shared_sum[0]);
+        atomicAdd(statistics + 1, shared_square_sum[0]);
+    }
+}
+
+__global__ void normalize_advantages_kernel(
+    float* advantages,
+    std::size_t count,
+    const float* statistics) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index >= count) return;
+    const float mean = statistics[0] / static_cast<float>(count);
+    const float second_moment = statistics[1] / static_cast<float>(count);
+    const float inverse_standard_deviation = rsqrtf(fmaxf(second_moment - mean * mean, 1e-8F));
+    advantages[index] = (advantages[index] - mean) * inverse_standard_deviation;
+}
+
+}  // namespace
+
+struct GpuRolloutBuffer::Impl {
+    std::size_t environments;
+    std::size_t rollout_horizon;
+    std::size_t samples;
+    ActorCriticConfig config;
+    float* observations = nullptr;
+    std::uint8_t* action_masks = nullptr;
+    std::int64_t* actions = nullptr;
+    float* old_log_probabilities = nullptr;
+    float* old_values = nullptr;
+    float* rewards = nullptr;
+    std::uint8_t* terminated = nullptr;
+    float* advantages = nullptr;
+    float* returns = nullptr;
+    float* advantage_statistics = nullptr;
+
+    Impl(std::size_t environment_count, std::size_t horizon, ActorCriticConfig network_config)
+        : environments(environment_count), rollout_horizon(horizon),
+          samples(environment_count * horizon), config(network_config) {
+        if (environments == 0 || rollout_horizon == 0) {
+            throw std::invalid_argument("rollout dimensions must be greater than zero");
+        }
+        check_cuda(cudaMalloc(&observations, sizeof(float) * samples * config.observation_size),
+                   "allocate rollout observations");
+        check_cuda(cudaMalloc(&action_masks, sizeof(std::uint8_t) * samples * config.action_count),
+                   "allocate rollout action masks");
+        check_cuda(cudaMalloc(&actions, sizeof(std::int64_t) * samples), "allocate rollout actions");
+        check_cuda(cudaMalloc(&old_log_probabilities, sizeof(float) * samples), "allocate rollout log probabilities");
+        check_cuda(cudaMalloc(&old_values, sizeof(float) * samples), "allocate rollout values");
+        check_cuda(cudaMalloc(&rewards, sizeof(float) * samples), "allocate rollout rewards");
+        check_cuda(cudaMalloc(&terminated, sizeof(std::uint8_t) * samples), "allocate rollout terminal flags");
+        check_cuda(cudaMalloc(&advantages, sizeof(float) * samples), "allocate rollout advantages");
+        check_cuda(cudaMalloc(&returns, sizeof(float) * samples), "allocate rollout returns");
+        check_cuda(cudaMalloc(&advantage_statistics, sizeof(float) * 2), "allocate advantage statistics");
+    }
+
+    ~Impl() {
+        cudaFree(advantage_statistics);
+        cudaFree(returns);
+        cudaFree(advantages);
+        cudaFree(terminated);
+        cudaFree(rewards);
+        cudaFree(old_values);
+        cudaFree(old_log_probabilities);
+        cudaFree(actions);
+        cudaFree(action_masks);
+        cudaFree(observations);
+    }
+};
+
+GpuRolloutBuffer::GpuRolloutBuffer(
+    std::size_t environment_count,
+    std::size_t horizon,
+    ActorCriticConfig config)
+    : impl_(std::make_unique<Impl>(environment_count, horizon, config)) {}
+
+GpuRolloutBuffer::~GpuRolloutBuffer() = default;
+GpuRolloutBuffer::GpuRolloutBuffer(GpuRolloutBuffer&&) noexcept = default;
+GpuRolloutBuffer& GpuRolloutBuffer::operator=(GpuRolloutBuffer&&) noexcept = default;
+
+std::size_t GpuRolloutBuffer::environment_count() const noexcept { return impl_->environments; }
+std::size_t GpuRolloutBuffer::horizon() const noexcept { return impl_->rollout_horizon; }
+std::size_t GpuRolloutBuffer::sample_count() const noexcept { return impl_->samples; }
+
+GpuRolloutView GpuRolloutBuffer::device_view() const noexcept {
+    return {impl_->observations, impl_->action_masks, impl_->actions,
+            impl_->old_log_probabilities, impl_->old_values, impl_->rewards,
+            impl_->terminated, impl_->advantages, impl_->returns,
+            impl_->environments, impl_->rollout_horizon, impl_->samples};
+}
+
+void GpuRolloutBuffer::record_policy_device(
+    std::size_t step,
+    const float* observations,
+    const std::uint8_t* action_masks,
+    const std::int64_t* actions,
+    const float* log_probabilities,
+    const float* values,
+    void* stream) {
+    if (step >= impl_->rollout_horizon) throw std::out_of_range("rollout step exceeds horizon");
+    if (!observations || !action_masks || !actions || !log_probabilities || !values) {
+        throw std::invalid_argument("rollout device pointers cannot be null");
+    }
+    const auto cuda_stream = as_stream(stream);
+    const std::size_t sample_offset = step * impl_->environments;
+    check_cuda(cudaMemcpyAsync(
+        impl_->observations + sample_offset * impl_->config.observation_size,
+        observations, sizeof(float) * impl_->environments * impl_->config.observation_size,
+        cudaMemcpyDeviceToDevice, cuda_stream), "record rollout observations");
+    check_cuda(cudaMemcpyAsync(
+        impl_->action_masks + sample_offset * impl_->config.action_count,
+        action_masks, sizeof(std::uint8_t) * impl_->environments * impl_->config.action_count,
+        cudaMemcpyDeviceToDevice, cuda_stream), "record rollout action masks");
+    check_cuda(cudaMemcpyAsync(impl_->actions + sample_offset, actions,
+                               sizeof(std::int64_t) * impl_->environments,
+                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout actions");
+    check_cuda(cudaMemcpyAsync(impl_->old_log_probabilities + sample_offset, log_probabilities,
+                               sizeof(float) * impl_->environments,
+                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout log probabilities");
+    check_cuda(cudaMemcpyAsync(impl_->old_values + sample_offset, values,
+                               sizeof(float) * impl_->environments,
+                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout values");
+}
+
+void GpuRolloutBuffer::record_outcome_device(
+    std::size_t step,
+    const float* rewards,
+    const std::uint8_t* terminated,
+    void* stream) {
+    if (step >= impl_->rollout_horizon) throw std::out_of_range("rollout step exceeds horizon");
+    if (!rewards || !terminated) throw std::invalid_argument("outcome device pointers cannot be null");
+    const auto cuda_stream = as_stream(stream);
+    const std::size_t sample_offset = step * impl_->environments;
+    check_cuda(cudaMemcpyAsync(impl_->rewards + sample_offset, rewards,
+                               sizeof(float) * impl_->environments,
+                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout rewards");
+    check_cuda(cudaMemcpyAsync(impl_->terminated + sample_offset, terminated,
+                               sizeof(std::uint8_t) * impl_->environments,
+                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout terminal flags");
+}
+
+void GpuRolloutBuffer::compute_gae(
+    const float* bootstrap_values,
+    float gamma,
+    float gae_lambda,
+    bool normalize,
+    void* stream) {
+    if (!bootstrap_values) throw std::invalid_argument("bootstrap values cannot be null");
+    if (!(gamma >= 0.0F && gamma <= 1.0F && gae_lambda >= 0.0F && gae_lambda <= 1.0F)) {
+        throw std::invalid_argument("gamma and gae_lambda must be in [0, 1]");
+    }
+    const auto cuda_stream = as_stream(stream);
+    gae_kernel<<<blocks_for(impl_->environments), kThreads, 0, cuda_stream>>>(
+        impl_->rewards, impl_->old_values, impl_->terminated, bootstrap_values,
+        impl_->environments, impl_->rollout_horizon, gamma, gae_lambda,
+        impl_->advantages, impl_->returns);
+    if (normalize) {
+        check_cuda(cudaMemsetAsync(impl_->advantage_statistics, 0, sizeof(float) * 2, cuda_stream),
+                   "clear advantage statistics");
+        const int reduction_blocks = std::min(blocks_for(impl_->samples), 1024);
+        advantage_stats_kernel<<<reduction_blocks, kThreads, 0, cuda_stream>>>(
+            impl_->advantages, impl_->samples, impl_->advantage_statistics);
+        normalize_advantages_kernel<<<blocks_for(impl_->samples), kThreads, 0, cuda_stream>>>(
+            impl_->advantages, impl_->samples, impl_->advantage_statistics);
+    }
+    check_cuda(cudaGetLastError(), "launch rollout GAE kernels");
+}
+
+void GpuRolloutBuffer::synchronize(void* stream) const {
+    check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize rollout buffer");
+}
+
+std::vector<float> GpuRolloutBuffer::download_advantages(void* stream) const {
+    return download(impl_->advantages, impl_->samples, as_stream(stream), "download advantages");
+}
+
+std::vector<float> GpuRolloutBuffer::download_returns(void* stream) const {
+    return download(impl_->returns, impl_->samples, as_stream(stream), "download returns");
 }
 
 }  // namespace t8::v2

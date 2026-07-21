@@ -78,4 +78,68 @@ private:
     std::unique_ptr<Impl> impl_;
 };
 
+struct GpuRolloutView {
+    const float* observations = nullptr;          // [step, environment, observation]
+    const std::uint8_t* action_masks = nullptr;   // [step, environment, action]
+    const std::int64_t* actions = nullptr;        // [step, environment]
+    const float* old_log_probabilities = nullptr;
+    const float* old_values = nullptr;
+    const float* rewards = nullptr;
+    const std::uint8_t* terminated = nullptr;
+    const float* advantages = nullptr;
+    const float* returns = nullptr;
+    std::size_t environment_count = 0;
+    std::size_t horizon = 0;
+    std::size_t sample_count = 0;
+};
+
+class GpuRolloutBuffer {
+public:
+    GpuRolloutBuffer(
+        std::size_t environment_count,
+        std::size_t horizon,
+        ActorCriticConfig config = {});
+    ~GpuRolloutBuffer();
+
+    GpuRolloutBuffer(GpuRolloutBuffer&&) noexcept;
+    GpuRolloutBuffer& operator=(GpuRolloutBuffer&&) noexcept;
+    GpuRolloutBuffer(const GpuRolloutBuffer&) = delete;
+    GpuRolloutBuffer& operator=(const GpuRolloutBuffer&) = delete;
+
+    [[nodiscard]] std::size_t environment_count() const noexcept;
+    [[nodiscard]] std::size_t horizon() const noexcept;
+    [[nodiscard]] std::size_t sample_count() const noexcept;
+    [[nodiscard]] GpuRolloutView device_view() const noexcept;
+
+    void record_policy_device(
+        std::size_t step,
+        const float* observations,
+        const std::uint8_t* action_masks,
+        const std::int64_t* actions,
+        const float* log_probabilities,
+        const float* values,
+        void* stream = nullptr);
+
+    void record_outcome_device(
+        std::size_t step,
+        const float* rewards,
+        const std::uint8_t* terminated,
+        void* stream = nullptr);
+
+    void compute_gae(
+        const float* bootstrap_values,
+        float gamma = 0.99F,
+        float gae_lambda = 0.95F,
+        bool normalize_advantages = true,
+        void* stream = nullptr);
+
+    void synchronize(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_advantages(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_returns(void* stream = nullptr) const;
+
+private:
+    struct Impl;
+    std::unique_ptr<Impl> impl_;
+};
+
 }  // namespace t8::v2
