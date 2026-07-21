@@ -1,0 +1,654 @@
+{
+  "label": "phase0_heldout_v2_visual",
+  "observation_mode": "visual",
+  "benchmark": "heldout_v2_side_balanced",
+  "shaped": {
+    "final_win_rate": {
+      "n": 5,
+      "median": 0.671875,
+      "q1": 0.6640625,
+      "q3": 0.67578125,
+      "min": 0.66015625,
+      "max": 0.68359375
+    },
+    "auc": {
+      "n": 5,
+      "median": 0.649296875,
+      "q1": 0.637265625,
+      "q3": 0.6557421875,
+      "min": 0.6326171875,
+      "max": 0.66396484375
+    },
+    "elapsed_seconds": {
+      "n": 5,
+      "median": 32.3223661,
+      "q1": 31.7744522,
+      "q3": 32.7471767,
+      "min": 31.5753907,
+      "max": 33.2228061
+    },
+    "as_p1_win_rate": {
+      "n": 5,
+      "median": 0.671875,
+      "q1": 0.671875,
+      "q3": 0.671875,
+      "min": 0.6640625,
+      "max": 0.6953125
+    },
+    "as_p2_win_rate": {
+      "n": 5,
+      "median": 0.65625,
+      "q1": 0.6484375,
+      "q3": 0.6875,
+      "min": 0.6484375,
+      "max": 0.6953125
+    },
+    "draw_rate": {
+      "n": 5,
+      "median": 0.328125,
+      "q1": 0.3203125,
+      "q3": 0.3359375,
+      "min": 0.31640625,
+      "max": 0.33984375
+    },
+    "timeout_rate": {
+      "n": 5,
+      "median": 0.390625,
+      "q1": 0.38671875,
+      "q3": 0.39453125,
+      "min": 0.3828125,
+      "max": 0.39453125
+    },
+    "mean_damage_dealt": {
+      "n": 5,
+      "median": 112.21875,
+      "q1": 112.007812,
+      "q3": 112.359375,
+      "min": 112.007812,
+      "max": 112.710938
+    },
+    "mean_damage_taken": {
+      "n": 5,
+      "median": 7.88671875,
+      "q1": 7.625,
+      "q3": 7.90625,
+      "min": 7.01171875,
+      "max": 8.1953125
+    },
+    "final_kl": {
+      "n": 5,
+      "median": 4.92625513e-05,
+      "q1": 4.74162953e-05,
+      "q3": 0.000143255034,
+      "min": 3.15451798e-05,
+      "max": 0.000839308836
+    },
+    "final_entropy": {
+      "n": 5,
+      "median": 0.165996239,
+      "q1": 0.0989392027,
+      "q3": 0.168597639,
+      "min": 0.0759448931,
+      "max": 0.176254004
+    },
+    "final_gradient_norm": {
+      "n": 5,
+      "median": 34.0074654,
+      "q1": 32.6524124,
+      "q3": 34.813549,
+      "min": 32.0075798,
+      "max": 35.2207603
+    },
+    "final_value_loss": {
+      "n": 5,
+      "median": 107.455917,
+      "q1": 105.35154,
+      "q3": 124.905586,
+      "min": 98.9892349,
+      "max": 159.612518
+    },
+    "style_win_rates": [
+      {
+        "n": 5,
+        "median": 0.375,
+        "q1": 0.3125,
+        "q3": 0.4375,
+        "min": 0.3125,
+        "max": 0.46875
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 0.96875,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 0.96875,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    ],
+    "runs": [
+      {
+        "path": "runs\\phase0_heldout_v2_visual_shaped_seed2027\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 31.7744522,
+        "final_win_rate": 0.67578125,
+        "auc": 0.6557421875,
+        "as_p1_win_rate": 0.6640625,
+        "as_p2_win_rate": 0.6875,
+        "draw_rate": 0.3203125,
+        "timeout_rate": 0.39453125,
+        "mean_damage_dealt": 112.007812,
+        "mean_damage_taken": 7.01171875,
+        "style_win_rates": [
+          0.4375,
+          0.96875,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 0.000839308836,
+        "final_entropy": 0.176254004,
+        "final_gradient_norm": 34.813549,
+        "final_value_loss": 124.905586,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_shaped_seed2028\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 32.7471767,
+        "final_win_rate": 0.66015625,
+        "auc": 0.6326171875,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.6484375,
+        "draw_rate": 0.33984375,
+        "timeout_rate": 0.38671875,
+        "mean_damage_dealt": 112.21875,
+        "mean_damage_taken": 7.625,
+        "style_win_rates": [
+          0.3125,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          0.96875,
+          0.0,
+          1.0
+        ],
+        "final_kl": 4.74162953e-05,
+        "final_entropy": 0.168597639,
+        "final_gradient_norm": 34.0074654,
+        "final_value_loss": 98.9892349,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_shaped_seed2029\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 33.2228061,
+        "final_win_rate": 0.671875,
+        "auc": 0.649296875,
+        "as_p1_win_rate": 0.6953125,
+        "as_p2_win_rate": 0.6484375,
+        "draw_rate": 0.328125,
+        "timeout_rate": 0.390625,
+        "mean_damage_dealt": 112.007812,
+        "mean_damage_taken": 7.90625,
+        "style_win_rates": [
+          0.375,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 3.15451798e-05,
+        "final_entropy": 0.0759448931,
+        "final_gradient_norm": 32.6524124,
+        "final_value_loss": 107.455917,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_shaped_seed2030\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 31.5753907,
+        "final_win_rate": 0.68359375,
+        "auc": 0.66396484375,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.6953125,
+        "draw_rate": 0.31640625,
+        "timeout_rate": 0.39453125,
+        "mean_damage_dealt": 112.359375,
+        "mean_damage_taken": 8.1953125,
+        "style_win_rates": [
+          0.46875,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 0.000143255034,
+        "final_entropy": 0.165996239,
+        "final_gradient_norm": 32.0075798,
+        "final_value_loss": 105.35154,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_shaped_seed2031\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 32.3223661,
+        "final_win_rate": 0.6640625,
+        "auc": 0.637265625,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.65625,
+        "draw_rate": 0.3359375,
+        "timeout_rate": 0.3828125,
+        "mean_damage_dealt": 112.710938,
+        "mean_damage_taken": 7.88671875,
+        "style_win_rates": [
+          0.3125,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 4.92625513e-05,
+        "final_entropy": 0.0989392027,
+        "final_gradient_norm": 35.2207603,
+        "final_value_loss": 159.612518,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      }
+    ]
+  },
+  "sparse": {
+    "final_win_rate": {
+      "n": 5,
+      "median": 0.671875,
+      "q1": 0.6640625,
+      "q3": 0.6796875,
+      "min": 0.66015625,
+      "max": 0.68359375
+    },
+    "auc": {
+      "n": 5,
+      "median": 0.567578125,
+      "q1": 0.55474609375,
+      "q3": 0.6238671875,
+      "min": 0.54537109375,
+      "max": 0.63240234375
+    },
+    "elapsed_seconds": {
+      "n": 5,
+      "median": 32.2005078,
+      "q1": 31.163105,
+      "q3": 32.2382725,
+      "min": 25.1241088,
+      "max": 32.4306293
+    },
+    "as_p1_win_rate": {
+      "n": 5,
+      "median": 0.671875,
+      "q1": 0.671875,
+      "q3": 0.671875,
+      "min": 0.6640625,
+      "max": 0.6953125
+    },
+    "as_p2_win_rate": {
+      "n": 5,
+      "median": 0.65625,
+      "q1": 0.6484375,
+      "q3": 0.6953125,
+      "min": 0.6484375,
+      "max": 0.6953125
+    },
+    "draw_rate": {
+      "n": 5,
+      "median": 0.328125,
+      "q1": 0.3203125,
+      "q3": 0.3359375,
+      "min": 0.31640625,
+      "max": 0.33984375
+    },
+    "timeout_rate": {
+      "n": 5,
+      "median": 0.390625,
+      "q1": 0.38671875,
+      "q3": 0.390625,
+      "min": 0.3828125,
+      "max": 0.39453125
+    },
+    "mean_damage_dealt": {
+      "n": 5,
+      "median": 112.359375,
+      "q1": 112.21875,
+      "q3": 112.640625,
+      "min": 112.007812,
+      "max": 112.710938
+    },
+    "mean_damage_taken": {
+      "n": 5,
+      "median": 7.88671875,
+      "q1": 7.625,
+      "q3": 7.90625,
+      "min": 7.1328125,
+      "max": 8.1953125
+    },
+    "final_kl": {
+      "n": 5,
+      "median": 0.000124571234,
+      "q1": 5.72266945e-05,
+      "q3": 0.000129685781,
+      "min": 5.41312329e-05,
+      "max": 0.000133915106
+    },
+    "final_entropy": {
+      "n": 5,
+      "median": 0.0124740507,
+      "q1": 0.010085199,
+      "q3": 0.0124986358,
+      "min": 0.00635310682,
+      "max": 0.0189404842
+    },
+    "final_gradient_norm": {
+      "n": 5,
+      "median": 0.0400273278,
+      "q1": 0.0308502577,
+      "q3": 0.0404760502,
+      "min": 0.0296230745,
+      "max": 0.0582650118
+    },
+    "final_value_loss": {
+      "n": 5,
+      "median": 0.00158664573,
+      "q1": 0.00146759208,
+      "q3": 0.00197437895,
+      "min": 0.00142949633,
+      "max": 0.00233837846
+    },
+    "style_win_rates": [
+      {
+        "n": 5,
+        "median": 0.375,
+        "q1": 0.3125,
+        "q3": 0.4375,
+        "min": 0.3125,
+        "max": 0.46875
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 0.96875,
+        "max": 1.0
+      },
+      {
+        "n": 5,
+        "median": 0.0,
+        "q1": 0.0,
+        "q3": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      {
+        "n": 5,
+        "median": 1.0,
+        "q1": 1.0,
+        "q3": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      }
+    ],
+    "runs": [
+      {
+        "path": "runs\\phase0_heldout_v2_visual_sparse_seed2027\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 31.163105,
+        "final_win_rate": 0.6796875,
+        "auc": 0.63240234375,
+        "as_p1_win_rate": 0.6640625,
+        "as_p2_win_rate": 0.6953125,
+        "draw_rate": 0.3203125,
+        "timeout_rate": 0.390625,
+        "mean_damage_dealt": 112.640625,
+        "mean_damage_taken": 7.1328125,
+        "style_win_rates": [
+          0.4375,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 0.000133915106,
+        "final_entropy": 0.0189404842,
+        "final_gradient_norm": 0.0308502577,
+        "final_value_loss": 0.00146759208,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_sparse_seed2028\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 25.1241088,
+        "final_win_rate": 0.66015625,
+        "auc": 0.55474609375,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.6484375,
+        "draw_rate": 0.33984375,
+        "timeout_rate": 0.38671875,
+        "mean_damage_dealt": 112.21875,
+        "mean_damage_taken": 7.625,
+        "style_win_rates": [
+          0.3125,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          0.96875,
+          0.0,
+          1.0
+        ],
+        "final_kl": 5.41312329e-05,
+        "final_entropy": 0.010085199,
+        "final_gradient_norm": 0.0296230745,
+        "final_value_loss": 0.00197437895,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_sparse_seed2029\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 32.2005078,
+        "final_win_rate": 0.671875,
+        "auc": 0.6238671875,
+        "as_p1_win_rate": 0.6953125,
+        "as_p2_win_rate": 0.6484375,
+        "draw_rate": 0.328125,
+        "timeout_rate": 0.390625,
+        "mean_damage_dealt": 112.007812,
+        "mean_damage_taken": 7.90625,
+        "style_win_rates": [
+          0.375,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 0.000129685781,
+        "final_entropy": 0.0124986358,
+        "final_gradient_norm": 0.0582650118,
+        "final_value_loss": 0.00158664573,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_sparse_seed2030\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 32.4306293,
+        "final_win_rate": 0.68359375,
+        "auc": 0.54537109375,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.6953125,
+        "draw_rate": 0.31640625,
+        "timeout_rate": 0.39453125,
+        "mean_damage_dealt": 112.359375,
+        "mean_damage_taken": 8.1953125,
+        "style_win_rates": [
+          0.46875,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 5.72266945e-05,
+        "final_entropy": 0.00635310682,
+        "final_gradient_norm": 0.0404760502,
+        "final_value_loss": 0.00233837846,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      },
+      {
+        "path": "runs\\phase0_heldout_v2_visual_sparse_seed2031\\metrics.jsonl",
+        "updates": 100,
+        "environment_steps": 1638400,
+        "elapsed_seconds": 32.2382725,
+        "final_win_rate": 0.6640625,
+        "auc": 0.567578125,
+        "as_p1_win_rate": 0.671875,
+        "as_p2_win_rate": 0.65625,
+        "draw_rate": 0.3359375,
+        "timeout_rate": 0.3828125,
+        "mean_damage_dealt": 112.710938,
+        "mean_damage_taken": 7.88671875,
+        "style_win_rates": [
+          0.3125,
+          1.0,
+          1.0,
+          1.0,
+          0.0,
+          1.0,
+          0.0,
+          1.0
+        ],
+        "final_kl": 0.000124571234,
+        "final_entropy": 0.0124740507,
+        "final_gradient_norm": 0.0400273278,
+        "final_value_loss": 0.00142949633,
+        "observation_mode": "visual",
+        "benchmark": "heldout_v2_side_balanced"
+      }
+    ]
+  },
+  "gate_decision": "No promotion-quality shaped-reward advantage was established; keep return redistribution gated."
+}

@@ -84,12 +84,11 @@ double State::distance() const noexcept {
 Simulator::Simulator(Config config) : config_(config), state_(initial_state()) {}
 
 const State& Simulator::reset(std::uint64_t seed) noexcept {
-    static_cast<void>(seed);
-    state_ = initial_state();
+    state_ = initial_state(seed);
     return state_;
 }
 
-State Simulator::initial_state() const noexcept {
+State Simulator::initial_state(std::uint64_t seed) const noexcept {
     State state{};
     state.p1 = FighterRuntime{};
     state.p2 = FighterRuntime{};
@@ -97,6 +96,23 @@ State Simulator::initial_state() const noexcept {
     state.p2.health = config_.max_health;
     state.p1.x = -0.85;
     state.p2.x = 0.85;
+    if (config_.randomize_initial_positions) {
+        const auto random_unit = [](std::uint64_t value) {
+            value += 0x9e3779b97f4a7c15ULL;
+            value = (value ^ (value >> 30)) * 0xbf58476d1ce4e5b9ULL;
+            value = (value ^ (value >> 27)) * 0x94d049bb133111ebULL;
+            value ^= value >> 31;
+            return static_cast<double>((value >> 40) & 0xFFFFFFULL) / 16777216.0;
+        };
+        const double distance = config_.initial_distance_min +
+            (config_.initial_distance_max - config_.initial_distance_min) * random_unit(seed);
+        const double allowed_center = std::max(0.0, std::min(
+            config_.initial_center_jitter,
+            config_.stage_half_width - config_.body_radius - distance * 0.5));
+        const double center = (random_unit(seed ^ 0xd1b54a32d192ed03ULL) * 2.0 - 1.0) * allowed_center;
+        state.p1.x = center - distance * 0.5;
+        state.p2.x = center + distance * 0.5;
+    }
     return state;
 }
 
@@ -297,6 +313,11 @@ void Simulator::check_round_over(State& state) const noexcept {
     } else if (state.p2.health <= 0.0) {
         winner = 1;
     } else if (state.frame >= config_.max_frames) {
+        if (config_.timeout_ties_are_draws && state.p1.health == state.p2.health) {
+            state.round_over = true;
+            state.winner = 0;
+            return;
+        }
         winner = state.p1.health >= state.p2.health ? 1 : 2;
     }
     if (winner != 0) {
@@ -398,6 +419,11 @@ double Simulator::scaled_timeout_penalty(double health_margin) const noexcept {
 StepResult Simulator::step(Action p1_action, Action p2_action) {
     if (p1_action == Action::Count || p2_action == Action::Count) {
         throw std::invalid_argument("Action::Count is not a valid simulator action");
+    }
+    if (state_.round_over) {
+        StepInfo info{};
+        info.frame = state_.frame;
+        return {state_, 0.0, 0.0, true, false, info};
     }
 
     const State previous = state_;

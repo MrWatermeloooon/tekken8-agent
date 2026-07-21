@@ -1,10 +1,10 @@
-# Local V1 archive. V1 is versioned on the separate v1 branch.
-v1/
-
 # Generated V2 files
 build*/
 runs/
 .pytest_cache/
+__pycache__/
+*.egg-info/
+*.pyc
 *.obj
 *.pdb
 *.ilk

@@ -79,6 +79,11 @@ struct Config {
     double stage_half_width = 3.6;
     int decision_frames = 4;
     int max_frames = 60 * 60;
+    bool timeout_ties_are_draws = false;
+    bool randomize_initial_positions = false;
+    double initial_center_jitter = 0.45;
+    double initial_distance_min = 1.25;
+    double initial_distance_max = 2.25;
     double walk_speed = 0.025;
     double dash_speed = 0.07;
     int jump_frames = 32;
@@ -229,7 +234,7 @@ private:
     struct AttackCheck;
     struct FrameInfo;
 
-    [[nodiscard]] State initial_state() const noexcept;
+    [[nodiscard]] State initial_state(std::uint64_t seed = 0) const noexcept;
     [[nodiscard]] FighterRuntime start_action(FighterRuntime fighter, Action action) const noexcept;
     [[nodiscard]] FrameInfo advance_frame(State& state, Action p1_action, Action p2_action) const;
     [[nodiscard]] FighterRuntime tick_timers(FighterRuntime fighter) const noexcept;

@@ -1,0 +1,32 @@
+[project]
+name = "tekken8-agent"
+version = "0.1.0"
+description = "CUDA-first Tekken-lite PPO trainer and screen-inference runtime."
+requires-python = ">=3.10"
+dependencies = [
+    "numpy>=1.26",
+    "pyyaml>=6.0",
+]
+
+[project.optional-dependencies]
+cv = [
+    "dxcam>=0.0.5",
+    "opencv-python>=4.9",
+]
+gamepad = [
+    "vgamepad>=0.1.0",
+]
+live = [
+    "dxcam>=0.0.5",
+    "keyboard>=0.13.5",
+    "opencv-python>=4.9",
+    "torch>=2.2",
+    "vgamepad>=0.1.0",
+]
+dev = [
+    "pytest>=8.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

@@ -8,6 +8,8 @@ of the V1 branch at build and runtime:
   system-action catalog.
 - `characters/jun.yaml` is the full Jun frame-data and curriculum reference.
 
-The current CUDA simulator implements the smaller frozen training boundary in
-`contracts/v1_contract.json`. The complete YAML catalogs are preserved for the
-planned mechanics expansion and must not silently change frozen action indices.
+The CUDA simulator intentionally exposes a stable 24-action abstraction. Six actions map to
+distilled single-move combat specifications; the remaining actions cover movement and defense.
+The full 149-entry Jun table is reference/calibration data, not silently loaded into kernels at
+runtime. Expanding the action boundary requires a new versioned contract, regenerated CUDA data,
+CPU/GPU parity fixtures, controller mappings, and new policies—never an in-place index change.
