@@ -26,6 +26,31 @@ struct GpuPolicyOutputView {
     std::size_t environment_count = 0;
 };
 
+struct GpuRolloutView;
+
+struct PpoUpdateConfig {
+    int epochs = 4;
+    std::size_t minibatch_size = 4096;
+    float learning_rate = 3e-4F;
+    float clip_range = 0.2F;
+    float value_coefficient = 0.5F;
+    float entropy_coefficient = 0.01F;
+    float max_gradient_norm = 0.5F;
+    float adam_beta1 = 0.9F;
+    float adam_beta2 = 0.999F;
+    float adam_epsilon = 1e-5F;
+};
+
+struct PpoUpdateMetrics {
+    float policy_loss = 0.0F;
+    float value_loss = 0.0F;
+    float entropy = 0.0F;
+    float approximate_kl = 0.0F;
+    float clip_fraction = 0.0F;
+    float gradient_norm = 0.0F;
+    std::size_t minibatches = 0;
+};
+
 // CUDA-native MLP actor-critic. Matrix products use cuBLAS and masked
 // categorical sampling runs in CUDA, so simulator observations and selected
 // actions never leave VRAM in the production rollout loop.
@@ -55,6 +80,12 @@ public:
         std::uint64_t sampling_seed,
         std::uint64_t sampling_step,
         bool deterministic = false,
+        void* stream = nullptr);
+
+    [[nodiscard]] PpoUpdateMetrics update_ppo(
+        const GpuRolloutView& rollout,
+        const PpoUpdateConfig& update_config = {},
+        std::uint64_t shuffle_seed = 2027,
         void* stream = nullptr);
 
     void synchronize(void* stream = nullptr) const;
