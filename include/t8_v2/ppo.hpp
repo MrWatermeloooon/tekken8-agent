@@ -34,6 +34,8 @@ struct PpoUpdateConfig {
     std::size_t minibatch_size = 4096;
     float learning_rate = 3e-4F;
     float clip_range = 0.2F;
+    float value_clip_range = 0.2F;
+    float target_kl = 0.02F;
     float value_coefficient = 0.5F;
     float entropy_coefficient = 0.01F;
     float max_gradient_norm = 0.5F;
@@ -50,7 +52,21 @@ struct PpoUpdateMetrics {
     float clip_fraction = 0.0F;
     float gradient_norm = 0.0F;
     std::size_t minibatches = 0;
+    int epochs_completed = 0;
+    bool early_stopped = false;
 };
+
+// Host-side diagnostic wrapper around the production CUDA PPO output-gradient
+// kernel. This exists for finite-difference verification, not training.
+[[nodiscard]] std::vector<float> debug_ppo_objective_gradient(
+    std::span<const float> logits_and_value,
+    std::span<const std::uint8_t> action_mask,
+    std::int64_t action,
+    float old_log_probability,
+    float old_value,
+    float advantage,
+    float return_value,
+    const PpoUpdateConfig& config = {});
 
 // CUDA-native MLP actor-critic. Matrix products use cuBLAS and masked
 // categorical sampling runs in CUDA, so simulator observations and selected
@@ -174,6 +190,9 @@ public:
     void synchronize(void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_advantages(void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_returns(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_rewards(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_values(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<std::uint8_t> download_terminated(void* stream = nullptr) const;
 
 private:
     struct Impl;

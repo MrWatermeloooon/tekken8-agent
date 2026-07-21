@@ -9,6 +9,11 @@
 
 namespace t8::v2 {
 
+enum class ScriptedOpponentSet : std::uint8_t {
+    TrainingV1,
+    HeldOutV2,
+};
+
 // Frozen GPU benchmark/training mixture. Lanes rotate through eight distinct
 // pressure, keepout, defense, punishment, throw, low, movement, and adaptive
 // styles. The policy is deterministic for (seed, step, lane).
@@ -29,6 +34,7 @@ public:
         std::size_t environment_count,
         std::uint64_t seed,
         std::uint64_t step,
+        ScriptedOpponentSet opponent_set = ScriptedOpponentSet::TrainingV1,
         void* stream = nullptr);
     void synchronize(void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::int64_t> download_actions(

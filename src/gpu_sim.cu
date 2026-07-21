@@ -88,6 +88,11 @@ struct DeviceConfig {
     float stage_half_width;
     int decision_frames;
     int max_frames;
+    int timeout_ties_are_draws;
+    int randomize_initial_positions;
+    float initial_center_jitter;
+    float initial_distance_min;
+    float initial_distance_max;
     float walk_speed;
     float dash_speed;
     int jump_frames;
@@ -220,7 +225,12 @@ inline void check_cuda(cudaError_t result, const char* operation) {
 DeviceConfig to_device_config(const Config& c) {
     return {
         static_cast<float>(c.max_health), static_cast<float>(c.stage_half_width),
-        c.decision_frames, c.max_frames, static_cast<float>(c.walk_speed),
+        c.decision_frames, c.max_frames, static_cast<int>(c.timeout_ties_are_draws),
+        static_cast<int>(c.randomize_initial_positions),
+        static_cast<float>(c.initial_center_jitter),
+        static_cast<float>(c.initial_distance_min),
+        static_cast<float>(c.initial_distance_max),
+        static_cast<float>(c.walk_speed),
         static_cast<float>(c.dash_speed), c.jump_frames, c.throw_break_frames,
         static_cast<float>(c.sidestep_speed), static_cast<float>(c.sidewalk_speed),
         static_cast<float>(c.lateral_return_speed), static_cast<float>(c.sidestep_evasion_width),
@@ -366,9 +376,35 @@ __device__ FighterD initial_fighter(float health, float x) {
     return {health, x, 0.0F, HitNone, -1, 0, 0, 0, 0, 0, 0, 0, 0};
 }
 
-__device__ StateD initial_state(const DeviceConfig& config) {
-    return {initial_fighter(config.max_health, -0.85F),
-            initial_fighter(config.max_health, 0.85F), 0, 0, 0, 0, 0};
+__device__ float reset_random_unit(unsigned long long value) {
+    value += 0x9e3779b97f4a7c15ULL;
+    value = (value ^ (value >> 30)) * 0xbf58476d1ce4e5b9ULL;
+    value = (value ^ (value >> 27)) * 0x94d049bb133111ebULL;
+    value ^= value >> 31;
+    return static_cast<float>((value >> 40) & 0xFFFFFFULL) / 16777216.0F;
+}
+
+__device__ StateD initial_state(
+    const DeviceConfig& config,
+    unsigned long long seed = 0,
+    std::size_t lane = 0) {
+    float p1_x = -0.85F;
+    float p2_x = 0.85F;
+    if (config.randomize_initial_positions) {
+        const unsigned long long lane_seed = seed ^
+            (static_cast<unsigned long long>(lane) * 0x9e3779b97f4a7c15ULL);
+        const float distance = config.initial_distance_min +
+            (config.initial_distance_max - config.initial_distance_min) * reset_random_unit(lane_seed);
+        const float allowed_center = fmaxf(0.0F, fminf(
+            config.initial_center_jitter,
+            config.stage_half_width - config.body_radius - distance * 0.5F));
+        const float center = (reset_random_unit(lane_seed ^ 0xd1b54a32d192ed03ULL) * 2.0F - 1.0F) *
+            allowed_center;
+        p1_x = center - distance * 0.5F;
+        p2_x = center + distance * 0.5F;
+    }
+    return {initial_fighter(config.max_health, p1_x),
+            initial_fighter(config.max_health, p2_x), 0, 0, 0, 0, 0};
 }
 
 __device__ FighterD start_action(FighterD fighter, int action, const DeviceConfig& config) {
@@ -599,7 +635,14 @@ __device__ FrameInfoD advance_frame(
         int winner = 0;
         if (state.p1.health <= 0.0F) winner = 2;
         else if (state.p2.health <= 0.0F) winner = 1;
-        else if (state.frame >= config.max_frames) winner = state.p1.health >= state.p2.health ? 1 : 2;
+        else if (state.frame >= config.max_frames) {
+            if (config.timeout_ties_are_draws && state.p1.health == state.p2.health) {
+                state.round_over = 1;
+                state.winner = 0;
+                return info;
+            }
+            winner = state.p1.health >= state.p2.health ? 1 : 2;
+        }
         if (winner != 0) {
             state.round_over = 1;
             state.winner = winner;
@@ -684,16 +727,64 @@ __device__ void write_player_outputs(
     }
 }
 
+__device__ float visual_attack_likelihood(const FighterD& fighter, float distance) {
+    if (fighter.move < 0) return 0.0F;
+    const DeviceMove& move = c_moves[fighter.move];
+    const float proximity = clampf(1.0F - distance / fmaxf(move.range + 0.8F, 0.1F), 0.0F, 1.0F);
+    const bool active_window = fighter.move_frame <= move.startup + move.active;
+    return (active_window ? 0.6F : 0.25F) + 0.4F * proximity;
+}
+
+__device__ void write_visual_player_outputs(
+    const StateD& state,
+    const StateD& previous,
+    const DeviceConfig& config,
+    int player,
+    std::size_t lane,
+    float* observations) {
+    const FighterD& own = player == 1 ? state.p1 : state.p2;
+    const FighterD& opponent = player == 1 ? state.p2 : state.p1;
+    const FighterD& previous_own = player == 1 ? previous.p1 : previous.p2;
+    const FighterD& previous_opponent = player == 1 ? previous.p2 : previous.p1;
+    const float own_velocity = own.x - previous_own.x;
+    const float opponent_velocity = opponent.x - previous_opponent.x;
+    const float distance = fabsf(state.p2.x - state.p1.x);
+    const bool own_hit = previous_own.health - own.health > 1.0F;
+    const bool opponent_hit = previous_opponent.health - opponent.health > 1.0F;
+    const float own_motion = fminf(1.0F, fabsf(own_velocity) + (own.move >= 0 ? 0.08F : 0.0F));
+    const float opponent_motion =
+        fminf(1.0F, fabsf(opponent_velocity) + (opponent.move >= 0 ? 0.08F : 0.0F));
+    const std::size_t base = lane * kVisualObservationSize;
+    observations[base + 0] = own.health / config.max_health;
+    observations[base + 1] = opponent.health / config.max_health;
+    observations[base + 2] = own.x;
+    observations[base + 3] = opponent.x;
+    observations[base + 4] = distance;
+    observations[base + 5] = own_velocity;
+    observations[base + 6] = opponent_velocity;
+    observations[base + 7] = own_motion;
+    observations[base + 8] = opponent_motion;
+    observations[base + 9] = own_hit ? 1.0F : 0.0F;
+    observations[base + 10] = opponent_hit ? 1.0F : 0.0F;
+    observations[base + 11] = visual_attack_likelihood(own, distance);
+    observations[base + 12] = visual_attack_likelihood(opponent, distance);
+}
+
 __device__ void write_all_outputs(
     const StateD& state,
+    const StateD& previous,
     const DeviceConfig& config,
     std::size_t lane,
     float* obs_p1,
     float* obs_p2,
+    float* visual_obs_p1,
+    float* visual_obs_p2,
     std::uint8_t* masks_p1,
     std::uint8_t* masks_p2) {
     write_player_outputs(state, config, 1, lane, obs_p1, masks_p1);
     write_player_outputs(state, config, 2, lane, obs_p2, masks_p2);
+    write_visual_player_outputs(state, previous, config, 1, lane, visual_obs_p1);
+    write_visual_player_outputs(state, previous, config, 2, lane, visual_obs_p2);
 }
 
 template <typename ActionT>
@@ -706,6 +797,8 @@ __global__ void step_kernel(
     const ActionT* p2_actions,
     float* obs_p1,
     float* obs_p2,
+    float* visual_obs_p1,
+    float* visual_obs_p2,
     std::uint8_t* masks_p1,
     std::uint8_t* masks_p2,
     float* rewards_p1,
@@ -722,6 +815,17 @@ __global__ void step_kernel(
     if (p2_action < 0 || p2_action >= static_cast<int>(kActionCount)) p2_action = Neutral;
 
     StateD state = load_state(state_f, state_i, n, lane);
+    if (state.round_over) {
+        rewards_p1[lane] = 0.0F;
+        rewards_p2[lane] = 0.0F;
+        sparse_rewards_p1[lane] = state.winner == 1 ? 1.0F : (state.winner == 2 ? -1.0F : 0.0F);
+        sparse_rewards_p2[lane] = state.winner == 2 ? 1.0F : (state.winner == 1 ? -1.0F : 0.0F);
+        terminated[lane] = 1;
+        truncated[lane] = 0;
+        write_all_outputs(state, state, config, lane, obs_p1, obs_p2,
+                          visual_obs_p1, visual_obs_p2, masks_p1, masks_p2);
+        return;
+    }
     const StateD previous = state;
     state.p1 = start_action(state.p1, p1_action, config);
     state.p2 = start_action(state.p2, p2_action, config);
@@ -841,7 +945,8 @@ __global__ void step_kernel(
         ? (state.winner == 2 ? 1.0F : (state.winner == 1 ? -1.0F : 0.0F)) : 0.0F;
     terminated[lane] = static_cast<std::uint8_t>(state.round_over);
     truncated[lane] = static_cast<std::uint8_t>(was_truncated);
-    write_all_outputs(state, config, lane, obs_p1, obs_p2, masks_p1, masks_p2);
+    write_all_outputs(state, previous, config, lane, obs_p1, obs_p2,
+                      visual_obs_p1, visual_obs_p2, masks_p1, masks_p2);
 }
 
 __global__ void reset_kernel(
@@ -851,6 +956,8 @@ __global__ void reset_kernel(
     DeviceConfig config,
     float* obs_p1,
     float* obs_p2,
+    float* visual_obs_p1,
+    float* visual_obs_p2,
     std::uint8_t* masks_p1,
     std::uint8_t* masks_p2,
     float* rewards_p1,
@@ -859,10 +966,11 @@ __global__ void reset_kernel(
     float* sparse_rewards_p2,
     std::uint8_t* terminated,
     std::uint8_t* truncated,
-    bool only_done) {
+    bool only_done,
+    unsigned long long seed) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= n || (only_done && !terminated[lane])) return;
-    const StateD state = initial_state(config);
+    const StateD state = initial_state(config, seed, lane);
     store_state(state_f, state_i, n, lane, state);
     rewards_p1[lane] = 0.0F;
     rewards_p2[lane] = 0.0F;
@@ -870,7 +978,88 @@ __global__ void reset_kernel(
     sparse_rewards_p2[lane] = 0.0F;
     terminated[lane] = 0;
     truncated[lane] = 0;
-    write_all_outputs(state, config, lane, obs_p1, obs_p2, masks_p1, masks_p2);
+    write_all_outputs(state, state, config, lane, obs_p1, obs_p2,
+                      visual_obs_p1, visual_obs_p2, masks_p1, masks_p2);
+}
+
+__global__ void refresh_outputs_kernel(
+    const float* state_f,
+    const int* state_i,
+    std::size_t n,
+    DeviceConfig config,
+    float* obs_p1,
+    float* obs_p2,
+    float* visual_obs_p1,
+    float* visual_obs_p2,
+    std::uint8_t* masks_p1,
+    std::uint8_t* masks_p2,
+    float* rewards_p1,
+    float* rewards_p2,
+    float* sparse_rewards_p1,
+    float* sparse_rewards_p2,
+    std::uint8_t* terminated,
+    std::uint8_t* truncated) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= n) return;
+    const StateD state = load_state(state_f, state_i, n, lane);
+    rewards_p1[lane] = 0.0F;
+    rewards_p2[lane] = 0.0F;
+    sparse_rewards_p1[lane] = 0.0F;
+    sparse_rewards_p2[lane] = 0.0F;
+    terminated[lane] = static_cast<std::uint8_t>(state.round_over);
+    truncated[lane] = 0;
+    write_all_outputs(state, state, config, lane, obs_p1, obs_p2,
+                      visual_obs_p1, visual_obs_p2, masks_p1, masks_p2);
+}
+
+constexpr std::size_t kSummaryScalarCount = 8;
+constexpr std::size_t kSummaryStyleStride = 4;
+constexpr std::size_t kSummaryCount =
+    kSummaryScalarCount + kEvaluationStyleCount * kSummaryStyleStride;
+
+__global__ void summarize_episodes_kernel(
+    const float* state_f,
+    const int* state_i,
+    const std::uint8_t* terminated,
+    std::size_t n,
+    DeviceConfig config,
+    int learner_player,
+    unsigned long long* counts,
+    double* sums) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= n || !terminated[lane]) return;
+
+    const int winner = state_i[Winner * n + lane];
+    const int frame = state_i[Frame * n + lane];
+    const int no_action_frames = state_i[NoActionFrames * n + lane];
+    const float p1_health = state_f[P1Health * n + lane];
+    const float p2_health = state_f[P2Health * n + lane];
+    const bool won = winner == learner_player;
+    const bool lost = winner != 0 && winner != learner_player;
+    const bool draw = winner == 0;
+    const bool timed_out = frame >= config.max_frames && p1_health > 0.0F && p2_health > 0.0F;
+    const bool no_action_timeout = draw && no_action_frames >= config.no_action_timeout_frames;
+
+    atomicAdd(counts + 0, 1ULL);
+    atomicAdd(counts + 1, won ? 1ULL : 0ULL);
+    atomicAdd(counts + 2, lost ? 1ULL : 0ULL);
+    atomicAdd(counts + 3, draw ? 1ULL : 0ULL);
+    atomicAdd(counts + 4, timed_out ? 1ULL : 0ULL);
+    atomicAdd(counts + 5, draw ? 1ULL : 0ULL);
+    atomicAdd(counts + 6, no_action_timeout ? 1ULL : 0ULL);
+    atomicAdd(counts + 7, static_cast<unsigned long long>(frame));
+
+    const std::size_t style = lane % kEvaluationStyleCount;
+    const std::size_t style_base = kSummaryScalarCount + style * kSummaryStyleStride;
+    atomicAdd(counts + style_base + 0, 1ULL);
+    atomicAdd(counts + style_base + 1, won ? 1ULL : 0ULL);
+    atomicAdd(counts + style_base + 2, lost ? 1ULL : 0ULL);
+    atomicAdd(counts + style_base + 3, draw ? 1ULL : 0ULL);
+
+    const float own_health = learner_player == 1 ? p1_health : p2_health;
+    const float opponent_health = learner_player == 1 ? p2_health : p1_health;
+    atomicAdd(sums + 0, static_cast<double>(config.max_health - opponent_health));
+    atomicAdd(sums + 1, static_cast<double>(config.max_health - own_health));
 }
 
 cudaStream_t as_stream(void* stream) {
@@ -891,6 +1080,8 @@ struct GpuSimulatorBatch::Impl {
     int* state_i = nullptr;
     float* observations_p1 = nullptr;
     float* observations_p2 = nullptr;
+    float* visual_observations_p1 = nullptr;
+    float* visual_observations_p2 = nullptr;
     std::uint8_t* masks_p1 = nullptr;
     std::uint8_t* masks_p2 = nullptr;
     float* rewards_p1 = nullptr;
@@ -901,14 +1092,21 @@ struct GpuSimulatorBatch::Impl {
     std::uint8_t* truncated = nullptr;
     std::uint8_t* host_actions_p1 = nullptr;
     std::uint8_t* host_actions_p2 = nullptr;
+    unsigned long long* summary_counts = nullptr;
+    double* summary_sums = nullptr;
 
     Impl(std::size_t environment_count, Config simulation_config)
         : count(environment_count), config(simulation_config), device_config(to_device_config(config)) {
         if (count == 0) throw std::invalid_argument("environment_count must be greater than zero");
+        try {
         check_cuda(cudaMalloc(&state_f, sizeof(float) * kFloatStateFields * count), "allocate GPU float state");
         check_cuda(cudaMalloc(&state_i, sizeof(int) * kIntStateFields * count), "allocate GPU integer state");
         check_cuda(cudaMalloc(&observations_p1, sizeof(float) * kObservationSize * count), "allocate P1 observations");
         check_cuda(cudaMalloc(&observations_p2, sizeof(float) * kObservationSize * count), "allocate P2 observations");
+        check_cuda(cudaMalloc(&visual_observations_p1, sizeof(float) * kVisualObservationSize * count),
+                   "allocate P1 visual observations");
+        check_cuda(cudaMalloc(&visual_observations_p2, sizeof(float) * kVisualObservationSize * count),
+                   "allocate P2 visual observations");
         check_cuda(cudaMalloc(&masks_p1, sizeof(std::uint8_t) * kActionCount * count), "allocate P1 masks");
         check_cuda(cudaMalloc(&masks_p2, sizeof(std::uint8_t) * kActionCount * count), "allocate P2 masks");
         check_cuda(cudaMalloc(&rewards_p1, sizeof(float) * count), "allocate P1 rewards");
@@ -919,9 +1117,18 @@ struct GpuSimulatorBatch::Impl {
         check_cuda(cudaMalloc(&truncated, sizeof(std::uint8_t) * count), "allocate truncated flags");
         check_cuda(cudaMalloc(&host_actions_p1, sizeof(std::uint8_t) * count), "allocate debug P1 actions");
         check_cuda(cudaMalloc(&host_actions_p2, sizeof(std::uint8_t) * count), "allocate debug P2 actions");
+        check_cuda(cudaMalloc(&summary_counts, sizeof(unsigned long long) * kSummaryCount),
+                   "allocate evaluation counters");
+        check_cuda(cudaMalloc(&summary_sums, sizeof(double) * 2), "allocate evaluation sums");
+        } catch (...) {
+            release();
+            throw;
+        }
     }
 
-    ~Impl() {
+    void release() noexcept {
+        cudaFree(summary_sums);
+        cudaFree(summary_counts);
         cudaFree(host_actions_p2);
         cudaFree(host_actions_p1);
         cudaFree(truncated);
@@ -932,18 +1139,23 @@ struct GpuSimulatorBatch::Impl {
         cudaFree(sparse_rewards_p1);
         cudaFree(masks_p2);
         cudaFree(masks_p1);
+        cudaFree(visual_observations_p2);
+        cudaFree(visual_observations_p1);
         cudaFree(observations_p2);
         cudaFree(observations_p1);
         cudaFree(state_i);
         cudaFree(state_f);
     }
 
-    void launch_reset(bool only_done, cudaStream_t stream) {
+    ~Impl() { release(); }
+
+    void launch_reset(bool only_done, std::uint64_t seed, cudaStream_t stream) {
         reset_kernel<<<blocks_for(count), kThreads, 0, stream>>>(
             state_f, state_i, count, device_config,
-            observations_p1, observations_p2, masks_p1, masks_p2,
+            observations_p1, observations_p2, visual_observations_p1, visual_observations_p2,
+            masks_p1, masks_p2,
             rewards_p1, rewards_p2, sparse_rewards_p1, sparse_rewards_p2,
-            terminated, truncated, only_done);
+            terminated, truncated, only_done, seed);
         check_cuda(cudaGetLastError(), only_done ? "launch reset-done kernel" : "launch reset kernel");
     }
 
@@ -954,7 +1166,8 @@ struct GpuSimulatorBatch::Impl {
         }
         step_kernel<<<blocks_for(count), kThreads, 0, stream>>>(
             state_f, state_i, count, device_config, p1_actions, p2_actions,
-            observations_p1, observations_p2, masks_p1, masks_p2,
+            observations_p1, observations_p2, visual_observations_p1, visual_observations_p2,
+            masks_p1, masks_p2,
             rewards_p1, rewards_p2, sparse_rewards_p1, sparse_rewards_p2,
             terminated, truncated);
         check_cuda(cudaGetLastError(), "launch GPU simulator step kernel");
@@ -977,6 +1190,7 @@ const Config& GpuSimulatorBatch::config() const noexcept { return impl_->config;
 GpuBatchDeviceView GpuSimulatorBatch::device_view() const noexcept {
     return {
         impl_->observations_p1, impl_->observations_p2,
+        impl_->visual_observations_p1, impl_->visual_observations_p2,
         impl_->masks_p1, impl_->masks_p2,
         impl_->rewards_p1, impl_->rewards_p2,
         impl_->sparse_rewards_p1, impl_->sparse_rewards_p2,
@@ -986,11 +1200,19 @@ GpuBatchDeviceView GpuSimulatorBatch::device_view() const noexcept {
 }
 
 void GpuSimulatorBatch::reset(void* stream) {
-    impl_->launch_reset(false, as_stream(stream));
+    impl_->launch_reset(false, 0, as_stream(stream));
 }
 
 void GpuSimulatorBatch::reset_done(void* stream) {
-    impl_->launch_reset(true, as_stream(stream));
+    impl_->launch_reset(true, 0, as_stream(stream));
+}
+
+void GpuSimulatorBatch::reset_seeded(std::uint64_t seed, void* stream) {
+    impl_->launch_reset(false, seed, as_stream(stream));
+}
+
+void GpuSimulatorBatch::reset_done_seeded(std::uint64_t seed, void* stream) {
+    impl_->launch_reset(true, seed, as_stream(stream));
 }
 
 void GpuSimulatorBatch::step_device(
@@ -1064,6 +1286,15 @@ void GpuSimulatorBatch::upload_states(std::span<const State> states, void* strea
                                cudaMemcpyHostToDevice, cuda_stream), "upload float states");
     check_cuda(cudaMemcpyAsync(impl_->state_i, ints.data(), sizeof(int) * ints.size(),
                                cudaMemcpyHostToDevice, cuda_stream), "upload integer states");
+    refresh_outputs_kernel<<<blocks_for(impl_->count), kThreads, 0, cuda_stream>>>(
+        impl_->state_f, impl_->state_i, impl_->count, impl_->device_config,
+        impl_->observations_p1, impl_->observations_p2,
+        impl_->visual_observations_p1, impl_->visual_observations_p2,
+        impl_->masks_p1, impl_->masks_p2,
+        impl_->rewards_p1, impl_->rewards_p2,
+        impl_->sparse_rewards_p1, impl_->sparse_rewards_p2,
+        impl_->terminated, impl_->truncated);
+    check_cuda(cudaGetLastError(), "launch uploaded-state output refresh");
     check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize state upload");
 }
 
@@ -1124,6 +1355,13 @@ std::vector<float> GpuSimulatorBatch::download_observations(int player, void* st
                            impl_->count * kObservationSize, stream, "download observations");
 }
 
+std::vector<float> GpuSimulatorBatch::download_visual_observations(int player, void* stream) const {
+    if (player != 1 && player != 2) throw std::invalid_argument("player must be 1 or 2");
+    return download_buffer(player == 1 ? impl_->visual_observations_p1 : impl_->visual_observations_p2,
+                           impl_->count * kVisualObservationSize, stream,
+                           "download visual observations");
+}
+
 std::vector<std::uint8_t> GpuSimulatorBatch::download_action_masks(int player, void* stream) const {
     if (player != 1 && player != 2) throw std::invalid_argument("player must be 1 or 2");
     return download_buffer(player == 1 ? impl_->masks_p1 : impl_->masks_p2,
@@ -1149,6 +1387,53 @@ std::vector<std::uint8_t> GpuSimulatorBatch::download_terminated(void* stream) c
 std::vector<std::int32_t> GpuSimulatorBatch::download_winners(void* stream) const {
     return download_buffer(impl_->state_i + Winner * impl_->count,
                            impl_->count, stream, "download winners");
+}
+
+GpuEpisodeSummary GpuSimulatorBatch::summarize_episodes(int learner_player, void* stream) const {
+    if (learner_player != 1 && learner_player != 2) {
+        throw std::invalid_argument("learner_player must be 1 or 2");
+    }
+    const auto cuda_stream = as_stream(stream);
+    check_cuda(cudaMemsetAsync(impl_->summary_counts, 0,
+                               sizeof(unsigned long long) * kSummaryCount, cuda_stream),
+               "clear evaluation counters");
+    check_cuda(cudaMemsetAsync(impl_->summary_sums, 0, sizeof(double) * 2, cuda_stream),
+               "clear evaluation sums");
+    summarize_episodes_kernel<<<blocks_for(impl_->count), kThreads, 0, cuda_stream>>>(
+        impl_->state_f, impl_->state_i, impl_->terminated, impl_->count,
+        impl_->device_config, learner_player, impl_->summary_counts, impl_->summary_sums);
+    check_cuda(cudaGetLastError(), "launch evaluation summary kernel");
+
+    std::array<unsigned long long, kSummaryCount> counts{};
+    std::array<double, 2> sums{};
+    check_cuda(cudaMemcpyAsync(counts.data(), impl_->summary_counts,
+                               sizeof(unsigned long long) * counts.size(),
+                               cudaMemcpyDeviceToHost, cuda_stream),
+               "download evaluation counters");
+    check_cuda(cudaMemcpyAsync(sums.data(), impl_->summary_sums, sizeof(double) * sums.size(),
+                               cudaMemcpyDeviceToHost, cuda_stream),
+               "download evaluation sums");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize evaluation summary");
+
+    GpuEpisodeSummary summary{};
+    summary.episodes = counts[0];
+    summary.wins = counts[1];
+    summary.losses = counts[2];
+    summary.draws = counts[3];
+    summary.timeouts = counts[4];
+    summary.stalemates = counts[5];
+    summary.no_action_timeouts = counts[6];
+    summary.total_frames = counts[7];
+    summary.total_damage_dealt = sums[0];
+    summary.total_damage_taken = sums[1];
+    for (std::size_t style = 0; style < kEvaluationStyleCount; ++style) {
+        const std::size_t base = kSummaryScalarCount + style * kSummaryStyleStride;
+        summary.style_episodes[style] = counts[base + 0];
+        summary.style_wins[style] = counts[base + 1];
+        summary.style_losses[style] = counts[base + 2];
+        summary.style_draws[style] = counts[base + 3];
+    }
+    return summary;
 }
 
 int cuda_device_count() noexcept {

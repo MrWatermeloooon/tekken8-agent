@@ -33,6 +33,7 @@ __global__ void scripted_actions_kernel(
     std::size_t count,
     std::uint64_t seed,
     std::uint64_t step,
+    ScriptedOpponentSet opponent_set,
     std::int64_t* actions) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= count) return;
@@ -51,6 +52,49 @@ __global__ void scripted_actions_kernel(
 
     if (throw_threat) {
         selected = Action::ThrowBreak12;
+    } else if (opponent_set == ScriptedOpponentSet::HeldOutV2) {
+        // Deliberately distinct thresholds and mixtures from the training suite.
+        // These styles are audit-only so evaluation measures transfer rather
+        // than replaying the behavior distribution used for PPO rollouts.
+        if (style == 0) {
+            if (distance < 0.68F) selected = Action::DashBack;
+            else if (distance > 1.42F) selected = random < 45 ? Action::F2 : Action::DashForward;
+            else selected = random < 38 ? Action::F2 : (random < 72 ? Action::Db3 : Action::SidestepLeft);
+        } else if (style == 1) {
+            if (opponent_attacking) selected = random < 55 ? Action::BlockHigh : Action::SidestepRight;
+            else if (distance < 0.88F) selected = random < 60 ? Action::Jab : Action::Df1;
+            else selected = Action::WalkForward;
+        } else if (style == 2) {
+            if (distance > 0.78F) selected = Action::DashForward;
+            else selected = random < 34 ? Action::Throw : (random < 68 ? Action::Db3 : Action::Df1);
+        } else if (style == 3) {
+            if (opponent_attacking) selected = random < 50 ? Action::SidestepLeft : Action::SidewalkRight;
+            else if (distance < 0.72F) selected = Action::DashBack;
+            else if (distance < 1.12F) selected = Action::Hopkick;
+            else selected = Action::DashForward;
+        } else if (style == 4) {
+            if (opponent_attacking) selected = random < 18 ? Action::BlockLow : Action::BlockHigh;
+            else if (distance < 0.76F) selected = random < 70 ? Action::Jab : Action::Throw;
+            else selected = Action::BlockHigh;
+        } else if (style == 5) {
+            if (opponent_attacking) selected = random < 40 ? Action::LowParry : Action::Jump;
+            else if (distance < 0.94F) selected = random < 55 ? Action::Hopkick : Action::Db3;
+            else selected = Action::WalkForward;
+        } else if (style == 6) {
+            if (distance < 0.58F) selected = Action::DashBack;
+            else if (distance < 1.36F) selected = random < 65 ? Action::F2 : Action::SidewalkLeft;
+            else selected = Action::WalkForward;
+        } else {
+            if (opponent_attacking && random < 52) {
+                selected = random < 16 ? Action::BlockLow : (random < 38 ? Action::SidestepRight : Action::BlockHigh);
+            } else if (distance > 1.20F) {
+                selected = random < 62 ? Action::DashForward : Action::F2;
+            } else if (random < 18) selected = Action::Throw;
+            else if (random < 39) selected = Action::Db3;
+            else if (random < 61) selected = Action::Df1;
+            else if (random < 79) selected = Action::Hopkick;
+            else selected = Action::Jab;
+        }
     } else if (style == 0) {
         if (distance > 1.25F) selected = Action::DashForward;
         else if (distance > 0.95F) selected = random < 55 ? Action::F2 : Action::DashForward;
@@ -96,6 +140,7 @@ __global__ void scripted_actions_kernel(
         else if (random < 88) selected = Action::Hopkick;
         else selected = random < 94 ? Action::SidestepLeft : Action::SidestepRight;
     }
+    if (!masks[mask + static_cast<std::size_t>(selected)]) selected = Action::Neutral;
     actions[lane] = static_cast<std::int64_t>(selected);
 }
 
@@ -124,12 +169,13 @@ const std::int64_t* GpuScriptedOpponent::actions_device(
     std::size_t count,
     std::uint64_t seed,
     std::uint64_t step,
+    ScriptedOpponentSet opponent_set,
     void* stream) {
     if (!observations || !masks || count == 0 || count > impl_->capacity) {
         throw std::invalid_argument("invalid scripted-opponent input");
     }
     scripted_actions_kernel<<<blocks_for(count), kThreads, 0, as_stream(stream)>>>(
-        observations, masks, count, seed, step, impl_->actions);
+        observations, masks, count, seed, step, opponent_set, impl_->actions);
     check_cuda(cudaGetLastError(), "launch scripted opponent kernel");
     return impl_->actions;
 }

@@ -1,0 +1,31 @@
+# Copy this file to config/live_screen.yaml and tune the crops for your screen.
+# Regions are [left, top, right, bottom] in screen pixels.
+# Run scripts/live_vision_play.py --dry-run first to confirm capture, health ratios,
+# and coarse fighter spacing.
+
+p1_health_region: null
+p2_health_region: null
+
+# Optional lower-body/silhouette crops. When set, the live PPO bridge estimates
+# p1_x and p2_x from foreground pixels in these regions instead of using the
+# broad left/right fallback crops.
+p1_body_region: null
+p2_body_region: null
+
+capture_fps: 60
+position_sample_stride: 4
+
+# Multiplies the detected fighter separation before it enters the PPO
+# observation. Calibrate this so close range is roughly 0.5-0.8 sim units.
+position_distance_scale: 1.0
+
+# Optional two-point calibration. When all four values are set, it replaces
+# position_distance_scale and expands the detector's narrow raw distance range.
+# position_distance_near_raw: 2.2
+# position_distance_near_sim: 0.7
+# position_distance_far_raw: 2.4
+# position_distance_far_sim: 3.0
+
+# Motion remaining after shared camera motion is removed must exceed this
+# amount before it is treated as an attack.
+motion_threshold: 0.015
