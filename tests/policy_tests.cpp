@@ -1,4 +1,5 @@
 #include "t8_v2/gpu_sim.hpp"
+#include "t8_v2/opponents.hpp"
 #include "t8_v2/ppo.hpp"
 
 #include <cmath>
@@ -112,6 +113,38 @@ void test_checkpoint_round_trip() {
     std::filesystem::remove(checkpoint, error);
 }
 
+void test_scripted_opponent_mixture() {
+    constexpr std::size_t environments = 8192;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    auto view = simulator.device_view();
+    const auto* actions_device = opponent.actions_device(
+        view.observations_p2, view.action_masks_p2, environments, 123, 0);
+    const auto actions = opponent.download_actions(environments);
+    bool saw_attack = false;
+    bool saw_movement = false;
+    for (const auto action : actions) {
+        check(action >= 0 && action < static_cast<std::int64_t>(t8::v2::kActionCount),
+              "scripted action is in range");
+        saw_attack = saw_attack || action >= static_cast<std::int64_t>(t8::v2::Action::Jab);
+        saw_movement = saw_movement || (action >= static_cast<std::int64_t>(t8::v2::Action::WalkForward) &&
+                                        action <= static_cast<std::int64_t>(t8::v2::Action::SidewalkRight));
+    }
+    check(saw_attack && saw_movement, "scripted mixture contains attacks and movement");
+    simulator.step_device_i64(actions_device, actions_device);
+    view = simulator.device_view();
+    static_cast<void>(opponent.actions_device(
+        view.observations_p1, view.action_masks_p1, environments, 123, 1));
+    const auto busy_actions = opponent.download_actions(environments);
+    const auto busy_masks = simulator.download_action_masks(1);
+    for (std::size_t lane = 0; lane < environments; ++lane) {
+        if (!busy_masks[lane * t8::v2::kActionCount + static_cast<std::size_t>(t8::v2::Action::Jab)]) {
+            check(busy_actions[lane] == static_cast<std::int64_t>(t8::v2::Action::Neutral),
+                  "scripted opponent respects busy mask");
+        }
+    }
+}
+
 }  // namespace
 
 int main() {
@@ -119,6 +152,7 @@ int main() {
     test_determinism_and_busy_mask();
     test_zero_copy_policy_to_simulator_chain();
     test_checkpoint_round_trip();
+    test_scripted_opponent_mixture();
     if (failures != 0) {
         std::cerr << failures << " policy assertion(s) failed\n";
         return EXIT_FAILURE;

@@ -15,7 +15,7 @@ if (-not (Test-Path -LiteralPath $trainer)) {
 
 foreach ($seed in @(2027, 2028, 2029)) {
     foreach ($reward in @('shaped', 'sparse')) {
-        $runDir = Join-Path $root "runs\phase0_${reward}_seed${seed}"
+        $runDir = Join-Path $root "runs\phase0_scripted_${reward}_seed${seed}"
         & $trainer --envs $Envs --horizon $Horizon --updates $Updates `
             --epochs $Epochs --minibatch $Minibatch --seed $seed `
             --reward $reward --run-dir $runDir

@@ -26,6 +26,10 @@ Train shaped-reward and sparse-reward baselines with identical seeds, compute,
 opponent pools, and evaluation. Keep optimization, selection, and audit signals
 separate so shaping cannot silently become the success metric.
 
+The random-opponent pilot saturated and failed the gate; see
+`docs/phase0_pilot_random.md`. The active rerun uses the stronger frozen
+`scripted_v1` GPU mixture.
+
 ### Phase 1 — return redistribution
 
 Introduce return redistribution only after the baselines are stable. Compare it
