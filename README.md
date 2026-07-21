@@ -69,3 +69,7 @@ build-gpu/Release/t8_v2_train.exe --smoke --reward sparse --seed 2027
 For the paired three-seed Phase 0 experiment, run `scripts/run_phase0.ps1`.
 See `docs/training.md` for checkpoint/resume behavior, metrics, and the gate that
 must pass before return redistribution is implemented.
+
+The completed five-seed Phase 0 audit is in `docs/phase0_results.md`. Sparse PPO
+matched shaped PPO at convergence and no reproducible gap was found, so the
+plan's return-redistribution, PBT, and league gates correctly remain closed.

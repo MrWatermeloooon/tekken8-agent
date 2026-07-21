@@ -20,29 +20,32 @@
 
 ## Reward-lean training plan
 
-### Phase 0 — controlled baselines (workflow complete; full runs pending)
+### Phase 0 — controlled baselines (complete)
 
 Train shaped-reward and sparse-reward baselines with identical seeds, compute,
 opponent pools, and evaluation. Keep optimization, selection, and audit signals
 separate so shaping cannot silently become the success metric.
 
-The random-opponent pilot saturated and failed the gate; see
-`docs/phase0_pilot_random.md`. The active rerun uses the stronger frozen
-`scripted_v1` GPU mixture.
+The random-opponent pilot saturated; see `docs/phase0_pilot_random.md`. The
+five-seed high-resolution rerun against `scripted_v1` also found no clear,
+reproducible shaped-versus-sparse gap. See `docs/phase0_results.md`.
 
-### Phase 1 — return redistribution
+### Phase 1 — return redistribution (no-go: prerequisite gap absent)
 
 Introduce return redistribution only after the baselines are stable. Compare it
 against the same seed set and held-out opponents. Accept it only if sparse return,
 win rate, exploitability, and robustness improve—not merely training reward.
 
-### Phase 2 — population-based training
+Not implemented. Sparse PPO already reaches the same final benchmark result,
+and the five-seed learning curves do not show a consistent gap to close.
+
+### Phase 2 — population-based training (not entered)
 
 Use PBT to tune learning rate, entropy, rollout/minibatch sizes, and conservative
 reward coefficients. Selection uses held-out league performance rather than the
 same shaped objective being optimized.
 
-### Phase 3 — league training
+### Phase 3 — league training (not entered)
 
 Maintain current, historical, exploitative, and scripted opponents. Promote
 policies through fixed evaluation gates and retain snapshots to prevent forgetting.
