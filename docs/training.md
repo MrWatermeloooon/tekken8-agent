@@ -7,12 +7,15 @@ build-gpu/Release/t8_v2_train.exe `
   --reward shaped --seed 2027 `
   --envs 4096 --horizon 128 --updates 100 `
   --epochs 4 --minibatch 4096 `
-  --run-dir runs/phase0_shaped_seed2027
+  --run-dir runs/phase0_scripted_shaped_seed2027
 ```
 
 Use `--reward sparse` for the terminal-only objective. Both modes use the same
 CUDA simulator, initial policy seed, frozen opponent, rollout count, optimizer,
-and evaluation sequence. Only the reward tensor consumed by GAE differs.
+and evaluation sequence. Only the reward tensor consumed by GAE differs. The
+frozen `scripted_v1` mixture rotates eight GPU-native styles across lanes:
+pressure, keepout, defense/punishment, grappling, lows, evasion, turtling, and
+adaptive mixed offense.
 
 `--resume <checkpoint.t8ppo>` restores network weights, Adam moments, and the
 optimizer step. `--smoke` selects a small two-update validation configuration.

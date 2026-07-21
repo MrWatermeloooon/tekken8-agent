@@ -1,4 +1,5 @@
 #include "t8_v2/gpu_sim.hpp"
+#include "t8_v2/opponents.hpp"
 #include "t8_v2/ppo.hpp"
 
 #include <algorithm>
@@ -86,7 +87,7 @@ Options parse_options(int argc, char** argv) {
     }
     if (options.run_directory.empty()) {
         options.run_directory = std::filesystem::path("runs") /
-            (std::string("phase0_") + (options.sparse_reward ? "sparse" : "shaped") +
+            (std::string("phase0_scripted_") + (options.sparse_reward ? "sparse" : "shaped") +
              "_seed" + std::to_string(options.seed));
     }
     return options;
@@ -106,16 +107,17 @@ Evaluation evaluate(
     std::uint64_t seed) {
     const std::size_t environments = std::min({requested_episodes, learner.capacity(), std::size_t{256}});
     t8::v2::GpuSimulatorBatch simulator(environments);
-    t8::v2::GpuActorCritic opponent(environments, {}, seed + 900'000);
+    t8::v2::GpuScriptedOpponent opponent(environments);
     Evaluation result{};
     std::size_t decision = 0;
     while (result.episodes < requested_episodes) {
         const auto before = simulator.device_view();
         const auto p1 = learner.forward(before.observations_p1, before.action_masks_p1,
                                         environments, seed, decision, true);
-        const auto p2 = opponent.forward(before.observations_p2, before.action_masks_p2,
-                                         environments, seed + 1, decision, false);
-        simulator.step_device_i64(p1.actions, p2.actions);
+        const auto* p2_actions = opponent.actions_device(
+            before.observations_p2, before.action_masks_p2,
+            environments, seed + 1, decision);
+        simulator.step_device_i64(p1.actions, p2_actions);
         const auto done = simulator.download_terminated();
         const auto winners = simulator.download_winners();
         for (std::size_t lane = 0; lane < environments && result.episodes < requested_episodes; ++lane) {
@@ -149,6 +151,7 @@ void append_metrics(
            << "{\"update\":" << update
            << ",\"environment_steps\":" << environment_steps
            << ",\"reward_mode\":\"" << reward_mode << "\""
+           << ",\"benchmark\":\"scripted_v1\""
            << ",\"elapsed_seconds\":" << elapsed_seconds
            << ",\"policy_loss\":" << metrics.policy_loss
            << ",\"value_loss\":" << metrics.value_loss
@@ -177,7 +180,7 @@ int main(int argc, char** argv) {
         const std::size_t policy_capacity = std::max(options.environments, options.minibatch_size);
         t8::v2::GpuSimulatorBatch simulator(options.environments);
         t8::v2::GpuActorCritic learner(policy_capacity, {}, options.seed);
-        t8::v2::GpuActorCritic opponent(options.environments, {}, options.seed + 1);
+        t8::v2::GpuScriptedOpponent opponent(options.environments);
         t8::v2::GpuRolloutBuffer rollout(options.environments, options.horizon);
         if (!options.resume_checkpoint.empty()) learner.load_checkpoint(options.resume_checkpoint);
 
@@ -193,12 +196,13 @@ int main(int argc, char** argv) {
                 const auto before = simulator.device_view();
                 const auto p1 = learner.forward(before.observations_p1, before.action_masks_p1,
                                                 options.environments, options.seed, update * options.horizon + step, false);
-                const auto p2 = opponent.forward(before.observations_p2, before.action_masks_p2,
-                                                 options.environments, options.seed + 1,
-                                                 update * options.horizon + step, false);
+                const auto* p2_actions = opponent.actions_device(
+                    before.observations_p2, before.action_masks_p2,
+                    options.environments, options.seed + 1,
+                    update * options.horizon + step);
                 rollout.record_policy_device(step, before.observations_p1, before.action_masks_p1,
                                              p1.actions, p1.log_probabilities, p1.values);
-                simulator.step_device_i64(p1.actions, p2.actions);
+                simulator.step_device_i64(p1.actions, p2_actions);
                 const auto after = simulator.device_view();
                 const float* rewards = options.sparse_reward
                     ? after.sparse_rewards_p1 : after.rewards_p1;
