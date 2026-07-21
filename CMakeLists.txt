@@ -60,6 +60,10 @@ if(T8_V2_BUILD_TESTS)
     add_executable(t8_v2_policy_tests tests/policy_tests.cpp)
     target_link_libraries(t8_v2_policy_tests PRIVATE t8_v2_ppo t8_v2_gpu)
     add_test(NAME t8_v2_gpu_policy COMMAND t8_v2_policy_tests)
+
+    add_executable(t8_v2_rollout_tests tests/rollout_tests.cpp)
+    target_link_libraries(t8_v2_rollout_tests PRIVATE t8_v2_ppo t8_v2_gpu)
+    add_test(NAME t8_v2_gpu_rollout COMMAND t8_v2_rollout_tests)
 endif()
 
 if(T8_V2_BUILD_BENCHMARKS)
