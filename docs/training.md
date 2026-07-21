@@ -37,6 +37,18 @@ comparison records median and interquartile range for:
 
 Smoke runs prove plumbing only and cannot satisfy the Phase 0 gate.
 
+When the default cadence saturates before the first evaluation, use the
+high-resolution protocol:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts/run_phase0.ps1 `
+  -Updates 100 -Envs 512 -Horizon 32 -Epochs 2 -Minibatch 1024 `
+  -EvalInterval 1 -EvalEpisodes 256 -Label phase0_scripted_highres
+```
+
+Use `-Seeds '2030,2031'` to extend an existing protocol to five total seeds
+without rerunning the first three.
+
 ## Artifacts
 
 Each run directory contains:
