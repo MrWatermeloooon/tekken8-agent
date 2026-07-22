@@ -20,7 +20,7 @@ live = [
     "dxcam>=0.0.5",
     "keyboard>=0.13.5",
     "opencv-python>=4.9",
-    "torch>=2.2",
+    "torch>=2.13",
     "vgamepad>=0.1.0",
 ]
 dev = [
