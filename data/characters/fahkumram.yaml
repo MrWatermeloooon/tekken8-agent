@@ -1,0 +1,3205 @@
+character_id: fahkumram
+display_name: Fahkumram
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/fahkumram/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 7d53dec4bd3cd7bd1eaf1bc4042f5707e524c9e1275264f7a8f7730b39f7385a
+data_status: available
+stances:
+- H
+- GRF
+- d+4
+- ws
+- SS
+- FC
+- RAM
+moves:
+- id: h_2p3
+  source_id: Fahkumram-H.2+3
+  source_index: 1
+  command: H.2+3
+  name: Hanuman Impact
+  hit_level: m,m (t)
+  damage: '50'
+  startup: i16
+  recovery: r45
+  block: '+7'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - js
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to Attack Throw on hit
+
+    * 2nd hit damage 25
+
+    * +27a (+1) If only last hit connects on standing opponent
+
+    * 5 chip damage on block
+
+    * Low crush 15~25'
+- id: r_dfp1p2
+  source_id: Fahkumram-R.df+1+2
+  source_index: 2
+  command: R.df+1+2
+  name: Avatar of Garuda
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Fahkumram-1
+  source_index: 3
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Fahkumram-1,1
+  source_index: 4
+  command: 1,1
+  name: Jab > Elbow Scythe
+  hit_level: h, m
+  damage: 5, 20
+  startup: i10, i20~21
+  recovery: r29
+  block: '-9'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combo from 1st CH with 2F delay
+
+    * Input can be delayed by 2F
+
+    * Move cannot be delayed
+
+    * +10a on BT hit
+
+    * Interrupt with i3 from 1st block'
+- id: '1_2'
+  source_id: Fahkumram-1,2
+  source_index: 5
+  command: 1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i10
+  recovery: r21
+  block: '-3'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st block with 2f delay
+
+    * Combo from 1st hit with 2F delay'
+- id: '1_2_1'
+  source_id: Fahkumram-1,2,1
+  source_index: 6
+  command: 1,2,1
+  name: ''
+  hit_level: h, h, m
+  damage: 5, 8, 15
+  startup: i10, ,i17~18
+  recovery: r28
+  block: '-10'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Input can be delayed 12f'
+- id: '1_2_1_4'
+  source_id: Fahkumram-1,2,1,4
+  source_index: 7
+  command: 1,2,1,4
+  name: Ban Chiang Combination
+  hit_level: h, h, m, m
+  damage: 5, 8, 15, 23
+  startup: i10, ,i21~22
+  recovery: r34
+  block: '-14'
+  hit: +13a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 3rd hit with 10f delay
+
+    * Interrupt with i4 from 1st block
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f'
+- id: '1_2_4'
+  source_id: Fahkumram-1,2,4
+  source_index: 8
+  command: 1,2,4
+  name: ''
+  hit_level: h, h, h
+  damage: 5, 8, 10
+  startup: i10, ,i17
+  recovery: r27
+  block: '-9'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Input can be delayed 2f
+
+    * Move cannot be delayed'
+- id: '1_2_4_3'
+  source_id: Fahkumram-1,2,4,3
+  source_index: 9
+  command: 1,2,4,3
+  name: Left Right Combo > Thunderstorm
+  hit_level: h, h, h, h
+  damage: 5, 8, 10, 14
+  startup: i10, ,i19~20
+  recovery: r25
+  block: '-7'
+  hit: '+6'
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - balcony_break
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 3rd hit'
+- id: '1_2_4_3_4'
+  source_id: Fahkumram-1,2,4,3~4
+  source_index: 10
+  command: 1,2,4,3~4
+  name: Left Right Combo > Erupting Knee Convergence
+  hit_level: h, h, h, m
+  damage: 5, 8, 10, 20
+  startup: i10, ,i21~22
+  recovery: r23
+  block: '-5'
+  hit: '+9'
+  counter_hit: +44a
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Can be charged with held input
+
+    * Effective startup i36~37
+
+    * Interrupt with i17 from 3rd block
+
+    * Interrupt with i5 from 3rd hit
+
+    * Move can be delayed by 2F
+
+    * Recovers 2f slower on hit or block'
+- id: '1_2_4_3_4'
+  source_id: Fahkumram-1,2,4,3~4*
+  source_index: 11
+  command: 1,2,4,3~4*
+  name: Left Right Combo > Charged Erupting Knee
+  hit_level: h, h, h, m
+  damage: 5, 8, 10, 25
+  startup: i10, ,i36~37
+  recovery: r30
+  block: '+9'
+  hit: +73a (+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - chp
+  - heat
+  - tornado
+  - parry
+  - chip
+  - mid
+  - high
+  notes: '* Knee
+
+    * Unparryable
+
+    * Instant Tornado on hit
+
+    * Chip damage on block
+
+    * Effective startup i51~52
+
+    * Interrupt with i32 from 3rd block
+
+    * Interrupt with i20 from 3rd hit
+
+    * Cancel to r20 FC with F at frames 16-24 (frames 31-39 from 3rd attack)
+
+    ** Interrupt with i33? mid/low from 3rd block
+
+    ** Interrupt with i21? mid/low from 3rd hit
+
+    * Move can be delayed by 2F
+
+    * Power up in Heat or GRF'
+- id: 1_2_4_3_4_b
+  source_id: Fahkumram-1,2,4,3~4*~B
+  source_index: 12
+  command: 1,2,4,3~4*~B
+  name: Eruption Maw
+  hit_level: h, h, h, m
+  damage: 5, 8, 10, 25
+  startup: i10, ,i22
+  recovery: r37
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Effective startup i53
+
+    * Interrupt with i34 from 3rd block
+
+    * Interrupt with i22 from 3rd hit
+
+    * Input B during frames 16-24 of Eruption Maw (charged)
+
+    * Move can be delayed by 8F from Eruption Maw (charged)'
+- id: '1_2_4_4'
+  source_id: Fahkumram-1,2,4,4
+  source_index: 13
+  command: 1,2,4,4
+  name: Left Right Combo > Twin Bolts
+  hit_level: h, h, h, L
+  damage: 5, 8, 10, 15
+  startup: i10, ,i25
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: +0d
+  tier: specialist
+  tags:
+  - throw
+  - low
+  - high
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: '1_4'
+  source_id: Fahkumram-1,4
+  source_index: 14
+  command: 1,4
+  name: Jab > High Kick
+  hit_level: h, h
+  damage: 5, 17
+  startup: i10, i17
+  recovery: r26
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combos from 1st hit'
+- id: '2'
+  source_id: Fahkumram-2
+  source_index: 15
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '13'
+  startup: i12
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - high
+  notes: '* Elbow'
+- id: '2_1'
+  source_id: Fahkumram-2,1
+  source_index: 16
+  command: 2,1
+  name: Double Elbow Strike
+  hit_level: h, h
+  damage: 13, 20
+  startup: i12, i20
+  recovery: r32
+  block: '-12'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - high
+  notes: '*
+
+    Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * r29 on hit'
+- id: '2_3'
+  source_id: Fahkumram-2,3
+  source_index: 17
+  command: 2,3
+  name: Double Blast
+  hit_level: h, m
+  damage: 13, 22
+  startup: i12, i31
+  recovery: ''
+  block: '-4'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '*
+
+    Balcony Break
+
+    * Combos from 1st hit CH'
+- id: '3'
+  source_id: Fahkumram-3
+  source_index: 18
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i13
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_1'
+  source_id: Fahkumram-3,1
+  source_index: 19
+  command: 3,1
+  name: ''
+  hit_level: m, h
+  damage: 11, 12
+  startup: i13, i18
+  recovery: r21
+  block: '-3'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 2F'
+- id: '3_1_2'
+  source_id: Fahkumram-3,1,2
+  source_index: 20
+  command: 3,1,2
+  name: Ayutthaya Piercing Thunder
+  hit_level: m, h, h
+  damage: 11, 12, 20
+  startup: i13, ,i21
+  recovery: r26
+  block: '-0'
+  hit: +38d (+30)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combos from 2nd hit CH'
+- id: '3_1_4'
+  source_id: Fahkumram-3,1,4
+  source_index: 21
+  command: 3,1,4
+  name: Ayutthaya Roaring Thunder
+  hit_level: m, h, m
+  damage: 11, 12, 23
+  startup: i13, ,i21
+  recovery: ''
+  block: '-14'
+  hit: +8d (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH'
+- id: 3_1_dp4
+  source_id: Fahkumram-3,1,d+4
+  source_index: 22
+  command: 3,1,d+4
+  name: Ayutthaya Rumbling Thunder
+  hit_level: m, h, L
+  damage: 11, 12, 15
+  startup: i13, ,i20
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: +0d
+  tier: specialist
+  tags:
+  - throw
+  - low
+  - mid
+  - high
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '3_4'
+  source_id: Fahkumram-3,4
+  source_index: 23
+  command: 3,4
+  name: Ayutthaya Rush
+  hit_level: m, m
+  damage: 11, 18
+  startup: i13, i19
+  recovery: ''
+  block: '-12'
+  hit: +24g
+  counter_hit: +34d (+26)
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Wallbreak on CH
+
+    * Combo from 1st hit CH with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F'
+- id: '3_4_3'
+  source_id: Fahkumram-3,4~3
+  source_index: 24
+  command: 3,4~3
+  name: Tornado Kick Convergence
+  hit_level: m, m
+  damage: 11, 20
+  startup: i13, i18
+  recovery: r28
+  block: '-7'
+  hit: '+9'
+  counter_hit: +37d (+29)
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - balcony_break
+  - mid
+  notes: "* Tornado\n* Balcony Break on CH\n* Effective startup i34 \n* Interrupt\
+    \ with i16 from 1st block\n* Interrupt with i5 from 1st hit\n* Combo from 1st\
+    \ CH with no delay\n* Move cannot be delayed\n* Input can be delayed by 15F\n\
+    * Can be charged"
+- id: '3_4_3'
+  source_id: Fahkumram-3,4~3*
+  source_index: 25
+  command: 3,4~3*
+  name: Tornado Kick Convergence (charged)
+  hit_level: m, m
+  damage: 11, 23
+  startup: i13, i36
+  recovery: r31
+  block: '+9'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Effective startup i52
+
+    * Interrupt with i34 from 1st block
+
+    * Interrupt with i23 from 1st hit
+
+    * Cancel to r20 FC with F at frames 20-24 (frames 36-40 from 1st attack)
+
+    ** Interrupt with i39? from 1st block
+
+    ** Interrupt with i28? from 1st attack
+
+    * 9 chip damage on block
+
+    * Powered up with GRF'
+- id: 3_4_3_b
+  source_id: Fahkumram-3,4~3*~B
+  source_index: 26
+  command: 3,4~3*~B
+  name: Tornado Maw
+  hit_level: m, m
+  damage: 11, 25
+  startup: i13, i22
+  recovery: r33
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Effective startup i54
+
+    * Interrupt with i36 from 3rd block
+
+    * Interrupt with i25 from 3rd hit
+
+    * Input B during frames 16-24 of Tornado Maw (charged)
+
+    * Move can be delayed by 8F from Tornado Maw (charged)'
+- id: '3_4_4'
+  source_id: Fahkumram-3,4~4
+  source_index: 27
+  command: 3,4~4
+  name: Ayutthaya Night Thunder
+  hit_level: m, h
+  damage: 11, 20
+  startup: i13, i16
+  recovery: r29
+  block: '+3'
+  hit: +13g
+  counter_hit: +30a
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Effective startup i29
+
+    * Interrupt with i11 from 1st block
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Interrupt with i11 from 1st block
+
+    * Just frame input 3,4:4; effective startup i32
+
+    ** 24 damage, 7 chip damage, slightly different juggle properties
+
+    ** Input 4 during frames 14~16 of 3,4
+
+    ** Interrupt with i14 from 1st block or i3? from 1st hit'
+- id: '4'
+  source_id: Fahkumram-4
+  source_index: 28
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: r30
+  block: '-12'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* r27 on hit'
+- id: '4_3'
+  source_id: Fahkumram-4,3
+  source_index: 29
+  command: 4,3
+  name: Thunderstorm
+  hit_level: h, h
+  damage: 10, 14
+  startup: i12, i19
+  recovery: r25
+  block: '-7'
+  hit: '+6'
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combos from 1st hit'
+- id: '4_3_4'
+  source_id: Fahkumram-4,3~4
+  source_index: 30
+  command: 4,3~4
+  name: Thunderstorm > Erupting Knee Convergence
+  hit_level: h, m
+  damage: 10, 20
+  startup: i12, i21
+  recovery: r23
+  block: '-5'
+  hit: '+9'
+  counter_hit: +44a
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Can be charged
+
+    * r25 on block'
+- id: '4_3_4'
+  source_id: Fahkumram-4,3~4*
+  source_index: 31
+  command: 4,3~4*
+  name: Thunderstorm > Erupting Knee Convergence (charged)
+  hit_level: h, m
+  damage: 10, 25
+  startup: i12, i36
+  recovery: r30
+  block: '+9'
+  hit: +73a (+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Knee
+
+    * Powered up with GRF
+
+    * Cancel to FC with F'
+- id: 4_3_4_b
+  source_id: Fahkumram-4,3~4*~B
+  source_index: 32
+  command: 4,3~4*~B
+  name: Eruption Maw
+  hit_level: h, m
+  damage: 10, 25
+  startup: i12, i22
+  recovery: r37
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  - high
+  notes: '*
+
+    Homing
+
+    * Balcony Break'
+- id: '4_4'
+  source_id: Fahkumram-4,4
+  source_index: 33
+  command: 4,4
+  name: Twin Bolts
+  hit_level: h, L
+  damage: 10, 15
+  startup: i12, i25
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: +0d
+  tier: specialist
+  tags:
+  - throw
+  - low
+  - high
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: 3p4
+  source_id: Fahkumram-3+4
+  source_index: 34
+  command: 3+4
+  name: Heavy Middle Kick
+  hit_level: m
+  damage: '20'
+  startup: i18
+  recovery: r31
+  block: '-9'
+  hit: +18a (+9)
+  counter_hit: +58cs
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Good right sidestep tracking'
+- id: fp2
+  source_id: Fahkumram-f+2
+  source_index: 35
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15
+  recovery: ''
+  block: '-9'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: fp2_1
+  source_id: Fahkumram-f+2,1
+  source_index: 36
+  command: f+2,1
+  name: Cross Blitz
+  hit_level: m, m
+  damage: 14, 22
+  startup: i15, i20
+  recovery: ''
+  block: '-14'
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combos from 1st hit'
+- id: grf_fp2_1_2
+  source_id: Fahkumram-f+2,1,GRF.2
+  source_index: 37
+  command: GRF.f+2,1,2
+  name: Naga Slaughter
+  hit_level: m, m, m
+  damage: 14, 22, 20
+  startup: i15, ,i29
+  recovery: ''
+  block: '+2'
+  hit: +15d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - js
+  - heat
+  - low_crush
+  - floor_break
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: fp3
+  source_id: Fahkumram-f+3
+  source_index: 38
+  command: f+3
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i17
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: fp3_2
+  source_id: Fahkumram-f+3,2
+  source_index: 39
+  command: f+3,2
+  name: ''
+  hit_level: m, m
+  damage: 16, 13
+  startup: i17, i20
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp3_2_1
+  source_id: Fahkumram-f+3,2,1
+  source_index: 40
+  command: f+3,2,1
+  name: 'Berserker Combination: Hook'
+  hit_level: m, m, h
+  damage: 16, 13, 20
+  startup: i17, ,i19
+  recovery: ''
+  block: '-5'
+  hit: +24a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH
+
+    * Delayable'
+- id: fp3_2_4
+  source_id: Fahkumram-f+3,2,4
+  source_index: 41
+  command: f+3,2,4
+  name: 'Berserker Combination: Knee'
+  hit_level: m, m, m
+  damage: 16, 13, 20
+  startup: i17, ,i20
+  recovery: ''
+  block: '-12'
+  hit: '+6'
+  counter_hit: +36d (+28)
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combos from 2nd hit CH
+
+    * Delayable'
+- id: fp3_2_4_3
+  source_id: Fahkumram-f+3,2,4~3
+  source_index: 42
+  command: f+3,2,4~3
+  name: Berserker Combination > Tornado Kick Convergence
+  hit_level: m, m, m
+  damage: 16, 13, 20
+  startup: i17, ,i18
+  recovery: ''
+  block: '-7'
+  hit: '+9'
+  counter_hit: +37d (+29)
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Wallbreak on CH
+
+    * Combos from 1st hit CH
+
+    * Can be charged'
+- id: fp3_2_4_3
+  source_id: Fahkumram-f+3,2,4~3*
+  source_index: 43
+  command: f+3,2,4~3*
+  name: Berserker Combination >Tornado Kick Convergence (charged)
+  hit_level: m, m, m
+  damage: 16, 13, 23
+  startup: i17, ,i36
+  recovery: ''
+  block: '+9'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 9 chip damage on block
+
+    * Powered up with GRF
+
+    * Cancel to FC with F'
+- id: fp3_2_4_3_b
+  source_id: Fahkumram-f+3,2,4~3*~B
+  source_index: 44
+  command: f+3,2,4~3*~B
+  name: Eruption Maw
+  hit_level: m, m, m
+  damage: 16, 13, 25
+  startup: i17, ,i22
+  recovery: ''
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '*
+
+    Homing
+
+    * Balcony Break'
+- id: fp3_2_4_4
+  source_id: Fahkumram-f+3,2,4~4
+  source_index: 45
+  command: f+3,2,4~4
+  name: Berserker Night Thunder
+  hit_level: m, m, h
+  damage: 16, 13, 20
+  startup: i17, ,i16
+  recovery: ''
+  block: '+3'
+  hit: +13g
+  counter_hit: +30a
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Just frame input 3,4:4
+
+    * 24 damage, 7 chip damage, slightly different juggle properties'
+- id: fp4
+  source_id: Fahkumram-f+4
+  source_index: 46
+  command: f+4
+  name: Heel Strike
+  hit_level: m
+  damage: '26'
+  startup: i25
+  recovery: ''
+  block: +3c
+  hit: +8c
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break'
+- id: fp1p2
+  source_id: Fahkumram-f+1+2
+  source_index: 47
+  command: f+1+2
+  name: Horizon Dash
+  hit_level: m
+  damage: '25'
+  startup: i21
+  recovery: ''
+  block: '-4'
+  hit: +24a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +36a (+26)
+
+
+    * Balcony Break
+
+    * 7 chip damage on block'
+- id: fp3p4
+  source_id: Fahkumram-f+3+4
+  source_index: 48
+  command: f+3+4
+  name: Deadly Knee
+  hit_level: m
+  damage: '22'
+  startup: i22
+  recovery: ''
+  block: '-14'
+  hit: +19a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - pc
+  - power_crush
+  - chip
+  - mid
+  notes: '* Knee
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Grants GRF on hit
+
+    * Power crush 7~21'
+- id: dfp1
+  source_id: Fahkumram-df+1
+  source_index: 49
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15
+  recovery: ''
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Fahkumram-df+1,2
+  source_index: 50
+  command: df+1,2
+  name: 'Aiyara Combination: Mid'
+  hit_level: m, M
+  damage: 12, 20
+  startup: i15, i27
+  recovery: ''
+  block: '-13'
+  hit: +12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combos from 1st hit
+
+    * Grants GRF on hit
+
+    * Interrupt with i7 from 1st block
+
+    * Low crush'
+- id: dfp1_4
+  source_id: Fahkumram-df+1,4
+  source_index: 51
+  command: df+1,4
+  name: 'Aiyara Combination: High'
+  hit_level: m, h
+  damage: 12, 23
+  startup: i15, i25
+  recovery: r29
+  block: '-5'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - kne
+  - heat
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +62a (+42)
+
+
+    * Knee
+
+    * Combo from 1st hit with'
+- id: dfp1_4_3
+  source_id: Fahkumram-df+1,4~3
+  source_index: 52
+  command: df+1,4~3
+  name: Aiyara Combination > Tornado Kick Convergence
+  hit_level: m, m
+  damage: 12, 20
+  startup: i15, i18
+  recovery: ''
+  block: '-7'
+  hit: '+9'
+  counter_hit: +37d (+29)
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Wallbreak on CH
+
+    * Combos from 1st CH
+
+    * Can be charged
+
+    * Interrupt with i18 from 1st block
+
+    * Interrupt with i9 from 1st hit'
+- id: dfp1_4_3
+  source_id: Fahkumram-df+1,4~3*
+  source_index: 53
+  command: df+1,4~3*
+  name: Aiyara Combination > Tornado Kick Convergence (charged)
+  hit_level: m, m
+  damage: 12, 23
+  startup: i15, i36
+  recovery: ''
+  block: '+9'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 9 chip damage on block
+
+    * Powered up with GRF
+
+    * Cancel to FC with F
+
+    ** Interrupt with i41? from 1st block or i32? from 1st hit
+
+    * Interrupt with i36 from 1st block
+
+    * Interrupt with i27 from 1st hit'
+- id: dfp1_4_3_b
+  source_id: Fahkumram-df+1,4~3*~B
+  source_index: 54
+  command: df+1,4~3*~B
+  name: Tornado Maw
+  hit_level: m, m
+  damage: 12, 25
+  startup: i15, i22
+  recovery: ''
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '*
+
+    Homing
+
+    * Balcony Break
+
+    * Interrupt with i38 from 1st block
+
+    * Interrupt with i29 from 1st hit'
+- id: dfp1_4_4
+  source_id: Fahkumram-df+1,4~4
+  source_index: 55
+  command: df+1,4~4
+  name: Aiyara Night Thunder
+  hit_level: m, h
+  damage: 12, 20
+  startup: i15, i16
+  recovery: ''
+  block: '+3'
+  hit: +13g
+  counter_hit: +30a
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Just frame input 3,4:4
+
+    ** 24 damage, 7 chip damage, slightly different juggle properties
+
+    ** Interrupt with i16 from 1st block or i7 from 1st hit
+
+    * Interrupt with i13 from 1st block
+
+    * Interrupt with i4 from 1st hit'
+- id: dfp2
+  source_id: Fahkumram-df+2
+  source_index: 56
+  command: df+2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15
+  recovery: ''
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp2_1
+  source_id: Fahkumram-df+2,1
+  source_index: 57
+  command: df+2,1
+  name: Searing Elbow
+  hit_level: m, m
+  damage: 10, 22
+  startup: i15, i24
+  recovery: ''
+  block: '-13'
+  hit: +13d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fbr
+  - elb
+  - balcony_break
+  - floor_break
+  - mid
+  notes: '* Balcony Break
+
+    * Floor Break
+
+    * Elbow
+
+    * Combos from 1st hit'
+- id: dfp2_3
+  source_id: Fahkumram-df+2,3
+  source_index: 58
+  command: df+2,3
+  name: Searing High Switch
+  hit_level: m, h
+  damage: 10, 11
+  startup: i15, i21
+  recovery: ''
+  block: '-13'
+  hit: +52cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: dfp3
+  source_id: Fahkumram-df+3
+  source_index: 59
+  command: df+3
+  name: Sweeping Thunder
+  hit_level: l
+  damage: '15'
+  startup: i20
+  recovery: ''
+  block: '-13'
+  hit: -1c
+  counter_hit: +28g
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dfp3_3
+  source_id: Fahkumram-df+3~3
+  source_index: 60
+  command: df+3~3
+  name: Thunderbolt
+  hit_level: m
+  damage: '20'
+  startup: i17
+  recovery: ''
+  block: '+2'
+  hit: +12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* 6 chip damage on block'
+- id: dfp3_4
+  source_id: Fahkumram-df+3~4
+  source_index: 61
+  command: df+3~4
+  name: Lightning Streamer
+  hit_level: M
+  damage: '20'
+  startup: i25
+  recovery: ''
+  block: '-10'
+  hit: +21a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Just frame input 4 on frames 1-2 for 6 more damage'
+- id: dfp4
+  source_id: Fahkumram-df+4
+  source_index: 62
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i16
+  recovery: ''
+  block: '-6'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_1
+  source_id: Fahkumram-df+4,1
+  source_index: 63
+  command: df+4,1
+  name: Chao Suea Rush
+  hit_level: m, h
+  damage: 15, 25
+  startup: i16, i22
+  recovery: ''
+  block: '-6'
+  hit: +14a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: dfp4_3
+  source_id: Fahkumram-df+4,3
+  source_index: 64
+  command: df+4,3
+  name: Chao Suea Raid
+  hit_level: m, m
+  damage: 15, 23
+  startup: i16, i25
+  recovery: ''
+  block: '-12'
+  hit: +9d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Knee
+
+    * Combos from 1st hit
+
+    * Low crush'
+- id: dfp3p4
+  source_id: Fahkumram-df+3+4
+  source_index: 65
+  command: df+3+4
+  name: Stomach Rupture
+  hit_level: m,m
+  damage: 8,16
+  startup: i13
+  recovery: ''
+  block: '-10'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Good right sidestep tracking'
+- id: grf_dfp3p4_3
+  source_id: Fahkumram-df+3+4,GRF.3
+  source_index: 66
+  command: GRF.df+3+4,3
+  name: Naga Devourer
+  hit_level: m,m, m
+  damage: 8,16, 23
+  startup: i13, i26
+  recovery: ''
+  block: '-9'
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Transition to +13g RAM on hit
+
+    * Combos from 1st hit
+
+    * 9 chip damage on block'
+- id: dp1
+  source_id: Fahkumram-d+1
+  source_index: 67
+  command: d+1
+  name: Lightning Elbow
+  hit_level: M
+  damage: '20'
+  startup: i18
+  recovery: FC
+  block: '-5'
+  hit: +8c
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: dp2
+  source_id: Fahkumram-d+2
+  source_index: 68
+  command: d+2
+  name: Quick Low Elbow
+  hit_level: sl
+  damage: '13'
+  startup: i12
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - cs
+  - high_crush
+  - low
+  notes: '* Elbow
+
+    * High crush'
+- id: dp3
+  source_id: Fahkumram-d+3
+  source_index: 69
+  command: d+3
+  name: ''
+  hit_level: L
+  damage: '11'
+  startup: i16
+  recovery: ''
+  block: '-16'
+  hit: '-5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp3_4
+  source_id: Fahkumram-d+3,4
+  source_index: 70
+  command: d+3,4
+  name: ''
+  hit_level: L, h
+  damage: 11, 10
+  startup: i16, i20
+  recovery: ''
+  block: '-9'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combos from 1st hit CH'
+- id: dp3_4_3
+  source_id: Fahkumram-d+3,4,3
+  source_index: 71
+  command: d+3,4,3
+  name: Left Low Kick > Thunderstorm
+  hit_level: L, h, h
+  damage: 11, 10, 14
+  startup: i16, ,i19
+  recovery: ''
+  block: '-7'
+  hit: '+6'
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combos from 1st hit CH'
+- id: dp3_4_3_4
+  source_id: Fahkumram-d+3,4,3~4
+  source_index: 72
+  command: d+3,4,3~4
+  name: Left Low Kick > Erupting Knee Convergence
+  hit_level: L, h, m
+  damage: 11, 10, 20
+  startup: i16, ,i21
+  recovery: ''
+  block: '-5'
+  hit: '+9'
+  counter_hit: +44a
+  tier: specialist
+  tags:
+  - kne
+  - low
+  - mid
+  - high
+  notes: '* Knee
+
+    * Can be charged'
+- id: dp3_4_3_4
+  source_id: Fahkumram-d+3,4,3~4*
+  source_index: 73
+  command: d+3,4,3~4*
+  name: Left Low Kick > Erupting Knee Convergence (charged)
+  hit_level: L, h, m
+  damage: 11, 10, 25
+  startup: i16, ,i36
+  recovery: ''
+  block: '+9'
+  hit: +73a (+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - tornado
+  - low
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Knee
+
+    * Powered up with GRF
+
+    * Cancel to FC with F'
+- id: dp3_4_3_4_b
+  source_id: Fahkumram-d+3,4,3~4*~B
+  source_index: 74
+  command: d+3,4,3~4*~B
+  name: Eruption Maw
+  hit_level: L, h, m
+  damage: 11, 10, 25
+  startup: i16, ,i22
+  recovery: ''
+  block: '-7'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - low
+  - mid
+  - high
+  notes: '*
+
+    Homing
+
+    * Balcony Break'
+- id: dp3_4_4
+  source_id: Fahkumram-d+3,4,4
+  source_index: 75
+  command: d+3,4,4
+  name: Left Low Kick > Twin Bolts
+  hit_level: L, h, L
+  damage: 11, 10, 15
+  startup: i16, ,i25
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: +0d
+  tier: specialist
+  tags:
+  - throw
+  - low
+  - high
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4
+  source_id: Fahkumram-d+4
+  source_index: 76
+  command: d+4
+  name: Rumbling Thunder
+  hit_level: L
+  damage: '18'
+  startup: i14
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: +0d
+  tier: core
+  tags:
+  - throw
+  - low
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4_counterhit
+  source_id: Fahkumram-CH d+4
+  source_index: 77
+  command: d+4 (counterhit)
+  name: Murderous Sweep
+  hit_level: l (t)
+  damage: '41'
+  startup: i14
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - low
+  notes: '* Shifts to throw on front gounded CH
+
+    * Grants GRF on hit'
+- id: dbp1
+  source_id: Fahkumram-db+1
+  source_index: 78
+  command: db+1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dbp2
+  source_id: Fahkumram-db+2
+  source_index: 79
+  command: db+2
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i16
+  recovery: ''
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* High evasion'
+- id: dbp2_2
+  source_id: Fahkumram-db+2,2
+  source_index: 80
+  command: db+2,2
+  name: Lightning Rod
+  hit_level: m, m
+  damage: 16, 16
+  startup: i16, i25
+  recovery: ''
+  block: '-13'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Combos from 1st hit'
+- id: dbp4
+  source_id: Fahkumram-db+4
+  source_index: 81
+  command: db+4
+  name: Haang Jora Khee
+  hit_level: h
+  damage: '23'
+  startup: i20~21
+  recovery: r31
+  block: '-6'
+  hit: +35d
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Recovers 1f slower on block
+
+    * High crush 6~19'
+- id: dbp3p4
+  source_id: Fahkumram-db+3+4
+  source_index: 82
+  command: db+3+4
+  name: Encroaching Storm
+  hit_level: m
+  damage: '25'
+  startup: i30
+  recovery: ''
+  block: '-9'
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: bp1
+  source_id: Fahkumram-b+1
+  source_index: 83
+  command: b+1
+  name: Surging Elbow
+  hit_level: m
+  damage: '20'
+  startup: i14
+  recovery: ''
+  block: '-13'
+  hit: +34d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp1p3
+  source_id: Fahkumram-b+1+3
+  source_index: 84
+  command: b+1+3
+  name: Kick Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high, mid and low kicks
+
+    * Parry state 5~12'
+- id: bp1p3_p
+  source_id: Fahkumram-b+1+3,P
+  source_index: 85
+  command: b+1+3,P
+  name: Triple Vengeance
+  hit_level: m,m,h
+  damage: '40'
+  startup: i19
+  recovery: ''
+  block: ''
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - parry
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Only occurs upon successful b+1+3 Parry'
+- id: bp2
+  source_id: Fahkumram-b+2
+  source_index: 86
+  command: b+2
+  name: Backhand Blow
+  hit_level: h
+  damage: '17'
+  startup: i14
+  recovery: ''
+  block: '-15'
+  hit: '-6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: bp2_1
+  source_id: Fahkumram-b+2,1
+  source_index: 87
+  command: b+2,1
+  name: Backhand Blow > Piercing Bolt
+  hit_level: h, h
+  damage: 17, 25
+  startup: i14, i21
+  recovery: ''
+  block: '-9'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: bp2p4
+  source_id: Fahkumram-b+2+4
+  source_index: 88
+  command: b+2+4
+  name: Force Interrupt
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high and mid punches
+
+    * Grants GRF on successful parry
+
+    * Regains recoverable health on successful parry
+
+    * Parry state 5~12'
+- id: bp3
+  source_id: Fahkumram-b+3
+  source_index: 89
+  command: b+3
+  name: Thundershock Kick
+  hit_level: h
+  damage: '27'
+  startup: i16
+  recovery: r34
+  block: '-7'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - hom
+  - heat
+  - homing
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Homing
+
+    * 5 chip damage on block'
+- id: bp4
+  source_id: Fahkumram-b+4
+  source_index: 90
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i14
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: bp4_3
+  source_id: Fahkumram-b+4,3
+  source_index: 91
+  command: b+4,3
+  name: ''
+  hit_level: m, m
+  damage: 14, 14
+  startup: i14, i24
+  recovery: ''
+  block: '-10'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combos from 1st hit'
+- id: bp4_3_2
+  source_id: Fahkumram-b+4,3,2
+  source_index: 92
+  command: b+4,3,2
+  name: Triple Crush
+  hit_level: m, m, m
+  damage: 14, 14, 21
+  startup: i14, ,i31
+  recovery: ''
+  block: '-12'
+  hit: +16d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - elb
+  - mid
+  notes: '* Knee
+
+    * Elbow
+
+    * Grants GRF on hit'
+- id: bp1p4
+  source_id: Fahkumram-b+1+4
+  source_index: 93
+  command: b+1+4
+  name: Maximum Voltage
+  hit_level: m!
+  damage: '50'
+  startup: i60
+  recovery: ''
+  block: '!'
+  hit: +9d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Unblockable'
+- id: bp3p4
+  source_id: Fahkumram-b+3+4
+  source_index: 94
+  command: b+3+4
+  name: Heavy Teep
+  hit_level: m
+  damage: '22'
+  startup: i17
+  recovery: ''
+  block: '-13'
+  hit: '+3'
+  counter_hit: +33d (+25)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: ufp1
+  source_id: Fahkumram-uf+1
+  source_index: 95
+  command: uf+1
+  name: Thundercloud
+  hit_level: m
+  damage: '20'
+  startup: i28
+  recovery: ''
+  block: '+6'
+  hit: +24d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - js
+  - low_crush
+  - floor_break
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * 4 chip damage on block
+
+    * Low crush'
+- id: ufp2
+  source_id: Fahkumram-uf+2
+  source_index: 96
+  command: uf+2
+  name: Beast Elbow
+  hit_level: h
+  damage: '20'
+  startup: i18
+  recovery: ''
+  block: '-7'
+  hit: +22a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - pc
+  - power_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Power crush'
+- id: ufp3
+  source_id: Fahkumram-uf+3
+  source_index: 97
+  command: uf+3
+  name: Erawan Tusk
+  hit_level: m
+  damage: '23'
+  startup: i14
+  recovery: ''
+  block: '-14'
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - kne
+  - js
+  - heat
+  - low_crush
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Knee
+
+    * Low crush'
+- id: ufp4
+  source_id: Fahkumram-uf+4
+  source_index: 98
+  command: uf+4
+  name: Tyrant Teep
+  hit_level: m
+  damage: '22'
+  startup: i20
+  recovery: ''
+  block: '-16'
+  hit: +66a (+55)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - bbr
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Low crush'
+- id: ufp3p4
+  source_id: Fahkumram-uf+3+4
+  source_index: 99
+  command: uf+3+4
+  name: Twin Knee Barrage
+  hit_level: m,h
+  damage: 10,20
+  startup: i18~19 i7~8
+  recovery: r33
+  block: '-11'
+  hit: +16a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - kne
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Knee
+
+    * Low crush 18~42'
+- id: 1p2p3p4
+  source_id: Fahkumram-1+2+3+4
+  source_index: 100
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_fp4
+  source_id: Fahkumram-b,f+4
+  source_index: 101
+  command: b,f+4
+  name: Lashing Squall
+  hit_level: h
+  damage: '25'
+  startup: i18
+  recovery: ''
+  block: '+6'
+  hit: +47cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - rbr
+  - chip
+  - high
+  notes: '* Reversal Break
+
+    * Good left sidestep tracking
+
+    * 10 chip damage on block'
+- id: ffp3
+  source_id: Fahkumram-f,F+3
+  source_index: 102
+  command: f,F+3
+  name: Flash Channel
+  hit_level: L
+  damage: '20'
+  startup: i21
+  recovery: ''
+  block: '-14'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: ffp4
+  source_id: Fahkumram-f,F+4
+  source_index: 103
+  command: f,F+4
+  name: Stormbreaker
+  hit_level: m
+  damage: '25'
+  startup: i22
+  recovery: ''
+  block: '-13'
+  hit: +33a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break'
+- id: ffp4_1
+  source_id: Fahkumram-f,F+4~1
+  source_index: 104
+  command: f,F+4~1
+  name: Barbaric Elbow
+  hit_level: m
+  damage: '20'
+  startup: i21
+  recovery: ''
+  block: -3c
+  hit: +8c
+  counter_hit: +32d
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Spike (CH)
+
+    * Floor Break'
+- id: ffp4_3
+  source_id: Fahkumram-f,F+4~3
+  source_index: 105
+  command: f,F+4~3
+  name: ''
+  hit_level: L
+  damage: '15'
+  startup: i19
+  recovery: ''
+  block: '-23'
+  hit: -1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: ffp4_3_2
+  source_id: Fahkumram-f,F+4~3,2
+  source_index: 106
+  command: f,F+4~3,2
+  name: Ramasura
+  hit_level: L, m
+  damage: 15, 20
+  startup: i19, i25
+  recovery: ''
+  block: '+0'
+  hit: +13d (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - chip
+  - low
+  - mid
+  notes: '* Elbow
+
+    * Powered up in GRF
+
+    * Combos from 1st hit CH
+
+    * 6 chip damage on block'
+- id: ffp1p2
+  source_id: Fahkumram-f,F+1+2
+  source_index: 107
+  command: f,F+1+2
+  name: Vicious Uppercut
+  hit_level: m
+  damage: '22'
+  startup: i18
+  recovery: ''
+  block: '-14'
+  hit: +43a (+33)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Grants GRF on hit'
+- id: uf_n_4
+  source_id: Fahkumram-uf,n,4
+  source_index: 108
+  command: uf,n,4
+  name: Delayed Rising Toe kick
+  hit_level: m
+  damage: '20'
+  startup: i23
+  recovery: r30
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: f_ffp3
+  source_id: Fahkumram-f,f,F+3
+  source_index: 109
+  command: f,f,F+3
+  name: Gale Force
+  hit_level: m
+  damage: '30'
+  startup: i19
+  recovery: ''
+  block: '+6'
+  hit: +15a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Knee
+
+    * 9 chip damage on block
+
+    * Low crush'
+- id: ws1
+  source_id: Fahkumram-ws1
+  source_index: 110
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: ''
+  block: '-4'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: ws1_2
+  source_id: Fahkumram-ws1,2
+  source_index: 111
+  command: ws1,2
+  name: Khorat Combination
+  hit_level: m, h
+  damage: 12, 25
+  startup: i13, i18
+  recovery: r29
+  block: '-9'
+  hit: +20a (11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - elb
+  - heat
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Elbow
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 13F'
+- id: ws2
+  source_id: Fahkumram-ws2
+  source_index: 112
+  command: ws2
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: ''
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws2_4
+  source_id: Fahkumram-ws2,4
+  source_index: 113
+  command: ws2,4
+  name: Demonbreaker
+  hit_level: m, m
+  damage: 13, 20
+  startup: i14, i22
+  recovery: ''
+  block: '-13'
+  hit: +34d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Combo from 1st hit with 6F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F
+
+    * Can cancel into the same options as f,F+4 (f,F+4~1 and f,F+4~3,2)'
+- id: ws3
+  source_id: Fahkumram-ws3
+  source_index: 114
+  command: ws3
+  name: Sumeru Knee
+  hit_level: m
+  damage: '20'
+  startup: i15
+  recovery: ''
+  block: '-14'
+  hit: +55cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: ws4
+  source_id: Fahkumram-ws4
+  source_index: 115
+  command: ws4
+  name: Toe Smash
+  hit_level: m
+  damage: '20'
+  startup: i11
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_4
+  source_id: Fahkumram-SS.4
+  source_index: 116
+  command: SS.4
+  name: Sky Needle
+  hit_level: m
+  damage: '23'
+  startup: i15
+  recovery: ''
+  block: '-11'
+  hit: +38a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Knee
+
+    * Low crush'
+- id: fc_1
+  source_id: Fahkumram-FC.1
+  source_index: 117
+  command: FC.1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush'
+- id: fc_2
+  source_id: Fahkumram-FC.2
+  source_index: 118
+  command: FC.2
+  name: Quick Low Elbow
+  hit_level: sl
+  damage: '13'
+  startup: i12
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - cs
+  - high_crush
+  - low
+  notes: '* Elbow
+
+    * High crush'
+- id: fc_3
+  source_id: Fahkumram-FC.3
+  source_index: 119
+  command: FC.3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush'
+- id: fc_4
+  source_id: Fahkumram-FC.4
+  source_index: 120
+  command: FC.4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush'
+- id: fc_dfp2
+  source_id: Fahkumram-FC.df+2
+  source_index: 121
+  command: FC.df+2
+  name: Slant Elbow
+  hit_level: L
+  damage: '22'
+  startup: i19
+  recovery: ''
+  block: '-14'
+  hit: '+4'
+  counter_hit: +12d
+  tier: specialist
+  tags:
+  - elb
+  - cs
+  - high_crush
+  - low
+  notes: '* Elbow
+
+    * High crush'
+- id: grf_3
+  source_id: Fahkumram-GRF.3*
+  source_index: 122
+  command: '...GRF.3*'
+  name: Fatal Tornado Kick
+  hit_level: m
+  damage: '25'
+  startup: i36
+  recovery: ''
+  block: +13 RAM
+  hit: +58cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - rbr
+  - heat
+  - tornado
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on block'
+- id: grf_3_d
+  source_id: Fahkumram-GRF.3*~d
+  source_index: 123
+  command: '...GRF.3*~d'
+  name: Surenradjit
+  hit_level: L,h
+  damage: 15,17
+  startup: i27,i23
+  recovery: ''
+  block: '-12'
+  hit: +11a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * +31a (+5) if only the 2nd hit hits'
+- id: grf_4
+  source_id: Fahkumram-GRF.4*
+  source_index: 124
+  command: '...GRF.4*'
+  name: Fatal Erupting Knee
+  hit_level: m
+  damage: '25'
+  startup: i36
+  recovery: ''
+  block: +13 RAM
+  hit: +42a (+32)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - rbr
+  - heat
+  - tornado
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on block'
+- id: grf_1p2
+  source_id: Fahkumram-GRF.1+2
+  source_index: 125
+  command: GRF.1+2
+  name: Garuda Pressure
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - pc
+  - heat
+  - power_crush
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Power crush 5~19'
+- id: grf_1p2_p
+  source_id: Fahkumram-GRF.1+2,P
+  source_index: 126
+  command: GRF.1+2,P
+  name: Garuda Pressure (counterattack)
+  hit_level: sp, m
+  damage: '20'
+  startup: i21
+  recovery: RAM
+  block: '-9'
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - chip
+  - mid
+  notes: "* Transitions to +13g RAM\n* Only occurs when GRF.1+2 absorbs an attack\n\
+    * r21? freeze for the opponent after absorbing an attack \n* i36? effective startup\n\
+    * 8 chip damage on block"
+- id: ram_1
+  source_id: Fahkumram-RAM.1
+  source_index: 127
+  command: RAM.1
+  name: Nandaka
+  hit_level: m
+  damage: '20'
+  startup: i19
+  recovery: ''
+  block: '+1'
+  hit: +20a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * 6 chip damage on block'
+- id: ram_2
+  source_id: Fahkumram-RAM.2
+  source_index: 128
+  command: RAM.2
+  name: Sharnga
+  hit_level: m!
+  damage: '43'
+  startup: i40
+  recovery: ''
+  block: '!'
+  hit: +18a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Unblockable'
+- id: ram_3
+  source_id: Fahkumram-RAM.3
+  source_index: 129
+  command: RAM.3
+  name: ''
+  hit_level: m
+  damage: '20'
+  startup: i21
+  recovery: ''
+  block: '-11'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ram_3_4
+  source_id: Fahkumram-RAM.3,4
+  source_index: 130
+  command: RAM.3,4
+  name: Brahmastra
+  hit_level: m, h
+  damage: 20, 25
+  startup: i21, i24
+  recovery: ''
+  block: '-9'
+  hit: +13a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * 10 chip damage on block
+
+    * Jails from 1st hit'
+- id: ram_4
+  source_id: Fahkumram-RAM.4
+  source_index: 131
+  command: RAM.4
+  name: Varunapasha
+  hit_level: l
+  damage: '31'
+  startup: i21
+  recovery: ''
+  block: '-13'
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  notes: '* Balcony Break'
+- id: ram_db
+  source_id: Fahkumram-RAM.db
+  source_index: 132
+  command: RAM.db
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Cancels RAM'
+- id: grf_ffp4_3_2
+  source_id: Fahkumram-f,F+4~3,GRF.2
+  source_index: 133
+  command: GRF.f,F+4~3,2
+  name: Fatal Ramasura
+  hit_level: L, m (t)
+  damage: 15, 30
+  startup: i19, i25
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - heat
+  - balcony_break
+  - chip
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Shift to attack throw on hit
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block'
+- id: 1p3
+  source_id: Fahkumram-1+3
+  source_index: 134
+  command: 1+3
+  name: Killer Sweep
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Fahkumram-2+4
+  source_index: 135
+  command: 2+4
+  name: Raging Knee
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Sideswaps on hit'
+- id: back_throw
+  source_id: Fahkumram-Back Throw
+  source_index: 136
+  command: Back Throw
+  name: Checkmate
+  hit_level: t!
+  damage: '50'
+  startup: i12
+  recovery: ''
+  block: '!'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Unbreakable throw'
+- id: left_throw
+  source_id: Fahkumram-Left Throw
+  source_index: 137
+  command: Left Throw
+  name: Killer Sweep
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1'
+- id: ram_1p3
+  source_id: Fahkumram-RAM.1+3
+  source_index: 138
+  command: RAM.1+3
+  name: Sudarshana Chakra
+  hit_level: t!
+  damage: '40'
+  startup: i23
+  recovery: ''
+  block: '!'
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - fbr
+  - throw
+  - homing
+  - floor_break
+  notes: '* Homing
+
+    * Floor Break
+
+    * Unbreakable throw
+
+    * Grants GRF on hit'
+- id: right_throw
+  source_id: Fahkumram-Right Throw
+  source_index: 139
+  command: Right Throw
+  name: Raging Knee
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 2
+
+    * Sideswaps on hit'
+- id: ufp1p2
+  source_id: Fahkumram-uf+1+2
+  source_index: 140
+  command: uf+1+2
+  name: Genocidal Rush
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  notes: '* Balcony Break
+
+    * Throw break 1+2'

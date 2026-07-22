@@ -1,0 +1,2041 @@
+schema_version: 1
+character_id: 10
+character: leroy
+display_name: Leroy Smith
+groups:
+- fundamentals
+- specialist
+specialty: parry_pressure
+sidestep_tendency: right
+signature_mechanics:
+- hermit_stance
+- cane
+- wing_chun_parry
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/leroy/framedata
+important_punishable_moves:
+- id: 1p4
+  command: 1+4
+  hit_level: L
+  startup: i100~279
+  block: -26~+153
+  notes: '* 1 chip damage on block
+
+    * Power up during Heat (Consumes 150F? of remaining Heat time)
+
+    ** +70a~249a on hit'
+- id: hrm_bp3
+  command: HRM.b+3
+  hit_level: L
+  startup: i20~21
+  block: '-26'
+  notes: -9c on crouching hit
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp2_1p2
+  command: df+2,1+2
+  hit_level: m, h,m
+  startup: i15~16, i19~20, i11~12
+  block: '-18'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: 1p2_1p2_1
+  command: 1+2,1+2,1
+  hit_level: h,h,h, h,h,h, m
+  startup: i14, ,i17~18
+  block: -17~-16
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Delayable
+
+    * jails'
+- id: hrm_1p2_1
+  command: HRM.1+2,1
+  hit_level: m,h,h,h, m
+  startup: i14, i5, i5, i5, i17~18
+  block: '-17'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Jail from 1st block with 11F delay
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: 1_1_1p2_1
+  command: 1,1,1+2,1
+  hit_level: h, m, h, m
+  startup: i10, ,i23~24
+  block: -16~-15
+  notes: Combo from 3rd hit
+- id: fp3_1p2_4
+  command: f+3,1+2,4
+  hit_level: m, h,h,h, m
+  startup: i14~15, ,i20~21
+  block: -16~-15
+  notes: '* Tornado
+
+    * Jail from 1st block with 1F delay
+
+    * Combo from 1st CH or 2nd hit with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: hrm_bp3_2
+  command: HRM.b+3,2
+  hit_level: L, m
+  startup: i20~21, i31~32
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Airborne combo from 1st hit (+0a (-1))
+
+    ** Combo deals [30; 12] damage'
+- id: otg_dbp2
+  command: OTG.db+2
+  hit_level: l
+  startup: i17~18
+  block: '-16'
+  notes: Power up during Heat (partially uses remaining Heat time)
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i17
+  block: '-15'
+  notes: '* High crush 6~51'
+- id: ffp2_2
+  command: f,F+2,2
+  hit_level: m, m
+  startup: i14~15, i17~18
+  block: -15~-14
+  notes: Combos from 1st hit
+- id: hrm_3_4
+  command: HRM.3,4
+  hit_level: L, m
+  startup: i16, i22~23
+  block: -15~-14
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i2 from 1st block'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, L
+  startup: i15, i18
+  block: '-14'
+  notes: '* Delayable
+
+    * Combo from 1st hit'
+- id: dbp2p3
+  command: db+2+3
+  hit_level: L,M
+  startup: i20~21 i15~16
+  block: '-14'
+  notes: '* Weapon
+
+    * Tornado
+
+    * Only once per match
+
+    * chip damage on block
+
+    * Tracks to both sides effectively homing'
+- id: ufp3p4
+  command: uf+3+4
+  hit_level: m,m
+  startup: i14~15,i10~11
+  block: '-14'
+  notes: Balcony Break
+- id: ffp4_2
+  command: f,F+4,2
+  hit_level: m, m
+  startup: i16~17, i27~28
+  block: -14~-13
+  notes: "* Tornado\n* Combos from 1st hit \n* Has evasive properties"
+- id: ws2
+  command: ws2
+  hit_level: m
+  startup: i15~16
+  block: '-14'
+  notes: ''
+- id: hrm_4_1p2
+  command: HRM.4,1+2
+  hit_level: M, M,m
+  startup: i11~12, i24~25 i8~9
+  block: -14~-13
+  notes: '* Tornado
+
+    * Combo from 1st hit with 3F delay
+
+    * Interrupt with i8 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F'
+- id: '2_1_2_1'
+  command: 2,1,2,1
+  hit_level: h, m, h, m
+  startup: i12, ,i21~23
+  block: -13~-11
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Elbow
+
+    * Combo from 3rd hit
+
+    * Delayable'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, m
+  startup: i12, i15~16
+  block: -13~-12
+  notes: Combo from 1st hit
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * -9 and 8 chip damage on block after absorption
+
+    * Power crush 7~16'
+- id: dfp3_1_1p2
+  command: df+3,1,1+2
+  hit_level: m, h, m
+  startup: i16, ,i20~21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit CH
+
+    * Combo from 2nd hit CH with 5F delay
+
+    * Move can be delayed by 12F
+
+    * Input can be delayed by 14F'
+- id: dp2
+  command: d+2
+  hit_level: L
+  startup: i15~16
+  block: -13~-12
+  notes: '* High crush'
+- id: dp2_4
+  command: d+2,4
+  hit_level: L, L
+  startup: i15~16, i24~25
+  block: -13~-12
+  notes: '* High crush'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: ''
+- id: ufp3p4_1p2
+  command: uf+3+4,1+2
+  hit_level: m,m, m
+  startup: i14~15,i10~11, i30~31
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: uf_n_4
+  command: uf,n,4
+  hit_level: m
+  startup: i23~25
+  block: '-13'
+  notes: '* Low crush'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i15~16
+  block: -13~-12
+  notes: '* High crush'
+- id: fc_dfp4_1
+  command: FC.df+4,1
+  hit_level: L, m
+  startup: i15~16, i20~21
+  block: -13~-12
+  notes: Combos from 1st hit CH
+- id: hrm_3
+  command: HRM.3
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: -2c on crouching opponents
+- id: hrm_bp4
+  command: HRM.b+4
+  hit_level: L
+  startup: i20~21
+  block: '-13'
+  notes: 'Homing
+
+    * High crush 8~37'
+common_strings_and_gaps:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i10, i18~19
+  block: -9~-8
+  notes: '* Jail from 1st block with no delay
+
+    * Combo from 1st CH with 3F delay'
+- id: 1_1_1p2
+  command: 1,1,1+2
+  hit_level: h, m, h
+  startup: i10, ,i19~20
+  block: -9~-8
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 2nd hit'
+- id: 1_1_1p2_1
+  command: 1,1,1+2,1
+  hit_level: h, m, h, m
+  startup: i10, ,i23~24
+  block: -16~-15
+  notes: Combo from 3rd hit
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: Jails
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, h
+  startup: i10, ,i27~28
+  block: -6~-5
+  notes: '* Strong Attack Reversal
+
+    * Follow-up after successful parry with input 1 or 2
+
+    * Delayable
+
+    * Combo from 2nd hit CH
+
+    * Parry state 10~24'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i23~24
+  block: -6~-5
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit CH
+
+    * Low crush'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, m
+  startup: i10, ,i16
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combo from 1st hit
+
+    * Jail from 1st block'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i12, i12~13
+  block: -7~-6
+  notes: '* Elbow
+
+    * Jail from 1st block'
+- id: '2_1_2'
+  command: 2,1,2
+  hit_level: h, m, h
+  startup: i12, ,i20~21
+  block: -7~-6
+  notes: 'Elbow
+
+    * Strong Attack Reversal
+
+    * Follow-up after successful parry with input 1 or 2
+
+    * Delayable
+
+    * Combo from 2nd hit CH
+
+    * Parry state 2~16'
+- id: '2_1_2_1'
+  command: 2,1,2,1
+  hit_level: h, m, h, m
+  startup: i12, ,i21~23
+  block: -13~-11
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Elbow
+
+    * Combo from 3rd hit
+
+    * Delayable'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i12, i25~26
+  block: -7~-6
+  notes: '* Elbow
+
+    * chip damage on block'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, L
+  startup: i15, i18
+  block: '-14'
+  notes: '* Delayable
+
+    * Combo from 1st hit'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, m
+  startup: i12, i15~16
+  block: -13~-12
+  notes: Combo from 1st hit
+- id: 1p2_1p2
+  command: 1+2,1+2
+  hit_level: h,h,h, h,h,h
+  startup: i14, i9
+  block: '-2'
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 1st hit
+
+    * jails'
+- id: 1p2_1p2_1
+  command: 1+2,1+2,1
+  hit_level: h,h,h, h,h,h, m
+  startup: i14, ,i17~18
+  block: -17~-16
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Delayable
+
+    * jails'
+- id: fp2_3
+  command: f+2,3
+  hit_level: h, m
+  startup: i14~16, i18
+  block: '-10'
+  notes: '* Combo from 1st hit with 10F delay
+
+    * Interrupt with i1 from 1st block
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: h, m, m
+  startup: i14~16, ,i21~22
+  block: '-9'
+  notes: '* Knee
+
+    * Transition to HRM
+
+    * Combo from 2nd CH with 11F delay
+
+    * Interrupt with i5 from 1st block
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 15F'
+- id: fp3_1p2
+  command: f+3,1+2
+  hit_level: m, h,h,h
+  startup: i14~15, i13,i9,i7
+  block: '-8'
+  notes: '* Jail from 1st block with 1F delay
+
+    * Combo from 1st CH with 1F delay
+
+    * Power up during Heat (18dmg, 12 chip damage)
+
+    * Consumes 120F of remaining Heat Time
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: fp3_1p2_4
+  command: f+3,1+2,4
+  hit_level: m, h,h,h, m
+  startup: i14~15, ,i20~21
+  block: -16~-15
+  notes: '* Tornado
+
+    * Jail from 1st block with 1F delay
+
+    * Combo from 1st CH or 2nd hit with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: fp4_4
+  command: f+4,4
+  hit_level: m, h
+  startup: i16~17, i28~30
+  block: '-6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Interrupt with i6 from 1st block
+
+    * Low crush 17~29
+
+    * Floating state 30~32'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, m
+  startup: i13~14, i18
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combo from 1st hit with 3F delay
+
+    * Move can be delayed by 1F
+
+    * Input can be delayed by 3F'
+- id: dfp1_1p2
+  command: df+1,1+2
+  hit_level: m, h,h,h
+  startup: i13~14, i14,i6 (i7),i6 (i7)
+  block: '-2'
+  notes: '* Combo from 1st hit
+
+    * Power up during Heat (Consumes 150F of remaining Heat time)
+
+    ** 12 damage on hit, and 6 chip damage on block'
+- id: dfp1_1p2_2
+  command: df+1,1+2,2
+  hit_level: m, h,h,h, m
+  startup: i13~14, ,i24
+  block: '-10'
+  notes: '* Combo from 1st or 4th CH with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed with 1F
+
+    * Parry state 4~12'
+- id: dfp2_1p2
+  command: df+2,1+2
+  hit_level: m, h,m
+  startup: i15~16, i19~20, i11~12
+  block: '-18'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: m, h
+  startup: i16, i16~17
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Leads to 10-hit string'
+- id: dfp3_1_1p2
+  command: df+3,1,1+2
+  hit_level: m, h, m
+  startup: i16, ,i20~21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit CH
+
+    * Combo from 2nd hit CH with 5F delay
+
+    * Move can be delayed by 12F
+
+    * Input can be delayed by 14F'
+- id: dfp4_3
+  command: df+4,3
+  hit_level: m, m
+  startup: i13, i20~21
+  block: '-9'
+  notes: '* Knee
+
+    * Combo from 1st hit CH with 7F delay
+
+    * Move can be delayed by 3F
+
+    * Input can be delayed by 7F
+
+    * Interrupt with i3 from 1st block'
+- id: dp1_2
+  command: d+1,2
+  hit_level: sl, m
+  startup: i10, i15~16
+  block: -10~-9
+  notes: Combos from 1st hit CH
+- id: dp1_2_4
+  command: d+1,2,4
+  hit_level: sl, m, m
+  startup: i10, ,i15
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combos from 2nd hit'
+- id: dp2_4
+  command: d+2,4
+  hit_level: L, L
+  startup: i15~16, i24~25
+  block: -13~-12
+  notes: '* High crush'
+- id: dp3_2
+  command: d+3,2
+  hit_level: L, h
+  startup: i16, i24~25
+  block: -3~-2
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit'
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, m
+  startup: i14~15, i18~19
+  block: -11~-10
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit CH'
+duckable_highs:
+- id: 1_1_1p2
+  command: 1,1,1+2
+  hit_level: h, m, h
+  startup: i10, ,i19~20
+  block: -9~-8
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 2nd hit'
+- id: 1_1_1p2_1
+  command: 1,1,1+2,1
+  hit_level: h, m, h, m
+  startup: i10, ,i23~24
+  block: -16~-15
+  notes: Combo from 3rd hit
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: Jails
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, h
+  startup: i10, ,i27~28
+  block: -6~-5
+  notes: '* Strong Attack Reversal
+
+    * Follow-up after successful parry with input 1 or 2
+
+    * Delayable
+
+    * Combo from 2nd hit CH
+
+    * Parry state 10~24'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i23~24
+  block: -6~-5
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit CH
+
+    * Low crush'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, m
+  startup: i10, ,i16
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combo from 1st hit
+
+    * Jail from 1st block'
+- id: '2_1_2'
+  command: 2,1,2
+  hit_level: h, m, h
+  startup: i12, ,i20~21
+  block: -7~-6
+  notes: 'Elbow
+
+    * Strong Attack Reversal
+
+    * Follow-up after successful parry with input 1 or 2
+
+    * Delayable
+
+    * Combo from 2nd hit CH
+
+    * Parry state 2~16'
+- id: '2_1_2_1'
+  command: 2,1,2,1
+  hit_level: h, m, h, m
+  startup: i12, ,i21~23
+  block: -13~-11
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Elbow
+
+    * Combo from 3rd hit
+
+    * Delayable'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i12, i25~26
+  block: -7~-6
+  notes: '* Elbow
+
+    * chip damage on block'
+- id: 1p2_1p2
+  command: 1+2,1+2
+  hit_level: h,h,h, h,h,h
+  startup: i14, i9
+  block: '-2'
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 1st hit
+
+    * jails'
+- id: 1p2_1p2_1
+  command: 1+2,1+2,1
+  hit_level: h,h,h, h,h,h, m
+  startup: i14, ,i17~18
+  block: -17~-16
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Delayable
+
+    * jails'
+- id: fp3_1p2
+  command: f+3,1+2
+  hit_level: m, h,h,h
+  startup: i14~15, i13,i9,i7
+  block: '-8'
+  notes: '* Jail from 1st block with 1F delay
+
+    * Combo from 1st CH with 1F delay
+
+    * Power up during Heat (18dmg, 12 chip damage)
+
+    * Consumes 120F of remaining Heat Time
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: fp3_1p2_4
+  command: f+3,1+2,4
+  hit_level: m, h,h,h, m
+  startup: i14~15, ,i20~21
+  block: -16~-15
+  notes: '* Tornado
+
+    * Jail from 1st block with 1F delay
+
+    * Combo from 1st CH or 2nd hit with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: fp4_4
+  command: f+4,4
+  hit_level: m, h
+  startup: i16~17, i28~30
+  block: '-6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Interrupt with i6 from 1st block
+
+    * Low crush 17~29
+
+    * Floating state 30~32'
+- id: dfp1_1p2
+  command: df+1,1+2
+  hit_level: m, h,h,h
+  startup: i13~14, i14,i6 (i7),i6 (i7)
+  block: '-2'
+  notes: '* Combo from 1st hit
+
+    * Power up during Heat (Consumes 150F of remaining Heat time)
+
+    ** 12 damage on hit, and 6 chip damage on block'
+- id: dfp1_1p2_2
+  command: df+1,1+2,2
+  hit_level: m, h,h,h, m
+  startup: i13~14, ,i24
+  block: '-10'
+  notes: '* Combo from 1st or 4th CH with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed with 1F
+
+    * Parry state 4~12'
+- id: dfp2_1p2
+  command: df+2,1+2
+  hit_level: m, h,m
+  startup: i15~16, i19~20, i11~12
+  block: '-18'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: m, h
+  startup: i16, i16~17
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Leads to 10-hit string'
+- id: dfp3_1_1p2
+  command: df+3,1,1+2
+  hit_level: m, h, m
+  startup: i16, ,i20~21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit CH
+
+    * Combo from 2nd hit CH with 5F delay
+
+    * Move can be delayed by 12F
+
+    * Input can be delayed by 14F'
+- id: dp3_2
+  command: d+3,2
+  hit_level: L, h
+  startup: i16, i24~25
+  block: -3~-2
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit'
+- id: dbp1_3
+  command: db+1,3
+  hit_level: m, h
+  startup: i16~17, i18~19
+  block: +0~+1
+  notes: '* delayable
+
+    * Combo from 1st hit'
+- id: hrm_1_2
+  command: HRM.1,2
+  hit_level: m, h
+  startup: i24~25, i20~21
+  block: '-3'
+  notes: '* Elbow
+
+    * Jail from 1st block with no delay
+
+    * Duckable
+
+    * Combo from 1st hit with 11F delay
+
+    * Combo from 1st hit on successful parry
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: hrm_2_3
+  command: HRM.2,3
+  hit_level: h, h
+  startup: i12~13, i24~25
+  block: -9~-8
+  notes: '* Tornado
+
+    * 9 chip damage on block
+
+    * Combo from 1st hit with 5F delay
+
+    * Move can be delayed by 10F
+
+    * Low crush 22~35
+
+    * Floating state 36~38'
+- id: hrm_1p2_1
+  command: HRM.1+2,1
+  hit_level: m,h,h,h, m
+  startup: i14, i5, i5, i5, i17~18
+  block: '-17'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Jail from 1st block with 11F delay
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+stance_transitions:
+- id: h_bp1p2
+  command: H.b+1+2
+  hit_level: ''
+  startup: ''
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes 210F of remaining Heat time
+
+    * Crumple stun +14F after CH'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m
+  startup: i15, i25, i4, i4, i4, i3, i5, i10~11
+  block: '+6'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.HRM.2+3
+
+    * Also possible after Twin Dragon Gate is successful
+
+    * Transition to HRM on block
+
+    * Transition to attack throw on 1st hit
+
+    * 12 chip damage'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, m
+  startup: i10, ,i16
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combo from 1st hit
+
+    * Jail from 1st block'
+- id: 3p4
+  command: 3+4
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Auto low parry starting of frame 3
+
+    * Transition to n with HRM.3+4
+
+    * Parry state 3'
+- id: 3p4
+  command: 3+4
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Auto Strong Attack low parry
+
+    * Stays indefinitely in stance
+
+    * Transition to r16 standing with HRM.3+4
+
+    ** Recovers in standing guard after 6F?
+
+    * Parry state 3~'
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: h, m, m
+  startup: i14~16, ,i21~22
+  block: '-9'
+  notes: '* Knee
+
+    * Transition to HRM
+
+    * Combo from 2nd CH with 11F delay
+
+    * Interrupt with i5 from 1st block
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 15F'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, m
+  startup: i13~14, i18
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combo from 1st hit with 3F delay
+
+    * Move can be delayed by 1F
+
+    * Input can be delayed by 3F'
+- id: dfp4
+  command: df+4
+  hit_level: m
+  startup: i13
+  block: '-6'
+  notes: Transition to HRM
+- id: dp1_2_4
+  command: d+1,2,4
+  hit_level: sl, m, m
+  startup: i10, ,i15
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combos from 2nd hit'
+- id: dp3_2
+  command: d+3,2
+  hit_level: L, h
+  startup: i16, i24~25
+  block: -3~-2
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit'
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, m
+  startup: i14~15, i18~19
+  block: -11~-10
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit CH'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i20~21
+  block: -8~-7
+  notes: 'Transition to HRM
+
+    * High crush 6~39'
+- id: bp3
+  command: b+3
+  hit_level: h
+  startup: i22~23
+  block: +9~+10
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Strong Aerial Tailspin
+
+    * Transition to HRM
+
+    * Cancel to HRM with 3+4
+
+    * chip damage on block'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i16~17
+  block: -4~-3
+  notes: Transition to HRM
+- id: ws1_4
+  command: ws1,4
+  hit_level: m, m
+  startup: i13~14, i21
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit'
+- id: ss_4
+  command: SS.4
+  hit_level: L
+  startup: i18~19
+  block: '-12'
+  notes: '* Can be delayed'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: h,h,h
+  startup: i14, i6, i6
+  block: '+7'
+  notes: '* Balcony Break
+
+    * Opponent recovers crouching on hit
+
+    * 8 chip damage on block
+
+    * Power up during Heat (partially uses remaining Heat time)'
+- id: ss_3p4
+  command: SS.3+4
+  hit_level: m,m
+  startup: i20~21, i9~10
+  block: '+3'
+  notes: '* Transitions to HRM
+
+    * Low crush 23~36'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i15~16
+  block: -13~-12
+  notes: '* High crush'
+- id: fc_dfp4_1
+  command: FC.df+4,1
+  hit_level: L, m
+  startup: i15~16, i20~21
+  block: -13~-12
+  notes: Combos from 1st hit CH
+- id: back_to_wall_b_b_ub
+  command: (back to wall).b,b,UB
+  hit_level: m
+  startup: i35~38
+  block: '+1'
+  notes: '* Floating state 5~7
+
+    * is8~24
+
+    * Floating state 25~33
+
+    * Low crush 34~37
+
+    * Floating state 38~40'
+- id: hrm_1
+  command: HRM.1
+  hit_level: m
+  startup: i24~25
+  block: -10~-9
+  notes: '* Sabaki: parries high or mid punches or kicks
+
+    ** Shift to HRM.1,2 on successful parry
+
+    * Parry state 3~12'
+- id: hrm_1_2
+  command: HRM.1,2
+  hit_level: m, h
+  startup: i24~25, i20~21
+  block: '-3'
+  notes: '* Elbow
+
+    * Jail from 1st block with no delay
+
+    * Duckable
+
+    * Combo from 1st hit with 11F delay
+
+    * Combo from 1st hit on successful parry
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m
+  startup: i15, i25, i4, i4, i4, i3, i5, i10~11
+  block: '+6'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.HRM.2+3
+
+    * Also possible after Twin Dragon Gate is successful
+
+    * Transition to HRM on block
+
+    * Transition to attack throw on 1st hit
+
+    * 12 chip damage'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1
+  command: b+1
+  hit_level: h
+  startup: i13
+  block: '-6'
+  notes: Shifts to throw "Knee Snap" on front grounded CH
+- id: bp3p4
+  command: b+3+4
+  hit_level: M,th
+  startup: i18~19
+  block: '-8'
+  notes: '* Balcony Break
+
+    * Shifts to throw on airborne hit (+0d)'
+- id: ch_bp1
+  command: CH b+1
+  hit_level: h,th
+  startup: i13
+  block: ''
+  notes: ''
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent status on hit: FUFT perpendicular'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent status on hit: FUFA
+
+    * Side switch on hit'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: i12~14
+  block: ''
+  notes: '* Spike
+
+    * Throw break: none
+
+    * Opponent status on hit: FDFA'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Spike
+
+    * Throw break: 1
+
+    * Opponent status on hit: FUFT perpendicular'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break: 2
+
+    * Opponent status on hit: FUFA
+
+    * Side switch on hit'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12~14
+  block: '-2'
+  notes: '* Throw break: 1+2
+
+    * Opponent status on hit: FUFA off-axis to the left'
+key_lows:
+- id: '3_3'
+  command: 3,3
+  hit_level: m, L
+  startup: i15, i18
+  block: '-14'
+  notes: '* Delayable
+
+    * Combo from 1st hit'
+- id: 1p4
+  command: 1+4
+  hit_level: L
+  startup: i100~279
+  block: -26~+153
+  notes: '* 1 chip damage on block
+
+    * Power up during Heat (Consumes 150F? of remaining Heat time)
+
+    ** +70a~249a on hit'
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* High crush'
+- id: dp1_2
+  command: d+1,2
+  hit_level: sl, m
+  startup: i10, i15~16
+  block: -10~-9
+  notes: Combos from 1st hit CH
+- id: dp1_2_4
+  command: d+1,2,4
+  hit_level: sl, m, m
+  startup: i10, ,i15
+  block: '-9'
+  notes: '* Transition to HRM
+
+    * Combos from 2nd hit'
+- id: dp2
+  command: d+2
+  hit_level: L
+  startup: i15~16
+  block: -13~-12
+  notes: '* High crush'
+- id: dp2_4
+  command: d+2,4
+  hit_level: L, L
+  startup: i15~16, i24~25
+  block: -13~-12
+  notes: '* High crush'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: ''
+- id: dp3_2
+  command: d+3,2
+  hit_level: L, h
+  startup: i16, i24~25
+  block: -3~-2
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i14~15
+  block: -12~-11
+  notes: ''
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, m
+  startup: i14~15, i18~19
+  block: -11~-10
+  notes: '* Transition to HRM
+
+    * Combos from 1st hit CH'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i20~21
+  block: -8~-7
+  notes: 'Transition to HRM
+
+    * High crush 6~39'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i17
+  block: '-15'
+  notes: '* High crush 6~51'
+- id: dbp2p3
+  command: db+2+3
+  hit_level: L,M
+  startup: i20~21 i15~16
+  block: '-14'
+  notes: '* Weapon
+
+    * Tornado
+
+    * Only once per match
+
+    * chip damage on block
+
+    * Tracks to both sides effectively homing'
+- id: ss_4
+  command: SS.4
+  hit_level: L
+  startup: i18~19
+  block: '-12'
+  notes: '* Can be delayed'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i15~16
+  block: -13~-12
+  notes: '* High crush'
+- id: fc_dfp4_1
+  command: FC.df+4,1
+  hit_level: L, m
+  startup: i15~16, i20~21
+  block: -13~-12
+  notes: Combos from 1st hit CH
+- id: hrm_3
+  command: HRM.3
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: -2c on crouching opponents
+- id: hrm_3_4
+  command: HRM.3,4
+  hit_level: L, m
+  startup: i16, i22~23
+  block: -15~-14
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i2 from 1st block'
+- id: hrm_bp3
+  command: HRM.b+3
+  hit_level: L
+  startup: i20~21
+  block: '-26'
+  notes: -9c on crouching hit
+- id: hrm_bp3_2
+  command: HRM.b+3,2
+  hit_level: L, m
+  startup: i20~21, i31~32
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Airborne combo from 1st hit (+0a (-1))
+
+    ** Combo deals [30; 12] damage'
+- id: hrm_bp4
+  command: HRM.b+4
+  hit_level: L
+  startup: i20~21
+  block: '-13'
+  notes: 'Homing
+
+    * High crush 8~37'
+- id: otg_dbp2
+  command: OTG.db+2
+  hit_level: l
+  startup: i17~18
+  block: '-16'
+  notes: Power up during Heat (partially uses remaining Heat time)
+- id: otg_dbp2_1p2
+  command: OTG.db+2,1+2
+  hit_level: l, l
+  startup: 'i17~18, '
+  block: '-13'
+  notes: ''
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * -9 and 8 chip damage on block after absorption
+
+    * Power crush 7~16'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_bp1p2
+  command: H.b+1+2
+  hit_level: ''
+  startup: ''
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes 210F of remaining Heat time
+
+    * Crumple stun +14F after CH'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m
+  startup: i15, i25, i4, i4, i4, i3, i5, i10~11
+  block: '+6'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.HRM.2+3
+
+    * Also possible after Twin Dragon Gate is successful
+
+    * Transition to HRM on block
+
+    * Transition to attack throw on 1st hit
+
+    * 12 chip damage'
+- id: 1_1_1p2
+  command: 1,1,1+2
+  hit_level: h, m, h
+  startup: i10, ,i19~20
+  block: -9~-8
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 2nd hit'
+- id: 1p2
+  command: 1+2
+  hit_level: h,h,h
+  startup: i14
+  block: '-2'
+  notes: '* Power up during Heat (partially uses remaining Heat time)'
+- id: 1p2_1p2
+  command: 1+2,1+2
+  hit_level: h,h,h, h,h,h
+  startup: i14, i9
+  block: '-2'
+  notes: '* Power up during Heat (partially uses remaining Heat time)
+
+    * Combo from 1st hit
+
+    * jails'
+- id: 1p2_1p2_1
+  command: 1+2,1+2,1
+  hit_level: h,h,h, h,h,h, m
+  startup: i14, ,i17~18
+  block: -17~-16
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Delayable
+
+    * jails'
+- id: 1p4
+  command: 1+4
+  hit_level: L
+  startup: i100~279
+  block: -26~+153
+  notes: '* 1 chip damage on block
+
+    * Power up during Heat (Consumes 150F? of remaining Heat time)
+
+    ** +70a~249a on hit'
+- id: fp3_1p2
+  command: f+3,1+2
+  hit_level: m, h,h,h
+  startup: i14~15, i13,i9,i7
+  block: '-8'
+  notes: '* Jail from 1st block with 1F delay
+
+    * Combo from 1st CH with 1F delay
+
+    * Power up during Heat (18dmg, 12 chip damage)
+
+    * Consumes 120F of remaining Heat Time
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: fp4_4
+  command: f+4,4
+  hit_level: m, h
+  startup: i16~17, i28~30
+  block: '-6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Interrupt with i6 from 1st block
+
+    * Low crush 17~29
+
+    * Floating state 30~32'
+- id: dfp1_1p2
+  command: df+1,1+2
+  hit_level: m, h,h,h
+  startup: i13~14, i14,i6 (i7),i6 (i7)
+  block: '-2'
+  notes: '* Combo from 1st hit
+
+    * Power up during Heat (Consumes 150F of remaining Heat time)
+
+    ** 12 damage on hit, and 6 chip damage on block'
+- id: dp1p2
+  command: d+1+2
+  hit_level: m
+  startup: i17~18
+  block: -4~-3
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)'
+- id: dbp1p2
+  command: db+1+2
+  hit_level: m
+  startup: i32~33
+  block: -11~-10
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Punch and kick Sabaki
+
+    * 7 chip damage on block
+
+    * Parry state 4~20'
+- id: bp2
+  command: b+2
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Parry
+
+    * Becomes Superior Twin Dragon Gate upon perfect parry (ps5~6 or ps3~4 from HRM)
+
+    * Is ps3~15 from HRM.b+2
+
+    * Shift to r7 t34 on successful parry
+
+    ** Can perform Twin Dragon Thunderclap and Chain Punch: Branch
+
+    ** Recover to r16 standin'
+- id: p_bp2
+  command: P:b+2
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Alternate input: P:HRM.b+2
+
+    * Parry
+
+    * Performed when opponent attack connects on ps5~6 (ps3~4 from HRM)
+
+    * Shift to r7 t34 on successful parry
+
+    ** Can perform Twin Dragon Thunderclap and Superior Chain Punch: Branch
+
+    ** Recover to r16 standin'
+- id: p_bp2_1
+  command: P:b+2,1
+  hit_level: m
+  startup: i13,i
+  block: '-10'
+  notes: '* Elbow (last two hits)
+
+    * Alternate input: P:b+2,2
+
+    * Power up during Heat (recovers heat)'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: h,h,h
+  startup: i14, i6, i6
+  block: '+7'
+  notes: '* Balcony Break
+
+    * Opponent recovers crouching on hit
+
+    * 8 chip damage on block
+
+    * Power up during Heat (partially uses remaining Heat time)'
+- id: hrm_1p2
+  command: HRM.1+2
+  hit_level: m,h,h,h
+  startup: i14, i5, i5, i5
+  block: '-2'
+  notes: '* 12 damage total
+
+    * Power up during Heat (Consumes 150F of remaining Heat time)
+
+    * 16 damage on hit, and 8 chip damage on block'
+- id: hrm_1p2_1
+  command: HRM.1+2,1
+  hit_level: m,h,h,h, m
+  startup: i14, i5, i5, i5, i17~18
+  block: '-17'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Jail from 1st block with 11F delay
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: otg_dbp2
+  command: OTG.db+2
+  hit_level: l
+  startup: i17~18
+  block: '-16'
+  notes: Power up during Heat (partially uses remaining Heat time)
+- id: p_bp2_1
+  command: P.b+2,1
+  hit_level: m
+  startup: i13
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Elbow (last hit)
+
+    * Alternate input: P.b+2,2
+
+    * power up during Heat (partially uses remaining Heat time)'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i14~15
+  block: -11~-10
+  notes: ''
+- id: ffp2_2
+  command: f,F+2,2
+  hit_level: m, m
+  startup: i14~15, i17~18
+  block: -15~-14
+  notes: Combos from 1st hit
+- id: ffp3
+  command: f,F+3
+  hit_level: h
+  startup: i18~23
+  block: -2~+3
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i16~17
+  block: -4~-3
+  notes: Transition to HRM
+- id: ffp4_2
+  command: f,F+4,2
+  hit_level: m, m
+  startup: i16~17, i27~28
+  block: -14~-13
+  notes: "* Tornado\n* Combos from 1st hit \n* Has evasive properties"
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i24~27
+  block: +6~+9
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Low crush'
+launch_punish_opportunities:
+- id: 1p4
+  command: 1+4
+  hit_level: L
+  startup: i100~279
+  block: -26~+153
+  notes: '* 1 chip damage on block
+
+    * Power up during Heat (Consumes 150F? of remaining Heat time)
+
+    ** +70a~249a on hit'
+- id: hrm_bp3
+  command: HRM.b+3
+  hit_level: L
+  startup: i20~21
+  block: '-26'
+  notes: -9c on crouching hit
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp2_1p2
+  command: df+2,1+2
+  hit_level: m, h,m
+  startup: i15~16, i19~20, i11~12
+  block: '-18'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: 1p2_1p2_1
+  command: 1+2,1+2,1
+  hit_level: h,h,h, h,h,h, m
+  startup: i14, ,i17~18
+  block: -17~-16
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Delayable
+
+    * jails'
+- id: hrm_1p2_1
+  command: HRM.1+2,1
+  hit_level: m,h,h,h, m
+  startup: i14, i5, i5, i5, i17~18
+  block: '-17'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Jail from 1st block with 11F delay
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: 1_1_1p2_1
+  command: 1,1,1+2,1
+  hit_level: h, m, h, m
+  startup: i10, ,i23~24
+  block: -16~-15
+  notes: Combo from 3rd hit
+- id: fp3_1p2_4
+  command: f+3,1+2,4
+  hit_level: m, h,h,h, m
+  startup: i14~15, ,i20~21
+  block: -16~-15
+  notes: '* Tornado
+
+    * Jail from 1st block with 1F delay
+
+    * Combo from 1st CH or 2nd hit with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: hrm_bp3_2
+  command: HRM.b+3,2
+  hit_level: L, m
+  startup: i20~21, i31~32
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Airborne combo from 1st hit (+0a (-1))
+
+    ** Combo deals [30; 12] damage'
+- id: otg_dbp2
+  command: OTG.db+2
+  hit_level: l
+  startup: i17~18
+  block: '-16'
+  notes: Power up during Heat (partially uses remaining Heat time)
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i17
+  block: '-15'
+  notes: '* High crush 6~51'
+- id: ffp2_2
+  command: f,F+2,2
+  hit_level: m, m
+  startup: i14~15, i17~18
+  block: -15~-14
+  notes: Combos from 1st hit
+- id: hrm_3_4
+  command: HRM.3,4
+  hit_level: L, m
+  startup: i16, i22~23
+  block: -15~-14
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i2 from 1st block'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

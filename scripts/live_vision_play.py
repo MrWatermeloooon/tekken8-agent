@@ -50,6 +50,10 @@ def main() -> int:
                         help="Native .t8ppo checkpoint trained with --observation-mode visual.")
     parser.add_argument("--player", type=int, choices=[1, 2], default=1,
                         help="Which HUD player the policy controls (default: 1).")
+    parser.add_argument("--opponent-character", default=None,
+                        help="Roster slug required by a 95-feature matchup checkpoint (for example reina).")
+    parser.add_argument("--opponent-archetype", default=None,
+                        help="Archetype required by a 95-feature checkpoint (for example rushdown or movement_specialist).")
     parser.add_argument("--stochastic", action="store_true",
                         help="Sample actions; live V2 inference is deterministic by default.")
     parser.add_argument("--hotkey", default="f8", help="Global hotkey used to pause/resume controller output.")
@@ -81,7 +85,9 @@ def main() -> int:
     if args.agent == "v2" and not args.ppo_checkpoint:
         parser.error("--ppo-checkpoint is required with --agent v2")
     agent = (LiveVisualPpoAgent(args.ppo_checkpoint, device=args.device,
-                               deterministic=not args.stochastic, player=args.player)
+                               deterministic=not args.stochastic, player=args.player,
+                               opponent_character=args.opponent_character,
+                               opponent_archetype=args.opponent_archetype)
              if args.agent == "v2" else LiveVisionAgent())
     controller = None if args.dry_run else VGamepadInputBackend(facing=args.facing, tap_seconds=0.035)
     commitment = ActionCommitmentFilter()

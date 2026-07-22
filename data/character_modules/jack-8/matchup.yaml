@@ -1,0 +1,2229 @@
+schema_version: 1
+character_id: 6
+character: jack-8
+display_name: Jack-8
+groups:
+- keep_out
+- specialist
+specialty: long_range_power
+sidestep_tendency: left
+signature_mechanics:
+- gamma_howl
+- debugger
+- charged_attacks
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/jack-8/framedata
+important_punishable_moves:
+- id: ffp1p4
+  command: f,F+1+4
+  hit_level: M (L)
+  startup: i21~30 (i31~40)
+  block: -82~-73
+  notes: "* i31~40 Low attack on landing \n** (-110~-101 oB, -65~-56 oH)\n* Low crush"
+- id: dbp1p2
+  command: db+1+2
+  hit_level: l,l
+  startup: i18
+  block: '-70'
+  notes: '* Floor Break'
+- id: sit_1
+  command: SIT.1
+  hit_level: l
+  startup: i19
+  block: '-48'
+  notes: '*
+
+    * Floating state'
+- id: sit_1_2
+  command: SIT.1,2
+  hit_level: l, l
+  startup: i19, i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Floating state'
+- id: sit_1_2_1
+  command: SIT.1,2,1
+  hit_level: l, l, l
+  startup: i19, ,i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Floating state'
+- id: sit_1_2_1_2
+  command: SIT.1,2,1,2
+  hit_level: l, l, l, l
+  startup: i19, ,i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Alternate input SIT.2,1,2,1
+
+    ** String moves recover 4 frames faster with alternate input
+
+    * Floating state'
+- id: dfp2_1
+  command: df+2,1*
+  hit_level: m, h
+  startup: i15, i35
+  block: '-46'
+  notes: '* Tornado
+
+    * Transition to GMH with D
+
+    * Gain GMC on hit
+
+    ** (+70a (+54) oH))
+
+    * 28 damage with scaling from 1st hit'
+- id: sit_1p2
+  command: SIT.1+2
+  hit_level: m
+  startup: i24
+  block: '-44'
+  notes: '*
+
+    * Floating state'
+- id: dfp1p4
+  command: df+1+4
+  hit_level: L
+  startup: i34
+  block: '-37'
+  notes: '* Homing
+
+    * Alternate input b,db,d,df+1 to power up
+
+    ** 28dmg
+
+    ** i29~30
+
+    * Alternate input is completely bufferable
+
+    * High crush 6~89'
+- id: b_db_d_dfp1
+  command: b,db,d,df+1
+  hit_level: l
+  startup: i29
+  block: '-37'
+  notes: '* Homing
+
+    * Alternate input df+1+4'
+- id: dbp2
+  command: db+2*
+  hit_level: l
+  startup: i35~36
+  block: '-33'
+  notes: '* Gain GMC on hit or block
+
+    * 9 chip damage on block'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15, i21
+  block: '-32'
+  notes: '* Transition to GMH with D
+
+    ** (+45a (+27) oH)
+
+    * 16 damage with scaling from 1st hit
+
+    * Can be charged to power up'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m
+  startup: i13
+  block: '-23'
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: ws1p2_1p2_1p2
+  command: ws1+2,1+2,1+2
+  hit_level: m, m, l
+  startup: i20, ,i27
+  block: '-23'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: m
+  startup: i23
+  block: '-21'
+  notes: '*'
+- id: fc_dfp1_2
+  command: FC.df+1,2
+  hit_level: m, m
+  startup: i23, i16
+  block: '-21'
+  notes: '* Combos from 1st hit'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i21
+  block: '-20'
+  notes: '*'
+- id: dbp3_4_3
+  command: db+3,4,3
+  hit_level: l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: dbp3_4_3_4_3
+  command: db+3,4,3,4,3
+  hit_level: l, l, l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i14
+  block: '-19'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d(+35)
+
+
+    * Balcony Break
+
+    * Gain GMC on Heat activation'
+- id: ffp1p2_1p2
+  command: f,F+1+2,1+2
+  hit_level: m, l
+  startup: i15, i28
+  block: '-19'
+  notes: '* High crush'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: M,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp1_2_1_2
+  command: df+1,2,1,2
+  hit_level: m, h, h, h
+  startup: i14, ,i9
+  block: '-18'
+  notes: "* Balcony Break\n* On air hit +12 (+5) \n* Combos from 2nd hit\n* Combos\
+    \ from 1st hit CH"
+- id: dfp1p3
+  command: df+1+3
+  hit_level: SM
+  startup: i30~49
+  block: -18c~+1c
+  notes: "* Transition to 25dmg +3d high attack throw on close range standing hit\
+    \ \n* -12c~-10c on block on average\n* Low crush 15~?"
+- id: dp1p2
+  command: d+1+2
+  hit_level: m
+  startup: i27
+  block: '-18'
+  notes: '*
+
+    * High crush 6'
+- id: dbp2
+  command: db+2
+  hit_level: l
+  startup: i22
+  block: '-18'
+  notes: '* Can be charged to power up
+
+    * High crush 6'
+- id: hfc_1p2_1p2
+  command: hFC.1+2,1+2
+  hit_level: l, m
+  startup: i24, i40
+  block: '-18'
+  notes: '* Combos from 1st hit'
+- id: 1p4_dfp1
+  command: 1+4,df+1
+  hit_level: M
+  startup: i22~, i20~23
+  block: '-17'
+  notes: '* Tornado
+
+    * Non just frame version of 1+4:df+1
+
+    * Alternate input hcf,df+1 to power up'
+- id: 1p4_dfp1
+  command: 1+4:df+1
+  hit_level: M
+  startup: i20~23
+  block: '-17'
+  notes: "* Tornado\n* Instant Tornado\n* Just frame version of 1+4,df+1 \n* Alternate\
+    \ input hcf:df+1 to power up"
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i20
+  block: '-17'
+  notes: '* Alternate input FC.d+3
+
+    * High crush 4'
+- id: hcf_dfp1
+  command: HCF,df+1
+  hit_level: M
+  startup: i22~, i20~23
+  block: '-17'
+  notes: '* Tornado
+
+    * Non blue spark version, for a just frame version search "EMGF"
+
+    * Alternate input 1+4,df+1'
+- id: hcf_dfp1
+  command: HCF:df+1
+  hit_level: M
+  startup: i20~23
+  block: '-17'
+  notes: '* Tornado
+
+    * Instant Tornado
+
+    * Just frame version of hcf,df+1, for a normal version search "one"
+
+    * Alternate input 1+4:df+1'
+common_strings_and_gaps:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i12, i15
+  block: -14c
+  notes: "* Elbow\n* Combo from 1st hit with 9F delay\n* Transition to GMH with D\n\
+    * (+4 oB, +8c oH, +23d cH) \n* Input can be delayed by 9F\n* Move cannot be delayed"
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i12, i19
+  block: '-2'
+  notes: '* Combo from 1st hit CH with 9F delay
+
+    * Input can be delayed by 9F
+
+    * Move cannot be delayed'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i11, i16
+  block: '-3'
+  notes: '* Elbow
+
+    * Combo from 1st hit
+
+    * Jail from 1st block'
+- id: '2_1_2'
+  command: 2,1,2
+  hit_level: h, m, m
+  startup: i11, ,i33
+  block: '-12'
+  notes: ''
+- id: 2_1_1p2
+  command: 2,1,1+2
+  hit_level: h, m, h,h,h,h,h
+  startup: i11, ,i33~36, i8~14, i3~6, i7~13, i5~6
+  block: '-4'
+  notes: '* Jails from 3rd block
+
+    * Chip damage on block (10)'
+- id: 2_1_uf
+  command: 2,1,uf
+  hit_level: h, m
+  startup: i11, ,
+  block: '+1'
+  notes: "* Recover in crouch \n* Move can be delayed by 4F\n* Input can be delayed\
+    \ by 14F\n* Can cancel into Make Some Noise by pressing 1+2 (uf,n,1+2)\n* Low\
+    \ crush 12"
+- id: 2_1_ufp1p2
+  command: 2,1,uf+1+2
+  hit_level: h, m, m
+  startup: i11, ,i21~22
+  block: +5 GMH
+  notes: '* Strong Aerial Tailspin?
+
+    * Transition to GMH on hit or block
+
+    * Interrupt with i13 from 2nd block
+
+    * Interrupt with i8 from 2nd hit
+
+    * Input can be delayed by 14F
+
+    * Move cannot be delayed
+
+    * 4 chip damage on block
+
+    * Low crush 12'
+- id: '2_3'
+  command: 2,3
+  hit_level: h, m
+  startup: i11, i19
+  block: '-13'
+  notes: '* Knee
+
+    * Balcony Break on airborne hit or CH
+
+    * Combo from 1st hit
+
+    * 2nd hit Balcony Break on CH'
+- id: '3_2'
+  command: 3,2
+  hit_level: m, h
+  startup: i15, i23
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * Alternate input f+3,2 or ws3,2'
+- id: 3_1p2
+  command: 3,1+2
+  hit_level: m, m
+  startup: i15, i25
+  block: -11c
+  notes: '* Combos from 1st hit CH
+
+    * Alternate input f+3,1+2 or ws3,1+2'
+- id: 1p4_1
+  command: 1+4*,1
+  hit_level: m
+  startup: i17(68/93/118~)
+  block: '!'
+  notes: '* Balcony Break
+
+    * Unblockable'
+- id: 1p4_1
+  command: 1+4,1
+  hit_level: m
+  startup: i22~, i17(43~)
+  block: +21g
+  notes: '* Balcony Break
+
+    * Alternate input hcf,1 to power up
+
+    * Chip damage on block (7)'
+- id: 1p4_dfp1
+  command: 1+4,df+1
+  hit_level: M
+  startup: i22~, i20~23
+  block: '-17'
+  notes: '* Tornado
+
+    * Non just frame version of 1+4:df+1
+
+    * Alternate input hcf,df+1 to power up'
+- id: fp1_1
+  command: f+1,1
+  hit_level: m, h
+  startup: i14, i25
+  block: '-7'
+  notes: Combos from 1st hit
+- id: fp1_2
+  command: f+1,2
+  hit_level: m, h
+  startup: i14, i22
+  block: '-6'
+  notes: Combos from 1st hit
+- id: fp1_2_1
+  command: f+1,2,1
+  hit_level: m, h, m
+  startup: i14, ,i26
+  block: '-12'
+  notes: '* Tornado
+
+    * Instant Tornado'
+- id: fp1_2_2
+  command: f+1,2,2
+  hit_level: m, h, m
+  startup: i14, ,i33
+  block: '+6'
+  notes: '* Can be charged to power up'
+- id: fp1_2_2
+  command: f+1,2,2*
+  hit_level: m, h, m
+  startup: i14, ,i61
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Wall Crush +0g on block; 3 additional chip damage
+
+
+
+    * Gain GMC on hit or block
+
+    * 16 chip damage on block'
+- id: fp4_1_2
+  command: f+4~1,2
+  hit_level: M
+  startup: i15 (66~)
+  block: '+8'
+  notes: '* Elbow
+
+    * Floor Break'
+- id: dfp1_1
+  command: df+1,1
+  hit_level: m, m
+  startup: i14, i29
+  block: '-11'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combos from 1st hit CH
+
+    * Delayable'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14, i29
+  block: '-12'
+  notes: '*Jails
+
+    * Combos from 1st hit CH
+
+    * Delayable'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, h
+  startup: i14, ,i15
+  block: '-10'
+  notes: '* Jails
+
+    * On air hit +22a (+15)
+
+    * Combos from 2nd hit
+
+    * Combos from 1st hit CH'
+- id: dfp1_2_1_2
+  command: df+1,2,1,2
+  hit_level: m, h, h, h
+  startup: i14, ,i9
+  block: '-18'
+  notes: "* Balcony Break\n* On air hit +12 (+5) \n* Combos from 2nd hit\n* Combos\
+    \ from 1st hit CH"
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15, i21
+  block: '-32'
+  notes: '* Transition to GMH with D
+
+    ** (+45a (+27) oH)
+
+    * 16 damage with scaling from 1st hit
+
+    * Can be charged to power up'
+- id: dfp2_1
+  command: df+2,1*
+  hit_level: m, h
+  startup: i15, i35
+  block: '-46'
+  notes: '* Tornado
+
+    * Transition to GMH with D
+
+    * Gain GMC on hit
+
+    ** (+70a (+54) oH))
+
+    * 28 damage with scaling from 1st hit'
+- id: dfp3_2
+  command: df+3,2
+  hit_level: m, h
+  startup: i16, i20
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Elbow'
+- id: dp2_1
+  command: d+2,1
+  hit_level: sl, l
+  startup: i11, i24
+  block: '-14'
+  notes: '* Alternate input FC.2,1
+
+    Combos from 1st hit
+
+    First two hits of 10 hit combo'
+- id: dbp1_1
+  command: db+1,1
+  hit_level: l, l
+  startup: i12, i16
+  block: '-12'
+  notes: '* Combos from 1st hit'
+- id: dbp1_1_1
+  command: db+1,1,1
+  hit_level: l, l, l
+  startup: i12, ,i16
+  block: '-12'
+  notes: '*'
+- id: dbp1_1_1_2
+  command: db+1,1,1,2
+  hit_level: l, l, l, m
+  startup: i12, ,i19
+  block: '-11'
+  notes: '* Balcony Break'
+- id: dbp3_1p2
+  command: db+3, ... 1+2
+  hit_level: l, h
+  startup: i21, i34
+  block: +14g
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit'
+- id: dbp3_dp1p2
+  command: db+3, ... d+1+2
+  hit_level: l, m (th)
+  startup: i21, i34
+  block: ''
+  notes: '* Crouch throw (Unbreakable)
+
+    * Can be executed after any hit of Cossack Kicks (DB+3,4,3...)'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i12, i19
+  block: '-2'
+  notes: '* Combo from 1st hit CH with 9F delay
+
+    * Input can be delayed by 9F
+
+    * Move cannot be delayed'
+- id: 2_1_1p2
+  command: 2,1,1+2
+  hit_level: h, m, h,h,h,h,h
+  startup: i11, ,i33~36, i8~14, i3~6, i7~13, i5~6
+  block: '-4'
+  notes: '* Jails from 3rd block
+
+    * Chip damage on block (10)'
+- id: '3_2'
+  command: 3,2
+  hit_level: m, h
+  startup: i15, i23
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * Alternate input f+3,2 or ws3,2'
+- id: fp1_1
+  command: f+1,1
+  hit_level: m, h
+  startup: i14, i25
+  block: '-7'
+  notes: Combos from 1st hit
+- id: fp1_2
+  command: f+1,2
+  hit_level: m, h
+  startup: i14, i22
+  block: '-6'
+  notes: Combos from 1st hit
+- id: fp1_2_1
+  command: f+1,2,1
+  hit_level: m, h, m
+  startup: i14, ,i26
+  block: '-12'
+  notes: '* Tornado
+
+    * Instant Tornado'
+- id: fp1_2_2
+  command: f+1,2,2
+  hit_level: m, h, m
+  startup: i14, ,i33
+  block: '+6'
+  notes: '* Can be charged to power up'
+- id: fp1_2_2
+  command: f+1,2,2*
+  hit_level: m, h, m
+  startup: i14, ,i61
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Wall Crush +0g on block; 3 additional chip damage
+
+
+
+    * Gain GMC on hit or block
+
+    * 16 chip damage on block'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14, i29
+  block: '-12'
+  notes: '*Jails
+
+    * Combos from 1st hit CH
+
+    * Delayable'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, h
+  startup: i14, ,i15
+  block: '-10'
+  notes: '* Jails
+
+    * On air hit +22a (+15)
+
+    * Combos from 2nd hit
+
+    * Combos from 1st hit CH'
+- id: dfp1_2_1_2
+  command: df+1,2,1,2
+  hit_level: m, h, h, h
+  startup: i14, ,i9
+  block: '-18'
+  notes: "* Balcony Break\n* On air hit +12 (+5) \n* Combos from 2nd hit\n* Combos\
+    \ from 1st hit CH"
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15, i21
+  block: '-32'
+  notes: '* Transition to GMH with D
+
+    ** (+45a (+27) oH)
+
+    * 16 damage with scaling from 1st hit
+
+    * Can be charged to power up'
+- id: dfp2_1
+  command: df+2,1*
+  hit_level: m, h
+  startup: i15, i35
+  block: '-46'
+  notes: '* Tornado
+
+    * Transition to GMH with D
+
+    * Gain GMC on hit
+
+    ** (+70a (+54) oH))
+
+    * 28 damage with scaling from 1st hit'
+- id: dfp3_2
+  command: df+3,2
+  hit_level: m, h
+  startup: i16, i20
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Elbow'
+- id: dbp3_1p2
+  command: db+3, ... 1+2
+  hit_level: l, h
+  startup: i21, i34
+  block: +14g
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit'
+- id: bp3_2
+  command: b+3,2
+  hit_level: m, h
+  startup: i16, i22
+  block: '-4'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i3 from 1st block
+
+    * Transition to GMH with D
+
+    ** (+0 oB, +5 oH)'
+- id: bp3_2_2
+  command: b+3,2,2
+  hit_level: m, h, h
+  startup: i16, ,i25
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Interrupt with i5 from 2nd block
+
+    * Can be charged to power up'
+- id: bp3_2_2
+  command: b+3,2,2*
+  hit_level: m, h, m
+  startup: i16, ,i67
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Wall Crush +3 on block
+
+
+
+    * Gain GMC on hit or block
+
+    * Interrupt with i47? from 2nd block
+
+    * 16 chip damage on block'
+- id: ws2_4
+  command: ws2,4
+  hit_level: m, h
+  startup: i14, i16
+  block: '+4'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * Chip damage on block (7)'
+- id: fc_dfp1_2_1_1
+  command: FC.df+1,2,1,1
+  hit_level: m, m, m, h
+  startup: i23, ,i21
+  block: '+15'
+  notes: '* Guard Break'
+- id: fc_dfp2_fp1
+  command: FC.df+2,f+1
+  hit_level: m, h
+  startup: i17, i19
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * High crush'
+stance_transitions:
+- id: h_fp3p4
+  command: H.f+3+4
+  hit_level: m
+  startup: i22~23
+  block: '+0'
+  notes: '* Head
+
+    * Transition to GMH with D
+
+    ** (+8 oB, +17c oH)
+
+    * Partially uses remaining heat time
+
+    * 6 chip damage on block'
+- id: h_ufp3
+  command: H.uf+3
+  hit_level: L
+  startup: i19
+  block: '-12'
+  notes: '* Spike
+
+    * Only deals recoverable damage
+
+    * Cannot K.O.
+
+    * Automatically transitions to GMH on hit
+
+    * Partially uses remaining heat time
+
+    * 3 chip damage on block
+
+    * Unparryable
+
+    * u+3/ub+3: less forward movement
+
+    * Low crush 9'
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,m,t
+  startup: i10
+  block: '-9'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * 10 chip damage on block'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: M,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i12, i15
+  block: -14c
+  notes: "* Elbow\n* Combo from 1st hit with 9F delay\n* Transition to GMH with D\n\
+    * (+4 oB, +8c oH, +23d cH) \n* Input can be delayed by 9F\n* Move cannot be delayed"
+- id: 2_1_ufp1p2
+  command: 2,1,uf+1+2
+  hit_level: h, m, m
+  startup: i11, ,i21~22
+  block: +5 GMH
+  notes: '* Strong Aerial Tailspin?
+
+    * Transition to GMH on hit or block
+
+    * Interrupt with i13 from 2nd block
+
+    * Interrupt with i8 from 2nd hit
+
+    * Input can be delayed by 14F
+
+    * Move cannot be delayed
+
+    * 4 chip damage on block
+
+    * Low crush 12'
+- id: '3'
+  command: '3'
+  hit_level: m
+  startup: i15
+  block: '-9'
+  notes: '* Knee
+
+    * Transition to GMH with D
+
+    ** (+2 oB, +16g oH, +16 ch)
+
+    * Alternate input f+3 or ws3'
+- id: fp3p4
+  command: f+3+4
+  hit_level: m
+  startup: i22
+  block: '-11'
+  notes: '* Head
+
+    * Transition to GMH with D
+
+    ** (-3 oB, +15c oH)'
+- id: dfp1p3
+  command: df+1+3
+  hit_level: SM
+  startup: i30~49
+  block: -18c~+1c
+  notes: "* Transition to 25dmg +3d high attack throw on close range standing hit\
+    \ \n* -12c~-10c on block on average\n* Low crush 15~?"
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15, i21
+  block: '-32'
+  notes: '* Transition to GMH with D
+
+    ** (+45a (+27) oH)
+
+    * 16 damage with scaling from 1st hit
+
+    * Can be charged to power up'
+- id: dfp2_1
+  command: df+2,1*
+  hit_level: m, h
+  startup: i15, i35
+  block: '-46'
+  notes: '* Tornado
+
+    * Transition to GMH with D
+
+    * Gain GMC on hit
+
+    ** (+70a (+54) oH))
+
+    * 28 damage with scaling from 1st hit'
+- id: dp3p4
+  command: d+3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transitions to SIT (Sit Down)'
+- id: dbp3_1p2
+  command: db+3, ... 1+2
+  hit_level: l, h
+  startup: i21, i34
+  block: +14g
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit'
+- id: dbp3_dp1p2
+  command: db+3, ... d+1+2
+  hit_level: l, m (th)
+  startup: i21, i34
+  block: ''
+  notes: '* Crouch throw (Unbreakable)
+
+    * Can be executed after any hit of Cossack Kicks (DB+3,4,3...)'
+- id: bp3_2
+  command: b+3,2
+  hit_level: m, h
+  startup: i16, i22
+  block: '-4'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i3 from 1st block
+
+    * Transition to GMH with D
+
+    ** (+0 oB, +5 oH)'
+- id: ufp1
+  command: uf+1
+  hit_level: h
+  startup: i17
+  block: ''
+  notes: '* Tornado
+
+    * Only hits airborne opponents
+
+    * Transition to GMH with D
+
+    ** (+75a (+59))
+
+    * Can be charged to power up
+
+    * Alternate input ub+1, u+1'
+- id: ufp1
+  command: uf+1*
+  hit_level: h
+  startup: i35
+  block: ''
+  notes: '* Tornado
+
+    * Only hits airborne opponents
+
+    * Transition to GMH with D
+
+    ** (+70a (+54))
+
+    * Gain GMC on hit
+
+    * Alternate input ub+1*, u+1*'
+- id: ufp3
+  command: uf+3
+  hit_level: L
+  startup: i23
+  block: '-12'
+  notes: '* Spike
+
+    * Only deals recoverable damage
+
+    * Cannot K.O.
+
+    * Only spikes when hit up close
+
+    * Automatically transitions to GMH on hit
+
+    * Unparryable
+
+    * u+3/ub+3: less forward movement
+
+    * Low crush 9'
+- id: ufp3p4
+  command: uf+3+4
+  hit_level: M
+  startup: i34 js8
+  block: +13cg
+  notes: '* Spike
+
+    * Automatically transitions to SIT on hit or block
+
+    * Low crush 8'
+- id: ffp1
+  command: f,F+1
+  hit_level: m
+  startup: i15~16
+  block: '-6'
+  notes: '* Elbow
+
+    * Transition to GMH with D
+
+    * (+4 oB, +8c oH, +23d cH)'
+- id: ffp3
+  command: f,F+3
+  hit_level: M
+  startup: i26
+  block: '+4'
+  notes: '* Transition to FC with D'
+- id: ss2
+  command: ss2
+  hit_level: h
+  startup: i17
+  block: '+9'
+  notes: '* Balcony Break
+
+    * Transition to GMH with D
+
+    ** (+9 oB, +35d (+27) oH)
+
+    * Chip damage on block (6)'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: m
+  startup: i23
+  block: '-21'
+  notes: '*'
+- id: fc_dfp1_2
+  command: FC.df+1,2
+  hit_level: m, m
+  startup: i23, i16
+  block: '-21'
+  notes: '* Combos from 1st hit'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,m,t
+  startup: i10
+  block: '-9'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * 10 chip damage on block'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: M,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp1p3
+  command: df+1+3
+  hit_level: SM
+  startup: i30~49
+  block: -18c~+1c
+  notes: "* Transition to 25dmg +3d high attack throw on close range standing hit\
+    \ \n* -12c~-10c on block on average\n* Low crush 15~?"
+- id: dbp3_dp1p2
+  command: db+3, ... d+1+2
+  hit_level: l, m (th)
+  startup: i21, i34
+  block: ''
+  notes: '* Crouch throw (Unbreakable)
+
+    * Can be executed after any hit of Cossack Kicks (DB+3,4,3...)'
+- id: during_enemy_wall_stun_1p3
+  command: (During Enemy wall stun) 1+3
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Wall throw (Unbreakable)
+
+    * Alternate input 2+4 or uf+1+2'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12
+  block: '+0'
+  notes: '* Homing
+
+    * Throw Break 1 or 2
+
+    * Swaps positions on break
+
+    ** Transition to BT on break'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: '* Homing
+
+    * Throw Break 1 or 2
+
+    * Swaps positions on break
+
+    * Side Switch'
+- id: back_throw_1p3
+  command: Back Throw 1+3
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Unbreakable
+
+    * Floor Break'
+- id: back_throw_2p4
+  command: Back Throw 2+4
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Balcony Break
+
+    * Unbreakable
+
+    * 80 damage on wall splat'
+- id: gmh_1p3
+  command: GMH.1+3
+  hit_level: t
+  startup: i15
+  block: '!'
+  notes: '* Crouch Throw (Unbreakable)
+
+    * Floor Break
+
+    * Alternate input d+1+3'
+- id: gmh_2p4
+  command: GMH.2+4
+  hit_level: t
+  startup: i15
+  block: '!'
+  notes: '* Heat Engager
+
+
+    * Cannot Heat Dash
+
+    * Crouch Throw (Unbreakable)
+
+    * Alternate input d+2+4
+
+    * Gain GMC on Heat activation'
+- id: gmh_1p2
+  command: GMH.1+2
+  hit_level: th
+  startup: i16
+  block: '-6'
+  notes: '* 57 Damage if opponent hits the wall
+
+    * Throw Break 1+2
+
+    * Swaps positions on break'
+- id: left_throw
+  command: Left Throw
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Throw Break 1
+
+    * Balcony Break'
+- id: right_throw
+  command: Right Throw
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Throw Break 2
+
+    * Side Swap'
+- id: db_n_fp1p2
+  command: db,n,f+1+2
+  hit_level: t
+  startup: i11
+  block: '-6'
+  notes: '* Throw Break 1+2
+
+    * Floor Break'
+- id: dbp2p3
+  command: db+2+3
+  hit_level: t
+  startup: i11
+  block: '-2'
+  notes: '* Throw Break 2
+
+    * Floor Break'
+- id: df_dfp2p4
+  command: df,DF+2+4
+  hit_level: t
+  startup: i14
+  block: '-2'
+  notes: '* Throw Break 2
+
+    *'
+- id: dfp2p4
+  command: df+2+4
+  hit_level: t
+  startup: i11
+  block: '-2'
+  notes: '* Throw Break 2
+
+    *'
+- id: dp1p3
+  command: d+1+3
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Crouch Throw (Unbreakable)
+
+    * Floor Break
+
+    * Can be done from crouch
+
+    * Alternate input GMH.1+3'
+- id: dp2p4
+  command: d+2+4
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Heat Engager
+
+
+    * Cannot Heat Dash
+
+    * Crouch Throw (Unbreakable)
+
+    * Can be done from crouch
+
+    * Alternate input GMH.2+4
+
+    * Gain GMC on Heat activation'
+- id: qcbp2
+  command: qcb+2
+  hit_level: t
+  startup: i11
+  block: '-2'
+  notes: '* Throw Break 2'
+- id: qcfp1
+  command: qcf+1
+  hit_level: t
+  startup: i11
+  block: '-2'
+  notes: '* Throw Break 1
+
+    * Floor Break'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i11
+  block: '-6'
+  notes: '* Throw Break 1+2
+
+    * Floor Break'
+- id: ufp1p2_d_dfp2
+  command: uf+1+2,d,df+2
+  hit_level: t
+  startup: i11
+  block: '-6'
+  notes: '* Throw Break 1+2
+
+    * Balcony Break
+
+    * Wallsplats opponent
+
+    * If blocked, does 20 chip dmg and is -2 oB'
+key_lows:
+- id: h_ufp3
+  command: H.uf+3
+  hit_level: L
+  startup: i19
+  block: '-12'
+  notes: '* Spike
+
+    * Only deals recoverable damage
+
+    * Cannot K.O.
+
+    * Automatically transitions to GMH on hit
+
+    * Partially uses remaining heat time
+
+    * 3 chip damage on block
+
+    * Unparryable
+
+    * u+3/ub+3: less forward movement
+
+    * Low crush 9'
+- id: dfp1p4
+  command: df+1+4
+  hit_level: L
+  startup: i34
+  block: '-37'
+  notes: '* Homing
+
+    * Alternate input b,db,d,df+1 to power up
+
+    ** 28dmg
+
+    ** i29~30
+
+    * Alternate input is completely bufferable
+
+    * High crush 6~89'
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '*
+
+    * High crush 4'
+- id: dp2
+  command: d+2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* Alternate input FC.2
+
+    * High crush 4'
+- id: dp2_1
+  command: d+2,1
+  hit_level: sl, l
+  startup: i11, i24
+  block: '-14'
+  notes: '* Alternate input FC.2,1
+
+    Combos from 1st hit
+
+    First two hits of 10 hit combo'
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i20
+  block: '-17'
+  notes: '* Alternate input FC.d+3
+
+    * High crush 4'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i16
+  block: '-15'
+  notes: '* Alternate input FC.d+4
+
+    * High crush 4'
+- id: dbp1
+  command: db+1
+  hit_level: l
+  startup: i12
+  block: '-12'
+  notes: '*'
+- id: dbp1_1
+  command: db+1,1
+  hit_level: l, l
+  startup: i12, i16
+  block: '-12'
+  notes: '* Combos from 1st hit'
+- id: dbp1_1_1
+  command: db+1,1,1
+  hit_level: l, l, l
+  startup: i12, ,i16
+  block: '-12'
+  notes: '*'
+- id: dbp1_1_1_2
+  command: db+1,1,1,2
+  hit_level: l, l, l, m
+  startup: i12, ,i19
+  block: '-11'
+  notes: '* Balcony Break'
+- id: dbp2
+  command: db+2
+  hit_level: l
+  startup: i22
+  block: '-18'
+  notes: '* Can be charged to power up
+
+    * High crush 6'
+- id: dbp2
+  command: db+2*
+  hit_level: l
+  startup: i35~36
+  block: '-33'
+  notes: '* Gain GMC on hit or block
+
+    * 9 chip damage on block'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i21
+  block: '-20'
+  notes: '*'
+- id: dbp3_1p2
+  command: db+3, ... 1+2
+  hit_level: l, h
+  startup: i21, i34
+  block: +14g
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit'
+- id: dbp3_dp1p2
+  command: db+3, ... d+1+2
+  hit_level: l, m (th)
+  startup: i21, i34
+  block: ''
+  notes: '* Crouch throw (Unbreakable)
+
+    * Can be executed after any hit of Cossack Kicks (DB+3,4,3...)'
+- id: dbp3_4
+  command: db+3,4
+  hit_level: l, l
+  startup: i21, i27
+  block: '-16'
+  notes: '*'
+- id: dbp3_4_3
+  command: db+3,4,3
+  hit_level: l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: dbp3_4_3_4
+  command: db+3,4,3,4
+  hit_level: l, l, l, l
+  startup: i21, ,i27
+  block: '-16'
+  notes: '*'
+- id: dbp3_4_3_4_3
+  command: db+3,4,3,4,3
+  hit_level: l, l, l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: dbp3_4_3_4_3_4
+  command: db+3,4,3,4,3,4
+  hit_level: l, l, l, l, l, l
+  startup: i21, ,i27
+  block: '-16'
+  notes: '*'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i16
+  block: '-13'
+  notes: '*
+
+    * High crush 6'
+- id: dbp1p2
+  command: db+1+2
+  hit_level: l,l
+  startup: i18
+  block: '-70'
+  notes: '* Floor Break'
+- id: ufp3
+  command: uf+3
+  hit_level: L
+  startup: i23
+  block: '-12'
+  notes: '* Spike
+
+    * Only deals recoverable damage
+
+    * Cannot K.O.
+
+    * Only spikes when hit up close
+
+    * Automatically transitions to GMH on hit
+
+    * Unparryable
+
+    * u+3/ub+3: less forward movement
+
+    * Low crush 9'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: M,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 3p4
+  command: 3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* When timed with opponent attack, or absorbing an attack, gain GMC and
+    recover in t35? r15 GMH
+
+    * Recover recoverable health when absorbing an attack
+
+    * GMC is always in effect during Heat
+
+    * Alternate input: ws3+4
+
+    * Power crush 7~22'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m,m
+  startup: i27 pc7
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Chip damage on block when absorbing an attack (12)
+
+    *
+
+    * Power crush 7'
+- id: ubp1p2
+  command: ub+1+2
+  hit_level: h
+  startup: i20 pc7
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Chip damage on block when absorbing an attack (12)
+
+    * Power crush 7'
+- id: gmc_2
+  command: GMC.2
+  hit_level: h
+  startup: i20 pc1
+  block: '+11'
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Partially uses remaining Heat time
+
+    * 4 chip damage on block
+
+    * Power crush 1'
+- id: gmc_3p4
+  command: GMC.3+4
+  hit_level: sm
+  startup: i20 pc6
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a(+26)
+
+
+    * Balcony Break
+
+    * Partially uses remaining Heat time
+
+    * Consumes GMC upon use
+
+    * 7 chip damage on block
+
+    * Gain GMC on Heat activation
+
+    * Forces backroll on hit
+
+    * Power crush 6'
+- id: gmh_3p4
+  command: GMH.3+4
+  hit_level: SM
+  startup: i20 pc6
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * 6 chip damage on block when absorbing an attack
+
+    * Gain GMC on Heat activation
+
+    * Forces tech backroll on hit
+
+    * Power crush 6'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_fp3p4
+  command: H.f+3+4
+  hit_level: m
+  startup: i22~23
+  block: '+0'
+  notes: '* Head
+
+    * Transition to GMH with D
+
+    ** (+8 oB, +17c oH)
+
+    * Partially uses remaining heat time
+
+    * 6 chip damage on block'
+- id: h_ufp3
+  command: H.uf+3
+  hit_level: L
+  startup: i19
+  block: '-12'
+  notes: '* Spike
+
+    * Only deals recoverable damage
+
+    * Cannot K.O.
+
+    * Automatically transitions to GMH on hit
+
+    * Partially uses remaining heat time
+
+    * 3 chip damage on block
+
+    * Unparryable
+
+    * u+3/ub+3: less forward movement
+
+    * Low crush 9'
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,m,t
+  startup: i10
+  block: '-9'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * 10 chip damage on block'
+- id: 3p4
+  command: 3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* When timed with opponent attack, or absorbing an attack, gain GMC and
+    recover in t35? r15 GMH
+
+    * Recover recoverable health when absorbing an attack
+
+    * GMC is always in effect during Heat
+
+    * Alternate input: ws3+4
+
+    * Power crush 7~22'
+- id: bp2
+  command: b+2
+  hit_level: m
+  startup: i19
+  block: '+2'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a(+26)
+
+
+    * Balcony Break
+
+    * Gain GMC on Heat activation
+
+    * Can be charged to power up'
+- id: bp2
+  command: b+2*
+  hit_level: m
+  startup: i35
+  block: '-2'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +36a(+26)\n\n* Balcony Break\n* Wall Crush\
+    \ +5g on block and 3 chip damage\n\n\n* Gain GMC on hit or block\n* 16 chip damage\
+    \ on block \n* Gain GMC on Heat activation"
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i14
+  block: '-19'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d(+35)
+
+
+    * Balcony Break
+
+    * Gain GMC on Heat activation'
+- id: gmc_1
+  command: GMC.1
+  hit_level: m
+  startup: i22
+  block: '-6'
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Partially uses remaining Heat time
+
+    * Chip damage on block (4)'
+- id: gmc_2
+  command: GMC.2
+  hit_level: h
+  startup: i20 pc1
+  block: '+11'
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Partially uses remaining Heat time
+
+    * 4 chip damage on block
+
+    * Power crush 1'
+- id: gmc_3p4
+  command: GMC.3+4
+  hit_level: sm
+  startup: i20 pc6
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a(+26)
+
+
+    * Balcony Break
+
+    * Partially uses remaining Heat time
+
+    * Consumes GMC upon use
+
+    * 7 chip damage on block
+
+    * Gain GMC on Heat activation
+
+    * Forces backroll on hit
+
+    * Power crush 6'
+- id: gmh_4
+  command: GMH.4
+  hit_level: h
+  startup: i14~18
+  block: '+4'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * 9 chip damage on block
+
+    * Gain GMC on Heat activation'
+- id: gmh_3p4
+  command: GMH.3+4
+  hit_level: SM
+  startup: i20 pc6
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * 6 chip damage on block when absorbing an attack
+
+    * Gain GMC on Heat activation
+
+    * Forces tech backroll on hit
+
+    * Power crush 6'
+- id: gmh_2p4
+  command: GMH.2+4
+  hit_level: t
+  startup: i15
+  block: '!'
+  notes: '* Heat Engager
+
+
+    * Cannot Heat Dash
+
+    * Crouch Throw (Unbreakable)
+
+    * Alternate input d+2+4
+
+    * Gain GMC on Heat activation'
+- id: dp2p4
+  command: d+2+4
+  hit_level: t
+  startup: i12
+  block: '!'
+  notes: '* Heat Engager
+
+
+    * Cannot Heat Dash
+
+    * Crouch Throw (Unbreakable)
+
+    * Can be done from crouch
+
+    * Alternate input GMH.2+4
+
+    * Gain GMC on Heat activation'
+long_range_attacks:
+- id: ffp1
+  command: f,F+1
+  hit_level: m
+  startup: i15~16
+  block: '-6'
+  notes: '* Elbow
+
+    * Transition to GMH with D
+
+    * (+4 oB, +8c oH, +23d cH)'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i18
+  block: '-16'
+  notes: '* Strong Aerial Tailspin?
+
+    * Can be charged to power up'
+- id: ffp2
+  command: f,F+2*
+  hit_level: m
+  startup: '34'
+  block: '-15'
+  notes: '* Tornado
+
+    * Gain GMC on hit or block
+
+    * 14 chip damage on block'
+- id: ffp3
+  command: f,F+3
+  hit_level: M
+  startup: i26
+  block: '+4'
+  notes: '* Transition to FC with D'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i16
+  block: '-10'
+  notes: "* Tornado \n* Balcony Break\n* Chip damage on block (12)"
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i15
+  block: '-15'
+  notes: '*
+
+    Homing'
+- id: ffp1p2_2
+  command: f,F+1+2,2
+  hit_level: m, m
+  startup: i15, i32
+  block: '-9'
+  notes: '*
+
+    Balcony Break
+
+    * Combos from 1st hit'
+- id: ffp1p2_1p2
+  command: f,F+1+2,1+2
+  hit_level: m, l
+  startup: i15, i28
+  block: '-19'
+  notes: '* High crush'
+- id: ffp1p4
+  command: f,F+1+4
+  hit_level: M (L)
+  startup: i21~30 (i31~40)
+  block: -82~-73
+  notes: "* i31~40 Low attack on landing \n** (-110~-101 oB, -65~-56 oH)\n* Low crush"
+- id: f_ffp2
+  command: f,f,F+2
+  hit_level: m
+  startup: i22
+  block: '+6'
+  notes: '* Chip damage on block (7)
+
+    * Guarantees i10 moves on hit
+
+    * Unparryable (running attack)
+
+    * Alternate input wr2'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: m
+  startup: i20~23
+  block: '+4'
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Chip damage on block (10)
+
+    * Alternate input wr1+2'
+launch_punish_opportunities:
+- id: ffp1p4
+  command: f,F+1+4
+  hit_level: M (L)
+  startup: i21~30 (i31~40)
+  block: -82~-73
+  notes: "* i31~40 Low attack on landing \n** (-110~-101 oB, -65~-56 oH)\n* Low crush"
+- id: dbp1p2
+  command: db+1+2
+  hit_level: l,l
+  startup: i18
+  block: '-70'
+  notes: '* Floor Break'
+- id: sit_1
+  command: SIT.1
+  hit_level: l
+  startup: i19
+  block: '-48'
+  notes: '*
+
+    * Floating state'
+- id: sit_1_2
+  command: SIT.1,2
+  hit_level: l, l
+  startup: i19, i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Floating state'
+- id: sit_1_2_1
+  command: SIT.1,2,1
+  hit_level: l, l, l
+  startup: i19, ,i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Floating state'
+- id: sit_1_2_1_2
+  command: SIT.1,2,1,2
+  hit_level: l, l, l, l
+  startup: i19, ,i15
+  block: '-47'
+  notes: '* Combos from 1st hit
+
+    * Alternate input SIT.2,1,2,1
+
+    ** String moves recover 4 frames faster with alternate input
+
+    * Floating state'
+- id: dfp2_1
+  command: df+2,1*
+  hit_level: m, h
+  startup: i15, i35
+  block: '-46'
+  notes: '* Tornado
+
+    * Transition to GMH with D
+
+    * Gain GMC on hit
+
+    ** (+70a (+54) oH))
+
+    * 28 damage with scaling from 1st hit'
+- id: sit_1p2
+  command: SIT.1+2
+  hit_level: m
+  startup: i24
+  block: '-44'
+  notes: '*
+
+    * Floating state'
+- id: dfp1p4
+  command: df+1+4
+  hit_level: L
+  startup: i34
+  block: '-37'
+  notes: '* Homing
+
+    * Alternate input b,db,d,df+1 to power up
+
+    ** 28dmg
+
+    ** i29~30
+
+    * Alternate input is completely bufferable
+
+    * High crush 6~89'
+- id: b_db_d_dfp1
+  command: b,db,d,df+1
+  hit_level: l
+  startup: i29
+  block: '-37'
+  notes: '* Homing
+
+    * Alternate input df+1+4'
+- id: dbp2
+  command: db+2*
+  hit_level: l
+  startup: i35~36
+  block: '-33'
+  notes: '* Gain GMC on hit or block
+
+    * 9 chip damage on block'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15, i21
+  block: '-32'
+  notes: '* Transition to GMH with D
+
+    ** (+45a (+27) oH)
+
+    * 16 damage with scaling from 1st hit
+
+    * Can be charged to power up'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m
+  startup: i13
+  block: '-23'
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: ws1p2_1p2_1p2
+  command: ws1+2,1+2,1+2
+  hit_level: m, m, l
+  startup: i20, ,i27
+  block: '-23'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: m
+  startup: i23
+  block: '-21'
+  notes: '*'
+- id: fc_dfp1_2
+  command: FC.df+1,2
+  hit_level: m, m
+  startup: i23, i16
+  block: '-21'
+  notes: '* Combos from 1st hit'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i21
+  block: '-20'
+  notes: '*'
+- id: dbp3_4_3
+  command: db+3,4,3
+  hit_level: l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: dbp3_4_3_4_3
+  command: db+3,4,3,4,3
+  hit_level: l, l, l, l, l
+  startup: i21, ,i27
+  block: '-19'
+  notes: '*'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i14
+  block: '-19'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d(+35)
+
+
+    * Balcony Break
+
+    * Gain GMC on Heat activation'
+- id: ffp1p2_1p2
+  command: f,F+1+2,1+2
+  hit_level: m, l
+  startup: i15, i28
+  block: '-19'
+  notes: '* High crush'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: M,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp1_2_1_2
+  command: df+1,2,1,2
+  hit_level: m, h, h, h
+  startup: i14, ,i9
+  block: '-18'
+  notes: "* Balcony Break\n* On air hit +12 (+5) \n* Combos from 2nd hit\n* Combos\
+    \ from 1st hit CH"
+- id: dfp1p3
+  command: df+1+3
+  hit_level: SM
+  startup: i30~49
+  block: -18c~+1c
+  notes: "* Transition to 25dmg +3d high attack throw on close range standing hit\
+    \ \n* -12c~-10c on block on average\n* Low crush 15~?"
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: left

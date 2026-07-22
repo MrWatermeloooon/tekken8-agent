@@ -6,6 +6,8 @@ from pathlib import Path
 
 import numpy as np
 
+from t8_agent.roster.catalog import load_catalog
+from t8_agent.roster.temporal import MatchupObservationEncoder, TemporalFrame
 from t8_agent.sim.action_space import action_count, index_to_action
 from t8_agent.sim.actions import SimAction
 from t8_agent.vision.temporal import VisualEstimate
@@ -92,7 +94,7 @@ class V2Checkpoint:
 
 
 class LiveV2GpuAgent:
-    """Runs a native V2 13-feature checkpoint with Torch CUDA inference."""
+    """Runs native V2 visual or visual-matchup checkpoints with Torch inference."""
 
     def __init__(
         self,
@@ -101,6 +103,9 @@ class LiveV2GpuAgent:
         device: str = "cuda",
         deterministic: bool = True,
         player: int = 1,
+        opponent_character: str | int | None = None,
+        opponent_archetype: str | int | None = None,
+        data_root: str | Path | None = None,
     ) -> None:
         try:
             import torch
@@ -111,15 +116,33 @@ class LiveV2GpuAgent:
         loaded = V2Checkpoint.load(checkpoint)
         if player not in (1, 2):
             raise ValueError(f"player must be 1 or 2, got {player}")
-        if loaded.observation_size != 13 or loaded.action_count != action_count():
+        if loaded.observation_size not in (13, 95) or loaded.action_count != action_count():
             raise ValueError(
-                "live V2 checkpoint must have 13 observations and "
+                "live V2 checkpoint must have 13 visual or 95 visual-matchup observations and "
                 f"{action_count()} actions; got {loaded.observation_size}/{loaded.action_count}"
             )
         self._torch = torch
         self.device = torch.device(device)
         self.deterministic = deterministic
         self.player = player
+        self.observation_size = loaded.observation_size
+        self._matchup_encoder: MatchupObservationEncoder | None = None
+        self._opponent_character_id: int | None = None
+        self._opponent_archetype_id: int | None = None
+        self._previous_estimated_move = 0
+        self._repeated_move_frames = 0
+        self._previous_own_health: float | None = None
+        self._previous_opponent_health: float | None = None
+        if loaded.observation_size == 95:
+            if opponent_character is None or opponent_archetype is None:
+                raise ValueError(
+                    "a 95-feature matchup checkpoint requires opponent_character and "
+                    "opponent_archetype"
+                )
+            catalog = load_catalog(data_root)
+            self._opponent_character_id = catalog.character(opponent_character).id
+            self._opponent_archetype_id = _resolve_archetype_id(catalog.archetypes, opponent_archetype)
+            self._matchup_encoder = MatchupObservationEncoder(base_size=13)
         self.weights_1 = torch.as_tensor(loaded.weights_1, device=self.device)
         self.bias_1 = torch.as_tensor(loaded.bias_1, device=self.device)
         self.weights_2 = torch.as_tensor(loaded.weights_2, device=self.device)
@@ -130,8 +153,11 @@ class LiveV2GpuAgent:
     def _logits_tensor(self, observation: np.ndarray):
         torch = self._torch
         vector = torch.as_tensor(observation, dtype=torch.float32, device=self.device)
-        if tuple(vector.shape) != (13,):
-            raise ValueError(f"V2 live observation must have shape (13,), got {tuple(vector.shape)}")
+        if tuple(vector.shape) != (self.observation_size,):
+            raise ValueError(
+                f"V2 live observation must have shape ({self.observation_size},), "
+                f"got {tuple(vector.shape)}"
+            )
         with torch.inference_mode():
             hidden_1 = torch.tanh(torch.mv(self.weights_1, vector) + self.bias_1)
             hidden_2 = torch.tanh(torch.mv(self.weights_2, hidden_1) + self.bias_2)
@@ -141,19 +167,85 @@ class LiveV2GpuAgent:
     def logits(self, observation: np.ndarray) -> np.ndarray:
         return self._logits_tensor(observation).cpu().numpy()
 
-    def act(self, estimate: VisualEstimate) -> SimAction:
+    def act(self, estimate: VisualEstimate, *, temporal_frame: TemporalFrame | None = None) -> SimAction:
         torch = self._torch
-        logits = self._logits_tensor(self.observation(estimate))
+        logits = self._logits_tensor(self.observation(estimate, temporal_frame=temporal_frame))
         if self.deterministic:
             index = int(torch.argmax(logits).item())
         else:
             index = int(torch.multinomial(torch.softmax(logits, dim=0), 1).item())
         return index_to_action(index)
 
-    def observation(self, estimate: VisualEstimate) -> np.ndarray:
+    def observation(
+        self,
+        estimate: VisualEstimate,
+        *,
+        temporal_frame: TemporalFrame | None = None,
+    ) -> np.ndarray:
         vector = estimate.to_vector()
-        if self.player == 1:
+        if self.player == 2:
+            # The simulator's visual contract is player-relative. Swap every
+            # own/opponent pair while leaving distance unchanged for a P2 agent.
+            vector = vector[[1, 0, 3, 2, 4, 6, 5, 8, 7, 10, 9, 12, 11]]
+        if self._matchup_encoder is None:
             return vector
-        # The simulator's visual contract is player-relative. Swap every
-        # own/opponent pair while leaving distance unchanged for a P2 agent.
-        return vector[[1, 0, 3, 2, 4, 6, 5, 8, 7, 10, 9, 12, 11]]
+        frame = temporal_frame or self._estimated_temporal_frame(estimate)
+        return self._matchup_encoder.encode(
+            vector,
+            opponent_character_id=self._opponent_character_id,
+            opponent_archetype_id=self._opponent_archetype_id,
+            frame=frame,
+        )
+
+    def reset_episode(self) -> None:
+        """Clears the temporal stack between rounds or opponents."""
+        if self._matchup_encoder is not None:
+            self._matchup_encoder.reset()
+        self._previous_estimated_move = 0
+        self._repeated_move_frames = 0
+        self._previous_own_health = None
+        self._previous_opponent_health = None
+
+    def _estimated_temporal_frame(self, estimate: VisualEstimate) -> TemporalFrame:
+        if self.player == 1:
+            attack = estimate.p2_attack_likelihood
+            opponent_velocity = estimate.p2_velocity
+            own_health = estimate.p1_health_ratio
+            opponent_health = estimate.p2_health_ratio
+        else:
+            attack = estimate.p1_attack_likelihood
+            opponent_velocity = estimate.p1_velocity
+            own_health = estimate.p2_health_ratio
+            opponent_health = estimate.p1_health_ratio
+        move_id = 18 if attack >= 0.35 else 0
+        self._repeated_move_frames = (
+            min(60, self._repeated_move_frames + 4)
+            if move_id == self._previous_estimated_move else 0
+        )
+        self._previous_estimated_move = move_id
+        outcome = 0.0
+        if self._previous_own_health is not None and self._previous_opponent_health is not None:
+            outcome = float(np.clip(
+                ((self._previous_opponent_health - opponent_health) -
+                 (self._previous_own_health - own_health)) * 10.0,
+                -1.0,
+                1.0,
+            ))
+        self._previous_own_health = own_health
+        self._previous_opponent_health = opponent_health
+        return TemporalFrame(
+            move_id=move_id,
+            animation_phase=float(np.clip(attack, 0.0, 1.0)),
+            hit_level=1 if move_id else 0,
+            delay_frames=self._repeated_move_frames,
+            outcome=outcome,
+            distance=estimate.distance,
+            side_movement=float(np.clip(opponent_velocity, -1.0, 1.0)),
+        )
+
+
+def _resolve_archetype_id(archetypes, value: str | int) -> int:
+    for archetype in archetypes:
+        if archetype.id == value or archetype.key == value:
+            return archetype.id
+    raise ValueError(f"unknown opponent archetype: {value}")

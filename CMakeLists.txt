@@ -21,6 +21,10 @@ add_library(t8_v2_cpu_oracle STATIC src/sim.cpp)
 target_include_directories(t8_v2_cpu_oracle PUBLIC include)
 target_compile_features(t8_v2_cpu_oracle PUBLIC cxx_std_20)
 
+add_library(t8_v2_roster STATIC src/roster.cpp)
+target_include_directories(t8_v2_roster PUBLIC include)
+target_compile_features(t8_v2_roster PUBLIC cxx_std_20)
+
 add_library(t8_v2_gpu STATIC src/gpu_sim.cu)
 target_include_directories(t8_v2_gpu PUBLIC include)
 target_compile_features(t8_v2_gpu PUBLIC cxx_std_20)
@@ -50,7 +54,7 @@ if(T8_V2_PPO_FAST_MATH)
     target_compile_options(t8_v2_ppo PRIVATE $<$<COMPILE_LANGUAGE:CUDA>:--use_fast_math>)
 endif()
 
-add_library(t8_v2_opponents STATIC src/opponents.cu)
+add_library(t8_v2_opponents STATIC src/opponents.cu src/temporal.cu)
 target_include_directories(t8_v2_opponents PUBLIC include)
 target_compile_features(t8_v2_opponents PUBLIC cxx_std_20)
 target_link_libraries(t8_v2_opponents PUBLIC CUDA::cudart)
@@ -85,6 +89,12 @@ if(T8_V2_BUILD_TESTS)
     add_executable(t8_v2_ppo_math_tests tests/ppo_math_tests.cpp)
     target_link_libraries(t8_v2_ppo_math_tests PRIVATE t8_v2_ppo)
     add_test(NAME t8_v2_ppo_math COMMAND t8_v2_ppo_math_tests)
+
+    add_executable(t8_v2_roster_tests tests/roster_tests.cpp)
+    target_link_libraries(t8_v2_roster_tests PRIVATE t8_v2_roster)
+    add_test(NAME t8_v2_roster_catalog COMMAND t8_v2_roster_tests
+             ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/opponent_profiles.csv
+             ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/character_move_specs.csv)
 endif()
 
 if(T8_V2_BUILD_BENCHMARKS)
@@ -97,7 +107,7 @@ if(T8_V2_BUILD_BENCHMARKS)
 endif()
 
 add_executable(t8_v2_train src/train.cpp)
-target_link_libraries(t8_v2_train PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents)
+target_link_libraries(t8_v2_train PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents t8_v2_roster)
 
 if(T8_V2_BUILD_TESTS AND WIN32)
     add_test(
@@ -120,6 +130,7 @@ if(T8_V2_BUILD_TESTS)
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v2_live_policy.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_live_backends.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_vision.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_roster_system.py
         )
     endif()
 endif()
@@ -142,11 +153,12 @@ function(t8_v2_enable_warnings target)
 endfunction()
 
 set(T8_V2_WARNING_TARGETS
-    t8_v2_cpu_oracle t8_v2_gpu t8_v2_ppo t8_v2_opponents t8_v2_train)
+    t8_v2_cpu_oracle t8_v2_roster t8_v2_gpu t8_v2_ppo t8_v2_opponents t8_v2_train)
 if(T8_V2_BUILD_TESTS)
     list(APPEND T8_V2_WARNING_TARGETS
         t8_v2_parity_tests t8_v2_gpu_parity_tests t8_v2_policy_tests
         t8_v2_rollout_tests t8_v2_ppo_math_tests)
+    list(APPEND T8_V2_WARNING_TARGETS t8_v2_roster_tests)
 endif()
 if(T8_V2_BUILD_BENCHMARKS)
     list(APPEND T8_V2_WARNING_TARGETS

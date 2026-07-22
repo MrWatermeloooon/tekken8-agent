@@ -1,0 +1,2184 @@
+schema_version: 1
+character_id: 33
+character: lidia
+display_name: Lidia Sobieska
+groups:
+- rushdown
+- stance_heavy
+specialty: political_storm_stances
+sidestep_tendency: right
+signature_mechanics:
+- horse_stance
+- wolf_stance
+- heaven_and_earth
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/lidia/framedata
+important_punishable_moves:
+- id: ffp4_3
+  command: f,F+4,3
+  hit_level: m, m
+  startup: i18, i24~25
+  block: '-27'
+  notes: '* Combo from 1st hit
+
+    * Transition to attack throw on airborne hit for additional damage that increases
+    based on Heaven and Earth level
+
+    * HAE lvl.3:
+
+    *** Removes Recoverable Health
+
+    *** Decreases HAE lvl by 1 on hit
+
+    * Low crush 27~46
+
+    * Floatin'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i20
+  block: '-26'
+  notes: '* +12a on clean hit, 4 extra damage
+
+    * High crush 1~'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: cat_4_3p4
+  command: CAT.4,3+4
+  hit_level: L, M
+  startup: i19~20, i38~39
+  block: '-18'
+  notes: '* Spike
+
+    * Combo from 1st CH
+
+    * Jails from 1st hit
+
+    * HAE lvl.3:
+
+    *** Combos from 1st hit and decreases Heaven and Earth level by 1
+
+    * Low crush 21~25
+
+    * Floating state 26~39'
+- id: hrs_1p2
+  command: HRS.1+2
+  hit_level: L
+  startup: i20~21
+  block: '-18'
+  notes: '* Powered up based on Heaven and Earth Level
+
+    ** HAE lvl.1 19 damage
+
+    ** HAE lvl.2 21 damage
+
+    ** HAE lvl.3 23 damage +21a on hit, and decreases HAE level by 1
+
+    * High crush 8~'
+- id: qcfp2_2_1p2
+  command: qcf+2,2,1+2
+  hit_level: m, m, m
+  startup: i16, ,i20~21
+  block: '-17'
+  notes: '* Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Input qcf,qcf+2,2,b,f,F+1+2 to power up, adds 5 damage
+
+    * Full string deals 47 damage with power up input, 42 damage without'
+- id: hfc_3
+  command: hFC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush 1~'
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i15
+  block: '-16'
+  notes: Can hit grounded off-axis
+- id: fp1p2_3_1p2
+  command: f+1+2,3,1+2
+  hit_level: h,m, m, m,m
+  startup: i14, i9~10, ,i14,i22
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Power up with input qcf+1+2 (adds 5 dmg to last hit)
+
+    * Jail from any attack'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 4~'
+- id: bp3_4_1p2
+  command: b+3,4,1+2
+  hit_level: m, h, m
+  startup: i17~18, ,i20
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd hit
+
+    * Input qcf+1+2 to add 2 damage
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 19 damage
+
+    **HAE lvl.1 21 damage
+
+    **HAE lvl.2 23 damage
+
+    **HAE lvl.3 29 damage'
+- id: hfc_4
+  command: hFC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 1~'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, m
+  startup: i13, i29~30
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Low crush 20~36
+
+    * Floating state 37~45'
+- id: dp2
+  command: d+2
+  hit_level: L
+  startup: i18
+  block: '-14'
+  notes: '* High crush 6~'
+- id: ffp3
+  command: f,F+3
+  hit_level: M
+  startup: i19~20
+  block: '-14'
+  notes: 'Tornado
+
+    * Low crush 11~19'
+- id: qcfp2_2
+  command: qcf+2,2
+  hit_level: m, m
+  startup: i16, i20
+  block: '-14'
+  notes: Combo from 1st CH
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: m
+  startup: i12
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43a (+35)
+
+
+    * Balcony Break
+
+    * Elbow'
+- id: wlf_4
+  command: WLF.4
+  hit_level: L,M
+  startup: i20,i23~25
+  block: -14c
+  notes: '* Floor Break
+
+    * Second hit available on hit or block only
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 30 damage
+
+    **HAE lvl.1 32 damage
+
+    **HAE lvl.2 34 damage
+
+    **HAE lvl.3 38 damage
+
+    *** lvl.3 +2d on hit'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, l
+  startup: i10, ,i26
+  block: '-13'
+  notes: '* Input can be delayed 8f
+
+    * Interrupt with i7 from 2nd block
+
+    * Can be low parried on hit
+
+    * Can hit grounded while off-axis'
+- id: fp2_4
+  command: f+2,4
+  hit_level: h, h
+  startup: i12, i18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Jail from 1st attack'
+- id: fp1p2_3
+  command: f+1+2,3
+  hit_level: h,m, m
+  startup: i14, i9~10, i16
+  block: '-13'
+  notes: '* Knee
+
+    * Jail from 1st attack'
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, m
+  startup: i13, i23
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3f delay
+
+    * Input can be delayed 6f
+
+    * Move can be delayed 5f'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i22
+  block: '-13'
+  notes: Can hit grounded off-axis
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i20
+  block: '-13'
+  notes: '* Balcony Break
+
+    * -8 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~19'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i18
+  block: '-13'
+  notes: ''
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i15~16
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Clean hit adds 7 damage'
+- id: uf_n_4
+  command: uf,n,4
+  hit_level: m
+  startup: i23~25
+  block: '-13'
+  notes: '* Low crush 9~30
+
+    * Floating state 31~33'
+- id: ws1_4
+  command: ws1,4
+  hit_level: m, m
+  startup: i13~14, i21~22
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 1st hit with 1f delay'
+- id: otg_dp1p2
+  command: OTG.d+1+2
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: '* Spike
+
+    * Power up based on Heaven and Earth level
+
+    * Regain recoverable health'
+- id: fp4_3_1
+  command: f+4,3,1
+  hit_level: m, m, m
+  startup: i17, ,i21~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 2nd CH'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, m
+  startup: i14~15, i22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay'
+- id: qcfp1p2
+  command: qcf+1+2
+  hit_level: m
+  startup: i16~17
+  block: '-12'
+  notes: 'Alternate input: db+1+2 but does 3 less damage'
+common_strings_and_gaps:
+- id: h_ffp2
+  command: H.f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Reversal Break
+
+    * Transition to HRS on hit or block only
+
+    * Partially uses remaining Heat time
+
+    * Input H.f,f,F+2 to power up'
+- id: h_f_ffp1
+  command: H.f,f,F+1
+  hit_level: h
+  startup: i13~15
+  block: '+5'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Combo from 1st hit with 4f delay'
+- id: '1_2_2'
+  command: 1,2,2
+  hit_level: h, h, m
+  startup: i10, ,i22
+  block: '-8'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Interrupt with i3
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -16'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i26~27
+  block: '-6'
+  notes: '* Balcony Break
+
+    * Interrupt with i7
+
+    * Input can be delayed 3f
+
+    * Low crush 16~31'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, l
+  startup: i10, ,i26
+  block: '-13'
+  notes: '* Input can be delayed 8f
+
+    * Interrupt with i7 from 2nd block
+
+    * Can be low parried on hit
+
+    * Can hit grounded while off-axis'
+- id: '1_4'
+  command: 1,4
+  hit_level: h, h
+  startup: i10, i19
+  block: '-8'
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Balcony break on airborne hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i11, i20~21
+  block: ''
+  notes: ''
+- id: '2_1_4'
+  command: 2,1,4
+  hit_level: h, h, h
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4'
+  command: 2,1,4,4
+  hit_level: h, h, h, l
+  startup: i11, ,i24~25
+  block: ''
+  notes: '* High crush'
+- id: '2_1_4_4_1'
+  command: 2,1,4,4,1
+  hit_level: h, h, h, l, m
+  startup: i11, ,i23~24
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2'
+  command: 2,1,4,4,1,2
+  hit_level: h, h, h, l, m, h
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1'
+  command: 2,1,4,4,1,2,1
+  hit_level: h, h, h, l, m, h, h
+  startup: i11, ,i18~19
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3'
+  command: 2,1,4,4,1,2,1,3
+  hit_level: h, h, h, l, m, h, h, m
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2'
+  command: 2,1,4,4,1,2,1,3,2
+  hit_level: h, h, h, l, m, h, h, m, m
+  startup: i11, ,i14
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2_1'
+  command: 2,1,4,4,1,2,1,3,2,1
+  hit_level: h, h, h, l, m, h, h, m, m, m
+  startup: i11, ,22
+  block: ''
+  notes: ''
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i20
+  block: '-4'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 4f delay
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -12'
+- id: '2_4'
+  command: 2,4
+  hit_level: h, m
+  startup: i11, i21
+  block: '-8'
+  notes: Combo from 1st hit with 4f delay
+- id: '3_2'
+  command: 3,2
+  hit_level: h, h
+  startup: i15, i22
+  block: '-4'
+  notes: '* Tornado
+
+    * Combo from 1st hit with 3f delay
+
+    * Just frame input within a 3f window (14~16) adds 2 damage
+
+    * Balcony break on airborne hit
+
+    * Hitstop 20f on hit'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, m
+  startup: i13, i29~30
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Low crush 20~36
+
+    * Floating state 37~45'
+- id: fp2_4
+  command: f+2,4
+  hit_level: h, h
+  startup: i12, i18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Jail from 1st attack'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, m
+  startup: i17~18, i24~25
+  block: '-4'
+  notes: '* Tornado
+
+    * Transitions to WLF'
+- id: fp3_4
+  command: f+3,4
+  hit_level: m, h
+  startup: i17~18, i21~23
+  block: '+5'
+  notes: '* Combo from 1st CH with 10f delay
+
+    * Move can be delayed 7f
+
+    * Can be ducked on hit
+
+    * Interrupt with i5 from 1st block
+
+    * Power up with input qcf+4, adds 2 damage
+
+    * Balcony break on airborne hit
+
+    * Transitions to HRS
+
+    * 6 chip damage on block
+
+    *'
+- id: fp4_3
+  command: f+4,3
+  hit_level: m, m
+  startup: i17, i13~14
+  block: '-10'
+  notes: 'Jail from 1st attack with 1f delay
+
+    * Low crush 5~17
+
+    * Floating state 18~20'
+- id: fp4_3_1
+  command: f+4,3,1
+  hit_level: m, m, m
+  startup: i17, ,i21~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 2nd CH'
+- id: fp4_3_4
+  command: f+4,3,4
+  hit_level: m, m, m
+  startup: i17, ,i27~28
+  block: '-10'
+  notes: '* Tornado
+
+    * Combo from 2nd CH'
+- id: fp1p2_3
+  command: f+1+2,3
+  hit_level: h,m, m
+  startup: i14, i9~10, i16
+  block: '-13'
+  notes: '* Knee
+
+    * Jail from 1st attack'
+- id: fp1p2_3_1p2
+  command: f+1+2,3,1+2
+  hit_level: h,m, m, m,m
+  startup: i14, i9~10, ,i14,i22
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Power up with input qcf+1+2 (adds 5 dmg to last hit)
+
+    * Jail from any attack'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13, i16~17
+  block: '-4'
+  notes: Combo from 1st hit with 1f delay
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, m
+  startup: i13, i23
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3f delay
+
+    * Input can be delayed 6f
+
+    * Move can be delayed 5f'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, m
+  startup: i14~15, i22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay'
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, h
+  startup: i15, i26
+  block: '-8'
+  notes: '* Tornado
+
+    * Elbow
+
+    * Combo from 1st hit with 1f delay
+
+    * Balcony break on airborne hit'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Combo from 1st hit with 4f delay'
+- id: '1_2_2'
+  command: 1,2,2
+  hit_level: h, h, m
+  startup: i10, ,i22
+  block: '-8'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Interrupt with i3
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -16'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i26~27
+  block: '-6'
+  notes: '* Balcony Break
+
+    * Interrupt with i7
+
+    * Input can be delayed 3f
+
+    * Low crush 16~31'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, l
+  startup: i10, ,i26
+  block: '-13'
+  notes: '* Input can be delayed 8f
+
+    * Interrupt with i7 from 2nd block
+
+    * Can be low parried on hit
+
+    * Can hit grounded while off-axis'
+- id: '1_4'
+  command: 1,4
+  hit_level: h, h
+  startup: i10, i19
+  block: '-8'
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Balcony break on airborne hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i11, i20~21
+  block: ''
+  notes: ''
+- id: '2_1_4'
+  command: 2,1,4
+  hit_level: h, h, h
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4'
+  command: 2,1,4,4
+  hit_level: h, h, h, l
+  startup: i11, ,i24~25
+  block: ''
+  notes: '* High crush'
+- id: '2_1_4_4_1'
+  command: 2,1,4,4,1
+  hit_level: h, h, h, l, m
+  startup: i11, ,i23~24
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2'
+  command: 2,1,4,4,1,2
+  hit_level: h, h, h, l, m, h
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1'
+  command: 2,1,4,4,1,2,1
+  hit_level: h, h, h, l, m, h, h
+  startup: i11, ,i18~19
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3'
+  command: 2,1,4,4,1,2,1,3
+  hit_level: h, h, h, l, m, h, h, m
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2'
+  command: 2,1,4,4,1,2,1,3,2
+  hit_level: h, h, h, l, m, h, h, m, m
+  startup: i11, ,i14
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2_1'
+  command: 2,1,4,4,1,2,1,3,2,1
+  hit_level: h, h, h, l, m, h, h, m, m, m
+  startup: i11, ,22
+  block: ''
+  notes: ''
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i20
+  block: '-4'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 4f delay
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -12'
+- id: '3_2'
+  command: 3,2
+  hit_level: h, h
+  startup: i15, i22
+  block: '-4'
+  notes: '* Tornado
+
+    * Combo from 1st hit with 3f delay
+
+    * Just frame input within a 3f window (14~16) adds 2 damage
+
+    * Balcony break on airborne hit
+
+    * Hitstop 20f on hit'
+- id: fp2_4
+  command: f+2,4
+  hit_level: h, h
+  startup: i12, i18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Jail from 1st attack'
+- id: fp3_4
+  command: f+3,4
+  hit_level: m, h
+  startup: i17~18, i21~23
+  block: '+5'
+  notes: '* Combo from 1st CH with 10f delay
+
+    * Move can be delayed 7f
+
+    * Can be ducked on hit
+
+    * Interrupt with i5 from 1st block
+
+    * Power up with input qcf+4, adds 2 damage
+
+    * Balcony break on airborne hit
+
+    * Transitions to HRS
+
+    * 6 chip damage on block
+
+    *'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13, i16~17
+  block: '-4'
+  notes: Combo from 1st hit with 1f delay
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, h
+  startup: i15, i26
+  block: '-8'
+  notes: '* Tornado
+
+    * Elbow
+
+    * Combo from 1st hit with 1f delay
+
+    * Balcony break on airborne hit'
+- id: dp3_1
+  command: d+3,1
+  hit_level: l, h
+  startup: i15, i18
+  block: '-3'
+  notes: '* Combo from 1st CH with 1f delay
+
+    * Jail from 1st hit'
+- id: dp3_1_2
+  command: d+3,1,2
+  hit_level: l, h, h
+  startup: i15, ,i17
+  block: '-6'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Forces tech backroll on hit'
+- id: dbp3p4_p_1
+  command: db+3+4,P.1
+  hit_level: m, h
+  startup: i22, i16
+  block: ''
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Just frame input within a 2f window (21~22) adds 2 damage'
+- id: bp3_4
+  command: b+3,4
+  hit_level: m, h
+  startup: i17~18, i20
+  block: '-11'
+  notes: Combo from 1st hit
+stance_transitions:
+- id: h_1p2
+  command: H.1+2
+  hit_level: m
+  startup: i31
+  block: '+1'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 20~30 frames'
+- id: h_1p2
+  command: H.1+2*
+  hit_level: m
+  startup: i42~64
+  block: +6g
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 31~54 frames'
+- id: h_1p2
+  command: H.1+2**
+  hit_level: m
+  startup: i65
+  block: +10g
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 55 frames'
+- id: h_cat_u
+  command: H.CAT.U
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Increases Heaven and Earth level
+
+    * Parries all highs or mids
+
+    * Transition to +12g? HAE on successful parry
+
+    * Parry state 5~39'
+- id: h_hrs_u
+  command: H.HRS.U
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Increases Heaven and Earth level
+
+    * Parries all highs or mids
+
+    * Transition to +12g? HAE on successful parry
+
+    * Parry state 5~39'
+- id: h_wlf_1
+  command: H.WLF.1
+  hit_level: m
+  startup: i22
+  block: +6g
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Cancel with b,b or f,f on frames 10~18
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B'
+- id: h_wlf_1
+  command: H.WLF.1*
+  hit_level: m
+  startup: i36
+  block: +10g
+  notes: '* Tornado
+
+    * Cancel with b,b or f,f on frames 10~18
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Balcony break on airborne hit'
+- id: h_wlf_u
+  command: H.WLF.U
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Increases Heaven and Earth level
+
+    * Parries all highs or mids
+
+    * Transition to +12g? HAE on successful parry
+
+    * Parry state 5~39'
+- id: h_ffp2
+  command: H.f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Reversal Break
+
+    * Transition to HRS on hit or block only
+
+    * Partially uses remaining Heat time
+
+    * Input H.f,f,F+2 to power up'
+- id: h_f_ffp1
+  command: H.f,f,F+1
+  hit_level: h
+  startup: i13~15
+  block: '+5'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m,m,h
+  startup: i18
+  block: +10g
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to r31 HAE on block
+
+    ** Cancel HAE transition with B on block
+
+    * Transition to attack throw on hit
+
+    * Increases HAE level by 1 on hit
+
+    * 8 chip on block
+
+    * Low crush 77~105'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2_2'
+  command: 1,2,2
+  hit_level: h, h, m
+  startup: i10, ,i22
+  block: '-8'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Interrupt with i3
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -16'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i20
+  block: '-4'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 4f delay
+
+    * Transition to CAT on hit or block only
+
+    * CAT transition is -12'
+- id: 3p4
+  command: 3+4
+  hit_level: m,m
+  startup: i20~21, i18
+  block: '+0'
+  notes: '* Jail from 1st attack
+
+    * Balcony break on airborne hit
+
+    * Transition to CAT on hit or block only
+
+    * Low crush 16~40'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, m
+  startup: i17~18, i24~25
+  block: '-4'
+  notes: '* Tornado
+
+    * Transitions to WLF'
+- id: fp3_4
+  command: f+3,4
+  hit_level: m, h
+  startup: i17~18, i21~23
+  block: '+5'
+  notes: '* Combo from 1st CH with 10f delay
+
+    * Move can be delayed 7f
+
+    * Can be ducked on hit
+
+    * Interrupt with i5 from 1st block
+
+    * Power up with input qcf+4, adds 2 damage
+
+    * Balcony break on airborne hit
+
+    * Transitions to HRS
+
+    * 6 chip damage on block
+
+    *'
+- id: dfp2
+  command: df+2
+  hit_level: m
+  startup: i15
+  block: '+0'
+  notes: '* Strong Aerial Tailspin
+
+    * Elbow
+
+    * Transition to CAT on hit or block only'
+- id: dbp1
+  command: db+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: Transition to r24? with f
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i16~17
+  block: '-11'
+  notes: '* Homing
+
+    * Clean hit adds 3 damage
+
+    * Transition to HRS on hit or block only
+
+    * Transition to attack throw on CH
+
+    * HRS transition is -19'
+- id: dbp3p4_p_1
+  command: db+3+4,P.1
+  hit_level: m, h
+  startup: i22, i16
+  block: ''
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Just frame input within a 2f window (21~22) adds 2 damage'
+- id: ufp4
+  command: uf+4
+  hit_level: m,h
+  startup: i15~16,i13
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Transition to CAT on hit or block only
+
+    * 2nd hit available only as combo from 1st hit
+
+    * CAT transition is -13
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Transition to HRS on hit or block only
+
+    * Input f,f,F+2 to power up'
+- id: ffp4_3
+  command: f,F+4,3
+  hit_level: m, m
+  startup: i18, i24~25
+  block: '-27'
+  notes: '* Combo from 1st hit
+
+    * Transition to attack throw on airborne hit for additional damage that increases
+    based on Heaven and Earth level
+
+    * HAE lvl.3:
+
+    *** Removes Recoverable Health
+
+    *** Decreases HAE lvl by 1 on hit
+
+    * Low crush 27~46
+
+    * Floatin'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m,m,h
+  startup: i18
+  block: +10g
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to r31 HAE on block
+
+    ** Cancel HAE transition with B on block
+
+    * Transition to attack throw on hit
+
+    * Increases HAE level by 1 on hit
+
+    * 8 chip on block
+
+    * Low crush 77~105'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i16~17
+  block: '-11'
+  notes: '* Homing
+
+    * Clean hit adds 3 damage
+
+    * Transition to HRS on hit or block only
+
+    * Transition to attack throw on CH
+
+    * HRS transition is -19'
+- id: ffp4_3
+  command: f,F+4,3
+  hit_level: m, m
+  startup: i18, i24~25
+  block: '-27'
+  notes: '* Combo from 1st hit
+
+    * Transition to attack throw on airborne hit for additional damage that increases
+    based on Heaven and Earth level
+
+    * HAE lvl.3:
+
+    *** Removes Recoverable Health
+
+    *** Decreases HAE lvl by 1 on hit
+
+    * Low crush 27~46
+
+    * Floatin'
+- id: airborne_ffp4_3
+  command: (airborne).f,F+4,3
+  hit_level: m,m,th
+  startup: i18,i24~25
+  block: ''
+  notes: '* Balcony Break
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 16 damage
+
+    **HAE lvl.1 20 damage
+
+    **HAE lvl.2 28 damage
+
+    **HAE lvl.3 38 damage
+
+    *** lvl.3 causes Wallsplat
+
+    * Regain recoverable health'
+- id: hrs_2
+  command: HRS.2
+  hit_level: m,t
+  startup: i16
+  block: '-10'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Transitions to attack throw on front hit
+
+    * Does not transition to throw when using Heat Dash
+
+    * Activates Heat when throw is completed
+
+    * Transition to r33 HAE on hit only when heat is not deplete'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent on break: standing'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '-6'
+  notes: '* Homing
+
+    * Floor Break
+
+    * Throw break: 1 or 2
+
+    * Opponent on hit: FUFA
+
+    * Side switch on hit'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Homing
+
+    * Throw break: none
+
+    * Opponent on hit: FDFT'
+- id: ch_dbp3
+  command: CH.db+3
+  hit_level: t
+  startup: i16~17
+  block: ''
+  notes: '* Power up based on Heaven and Earth level:
+
+    ** Level 0: 17 damage
+
+    ** Level 1: 19 damage
+
+    ** Level 2: 21 damage
+
+    ** Level 3: 27 damag
+
+    * Restores recoverable health'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break: 1
+
+    * Opponent on break: standing'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Floor Break
+
+    * Throw break: 2
+
+    * Opponent on hit: FUFA
+
+    * Side switch on hit'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: '* Throw break: 1+2
+
+    * Opponent on hit: FUFA
+
+    * Regain recoverable health
+
+    * Only when Heaven and Earth lvl is 3:
+
+    * 50 damage'
+key_lows:
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, l
+  startup: i10, ,i26
+  block: '-13'
+  notes: '* Input can be delayed 8f
+
+    * Interrupt with i7 from 2nd block
+
+    * Can be low parried on hit
+
+    * Can hit grounded while off-axis'
+- id: '2_1_4_4'
+  command: 2,1,4,4
+  hit_level: h, h, h, l
+  startup: i11, ,i24~25
+  block: ''
+  notes: '* High crush'
+- id: '2_1_4_4_1'
+  command: 2,1,4,4,1
+  hit_level: h, h, h, l, m
+  startup: i11, ,i23~24
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2'
+  command: 2,1,4,4,1,2
+  hit_level: h, h, h, l, m, h
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1'
+  command: 2,1,4,4,1,2,1
+  hit_level: h, h, h, l, m, h, h
+  startup: i11, ,i18~19
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3'
+  command: 2,1,4,4,1,2,1,3
+  hit_level: h, h, h, l, m, h, h, m
+  startup: i11, ,i22
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2'
+  command: 2,1,4,4,1,2,1,3,2
+  hit_level: h, h, h, l, m, h, h, m, m
+  startup: i11, ,i14
+  block: ''
+  notes: ''
+- id: '2_1_4_4_1_2_1_3_2_1'
+  command: 2,1,4,4,1,2,1,3,2,1
+  hit_level: h, h, h, l, m, h, h, m, m, m
+  startup: i11, ,22
+  block: ''
+  notes: ''
+- id: dp2
+  command: d+2
+  hit_level: L
+  startup: i18
+  block: '-14'
+  notes: '* High crush 6~'
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i15
+  block: '-16'
+  notes: Can hit grounded off-axis
+- id: dp3_1
+  command: d+3,1
+  hit_level: l, h
+  startup: i15, i18
+  block: '-3'
+  notes: '* Combo from 1st CH with 1f delay
+
+    * Jail from 1st hit'
+- id: dp3_1_2
+  command: d+3,1,2
+  hit_level: l, h, h
+  startup: i15, ,i17
+  block: '-6'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Forces tech backroll on hit'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 4~'
+- id: dbp1
+  command: db+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: Transition to r24? with f
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i16~17
+  block: '-11'
+  notes: '* Homing
+
+    * Clean hit adds 3 damage
+
+    * Transition to HRS on hit or block only
+
+    * Transition to attack throw on CH
+
+    * HRS transition is -19'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i22
+  block: '-13'
+  notes: Can hit grounded off-axis
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i20
+  block: '-26'
+  notes: '* +12a on clean hit, 4 extra damage
+
+    * High crush 1~'
+- id: cat_4
+  command: CAT.4
+  hit_level: L
+  startup: i19~20
+  block: '-6'
+  notes: '* Transition to WLF on hit or block only
+
+    * Crouching state ends early on frame 20 when transitioning to WLF
+
+    * WLF transition is -14
+
+    * Powered up based on Heaven and Earth Level
+
+    * HAE lvl.1 16 damage
+
+    * HAE lvl.2 18 damage
+
+    * HAE lvl.3 20 dama'
+- id: cat_4_3p4
+  command: CAT.4,3+4
+  hit_level: L, M
+  startup: i19~20, i38~39
+  block: '-18'
+  notes: '* Spike
+
+    * Combo from 1st CH
+
+    * Jails from 1st hit
+
+    * HAE lvl.3:
+
+    *** Combos from 1st hit and decreases Heaven and Earth level by 1
+
+    * Low crush 21~25
+
+    * Floating state 26~39'
+- id: hrs_1p2
+  command: HRS.1+2
+  hit_level: L
+  startup: i20~21
+  block: '-18'
+  notes: '* Powered up based on Heaven and Earth Level
+
+    ** HAE lvl.1 19 damage
+
+    ** HAE lvl.2 21 damage
+
+    ** HAE lvl.3 23 damage +21a on hit, and decreases HAE level by 1
+
+    * High crush 8~'
+- id: otg_dp1p2
+  command: OTG.d+1+2
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: '* Spike
+
+    * Power up based on Heaven and Earth level
+
+    * Regain recoverable health'
+- id: wlf_4
+  command: WLF.4
+  hit_level: L,M
+  startup: i20,i23~25
+  block: -14c
+  notes: '* Floor Break
+
+    * Second hit available on hit or block only
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 30 damage
+
+    **HAE lvl.1 32 damage
+
+    **HAE lvl.2 34 damage
+
+    **HAE lvl.3 38 damage
+
+    *** lvl.3 +2d on hit'
+- id: hfc_1
+  command: hFC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r25? with f
+
+    * Transition input can be delayed 16f
+
+    * High crush 1~'
+- id: hfc_2
+  command: hFC.2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* High crush 1~'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b
+
+    * 3 chip damage on block
+
+    * Partially uses Heat
+
+    * Power crush 7~62'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i20
+  block: '-13'
+  notes: '* Balcony Break
+
+    * -8 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~19'
+- id: hae_1
+  command: HAE.1
+  hit_level: m
+  startup: i18~19
+  block: '-11'
+  notes: '* Spike
+
+    * Power up based on Heaven and Earth level
+
+    * 7/6/4 chip damage on block
+
+    * -7 frame advantage after absorbing an attack in power crush state
+
+    * Guarantees grounded hit vs airborne opponent
+
+    * +51a on BT hit
+
+    * Power crush 7~17'
+- id: hrs_1
+  command: HRS.1
+  hit_level: h
+  startup: i17
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Transition to WLF on hit or block
+
+    * +8 WLF frame advantage and 8 chip damage on block after absorbing an attack
+    in power crush state
+
+    * Power crush 7~16'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b
+
+    * 3 chip damage on block
+
+    * Partially uses Heat
+
+    * Power crush 7~62'
+- id: h_1p2
+  command: H.1+2
+  hit_level: m
+  startup: i31
+  block: '+1'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 20~30 frames'
+- id: h_1p2
+  command: H.1+2*
+  hit_level: m
+  startup: i42~64
+  block: +6g
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 31~54 frames'
+- id: h_1p2
+  command: H.1+2**
+  hit_level: m
+  startup: i65
+  block: +10g
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Cancel with b,b or f,f
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time
+
+    * Hold for 55 frames'
+- id: h_ffp2
+  command: H.f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Reversal Break
+
+    * Transition to HRS on hit or block only
+
+    * Partially uses remaining Heat time
+
+    * Input H.f,f,F+2 to power up'
+- id: h_f_ffp1
+  command: H.f,f,F+1
+  hit_level: h
+  startup: i13~15
+  block: '+5'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m,m,h
+  startup: i18
+  block: +10g
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to r31 HAE on block
+
+    ** Cancel HAE transition with B on block
+
+    * Transition to attack throw on hit
+
+    * Increases HAE level by 1 on hit
+
+    * 8 chip on block
+
+    * Low crush 77~105'
+- id: fp1p2_3_1p2
+  command: f+1+2,3,1+2
+  hit_level: h,m, m, m,m
+  startup: i14, i9~10, ,i14,i22
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Power up with input qcf+1+2 (adds 5 dmg to last hit)
+
+    * Jail from any attack'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i18
+  block: '+2'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * 4 chip damage on block
+
+    * Forces tech backroll on hit'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: m
+  startup: i12
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43a (+35)
+
+
+    * Balcony Break
+
+    * Elbow'
+- id: cat_3
+  command: CAT.3
+  hit_level: h
+  startup: i13~14
+  block: '-4'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break'
+- id: hrs_2
+  command: HRS.2
+  hit_level: m,t
+  startup: i16
+  block: '-10'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Transitions to attack throw on front hit
+
+    * Does not transition to throw when using Heat Dash
+
+    * Activates Heat when throw is completed
+
+    * Transition to r33 HAE on hit only when heat is not deplete'
+long_range_attacks:
+- id: h_ffp2
+  command: H.f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Reversal Break
+
+    * Transition to HRS on hit or block only
+
+    * Partially uses remaining Heat time
+
+    * Input H.f,f,F+2 to power up'
+- id: h_f_ffp1
+  command: H.f,f,F+1
+  hit_level: h
+  startup: i13~15
+  block: '+5'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to HAE on hit or block only
+
+    * Cancel HAE transition with B
+
+    * Partially uses remaining Heat time'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i13
+  block: '+5'
+  notes: '* Transition to HRS on hit or block only
+
+    * Input f,f,F+2 to power up'
+- id: ffp3
+  command: f,F+3
+  hit_level: M
+  startup: i19~20
+  block: '-14'
+  notes: 'Tornado
+
+    * Low crush 11~19'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i18
+  block: '-13'
+  notes: ''
+- id: ffp4_3
+  command: f,F+4,3
+  hit_level: m, m
+  startup: i18, i24~25
+  block: '-27'
+  notes: '* Combo from 1st hit
+
+    * Transition to attack throw on airborne hit for additional damage that increases
+    based on Heaven and Earth level
+
+    * HAE lvl.3:
+
+    *** Removes Recoverable Health
+
+    *** Decreases HAE lvl by 1 on hit
+
+    * Low crush 27~46
+
+    * Floatin'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i15~16
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Clean hit adds 7 damage'
+- id: f_ffp1
+  command: f,f,F+1
+  hit_level: h
+  startup: i13~15
+  block: '+6'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 7 Chip damage on block'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i23~25
+  block: '+6'
+  notes: '* Balcony Break
+
+    * 9 Chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Low crush 12~33
+
+    * 34~36'
+- id: airborne_ffp4_3
+  command: (airborne).f,F+4,3
+  hit_level: m,m,th
+  startup: i18,i24~25
+  block: ''
+  notes: '* Balcony Break
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 16 damage
+
+    **HAE lvl.1 20 damage
+
+    **HAE lvl.2 28 damage
+
+    **HAE lvl.3 38 damage
+
+    *** lvl.3 causes Wallsplat
+
+    * Regain recoverable health'
+launch_punish_opportunities:
+- id: ffp4_3
+  command: f,F+4,3
+  hit_level: m, m
+  startup: i18, i24~25
+  block: '-27'
+  notes: '* Combo from 1st hit
+
+    * Transition to attack throw on airborne hit for additional damage that increases
+    based on Heaven and Earth level
+
+    * HAE lvl.3:
+
+    *** Removes Recoverable Health
+
+    *** Decreases HAE lvl by 1 on hit
+
+    * Low crush 27~46
+
+    * Floatin'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i20
+  block: '-26'
+  notes: '* +12a on clean hit, 4 extra damage
+
+    * High crush 1~'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: cat_4_3p4
+  command: CAT.4,3+4
+  hit_level: L, M
+  startup: i19~20, i38~39
+  block: '-18'
+  notes: '* Spike
+
+    * Combo from 1st CH
+
+    * Jails from 1st hit
+
+    * HAE lvl.3:
+
+    *** Combos from 1st hit and decreases Heaven and Earth level by 1
+
+    * Low crush 21~25
+
+    * Floating state 26~39'
+- id: hrs_1p2
+  command: HRS.1+2
+  hit_level: L
+  startup: i20~21
+  block: '-18'
+  notes: '* Powered up based on Heaven and Earth Level
+
+    ** HAE lvl.1 19 damage
+
+    ** HAE lvl.2 21 damage
+
+    ** HAE lvl.3 23 damage +21a on hit, and decreases HAE level by 1
+
+    * High crush 8~'
+- id: qcfp2_2_1p2
+  command: qcf+2,2,1+2
+  hit_level: m, m, m
+  startup: i16, ,i20~21
+  block: '-17'
+  notes: '* Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Input qcf,qcf+2,2,b,f,F+1+2 to power up, adds 5 damage
+
+    * Full string deals 47 damage with power up input, 42 damage without'
+- id: hfc_3
+  command: hFC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush 1~'
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i15
+  block: '-16'
+  notes: Can hit grounded off-axis
+- id: fp1p2_3_1p2
+  command: f+1+2,3,1+2
+  hit_level: h,m, m, m,m
+  startup: i14, i9~10, ,i14,i22
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Power up with input qcf+1+2 (adds 5 dmg to last hit)
+
+    * Jail from any attack'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 4~'
+- id: bp3_4_1p2
+  command: b+3,4,1+2
+  hit_level: m, h, m
+  startup: i17~18, ,i20
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd hit
+
+    * Input qcf+1+2 to add 2 damage
+
+    * Power up based on Heaven and Earth level
+
+    **HAE lvl.0 19 damage
+
+    **HAE lvl.1 21 damage
+
+    **HAE lvl.2 23 damage
+
+    **HAE lvl.3 29 damage'
+- id: hfc_4
+  command: hFC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 1~'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

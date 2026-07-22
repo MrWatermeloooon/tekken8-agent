@@ -1,0 +1,2260 @@
+schema_version: 1
+character_id: 14
+character: hwoarang
+display_name: Hwoarang
+groups:
+- rushdown
+- stance_heavy
+specialty: flamingo_pressure
+sidestep_tendency: left
+signature_mechanics:
+- left_flamingo
+- right_flamingo
+- backlash
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/hwoarang/framedata
+important_punishable_moves:
+- id: lfs_2_2_3_4_3_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4
+  hit_level: m, h, h, L, m, m, l, h
+  startup: i16, ,i23
+  block: '-28'
+  notes: '* Interrupt from 7th block with i3'
+- id: lfs_2_2_3_4_3_4_4
+  command: LFS.2,2,3,4,3,4,4
+  hit_level: m, h, h, L, m, m, l
+  startup: i16, ,i19
+  block: '-27'
+  notes: '* Interrupt from 6th block with i18
+
+    * Can be sidestepped'
+- id: h_rfs_dp4
+  command: H.RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_dp4
+  command: RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF'
+- id: lfs_2_2_3_4_3_4
+  command: LFS.2,2,3,4,3,4
+  hit_level: m, h, h, L, m, m
+  startup: i16, ,i22~24
+  block: '-21'
+  notes: '* Combo from 5th hit'
+- id: bp3
+  command: b+3
+  hit_level: M
+  startup: i16~17
+  block: '-19'
+  notes: '* Tornado'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: cd_4
+  command: CD.4
+  hit_level: m
+  startup: i16
+  block: '-18'
+  notes: '* Tornado
+
+    * Also possible during RFF'
+- id: lfs_2_2_3_4_3_4_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4,4
+  hit_level: m, h, h, L, m, m, l, h, m
+  startup: i16, ,i22
+  block: '-18'
+  notes: '* Airborne combo from 8th hit
+
+    * Interrupt from 8th block with i33
+
+    * Can be sidestepped'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i19
+  block: '-17'
+  notes: '* Also possible during RFF
+
+    * High crush 6~55'
+- id: lfs_dp3
+  command: LFS.d+3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit'
+- id: hfc_3
+  command: hFC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit
+
+    * High crush 1~'
+- id: fp3_3
+  command: f+3~3
+  hit_level: m
+  startup: i20
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Sidesteps to the right'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i15
+  block: '-15'
+  notes: '* Sidesteps to the right'
+- id: lfs_bp1
+  command: LFS.b+1
+  hit_level: m
+  startup: i15
+  block: '-15'
+  notes: '* Sidesteps to the right'
+- id: hfc_4
+  command: hFC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 1~'
+- id: '1_1_3_3'
+  command: 1,1,3,3
+  hit_level: h, h, L, h
+  startup: i10, ,i20
+  block: '-14'
+  notes: '* Combo from 3rd hit with 1F delay
+
+    * Move can be delayed by 10F'
+- id: '3_3_3'
+  command: 3,3,3
+  hit_level: h, m, m
+  startup: i14, ,i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '4_4_3'
+  command: 4,4,3
+  hit_level: h, h, M
+  startup: i11~12, ,i25~31
+  block: -14c
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH'
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i22~23
+  block: -14~-13
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, m
+  startup: i22~23, i24~25
+  block: '-14'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F
+
+    * Power up if an attack is absorbed by previous hit
+
+    ** Reversal Break?
+
+    ** 4 chip damage on block
+
+    ** -9 on block'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m,h,m
+  startup: i13,i14,i24~25
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Jails
+
+    * 5 chip damage on block
+
+    * Also possible during RFF'
+- id: dp3p4
+  command: d+3+4
+  hit_level: L
+  startup: i21~22
+  block: '-14'
+  notes: '* Homing
+
+    * Transition to LFS on hit
+
+    * High crush 6~54'
+- id: ufp3_4_3
+  command: uf+3,4,3
+  hit_level: m, m, m
+  startup: i28~29, ,i27~28
+  block: '-14'
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Floating state 1~'
+- id: lfs_2_2_3_4
+  command: LFS.2,2,3,4
+  hit_level: m, h, h, L
+  startup: i16, ,i22
+  block: '-14'
+  notes: ''
+- id: lfs_3_3
+  command: LFS.3,3
+  hit_level: m, m
+  startup: i14, i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 9?F delay
+
+    * Move can be delayed by 10F'
+- id: lfs_dfp3
+  command: LFS.df+3
+  hit_level: m
+  startup: i22~23
+  block: '-14'
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: lfs_dfp3_4
+  command: LFS.df+3,4
+  hit_level: m, m
+  startup: i22~23, i24~25
+  block: '-14'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F
+
+    * Power up if an attack is absorbed by previous hit
+
+    ** Reversal Break?
+
+    ** 4 chip damage on block
+
+    ** -9 on block'
+- id: lfs_ufp3_4_3
+  command: LFS.uf+3,4,3
+  hit_level: m, m, m
+  startup: i28~29, ,i27~28
+  block: '-14'
+  notes: 'Combo from 1st hit
+
+    * Floating state 1~'
+- id: lfs_ufp4
+  command: LFS.uf+4
+  hit_level: M
+  startup: i19~20
+  block: '-14'
+  notes: '* Tornado
+
+    * Low crush 6~18'
+- id: rff_2_4_3
+  command: RFF.2,4,3
+  hit_level: h, h, M
+  startup: i10, ,i25~31
+  block: -14c
+  notes: '* Combo from 2nd CH with 2F delay
+
+    * Move can be delayed by 10F
+
+    * Remains in RFF'
+- id: rff_4_3
+  command: RFF.4,3
+  hit_level: h, M
+  startup: i12, i25~31
+  block: -14c
+  notes: '* Remains in RFF
+
+    * Combo from 1st CH with 2F delay
+
+    * Move can be delayed by 10F'
+common_strings_and_gaps:
+- id: h_rfs_dp4_3
+  command: H.RFS.d+4,3
+  hit_level: L, h
+  startup: i20~21, i25
+  block: '-9'
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  command: H.RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: h_rfs_fp4_4
+  command: H.RFS.f+4,4
+  hit_level: h,h, h
+  startup: i8, i10, i23
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd hit
+
+    * Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    * Increased chip damage scaling on block during heat
+
+    ** 2 chip damage on block'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: '1_1_3'
+  command: 1,1,3
+  hit_level: h, h, L
+  startup: i10, ,i21
+  block: '-12'
+  notes: '* Combo from 2nd CH'
+- id: '1_1_3_3'
+  command: 1,1,3,3
+  hit_level: h, h, L, h
+  startup: i10, ,i20
+  block: '-14'
+  notes: '* Combo from 3rd hit with 1F delay
+
+    * Move can be delayed by 10F'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay
+
+    * Transition to LFS with 3 (+3/+12g?/+12)
+
+    * Transition to RFS with 4 (+3/+12g?/+12)'
+- id: 1_2_fp3
+  command: 1,2,f+3
+  hit_level: h, h, m
+  startup: i10, ,i21
+  block: '-8'
+  notes: '* Wall Crush +21g on hit
+
+
+
+    * Combo from 2nd CH with 4F delay'
+- id: 1_2_fp4
+  command: 1,2,f+4
+  hit_level: h, h, h
+  startup: i10, ,i24~25
+  block: '-2'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move can be delayed by 4F
+
+    * Low crush 14~'
+- id: 2_fp3
+  command: 2,f+3
+  hit_level: h, m
+  startup: i10, i21
+  block: '-8'
+  notes: '* Wall Crush +21g on hit
+
+
+
+    * Combo from 1st hit with 1F delay
+
+    * Combo from 1st CH with 4F delay'
+- id: 2_fp4
+  command: 2,f+4
+  hit_level: h, h
+  startup: i10, i24~25
+  block: '-2'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Low crush 14~'
+- id: '3_3'
+  command: 3,3
+  hit_level: h, m
+  startup: i14, i18
+  block: '-13'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st CH
+
+    * -7c on crouching hit
+
+    * Transition to r17 LFS with F (+2/+8/+13)'
+- id: '3_3_2'
+  command: 3,3,2
+  hit_level: h, m, M
+  startup: i14, ,i21~22
+  block: '-11'
+  notes: '* Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '3_3_3'
+  command: 3,3,3
+  hit_level: h, m, m
+  startup: i14, ,i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '3_3_4'
+  command: 3,3,4
+  hit_level: h, m, h
+  startup: i14, ,i21~23
+  block: '+8'
+  notes: '* Transition to RFS
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: 3_3_fp4
+  command: 3,3,f+4
+  hit_level: h, m, h
+  startup: i14, ,i21~27
+  block: '-1'
+  notes: '* Balcony Break
+
+    * -1 on block on average. Frame advantage may range from -4~+2 on block
+
+    * Combo from 2nd CH with 5F delay
+
+    * Move can be delayed by 10F'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, m
+  startup: i11~12, i22
+  block: '-6'
+  notes: '* Balcony Break on CH
+
+    * Combo from 1st hit
+
+    * +5c on crouching hit
+
+    * Cancel the second hit and transition to r8 LFS with F (-6/+5)'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, h
+  startup: i11~12, i16
+  block: '-1'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to RFS'
+- id: '4_4_3'
+  command: 4,4,3
+  hit_level: h, h, M
+  startup: i11~12, ,i25~31
+  block: -14c
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH'
+- id: '4_4_4'
+  command: 4,4,4
+  hit_level: h, h, h
+  startup: i11~12, ,i25~26
+  block: '-2'
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH with 1F delay
+
+    * Cancel and transition to r15 RFS with F (-17/-6)
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed
+
+    * Low crush 19~'
+- id: '4_4_4_4'
+  command: 4,4,4,4
+  hit_level: h, h, h, h
+  startup: i11~12, ,i31~32
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 3rd hit with 4F delay
+
+    * Input can be delayed by 4F
+
+    * Move cannot be delayed
+
+    * 6 chip damage on block
+
+    * Forces backroll on hit (opponent recovers crouching)
+
+    * Alternate input:(RFS.u+4),4
+
+    * Low crush 20~'
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, m
+  startup: i13~14, i22~23
+  block: '-2'
+  notes: "* Combo from 1st hit \n* Transition to LFS"
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, m
+  startup: i22~23, i24~25
+  block: '-14'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F
+
+    * Power up if an attack is absorbed by previous hit
+
+    ** Reversal Break?
+
+    ** 4 chip damage on block
+
+    ** -9 on block'
+- id: dp3_4
+  command: d+3,4
+  hit_level: l, h
+  startup: i17, i21~23
+  block: +8g~+10g
+  notes: '* Transition to RFS
+
+    * Combo from 1st hit'
+- id: dp4_4
+  command: d+4,4
+  hit_level: l, h
+  startup: i19, i20
+  block: '-13'
+  notes: '* Tornado
+
+    * Jail from 1st normal hit
+
+    * Combo from 1st CH
+
+    * Also possible during RFF'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, h
+  startup: i16, i17~19
+  block: -1~+1
+  notes: '* Combo from 1st CH'
+- id: bp1p3_p_4
+  command: b+1+3,P.4
+  hit_level: m,h,h
+  startup: i15,i8,i9
+  block: ''
+  notes: '* Balcony Break
+
+    * Pressing 4 after successful parry'
+- id: ufp3_4
+  command: uf+3,4
+  hit_level: m, m
+  startup: i28~29, i20~21
+  block: '+2'
+  notes: '* Available on hit or block only
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Floating state 1~'
+- id: ufp3_4_3
+  command: uf+3,4,3
+  hit_level: m, m, m
+  startup: i28~29, ,i27~28
+  block: '-14'
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Floating state 1~'
+- id: ufp4_4
+  command: uf+4,4
+  hit_level: h, m
+  startup: i22~23, i11~12
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Low crush 2?~'
+- id: ufp4_4_4
+  command: uf+4,4,4
+  hit_level: h, m, L
+  startup: i22~23, ,i9~10
+  block: '+1'
+  notes: '* Combo from 2nd CH
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Third hit is not low parryable if the first two hits connect. Parryable if the
+    first two hits whiff.'
+- id: ufp3p4_4
+  command: uf+3+4,4
+  hit_level: m,h, m
+  startup: i14,i9, i14~15
+  block: '-10'
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFF
+
+    * Low crush 1~'
+duckable_highs:
+- id: h_rfs_dp4_3
+  command: H.RFS.d+4,3
+  hit_level: L, h
+  startup: i20~21, i25
+  block: '-9'
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  command: H.RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: h_rfs_fp4_4
+  command: H.RFS.f+4,4
+  hit_level: h,h, h
+  startup: i8, i10, i23
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd hit
+
+    * Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    * Increased chip damage scaling on block during heat
+
+    ** 2 chip damage on block'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: '1_1_3'
+  command: 1,1,3
+  hit_level: h, h, L
+  startup: i10, ,i21
+  block: '-12'
+  notes: '* Combo from 2nd CH'
+- id: '1_1_3_3'
+  command: 1,1,3,3
+  hit_level: h, h, L, h
+  startup: i10, ,i20
+  block: '-14'
+  notes: '* Combo from 3rd hit with 1F delay
+
+    * Move can be delayed by 10F'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay
+
+    * Transition to LFS with 3 (+3/+12g?/+12)
+
+    * Transition to RFS with 4 (+3/+12g?/+12)'
+- id: 1_2_fp3
+  command: 1,2,f+3
+  hit_level: h, h, m
+  startup: i10, ,i21
+  block: '-8'
+  notes: '* Wall Crush +21g on hit
+
+
+
+    * Combo from 2nd CH with 4F delay'
+- id: 1_2_fp4
+  command: 1,2,f+4
+  hit_level: h, h, h
+  startup: i10, ,i24~25
+  block: '-2'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move can be delayed by 4F
+
+    * Low crush 14~'
+- id: 2_fp4
+  command: 2,f+4
+  hit_level: h, h
+  startup: i10, i24~25
+  block: '-2'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Low crush 14~'
+- id: '3_3_4'
+  command: 3,3,4
+  hit_level: h, m, h
+  startup: i14, ,i21~23
+  block: '+8'
+  notes: '* Transition to RFS
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: 3_3_fp4
+  command: 3,3,f+4
+  hit_level: h, m, h
+  startup: i14, ,i21~27
+  block: '-1'
+  notes: '* Balcony Break
+
+    * -1 on block on average. Frame advantage may range from -4~+2 on block
+
+    * Combo from 2nd CH with 5F delay
+
+    * Move can be delayed by 10F'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, h
+  startup: i11~12, i16
+  block: '-1'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to RFS'
+- id: '4_4_3'
+  command: 4,4,3
+  hit_level: h, h, M
+  startup: i11~12, ,i25~31
+  block: -14c
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH'
+- id: '4_4_4'
+  command: 4,4,4
+  hit_level: h, h, h
+  startup: i11~12, ,i25~26
+  block: '-2'
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH with 1F delay
+
+    * Cancel and transition to r15 RFS with F (-17/-6)
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed
+
+    * Low crush 19~'
+- id: '4_4_4_4'
+  command: 4,4,4,4
+  hit_level: h, h, h, h
+  startup: i11~12, ,i31~32
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 3rd hit with 4F delay
+
+    * Input can be delayed by 4F
+
+    * Move cannot be delayed
+
+    * 6 chip damage on block
+
+    * Forces backroll on hit (opponent recovers crouching)
+
+    * Alternate input:(RFS.u+4),4
+
+    * Low crush 20~'
+- id: dp3_4
+  command: d+3,4
+  hit_level: l, h
+  startup: i17, i21~23
+  block: +8g~+10g
+  notes: '* Transition to RFS
+
+    * Combo from 1st hit'
+- id: dp4_4
+  command: d+4,4
+  hit_level: l, h
+  startup: i19, i20
+  block: '-13'
+  notes: '* Tornado
+
+    * Jail from 1st normal hit
+
+    * Combo from 1st CH
+
+    * Also possible during RFF'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, h
+  startup: i16, i17~19
+  block: -1~+1
+  notes: '* Combo from 1st CH'
+- id: bp1p3_p_4
+  command: b+1+3,P.4
+  hit_level: m,h,h
+  startup: i15,i8,i9
+  block: ''
+  notes: '* Balcony Break
+
+    * Pressing 4 after successful parry'
+- id: ufp3p4_4
+  command: uf+3+4,4
+  hit_level: m,h, m
+  startup: i14,i9, i14~15
+  block: '-10'
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFF
+
+    * Low crush 1~'
+- id: ws2_3
+  command: ws2,3
+  hit_level: m, h
+  startup: i15~16, i23~25
+  block: '+3'
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    ** +72a (+56) from 1st hit
+
+    ** Balcony Break from 1st hit
+
+    * Transition to LFS
+
+    * Low crush 17~'
+- id: ss_3_3
+  command: SS.3,3
+  hit_level: m, h
+  startup: i18~19, i9~10
+  block: '+3'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * +34a (+27) on 1st CH
+
+    * Transition to LFS'
+- id: lfs_2_2
+  command: LFS.2,2
+  hit_level: m, h
+  startup: i16, i20
+  block: '+0'
+  notes: Combo from 1st hit
+stance_transitions:
+- id: h_rfs_dp4
+  command: H.RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: h_rfs_dp4_3
+  command: H.RFS.d+4,3
+  hit_level: L, h
+  startup: i20~21, i25
+  block: '-9'
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  command: H.RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: h_rfs_fp4
+  command: H.RFS.f+4
+  hit_level: h,h
+  startup: i8, i10
+  block: '+0'
+  notes: '* Jail from 1st block
+
+    * Remains in RFS
+
+    * 2 chip damage on block'
+- id: h_rfs_fp4_4
+  command: H.RFS.f+4,4
+  hit_level: h,h, h
+  startup: i8, i10, i23
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd hit
+
+    * Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    * Increased chip damage scaling on block during heat
+
+    ** 2 chip damage on block'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,(t),m,h
+  startup: i17~18, i18~19, i29
+  block: '+11'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Jails
+
+    * Transition to +13d attack throw on hit
+
+    * 5 chip damage on block
+
+    * Also possible during RFF and LFS
+
+    * Transition to RFS
+
+    * Low crush 55'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay
+
+    * Transition to LFS with 3 (+3/+12g?/+12)
+
+    * Transition to RFS with 4 (+3/+12g?/+12)'
+- id: '2'
+  command: '2'
+  hit_level: h
+  startup: i10
+  block: '+0'
+  notes: "* Transition to LFS with 3 (+3/+11g/+12)\n* Transition to RFS with 4 (+3/+11g/+12)\n\
+    * +19, +27, +28 in framedata display (bug?) \n* 70% scaling on next hit"
+- id: '3_3'
+  command: 3,3
+  hit_level: h, m
+  startup: i14, i18
+  block: '-13'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st CH
+
+    * -7c on crouching hit
+
+    * Transition to r17 LFS with F (+2/+8/+13)'
+- id: '3_3_4'
+  command: 3,3,4
+  hit_level: h, m, h
+  startup: i14, ,i21~23
+  block: '+8'
+  notes: '* Transition to RFS
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, m
+  startup: i11~12, i22
+  block: '-6'
+  notes: '* Balcony Break on CH
+
+    * Combo from 1st hit
+
+    * +5c on crouching hit
+
+    * Cancel the second hit and transition to r8 LFS with F (-6/+5)'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, h
+  startup: i11~12, i16
+  block: '-1'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to RFS'
+- id: '4_4_3'
+  command: 4,4,3
+  hit_level: h, h, M
+  startup: i11~12, ,i25~31
+  block: -14c
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH'
+- id: '4_4_4'
+  command: 4,4,4
+  hit_level: h, h, h
+  startup: i11~12, ,i25~26
+  block: '-2'
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH with 1F delay
+
+    * Cancel and transition to r15 RFS with F (-17/-6)
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed
+
+    * Low crush 19~'
+- id: 1p2
+  command: 1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to BT'
+- id: 3p4
+  command: 3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to RFF
+
+    * Transition to r13? standing block with B'
+- id: fp2
+  command: f+2
+  hit_level: m
+  startup: i16
+  block: '-2'
+  notes: '* Transition to RFF'
+- id: fp3
+  command: f+3
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to LFS
+
+    * Sidesteps to the right
+
+    * Can move forwards and backwards with F and B
+
+    * Can sidestep with U and D
+
+    * Cannot block or crouch in stance'
+- id: fp4
+  command: f+4
+  hit_level: h
+  startup: i17~23
+  block: +7~+13
+  notes: '* +10~+16 guaranteed on CH depending on frame advantage
+
+    * Transition to RFS'
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, m
+  startup: i13~14, i22~23
+  block: '-2'
+  notes: "* Combo from 1st hit \n* Transition to LFS"
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i22~23
+  block: -14~-13
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: dfp4
+  command: df+4
+  hit_level: m
+  startup: i16~17
+  block: -8~-7
+  notes: '* Homing
+
+    * Balcony Break on CH
+
+    * Transition to RFF
+
+    * Wall splats'
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,(t),m,h
+  startup: i17~18, i18~19, i29
+  block: '+11'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Jails
+
+    * Transition to +13d attack throw on hit
+
+    * 5 chip damage on block
+
+    * Also possible during RFF and LFS
+
+    * Transition to RFS
+
+    * Low crush 55'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 1p3
+  command: 1+3
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Break: 1 or 2
+
+    * Opponent recovery on hit: FDFT
+
+    * Sideswap on break'
+- id: 2p4
+  command: 2+4
+  hit_level: th(h)
+  startup: i12~14
+  block: '-6'
+  notes: '* Floor Break
+
+    * Homing
+
+    * Break: 1 or 2
+
+    * Opponent recovery on hit: FDFT off-axis to the left, sideswap'
+- id: 2p4_b
+  command: 2+4,B
+  hit_level: th(h)
+  startup: i12~14
+  block: '-2'
+  notes: '* Homing
+
+    * Break: 2
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Transition to BT on hit'
+- id: air_ubp3p4
+  command: AIR.ub+3+4
+  hit_level: th(m)
+  startup: i15~16
+  block: ''
+  notes: '* Break: none
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Also possible during RFF'
+- id: back_throw
+  command: Back throw
+  hit_level: th(h)
+  startup: i12~14
+  block: ''
+  notes: '* Break: none
+
+    * Opponent recovery on hit: FUFA
+
+    * Also possible during RFF'
+- id: left_throw
+  command: Left throw
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Break: 1
+
+    * Opponent recovery on hit: FUFT off-axis to the left
+
+    * Also possible during RFF'
+- id: rff_1p3
+  command: RFF.1+3
+  hit_level: th(h)
+  startup: i12
+  block: '-6'
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA, sideswap'
+- id: right_throw
+  command: Right throw
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Break: 2
+
+    * Opponent recovery on hit: FDFT off-axis to the right
+
+    * Also possible during RFF'
+- id: fp2p3
+  command: f+2+3
+  hit_level: th(h)
+  startup: i12
+  block: '+0'
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Sideswap on break
+
+    * Possible in RFF, LFS and RFS'
+- id: qcbp3
+  command: qcb+3
+  hit_level: th(h)
+  startup: i11
+  block: '-2'
+  notes: '* Floor Break
+
+    * Break: 1
+
+    * Opponent recovery on hit: FUFA, sideswap'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: th(h)
+  startup: i12
+  block: '-6'
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA
+
+    * Also possible during RFF'
+key_lows:
+- id: h_rfs_dp4
+  command: H.RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: h_rfs_dp4_3
+  command: H.RFS.d+4,3
+  hit_level: L, h
+  startup: i20~21, i25
+  block: '-9'
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  command: H.RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: '1_1_3'
+  command: 1,1,3
+  hit_level: h, h, L
+  startup: i10, ,i21
+  block: '-12'
+  notes: '* Combo from 2nd CH'
+- id: '1_1_3_3'
+  command: 1,1,3,3
+  hit_level: h, h, L, h
+  startup: i10, ,i20
+  block: '-14'
+  notes: '* Combo from 3rd hit with 1F delay
+
+    * Move can be delayed by 10F'
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dp2
+  command: d+2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* +7c on crouching hit
+
+    * High crush 4~'
+- id: dp3
+  command: d+3
+  hit_level: l
+  startup: i17
+  block: '-13'
+  notes: -2c on crouching hit
+- id: dp3_4
+  command: d+3,4
+  hit_level: l, h
+  startup: i17, i21~23
+  block: +8g~+10g
+  notes: '* Transition to RFS
+
+    * Combo from 1st hit'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i19
+  block: '-17'
+  notes: '* Also possible during RFF
+
+    * High crush 6~55'
+- id: dp4_4
+  command: d+4,4
+  hit_level: l, h
+  startup: i19, i20
+  block: '-13'
+  notes: '* Tornado
+
+    * Jail from 1st normal hit
+
+    * Combo from 1st CH
+
+    * Also possible during RFF'
+- id: dp3p4
+  command: d+3+4
+  hit_level: L
+  startup: i21~22
+  block: '-14'
+  notes: '* Homing
+
+    * Transition to LFS on hit
+
+    * High crush 6~54'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i19
+  block: '-13'
+  notes: '* Also possible during RFF
+
+    * High crush 6~51'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i16
+  block: '-12'
+  notes: '* Transition to r20 RFS with F (-1/+3/+10)
+
+    * Also possible during RFF'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, h
+  startup: i16, i17~19
+  block: -1~+1
+  notes: '* Combo from 1st CH'
+- id: ufp4_4_4
+  command: uf+4,4,4
+  hit_level: h, m, L
+  startup: i22~23, ,i9~10
+  block: '+1'
+  notes: '* Combo from 2nd CH
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Third hit is not low parryable if the first two hits connect. Parryable if the
+    first two hits whiff.'
+- id: ss_4
+  command: SS.4
+  hit_level: l
+  startup: i19~20
+  block: '-13'
+  notes: '* Transition to RFF'
+- id: bt_dp3
+  command: BT.d+3
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: '* High crush 4~50'
+- id: lfs_2_2_3_4
+  command: LFS.2,2,3,4
+  hit_level: m, h, h, L
+  startup: i16, ,i22
+  block: '-14'
+  notes: ''
+- id: lfs_2_2_3_4_3
+  command: LFS.2,2,3,4,3
+  hit_level: m, h, h, L, m
+  startup: i16, ,i31
+  block: '-9'
+  notes: '* Interrupt from 4th block with i13'
+- id: lfs_2_2_3_4_3_4
+  command: LFS.2,2,3,4,3,4
+  hit_level: m, h, h, L, m, m
+  startup: i16, ,i22~24
+  block: '-21'
+  notes: '* Combo from 5th hit'
+- id: lfs_2_2_3_4_3_4_4
+  command: LFS.2,2,3,4,3,4,4
+  hit_level: m, h, h, L, m, m, l
+  startup: i16, ,i19
+  block: '-27'
+  notes: '* Interrupt from 6th block with i18
+
+    * Can be sidestepped'
+- id: lfs_2_2_3_4_3_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4
+  hit_level: m, h, h, L, m, m, l, h
+  startup: i16, ,i23
+  block: '-28'
+  notes: '* Interrupt from 7th block with i3'
+- id: lfs_2_2_3_4_3_4_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4,4
+  hit_level: m, h, h, L, m, m, l, h, m
+  startup: i16, ,i22
+  block: '-18'
+  notes: '* Airborne combo from 8th hit
+
+    * Interrupt from 8th block with i33
+
+    * Can be sidestepped'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i22~23
+  block: -14~-13
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: lfs_bp3
+  command: LFS.b+3
+  hit_level: m
+  startup: i20~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 9 chip damage on block
+
+    ** -8 on block
+
+    * Transition to RFF
+
+    * Power crush 8~19'
+- id: lfs_dfp3
+  command: LFS.df+3
+  hit_level: m
+  startup: i22~23
+  block: '-14'
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: rff_3_4
+  command: RFF.3~4
+  hit_level: h
+  startup: i27~30
+  block: +4~+7
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Clean hit, 35dmg
+
+    * 10 chip damage on block
+
+    * Power crush 8~26'
+- id: rff_dfp2p3
+  command: RFF.df+2+3
+  hit_level: m
+  startup: i22~23
+  block: '-14'
+  notes: '* Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power crush 7~'
+- id: rfs_bp4
+  command: RFS.b+4
+  hit_level: m
+  startup: i20~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 9 chip damage on block
+
+    ** -8 on block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    ** 9 chip damage on block after absorbing '
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_rfs_dp4
+  command: H.RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: h_rfs_dp4_3
+  command: H.RFS.d+4,3
+  hit_level: L, h
+  startup: i20~21, i25
+  block: '-9'
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  command: H.RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: h_rfs_fp4_4
+  command: H.RFS.f+4,4
+  hit_level: h,h, h
+  startup: i8, i10, i23
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd hit
+
+    * Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    * Increased chip damage scaling on block during heat
+
+    ** 2 chip damage on block'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,(t),m,h
+  startup: i17~18, i18~19, i29
+  block: '+11'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Jails
+
+    * Transition to +13d attack throw on hit
+
+    * 5 chip damage on block
+
+    * Also possible during RFF and LFS
+
+    * Transition to RFS
+
+    * Low crush 55'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m,h,m
+  startup: i13,i14,i24~25
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Jails
+
+    * 5 chip damage on block
+
+    * Also possible during RFF'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i17~18
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Also possible during RFF
+
+    * Transition to RFF (does not transition on Heat activation or when using Heat
+    Dash)'
+- id: f_n_d_df
+  command: f,n,d,df
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Cannot be buffered
+
+    * Stance moves can be buffered out of heat dash
+
+    * Recovers in FC at frame 20
+
+    * Cancel to sidestep with u
+
+    * Cancel to block with b'
+- id: lfs_fp3
+  command: LFS.f+3
+  hit_level: m
+  startup: i19~20
+  block: '+4'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Remains in LFS (does not transition on Heat activation or when using Heat Dash)'
+- id: rff_dfp3
+  command: RFF.df+3
+  hit_level: m
+  startup: i22~24
+  block: '+1'
+  notes: '* Homing
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Remains in RFF (transitions to LFF on Heat activation or when using Heat Dash)
+
+    * Low crush 9~'
+- id: rfs_3
+  command: RFS.3
+  hit_level: h
+  startup: i14~16
+  block: '+4'
+  notes: '* Balcony Break
+
+    * Transition to LFS
+
+    * Sidesteps to the left
+
+    * Increased chip damage scaling on block during heat
+
+    ** 7 chip damage on block in heat
+
+    * Low crush 8~'
+- id: rfs_3_4
+  command: RFS.3~4
+  hit_level: m,m
+  startup: i16,i7
+  block: '-3'
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 9 chip damage on block in heat
+
+    * Input 4 the following frame after 3 to power up
+
+    ** 37dmg on hit, +1 on block
+
+    ** 14 chip damage on block in heat
+
+    *'
+- id: rfs_4
+  command: RFS.4
+  hit_level: m
+  startup: i14
+  block: '-9'
+  notes: '* Transition to RFF
+
+    * Increased chip damage scaling on block during heat
+
+    ** 5 chip damage on block in heat'
+- id: rfs_4_3
+  command: RFS.4,3
+  hit_level: m, m
+  startup: i14, i23~24
+  block: '+4'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to LFS
+
+    * Combo from 1st CH
+
+    * Combo from 1st hit during heat
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_bp3
+  command: RFS.b+3
+  hit_level: m
+  startup: i16~17
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat'
+- id: rfs_bp4
+  command: RFS.b+4
+  hit_level: m
+  startup: i20~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 9 chip damage on block
+
+    ** -8 on block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    ** 9 chip damage on block after absorbing '
+- id: rfs_dfp4
+  command: RFS.df+4
+  hit_level: m
+  startup: i17~19
+  block: '+1'
+  notes: '* Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_dp3
+  command: RFS.d+3
+  hit_level: L
+  startup: i15
+  block: '-13'
+  notes: '* Transition to RFF
+
+    * Increased chip damage scaling on block during heat
+
+    ** 3 chip damage on block in heat
+
+    * cs10~19 crush state when canceled into followup
+
+    * High crush 10~25'
+- id: rfs_dp3_3
+  command: RFS.d+3,3
+  hit_level: L, h
+  startup: i15, i25~27
+  block: '-2'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 4F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 4F
+
+    * 11 chip damage on block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 14 chip damage on block in heat'
+- id: rfs_dp4_3_4
+  command: RFS.d+4,3,4
+  hit_level: L, h, h
+  startup: i20~21, ,i27~28
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Power up in Heat: 30dmg and increased chip damage on block
+
+    * Combo from 2nd CH
+
+    * Airborne combo from 1st CH
+
+    ** +10a (+9) on hit
+
+    ** 10 dmg, 36 total dmg from 1st CH
+
+    * Low crush 22~'
+- id: rfs_fp3
+  command: RFS.f+3
+  hit_level: m
+  startup: i20~21
+  block: '-10'
+  notes: '* Homing
+
+    * Increased chip damage scaling on block during heat
+
+    ** 5 chip damage on block in heat'
+- id: rfs_fp4
+  command: RFS.f+4
+  hit_level: h,h
+  startup: i8, i10
+  block: '+0'
+  notes: '* Jail from 1st block
+
+    * +6 on 2nd CH
+
+    * Remains in RFS
+
+    * Power up during Heat'
+- id: rfs_ufp3
+  command: RFS.uf+3
+  hit_level: M
+  startup: i24~27
+  block: '-7'
+  notes: '* Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    * Low crush 9~'
+long_range_attacks:
+- id: ffp3
+  command: f,F+3
+  hit_level: M
+  startup: i20~24
+  block: '+6'
+  notes: '* Transition to RFF'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i17~18
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Also possible during RFF
+
+    * Transition to RFF (does not transition on Heat activation or when using Heat
+    Dash)'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i22~24
+  block: '+6'
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Also possible during RFF
+
+    * Low crush 3~'
+- id: f_ffp4
+  command: f,f,F+4
+  hit_level: h
+  startup: i18~19
+  block: '+5'
+  notes: '* 11 chip damage on block
+
+    * Also possible during RFF
+
+    * Sideswaps and leaves opponent backturned on hit
+
+    * Transition to BT on block
+
+    * Low crush 15~'
+- id: rff_ffp3
+  command: RFF.f,F+3
+  hit_level: M
+  startup: i22~25
+  block: '-7'
+  notes: '* Low crush 3~'
+launch_punish_opportunities:
+- id: lfs_2_2_3_4_3_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4
+  hit_level: m, h, h, L, m, m, l, h
+  startup: i16, ,i23
+  block: '-28'
+  notes: '* Interrupt from 7th block with i3'
+- id: lfs_2_2_3_4_3_4_4
+  command: LFS.2,2,3,4,3,4,4
+  hit_level: m, h, h, L, m, m, l
+  startup: i16, ,i19
+  block: '-27'
+  notes: '* Interrupt from 6th block with i18
+
+    * Can be sidestepped'
+- id: h_rfs_dp4
+  command: H.RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_dp4
+  command: RFS.d+4
+  hit_level: L
+  startup: i20~21
+  block: '-23'
+  notes: '* Transition to RFF'
+- id: lfs_2_2_3_4_3_4
+  command: LFS.2,2,3,4,3,4
+  hit_level: m, h, h, L, m, m
+  startup: i16, ,i22~24
+  block: '-21'
+  notes: '* Combo from 5th hit'
+- id: bp3
+  command: b+3
+  hit_level: M
+  startup: i16~17
+  block: '-19'
+  notes: '* Tornado'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: cd_4
+  command: CD.4
+  hit_level: m
+  startup: i16
+  block: '-18'
+  notes: '* Tornado
+
+    * Also possible during RFF'
+- id: lfs_2_2_3_4_3_4_4_4_4
+  command: LFS.2,2,3,4,3,4,4,4,4
+  hit_level: m, h, h, L, m, m, l, h, m
+  startup: i16, ,i22
+  block: '-18'
+  notes: '* Airborne combo from 8th hit
+
+    * Interrupt from 8th block with i33
+
+    * Can be sidestepped'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i19
+  block: '-17'
+  notes: '* Also possible during RFF
+
+    * High crush 6~55'
+- id: lfs_dp3
+  command: LFS.d+3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit'
+- id: hfc_3
+  command: hFC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit
+
+    * High crush 1~'
+- id: fp3_3
+  command: f+3~3
+  hit_level: m
+  startup: i20
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Sidesteps to the right'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i15
+  block: '-15'
+  notes: '* Sidesteps to the right'
+- id: lfs_bp1
+  command: LFS.b+1
+  hit_level: m
+  startup: i15
+  block: '-15'
+  notes: '* Sidesteps to the right'
+- id: hfc_4
+  command: hFC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 1~'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: left

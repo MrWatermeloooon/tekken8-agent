@@ -1,0 +1,4910 @@
+character_id: king
+display_name: King
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/king/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: dddaba259e16dcc96d30f9f3d5e36a25092dfd57d89af35a56b6c4770911e3bb
+data_status: available
+stances:
+- H
+- ws
+- FC
+- BT
+- CD
+- FUFT
+- JGR
+- JGS
+- hFC
+moves:
+- id: 2p3
+  source_id: King-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_2p3
+  source_id: King-H.2+3
+  source_index: 2
+  command: H.2+3
+  name: Ultimo Jaguar
+  hit_level: M,t
+  damage: 20,40
+  startup: i17~18 i21~22
+  recovery: r35?
+  block: +12 JGR
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - fbr
+  - trn
+  - bbr
+  - throw
+  - heat
+  - tornado
+  - balcony_break
+  - floor_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Floor Break
+
+    * Transition to attack throw on standing hit
+
+    * Transition to JGR on block
+
+    * Cancel transition to JGR on block with B (+7)
+
+    * Transition to 2nd i21~22 23dmg mid hit on 1st block or whiff
+
+    ** Tornado
+
+    ** Balcony Break
+
+    ** Hard balcony break
+
+    ** i21~22 23dmg
+
+    ** Jail from 1st block
+
+    ** Forces crouch on 2nd hit
+
+    ** +24 JGR on hit
+
+    ** Cancel transition to JGR on hit with B (+19)
+
+    * Hits OTG
+
+    * 5 chip damage on block'
+- id: r_dfp1p2
+  source_id: King-R.df+1+2
+  source_index: 3
+  command: R.df+1+2
+  name: Anger Of The Beast
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: King-1
+  source_index: 4
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: King-1,2
+  source_index: 5
+  command: 1,2
+  name: Palm Strike
+  hit_level: h, h
+  damage: 5, 15
+  startup: i10, i10~12
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 6f delay
+
+    * Move can be delayed 6f'
+- id: '1_2_1'
+  source_id: King-1,2,1
+  source_index: 6
+  command: 1,2,1
+  name: Palm Strike Uppercut
+  hit_level: h, h, m
+  damage: 5, 15, 10
+  startup: i10, ,i24~25
+  recovery: r19
+  block: '-4'
+  hit: '+5'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Jail from 2nd hit with 4f delay
+
+    * Move can be delayed 9f
+
+    * Starter of 10 Strings, 3rd~5th hits are combo'
+- id: 1_2_1_2p4
+  source_id: King-1,2,1,2+4
+  source_index: 7
+  command: 1,2,1,2+4
+  name: Palm Strike Uppercut > Suplex
+  hit_level: h, h, m, t
+  damage: 5, 15, 10, 40
+  startup: i10, ,i26~28
+  recovery: r26
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  - high
+  notes: '* Throw break 2
+
+    * Can side switch on hit'
+- id: 1_2_1_dp2p4
+  source_id: King-1,2,1,d+2+4
+  source_index: 8
+  command: 1,2,1,d+2+4
+  name: Palm Strike Uppercut > V Driver
+  hit_level: h, h, m, t
+  damage: 5, 15, 10, 35
+  startup: i10, ,i28~30
+  recovery: r25
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Crouch throw, unbreakable
+
+    * Opponent recovers in FDFA'
+- id: 1_2_2p4
+  source_id: King-1,2,2+4
+  source_index: 9
+  command: 1,2,2+4
+  name: Palm Strike > Head Jammer
+  hit_level: h, h, t
+  damage: 5, 15, 30
+  startup: i10, ,i30
+  recovery: r26
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - throw
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Throw break 2
+
+    * Can side switch on hit'
+- id: 1_2_dp2p4
+  source_id: King-1,2,d+2+4
+  source_index: 10
+  command: 1,2,d+2+4
+  name: Palm Strike > V Driver
+  hit_level: h, h, t
+  damage: 5, 15, 35
+  startup: i10, ,i27
+  recovery: r28
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  - high
+  notes: '* Floor Break
+
+    * Crouch throw, unbreakable
+
+    * Opponent recovers in FDFA'
+- id: '2'
+  source_id: King-2
+  source_index: 11
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: r18
+  block: '+1'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: King-2,1
+  source_index: 12
+  command: 2,1
+  name: Right Jab > Uppercut
+  hit_level: h, m
+  damage: 10, 15
+  startup: i10, i23~24
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit'
+- id: '3'
+  source_id: King-3
+  source_index: 13
+  command: '3'
+  name: Left Kick
+  hit_level: h
+  damage: '17'
+  startup: i15~16
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: '3_2'
+  source_id: King-3,2
+  source_index: 14
+  command: 3,2
+  name: ''
+  hit_level: h, m
+  damage: 17, 18
+  startup: i15~16, i20~21
+  recovery: r28
+  block: '-9'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  - high
+  notes: '* Elbow
+
+    * Move can be delayed 10f
+
+    * Interrupt with i1 from 1st block'
+- id: '3_2_2'
+  source_id: King-3,2,2
+  source_index: 15
+  command: 3,2,2
+  name: Stampede Crush
+  hit_level: h, m, m
+  damage: 17, 18, 24
+  startup: i15~16, ,i23~24
+  recovery: r35
+  block: '-13'
+  hit: +17g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - elb
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Elbow
+
+    * Transition to JGR +17g r30 automatically on hit
+
+    * Cancel JGR transition +12g with B
+
+    * Combo from 2nd CH with 10f delay
+
+    * Move can be delayed 11f
+
+    * Forces tech backroll on hit
+
+    * Opponent recovers crouching
+
+    * Interrupt with i3 from 2nd block'
+- id: '3_2_2'
+  source_id: King-3,2,2*
+  source_index: 16
+  command: 3,2,2*
+  name: Stampede Crush (Hold)
+  hit_level: h, m, m
+  damage: 17, 18, 30
+  startup: i15~16, ,i34~35
+  recovery: r35
+  block: +9c
+  hit: +25a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - elb
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Elbow
+
+    * Transition to JGR +9 +25a (+15) r30 automatically on hit or block
+
+    * Cancel JGR transition +4c +20a (+10) r35 with B
+
+    * Move can be delayed 11f
+
+    * 12 chip damage on block
+
+    * Interrupt with i14 from 2nd block'
+- id: '4'
+  source_id: King-4
+  source_index: 17
+  command: '4'
+  name: Right Kick
+  hit_level: h
+  damage: '20'
+  startup: i13
+  recovery: r24
+  block: '-5'
+  hit: '+6'
+  counter_hit: +31d
+  tier: core
+  tags:
+  - balcony_break
+  - high
+  notes: Balcony Break (CH)
+- id: 1p2
+  source_id: King-1+2
+  source_index: 18
+  command: 1+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i18
+  recovery: r28 BT
+  block: '-11'
+  hit: '-2'
+  counter_hit: '+0'
+  tier: core
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: 1p2_1
+  source_id: King-1+2,1
+  source_index: 19
+  command: 1+2,1
+  name: Head Spinner
+  hit_level: m, m
+  damage: 17, 21
+  startup: i18, i22
+  recovery: r33
+  block: '-13'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 1f delay
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Interrupt with i5 from 1st block
+
+    * Cancel to -18 -9 -7 r35 with B on frame 19'
+- id: 1p2_3
+  source_id: King-1+2,3
+  source_index: 20
+  command: 1+2,3
+  name: Brutal Sting
+  hit_level: m, h
+  damage: 17, 25
+  startup: i18, i24~25
+  recovery: r37
+  block: '-3'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 2f delay
+
+    * Combo from 1st CH with 3f delay
+
+    * Move can be delayed 3f
+
+    * Interrupt with i5 from 1st block'
+- id: 3p4
+  source_id: King-3+4
+  source_index: 21
+  command: 3+4
+  name: Jaguar Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r24 JGS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Hold to continue spinning and power up strikes, but King doesn''t change
+    direction.
+
+    * King gets dizzy and falls after 6th spin: r102 FUFT fs?.
+
+    * 2nd spin onward: r32 JGS
+
+    * Low crush 6~21
+
+    * Floating state 22~24'
+- id: fp2
+  source_id: King-f+2
+  source_index: 22
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r29
+  block: '-11'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: fp2_1
+  source_id: King-f+2,1
+  source_index: 23
+  command: f+2,1
+  name: Elbow Impact
+  hit_level: m, h
+  damage: 12, 25
+  startup: i15~16, i15~16
+  recovery: r33
+  block: '-9'
+  hit: +16a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 3f delay
+
+    * Move can be delayed 10f
+
+    * Input can be delayed 11f
+
+    * Hit vs BT +11d'
+- id: fp2_dp1
+  source_id: King-f+2,d+1
+  source_index: 24
+  command: f+2,d+1
+  name: ''
+  hit_level: m, m
+  damage: 12, 15
+  startup: i15~16, i22
+  recovery: r38
+  block: -13c
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Move can be delayed 10f
+
+    * Input can be delayed 11f'
+- id: fp2_dp1_2
+  source_id: King-f+2,d+1,2
+  source_index: 25
+  command: f+2,d+1,2
+  name: Jaguar Smash Combo
+  hit_level: m, m, m
+  damage: 12, 15, 16
+  startup: i15~16, ,i22~23
+  recovery: r36
+  block: '-15'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 2nd hit with 13f delay
+
+    * Move can be delayed 10f
+
+    * Input can be delayed 13f
+
+    * Jail from 2nd attack with 3f delay'
+- id: fp3
+  source_id: King-f+3
+  source_index: 26
+  command: f+3
+  name: Front Kick
+  hit_level: m
+  damage: '18'
+  startup: i15~16
+  recovery: r26
+  block: '-8'
+  hit: '+1'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Hit vs BT +4'
+- id: fp3_1p2
+  source_id: King-f+3,1+2
+  source_index: 27
+  command: f+3,1+2
+  name: Front Kick > DDT
+  hit_level: m, t
+  damage: 18, 20
+  startup: 'i15~16, '
+  recovery: ''
+  block: ''
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  notes: '* Input 1+2 during frames 2~20 of f+3
+
+    * Shifts to throw on front grounded hit
+
+    * Can side switch on hit'
+- id: fp4
+  source_id: King-f+4
+  source_index: 28
+  command: f+4
+  name: Rolling Sobat
+  hit_level: m
+  damage: '25'
+  startup: i18~20
+  recovery: r31
+  block: '-9'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Low crush 9~25
+
+    * Floating state 26~28'
+- id: fp1p2
+  source_id: King-f+1+2
+  source_index: 29
+  command: f+1+2
+  name: Shadow Lariat
+  hit_level: h
+  damage: '23'
+  startup: i16~17
+  recovery: r27
+  block: +0~+1
+  hit: +10d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: fp1p4
+  source_id: King-f+1+4
+  source_index: 30
+  command: f+1+4
+  name: Body Check
+  hit_level: m
+  damage: '21'
+  startup: i17~19
+  recovery: r26
+  block: '+3'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - parry
+  - mid
+  notes: '* Chest attack, unparryable by Asuka, Nina, etc'
+- id: fp2p3
+  source_id: King-f+2+3
+  source_index: 31
+  command: f+2+3
+  name: Shoulder Tackle
+  hit_level: m
+  damage: '27'
+  startup: i20~24
+  recovery: r33
+  block: '-5'
+  hit: +8a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - shd
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Shoulder'
+- id: fp3p4
+  source_id: King-f+3+4
+  source_index: 32
+  command: f+3+4
+  name: Jaguar Sprint
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30 JGR
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: '* Cancel to r25 standing block with b on frame 35~ at the earliest
+
+    * Access powered-up JGR moves starting at frame 60?
+
+    * Immediately access powered-up JGR moves during Heat
+
+    * Becomes pc7~89 during Heat.
+
+    * Partially uses remaining Heat time'
+- id: dfp1
+  source_id: King-df+1
+  source_index: 33
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i14~15
+  recovery: r26
+  block: '-1'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - fbr
+  - elb
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Elbow'
+- id: dfp1_2
+  source_id: King-df+1,2
+  source_index: 34
+  command: df+1,2
+  name: Elbow Sting
+  hit_level: m, m
+  damage: 15, 15
+  startup: i14~15, i20~21
+  recovery: r29
+  block: '-10'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Combo from 1st CH with 9f delay
+
+    * Move can be delayed 11f
+
+    * Input can be delayed 12f'
+- id: dfp2
+  source_id: King-df+2
+  source_index: 35
+  command: df+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r25
+  block: '-6'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp2_1
+  source_id: King-df+2,1
+  source_index: 36
+  command: df+2,1
+  name: Double Hook Disaster
+  hit_level: m, h
+  damage: 12, 15
+  startup: i13, i20~21
+  recovery: r28
+  block: '-4'
+  hit: +24a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st CH with 13f delay
+
+    * Move can be delayed 13f'
+- id: dfp3
+  source_id: King-df+3
+  source_index: 37
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i14
+  recovery: r28
+  block: '-9'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Good SSR tracking'
+- id: dfp3_4
+  source_id: King-df+3,4
+  source_index: 38
+  command: df+3,4
+  name: Lasso Kick
+  hit_level: m, h
+  damage: 17, 23
+  startup: i14, i30
+  recovery: r25 FDFT
+  block: '+0'
+  hit: +28d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st CH
+
+    * Duckable on normal hit
+
+    * Available only on 1st hit or block
+
+    * Low crush 22~41
+
+    * Floating state 42~55'
+- id: dfp4
+  source_id: King-df+4
+  source_index: 39
+  command: df+4
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i14~15
+  recovery: r32
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dfp4_3
+  source_id: King-df+4,3
+  source_index: 40
+  command: df+4,3
+  name: ''
+  hit_level: l, h
+  damage: 10, 11
+  startup: i14~15, i22
+  recovery: r24
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH'
+- id: dfp4_3_4
+  source_id: King-df+4,3,4
+  source_index: 41
+  command: df+4,3,4
+  name: Mincer
+  hit_level: l, h, m
+  damage: 10, 11, 27
+  startup: i14~15, ,i28~29
+  recovery: r38
+  block: '-15'
+  hit: +6a (-3)
+  counter_hit: +47a (+16)
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - low
+  - mid
+  - high
+  notes: "* Balcony Break\n* Combo from 2nd CH. \n* Transition to BT -8 +13a (+4)\
+    \ +54a (+23) r31 with B\n* BT transition is -14\n* Low crush 18~36\n* Floating\
+    \ state 37~39"
+- id: dfp4_3_dp4
+  source_id: King-df+4,3,d+4
+  source_index: 42
+  command: df+4,3,d+4
+  name: Mincer Low
+  hit_level: l, h, L
+  damage: 10, 11, 20
+  startup: i14~15, ,i33~35
+  recovery: r27 FDFT
+  block: -10d
+  hit: -8a
+  counter_hit: +22a
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - low
+  - high
+  notes: '* Recovers in FC on hit
+
+    * Low crush 25~36
+
+    * Floating state 37~62'
+- id: dfp3p4
+  source_id: King-df+3+4
+  source_index: 43
+  command: df+3+4
+  name: Frankensteiner
+  hit_level: SM,t
+  damage: 30,15
+  startup: i28~35
+  recovery: r30 FUFT
+  block: -12d~-18d
+  hit: +18d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - throw
+  - low_crush
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Transition to attack throw on up-close front standing hit
+
+    * Recovers in BT on throw success
+
+    * -7c~+0c on far/BT/Side hit
+
+    * Can perform a special downed animation when hitting the ground with D
+
+    * Low crush 13~37
+
+    * Floating state 38~40'
+- id: dp1
+  source_id: King-d+1
+  source_index: 44
+  command: d+1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * High crush 4~'
+- id: dp1_2
+  source_id: King-d+1,2
+  source_index: 45
+  command: d+1,2
+  name: Jab > Uppercut
+  hit_level: sl, m
+  damage: 5, 13
+  startup: i10, i15~17
+  recovery: r28
+  block: '-11'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Jail from 1st block
+
+    * Combo from 1st CH'
+- id: dp2
+  source_id: King-d+2
+  source_index: 46
+  command: d+2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp3
+  source_id: King-d+3
+  source_index: 47
+  command: d+3
+  name: Stomp
+  hit_level: L
+  damage: '12'
+  startup: i17
+  recovery: r31
+  block: '-12'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp4
+  source_id: King-d+4
+  source_index: 48
+  command: d+4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i14
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp1p2
+  source_id: King-d+1+2
+  source_index: 49
+  command: d+1+2
+  name: Atlas Hammer
+  hit_level: m
+  damage: '21'
+  startup: i23
+  recovery: r45
+  block: '-24'
+  hit: +45a (+35)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - cs
+  - high_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * High crush 6~22'
+- id: dp2p3
+  source_id: King-d+2+3
+  source_index: 50
+  command: d+2+3
+  name: Corporate Elbow
+  hit_level: M
+  damage: '25'
+  startup: i30~35
+  recovery: r38
+  block: -8~-3
+  hit: +0c~+5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Opponent cannot tech roll on FUFT hit
+
+    * Low crush 21~32
+
+    * Floating state 33~35
+
+    * Floating state 37~54'
+- id: dp3p4
+  source_id: King-d+3+4
+  source_index: 51
+  command: d+3+4
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i16
+  recovery: r44 FC
+  block: '-25'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* On CH, can access Stagger Kicks Flurry (d+3+4,4,4,4)
+
+    * Can be done from Crouch Level 1
+
+    * High crush 6~'
+- id: dp3p4_4
+  source_id: King-d+3+4,4
+  source_index: 52
+  command: d+3+4,4
+  name: ''
+  hit_level: L, L
+  damage: 14, 7
+  startup: i16, i29
+  recovery: r44 FC
+  block: '-25'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Combo from 1st CH
+
+    * High crush 1~'
+- id: dp3p4_4_4
+  source_id: King-d+3+4,4,4
+  source_index: 53
+  command: d+3+4,4,4
+  name: Stagger Kicks
+  hit_level: L, L, L
+  damage: 14, 7, 7
+  startup: i16, ,i29
+  recovery: r44 FC
+  block: '-25'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Combo from 2nd CH
+
+    * High crush 1~'
+- id: dp3p4_4_4_2
+  source_id: King-d+3+4,4,4,2
+  source_index: 54
+  command: d+3+4,4,4,2
+  name: Stagger Kick Spinning Uppercut
+  hit_level: L, L, L, m
+  damage: 14, 7, 7, 10
+  startup: i16, ,i28
+  recovery: r34
+  block: '-15'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combos if the low before the punch counterhits'
+- id: dp3p4_4_4_4
+  source_id: King-d+3+4,4,4,4
+  source_index: 55
+  command: d+3+4,4,4,4
+  name: Stagger Kick Flurry
+  hit_level: L, L, L, L,L
+  damage: 14, 7, 7, 4,3
+  startup: i16, ,i29 i29
+  recovery: r45 FC
+  block: '-26'
+  hit: '+15'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Only available if 1st hit counterhits
+
+    * Combo from 3rd hit
+
+    * High crush 1~'
+- id: dbp2
+  source_id: King-db+2
+  source_index: 56
+  command: db+2
+  name: Brain Chop
+  hit_level: m
+  damage: '21'
+  startup: i25~26
+  recovery: r30
+  block: -5c
+  hit: +19a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break'
+- id: dbp3
+  source_id: King-db+3
+  source_index: 57
+  command: db+3
+  name: Crouching Low Kick
+  hit_level: L
+  damage: '17'
+  startup: i23
+  recovery: r33 FC
+  block: '-14'
+  hit: +4c
+  counter_hit: +25a
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Tracks left side
+
+    * High crush 6~'
+- id: dbp4
+  source_id: King-db+4
+  source_index: 58
+  command: db+4
+  name: Low Drop Kick
+  hit_level: L
+  damage: '20'
+  startup: i29~31
+  recovery: r34 FDFT
+  block: -17a
+  hit: -3d
+  counter_hit: +27d
+  tier: core
+  tags:
+  - cs
+  - js
+  - fs
+  - low_crush
+  - high_crush
+  - low
+  notes: '* r41 FC on hit
+
+    * High crush 6~14
+
+    * Low crush 16~29
+
+    * Floating state 30~65'
+- id: dbp1p2
+  source_id: King-db+1+2
+  source_index: 59
+  command: db+1+2
+  name: Muscle Armor
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r17
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - pc
+  - power_crush
+  notes: '* Damage taken during power crush state is recoverable
+
+    * Cancel into d+b1+2,2 (Emerald Elbow) on frames 17~60 with input 2
+
+    * Cancel to r30 JGR with 3+4 on frame 35
+
+    * Cancel into movement or crouch or any attack on frame 40
+
+    * Power crush 6~59'
+- id: dbp1p2_3p4
+  source_id: King-db+1+2,3+4
+  source_index: 60
+  command: db+1+2,3+4
+  name: Muscle Armor > Jaguar Sprint
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30 JGR
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: '* Effective startup for stance moves is increased by 65 frames starting
+    from db+1+2 startup
+
+    * pc7~ in Heat'
+- id: bp1
+  source_id: King-b+1
+  source_index: 61
+  command: b+1
+  name: Quick Hook
+  hit_level: h
+  damage: '13'
+  startup: i12
+  recovery: r27
+  block: '-8'
+  hit: '+3'
+  counter_hit: +3s
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bp1_2
+  source_id: King-b+1,2
+  source_index: 62
+  command: b+1,2
+  name: Quick Hook > Uppercut
+  hit_level: h, h
+  damage: 13, 20
+  startup: i12, i19~20
+  recovery: r34
+  block: '-13'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st hit with 8f delay
+
+    * Combo from 1st CH with 10f delay
+
+    * Launches opponent if b+1 counterhits, +70a (+54)
+
+    * Move can be delayed by 6f
+
+    * Input can be delayed by 10f'
+- id: bp1_4
+  source_id: King-b+1,4
+  source_index: 63
+  command: b+1,4
+  name: Quick Hook > Heel Kick
+  hit_level: h, m
+  damage: 13, 23
+  startup: i12, i26~28
+  recovery: r40 FUFT
+  block: -10d
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st CH with 4f delay
+
+    * Move can be delayed by 6f
+
+    * Input can be delayed by 10f
+
+    * Low crush 16~35
+
+    * Floating state 36~38'
+- id: bp1p3
+  source_id: King-b+1+3
+  source_index: 64
+  command: b+1+3
+  name: Arm Whip
+  hit_level: r(m)
+  damage: '25'
+  startup: i10
+  recovery: ''
+  block: ''
+  hit: +2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - ps
+  - floor_break
+  - parry
+  - mid
+  notes: 'Floor Break
+
+    * Parry opponent''s right punch.
+
+    * Side Switch. Opponent recovers in FUFR.
+
+    * Parry state 5~15?'
+- id: bp2
+  source_id: King-b+2
+  source_index: 65
+  command: b+2
+  name: Chupacabra
+  hit_level: h
+  damage: '16'
+  startup: i14
+  recovery: r24
+  block: '-5'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: bp2_1
+  source_id: King-b+2,1
+  source_index: 66
+  command: b+2,1
+  name: Chupacabra > Spinning Back Elbow
+  hit_level: h, h
+  damage: 16, 21
+  startup: i14, i20~21
+  recovery: r32
+  block: '-9'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit with 5f delay
+
+    * Move can be delayed by 10f
+
+    * Input can be delayed by 15f
+
+    * Recovers 2f faster on hit'
+- id: bp2_4
+  source_id: King-b+2,4
+  source_index: 67
+  command: b+2,4
+  name: Chupacabra > Olympia Slam
+  hit_level: h, m,t
+  damage: 16, 18,20
+  startup: i14, i21
+  recovery: r26
+  block: '-8'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  - high
+  notes: '* Shifts to throw on front grounded hit
+
+    * Move can be delayed by 10f
+
+    * Input can be delayed by 15f
+
+    * Hit vs Side/BT +10s'
+- id: bp2_1p2
+  source_id: King-b+2,1+2
+  source_index: 68
+  command: b+2,1+2
+  name: Chupacabra > Head Butt
+  hit_level: h, h
+  damage: 16, 22
+  startup: i14, i24~25
+  recovery: r27
+  block: +2c
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - hed
+  - high
+  notes: '* Spike
+
+    * Head
+
+    * Move can be delayed by 10f
+
+    * Input can be delayed by 15f'
+- id: bp2p4
+  source_id: King-b+2+4
+  source_index: 69
+  command: b+2+4
+  name: Spinning Heel Hold
+  hit_level: r(m)
+  damage: '25'
+  startup: i10
+  recovery: ''
+  block: ''
+  hit: +24d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - mid
+  notes: '* Parry opponent''s left kick.
+
+    * Side switches randomly. Opponent recovers in FUFL.
+
+    * Parry state 5~12'
+- id: bp2p4_3p4
+  source_id: King-b+2+4:3+4
+  source_index: 70
+  command: b+2+4:3+4
+  name: Leg Screw > Figure Four Leg Lock
+  hit_level: r(m)
+  damage: 25(,28)
+  startup: i10
+  recovery: ''
+  block: ''
+  hit: +27d(+1d)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - parry
+  - mid
+  notes: "* 2 Throw Break\n* Parry opponent's right kick.\n* Just frame input right\
+    \ before camera returns to normal position to deal extra damage. \n* Opponent\
+    \ recovers in FUFT.\n* Parry state 5~12"
+- id: bp3
+  source_id: King-b+3
+  source_index: 71
+  command: b+3
+  name: Toll Kick
+  hit_level: h
+  damage: '23'
+  startup: i16~18
+  recovery: r33
+  block: '-10'
+  hit: +13d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - pc
+  - heat
+  - power_crush
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * -5 on block and 9 chip damage (10 in Heat) after absorbing an attack in power
+    crush state
+
+    * Forces tech backroll on hit
+
+    * Power crush 7~15'
+- id: bp3_1p2
+  source_id: King-b+3:1+2
+  source_index: 72
+  command: b+3:1+2
+  name: Guillotine Drop
+  hit_level: h, t
+  damage: 23, 15
+  startup: 'i16~18, '
+  recovery: ''
+  block: ''
+  hit: -7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Shifts to throw on front grounded hit
+
+    * Input 1+2 during frames 2~17 of b+3
+
+    * Side switch on hit'
+- id: bp4
+  source_id: King-b+4
+  source_index: 73
+  command: b+4
+  name: Disgraceful Kick
+  hit_level: h
+  damage: '25'
+  startup: i17~21
+  recovery: r29 BT
+  block: '+2'
+  hit: +14gc
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break'
+- id: bp3p4
+  source_id: King-b+3+4
+  source_index: 74
+  command: b+3+4
+  name: Reverse Jaguar Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r24 JGS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Cannot be held to continue spinning.
+
+    * Low crush 6~21
+
+    * Floating state 22~24'
+- id: ubp4
+  source_id: King-ub+4
+  source_index: 75
+  command: ub+4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: ''
+  block: '-13'
+  hit: +19a (+9)
+  counter_hit: +33a (+23)
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Jump in-place knee, stubby range
+
+    * Low crush 9~28
+
+    * Floating state 29~31'
+- id: up1p2
+  source_id: King-u+1+2
+  source_index: 76
+  command: u+1+2
+  name: Capital Punishment
+  hit_level: m
+  damage: '25'
+  startup: i35~36
+  recovery: r27
+  block: +2c
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - parry
+  - mid
+  notes: '* Floor Break
+
+    * Parryable by traditional punch parries
+
+    * Low crush 9~33'
+- id: up1p2
+  source_id: King-u+1+2*
+  source_index: 77
+  command: u+1+2*
+  name: Burning Knuckle
+  hit_level: m!
+  damage: '40'
+  startup: i67
+  recovery: r38
+  block: ''
+  hit: +11d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Auto switch side if fly over opponent
+
+    * Low crush 9~60'
+- id: ufp1
+  source_id: King-uf+1
+  source_index: 78
+  command: uf+1
+  name: Water Parting Chop
+  hit_level: h
+  damage: '21'
+  startup: i20~23
+  recovery: r27
+  block: '-3'
+  hit: +36a (+27)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break'
+- id: ufp2
+  source_id: King-uf+2
+  source_index: 79
+  command: uf+2
+  name: High Elbow Drop
+  hit_level: M
+  damage: '40'
+  startup: i47~53
+  recovery: r42 FUFA
+  block: -17d (-17)
+  hit: -7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * u+2 to jump vertical (js9~), ub+2 to jump back (js9~)
+
+    * Auto switch side if fly over opponent
+
+    * Opponent forced crouching on block
+
+    * Low crush 10~53
+
+    * Floating state 55~80'
+- id: ufp3
+  source_id: King-uf+3
+  source_index: 80
+  command: uf+3
+  name: Falling Heel Kick
+  hit_level: M
+  damage: '23'
+  startup: i22~29
+  recovery: r26 FUFT
+  block: -10d
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - '3335'
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * King lands off-axis on block
+
+    * Low crush 13~32
+
+    * 33~35'
+- id: ufp4
+  source_id: King-uf+4
+  source_index: 81
+  command: uf+4
+  name: Jumping Knee Lift
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: r32
+  block: '-13'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: core
+  tags:
+  - kne
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Knee
+
+    * Recovers 2f faster on hit
+
+    * Low crush 9~23
+
+    * Floating state 24~26'
+- id: ufp3p4
+  source_id: King-uf+3+4
+  source_index: 82
+  command: uf+3+4
+  name: Sole Crusher
+  hit_level: m
+  damage: '23'
+  startup: i22~23
+  recovery: r32
+  block: '-12'
+  hit: +25g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - pc
+  - heat
+  - power_crush
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * -7 on block and 9 chip damage (10 in Heat) after absorbing an attack in power
+    crush state
+
+    * Shifts to r29 JGR on hit
+
+    * Cancel shift into JGR on hit at +22g with B
+
+    * Power crush 7~21'
+- id: 1p2p3p4
+  source_id: King-1+2+3+4
+  source_index: 83
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Takes some time to charge and can cancel into anything.
+
+    * After charged next hit by either side becomes counter hit.'
+- id: df
+  source_id: King-DF
+  source_index: 84
+  command: DF
+  name: Low Parry
+  hit_level: r(l)
+  damage: '0'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +51a(+35)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - tornado
+  - parry
+  - low
+  notes: '* Generic low parry.
+
+    * Tornado affect on success.'
+- id: ffp1
+  source_id: King-f,F+1
+  source_index: 85
+  command: f,F+1
+  name: Jaguar Hook
+  hit_level: m
+  damage: '21'
+  startup: i20~21
+  recovery: r28
+  block: '-5'
+  hit: +14g
+  counter_hit: +38d
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break'
+- id: ffp2
+  source_id: King-f,F+2
+  source_index: 86
+  command: f,F+2
+  name: Beast Elbow
+  hit_level: m
+  damage: '21'
+  startup: i31~32
+  recovery: r30
+  block: '+7'
+  hit: +12c
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - throw
+  - heat
+  - chip
+  - mid
+  notes: '* Elbow
+
+    * Forces crouching on hit.
+
+    * Allow crouching throw on hit.
+
+    * 6 chip damage on block.
+
+    * 8 chip damage on block in heat.'
+- id: ffp4
+  source_id: King-f,F+4
+  source_index: 87
+  command: f,F+4
+  name: Konvict Kick
+  hit_level: m,(t)
+  damage: 25,(14)
+  startup: i15
+  recovery: ''
+  block: '-15'
+  hit: +14a(+4)
+  counter_hit: +1d
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - throw
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Shifts to 14dmg throw on front grounded CH.'
+- id: ffp2p3
+  source_id: King-f,F+2+3
+  source_index: 88
+  command: f,F+2+3
+  name: Diving Body Press
+  hit_level: M,t
+  damage: 20,15
+  startup: i21~43
+  recovery: r FDFA
+  block: -16c~+2c
+  hit: -19c~+3c/-5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - throw
+  - low_crush
+  - mid
+  notes: '* Forces crouching on block and hit.
+
+    * Throw when hit standing in front close range.
+
+    * Low crush 12~'
+- id: ffp3p4
+  source_id: King-f,F+3+4
+  source_index: 89
+  command: f,F+3+4
+  name: Exploder
+  hit_level: h
+  damage: '25'
+  startup: i28~30
+  recovery: r (FUFT)
+  block: '0'
+  hit: +24d(-34)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - bbr
+  - chp
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Wall Crush +2gc on block
+
+
+
+    * Balcony Break
+
+    * Chip damage on block. (extra near wall)
+
+    * Forces crouch on wall crush
+
+    * Recovers FUFT on whiff.
+
+    * 7 chip damage on block.
+
+    * 10 chip damage on block as wall crush.
+
+    * 10 chip damage on block in heat.
+
+    * 13 chip damage on block as wall crush in heat.
+
+    * Low crush 9~'
+- id: f_f_n_2
+  source_id: King-f,f,n,2
+  source_index: 90
+  command: f,f,n,2
+  name: Stomach Smash / Jaguar Hammer
+  hit_level: L,(t)
+  damage: 17,(30)
+  startup: i18
+  recovery: r32
+  block: '-13'
+  hit: +5s/(0d)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - throw
+  - high_crush
+  - low
+  notes: '* i19 startup with buffered input
+
+    * Shifts to throw on front grounded CH.
+
+    * Unexecutable at long range from opponent
+
+    * High crush 6~29'
+- id: f_f_n_1p2
+  source_id: King-f,f,n,1+2
+  source_index: 91
+  command: f,f,n,1+2
+  name: Lay Off
+  hit_level: m
+  damage: '0'
+  startup: i9
+  recovery: r23
+  block: '+0'
+  hit: +7s
+  counter_hit: +18s
+  tier: specialist
+  tags:
+  - mid
+  notes: '* i10 startup with buffered input
+
+    * Forces Standing on hit.
+
+    * Allows follow up on CH.'
+- id: f_n_d_df
+  source_id: King-f,n,d,df
+  source_index: 92
+  command: f,n,d,df
+  name: Beast Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Duck high while moving forward.
+
+    * Input f,n,d,df,f+(button) for instant ws moves.
+
+    * 1st f cannot be held more than 10 frames.'
+- id: uf_n_4
+  source_id: King-uf,n,4
+  source_index: 93
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: r30
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~30
+
+    * Floating state 31~33'
+- id: f_ffp3
+  source_id: King-f,f,F+3
+  source_index: 94
+  command: f,f,F+3
+  name: Strong Knee
+  hit_level: m
+  damage: '25'
+  startup: i20~25
+  recovery: r30
+  block: '+3'
+  hit: +30(+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * 7 chip damage on block.
+
+    * 10 chip damage on block in heat.'
+- id: f_ffp3p4
+  source_id: King-f,f,F+3+4
+  source_index: 95
+  command: f,f,F+3+4
+  name: Running Exploder
+  hit_level: m
+  damage: '40'
+  startup: i28~34
+  recovery: r42? FUFT
+  block: '+17'
+  hit: +32d(-26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Low crush 9~'
+- id: ws1
+  source_id: King-ws1
+  source_index: 96
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i10~11
+  recovery: r22
+  block: '-3'
+  hit: +4s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Acts like 11 frame attack.
+
+    * Forces Standing on hit.'
+- id: ws2
+  source_id: King-ws2
+  source_index: 97
+  command: ws2
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i14
+  recovery: r33
+  block: '-9'
+  hit: +1s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Forces Standing on hit.'
+- id: ws2_2
+  source_id: King-ws2,2
+  source_index: 98
+  command: ws2,2
+  name: Round Trip Chop
+  hit_level: m, m
+  damage: 11, 25
+  startup: i14, i15~16
+  recovery: r33
+  block: '-12'
+  hit: +12g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 9F delay
+
+    * Combo from 1st CH with 16F delay
+
+    * Recover 3F faster on hit(r30? t66?)
+
+    * Transition to JGR on hit
+
+    * Cancel to standing with B
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 16F'
+- id: ws3
+  source_id: King-ws3
+  source_index: 99
+  command: ws3
+  name: ''
+  hit_level: h
+  damage: '20'
+  startup: i16
+  recovery: r28
+  block: '0'
+  hit: +22a(+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ws4
+  source_id: King-ws4
+  source_index: 100
+  command: ws4
+  name: Toe Smash
+  hit_level: m
+  damage: '20'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1p2
+  source_id: King-ws1+2
+  source_index: 101
+  command: ws1+2
+  name: Snap Uppercut
+  hit_level: m
+  damage: '20'
+  startup: i18~19
+  recovery: r28
+  block: '-10'
+  hit: +35a(+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: ss2
+  source_id: King-ss2
+  source_index: 102
+  command: ss2
+  name: Victory Palm
+  hit_level: h
+  damage: '25'
+  startup: i19~20
+  recovery: ''
+  block: '-5'
+  hit: +35a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: Balcony Break
+- id: ss2p4_b_db
+  source_id: King-ss2+4,b
+  source_index: 103
+  command: ss2+4,b/db
+  name: Reverse Special Stretch Bomb (Cancel)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Side Step that ducks high and covers long distance quickly, recovers in
+    crouch.
+
+    * Input by u/d,n,n+2+4,b/db.'
+- id: ss3p4
+  source_id: King-ss3+4
+  source_index: 104
+  command: ss3+4
+  name: Deadly Boomerang
+  hit_level: h
+  damage: '50'
+  startup: i27~31
+  recovery: r FDFA
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - high
+  notes: '* Deals a lot of chip damage on block.
+
+    * Tracks side steps.
+
+    * In game frame data incorrectly shows that SSL 3+4 is i21'
+- id: fc_dfp1
+  source_id: King-FC.df+1
+  source_index: 105
+  command: FC.df+1
+  name: Leg Breaker
+  hit_level: L
+  damage: '20'
+  startup: i32~34
+  recovery: r29 FC
+  block: '-12'
+  hit: +73a(+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - tornado
+  - low
+  notes: '* Can also be performed with f,n,d,DF+1/CD.1.
+
+    * Tornado on grounded hit.
+
+    * High crush 1~'
+- id: fc_dfp2
+  source_id: King-FC.df+2
+  source_index: 106
+  command: FC.df+2
+  name: Body Blow
+  hit_level: m
+  damage: '21'
+  startup: i15
+  recovery: r33
+  block: '-14'
+  hit: +56a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Crumple on hit.'
+- id: bt_3
+  source_id: King-BT.3
+  source_index: 107
+  command: BT.3
+  name: Blind Kick
+  hit_level: M
+  damage: '18'
+  startup: i13~14
+  recovery: ''
+  block: '-13'
+  hit: +9s
+  counter_hit: +50d
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Hits OTG. Forces standing on normal hit.
+
+    * Crumple on CH for full combo.'
+- id: bt_3_1p2
+  source_id: King-BT3,1+2
+  source_index: 108
+  command: BT.3:1+2
+  name: Blind Kick > Neck Breaker
+  hit_level: M, t
+  damage: 18, 20
+  startup: 'i13~14, '
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Throw when hit standing in front close range.
+
+    * Just frame input.'
+- id: bt_1p2
+  source_id: King-BT.1+2
+  source_index: 109
+  command: BT.1+2
+  name: Atomic Blaster
+  hit_level: h!
+  damage: '45'
+  startup: i26~30
+  recovery: ''
+  block: ''
+  hit: +2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Unblockable high attack.'
+- id: bt_1p4
+  source_id: King-BT.1+4
+  source_index: 110
+  command: BT.1+4
+  name: Moonsault Body Press
+  hit_level: M!
+  damage: '30'
+  startup: i41~47
+  recovery: r FDFA
+  block: ''
+  hit: +6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Unblockable mid attack.
+
+    * Low crush 8~'
+- id: bt_3p4
+  source_id: King-BT.3+4
+  source_index: 111
+  command: BT.3+4
+  name: Jaguar Step (BT)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r24? BT JGS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  notes: '* Jaguar Step away from the oppponent while keeping backturn stance on recovery.
+
+    * Can cancel into BT.1+2 / BT.1+4 unblockable.
+
+    * Can hold 3+4 to keep spinning.
+
+    * Cannot Reverse Jaguar Step in BT stance.
+
+    * Low crush 6~'
+- id: bt_dp4
+  source_id: King-BT.d+4
+  source_index: 112
+  command: BT.d+4
+  name: Low Drop Kick (BT)
+  hit_level: l
+  damage: '20'
+  startup: i22~24
+  recovery: r FC/FDFT
+  block: '-14'
+  hit: -2d
+  counter_hit: +28d
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  notes: '* Recovers in FDFT on block and whiff.
+
+    * Also can be done in backturn crouching.
+
+    * Low crush 11~'
+- id: cd_1p2
+  source_id: King-CD.DF+1+2
+  source_index: 113
+  command: CD.1+2
+  name: Black Bomb
+  hit_level: M
+  damage: '24'
+  startup: i20~23
+  recovery: r32
+  block: -5c
+  hit: +16d
+  counter_hit: +52a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Bounce off ground on CH for full combo.'
+- id: cd_dfp4
+  source_id: King-CD.DF+4
+  source_index: 114
+  command: CD.DF+4
+  name: Knee Lift
+  hit_level: m
+  damage: '21'
+  startup: i15~16
+  recovery: r36
+  block: '-9'
+  hit: +49a(+18)
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Special down state that allows low juggle (on normal hit).
+
+    * Crumple on CH for full combo.'
+- id: fuft_bp3p4
+  source_id: King-FUFT.b+3+4
+  source_index: 115
+  command: FUFT.b+3+4
+  name: Whirling Spring Kick
+  hit_level: m
+  damage: '25'
+  startup: i16~28
+  recovery: ''
+  block: '-25'
+  hit: +4a(-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Faster than normal spring kick and knocks down.'
+- id: jgr_1
+  source_id: King-JGR.1
+  source_index: 116
+  command: JGR.1
+  name: Running Elbow Smash
+  hit_level: m
+  damage: '21'
+  startup: i16~17
+  recovery: r28
+  block: '-8'
+  hit: +26c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Power up into JGR.1* after 30F? or during Heat
+
+    ** Partially uses remaining Heat time during Heat.'
+- id: jgr_1
+  source_id: King-JGR.1*
+  source_index: 117
+  command: JGR.1*
+  name: Running Elbow Smash (charged)
+  hit_level: m
+  damage: '25'
+  startup: i16~17
+  recovery: r28
+  block: '-4'
+  hit: +75a (+59)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - elb
+  - heat
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Elbow
+
+    * Effective startup i46~47?
+
+    * Partially uses remaining Heat time during Heat.'
+- id: jgr_2
+  source_id: King-JGR.2
+  source_index: 118
+  command: JGR.2
+  name: Jaguar Axe
+  hit_level: h
+  damage: '24'
+  startup: i18~19
+  recovery: r33
+  block: '+3'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * 4 chip damage on block.
+
+    * Power up into JGR.2* after 30F? or during Heat
+
+    ** Partially uses remaining Heat time during Heat.'
+- id: jgr_2
+  source_id: King-JGR.2*
+  source_index: 119
+  command: JGR.2*
+  name: Jaguar Axe (charged)
+  hit_level: h
+  damage: '28'
+  startup: i18~19
+  recovery: r33
+  block: '+8'
+  hit: +32a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Effective startup i48~49?
+
+    * 8 chip damage on block
+
+    * Partially uses remaining Heat time during Heat'
+- id: jgr_3
+  source_id: King-JGR.3
+  source_index: 120
+  command: JGR.3
+  name: Sprint K.
+  hit_level: m
+  damage: '30'
+  startup: i22~23
+  recovery: r43
+  block: '-9'
+  hit: +12d (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - js
+  - fs
+  - heat
+  - homing
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Power up into JGR.3* after 30F? or during Heat
+
+    ** Partially uses remaining Heat time during Heat.
+
+    * Low crush 11~30
+
+    * Floating state 31~33'
+- id: jgr_3
+  source_id: King-JGR.3*
+  source_index: 121
+  command: JGR.3*
+  name: Sprint K. (charged)
+  hit_level: m
+  damage: '34'
+  startup: i22~23
+  recovery: r43
+  block: '+2'
+  hit: +21a (-5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - js
+  - fs
+  - heat
+  - homing
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Effective startup i52~53?
+
+    * 10 chip damage on block
+
+    * Partially uses remaining Heat time during Heat
+
+    * Low crush 11~30
+
+    * Floating state 31~33'
+- id: jgr_4
+  source_id: King-JGR.4
+  source_index: 122
+  command: JGR.4
+  name: Dashing Low Drop Kick
+  hit_level: L
+  damage: '20'
+  startup: i20~24
+  recovery: r36 FUFT
+  block: '-21'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - heat
+  - low_crush
+  - low
+  notes: '* Power up into JGR.4* after 30F? or during Heat
+
+    ** Partially uses remaining Heat time during Heat.
+
+    * Low crush 7~23
+
+    * Floating state 24~'
+- id: jgr_4
+  source_id: King-JGR.4*
+  source_index: 123
+  command: JGR.4*
+  name: Dashing Low Drop Kick (charged)
+  hit_level: L
+  damage: '24'
+  startup: i20~24
+  recovery: r36 FUFT
+  block: '-21'
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - heat
+  - low_crush
+  - low
+  notes: '* Effective startup i50~54?
+
+    * Partially uses remaining Heat time during Heat.
+
+    * Low crush 7~23
+
+    * Floating state 24~'
+- id: jgr_1p2
+  source_id: King-JGR.1+2
+  source_index: 124
+  command: JGR.1+2
+  name: Diving Body Press
+  hit_level: M,t
+  damage: 20,15
+  startup: i21~43
+  recovery: r27 FDFA
+  block: -16c~+2c
+  hit: -19c~+3c/-5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - heat
+  - mid
+  notes: '* Throw when hit standing in front close range.
+
+    * King recovers off axis
+
+    * Power up into JGR.1+2* after 30F? or during Heat
+
+    ** 24,15dmg and i51~73? effective startup (without Heat)
+
+    ** Partially uses remaining Heat time during Heat'
+- id: jgs_1
+  source_id: King-JGS.1
+  source_index: 125
+  command: JGS.1
+  name: Jaguar Step > Hook
+  hit_level: h
+  damage: 21/25/31
+  startup: i17~18/i19~20
+  recovery: ''
+  block: -7/-1
+  hit: +47d/+53d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Crumple on hit.
+
+    * On block / hit / startup increases up to 2nd spin.
+
+    * Damage increase up to 3rd spin.'
+- id: jgs_2
+  source_id: King-JGS.2
+  source_index: 126
+  command: JGS.2
+  name: Jaguar Step > Hammer
+  hit_level: m
+  damage: 15/18/22
+  startup: i11~12
+  recovery: r27
+  block: -9/-2/0c
+  hit: +12c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Forces Crouching on hit.
+
+    * Forces Crouching on block from 3rd spin on.
+
+    * Damage increase up to 3rd spin.'
+- id: jgs_3
+  source_id: King-JGS.3
+  source_index: 127
+  command: JGS.3
+  name: Jaguar Step > Sobat
+  hit_level: m
+  damage: 23/27/34
+  startup: i22~23
+  recovery: ''
+  block: -5/-1
+  hit: +21a(+12)/+25a(+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * On block / hit increases up to 2nd spin.
+
+    * Damage increase up to 3rd spin.'
+- id: jgs_3_2p3
+  source_id: King-JGS.3,2+3
+  source_index: 128
+  command: JGS.3,2+3
+  name: Jaguar Step > Sobat & Press
+  hit_level: m, M,t
+  damage: 23/27/34, 20,15
+  startup: i22~23, i21~43
+  recovery: r FDFA
+  block: -16c~+2c
+  hit: -19c~+3c/-5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  notes: '* Throw when hit standing in front close range.
+
+    * Doesn''t combo from JGS.3, but trades with 10 frame jab.
+
+    * Properties not changed with extra spins.'
+- id: jgs_4
+  source_id: King-JGS.4
+  source_index: 129
+  command: JGS.4
+  name: Jaguar Step > High Kick
+  hit_level: h
+  damage: 40/42/52
+  startup: i17~18
+  recovery: ''
+  block: +8/+15
+  hit: +5a(-4)/+10a(+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Guard Break
+
+    * Chip damage on block.
+
+    * On block / hit increases up to 2nd spin.
+
+    * Damage increase up to 3rd spin.'
+- id: jgs_dfp4
+  source_id: King-JGS.df+4
+  source_index: 130
+  command: JGS.df+4
+  name: Jaguar Step > Mid Kick
+  hit_level: m
+  damage: 30/36/45
+  startup: i17~19
+  recovery: ''
+  block: -16/+8
+  hit: +5a(-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * On block increases up to 2nd spin.
+
+    * Damage increase up to 3rd spin.'
+- id: hfc_3
+  source_id: King-hFC.3
+  source_index: 131
+  command: hFC.3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i18
+  recovery: r FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Get extra range by FC.df+3/CD.DF+3.'
+- id: behind_1_throw
+  source_id: King-Behind.1+3
+  source_index: 132
+  command: (Behind 1 throw)
+  name: Half Boston Crab
+  hit_level: t
+  damage: '60'
+  startup: (depends)
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Any 1/1+2 break throw behind opponent''s back, as well as RKO and chain throws.
+
+    * Side switch. Opponent recovers in FDFL.'
+- id: behind_2_throw
+  source_id: King-Behind.2+4
+  source_index: 133
+  command: (Behind 2 throw)
+  name: Cobra Twist
+  hit_level: t
+  damage: '60'
+  startup: (depends)
+  recovery: ''
+  block: ''
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Any 2 break throw behind opponent''s back except chain throws.
+
+    * Side switch? Opponent recovers in FDFL.'
+- id: left_side_throw
+  source_id: King-LeftSide.1+3
+  source_index: 134
+  command: (Left side throw)
+  name: Argentina Backbreaker
+  hit_level: t
+  damage: '40'
+  startup: (depends)
+  recovery: ''
+  block: '-3'
+  hit: +36d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break.
+
+    * Any throw on standing opponent''s left side.
+
+    * Side switch. Opponent recovers in FUFR.'
+- id: right_side_throw
+  source_id: King-RightSide.2+4
+  source_index: 135
+  command: (Right side throw)
+  name: Knee Crusher
+  hit_level: t
+  damage: '42'
+  startup: (depends)
+  recovery: ''
+  block: '-3'
+  hit: +21d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Any throw on standing opponent''s right side.
+
+    * Opponent recovers in FUFT.'
+- id: 1p3
+  source_id: King-1+3
+  source_index: 136
+  command: 1+3
+  name: Winding Nut
+  hit_level: t
+  damage: '35'
+  startup: i12~15
+  recovery: r31/33
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 1 or 2 throw break.
+
+    * Input f+1+3 to increase throw range, but its startup is 3 frames slower.
+
+    * Opponent recovers in FUFA.
+
+    * Side switch on successful throw break'
+- id: 2p4
+  source_id: King-2+4
+  source_index: 137
+  command: 2+4
+  name: Suplex
+  hit_level: t
+  damage: '35'
+  startup: i12~15 / i15~17
+  recovery: r31/33
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 1 or 2 throw break.
+
+    * Input f+2+4 to increase throw range, but its startup is 3 frames slower.
+
+    * Side switch. Opponent recovers in FUFA.'
+- id: ab1_1_1p2
+  source_id: King-AB1.1,1+2
+  source_index: 138
+  command: AB1.1,1+2
+  name: Triple Arm Breaker (AB2a)
+  hit_level: t
+  damage: 12,18
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break.
+
+    * Opponent recovers in FUFT. Max damage 50.'
+- id: ab1_2_1_1p3
+  source_id: King-AB1.2,1,1+3
+  source_index: 139
+  command: AB1.2,1,1+3
+  name: Chicken Wing Face Lock (AB2c)
+  hit_level: t
+  damage: '20'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Opponent recovers in FDFT.'
+- id: ab1_2_4_2p4
+  source_id: King-AB1.2,4,2+4
+  source_index: 140
+  command: AB1.2,4,2+4
+  name: Head Jammer (AB2b)
+  hit_level: t
+  damage: '20'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FUFL.'
+- id: ab2b_3_4_3p4_1p2
+  source_id: King-AB2b.3,4,3+4,1+2
+  source_index: 141
+  command: AB2b.3,4,3+4,1+2
+  name: Struggle Combination (AB2b1)
+  hit_level: t
+  damage: '20'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FUFR. Max Damage 60.'
+- id: ab2c_1_3_4_2_1p2
+  source_id: King-AB2c.1,3,4,2,1+2
+  source_index: 142
+  command: AB2c.1,3,4,2,1+2
+  name: Rolling Death Cradle (AB3cb)
+  hit_level: t
+  damage: '60'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FUFL. Max damage 100.'
+- id: ab2c_2_1_3_1p2
+  source_id: King-AB2c.2,1,3,1+2
+  source_index: 143
+  command: AB2c.2,1,3,1+2
+  name: Dragon Sleeper Finish (AB3ca)
+  hit_level: t
+  damage: '25'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break.
+
+    * Opponent recovers in FUFA. Max damage 65.'
+- id: air_1p3_air_fp1p3
+  source_id: King-AIR.1+3
+  source_index: 144
+  command: AIR.1+3 / AIR.f+1+3
+  name: Mid-Air Leg Cross Hold
+  hit_level: t(a)
+  damage: '30'
+  startup: i12~14 / i15~17
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Cannot throw break.
+
+    * Input f+1+3 to increase throw range, but its startup is 3 frames slower.
+
+    * Opponent recovers in FDFT.'
+- id: air_2p4_air_fp2p4
+  source_id: King-AIR.2+4
+  source_index: 145
+  command: AIR.2+4 / AIR.f+2+4
+  name: Spine Cracker
+  hit_level: t(a)
+  damage: '20'
+  startup: i12~14 / i15~17
+  recovery: ''
+  block: ''
+  hit: +40d(+35)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - hom
+  - throw
+  - homing
+  - tornado
+  notes: '* Tornado
+
+    * Homing
+
+    * Cannot throw break.
+
+    * Input f+2+4 to increase throw range, but its startup is 3 frames slower.
+
+    * Opponent recovers in FUFT.'
+- id: air_dp1p3
+  source_id: King-AIR.d+1+3
+  source_index: 146
+  command: AIR.d+1+3
+  name: Double Heel Hold (DHH)
+  hit_level: t(a)
+  damage: '15'
+  startup: i12~13
+  recovery: ''
+  block: ''
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FDFL.'
+- id: air_f_ffp2p4
+  source_id: King-AIR.f,f,F+2+4
+  source_index: 147
+  command: AIR.f,f,F+2+4
+  name: Running Jaguar Bomb
+  hit_level: t(a)
+  damage: 65(70)
+  startup: i10
+  recovery: ''
+  block: ''
+  hit: +4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Cannot throw break.
+
+    * Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute "blue
+    spark" (+5 damage).
+
+    * Opponent recovers in FUFT.'
+- id: air_f_hcfp1
+  source_id: King-AIR.f,hcf+1
+  source_index: 148
+  command: AIR.f,hcf+1
+  name: Aerial Jaguar Bomb
+  hit_level: t(a)
+  damage: 55(60)
+  startup: i10 / i12~14
+  recovery: ''
+  block: ''
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Cannot throw break.
+
+    * Also by JGR.1+3 against airborne opponent.
+
+    * Input all 6 directions of throw, press df for 1-3F, at most 1F of f followed
+    by f+1 or f+2 for blue spark (+5 damage).
+
+    * Opponent recovers in FUFT.'
+- id: behind_b_fp1p2
+  source_id: King-Behind.b,f+1+2
+  source_index: 149
+  command: Behind.b,f+1+2
+  name: Stretch Buster
+  hit_level: t
+  damage: '75'
+  startup: i10
+  recovery: r29
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * Cannot throw break.
+
+    * Opponent recovers FUFR.'
+- id: cd_1p3
+  source_id: King-CD.1+3
+  source_index: 150
+  command: CD.1+3
+  name: Arm Breaker (AB1)
+  hit_level: t
+  damage: '20'
+  startup: i12
+  recovery: ''
+  block: '-2'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 Throw break.
+
+    * Opponent recovers in FUFT.'
+- id: cd_2p4
+  source_id: King-CD.2+4
+  source_index: 151
+  command: CD.2+4
+  name: Standing Heel Hold (SHH1)
+  hit_level: t
+  damage: '25'
+  startup: i12
+  recovery: ''
+  block: '-2'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FDFR.'
+- id: dhh_2_1_3_4
+  source_id: King-Air.d+1+3,2,1,3,4
+  source_index: 152
+  command: DHH.2,1,3,4
+  name: Giant Swing (From DHH)
+  hit_level: t
+  damage: 12,13 / 32
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: -7d(-40)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Mash 1/2/3/4 to roll in midscreen to reduce damage, on wall splat damage is
+    32.
+
+    * Opponent recovers in FUFT if fails to roll.'
+- id: dhh_1p2_1p2
+  source_id: King-AIR.d+1+3,1+2,1+2
+  source_index: 153
+  command: DHH.1+2,1+2
+  name: Flapjack (From DHH)
+  hit_level: t
+  damage: '15'
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break.
+
+    * Opponent recovers in FDFT.'
+- id: fc_db_d_dbp1p2
+  source_id: King-FC.db,d,db+1+2
+  source_index: 154
+  command: FC.db,d,db+1+2
+  name: Clothesline Press (Rock Bottom)
+  hit_level: t
+  damage: '45'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * 1+2 throw break.
+
+    * Opponent recovers in FUFR.'
+- id: fdfa_dbp1p3
+  source_id: King-FDFA.db+1+3
+  source_index: 155
+  command: FDFA.db+1+3
+  name: Wing Tearer
+  hit_level: t(g)
+  damage: '32'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFA.'
+- id: fdfl_dbp1p3
+  source_id: King-FDFL.db+1+3
+  source_index: 156
+  command: FDFL.db+1+3
+  name: Bow & Arrow Stretch Hold
+  hit_level: t(g)
+  damage: '37'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFL.'
+- id: fdfr_dbp1p3
+  source_id: King-FDFR.db+1+3
+  source_index: 157
+  command: FDFR.db+1+3
+  name: Camel Clutch
+  hit_level: t(g)
+  damage: '35'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Side Switch.
+
+    * Opponent recovers in FDFL.'
+- id: fdft_dbp1p3
+  source_id: King-FDFT.db+1+3
+  source_index: 158
+  command: FDFT.db+1+3
+  name: Half Boston Crab (OTG)
+  hit_level: t(g)
+  damage: '30'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +22d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Side Switch.
+
+    * Opponent recovers in FDFL.'
+- id: fufa_dbp1p3
+  source_id: King-FUFA.db+1+3
+  source_index: 159
+  command: FUFA.db+1+3
+  name: Shoulder Cracker
+  hit_level: t(g)
+  damage: '28'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FUFR.'
+- id: fufl_dbp1p3bp1p3
+  source_id: King-FUFL/FUFR.db+1+3
+  source_index: 160
+  command: FUFL.db+1+3b+1+3
+  name: Turn Over
+  hit_level: t(g)
+  damage: '0'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +25d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFL/FDFR.'
+- id: fuft_dbp1p3
+  source_id: King-FUFT.DB+1+3
+  source_index: 161
+  command: FUFT.DB+1+3
+  name: Head Bomber
+  hit_level: t(g)
+  damage: '25'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * 1 throw break.
+
+    * Opponent recovers in FUFT.'
+- id: fuft_dbp2p4
+  source_id: King-FUFT.DB+2+4
+  source_index: 162
+  command: FUFT.DB+2+4
+  name: Figure Four Leg Lock (OTG)
+  hit_level: t(g)
+  damage: '28'
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FUFT.'
+- id: fuft_dbp1p3
+  source_id: King-FUFT.db+1+3
+  source_index: 163
+  command: FUFT.db+1+3
+  name: Swing Away
+  hit_level: t(g)
+  damage: 20,10 / 35
+  startup: i18~20
+  recovery: ''
+  block: '+0'
+  hit: +1d(-40)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Mash 1/2/3/4 to roll in midscreen to reduce 10 damage, on wall splat damage
+    is 35.
+
+    * Opponent recovers in FUFT if fails to roll.'
+- id: jgr_1p3
+  source_id: King-JGR.1+3
+  source_index: 164
+  command: JGR.1+3
+  name: Rapid King Onslaught
+  hit_level: t
+  damage: '45'
+  startup: i23
+  recovery: r24
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - hom
+  - throw
+  - heat
+  - homing
+  notes: '* Heat Engager
+
+
+    * Homing
+
+    * Cannot throw break. Cannot heat dash.
+
+    * Opponent recovers in FUFA.
+
+    * Power up into JGR.1+3* after 30F? or during Heat
+
+    ** 49dmg and i53? effective startup (without Heat)
+
+    ** Partially uses remaining Heat time during Heat.'
+- id: jgs_1p3
+  source_id: King-JGS.1+3_2+4
+  source_index: 165
+  command: JGS.1+3
+  name: Cobra Clutch (MMD1)
+  hit_level: t
+  damage: '20'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFT.
+
+    * Becomes f,hcf+1 / 2+4 on air grab / wall splat.'
+- id: mmd1_1_4_2_3
+  source_id: King-MMD1.1,4,2,3
+  source_index: 166
+  command: MMD1.1,4,2,3
+  name: Cobra Twist (MMD2)
+  hit_level: t
+  damage: '12'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FUFL.'
+- id: mmd2_1_1p3_mmd2_2_2p4
+  source_id: King-MMD2.1,1+3_2,2+4
+  source_index: 167
+  command: MMD2.1,1+3/ MMD2.2,2+4
+  name: Reverse DDT (MMD3)
+  hit_level: t
+  damage: '13'
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFA.'
+- id: mmd3_2_3_1_1p2
+  source_id: King-MMD3.2,3,1,1+2
+  source_index: 168
+  command: MMD3.2,3,1,1+2
+  name: Samurai Rock (MMD4a)
+  hit_level: t
+  damage: '24'
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 Throw break.
+
+    * Opponent recovers in FDFR. Max Damage 69.'
+- id: mmd3_1p2_1_1p3_mmd3_1p2_2_2p4
+  source_id: King-MMD3.1+2,1,1+3_1+2,2,2+4
+  source_index: 169
+  command: MMD3.1+2,1,1+3/ MMD3.1+2,2,2+4
+  name: Reverse Special Stretch Bomb (MMD4)
+  hit_level: t
+  damage: '12'
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FUFA.'
+- id: mmd4_3p4_1p2
+  source_id: King-MMD4.3+4,1+2
+  source_index: 170
+  command: MMD4.3+4,1+2
+  name: Backdrop (MMD5)
+  hit_level: t
+  damage: '10'
+  startup: ''
+  recovery: r FUFA
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FDFA.'
+- id: mmd5_1p2_3_1p3_mmd5_1p2_4_2p4
+  source_id: King-MMD5.1+2,3,1+3_1+2,4,2+4
+  source_index: 171
+  command: MMD5.1+2,3,1+3/ MMD5.1+2,4,2+4
+  name: Burning Hammer (MMD6)
+  hit_level: t
+  damage: '18'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FDFA.'
+- id: mmd5_1p2_4_2_1p2
+  source_id: King-MMD5.1+2,4,2,1+2
+  source_index: 172
+  command: MMD5.1+2,4,2,1+2
+  name: Sol Naciente (MMD6a)
+  hit_level: t
+  damage: 11,15
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Opponent recovers in FDFL. Max Damage 93.'
+- id: mmd6_2_4_3_1_1p3_mmd6_2_4_3_1_2p4
+  source_id: King-MMD6.2,4,3,1,1+3_2,4,3,1,2+4
+  source_index: 173
+  command: MMD6.2,4,3,1,1+3/ MMD6.2,4,3,1,2+4
+  name: Screwdriver (MMD7)
+  hit_level: t
+  damage: '31'
+  startup: ''
+  recovery: ''
+  block: '-6'
+  hit: -10d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Opponent recovers in FUFA. Max Damage 116.'
+- id: pd_1p2_3_4_1p2
+  source_id: King-PD.1+2,3,4,1+2
+  source_index: 174
+  command: PD.1+2,3,4,1+2
+  name: Boston Crab (from PD)
+  hit_level: t
+  damage: '45'
+  startup: i11
+  recovery: ''
+  block: '-7'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break. (when legs lifted to the top)
+
+    * Could use ki charge button for 1+2 input.
+
+    * Opponent recovers in FDFL.'
+- id: pd_1p2_1p2
+  source_id: King-PD.1+2,1+2
+  source_index: 175
+  command: PD.1+2,1+2
+  name: Double Arm Face Buster (from PD)
+  hit_level: t
+  damage: '35'
+  startup: i11
+  recovery: ''
+  block: '-7'
+  hit: -14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * 2 throw break. (when legs lifted to the top)
+
+    * Opponent recovers in FDFA.'
+- id: ras1_1
+  source_id: King-RAS1.1_2
+  source_index: 176
+  command: RAS1.1
+  name: Backdrop (RAS2)
+  hit_level: t
+  damage: 7/15
+  startup: ''
+  recovery: r FUFL
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Input with 2,1,1+2 for more damage.
+
+    * Opponent recovers in FUFR.'
+- id: ras2_1
+  source_id: King-RAS2.1_2
+  source_index: 177
+  command: RAS2.1
+  name: German Suplex (RAS3)
+  hit_level: t
+  damage: 7/15
+  startup: ''
+  recovery: ''
+  block: '-9'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Input with 3+4,1 or 3+4,2 for more damage.
+
+    * Opponent recovers in FUFR.'
+- id: ras3_1
+  source_id: King-RAS3.1_2
+  source_index: 178
+  command: RAS3.1
+  name: Power Bomb (RAS4)
+  hit_level: t
+  damage: 12/17
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Input with 1,2,3+4 for more damage.
+
+    * Opponent recovers in FUFT.'
+- id: ras4_1
+  source_id: King-RAS4.1
+  source_index: 179
+  command: RAS4.1
+  name: Giant Swing (RAS5a)
+  hit_level: t
+  damage: 15/20/31
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break. Side Switch.
+
+    * Input with 2,1,3,4 for more damage.
+
+    * On wall splat damage is 31.
+
+    * Opponent recovers in FUFT. Max damage 97.'
+- id: ras4_2
+  source_id: King-RAS4.2
+  source_index: 180
+  command: RAS4.2
+  name: Muscle Buster (RAS5b)
+  hit_level: t
+  damage: 20/25
+  startup: ''
+  recovery: r BT
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break. Side Switch.
+
+    * Input with 3,1,2,3+4,1+2 for more damage.
+
+    * King recovers in backturn stance.
+
+    * Opponent recovers in FUFA. Max damage 91.'
+- id: rssb1_1
+  source_id: King-RSSB1.1_2
+  source_index: 181
+  command: RSSB1.1
+  name: Cannonball Buster (RSSB2)
+  hit_level: t
+  damage: 7/15
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: "* Cannot throw break. \n* Input with 2,2,1+2 for more damage.\n* Opponent\
+    \ recovers in FUFT."
+- id: rssb2_1
+  source_id: King-RSSB2.1_2
+  source_index: 182
+  command: RSSB2.1
+  name: Manhattan Drop (RSSB3)
+  hit_level: t
+  damage: 7/15
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 or 2 throw break, depending on King''s input.
+
+    * Input with 3+4,1 or 3+4,2 for more damage.
+
+    * Opponent recovers in FDFA.'
+- id: rssb3_1
+  source_id: King-RSSB3.1_2
+  source_index: 183
+  command: RSSB3.1
+  name: Victory Bomb (RSSB4)
+  hit_level: t
+  damage: 9/13
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Input with 1,2,3+4,1+2 for more damage.
+
+    * Opponent recovers in FUFT.'
+- id: rssb4_1
+  source_id: King-RSSB4.1
+  source_index: 184
+  command: RSSB4.1
+  name: Giant Swing (RSSB5a)
+  hit_level: t
+  damage: 15/20/31
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break. Side Switch.
+
+    * Input with 2,1,3,4 for more damage.
+
+    * Opponent recovers in FUFT. Max damage 94.'
+- id: rssb4_2
+  source_id: King-RSSB4.2
+  source_index: 185
+  command: RSSB4.2
+  name: Muscle Buster (RSSB5b)
+  hit_level: t
+  damage: 20/25
+  startup: ''
+  recovery: r BT
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Input with 3,1,2,3+4,1+2 for more damage.
+
+    * King recovers in backturn stance.
+
+    * Opponent recovers in FUFA. Max damage 88.'
+- id: shh1_1_2_1p2
+  source_id: King-SHH1.1,2,1+2
+  source_index: 186
+  command: SHH1.1,2,1+2
+  name: S.T.F. (SHH2a)
+  hit_level: t
+  damage: '25'
+  startup: ''
+  recovery: ''
+  block: '-10'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break. Side Switch.
+
+    * Opponent recovers in FDFR. Max damage 50.'
+- id: shh1_2_1_1p3
+  source_id: King-SHH1.2,1,1+3
+  source_index: 187
+  command: SHH1.2,1,1+3
+  name: Scorpion Death Lock (SHH2b)
+  hit_level: t
+  damage: '30'
+  startup: ''
+  recovery: ''
+  block: '-10'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FDFR. Max damage 55.'
+- id: shh1_1p2_1_3
+  source_id: King-SHH1.1+2,1,3
+  source_index: 188
+  command: SHH1.1+2,1,3
+  name: Indian Death Lock (SHH2c)
+  hit_level: t
+  damage: '20'
+  startup: ''
+  recovery: ''
+  block: '-10'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Opponent recovers in FDFL.'
+- id: shh2c_3_4_1p2_3p4
+  source_id: King-SHH2c.3,4,1+2,3+4
+  source_index: 189
+  command: SHH2c.3,4,1+2,3+4
+  name: King's Bridge (SHH3ca)
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FDFT. Max Damage 85.'
+- id: ut_2_1_2_1
+  source_id: King-UT,2,1,2,1
+  source_index: 190
+  command: UT,2,1,2,1
+  name: Ultimate Punch
+  hit_level: t
+  damage: 5,5,5,15
+  startup: ''
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Could be any 1/2 combination (e.g. 1,1,1,1 / 1,2,2,1)
+
+    * Throw break the 1st/4th hit by input the opposite to King''s 1st/4th button.'
+- id: ut_1p2
+  source_id: King-UT,1+2
+  source_index: 191
+  command: UT,1+2
+  name: Armbar
+  hit_level: t
+  damage: '25'
+  startup: ''
+  recovery: ''
+  block: '-9'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Can also input at 3rd hit of Ultimate Punch.
+
+    * Opponent recovers in FUFR.'
+- id: ut_1p2_1p2
+  source_id: King-UT,1+2,1+2
+  source_index: 192
+  command: UT,1+2,1+2
+  name: Arm Twist
+  hit_level: t, t
+  damage: 25, 10
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break.
+
+    * Opponent recovers in FUFA.'
+- id: ut_3p4
+  source_id: King-UT,3+4
+  source_index: 193
+  command: UT,3+4
+  name: Leg Cross Hold
+  hit_level: t
+  damage: '20'
+  startup: i69?
+  recovery: ''
+  block: '+0'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 3+4 throw break.
+
+    * Throw break window: input or hold 3+4 during frames 20-60
+
+    * Can also input at 3rd hit of Ultimate Punch.
+
+    * Opponent recovers in FUFR.'
+- id: ut_3p4_1p2
+  source_id: King-UT,3+4,1+2
+  source_index: 194
+  command: UT,3+4:1+2
+  name: Stretch Combo
+  hit_level: t, t
+  damage: 20, 30
+  startup: 'i69?, '
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Input 1+2 during frames 68-70 of Leg Cross Hold
+
+    * Cannot throw break.
+
+    * Opponent recovers in FDFL.'
+- id: wall_f_hcfp1
+  source_id: King-WALL.f,hcf+1
+  source_index: 195
+  command: WALL.f,hcf+1
+  name: Shining Torpedo
+  hit_level: t(w)
+  damage: 65(70)
+  startup: i10
+  recovery: ''
+  block: ''
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Cannot throw break. Also converts from RKO.
+
+    * (f,hcf+1_2): Input all 6 directions of throw, press df for 1-3F, at most 1F
+    of f followed by f+1 or f+2 for blue spark (+5 damage).
+
+    * (f,f,F+2+4): Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute
+    "blue spark" (+5 damage).
+
+    * Opponent recovers in FUFR.'
+- id: wallback_b_b_ub
+  source_id: King-WallBack.b,b,ub
+  source_index: 196
+  command: WallBack.b,b,ub
+  name: Wall Jumping Attack
+  hit_level: t / m
+  damage: 45 / 21
+  startup: i43~48 / i44~63
+  recovery: ''
+  block: '-8'
+  hit: +2 / +15
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  notes: '* Airborne from 5F, invincibility from 8 to 13F.
+
+    * Unbreakable throw near wall, becomes air attack if throw not connected.
+
+    * Side switch. Opponent recovers in FUFA.'
+- id: bp1p2
+  source_id: King-b+1+2
+  source_index: 197
+  command: b+1+2
+  name: Throw Away
+  hit_level: t
+  damage: '0'
+  startup: i12~17
+  recovery: r20
+  block: '-3'
+  hit: +14g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - stance_transition
+  notes: '* Homing
+
+    * 1+2 throw break. Side switch.
+
+    * Damage becomes 15 on wall splat.
+
+    * Transition to JGR
+
+    ** Can range from +22 to +47 (?) on wall hit depending on angle and distance to
+    the wall
+
+    * Cancel to standing with f,F or b,B (-2)
+
+    ** Can range from +6? to +31 (?) on wall hit depending on angle and distance to
+    the wall'
+- id: bp1p2_1p2
+  source_id: King-b+1+2,1+2
+  source_index: 198
+  command: b+1+2,1+2
+  name: Throw Away > Back Swing
+  hit_level: t
+  damage: '0'
+  startup: i12~17
+  recovery: ''
+  block: ''
+  hit: +11g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  notes: '* 1+2 throw break.
+
+    * Damage becomes 15 on wall splat.
+
+    * Transition to JGR
+
+    ** Can range from +20 to +30(?) on wall hit depending on angle and distance to
+    the wall
+
+    * Cancel to standing with f,F or b,B (-6)
+
+    ** Can range from +15 to +25(?) on wall hit depending on angle and distance to
+    the wall'
+- id: db_n_fp2p4
+  source_id: King-db,n,f+2+4
+  source_index: 199
+  command: db,n,f+2+4
+  name: Tombstone Pile Driver
+  hit_level: t
+  damage: '53'
+  startup: i11
+  recovery: r28
+  block: '-2'
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * 2 throw break
+
+    * Input n,f+2+4 in 30 frames
+
+    * Cannot be buffered from crouch
+
+    * Cannot be executed during while standing
+
+    * Opponent recovers in FUFA'
+- id: dbp1p2_2
+  source_id: King-db+1+2,2
+  source_index: 200
+  command: db+1+2,2
+  name: Muscle Armor > Emerald Elbow
+  hit_level: t
+  damage: '15'
+  startup: ',i15~16'
+  recovery: r28
+  block: '-9'
+  hit: +35g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - elb
+  - throw
+  - heat
+  - stance_transition
+  - chip
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Reversal Break after absorbing attack with muscle armor
+
+    * Elbow
+
+    * Effective startup i32~33
+
+    * Transition to attack throw on front standing hit
+
+    * +8g on Side/BT hit
+
+    * -5 on block after absorbing an attack with muscle armor.
+
+    * 6 chip damage on block after absorbing an attack with muscle armor
+
+    * Transition into +12? JGR with input 3+4 on throw hit'
+- id: dbp2p3
+  source_id: King-db+2+3
+  source_index: 201
+  command: db+2+3
+  name: Figure Four Leg Lock
+  hit_level: t
+  damage: 40 (8+20+12)
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +1d / +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Opponent recovers in FUFT / FDFT.'
+- id: dfp1p3
+  source_id: King-df+1+3
+  source_index: 202
+  command: df+1+3
+  name: Reverse Arm Slam (RAS1)
+  hit_level: t
+  damage: '19'
+  startup: i32
+  recovery: ''
+  block: '-2'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 1 throw break. Side Switch.
+
+    * Very slow crouch dash then grab.
+
+    * Opponent recovers in FUFA.'
+- id: dfp2p4
+  source_id: King-df+2+4
+  source_index: 203
+  command: df+2+4
+  name: Reverse Special Stretch Bomb (RSSB1)
+  hit_level: t
+  damage: '20'
+  startup: i32
+  recovery: ''
+  block: '-2'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 2 throw break. Side Switch.
+
+    * Very slow crouch dash then grab.
+
+    * Opponent recovers in FUFT.'
+- id: dfp2p3
+  source_id: King-df+2+3
+  source_index: 204
+  command: df+2+3
+  name: Knee Bash
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-2'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 2 throw break.
+
+    * Opponent recovers in FUFT.'
+- id: dp1p3
+  source_id: King-d+1+3
+  source_index: 205
+  command: d+1+3
+  name: Iron Lariat
+  hit_level: t(c)
+  damage: '35'
+  startup: i12~13
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * Crouch throw, cannot throw break.
+
+    * Can also be done by db+1+3 and in FC too.
+
+    * Opponent recovers in FDFA.'
+- id: dp2p4
+  source_id: King-d+2+4
+  source_index: 206
+  command: d+2+4
+  name: V Driver
+  hit_level: t(c)
+  damage: '35'
+  startup: i12~13
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: 'Floor Break
+
+    * Crouch throw, cannot throw break.
+
+    * Can also be done by db+2+4 and in FC too.
+
+    * Opponent recovers in FUFA.'
+- id: dp1p4
+  source_id: King-d+1+4
+  source_index: 207
+  command: d+1+4
+  name: Freedom Face Buster
+  hit_level: t(c)
+  damage: '35'
+  startup: i12~13
+  recovery: r24
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - throw
+  - heat
+  notes: '* Heat Engager
+
+
+    * Crouch throw, cannot throw break.
+
+    * Cannot heat dash
+
+    * Opponent recovers in FDFA.'
+- id: f_ffp2p4
+  source_id: King-f,f,F+2+4
+  source_index: 208
+  command: f,f,F+2+4
+  name: Tomahawk
+  hit_level: t
+  damage: 40(45)
+  startup: i10
+  recovery: r29
+  block: '-5'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - heat
+  - homing
+  notes: '* Homing during heat
+
+    * 1+2 throw break
+
+    * Input f,F+2+4 in 6 frames after f,f for bluespark.
+
+    * i13 startup for Bluespark throw with buffered input
+
+    * 45 damage on bluespark
+
+    * 18F throw break window on bluespark
+
+    * 7F throw break window on CH bluespark
+
+    * Opponent recovers in FUFL.'
+- id: f_hcfp1
+  source_id: King-f,hcf+1
+  source_index: 209
+  command: f,hcf+1
+  name: Giant Swing
+  hit_level: t
+  damage: 45(50)/70,5
+  startup: i10
+  recovery: r29
+  block: '-13'
+  hit: -22d(-50)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - heat
+  - homing
+  notes: "* Homing during heat\n* 1 throw break\n* Side switch \n* Input all directions,\
+    \ df for 1-3F, f for 0-1F, and f+1 to execute bluespark.\n* i11 startup for Bluespark\
+    \ throw with buffered input\n* 50 damage on bluespark\n* 18F throw break window\
+    \ on bluespark\n* 7F throw break window on CH bluespark\n* Perform tech ukemi\
+    \ to reduce 5 damage.\n* 70 damage on wall splat regardless of input.\n* f,b,d,f\
+    \ are required inputs for normal throw\n* Opponent recovers in FUFT."
+- id: f_hcfp2
+  source_id: King-f,hcf+2
+  source_index: 210
+  command: f,hcf+2
+  name: Tijuana Twister
+  hit_level: t
+  damage: 50(55)
+  startup: i12~14
+  recovery: r25
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - heat
+  - homing
+  notes: '* Homing during heat
+
+    * 2 throw break
+
+    * Input all directions, df for 1-3F, f for 0-1F, and f+2 to execute bluespark.
+
+    * i13 startup for Bluespark throw with buffered input
+
+    * 55 damage on bluespark
+
+    * 18F throw break window on bluespark
+
+    * 7F throw break window on CH bluespark
+
+    * f,b,d,f are required inputs for normal throw
+
+    * Opponent recovers in FUFL.'
+- id: hfc_1p2
+  source_id: King-hFC.1+2
+  source_index: 211
+  command: hFC.1+2
+  name: Ultimate Tackle (UT)
+  hit_level: t(s)
+  damage: '0'
+  startup: i26
+  recovery: ''
+  block: '-5'
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break (except from behind).
+
+    * Catches standing and crouching opponent from all directions.
+
+    * Can be done from Crouch Level 1'
+- id: qcbp1p3
+  source_id: King-qcb+1+3
+  source_index: 212
+  command: qcb+1+3
+  name: Elevating Spine Cracker
+  hit_level: t
+  damage: '8'
+  startup: i14
+  recovery: ''
+  block: '-2'
+  hit: +51a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - throw
+  - tornado
+  notes: '* Tornado
+
+    * Tornado on hit
+
+    * 1 throw break'
+- id: qcbp1p2
+  source_id: King-qcb+1+2
+  source_index: 213
+  command: qcb+1+2
+  name: Muscle Buster
+  hit_level: t
+  damage: '50'
+  startup: i11
+  recovery: r28
+  block: '-6'
+  hit: -6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - heat
+  - homing
+  - floor_break
+  notes: '* Floor Break
+
+    * Homing during heat
+
+    * 1+2 throw break
+
+    * Side switch
+
+    * King recovers in BT
+
+    * Opponent recovers in FUFA.'
+- id: qcfp1
+  source_id: King-qcf+1
+  source_index: 214
+  command: qcf+1
+  name: Pile Driver (PD)
+  hit_level: t
+  damage: '30'
+  startup: i11
+  recovery: r28
+  block: -2/-7
+  hit: +8d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1 throw break.
+
+    * Opponent recovers in FUFT.'
+- id: ss2p4
+  source_id: King-ss2+4
+  source_index: 215
+  command: ss2+4
+  name: Side Step to RSSB2 / RSSB1
+  hit_level: t
+  damage: 15 / 20
+  startup: i13
+  recovery: ''
+  block: '-3'
+  hit: +0d / +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * 2 throw break (except from behind).
+
+    * RSSB2 from side/behind, RSSB1 from front, doesn''t change to left/right/behind
+    throw.
+
+    * Opponent recovers in FUFT.
+
+    * Throw can be canceled by input b/db.'
+- id: ufp1p2
+  source_id: King-uf+1+2
+  source_index: 216
+  command: uf+1+2
+  name: Executioner Drop
+  hit_level: t
+  damage: '30'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +19d(-7) / +17d(-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* 1+2 throw break.
+
+    * Hold b to throw backwards.
+
+    * Damage becomes 15 on wall splat.
+
+    * Opponent recovers in FUFT.'

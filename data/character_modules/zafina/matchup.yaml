@@ -1,0 +1,2146 @@
+schema_version: 1
+character_id: 28
+character: zafina
+display_name: Zafina
+groups:
+- stance_heavy
+- evasive
+specialty: stance_evasion
+sidestep_tendency: left
+signature_mechanics:
+- scarecrow
+- mantis
+- tarantula
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/zafina/framedata
+important_punishable_moves:
+- id: wr_fp4
+  command: WR.f+4
+  hit_level: L
+  startup: i14~30
+  block: -52~-36
+  notes: '* Enter BT -52 -7a with U
+
+    * Enter TRT -52 -7a r35 with D
+
+    * Zafina must run for 32f to access this move
+
+    * Floating state 14~40'
+- id: mnt_4_3
+  command: MNT.4,3
+  hit_level: L, m
+  startup: i17~18, i27
+  block: '-30'
+  notes: '* Tornado
+
+    * Combo from 1st CH
+
+    * Floating state 10~63'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i23~24
+  block: '-26'
+  notes: '* Enter MNT -26 +13a with D
+
+    * High crush 1~'
+- id: scr_dp4
+  command: SCR.d+4
+  hit_level: L
+  startup: i24~30
+  block: '-25'
+  notes: '* Enter MNT with D
+
+    * High crush 10~'
+- id: scr_dfp3
+  command: SCR.df+3
+  hit_level: L
+  startup: i28~30
+  block: '-23'
+  notes: '* Homing
+
+    * High crush 6~'
+- id: scr_dfp3_3
+  command: SCR.df+3,3
+  hit_level: L, L
+  startup: i28~30, i29~31
+  block: '-23'
+  notes: '* Homing
+
+    * Combo from 1st hit
+
+    * High crush 1~'
+- id: dp2_4
+  command: d+2,4
+  hit_level: m, m
+  startup: i19~20, i26
+  block: '-22'
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter TRT -22 -4 with D
+
+    * High crush 56~84
+
+    * Floating state 6~55'
+- id: mnt_dp4
+  command: MNT.d+4
+  hit_level: L
+  startup: i20~27
+  block: -22~-15
+  notes: '* Knee
+
+    * Evasive (can go under mids)
+
+    * High crush 1~'
+- id: trt_4
+  command: TRT.4
+  hit_level: m
+  startup: i26
+  block: '-22'
+  notes: '* Transition to TRT with D
+
+    * Floating state 1~70?'
+- id: trt_dp1p2
+  command: TRT.d+1+2
+  hit_level: L
+  startup: i25
+  block: '-21'
+  notes: ''
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: ''
+- id: mnt_4
+  command: MNT.4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: '* Enter TRT with D
+
+    * High crush 1~62'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp2
+  command: f+2
+  hit_level: m
+  startup: i19
+  block: '-18'
+  notes: ''
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: m, h, m
+  startup: i19, ,i28~29
+  block: '-18'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: scr_4
+  command: SCR.4
+  hit_level: M
+  startup: i15~16
+  block: '-18'
+  notes: '* Tornado
+
+    * -8 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~14'
+- id: scr_bp1p2
+  command: SCR.b+1+2
+  hit_level: L
+  startup: i16
+  block: '-18'
+  notes: '* Weapon
+
+    * Evasive (can go under some mids)
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * High crush 7~35'
+- id: '2_1_3'
+  command: 2,1,3
+  hit_level: h, m, L
+  startup: i10, ,i32
+  block: '-17'
+  notes: '* Combo from 2nd hit CH with 1f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel 3rd hit to MNT -17 -9 r25 with D
+
+    * Floating state 6~31
+
+    * High crush 32~69'
+- id: ubp3
+  command: ub+3
+  hit_level: m
+  startup: i22~23
+  block: '-17'
+  notes: '* Balcony break on airborne hit
+
+    * Low crush 8~31
+
+    * Floating state 32~34'
+- id: fc_dp3
+  command: FC.d+3
+  hit_level: l
+  startup: i16
+  block: '-17'
+  notes: '* High crush 1~'
+- id: mnt_dfp3
+  command: MNT.df+3
+  hit_level: m
+  startup: i15~16
+  block: '-17'
+  notes: '* Balcony break on airborne hit
+
+    * Hitbox extends to both legs, can hit while Zafina is BT
+
+    * Floating state 10~43'
+- id: dp1
+  command: d+1
+  hit_level: m
+  startup: i12
+  block: '-16'
+  notes: '* Spike'
+- id: dp2
+  command: d+2
+  hit_level: m
+  startup: i19~20
+  block: -16c
+  notes: '* Spike'
+- id: dbp1p2
+  command: db+1+2
+  hit_level: L
+  startup: i28~29
+  block: '-16'
+  notes: '* High crush 9~66'
+- id: dbp1p2_1p2
+  command: db+1+2,1+2
+  hit_level: L, m
+  startup: i28~29, i33
+  block: '-16'
+  notes: "* Combos from 1st hit\n* Tornado when combo from first hit only.\n* +37a\
+    \ (-10) on combo from first hit \n* Balcony Break on airborn hit"
+- id: ffp3_1
+  command: f,F+3,1
+  hit_level: m, m
+  startup: i20~22, i18
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 13F delay
+
+    * Input can be delayed by 13F
+
+    * Move cannot be delayed'
+- id: mnt_dp1_4
+  command: MNT.d+1,4
+  hit_level: L, m
+  startup: i15~16, i27~30
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i22
+  block: '-15'
+  notes: '* Transition to MNT -13 +7c +26d r32 with D
+
+    * Evasive (can go under some mids)
+
+    * High crush 6~'
+- id: fc_dp4
+  command: FC.d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 1~'
+- id: dfp3_dp4
+  command: df+3,d+4
+  hit_level: m, L
+  startup: i15~16, i25~26
+  block: '-14'
+  notes: 'Combo from 1st hit
+
+    * High crush 11~'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i18
+  block: '-14'
+  notes: '* Transition to attack throw on standing or airborne front hit with 1+2
+
+    * 8f input window for attack throw (frames 10~17)'
+- id: bp3
+  command: b+3
+  hit_level: m
+  startup: i24~26
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~23'
+common_strings_and_gaps:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: Jail from 1st attack
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i20
+  block: '0'
+  notes: '* Combo from 2nd hit CH with 8f delay
+
+    * Move can be delayed 7f
+
+    * Cancel SCR transition -9 +0 t71 r28 with B'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, h
+  startup: i10, i17~18
+  block: '-2'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Jail from 1st attack with 1f delay
+
+    * Move can be delayed 2f
+
+    * Cancel SCR transition -8 +1 t55 r26 with B'
+- id: '1_4'
+  command: 1,4
+  hit_level: h, m
+  startup: i10, i19
+  block: '-5'
+  notes: '* Tornado
+
+    * Combo from 1st hit with 3f delay
+
+    * Move can be delayed 1f'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i10, i23~25
+  block: -6c
+  notes: '* Spike
+
+    * Combo from 1st hit CH with 3f delay
+
+    * Move can be delayed 1f'
+- id: '2_1_3'
+  command: 2,1,3
+  hit_level: h, m, L
+  startup: i10, ,i32
+  block: '-17'
+  notes: '* Combo from 2nd hit CH with 1f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel 3rd hit to MNT -17 -9 r25 with D
+
+    * Floating state 6~31
+
+    * High crush 32~69'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, m
+  startup: i10, i19-20
+  block: '-9'
+  notes: '* Combo from 1st hit CH with 6f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 11f'
+- id: 2_2_1p2
+  command: 2,2,1+2
+  hit_level: h, m, m,m,m
+  startup: i10, ,i25~26 i10~11 i4~5
+  block: -9c
+  notes: '* Spike
+
+    * Combo from 2nd hit CH with 9f delay
+
+    * Input can be delayed 14f
+
+    * Move can be delayed 9f'
+- id: 1p2_4
+  command: 1+2,4
+  hit_level: m, m
+  startup: i16~17, i24~25
+  block: '-10'
+  notes: '* Combo from 1st hit with 1f delay
+
+    * Interrupt with i6 from 1st block'
+- id: 1p2_4_4
+  command: 1+2,4,4
+  hit_level: m, m, m
+  startup: i16~17, ,i30~31
+  block: '-11'
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 2nd hit CH with 1f delay
+
+    * Can pick up from the ground with db+3 for a juggle
+
+    * Interrupt with i12 from 2nd block'
+- id: fp2_3
+  command: f+2,3
+  hit_level: m, h
+  startup: i19, i19
+  block: '+0'
+  notes: '* Cancel SCR transition -9 +0 t68 r28 with B
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: m, h, m
+  startup: i19, ,i28~29
+  block: '-18'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, m
+  startup: i13~14, i15~16
+  block: '-13'
+  notes: '* Combo from 1st hit with 3f delay'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, m, m
+  startup: i13~14, ,i25
+  block: '-12'
+  notes: '* Combo from 2nd hit CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dfp1_2_1p2
+  command: df+1,2,1+2
+  hit_level: m, m, sm
+  startup: i13~14, ,i37
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd hit CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 2nd block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * 16 chip damage o'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, h
+  startup: i13~14, i19~20
+  block: '-6'
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 1st hit'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, h
+  startup: i15~16, i23~24
+  block: '-6'
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 1st hit'
+- id: dfp3_dp4
+  command: df+3,d+4
+  hit_level: m, L
+  startup: i15~16, i25~26
+  block: '-14'
+  notes: 'Combo from 1st hit
+
+    * High crush 11~'
+- id: dfp4_1
+  command: df+4,1
+  hit_level: m, m
+  startup: i13, i31
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Cancel to FC -18 -2 r37 with D
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i11 from 1st block
+
+    * 8 chip damage on bloc'
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, m
+  startup: i13, i27~29
+  block: '-13'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i7 from 1st block'
+- id: dp1_1
+  command: d+1,1
+  hit_level: m, m
+  startup: i12, i17~18
+  block: '-12'
+  notes: '* Combo from 1st hit CH with 18f delay
+
+    * Input can be delayed 18f
+
+    * Move can be delayed 10f'
+- id: dp2_4
+  command: d+2,4
+  hit_level: m, m
+  startup: i19~20, i26
+  block: '-22'
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter TRT -22 -4 with D
+
+    * High crush 56~84
+
+    * Floating state 6~55'
+- id: dp2_4_3
+  command: d+2,4,3
+  hit_level: m, m, m
+  startup: i19~20, ,i28~31
+  block: -13~-10
+  notes: '* Combo from 1st and 2nd CH'
+- id: dp4_3
+  command: d+4,3
+  hit_level: L, h
+  startup: i17~18, i19
+  block: '-6'
+  notes: '* Combo from 1st hit CH with 11f delay
+
+    * Move can be delayed 9f
+
+    * Low crush 11~17
+
+    * Floating state 18~20'
+- id: dbp2_1
+  command: db+2,1
+  hit_level: m, m
+  startup: i13~14, i25
+  block: '-12'
+  notes: '* Combo from 1st CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dbp2_1p2
+  command: db+2,1+2
+  hit_level: m, sm
+  startup: i13~14, i37
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 1st block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * 16 chip damage on block
+
+    * Azazel''s Po'
+- id: dbp4_2
+  command: db+4,2
+  hit_level: L, m
+  startup: i21~22, i29~32
+  block: '-13'
+  notes: '* Combo from 1st hit CH
+
+    * Instant tornado launch on standing hit only'
+- id: dbp1p2_1p2
+  command: db+1+2,1+2
+  hit_level: L, m
+  startup: i28~29, i33
+  block: '-16'
+  notes: "* Combos from 1st hit\n* Tornado when combo from first hit only.\n* +37a\
+    \ (-10) on combo from first hit \n* Balcony Break on airborn hit"
+- id: bp3_orb_1p2
+  command: b+3,ORB.1+2
+  hit_level: m
+  startup: i24~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Deals 3 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * -9'
+- id: bp4_4
+  command: b+4,4
+  hit_level: m, m
+  startup: i22~23, i20~22
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit with 16f delay
+
+    * Move can be delayed 9f'
+- id: bp1p2_orb_1p2
+  command: b+1+2,ORB.1+2
+  hit_level: m
+  startup: i19~20
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** Dea'
+- id: ffp2
+  command: f,F+2
+  hit_level: h
+  startup: i15~16
+  block: '+1'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 6 chip damage on block'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i12
+  block: '-3'
+  notes: Jail from 1st attack
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i20
+  block: '0'
+  notes: '* Combo from 2nd hit CH with 8f delay
+
+    * Move can be delayed 7f
+
+    * Cancel SCR transition -9 +0 t71 r28 with B'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, h
+  startup: i10, i17~18
+  block: '-2'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Jail from 1st attack with 1f delay
+
+    * Move can be delayed 2f
+
+    * Cancel SCR transition -8 +1 t55 r26 with B'
+- id: fp2_3
+  command: f+2,3
+  hit_level: m, h
+  startup: i19, i19
+  block: '+0'
+  notes: '* Cancel SCR transition -9 +0 t68 r28 with B
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: m, h, m
+  startup: i19, ,i28~29
+  block: '-18'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, h
+  startup: i13~14, i19~20
+  block: '-6'
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 1st hit'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, h
+  startup: i15~16, i23~24
+  block: '-6'
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 1st hit'
+- id: dp4_3
+  command: d+4,3
+  hit_level: L, h
+  startup: i17~18, i19
+  block: '-6'
+  notes: '* Combo from 1st hit CH with 11f delay
+
+    * Move can be delayed 9f
+
+    * Low crush 11~17
+
+    * Floating state 18~20'
+- id: mnt_1_3
+  command: MNT.1,3
+  hit_level: m, h
+  startup: i13, i19
+  block: '0'
+  notes: '* Jails from first attack
+
+    * Cancel SCR transition -8 +1 t46 r27 with B'
+- id: scr_3_3
+  command: SCR.3,3
+  hit_level: m, h
+  startup: i13, i16
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 14f delay
+
+    * Move can be delayed 9f'
+- id: scr_dp3_3
+  command: SCR.d+3,3
+  hit_level: l, h
+  startup: i18, i24
+  block: '+3'
+  notes: '* Combo from 1st CH
+
+    * Cancel SCR transition -1 +73a (+57) t55 r31 with B
+
+    * Tornado launches on standing hit only'
+stance_transitions:
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,sm
+  startup: i12~13 i47~53 i1~7 i1~7 i1~6 i1~2
+  block: '+3'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * 10 chip damage on block
+
+    * Transition to attack throw on hit'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i20
+  block: '0'
+  notes: '* Combo from 2nd hit CH with 8f delay
+
+    * Move can be delayed 7f
+
+    * Cancel SCR transition -9 +0 t71 r28 with B'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, h
+  startup: i10, i17~18
+  block: '-2'
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Jail from 1st attack with 1f delay
+
+    * Move can be delayed 2f
+
+    * Cancel SCR transition -8 +1 t55 r26 with B'
+- id: '3'
+  command: '3'
+  hit_level: h
+  startup: i13
+  block: '+0'
+  notes: '* Cancel SCR transition -8 +1 t40 r27 with B'
+- id: fp2_3
+  command: f+2,3
+  hit_level: m, h
+  startup: i19, i19
+  block: '+0'
+  notes: '* Cancel SCR transition -9 +0 t68 r28 with B
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp3
+  command: f+3
+  hit_level: h
+  startup: i17
+  block: '+3'
+  notes: '* Balcony Break
+
+    * Good left sidestep tracking
+
+    * Cancel SCR transition -1 +10 t? r? with B'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, m, m
+  startup: i13~14, ,i25
+  block: '-12'
+  notes: '* Combo from 2nd hit CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i15~16
+  block: '-5'
+  notes: '* Cancel SCR transition -10 -1 t43 r28 with B'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i22
+  block: '-15'
+  notes: '* Transition to MNT -13 +7c +26d r32 with D
+
+    * Evasive (can go under some mids)
+
+    * High crush 6~'
+- id: dbp2_1
+  command: db+2,1
+  hit_level: m, m
+  startup: i13~14, i25
+  block: '-12'
+  notes: '* Combo from 1st CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i18
+  block: '-8'
+  notes: '* Cancel SCR transition -11 +0 t48 r30 with B'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i21~22
+  block: '-12'
+  notes: '* Transition to -13 -4 +2 MNT with D
+
+    * High crush 6~40'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i18
+  block: '-14'
+  notes: '* Transition to attack throw on standing or airborne front hit with 1+2
+
+    * 8f input window for attack throw (frames 10~17)'
+- id: bp1_orb_1p2
+  command: b+1:ORB.1+2
+  hit_level: m, t
+  startup: 'i18, '
+  block: ''
+  notes: '* Consumes ORB
+
+    * Consumes 180F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals (5) 8 recoverable damage to Zafina without Heat
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * Available only from 1st front hit'
+- id: bp3_orb_1p2
+  command: b+3,ORB.1+2
+  hit_level: m
+  startup: i24~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Deals 3 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * -9'
+- id: bp1p2_orb_1p2
+  command: b+1+2,ORB.1+2
+  hit_level: m
+  startup: i19~20
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** Dea'
+- id: ufp3
+  command: uf+3
+  hit_level: m
+  startup: i22~23
+  block: '-8'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Transition to MNT -8 +19a with D
+
+    * No forward movement when using input ub+3
+
+    * Low crush 8~31
+
+    * Floating state 32~34'
+- id: ffp3
+  command: f,F+3
+  hit_level: m
+  startup: i20~22
+  block: '+4'
+  notes: '* Spike
+
+    * Cancel SCR transition +4 +9c +14c t51 r29 with B'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i23~26
+  block: '+7'
+  notes: '* Balcony Break
+
+    * Cancel SCR transition +3 +15a (+5) t58 r32 with B
+
+    * 9 chip damage on block
+
+    * Low crush 3~34
+
+    * Floating state 35~37'
+- id: ws3
+  command: ws3
+  hit_level: m
+  startup: i12
+  block: '+0'
+  notes: '* Cancel SCR transition -8 +1 t39 r27 with B'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: m
+  startup: i17~18
+  block: -2c
+  notes: '* Spike'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i23~24
+  block: '-26'
+  notes: '* Enter MNT -26 +13a with D
+
+    * High crush 1~'
+- id: fc_dp1
+  command: FC.d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * Transition input can be delayed 16f
+
+    * High crush 1~'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,sm
+  startup: i12~13 i47~53 i1~7 i1~7 i1~6 i1~2
+  block: '+3'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * 10 chip damage on block
+
+    * Transition to attack throw on hit'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i18
+  block: '-14'
+  notes: '* Transition to attack throw on standing or airborne front hit with 1+2
+
+    * 8f input window for attack throw (frames 10~17)'
+- id: bp1_1
+  command: b+1:1
+  hit_level: m, t
+  startup: 'i18, '
+  block: ''
+  notes: '* Deal 5 (8) recoverable damage to self without Heat
+
+    * Side switch on hit
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * Low crush 80~92
+
+    * Floating state 93~95'
+- id: bp1_orb_1p2
+  command: b+1:ORB.1+2
+  hit_level: m, t
+  startup: 'i18, '
+  block: ''
+  notes: '* Consumes ORB
+
+    * Consumes 180F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals (5) 8 recoverable damage to Zafina without Heat
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * Available only from 1st front hit'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-4'
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '-4'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Transition to MNT on hit
+
+    * Side switch on hit'
+- id: back_throw
+  command: Back Throw
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Unbreakable'
+- id: left_throw
+  command: Left Throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break 1
+
+    * Side switch on hit'
+- id: right_throw
+  command: Right Throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: '* Throw break 1+2
+
+    * Can side switch on hit'
+key_lows:
+- id: '2_1_3'
+  command: 2,1,3
+  hit_level: h, m, L
+  startup: i10, ,i32
+  block: '-17'
+  notes: '* Combo from 2nd hit CH with 1f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel 3rd hit to MNT -17 -9 r25 with D
+
+    * Floating state 6~31
+
+    * High crush 32~69'
+- id: dfp3_dp4
+  command: df+3,d+4
+  hit_level: m, L
+  startup: i15~16, i25~26
+  block: '-14'
+  notes: 'Combo from 1st hit
+
+    * High crush 11~'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i22
+  block: '-15'
+  notes: '* Transition to MNT -13 +7c +26d r32 with D
+
+    * Evasive (can go under some mids)
+
+    * High crush 6~'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: ''
+- id: dp4_3
+  command: d+4,3
+  hit_level: L, h
+  startup: i17~18, i19
+  block: '-6'
+  notes: '* Combo from 1st hit CH with 11f delay
+
+    * Move can be delayed 9f
+
+    * Low crush 11~17
+
+    * Floating state 18~20'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i18
+  block: '-8'
+  notes: '* Cancel SCR transition -11 +0 t48 r30 with B'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i21~22
+  block: '-12'
+  notes: '* Transition to -13 -4 +2 MNT with D
+
+    * High crush 6~40'
+- id: dbp4_2
+  command: db+4,2
+  hit_level: L, m
+  startup: i21~22, i29~32
+  block: '-13'
+  notes: '* Combo from 1st hit CH
+
+    * Instant tornado launch on standing hit only'
+- id: dbp1p2
+  command: db+1+2
+  hit_level: L
+  startup: i28~29
+  block: '-16'
+  notes: '* High crush 9~66'
+- id: dbp1p2_1p2
+  command: db+1+2,1+2
+  hit_level: L, m
+  startup: i28~29, i33
+  block: '-16'
+  notes: "* Combos from 1st hit\n* Tornado when combo from first hit only.\n* +37a\
+    \ (-10) on combo from first hit \n* Balcony Break on airborn hit"
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i23~24
+  block: '-26'
+  notes: '* Enter MNT -26 +13a with D
+
+    * High crush 1~'
+- id: fc_dp1
+  command: FC.d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * Transition input can be delayed 16f
+
+    * High crush 1~'
+- id: fc_dp2
+  command: FC.d+2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* High crush 1~'
+- id: fc_dp3
+  command: FC.d+3
+  hit_level: l
+  startup: i16
+  block: '-17'
+  notes: '* High crush 1~'
+- id: fc_dp4
+  command: FC.d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 1~'
+- id: mnt_3
+  command: MNT.3
+  hit_level: L
+  startup: i15~16
+  block: '-12'
+  notes: '* High crush 1~46'
+- id: mnt_3_1
+  command: MNT.3,1
+  hit_level: L, m
+  startup: i15~16, i24
+  block: '-9'
+  notes: '* Combo from 1st CH'
+- id: mnt_4
+  command: MNT.4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: '* Enter TRT with D
+
+    * High crush 1~62'
+- id: mnt_4_3
+  command: MNT.4,3
+  hit_level: L, m
+  startup: i17~18, i27
+  block: '-30'
+  notes: '* Tornado
+
+    * Combo from 1st CH
+
+    * Floating state 10~63'
+- id: mnt_dp1
+  command: MNT.d+1
+  hit_level: L
+  startup: i15~16
+  block: '-11'
+  notes: '* High crush 1~58'
+- id: mnt_dp1_4
+  command: MNT.d+1,4
+  hit_level: L, m
+  startup: i15~16, i27~30
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: mnt_dp4
+  command: MNT.d+4
+  hit_level: L
+  startup: i20~27
+  block: -22~-15
+  notes: '* Knee
+
+    * Evasive (can go under mids)
+
+    * High crush 1~'
+- id: orb_scr_dfp3p4
+  command: ORB.SCR.df+3+4
+  hit_level: L,m,m,sm
+  startup: i19
+  block: '-14'
+  notes: '* Transition to 3rd hit on 2nd hit
+
+    * Consumes ORB
+
+    * Consumes 450F of Heat time
+
+    * Deals 4 additional damage when Zafina''s remaining health is below 48
+
+    * 4 chip damage on block
+
+    ** Deals 6 chip damage on block when Zafina''s remaining health is'
+- id: scr_bp1p2
+  command: SCR.b+1+2
+  hit_level: L
+  startup: i16
+  block: '-18'
+  notes: '* Weapon
+
+    * Evasive (can go under some mids)
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * High crush 7~35'
+power_crushes:
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1p3
+  command: b+1+3
+  hit_level: m,m
+  startup: i30~34, i29~30
+  block: '+2'
+  notes: '* Zafina automatically retaliates on successful power crush
+
+    * Deal 8 recoverable damage to self without Heat
+
+    * +2 and 11 chip damage on block after attack absorption
+
+    * Gain ORB on hit
+
+    * Power crush 6~29'
+- id: bp3
+  command: b+3
+  hit_level: m
+  startup: i24~26
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~23'
+- id: bp3_orb_1p2
+  command: b+3,ORB.1+2
+  hit_level: m
+  startup: i24~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Deals 3 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * -9'
+- id: mnt_1p2
+  command: MNT.1+2
+  hit_level: m
+  startup: i20
+  block: '-12'
+  notes: '* Spike
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 8~19'
+- id: scr_4
+  command: SCR.4
+  hit_level: M
+  startup: i15~16
+  block: '-18'
+  notes: '* Tornado
+
+    * -8 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~14'
+- id: trt_2
+  command: TRT.2
+  hit_level: M
+  startup: i34~36
+  block: '-13'
+  notes: '* Tornado
+
+    * Recover 4f faster on hit (t64 r28)
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 8~33'
+heat_threats:
+- id: h_2p3
+  command: H.2+3
+  hit_level: h,sm
+  startup: i12~13 i47~53 i1~7 i1~7 i1~6 i1~2
+  block: '+3'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * 10 chip damage on block
+
+    * Transition to attack throw on hit'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m,m
+  startup: i19~20 i13~14
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Jab evasion?
+
+    * Second hit available only on hit or block
+
+    * 8 chip damage on block
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Azazel''s Power
+
+    * Gain ORB on hit or heat act'
+- id: dfp1_2_1p2
+  command: df+1,2,1+2
+  hit_level: m, m, sm
+  startup: i13~14, ,i37
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd hit CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 2nd block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * 16 chip damage o'
+- id: dfp4_1
+  command: df+4,1
+  hit_level: m, m
+  startup: i13, i31
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Cancel to FC -18 -2 r37 with D
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i11 from 1st block
+
+    * 8 chip damage on bloc'
+- id: dbp2_1p2
+  command: db+2,1+2
+  hit_level: m, sm
+  startup: i13~14, i37
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 1st block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * 16 chip damage on block
+
+    * Azazel''s Po'
+- id: bp1_1
+  command: b+1:1
+  hit_level: m, t
+  startup: 'i18, '
+  block: ''
+  notes: '* Deal 5 (8) recoverable damage to self without Heat
+
+    * Side switch on hit
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * Low crush 80~92
+
+    * Floating state 93~95'
+- id: bp1_orb_1p2
+  command: b+1:ORB.1+2
+  hit_level: m, t
+  startup: 'i18, '
+  block: ''
+  notes: '* Consumes ORB
+
+    * Consumes 180F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals (5) 8 recoverable damage to Zafina without Heat
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * Available only from 1st front hit'
+- id: bp1p3
+  command: b+1+3
+  hit_level: m,m
+  startup: i30~34, i29~30
+  block: '+2'
+  notes: '* Zafina automatically retaliates on successful power crush
+
+    * Deal 8 recoverable damage to self without Heat
+
+    * +2 and 11 chip damage on block after attack absorption
+
+    * Gain ORB on hit
+
+    * Power crush 6~29'
+- id: bp3_orb_1p2
+  command: b+3,ORB.1+2
+  hit_level: m
+  startup: i24~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Deals 3 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * -9'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i19~20
+  block: '-6'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * 5 chip damage on block'
+- id: bp1p2_orb_1p2
+  command: b+1+2,ORB.1+2
+  hit_level: m
+  startup: i19~20
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** Dea'
+- id: mnt_dfp1
+  command: MNT.df+1
+  hit_level: M
+  startup: i20~21
+  block: '+10'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * 12 chip damage on block
+
+    * Transition to SCR on normal hit
+
+    * Transition to standing with B (+6/+11a)
+
+    * Deal 8 recoverable damage to self without heat
+
+    * Gain ORB o'
+- id: orb_scr_dfp3p4
+  command: ORB.SCR.df+3+4
+  hit_level: L,m,m,sm
+  startup: i19
+  block: '-14'
+  notes: '* Transition to 3rd hit on 2nd hit
+
+    * Consumes ORB
+
+    * Consumes 450F of Heat time
+
+    * Deals 4 additional damage when Zafina''s remaining health is below 48
+
+    * 4 chip damage on block
+
+    ** Deals 6 chip damage on block when Zafina''s remaining health is'
+- id: scr_2_1
+  command: SCR.2,1
+  hit_level: m, m
+  startup: i14, i21
+  block: '-6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 10 chip damage on block
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power'
+- id: scr_bp1p2
+  command: SCR.b+1+2
+  hit_level: L
+  startup: i16
+  block: '-18'
+  notes: '* Weapon
+
+    * Evasive (can go under some mids)
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * High crush 7~35'
+- id: scr_dfp1
+  command: SCR.df+1
+  hit_level: m,M
+  startup: i18 i17~19
+  block: '-9'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Instant tornado on 1st hit
+
+    * Jail from 1st attack
+
+    * 15 chip damage on block
+
+    * Deal 18 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power'
+- id: trt_dfp1
+  command: TRT.df+1
+  hit_level: M
+  startup: i19~20
+  block: '+6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 12 chip damage on block
+
+    * Deal 8 recoverable damage to self without Heat
+
+    * Gain ORB on hit or heat activation
+
+    * Azazel''s Power'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: h
+  startup: i15~16
+  block: '+1'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 6 chip damage on block'
+- id: ffp3
+  command: f,F+3
+  hit_level: m
+  startup: i20~22
+  block: '+4'
+  notes: '* Spike
+
+    * Cancel SCR transition +4 +9c +14c t51 r29 with B'
+- id: ffp3_1
+  command: f,F+3,1
+  hit_level: m, m
+  startup: i20~22, i18
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 13F delay
+
+    * Input can be delayed by 13F
+
+    * Move cannot be delayed'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i17~19
+  block: '-8'
+  notes: '* Homing
+
+    *'
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: m,m
+  startup: i21 i8~12
+  block: '-11'
+  notes: '* Balcony Break
+
+    * Enter MNT -12 +14a (+5) with D
+
+    * Low crush 6~23
+
+    * Floating state 24~26'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i23~26
+  block: '+7'
+  notes: '* Balcony Break
+
+    * Cancel SCR transition +3 +15a (+5) t58 r32 with B
+
+    * 9 chip damage on block
+
+    * Low crush 3~34
+
+    * Floating state 35~37'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: h
+  startup: i20~21
+  block: '+6'
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * 8 chip damage on block
+
+    * Low crush 20~39
+
+    * Floating state 40~'
+launch_punish_opportunities:
+- id: wr_fp4
+  command: WR.f+4
+  hit_level: L
+  startup: i14~30
+  block: -52~-36
+  notes: '* Enter BT -52 -7a with U
+
+    * Enter TRT -52 -7a r35 with D
+
+    * Zafina must run for 32f to access this move
+
+    * Floating state 14~40'
+- id: mnt_4_3
+  command: MNT.4,3
+  hit_level: L, m
+  startup: i17~18, i27
+  block: '-30'
+  notes: '* Tornado
+
+    * Combo from 1st CH
+
+    * Floating state 10~63'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i23~24
+  block: '-26'
+  notes: '* Enter MNT -26 +13a with D
+
+    * High crush 1~'
+- id: scr_dp4
+  command: SCR.d+4
+  hit_level: L
+  startup: i24~30
+  block: '-25'
+  notes: '* Enter MNT with D
+
+    * High crush 10~'
+- id: scr_dfp3
+  command: SCR.df+3
+  hit_level: L
+  startup: i28~30
+  block: '-23'
+  notes: '* Homing
+
+    * High crush 6~'
+- id: scr_dfp3_3
+  command: SCR.df+3,3
+  hit_level: L, L
+  startup: i28~30, i29~31
+  block: '-23'
+  notes: '* Homing
+
+    * Combo from 1st hit
+
+    * High crush 1~'
+- id: dp2_4
+  command: d+2,4
+  hit_level: m, m
+  startup: i19~20, i26
+  block: '-22'
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter TRT -22 -4 with D
+
+    * High crush 56~84
+
+    * Floating state 6~55'
+- id: mnt_dp4
+  command: MNT.d+4
+  hit_level: L
+  startup: i20~27
+  block: -22~-15
+  notes: '* Knee
+
+    * Evasive (can go under mids)
+
+    * High crush 1~'
+- id: trt_4
+  command: TRT.4
+  hit_level: m
+  startup: i26
+  block: '-22'
+  notes: '* Transition to TRT with D
+
+    * Floating state 1~70?'
+- id: trt_dp1p2
+  command: TRT.d+1+2
+  hit_level: L
+  startup: i25
+  block: '-21'
+  notes: ''
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: ''
+- id: mnt_4
+  command: MNT.4
+  hit_level: L
+  startup: i17~18
+  block: '-19'
+  notes: '* Enter TRT with D
+
+    * High crush 1~62'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp2
+  command: f+2
+  hit_level: m
+  startup: i19
+  block: '-18'
+  notes: ''
+- id: fp2_3_4
+  command: f+2,3,4
+  hit_level: m, h, m
+  startup: i19, ,i28~29
+  block: '-18'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: scr_4
+  command: SCR.4
+  hit_level: M
+  startup: i15~16
+  block: '-18'
+  notes: '* Tornado
+
+    * -8 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~14'
+- id: scr_bp1p2
+  command: SCR.b+1+2
+  hit_level: L
+  startup: i16
+  block: '-18'
+  notes: '* Weapon
+
+    * Evasive (can go under some mids)
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * High crush 7~35'
+- id: '2_1_3'
+  command: 2,1,3
+  hit_level: h, m, L
+  startup: i10, ,i32
+  block: '-17'
+  notes: '* Combo from 2nd hit CH with 1f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel 3rd hit to MNT -17 -9 r25 with D
+
+    * Floating state 6~31
+
+    * High crush 32~69'
+- id: ubp3
+  command: ub+3
+  hit_level: m
+  startup: i22~23
+  block: '-17'
+  notes: '* Balcony break on airborne hit
+
+    * Low crush 8~31
+
+    * Floating state 32~34'
+- id: fc_dp3
+  command: FC.d+3
+  hit_level: l
+  startup: i16
+  block: '-17'
+  notes: '* High crush 1~'
+- id: mnt_dfp3
+  command: MNT.df+3
+  hit_level: m
+  startup: i15~16
+  block: '-17'
+  notes: '* Balcony break on airborne hit
+
+    * Hitbox extends to both legs, can hit while Zafina is BT
+
+    * Floating state 10~43'
+- id: dp1
+  command: d+1
+  hit_level: m
+  startup: i12
+  block: '-16'
+  notes: '* Spike'
+- id: dp2
+  command: d+2
+  hit_level: m
+  startup: i19~20
+  block: -16c
+  notes: '* Spike'
+- id: dbp1p2
+  command: db+1+2
+  hit_level: L
+  startup: i28~29
+  block: '-16'
+  notes: '* High crush 9~66'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: left

@@ -1,0 +1,3804 @@
+character_id: anna
+display_name: Anna Williams
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/anna/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 7e75534820e1e80d8387990bf24f522f15a939bd99d9e436ab1cb9b3e9841daf
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- BT
+- CJM
+- HAM
+- ROLL
+- TOM
+moves:
+- id: 2p3
+  source_id: Anna-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_2p3
+  source_id: Anna-H.2+3
+  source_index: 2
+  command: H.2+3
+  name: "From \xC9ire with Love"
+  hit_level: m
+  damage: '50'
+  startup: i13~14
+  recovery: r32
+  block: '-5'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - bbr
+  - cs
+  - throw
+  - heat
+  - high_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when land a hit on you
+
+    * Transition to attack throw on hit
+
+    * Jails
+
+    * High crush 6~27'
+- id: r_dfp1p2
+  source_id: Anna-R.df+1+2
+  source_index: 3
+  command: R.df+1+2
+  name: Some Like It Rough!
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Anna-1
+  source_index: 4
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: Anna-1,2
+  source_index: 5
+  command: 1,2
+  name: Left Right Slap
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Enter HAM +0 +11 r19 with F'
+- id: '1_2_1'
+  source_id: Anna-1,2,1
+  source_index: 6
+  command: 1,2,1
+  name: Left Right Left
+  hit_level: h, h, h
+  damage: 5, 8, 4
+  startup: i10, ,i16
+  recovery: r25
+  block: '-4'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 3f delay
+
+    * Combo from 1st hit with 4f delay
+
+    * Input can be delayed 10f'
+- id: '1_2_1_2'
+  source_id: Anna-1,2,1,2
+  source_index: 7
+  command: 1,2,1,2
+  name: Roasted with Love
+  hit_level: h, h, h, m
+  damage: 5, 8, 4, 24
+  startup: i10, ,i23~72
+  recovery: r13
+  block: -14~+35
+  hit: +21a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 3rd CH
+
+    * Chip damage on block'
+- id: '1_2_1_4'
+  source_id: Anna-1,2,1,4
+  source_index: 8
+  command: 1,2,1,4
+  name: Frost Combination
+  hit_level: h, h, h, h
+  damage: 5, 8, 4, 18
+  startup: i10, ,i20~21
+  recovery: r37
+  block: '+4'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - chp
+  - fs
+  - tornado
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Chip damage on block
+
+    * Floating state 20~39'
+- id: h_1_2_1_2
+  source_id: Anna-1,2,1,H.2
+  source_index: 9
+  command: H.1,2,1,2
+  name: Roasted with Eternal Love
+  hit_level: h, h, h, m,m,m
+  damage: 5, 8, 4, 5,5,24
+  startup: i10, ,i23~72 i36~85 i54~103
+  recovery: r24
+  block: -2~+47g
+  hit: +23a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 3rd CH
+
+    * Jails from 4th hit
+
+    * Consumes 300F of remaining Heat time'
+- id: '1_2_2'
+  source_id: Anna-1,2,2
+  source_index: 10
+  command: 1,2,2
+  name: Left Right Stinger
+  hit_level: h, h, M
+  damage: 5, 8, 20
+  startup: i10, ,i26~27
+  recovery: r31
+  block: '-8'
+  hit: '+12'
+  counter_hit: +76a (+60)
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to HAM on hit automatically'
+- id: '1_2_4'
+  source_id: Anna-1,2,4
+  source_index: 11
+  command: 1,2,4
+  name: Bermuda Triangle
+  hit_level: h, h, h
+  damage: 5, 8, 22
+  startup: i10, ,i22
+  recovery: r30
+  block: '-6'
+  hit: +20a (+11)
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: 1_2_ufp1p2
+  source_id: Anna-1,2,uf+1+2
+  source_index: 12
+  command: 1,2,uf+1+2
+  name: Left Right Fried Love
+  hit_level: h, h, h
+  damage: 5, 8, 13
+  startup: i10, ,i21~65
+  recovery: r8
+  block: -14~+10
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - chip
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd CH with 9f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 5f
+
+    * Chip damage on block
+
+    * Recovers 7f slower on block'
+- id: '1_4'
+  source_id: Anna-1,4
+  source_index: 13
+  command: 1,4
+  name: Reverse PDK Combo
+  hit_level: h, L
+  damage: 5, 12
+  startup: i10, i22~23
+  recovery: r32 FC
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - high
+  notes: '* Combo from 1st hit
+
+    * High crush 10~'
+- id: '2'
+  source_id: Anna-2
+  source_index: 14
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: r22
+  block: '-3'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Enter HAM +1 +7 with F'
+- id: '2_2'
+  source_id: Anna-2,2
+  source_index: 15
+  command: 2,2
+  name: Quick Stinger
+  hit_level: h, M
+  damage: 10, 20
+  startup: i10, i26~27
+  recovery: r31
+  block: '-8'
+  hit: '+12'
+  counter_hit: +76a (+60)
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st CH
+
+    * High evasion
+
+    * Interrupt with i11 from 1st block
+
+    * Input can be delayed 5f
+
+    * Transition to HAM on hit automatically'
+- id: '2_3'
+  source_id: Anna-2,3
+  source_index: 16
+  command: 2,3
+  name: Straight Face Wash
+  hit_level: h, m
+  damage: 10, 14
+  startup: i10, i19~20
+  recovery: r20 CJM
+  block: '-3'
+  hit: '+8'
+  counter_hit: '+12'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Jail from 1st attack
+
+    * Combo from 1st hit with ?f delay
+
+    * Input can be delayed 2f'
+- id: '2_4'
+  source_id: Anna-2,4
+  source_index: 17
+  command: 2,4
+  name: Jab Roundhouse
+  hit_level: h, h
+  damage: 10, 22
+  startup: i10, i22
+  recovery: ''
+  block: '-6'
+  hit: +20a (+11)
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 9f delay
+
+    * Input can be delayed 10f'
+- id: 2_ufp1p2
+  source_id: Anna-2,uf+1+2
+  source_index: 18
+  command: 2,uf+1+2
+  name: Quick Fried Love
+  hit_level: h, h
+  damage: 10, 13
+  startup: i10, i21~65
+  recovery: r8
+  block: -14~+10
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - chip
+  - high
+  notes: '* Weapon
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 5f
+
+    * Chip damage on block
+
+    * Recovers 7f slower on block'
+- id: '3'
+  source_id: Anna-3
+  source_index: 19
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i14~16
+  recovery: r25 CJM
+  block: '-6'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: '3_2'
+  source_id: Anna-3,2
+  source_index: 20
+  command: 3,2
+  name: Serval Cleaver
+  hit_level: m, m
+  damage: 17, 20
+  startup: i14~16, i20
+  recovery: r38 FC
+  block: -11c
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit'
+- id: '4'
+  source_id: Anna-4
+  source_index: 21
+  command: '4'
+  name: Right High Kick
+  hit_level: h
+  damage: '15'
+  startup: i11
+  recovery: r23
+  block: '-9'
+  hit: '+7'
+  counter_hit: +7s
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_2'
+  source_id: Anna-4,2
+  source_index: 22
+  command: 4,2
+  name: ''
+  hit_level: h, h
+  damage: 15, 12
+  startup: i11, i25~26
+  recovery: r33
+  block: '-8'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st CH'
+- id: 4_2_1p2
+  source_id: Anna-4,2,1+2
+  source_index: 23
+  command: 4,2,1+2
+  name: Blonde Bomb Blitz
+  hit_level: h, h, m
+  damage: 15, 12, 21
+  startup: i11, ,i27
+  recovery: r37
+  block: '-15'
+  hit: +8a (-1)
+  counter_hit: +28d (+20)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH'
+- id: 1p2
+  source_id: Anna-1+2
+  source_index: 24
+  command: 1+2
+  name: Open Sesame
+  hit_level: m
+  damage: '[5;5]'
+  startup: i16~18
+  recovery: r27
+  block: '+1'
+  hit: '+9'
+  counter_hit: '+14'
+  tier: core
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Enter TOM +3 +8 with F on hit only
+
+    * 100% recoverable damage'
+- id: 3p4
+  source_id: Anna-3+4
+  source_index: 25
+  command: 3+4
+  name: Aphrodite's Scorn
+  hit_level: m
+  damage: '26'
+  startup: i14
+  recovery: r35
+  block: '-16'
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - hip
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Hip'
+- id: fp2
+  source_id: Anna-f+2
+  source_index: 26
+  command: f+2
+  name: Poison Sting
+  hit_level: h
+  damage: '14'
+  startup: i14
+  recovery: r26
+  block: '-2'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - high
+  notes: '* Elbow'
+- id: fp2_3
+  source_id: Anna-f+2,3
+  source_index: 27
+  command: f+2,3
+  name: Poison Wire
+  hit_level: h, h
+  damage: 14, 20
+  startup: i14, i19~20
+  recovery: r30
+  block: '-7'
+  hit: +12g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 3f? delay
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 7f
+
+    * Jails on block with 5f? delay
+
+    * jails on hit'
+- id: fp3
+  source_id: Anna-f+3
+  source_index: 28
+  command: f+3
+  name: Hammer Chance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r13
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to r10 FC with db
+
+    * Transition to r16 CJM with b+3'
+- id: fp1p2
+  source_id: Anna-f+1+2
+  source_index: 29
+  command: f+1+2
+  name: Blonde Bomb
+  hit_level: m
+  damage: '21'
+  startup: i17
+  recovery: r37
+  block: '-13'
+  hit: +19a (+14)
+  counter_hit: +28d (+20)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break'
+- id: dfp1
+  source_id: Anna-df+1
+  source_index: 30
+  command: df+1
+  name: Uppercut
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r19
+  block: '-1'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Anna-df+1,2
+  source_index: 31
+  command: df+1,2
+  name: Uppercut Jab
+  hit_level: m, h
+  damage: 10, 10
+  startup: i13~14, i16
+  recovery: r23
+  block: '-5'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to HAM +0 +7 with F'
+- id: dfp1_2_3
+  source_id: Anna-df+1,2,3
+  source_index: 32
+  command: df+1,2,3
+  name: Uppercut Jab > Radiant Arch
+  hit_level: m, h, m
+  damage: 10, 10, 20
+  startup: i13~14, ,i24~25
+  recovery: r30
+  block: '-12'
+  hit: +19a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd CH with 8F edlay
+
+    * Move can be delayed by 10F
+
+    * Cancel to CJM -17 -10 -3 r35 with B on frame 20
+
+    * Low crush 17~26
+
+    * Floating state 27~29'
+- id: dfp1_2_4
+  source_id: Anna-df+1,2,4
+  source_index: 33
+  command: df+1,2,4
+  name: Uppercut Jab > Cutting Crescent
+  hit_level: m, h, h
+  damage: 10, 10, 22
+  startup: i13~14, ,i17~20
+  recovery: r27
+  block: '-5'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 8f'
+- id: dfp2
+  source_id: Anna-df+2
+  source_index: 34
+  command: df+2
+  name: Step-in Uppercut
+  hit_level: m
+  damage: '12'
+  startup: ',i15~16'
+  recovery: r32
+  block: '-12'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Launches crouching opponent'
+- id: dfp3
+  source_id: Anna-df+3
+  source_index: 35
+  command: df+3
+  name: Middle Kick
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: r29
+  block: '-11'
+  hit: '+0'
+  counter_hit: '+1'
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: dfp3_1
+  source_id: Anna-df+3,1
+  source_index: 36
+  command: df+3,1
+  name: Leg Slicer
+  hit_level: m, h
+  damage: 13, 10
+  startup: i14, i30
+  recovery: r22
+  block: '-3'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH
+
+    * Move can be delayed by 10F
+
+    * Interrupt with i11 from 1st block
+
+    * Cancel to CJM -15 -4 -3 r33 with B on frame 14
+
+    * Cancel to SS -10 +1 +2 r37 with U_D on frame 28
+
+    ** r43 when blocking after SS'
+- id: dfp3_1_1
+  source_id: Anna-df+3,1,1
+  source_index: 37
+  command: df+3,1,1
+  name: Twisting Fascinator
+  hit_level: m, h, M
+  damage: 13, 10, 25
+  startup: i14, ,i30~42
+  recovery: r37
+  block: -11~+1
+  hit: +9a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when land a hit on you
+
+    * Unpunishable on block due to pushback
+
+    * Interrupt with i12 from 2nd block
+
+    * 5 Chip damage on block
+
+    * Low crush 21~50
+
+    * Floating state 51~53'
+- id: dfp3_1_2
+  source_id: Anna-df+3,1,2
+  source_index: 38
+  command: df+3,1,2
+  name: Twisting Penetrator
+  hit_level: m, h, M
+  damage: 13, 10, 35
+  startup: i14, ,i30~42
+  recovery: r37
+  block: -11~+1
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when land a hit on you
+
+    * Unpunishable on block due to pushback
+
+    * Interrupt with i12 from 2nd block
+
+    * 7 Chip damage on block
+
+    * Low crush 21~50
+
+    * Floating state 51~53'
+- id: dfp3_1_4
+  source_id: Anna-df+3,1,4
+  source_index: 39
+  command: df+3,1,4
+  name: Twisting Combo
+  hit_level: m, h, h
+  damage: 13, 10, 20
+  startup: i14, ,i15~16
+  recovery: r27
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH
+
+    * Combo from 2nd hit with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 8f
+
+    * Jail from 2nd attack'
+- id: dfp3_2
+  source_id: Anna-df+3,2
+  source_index: 40
+  command: df+3,2
+  name: Creeping Snake
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, i19
+  recovery: r21
+  block: '-2'
+  hit: '+4'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 10f delay
+
+    * Input can be delayed 10f
+
+    * Enter HAM -2 +4 +10 r21 with F'
+- id: dfp3_2_1
+  source_id: Anna-df+3,2,1
+  source_index: 41
+  command: df+3,2,1
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2
+  source_id: Anna-df+3,2,1,2
+  source_index: 42
+  command: df+3,2,1,2
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2_4
+  source_id: Anna-df+3,2,1,2,4
+  source_index: 43
+  command: df+3,2,1,2,4
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to -21 -10 +9a CJM with B'
+- id: dfp3_2_1_2_4_1
+  source_id: Anna-df+3,2,1,2,4,1
+  source_index: 44
+  command: df+3,2,1,2,4,1
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2_4_1_2
+  source_id: Anna-df+3,2,1,2,4,1,2
+  source_index: 45
+  command: df+3,2,1,2,4,1,2
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2_4_1_2_2
+  source_id: Anna-df+3,2,1,2,4,1,2,2
+  source_index: 46
+  command: df+3,2,1,2,4,1,2,2
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2_4_1_2_2_3p4
+  source_id: Anna-df+3,2,1,2,4,1,2,2,3+4
+  source_index: 47
+  command: df+3,2,1,2,4,1,2,2,3+4
+  name: ''
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_1_2_4_1_2_2_3p4_2
+  source_id: Anna-df+3,2,1,2,4,1,2,2,3+4,2
+  source_index: 48
+  command: df+3,2,1,2,4,1,2,2,3+4,2
+  name: 10 Hit Combo
+  hit_level: m, h
+  damage: 13, 9
+  startup: i14, ,
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: dfp3_2_2
+  source_id: Anna-df+3,2,2
+  source_index: 49
+  command: df+3,2,2
+  name: Creeping Stinger
+  hit_level: m, h, M
+  damage: 13, 9, 20
+  startup: i14, ,i26~27
+  recovery: r31
+  block: '-8'
+  hit: '+12'
+  counter_hit: +76a (+60)
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 2nd CH
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 5f
+
+    * Transition to HAM on hit automatically'
+- id: dfp3_2_4
+  source_id: Anna-df+3,2,4
+  source_index: 50
+  command: df+3,2,4
+  name: Creeping Snake > Right High Kick
+  hit_level: m, h, h
+  damage: 13, 9, 22
+  startup: i14, ,i22
+  recovery: r30
+  block: '-6'
+  hit: +20a (+11)
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 9f delay
+
+    * Input can be delayed 10f'
+- id: dfp3_2_ufp1p2
+  source_id: Anna-df+3,2,uf+1+2
+  source_index: 51
+  command: df+3,2,uf+1+2
+  name: Creep-Fried Love
+  hit_level: m, h, h
+  damage: 13, 9, 13
+  startup: i14, ,i21~65
+  recovery: r8
+  block: -14~+10
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 5f
+
+    * Chip damage on block
+
+    * Recovers 7f slower on block'
+- id: dfp3_3p4
+  source_id: Anna-df+3,3+4
+  source_index: 52
+  command: df+3,3+4
+  name: Furious Hail
+  hit_level: m, m,m
+  damage: 13, 6,10
+  startup: i14, i32~34 i11~12
+  recovery: r22
+  block: '-4'
+  hit: +78a (+62)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - kne
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Knee
+
+    * Input can be delayed 10f
+
+    * Instant Tornado only if both knees connect
+
+    * +27a (+17) if only the last hit connects
+
+    * Low crush 34~46'
+- id: dfp4
+  source_id: Anna-df+4
+  source_index: 53
+  command: df+4
+  name: Wine Opener
+  hit_level: L
+  damage: '17'
+  startup: i16~17
+  recovery: r32
+  block: '-15'
+  hit: +5c
+  counter_hit: +25d
+  tier: core
+  tags:
+  - homing
+  - low
+  notes: '* Pseudo homing to SSR side'
+- id: dp1
+  source_id: Anna-d+1
+  source_index: 54
+  command: d+1
+  name: Low Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Can recover standing with F'
+- id: dp1_4
+  source_id: Anna-d+1,4
+  source_index: 55
+  command: d+1,4
+  name: Low Jab Rising Kick
+  hit_level: sl, m
+  damage: 5, 10
+  startup: i10, i16~17
+  recovery: r29
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st CH'
+- id: dp2
+  source_id: Anna-d+2
+  source_index: 56
+  command: d+2
+  name: Ice Sickle
+  hit_level: m
+  damage: '17'
+  startup: i16~17
+  recovery: r29
+  block: +1c
+  hit: +7c
+  counter_hit: +24d
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike'
+- id: dp3
+  source_id: Anna-d+3
+  source_index: 57
+  command: d+3
+  name: Left Spin Low Kick
+  hit_level: L
+  damage: '10'
+  startup: '16'
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dp3_2
+  source_id: Anna-d+3,2
+  source_index: 58
+  command: d+3,2
+  name: Left Spin Low Kick > Right Upper
+  hit_level: L, m
+  damage: 10, 18
+  startup: 16, i25~27
+  recovery: r30
+  block: '-11'
+  hit: +14~+16
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st CH'
+- id: dp3_4
+  source_id: Anna-d+3,4
+  source_index: 59
+  command: d+3,4
+  name: ''
+  hit_level: L, h
+  damage: 10, 14
+  startup: 16, i20
+  recovery: r31
+  block: '-8'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH'
+- id: dp3_4_1
+  source_id: Anna-d+3,4,1
+  source_index: 60
+  command: d+3,4,1
+  name: Left Spin Low Kick > B Slap Combo
+  hit_level: L, h, m
+  damage: 10, 14, 20
+  startup: 16, ,i29~30
+  recovery: r27
+  block: '-3'
+  hit: +5c
+  counter_hit: +21a
+  tier: specialist
+  tags:
+  - spk
+  - low
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH'
+- id: dp4
+  source_id: Anna-d+4
+  source_index: 61
+  command: d+4
+  name: Right Low Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_1
+  source_id: Anna-d+4,1
+  source_index: 62
+  command: d+4,1
+  name: Right Low Kick > Back Spin Chop
+  hit_level: l, h
+  damage: 6, 10
+  startup: i12, i25
+  recovery: r19
+  block: '+0'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH with 5f delay
+
+    * Input can be delayed 9f
+
+    * Cancel to SS -13 -2 r32 with U_D on frame 23
+
+    ** Cannot block i21 moves?
+
+    * Cancel to CJM -10 +1 r29 with B on frame 14
+
+    * r38 when blocking after SS'
+- id: dp4_1_4
+  source_id: Anna-d+4,1~4
+  source_index: 63
+  command: d+4,1~4
+  name: Sudden Severe Drop
+  hit_level: l, M
+  damage: 6, 20
+  startup: i12, i27~31
+  recovery: r40
+  block: -14c
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - low
+  - mid
+  notes: '* Spike
+
+    * Move cancel takes 6f
+
+    * Low crush 13~28'
+- id: dp1p2
+  source_id: Anna-d+1+2
+  source_index: 64
+  command: d+1+2
+  name: Pooka's Misfortune
+  hit_level: L
+  damage: '20'
+  startup: i24~25
+  recovery: r33
+  block: '-18'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - cs
+  - high_crush
+  - balcony_break
+  - chip
+  - low
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Chip damage on block
+
+    * High crush 16~53'
+- id: dbp1
+  source_id: Anna-db+1
+  source_index: 65
+  command: db+1
+  name: Scarlet Rain
+  hit_level: m
+  damage: '16'
+  startup: i16~18
+  recovery: r30
+  block: '-12'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Transition to FC with DB_D_DF'
+- id: dbp1_2
+  source_id: Anna-db+1,2
+  source_index: 66
+  command: db+1,2
+  name: Scarlet Ray
+  hit_level: m, m
+  damage: 16, 20
+  startup: i16~18, i25~26
+  recovery: r34
+  block: '-13'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st CH with 8f delay
+
+    * Input can be delayed 15f'
+- id: dbp1_4
+  source_id: Anna-db+1,4
+  source_index: 67
+  command: db+1,4
+  name: Scarlet Splatter
+  hit_level: m, h
+  damage: 16, 24
+  startup: i16~18, i24
+  recovery: r35
+  block: '-8'
+  hit: +10a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 9f delay
+
+    * Input can be delayed 15f'
+- id: dbp2
+  source_id: Anna-db+2
+  source_index: 68
+  command: db+2
+  name: Ocelot Claw
+  hit_level: m
+  damage: '17'
+  startup: i15~16
+  recovery: r30
+  block: '-9'
+  hit: +8g
+  counter_hit: +36a
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Transition to TOM r31 on hit automatically
+
+    * +13a (+4) on BT hit'
+- id: dbp3
+  source_id: Anna-db+3
+  source_index: 69
+  command: db+3
+  name: Mudslide
+  hit_level: L
+  damage: '21'
+  startup: i30~32
+  recovery: r34 FC
+  block: '-26'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - tornado
+  - low
+  notes: '* Stagger on block
+
+    * Instant Tornado on hit
+
+    * High crush 16~63'
+- id: dbp4
+  source_id: Anna-db+4
+  source_index: 70
+  command: db+4
+  name: Scorned Mistress
+  hit_level: L
+  damage: '14'
+  startup: i17~18
+  recovery: r31
+  block: '-13'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to r26 HAM on hit automatically
+
+    * Cancel HAM transition -13 +1 with B'
+- id: dbp3p4
+  source_id: Anna-db+3+4
+  source_index: 71
+  command: db+3+4
+  name: ''
+  hit_level: L
+  damage: '18'
+  startup: i24
+  recovery: r34 FC
+  block: '-26'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Clean hit -4 on hit, +3 damage
+
+    * High crush 6~'
+- id: dbp3p4_4
+  source_id: Anna-db+3+4,4
+  source_index: 72
+  command: db+3+4,4
+  name: Stalker Repellant Alter
+  hit_level: L, h
+  damage: 18, 23
+  startup: i24, i29~30
+  recovery: r35
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit on clean hit
+
+    * Combo from 1st CH with no clean hit
+
+    * Low crush 18~29
+
+    * Floating state 30~32'
+- id: bp1
+  source_id: Anna-b+1
+  source_index: 73
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i16~17
+  recovery: r28
+  block: '-2'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp1_2
+  source_id: Anna-b+1,2
+  source_index: 74
+  command: b+1,2
+  name: ''
+  hit_level: m, h
+  damage: 14, 12
+  startup: i16~17, i24
+  recovery: r30
+  block: '-11'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Jails from 1st attack'
+- id: bp1_2_2
+  source_id: Anna-b+1,2,2
+  source_index: 75
+  command: b+1,2,2
+  name: Cross Cut Saw
+  hit_level: m, h, m
+  damage: 14, 12, 24
+  startup: i16~17, ,i26~27
+  recovery: r35
+  block: '-12'
+  hit: +20a (+15)
+  counter_hit: +29d (+21)
+  tier: specialist
+  tags:
+  - elb
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Elbow
+
+    * Combo from 1st CH
+
+    * Combo from 2nd CH with 9f delay
+
+    * Input can be delayed 15f'
+- id: bp1p3
+  source_id: Anna-b+1+3
+  source_index: 76
+  command: b+1+3
+  name: Attack Reversal
+  hit_level: ''
+  damage: '25'
+  startup: ''
+  recovery: r35
+  block: ''
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high or mid punches or kicks
+
+    * Can side switch depending on the parried attack
+
+    * Parry state 5~12'
+- id: bp2
+  source_id: Anna-b+2
+  source_index: 77
+  command: b+2
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i13~14
+  recovery: r27
+  block: '-5'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - high
+  notes: '* Homing'
+- id: bp2_2
+  source_id: Anna-b+2,2
+  source_index: 78
+  command: b+2,2
+  name: Double Slap
+  hit_level: h, h
+  damage: 10, 20
+  startup: i13~14, i18~19
+  recovery: r33
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st hit
+
+    * Female characters can slap back with 2 on hit
+
+    * Jails from 1st attack'
+- id: bp3
+  source_id: Anna-b+3
+  source_index: 79
+  command: b+3
+  name: Chaos Judgement
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r16 CJM
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - heat
+  - parry
+  - stance_transition
+  notes: '* Actionable after 16f
+
+    * i3? low parry: parries all lows (including Heat Smash lows)
+
+    * i3? throw parry: +0d and 25 damage
+
+    * Transition to r13 HAM with f+3
+
+    * Parry state 3~47'
+- id: bp4
+  source_id: Anna-b+4
+  source_index: 80
+  command: b+4
+  name: Leopard Swipe
+  hit_level: m
+  damage: '17'
+  startup: i19~21
+  recovery: r26
+  block: '-9'
+  hit: +11g
+  counter_hit: +17g
+  tier: core
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break on CH
+
+    * Transition to r24 HAM on hit automatically'
+- id: bp1p2
+  source_id: Anna-b+1+2
+  source_index: 81
+  command: b+1+2
+  name: Weeping Slap
+  hit_level: m
+  damage: '21'
+  startup: i20~21
+  recovery: r35
+  block: '-13'
+  hit: +20a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * -8 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~19'
+- id: ubp1p2
+  source_id: Anna-ub+1+2
+  source_index: 82
+  command: ub+1+2
+  name: Bloody Scissors
+  hit_level: m!
+  damage: '50'
+  startup: i60
+  recovery: r39
+  block: ''
+  hit: +46a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ufp1
+  source_id: Anna-uf+1
+  source_index: 83
+  command: uf+1
+  name: ''
+  hit_level: h
+  damage: '6'
+  startup: i13
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ufp1_3
+  source_id: Anna-uf+1,3
+  source_index: 84
+  command: uf+1,3
+  name: Fatal Attack Combo
+  hit_level: h, m
+  damage: 6, 17
+  startup: i13, i15
+  recovery: r35
+  block: '-16'
+  hit: '+7'
+  counter_hit: +51a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH with 12f delay
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 11f'
+- id: ufp1_3_3p4
+  source_id: Anna-uf+1,3,3+4
+  source_index: 85
+  command: uf+1,3,3+4
+  name: Hail Storm
+  hit_level: h, m, m,m
+  damage: 6, 17, 6,10
+  startup: i13, ,i32~34 i11~12
+  recovery: r22
+  block: '-4'
+  hit: +78a (+62)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - kne
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Knee
+
+    * Combo from 2nd hit with 5f delay
+
+    * Combo from 1st CH
+
+    * +27a (+18) if only the last hit connects
+
+    * Instant Tornado on hit
+
+    * Low crush 34~46'
+- id: ufp2
+  source_id: Anna-uf+2
+  source_index: 86
+  command: uf+2
+  name: Bane Stinger
+  hit_level: M
+  damage: '18'
+  startup: i20~21
+  recovery: r31
+  block: '-8'
+  hit: +12s
+  counter_hit: +72a (+56)
+  tier: specialist
+  tags:
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Transition to r27 HAM on hit automatically
+
+    * Instant Tornado on CH'
+- id: ufp3
+  source_id: Anna-uf+3
+  source_index: 87
+  command: uf+3
+  name: Sudden Storm
+  hit_level: m
+  damage: '22'
+  startup: i23~24
+  recovery: r27
+  block: '+0'
+  hit: +27d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: h_ufp3_1
+  source_id: Anna-uf+3,H.1
+  source_index: 88
+  command: H.uf+3,1
+  name: Sudden Fascinator
+  hit_level: m, h
+  damage: 22, 20
+  startup: i23~24, i40~89
+  recovery: r16
+  block: +4g~+53g
+  hit: +20a (-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when land a hit on you
+
+    * 6 chip damage on block
+
+    * Consumes 300F of remaining Heat time
+
+    * Jails from 1st attack'
+- id: h_ufp3_2
+  source_id: Anna-uf+3,H.2
+  source_index: 89
+  command: H.uf+3,2
+  name: Sudden Penetrator
+  hit_level: m, h
+  damage: 22, 30
+  startup: i23~24, i40~139
+  recovery: r16
+  block: -1~+98g
+  hit: +20a (-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - chp
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Chip damage on block
+
+    * Consumes 300F of remaining Heat time
+
+    * Jails from 1st attack'
+- id: ufp4
+  source_id: Anna-uf+4
+  source_index: 90
+  command: uf+4
+  name: Quick Somersault Kick
+  hit_level: m
+  damage: '24'
+  startup: i18~20
+  recovery: r35
+  block: '-18'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * 18 damage when using ub+4
+
+    * Low crush 13~31
+
+    * Floating state 32~34'
+- id: ufp3p4
+  source_id: Anna-uf+3+4
+  source_index: 91
+  command: uf+3+4
+  name: Dominatrix Heel
+  hit_level: M,M
+  damage: 4,18
+  startup: i25~28
+  recovery: r31 FC
+  block: -3c
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Low crush 9~26'
+- id: ffp2
+  source_id: Anna-f,F+2
+  source_index: 92
+  command: f,F+2
+  name: Headless Horseman
+  hit_level: h
+  damage: '21'
+  startup: i17~18
+  recovery: r37
+  block: '+4'
+  hit: +2a
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - wpn
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break (airborne)
+
+    * Weapon
+
+    * 6 chip damage on block'
+- id: ffp3
+  source_id: Anna-f,F+3
+  source_index: 93
+  command: f,F+3
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15
+  recovery: r32
+  block: '-11'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: ffp3_2
+  source_id: Anna-f,F+3,2
+  source_index: 94
+  command: f,F+3,2
+  name: Gancanagh's Pipe
+  hit_level: m, M
+  damage: 14, 20
+  startup: i15, i28~29
+  recovery: r29
+  block: '-7'
+  hit: +20d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - spk
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st hit with 5f delay
+
+    * 6 chip damage on block'
+- id: ffp3_3
+  source_id: Anna-f,F+3,3
+  source_index: 95
+  command: f,F+3,3
+  name: Mouse Trouble
+  hit_level: m, L
+  damage: 14, 14
+  startup: i15, i25
+  recovery: r33 FC
+  block: '-14'
+  hit: +4c
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: '* Combo from 1st hit with 5f delay
+
+    * High crush 25~'
+- id: ffp4
+  source_id: Anna-f,F+4
+  source_index: 96
+  command: f,F+4
+  name: Falling Heel
+  hit_level: M
+  damage: '20'
+  startup: i31~34
+  recovery: r28 FC
+  block: '+5'
+  hit: +19a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Enter CJM +6 +20a r28 with B
+
+    * Chip damage on block
+
+    * Low crush 16~31'
+- id: ffp1p2
+  source_id: Anna-f,F+1+2
+  source_index: 97
+  command: f,F+1+2
+  name: Sosho Zanha
+  hit_level: m
+  damage: '25'
+  startup: i18~20
+  recovery: r35
+  block: '-9'
+  hit: +19a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 5 chip damage on block'
+- id: ffp1p2
+  source_id: Anna-f,F+1+2*
+  source_index: 98
+  command: f,F+1+2*
+  name: Sosho Zanha
+  hit_level: m
+  damage: '30'
+  startup: i27~29
+  recovery: r35
+  block: +5~+7
+  hit: +33a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 12 chip damage on block'
+- id: ffp3p4
+  source_id: Anna-f,F+3+4
+  source_index: 99
+  command: f,F+3+4
+  name: Treading Water
+  hit_level: m,m,m
+  damage: 8,8,10
+  startup: i15~16 i8~11 i7~8
+  recovery: r20 CJM
+  block: '+0'
+  hit: '+9'
+  counter_hit: +30a (+23)
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* CH advantage is for the first hit
+
+    * Low crush 13~'
+- id: qcfp1
+  source_id: Anna-qcf+1
+  source_index: 100
+  command: qcf+1
+  name: Assassin's Dagger
+  hit_level: h
+  damage: '20'
+  startup: i13~17
+  recovery: r23
+  block: +1~+5
+  hit: +3~+7
+  counter_hit: +47a (+37)
+  tier: specialist
+  tags:
+  - elb
+  - chp
+  - chip
+  - high
+  notes: '* Elbow
+
+    * Bufferable
+
+    * Chip damage on block
+
+    * Perfect input d,df,f#1, f and 1 must be pressed on the same frame, grants +3
+    damage and increased chip damage on block'
+- id: qcfp2
+  source_id: Anna-qcf+2
+  source_index: 101
+  command: qcf+2
+  name: Crimson Arrow
+  hit_level: m
+  damage: '10'
+  startup: i16
+  recovery: r34
+  block: '-12'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Can be buffered'
+- id: qcfp2_1
+  source_id: Anna-qcf+2,1
+  source_index: 102
+  command: qcf+2,1
+  name: Artemis Arrow
+  hit_level: m, m
+  damage: 10, 16
+  startup: i16, i22~24
+  recovery: r35
+  block: '-16'
+  hit: +67a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - elb
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Elbow
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 7f
+
+    * Can be buffered
+
+    * Cancel to CJM -13 +2 r34 with B on frame 14'
+- id: f_ffp2
+  source_id: Anna-f,f,F+2
+  source_index: 103
+  command: f,f,F+2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15~16
+  recovery: r35
+  block: '-8'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: f_ffp2_4
+  source_id: Anna-f,f,F+2,4
+  source_index: 104
+  command: f,f,F+2,4
+  name: Double Meteor Alter
+  hit_level: m, m
+  damage: 10, 28
+  startup: i15~16, i28~30
+  recovery: r33
+  block: '-13'
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 1st hit
+
+    * Low crush 27~45
+
+    * Floating state 46~48'
+- id: f_ffp3
+  source_id: Anna-f,f,F+3
+  source_index: 105
+  command: f,f,F+3
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i16~20
+  recovery: r35 FC
+  block: '-20'
+  hit: -2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush 9~'
+- id: f_ffp3_2
+  source_id: Anna-f,f,F+3,2
+  source_index: 106
+  command: f,f,F+3,2
+  name: Grilled with Love
+  hit_level: L, SL
+  damage: 12, 24
+  startup: i16~20, i28~77
+  recovery: r27 FC
+  block: -16~+33g
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - heat
+  - chip
+  - low
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Chip damage on block
+
+    * Power up in Heat'
+- id: h_f_ffp3_2
+  source_id: Anna-f,f,F+3,H.2
+  source_index: 107
+  command: H.f,f,F+3,2
+  name: Grilled with Eternal Love
+  hit_level: L, SL,SL,SL
+  damage: 12, 5,5,24
+  startup: i16~20, i28~77 i41~90 i60~109
+  recovery: r40 FC
+  block: -5~+44g
+  hit: +21a (-5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - heat
+  - chip
+  - low
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jails from 2nd hit
+
+    * Chip damage on block
+
+    * Consumes 300F of remaining Heat time'
+- id: f_ffp4
+  source_id: Anna-f,f,F+4
+  source_index: 108
+  command: f,f,F+4
+  name: Imploding Star
+  hit_level: m
+  damage: '28'
+  startup: i19~20
+  recovery: r35
+  block: '+3'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Chip damage on block
+
+    * Hitstop 20f on hit
+
+    * Low crush 14~29
+
+    * Floating state 30~32'
+- id: ws1
+  source_id: Anna-ws1
+  source_index: 109
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r26
+  block: '-8'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_2
+  source_id: Anna-ws1,2
+  source_index: 110
+  command: ws1,2
+  name: Ocelot Frenzy
+  hit_level: m, M
+  damage: 10, 17
+  startup: i13~14, i18~19
+  recovery: r31
+  block: '-13'
+  hit: +9g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Transition to r30 TOM on hit automatically
+
+    * Combo from 1st hit with 10F delay
+
+    * Input can be delayed 10F
+
+    * Move can be delayed 10F'
+- id: ws2
+  source_id: Anna-ws2
+  source_index: 111
+  command: ws2
+  name: Rising Palm
+  hit_level: m
+  damage: '16'
+  startup: i16~17
+  recovery: r35
+  block: '-13'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado'
+- id: ws3
+  source_id: Anna-ws3
+  source_index: 112
+  command: ws3
+  name: Face Wash
+  hit_level: m
+  damage: '20'
+  startup: i11~12
+  recovery: r21 CJM
+  block: '-3'
+  hit: '+8'
+  counter_hit: '+12'
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4
+  source_id: Anna-ws4
+  source_index: 113
+  command: ws4
+  name: Toe Smash
+  hit_level: m
+  damage: '16'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1p2
+  source_id: Anna-ws1+2
+  source_index: 114
+  command: ws1+2
+  name: Right Hand Stab
+  hit_level: m
+  damage: '25'
+  startup: i20~21
+  recovery: r35
+  block: '-14'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~19'
+- id: ss_2
+  source_id: Anna-SS.2
+  source_index: 115
+  command: SS.2
+  name: Chaos Tail
+  hit_level: L
+  damage: '12'
+  startup: i20~21
+  recovery: r30 FC
+  block: '-12'
+  hit: '+0'
+  counter_hit: +14g
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Sidestep adds minimum 9f, effective startup i29~30
+
+    * High crush 6~'
+- id: ss_3
+  source_id: Anna-SS.3
+  source_index: 116
+  command: SS.3
+  name: Heel Mash
+  hit_level: M
+  damage: '23'
+  startup: i21~23
+  recovery: r27
+  block: +4c
+  hit: +8c
+  counter_hit: +25d
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Sidestep adds minimum 9f, effective startup i30~32'
+- id: ss_1p2
+  source_id: Anna-SS.1+2
+  source_index: 117
+  command: SS.1+2
+  name: Bloody Chaos
+  hit_level: m,m
+  damage: 5,7
+  startup: i19~20 i5~9
+  recovery: r26
+  block: '-11'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Sidestep adds minimum 9f, effective startup i28~29'
+- id: fc_dfp1
+  source_id: Anna-FC.df+1
+  source_index: 118
+  command: FC.df+1
+  name: Cat Sith's Paw
+  hit_level: m
+  damage: '22'
+  startup: i20
+  recovery: r35
+  block: '-12'
+  hit: +21d (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - chp
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Jab evasion?
+
+    * Chip damage on block'
+- id: fc_dfp2
+  source_id: Anna-FC.df+2
+  source_index: 119
+  command: FC.df+2
+  name: Right Handed Sweep
+  hit_level: L
+  damage: '12'
+  startup: i20
+  recovery: r40
+  block: '-21'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - heat
+  - high_crush
+  - tornado
+  - low
+  notes: '* Instant Tornado on hit
+
+    * Recovers 6f faster on hit
+
+    * Deals only 6 damage when using its follow up attack in Heat
+
+    * High crush 1~52'
+- id: h_fc_dfp2_1
+  source_id: Anna-FC.df+2,H.1
+  source_index: 120
+  command: H.FC.df+2,1
+  name: "Lean\xE1n Sith's Grail"
+  hit_level: L, L
+  damage: 12, 18
+  startup: i20, i27~28
+  recovery: r39
+  block: '-21'
+  hit: +64a (+48)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - heat
+  - tornado
+  - balcony_break
+  - chip
+  - low
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Jail from 1st attack
+
+    * Instant Tornado on hit
+
+    * 24 damage total from 1st hit
+
+    * Chip damage on block
+
+    * Consumes 210F of remaining Heat time'
+- id: bt_1
+  source_id: Anna-BT.1
+  source_index: 121
+  command: BT.1
+  name: Twist Jab
+  hit_level: h
+  damage: '15'
+  startup: i8
+  recovery: r27
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Links to 1 jab extensions
+
+    * Combo into extensions on CH'
+- id: cjm_1
+  source_id: Anna-CJM.1
+  source_index: 122
+  command: CJM.1
+  name: Infernal Storm
+  hit_level: h
+  damage: '17'
+  startup: i11~12
+  recovery: r27
+  block: '+0'
+  hit: '+7'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: cjm_2
+  source_id: Anna-CJM.2
+  source_index: 123
+  command: CJM.2
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: cjm_2_1
+  source_id: Anna-CJM.2,1
+  source_index: 124
+  command: CJM.2,1
+  name: Carmine Hands
+  hit_level: h, m
+  damage: 10, 16
+  startup: i10, i20~21
+  recovery: r31
+  block: '-11'
+  hit: +24a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6f delay'
+- id: cjm_3
+  source_id: Anna-CJM.3
+  source_index: 125
+  command: CJM.3
+  name: Picking Heel
+  hit_level: m
+  damage: '12'
+  startup: i12~14
+  recovery: r32
+  block: '-12'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: cjm_3_2
+  source_id: Anna-CJM.3,2
+  source_index: 126
+  command: CJM.3,2
+  name: Baked with Love
+  hit_level: m, m
+  damage: 12, 24
+  startup: i12~14, i28~77
+  recovery: r13
+  block: -14~+35
+  hit: +21a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Chip damage on block'
+- id: h_cjm_3_2
+  source_id: Anna-CJM.3,H.2
+  source_index: 127
+  command: H.CJM.3,2
+  name: Baked with Eternal Love
+  hit_level: m, m,m,m
+  damage: 12, 5,5,24
+  startup: i12~14, i28~77 i41~90 i59~108
+  recovery: r29
+  block: -2~+47g
+  hit: +26a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jails from 2nd hit
+
+    * Chip damage on block
+
+    * Consumes 300F of remaining Heat time'
+- id: cjm_4
+  source_id: Anna-CJM.4
+  source_index: 128
+  command: CJM.4
+  name: Queen Heel
+  hit_level: M
+  damage: '23'
+  startup: i20~21
+  recovery: r39
+  block: '-13'
+  hit: +10a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~19'
+- id: cjm_1p2
+  source_id: Anna-CJM.1+2
+  source_index: 129
+  command: CJM.1+2
+  name: Caracal
+  hit_level: M
+  damage: '23'
+  startup: i17~18
+  recovery: r30 FC
+  block: +2c
+  hit: +8c
+  counter_hit: +23d
+  tier: specialist
+  tags:
+  - spk
+  - chip
+  - mid
+  notes: '* Spike
+
+    * 4 chip damage on block'
+- id: cjm_p
+  source_id: Anna-CJM.P
+  source_index: 130
+  command: CJM.P
+  name: Stryx
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: r34
+  block: '-14'
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - is
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Tornado launch on hit
+
+    * is1~'
+- id: cjm_df
+  source_id: Anna-CJM.df
+  source_index: 131
+  command: CJM.df
+  name: Forward Roll (ROLL)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r40 FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - fs
+  - high_crush
+  notes: '* High crush 5~
+
+    * Floating state 8~35'
+- id: cjm_dp3
+  source_id: Anna-CJM.d+3
+  source_index: 132
+  command: CJM.d+3
+  name: ''
+  hit_level: L
+  damage: '8'
+  startup: i15
+  recovery: r30 FC
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '*'
+- id: cjm_dp3_3
+  source_id: Anna-CJM.d+3,3
+  source_index: 133
+  command: CJM.d+3,3
+  name: Dendrobates Azureus
+  hit_level: L, h
+  damage: 8, 20
+  startup: i15, i21
+  recovery: r31
+  block: '-7'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st hit
+
+    * -31 from 1st block'
+- id: cjm_fp3
+  source_id: Anna-CJM.f+3
+  source_index: 134
+  command: CJM.f+3
+  name: Hammer Chance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r13
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to r10 FC with db
+
+    * Transition to r16 CJM with b+3'
+- id: cjm_ufp1
+  source_id: Anna-CJM.uf+1
+  source_index: 135
+  command: CJM.uf+1
+  name: Flying Fascinator
+  hit_level: M
+  damage: '25'
+  startup: i19~29
+  recovery: r37
+  block: -11~+1
+  hit: +9a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Chip damage on block
+
+    * Unpunishable on block due to pushback
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when land a hit on you
+
+    * Low crush 9~37
+
+    * Floating state 38~40'
+- id: cjm_ufp2
+  source_id: Anna-CJM.uf+2
+  source_index: 136
+  command: CJM.uf+2
+  name: Flying Penetrator
+  hit_level: M
+  damage: '35'
+  startup: i19~29
+  recovery: r37
+  block: -11~+1
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Chip damage on block
+
+    * Unpunishable on block due to pushback
+
+    * Low crush 9~37
+
+    * Floating state 38~40'
+- id: cjm_ufp3
+  source_id: Anna-CJM.uf+3
+  source_index: 137
+  command: CJM.uf+3
+  name: Sudden Storm
+  hit_level: m
+  damage: '22'
+  startup: i23~24
+  recovery: r27
+  block: '+0'
+  hit: +27d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: cjm_ufp4
+  source_id: Anna-CJM.uf+4
+  source_index: 138
+  command: CJM.uf+4
+  name: Stryx
+  hit_level: m
+  damage: '22'
+  startup: i15~16
+  recovery: r33
+  block: '-13'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Low crush 8~29
+
+    * Floating state 30~32'
+- id: ham_1
+  source_id: Anna-HAM.1
+  source_index: 139
+  command: HAM.1
+  name: Cupid's Arrow
+  hit_level: h
+  damage: '20'
+  startup: i13~14
+  recovery: r30
+  block: '+6'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - elb
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * 6 chip damage on block
+
+    * Recovers 5f faster on hit or block'
+- id: ham_2
+  source_id: Anna-HAM.2
+  source_index: 140
+  command: HAM.2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r32
+  block: '-9'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * 2 chip damage on block'
+- id: ham_2_1
+  source_id: Anna-HAM.2,1
+  source_index: 141
+  command: HAM.2,1
+  name: ''
+  hit_level: m, h
+  damage: 12, 23
+  startup: i15~16, i25~26
+  recovery: r32
+  block: '-3'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block'
+- id: ham_2_1_2
+  source_id: Anna-HAM.2,1,2
+  source_index: 142
+  command: HAM.2,1,2
+  name: Banshee Scream
+  hit_level: m, h, M
+  damage: 12, 23, 32
+  startup: i15~16, ,i33~34
+  recovery: r38 FC
+  block: +2c
+  hit: +17a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block
+
+    * 9 chip damage on block in heat (30%)'
+- id: ham_2_2
+  source_id: Anna-HAM.2,2
+  source_index: 143
+  command: HAM.2,2
+  name: Banshee's Comb
+  hit_level: m, M
+  damage: 12, 23
+  startup: i15~16, i22~23
+  recovery: r41
+  block: '-14'
+  hit: +33a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Transition to r34 TOM on hit automatically
+
+    * Steel Pedal
+
+    * 6 chip damage on block'
+- id: ham_3
+  source_id: Anna-HAM.3
+  source_index: 144
+  command: HAM.3
+  name: Rat Sweep
+  hit_level: L
+  damage: '17'
+  startup: i20~21
+  recovery: r32 FC
+  block: '-14'
+  hit: '-3'
+  counter_hit: +6c
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Homing
+
+    * Transition to CJM r25 with B (-7/+4/+13c)
+
+    * High crush 8~'
+- id: ham_4
+  source_id: Anna-HAM.4
+  source_index: 145
+  command: HAM.4
+  name: Piston Kick
+  hit_level: m,m
+  damage: 12,12
+  startup: i18~19 i4~6
+  recovery: r35 FC
+  block: '-12'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * High crush 5~'
+- id: ham_1p2
+  source_id: Anna-HAM.1+2
+  source_index: 146
+  command: HAM.1+2
+  name: Dullahan Smash
+  hit_level: M
+  damage: '30'
+  startup: i24~25
+  recovery: r38 FC
+  block: +2c
+  hit: +17a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * 6 chip damage on block
+
+    * 9 chip damage on block in heat (30%)'
+- id: ham_bp3
+  source_id: Anna-HAM.b+3
+  source_index: 147
+  command: HAM.b+3
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: otg_dp3p4
+  source_id: Anna-OTG.d+3+4
+  source_index: 148
+  command: OTG.d+3+4
+  name: Heel Grind
+  hit_level: L
+  damage: '30'
+  startup: i17~18
+  recovery: r35
+  block: '-17'
+  hit: -7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - low
+  notes: '* Spike'
+- id: roll_3
+  source_id: Anna-ROLL.3
+  source_index: 149
+  command: ROLL.3
+  name: Rolling Stone
+  hit_level: m
+  damage: '27'
+  startup: i10~11
+  recovery: r32 FC
+  block: '-9'
+  hit: +32d (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * High crush 1~'
+- id: roll_4
+  source_id: Anna-ROLL.4
+  source_index: 150
+  command: ROLL.4
+  name: Falling Frost
+  hit_level: h
+  damage: '21'
+  startup: i20
+  recovery: r38
+  block: '+7'
+  hit: +32a (+22)
+  counter_hit: +57a
+  tier: specialist
+  tags:
+  - trn
+  - chp
+  - cs
+  - js
+  - fs
+  - low_crush
+  - high_crush
+  - tornado
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Chip damage on block
+
+    * Roll adds minimum 20f, effective startup i40
+
+    * High crush 39~69
+
+    * Low crush 20~35
+
+    * Floating state 36~38'
+- id: tom_1
+  source_id: Anna-TOM.1
+  source_index: 151
+  command: TOM.1
+  name: Machree Fascinator
+  hit_level: m
+  damage: '20'
+  startup: i8~57
+  recovery: r36
+  block: +4~+53
+  hit: +20a (-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Fragile debuff on hit or block, opponent receives chip damage from any attack,
+    removed when Anna is damaged
+
+    * 4 chip damage on block
+
+    * 6 chip damage on block in Heat
+
+    * Power up in Heat: 30dmg
+
+    * Consumes 90F of remaining Heat time'
+- id: tom_2
+  source_id: Anna-TOM.2
+  source_index: 152
+  command: TOM.2
+  name: Machree Penetrator
+  hit_level: m
+  damage: '30'
+  startup: i8~107
+  recovery: r36
+  block: -1~+98
+  hit: +20a (-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - wc
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Wall Crush +10g~ minimum
+
+
+
+    * 12 chip damage on block
+
+    * 16 chip damage on block in heat (40%)
+
+    * Power up in Heat: 40dmg
+
+    * Consumes 90F of remaining Heat time'
+- id: tom_3
+  source_id: Anna-TOM.3
+  source_index: 153
+  command: TOM.3
+  name: Chaos Judgement
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r26 CJM
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - heat
+  - parry
+  - stance_transition
+  notes: '* Actionable after 16f
+
+    * i3? low parry: parries all lows (including Heat Smash lows)
+
+    * i3? throw parry: +0d and 25 damage
+
+    * Transition to r13 HAM with f+3
+
+    * Parry state 3~47'
+- id: tom_4
+  source_id: Anna-TOM.4
+  source_index: 154
+  command: TOM.4
+  name: Banquet Crasher
+  hit_level: L
+  damage: '21'
+  startup: i15
+  recovery: r32 FC
+  block: '-13'
+  hit: +28g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: 1p3
+  source_id: Anna-1+3
+  source_index: 155
+  command: 1+3
+  name: Cruel Punishment
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Anna-2+4
+  source_index: 156
+  command: 2+4
+  name: Losing Face
+  hit_level: t
+  damage: '21'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit'
+- id: back_throw
+  source_id: Anna-Back throw
+  source_index: 157
+  command: Back throw
+  name: Overhead Triangle Lock
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable
+
+    * Side switch on hit'
+- id: ham_1p3
+  source_id: Anna-HAM.1+3
+  source_index: 158
+  command: HAM.1+3
+  name: Backhand Slap
+  hit_level: t
+  damage: '15'
+  startup: i11
+  recovery: r28
+  block: '-2'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2'
+- id: ham_1p3_1
+  source_id: Anna-HAM.1+3,1
+  source_index: 159
+  command: HAM.1+3,1
+  name: Arm Break > Double Arm Lock Toss
+  hit_level: t, t
+  damage: 15, 35
+  startup: 'i11, '
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * 15 damage to Anna on break'
+- id: ham_1p3_2
+  source_id: Anna-HAM.1+3,2
+  source_index: 160
+  command: HAM.1+3,2
+  name: Arm Snap
+  hit_level: t, t
+  damage: 15, 30
+  startup: 'i11, '
+  recovery: ''
+  block: '-3'
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * 15 damage to Anna on break'
+- id: left_throw
+  source_id: Anna-Left throw
+  source_index: 161
+  command: Left throw
+  name: Torso Splitter
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * Can side switch on hit'
+- id: right_throw
+  source_id: Anna-Right throw
+  source_index: 162
+  command: Right throw
+  name: Serpentine Arm Break
+  hit_level: t
+  damage: '38'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: dbp1p2
+  source_id: Anna-db+1+2
+  source_index: 163
+  command: db+1+2
+  name: Queen's Reward
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2'
+- id: ufp1p2
+  source_id: Anna-uf+1+2
+  source_index: 164
+  command: uf+1+2
+  name: '<div class="dotlist">
+
+
+    * Overhead Toss
+
+    * Jumping Flip
+
+    </div>'
+  hit_level: t
+  damage: 30,10
+  startup: i12
+  recovery: r27
+  block: '+0'
+  hit: +29d (-32)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2
+
+    * Opponent can tech roll to reduce damage to 30
+
+    * 45 damage on wall splat
+
+    * Side switch on break, Anna recovers side turned'

@@ -1,0 +1,3395 @@
+character_id: eddy
+display_name: Eddy Gordo
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/eddy/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 0faa4fe7f698ade3d70eb22d0466f7ffb86d8bc7099e572ff2e530d21d425f82
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- FUFT
+- HSP
+- MD1
+- MD2
+- RLX
+moves:
+- id: 2p3
+  source_id: Eddy-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_3p4
+  source_id: Eddy-H.3+4
+  source_index: 2
+  command: H.3+4
+  name: Guerreiro Explosivo
+  hit_level: m
+  damage: '20'
+  startup: i20~22
+  recovery: HSP
+  block: '+5'
+  hit: +66a(+50)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - cs
+  - fs
+  - js
+  - low_crush
+  - high_crush
+  - tornado
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Transition to HSP
+
+    * 6 chip damage on block
+
+    * High crush 6~11?
+
+    * Floating state 11?~?
+
+    * Low crush 20~?'
+- id: h_qcfp4
+  source_id: Eddy-H.qcf+4
+  source_index: 3
+  command: H.qcf+4
+  name: Rabo de Arraia Liberado
+  hit_level: h
+  damage: '45'
+  startup: i22~23
+  recovery: RLX
+  block: '+7'
+  hit: +34a(+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 13 chip damage on block
+
+    * Transition to RLX
+
+    * Low crush 14~?'
+- id: h_2p3
+  source_id: Eddy-H.2+3
+  source_index: 4
+  command: H.2+3
+  name: Caveirinha Zangada
+  hit_level: m
+  damage: '55'
+  startup: i18~19
+  recovery: ''
+  block: '+6'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to RLX on block
+
+    * Low crush 34~'
+- id: r_dfp1p2
+  source_id: Eddy-R.df+1+2
+  source_index: 5
+  command: R.df+1+2
+  name: "Enchente de Ax\xE9"
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Eddy-1
+  source_index: 6
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: Eddy-1,2
+  source_index: 7
+  command: 1,2
+  name: One Two Galopantes
+  hit_level: h, h
+  damage: 5, 12
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Enter HSP -5 +6 r24 with F'
+- id: '1_2_3'
+  source_id: Eddy-1,2,3
+  source_index: 8
+  command: 1,2,3
+  name: One Two Lunging Brush Fire
+  hit_level: h, h, h
+  damage: 5, 12, 21
+  startup: i10, ,i24~25
+  recovery: r34
+  block: '-9'
+  hit: +21a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd CH with 4F delay
+
+    * Interrupt from 2nd block with i5'
+- id: '1_2_4'
+  source_id: Eddy-1,2,4
+  source_index: 9
+  command: 1,2,4
+  name: ''
+  hit_level: h, h
+  damage: 5, 12
+  startup: i10, ,
+  recovery: r45 FC
+  block: '+6'
+  hit: '+17'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - high
+  notes: '* Low crush 7~37
+
+    * Floating state 38~40'
+- id: '1_2_4_3'
+  source_id: Eddy-1,2,4~3
+  source_index: 10
+  command: 1,2,4~3
+  name: One Two Galopantes > Chute Baixo
+  hit_level: h, h, L
+  damage: 5, 12, 20
+  startup: i10, ,i32~33
+  recovery: r65 RLX
+  block: -14c
+  hit: +18a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - high
+  notes: '* High crush 32~'
+- id: '1_2_4_4'
+  source_id: Eddy-1,2,4~4
+  source_index: 11
+  command: 1,2,4~4
+  name: One Two Galopantes > Chute Alto
+  hit_level: h, h, h
+  damage: 5, 12, 27
+  startup: i10, ,i18~20
+  recovery: r63 FUFT
+  block: +8~+10
+  hit: +42d (-16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Tech roll to r45 FC on frames 30~31
+
+    * Low crush 7~32'
+- id: '1_3'
+  source_id: Eddy-1,3
+  source_index: 12
+  command: 1,3
+  name: "C\xE9u Gafanhoto"
+  hit_level: h, m
+  damage: 5, 16
+  startup: i10, i23~24
+  recovery: r32 RLX
+  block: '-14'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 2f delay'
+- id: '2'
+  source_id: Eddy-2
+  source_index: 13
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Eddy-2,1
+  source_index: 14
+  command: 2,1
+  name: ''
+  hit_level: h, h
+  damage: 10, 13
+  startup: i12, i17~18
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Jail from 1st attack
+- id: '2_1_4'
+  source_id: Eddy-2,1,4
+  source_index: 15
+  command: 2,1,4
+  name: "Combo Furac\xE3o"
+  hit_level: h, h, m
+  damage: 10, 13, 21
+  startup: i12, ,i20~22
+  recovery: r31
+  block: -12~-10
+  hit: +17a (+8)
+  counter_hit: +56a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd Ch with 10f delay
+
+    * Input can be delayed 14f'
+- id: '2_3'
+  source_id: Eddy-2,3
+  source_index: 16
+  command: 2,3
+  name: Batida de Compasso
+  hit_level: h, m
+  damage: 10, 20
+  startup: i12, i20~21
+  recovery: r26 HSP
+  block: '-8'
+  hit: +8s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: '3'
+  source_id: Eddy-3
+  source_index: 17
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14~15
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_3'
+  source_id: Eddy-3,3
+  source_index: 18
+  command: 3,3
+  name: Sincelo
+  hit_level: m, m
+  damage: 12, 22
+  startup: i14~15, i23~25
+  recovery: r25 HSP
+  block: '-3'
+  hit: +8s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 1st CH
+
+    * Transition to HSP'
+- id: '4'
+  source_id: Eddy-4
+  source_index: 19
+  command: '4'
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r27
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: '4_4'
+  source_id: Eddy-4,4
+  source_index: 20
+  command: 4,4
+  name: Lufada
+  hit_level: m, m
+  damage: 10, 20
+  startup: i13~14, i30~31
+  recovery: r30 FC
+  block: '-7'
+  hit: +12g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st CH with 4f delay
+
+    * Input can be delayed 7f
+
+    * Low crush 22~33
+
+    * Floating state 34~36'
+- id: 1p2
+  source_id: Eddy-1+2
+  source_index: 21
+  command: 1+2
+  name: "Fais\xE3o"
+  hit_level: m
+  damage: '17'
+  startup: i20
+  recovery: r30
+  block: +3c
+  hit: +5c
+  counter_hit: +14c
+  tier: core
+  tags:
+  - spk
+  - elb
+  - mid
+  notes: '* Spike
+
+    * Elbow'
+- id: fp2
+  source_id: Eddy-f+2
+  source_index: 22
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i18
+  recovery: r29
+  block: '-9'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: fp2_4
+  source_id: Eddy-f+2,4
+  source_index: 23
+  command: f+2,4
+  name: Ventania
+  hit_level: m, l
+  damage: 15, 17
+  startup: i18, i23~24
+  recovery: r32
+  block: -14c
+  hit: '+2'
+  counter_hit: +71a(+55)
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st CH with with 12f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp3
+  source_id: Eddy-f+3
+  source_index: 24
+  command: f+3
+  name: ''
+  hit_level: h
+  damage: '16'
+  startup: i16~18
+  recovery: r31
+  block: '-5'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - high
+  notes: Homing
+- id: fp3_4
+  source_id: Eddy-f+3,4
+  source_index: 25
+  command: f+3,4
+  name: "Combo do Fun\xE2mbolo"
+  hit_level: h, m
+  damage: 16, 25
+  startup: i16~18, i29~31
+  recovery: r33
+  block: -11~-9
+  hit: +15a (+6)
+  counter_hit: +32a
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Cancel to HSP -14 -2 r40 with F on frame 20
+
+    * Floating state 25~46'
+- id: fp4
+  source_id: Eddy-f+4
+  source_index: 26
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i23~25
+  recovery: r30 HSP
+  block: '-8'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - mid
+  notes: 'Floor Break
+
+    * Floating state 16~'
+- id: fp4_3
+  source_id: Eddy-f+4,3
+  source_index: 27
+  command: f+4,3
+  name: ''
+  hit_level: m, m
+  damage: 13, 8
+  startup: i23~25, i23~24
+  recovery: r31
+  block: '-13'
+  hit: -2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Move can be delayed 7f'
+- id: fp4_3_3p4
+  source_id: Eddy-f+4,3,3+4
+  source_index: 28
+  command: f+4,3,3+4
+  name: "A\xFA do Sol"
+  hit_level: m, m, M,M
+  damage: 13, 8, 7,20
+  startup: i23~25, ,i24~26
+  recovery: r31
+  block: '-12'
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 2nd CH
+
+    * Floating state 21~39'
+- id: fp4_3p4
+  source_id: Eddy-f+4,3+4
+  source_index: 29
+  command: f+4,3+4
+  name: "A\xFA da Lua"
+  hit_level: m, L,L
+  damage: 13, 7,7
+  startup: i23~25, i22~24 i5~6
+  recovery: r48 RLX
+  block: -24c
+  hit: +12a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  - mid
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: fp1p2
+  source_id: Eddy-f+1+2
+  source_index: 30
+  command: f+1+2
+  name: Bananeira
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 HSP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - parry
+  - stance_transition
+  notes: '* Auto low parry ps8?~ at Mandinga Level 1
+
+    ** Transition to Ogum Mandinga on successful parry
+
+    * Transition to HSP
+
+    * Floating state 14~53'
+- id: fp3p4
+  source_id: Eddy-f+3+4
+  source_index: 31
+  command: f+3+4
+  name: "Xang\xF4"
+  hit_level: m
+  damage: '25'
+  startup: i19~21
+  recovery: r35
+  block: '-9'
+  hit: +18a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - fs
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * 5 chip damage on block
+
+    * Floating state 9~18
+
+    * Low crush 19~32
+
+    * Floating state 33~35'
+- id: dfp1
+  source_id: Eddy-df+1
+  source_index: 32
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13
+  recovery: r22
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_3
+  source_id: Eddy-df+1,3
+  source_index: 33
+  command: df+1,3
+  name: "G\xEAiser"
+  hit_level: m, h
+  damage: 10, 21
+  startup: i13, i26~27
+  recovery: r27
+  block: '-7'
+  hit: +22a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 2f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f
+
+    * Low crush 16~43
+
+    * Floating state 44~46'
+- id: dfp2
+  source_id: Eddy-df+2
+  source_index: 34
+  command: df+2
+  name: Elbow Uppercut
+  hit_level: m
+  damage: '19'
+  startup: i14~15
+  recovery: r28
+  block: '-5'
+  hit: '+6'
+  counter_hit: +21a (+4)
+  tier: core
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    ** on CH
+
+    * Elbow'
+- id: dfp3
+  source_id: Eddy-df+3
+  source_index: 35
+  command: df+3
+  name: Mirage
+  hit_level: m
+  damage: '17'
+  startup: i15~18
+  recovery: r36
+  block: -18~-16
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - fs
+  - tornado
+  - mid
+  notes: 'Tornado
+
+    * Floating state 19~33'
+- id: dfp4
+  source_id: Eddy-df+4
+  source_index: 36
+  command: df+4
+  name: Kneecap Crusher
+  hit_level: L
+  damage: '14'
+  startup: i18
+  recovery: r31
+  block: '-12'
+  hit: '+0'
+  counter_hit: +14g
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dfp3p4
+  source_id: Eddy-df+3+4
+  source_index: 37
+  command: df+3+4
+  name: "A\xFA Revers\xE3o"
+  hit_level: m,M
+  damage: 10,16
+  startup: i18~19 i8~11
+  recovery: r24
+  block: -3~+0
+  hit: +1a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * +23a if only the 2nd hit connects
+
+    * Floating state 9~26'
+- id: dp2
+  source_id: Eddy-d+2
+  source_index: 38
+  command: d+2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i17~18
+  recovery: ''
+  block: '-9'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: dp2_3
+  source_id: Eddy-d+2,3
+  source_index: 39
+  command: d+2,3
+  name: Palmares Giro
+  hit_level: m, M
+  damage: 10, 20
+  startup: i17~18, i24~25
+  recovery: RLX
+  block: -4c
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combos from 1st CH
+
+    * Transition to RLX'
+- id: dp3
+  source_id: Eddy-d+3
+  source_index: 40
+  command: d+3
+  name: Sismo
+  hit_level: L
+  damage: '17'
+  startup: i21~22
+  recovery: FC
+  block: -14c
+  hit: +4c
+  counter_hit: +27g
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~54'
+- id: dp4
+  source_id: Eddy-d+4
+  source_index: 41
+  command: d+4
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i15~16
+  recovery: FC
+  block: -16c
+  hit: '-5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to FC
+
+    * High crush 6~50'
+- id: dp4_3
+  source_id: Eddy-d+4,3
+  source_index: 42
+  command: d+4,3
+  name: "A\xFA de Bico"
+  hit_level: L, m
+  damage: 10, 20
+  startup: i15~16, i21~22
+  recovery: ''
+  block: -13c
+  hit: +12c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: ''
+- id: dp3p4
+  source_id: Eddy-d+3+4
+  source_index: 43
+  command: d+3+4
+  name: Negativa
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 RLX
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Can block at frame 20? with B or DB
+
+    * Transition to FC after 35F
+
+    * High crush 6~55'
+- id: dbp2
+  source_id: Eddy-db+2
+  source_index: 44
+  command: db+2
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i18~19
+  recovery: r36 FC
+  block: -18c
+  hit: '-7'
+  counter_hit: '-2'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~55'
+- id: dbp2_3
+  source_id: Eddy-db+2,3
+  source_index: 45
+  command: db+2,3
+  name: Twister Mirage
+  hit_level: L, m
+  damage: 10, 23
+  startup: i18~19, i27~28
+  recovery: r38
+  block: '-18'
+  hit: +65a (+49)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - fs
+  - tornado
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i8
+
+    * Floating state 30~49'
+- id: dbp3
+  source_id: Eddy-db+3
+  source_index: 46
+  command: db+3
+  name: Rasteira Forte
+  hit_level: L
+  damage: '21'
+  startup: i28
+  recovery: r37
+  block: -14c
+  hit: +5c
+  counter_hit: +21a
+  tier: core
+  tags:
+  - low
+  notes: '* Has good right sidestep tracking'
+- id: dbp4
+  source_id: Eddy-db+4
+  source_index: 47
+  command: db+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i17~18
+  recovery: r32
+  block: '-8'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dbp4_4
+  source_id: Eddy-db+4,4
+  source_index: 48
+  command: db+4,4
+  name: Rabo de Arraia
+  hit_level: m, h
+  damage: 14, 27
+  startup: i17~18, i33~34
+  recovery: r29
+  block: '+1'
+  hit: +35a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i8
+
+    * Mandinga level increases by 1 on hit
+
+    * Becomes +19a(-7) on hit when gaining Mandinga
+
+    * 8 chip damage on block
+
+    * Low crush 22~30
+
+    * Floating state 31~33'
+- id: dbp1p2
+  source_id: Eddy-db+1+2
+  source_index: 49
+  command: db+1+2
+  name: Double Arm Stinger
+  hit_level: m
+  damage: '20'
+  startup: i30
+  recovery: r31
+  block: '-8'
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: Floor Break
+- id: dbp3p4
+  source_id: Eddy-db+3+4
+  source_index: 50
+  command: db+3+4
+  name: ''
+  hit_level: m,M
+  damage: 12,12
+  startup: i20~22
+  recovery: r27 FC
+  block: '-6'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Transition to FC
+
+    * Floating state 18~30'
+- id: dbp3p4_4
+  source_id: Eddy-db+3+4,4
+  source_index: 51
+  command: db+3+4,4
+  name: ''
+  hit_level: m,M, m
+  damage: 12,12, 10
+  startup: i20~22, i21~22
+  recovery: r29
+  block: '-8'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 2nd CH with 7F delay
+
+    * Interrupt with i3
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 14F'
+- id: dbp3p4_4_3
+  source_id: Eddy-db+3+4,4,3
+  source_index: 52
+  command: db+3+4,4,3
+  name: Meia-Lua de Compasso
+  hit_level: m,M, m, m
+  damage: 12,12, 10, 26
+  startup: i20~22, ,i22~23
+  recovery: r34
+  block: '-14'
+  hit: +15a(+6)
+  counter_hit: +32a
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 3rd CH with 12F delay
+
+    * Move can be delayed by 13F'
+- id: bp1
+  source_id: Eddy-b+1
+  source_index: 53
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i14~15
+  recovery: r25 FC
+  block: '-7'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to FC'
+- id: bp1_4
+  source_id: Eddy-b+1,4
+  source_index: 54
+  command: b+1,4
+  name: ''
+  hit_level: m, m
+  damage: 15, 10
+  startup: i14~15, i25~27
+  recovery: r30 HSP
+  block: '-8'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Transition to HSP
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i10 from 1st block
+
+    * Floating state 19~57'
+- id: bp1_4_3
+  source_id: Eddy-b+1,4,3
+  source_index: 55
+  command: b+1,4,3
+  name: ''
+  hit_level: m, m, m
+  damage: 15, 10, 8
+  startup: i14~15, ,i23~24
+  recovery: ''
+  block: '-13'
+  hit: -1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Combo from 1st CH or 2nd hit with 10F delay
+
+    * Interrupt with i3 from 1st block
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 10F
+
+    * Floating state 1~23'
+- id: bp1_4_3_3p4
+  source_id: Eddy-b+1,4,3,3+4
+  source_index: 56
+  command: b+1,4,3,3+4
+  name: "Gato > A\xFA do Sol"
+  hit_level: m, m, m, M,M
+  damage: 15, 10, 8, 7,20
+  startup: i14~15, ,i24~26
+  recovery: ''
+  block: '-12'
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Combo from 3rd CH with 5F delay
+
+    * Interrupt with i8 from 3rd block
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 11F
+
+    * Floating state 21~39'
+- id: bp1_4_3p4
+  source_id: Eddy-b+1,4,3+4
+  source_index: 57
+  command: b+1,4,3+4
+  name: "Gato > A\xFA da Lua"
+  hit_level: m, m, L
+  damage: 15, 10, 7,7
+  startup: i14~15, ,i22~24
+  recovery: ''
+  block: -24c
+  hit: '+12'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: '* Combo from 1st CH or 2nd hit with 3F delay
+
+    * Interrupt with i2 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 1~46
+
+    * High crush 10~54'
+- id: bp2
+  source_id: Eddy-b+2
+  source_index: 58
+  command: b+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r29
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: bp2_3
+  source_id: Eddy-b+2,3
+  source_index: 59
+  command: b+2,3
+  name: ''
+  hit_level: m, m
+  damage: 12, 13
+  startup: i15~16, i22~23
+  recovery: ''
+  block: '-11'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Interrupt with i1 from 1st block
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F'
+- id: bp2_3_3
+  source_id: Eddy-b+2,3,3
+  source_index: 60
+  command: b+2,3,3
+  name: Godeme > Combo Martelo
+  hit_level: m, m, M
+  damage: 12, 13, 25
+  startup: i15~16, ,i33~35
+  recovery: ''
+  block: '-14'
+  hit: +13a(-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 1F delay
+
+    * Interrupt with i12 from 2nd block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: bp2_4
+  source_id: Eddy-b+2,4
+  source_index: 61
+  command: b+2,4
+  name: Godeme > Calcanheira
+  hit_level: m, h
+  damage: 12, 23
+  startup: i15~16, i25~26
+  recovery: r34
+  block: '-7'
+  hit: +14a(+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Interrupt with i4 from 1st block
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F
+
+    * Low crush 19~23
+
+    * Floating state 24~26'
+- id: bp3
+  source_id: Eddy-b+3
+  source_index: 62
+  command: b+3
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r28
+  block: '-9'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: bp3_3
+  source_id: Eddy-b+3,3
+  source_index: 63
+  command: b+3,3
+  name: "Knee Thruster > Rel\xE2mpago"
+  hit_level: m, M
+  damage: 10, 21
+  startup: i13~14, i26~28
+  recovery: r27 RLX
+  block: '-15'
+  hit: +33a(+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i6 from 1st block'
+- id: bp4
+  source_id: Eddy-b+4
+  source_index: 64
+  command: b+4
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i21~22
+  recovery: r24
+  block: '+0'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: bp4_4
+  source_id: Eddy-b+4,4
+  source_index: 65
+  command: b+4,4
+  name: ''
+  hit_level: h, M,M
+  damage: 14, 6,6
+  startup: i21~22, i29~31
+  recovery: ''
+  block: '-9'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Cancel to HSP with F (-26/-18)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 15~40'
+- id: bp4_4_3
+  source_id: Eddy-b+4,4,3
+  source_index: 66
+  command: b+4,4,3
+  name: Leg Whip Mars Attack Flip
+  hit_level: h, M,M, M
+  damage: 14, 6,6, 10
+  startup: i21~22, ,i28~30
+  recovery: ''
+  block: +4c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Combo from 1st CH or 3rd hit with
+
+    * 3 Chip damage on block
+
+    * Low crush 8~27
+
+    * Floating state 28~30'
+- id: bp1p2
+  source_id: Eddy-b+1+2
+  source_index: 67
+  command: b+1+2
+  name: Back Bananeira
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r28 HSP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - parry
+  - stance_transition
+  notes: '* Auto low parry ps8?~ at Mandinga Level 1
+
+    ** Transition to Ogum Mandinga on successful parry
+
+    * Transition to HSP
+
+    * Floating state 14~61'
+- id: bp3p4
+  source_id: Eddy-b+3+4
+  source_index: 68
+  command: b+3+4
+  name: Lunging Brush Fire
+  hit_level: h
+  damage: '28'
+  startup: i20~21
+  recovery: ''
+  block: '-9'
+  hit: +21a(+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * +0 and 10 chip damage on block after attack absorption
+
+    * Power crush 7~19'
+- id: ubp3
+  source_id: Eddy-ub+3
+  source_index: 69
+  command: ub+3
+  name: Perna da Lua
+  hit_level: M
+  damage: '25'
+  startup: i31~33
+  recovery: ''
+  block: +4c
+  hit: +13a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: 7 Chip damage on block
+- id: ubp4
+  source_id: Eddy-ub+4
+  source_index: 70
+  command: ub+4
+  name: Satellite Moon
+  hit_level: m
+  damage: '12'
+  startup: i19~21
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Floating state 20~?'
+- id: up3
+  source_id: Eddy-u+3
+  source_index: 71
+  command: u+3
+  name: Acrobacia
+  hit_level: M
+  damage: '30'
+  startup: i38~42
+  recovery: ''
+  block: '+0'
+  hit: +5a(-5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '*
+
+    Balcony Break
+
+    * 9 chip damage on block
+
+    * Low crush 10~42?'
+- id: up4
+  source_id: Eddy-u+4
+  source_index: 72
+  command: u+4
+  name: Back Summy
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  notes: '* Transition to FC
+
+    * Low crush 7~'
+- id: up4_3
+  source_id: Eddy-u+4~3
+  source_index: 73
+  command: u+4~3
+  name: Back Summy > Chute Baixo
+  hit_level: L
+  damage: '20'
+  startup: i32~33
+  recovery: RLX
+  block: -14c
+  hit: '+18'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - low
+  notes: '* Balcony Break
+
+    * Transition to RLX
+
+    * Low crush 7?~'
+- id: up4_4
+  source_id: Eddy-u+4~4
+  source_index: 74
+  command: u+4~4
+  name: Back Summy > Chute Alto
+  hit_level: h
+  damage: '27'
+  startup: i18~20
+  recovery: ''
+  block: '+8'
+  hit: +42d(-16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - high
+  notes: 'Balcony Break
+
+    * Low crush 7?~'
+- id: up1p2
+  source_id: Eddy-u+1+2
+  source_index: 75
+  command: u+1+2
+  name: Vassoura
+  hit_level: h
+  damage: '20'
+  startup: i16~17
+  recovery: ''
+  block: '+0'
+  hit: +18d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - high
+  notes: '* Low crush 9~'
+- id: ufp1
+  source_id: Eddy-uf+1
+  source_index: 76
+  command: uf+1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14~15
+  recovery: r29
+  block: '-5'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ufp1_3
+  source_id: Eddy-uf+1,3
+  source_index: 77
+  command: uf+1,3
+  name: "Ox\xF3ssi"
+  hit_level: m, m
+  damage: 12, 23
+  startup: i14~15, i29~30
+  recovery: r33
+  block: '-13'
+  hit: +10a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Mandinga level increases by 1 on hit
+
+    * becomes -2a (-11) on hit when Mandinga level increases
+
+    * Cancel and transition to -12, -22 HSP with F'
+- id: ufp1_4
+  source_id: Eddy-uf+1,4
+  source_index: 78
+  command: uf+1,4
+  name: Oxum
+  hit_level: m, h
+  damage: 12, 25
+  startup: i14~15, i29~30
+  recovery: r31
+  block: '-8'
+  hit: +11g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Low crush 18~?'
+- id: ufp2
+  source_id: Eddy-uf+2
+  source_index: 79
+  command: uf+2
+  name: Asfixiante
+  hit_level: m
+  damage: '21'
+  startup: i22~23
+  recovery: ''
+  block: '-13'
+  hit: +32a(+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: Balcony Break
+- id: ufp3
+  source_id: Eddy-uf+3
+  source_index: 80
+  command: uf+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i26~28
+  recovery: ''
+  block: -10c
+  hit: -8c
+  counter_hit: +12a
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Transition to HSP with input F (-14/-12/+8a)
+
+    * Low crush 13~'
+- id: ufp3_3
+  source_id: Eddy-uf+3,3
+  source_index: 81
+  command: uf+3,3
+  name: Jumping Jacks Mirage
+  hit_level: m, m
+  damage: 15, 20
+  startup: i26~28, i21~24
+  recovery: ''
+  block: '-18'
+  hit: +31a(+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: Tornado
+- id: ufp3_4
+  source_id: Eddy-uf+3,4
+  source_index: 82
+  command: uf+3,4
+  name: Armada Pulada > Baixo
+  hit_level: m, L
+  damage: 15, 10
+  startup: i26~28, i24~25
+  recovery: FC
+  block: -14c
+  hit: '+7'
+  counter_hit: +73a(+57)
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: ''
+- id: ufp4
+  source_id: Eddy-uf+4
+  source_index: 83
+  command: uf+4
+  name: "Chapa Girat\xF3ria"
+  hit_level: m
+  damage: '20'
+  startup: i22~24
+  recovery: ''
+  block: '-9'
+  hit: '+12'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Transition to RLX on hit
+
+    * Low crush 9~'
+- id: ufp3p4
+  source_id: Eddy-uf+3+4
+  source_index: 84
+  command: uf+3+4
+  name: Meia-Lua Pulando
+  hit_level: m,h
+  damage: 10,14
+  startup: i17~18
+  recovery: ''
+  block: '-13'
+  hit: +32a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * +20a if only the 2nd hit connects
+
+    * Low crush 15~'
+- id: 1p2p3p4
+  source_id: Eddy-1+2+3+4
+  source_index: 85
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_bp2p3
+  source_id: Eddy-b,B+2+3
+  source_index: 86
+  command: b,B+2+3
+  name: Fruit Picker
+  hit_level: m!
+  damage: 25,30
+  startup: i77~79
+  recovery: ''
+  block: ''
+  hit: -37a(-46)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Can cancel with input b,B+2+3,b,b'
+- id: b_ub
+  source_id: Eddy-b,ub
+  source_index: 87
+  command: b,ub
+  name: Flic Flac
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: RLX
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  notes: '* Transition to RLX
+
+    * Low crush 10?~'
+- id: ffp3
+  source_id: Eddy-f,F+3
+  source_index: 88
+  command: f,F+3
+  name: Terremoto
+  hit_level: L
+  damage: '20'
+  startup: i21~22
+  recovery: FC
+  block: -14c
+  hit: +6c
+  counter_hit: +15c
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to RLX on hit
+
+    * Transition to FC on block or whiff
+
+    * High crush 15~33'
+- id: ffp4
+  source_id: Eddy-f,F+4
+  source_index: 89
+  command: f,F+4
+  name: Folha Ataque
+  hit_level: M
+  damage: '25'
+  startup: i19~20
+  recovery: HSP
+  block: '-12'
+  hit: +37a(+27)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transition to HSP
+
+    * Low crush 12~26?'
+- id: ffp3p4
+  source_id: Eddy-f,F+3+4
+  source_index: 90
+  command: f,F+3+4
+  name: Roda Gigante
+  hit_level: m,M
+  damage: 10,20
+  startup: i23~24
+  recovery: ''
+  block: '+5'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Cancel to r18 HSP with n,f at frame 17
+
+    * 6 Chip damage on block
+
+    * Floating state 8~'
+- id: qcbp4
+  source_id: Eddy-qcb+4
+  source_index: 91
+  command: qcb+4
+  name: Voragem
+  hit_level: h
+  damage: '25'
+  startup: i21~22
+  recovery: r30
+  block: '+3'
+  hit: +34a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Mandinga level increases on hit
+
+    * Becomes +19a (-7) on hit when Mandinga level increases
+
+    * 7 chip damage on block
+
+    * Low crush 10~21'
+- id: uf_n_4
+  source_id: Eddy-uf,n,4
+  source_index: 92
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: ''
+  block: '-13'
+  hit: +32a(+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: f_ffp3
+  source_id: Eddy-f,f,F+3
+  source_index: 93
+  command: f,f,F+3
+  name: "Trov\xE3o"
+  hit_level: m
+  damage: '30'
+  startup: i25~27
+  recovery: ''
+  block: '+8'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Transition to HSP on block
+
+    * 9 Chip damage on block
+
+    * Low crush 9~'
+- id: ws1
+  source_id: Eddy-ws1
+  source_index: 94
+  command: ws1
+  name: ''
+  hit_level: h
+  damage: '6'
+  startup: i13~14
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - high
+  notes: '* Elbow'
+- id: ws1_3
+  source_id: Eddy-ws1,3
+  source_index: 95
+  command: ws1,3
+  name: "Fuzila\xE7\xE3o"
+  hit_level: h, M
+  damage: 6, 14
+  startup: i13~14, i19~21
+  recovery: RLX
+  block: '-15'
+  hit: +38a(+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to RLX
+
+    * Combo from 1st hit'
+- id: ws1_4
+  source_id: Eddy-ws1,4
+  source_index: 96
+  command: ws1,4
+  name: Chapeu de Couro
+  hit_level: h, h
+  damage: 6, 23
+  startup: i13~14, i23~25
+  recovery: ''
+  block: '-7'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Combos from 1st hit'
+- id: ws2
+  source_id: Eddy-ws2
+  source_index: 97
+  command: ws2
+  name: Machado
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: ''
+  block: '-18'
+  hit: '+51'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: ws3
+  source_id: Eddy-ws3
+  source_index: 98
+  command: ws3
+  name: Martelo
+  hit_level: M
+  damage: '20'
+  startup: i19~21
+  recovery: ''
+  block: '-13'
+  hit: +72a(+56)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: Tornado
+- id: ws4
+  source_id: Eddy-ws4
+  source_index: 99
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i11~13
+  recovery: ''
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4_4
+  source_id: Eddy-ws4,4
+  source_index: 100
+  command: ws4,4
+  name: ''
+  hit_level: m, h
+  damage: 13, 10
+  startup: i11~13, i26~27
+  recovery: ''
+  block: '-4'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combos from 1st hit
+- id: ws4_4_4
+  source_id: Eddy-ws4,4,4
+  source_index: 101
+  command: ws4,4,4
+  name: ''
+  hit_level: m, h, M,M
+  damage: 13, 10, 6,6
+  startup: i11~13, ,i29~31
+  recovery: ''
+  block: '-9'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Cancel to HSP with F (-28/-16)'
+- id: ws4_4_4_3
+  source_id: Eddy-ws4,4,4,3
+  source_index: 102
+  command: ws4,4,4,3
+  name: Tempestade
+  hit_level: m, h, M,M, M
+  damage: 13, 10, 6,6, 10
+  startup: i11~13, ,i28~30
+  recovery: ''
+  block: +4c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  - high
+  notes: '* Combos from 3rd hit
+
+    * 3 Chip damage on block'
+- id: ws3p4
+  source_id: Eddy-ws3+4
+  source_index: 103
+  command: ws3+4
+  name: Front Stinger
+  hit_level: M
+  damage: '20'
+  startup: i25~27
+  recovery: RLX
+  block: +5c
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Transition to RLX
+
+    * 6 chip damage on block
+
+    * Floating state 12~30'
+- id: ss_3
+  source_id: Eddy-SS.3
+  source_index: 104
+  command: SS.3
+  name: Hot Plate Special
+  hit_level: m
+  damage: '17'
+  startup: i25~26
+  recovery: RLX
+  block: '+0'
+  hit: '+8'
+  counter_hit: +15c
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - mid
+  notes: '* Transition to RLX
+
+    * Cancel to RLX with D
+
+    * High crush 6~54'
+- id: ss_4
+  source_id: Eddy-SS.4
+  source_index: 105
+  command: SS.4
+  name: Troca Baixa
+  hit_level: L,L
+  damage: 7,10
+  startup: i21~22
+  recovery: ''
+  block: -13c
+  hit: +3c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~31'
+- id: ss_3p4
+  source_id: Eddy-SS.3+4
+  source_index: 106
+  command: SS.3+4
+  name: "Fa\xEDsca"
+  hit_level: h,h
+  damage: 6,10
+  startup: i14~15
+  recovery: FC
+  block: '-7'
+  hit: +31a(+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - cs?
+  - low_crush
+  - high_crush
+  - stance_transition
+  - high
+  notes: '* Transition to FC
+
+    * Low crush 11~30
+
+    * Floating state 31~?
+
+    * High crush ?~?'
+- id: fc_4
+  source_id: Eddy-FC.4
+  source_index: 107
+  command: FC.4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i13
+  recovery: FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Hits grounded up-close'
+- id: fc_dfp3
+  source_id: Eddy-FC.df+3
+  source_index: 108
+  command: FC.df+3
+  name: Gafanhoto
+  hit_level: m
+  damage: '20'
+  startup: i22~23
+  recovery: RLX
+  block: '+6'
+  hit: +9c
+  counter_hit: +41a
+  tier: specialist
+  tags:
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Transition to RLX
+
+    * 6 Chip damage on block'
+- id: fc_dfp4
+  source_id: Eddy-FC.df+4
+  source_index: 109
+  command: FC.df+4
+  name: Tornada
+  hit_level: L
+  damage: '25'
+  startup: i24~25
+  recovery: HSP
+  block: -21c
+  hit: '+9'
+  counter_hit: +30a
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - low
+  notes: '* Transition to HSP
+
+    * Floating state 26~'
+- id: back_to_wall_b_b_ub
+  source_id: Eddy-(back to wall).b,b,UB
+  source_index: 110
+  command: (back to wall).b,b,UB
+  name: Wall Jump Backflip
+  hit_level: m
+  damage: '21'
+  startup: i35~38
+  recovery: r17 BT
+  block: '+1'
+  hit: +34d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - is
+  - js
+  - low_crush
+  - mid
+  notes: '* Floating state 5~7
+
+    * is8~24
+
+    * Floating state 25~33
+
+    * Low crush 34~37
+
+    * Floating state 38~40'
+- id: fuft_bp3p4
+  source_id: Eddy-FUFT.b+3+4
+  source_index: 111
+  command: FUFT.b+3+4
+  name: Whirling Spring Kick
+  hit_level: m
+  damage: '25'
+  startup: i16-28
+  recovery: ''
+  block: -15~-27
+  hit: +2a(-10~)+18a(+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  - mid
+  notes: '* Floating state 1~11
+
+    * Low crush 12~'
+- id: hsp_1
+  source_id: Eddy-HSP.1
+  source_index: 112
+  command: HSP.1
+  name: Godeme Trovoada
+  hit_level: M
+  damage: '21'
+  startup: i23~25
+  recovery: r33 RLX
+  block: '+6'
+  hit: +8c
+  counter_hit: +19d
+  tier: specialist
+  tags:
+  - elb
+  - fs
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Elbow
+
+    * Transition to RLX
+
+    * 6 Chip damage on block
+
+    * Floating state 1~12'
+- id: hsp_2
+  source_id: Eddy-HSP.2
+  source_index: 113
+  command: HSP.2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r27
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Floating state 1~9'
+- id: hsp_2_3
+  source_id: Eddy-HSP.2,3
+  source_index: 114
+  command: HSP.2,3
+  name: "Combo Escor\xE3o"
+  hit_level: m, m
+  damage: 15, 23
+  startup: i17~18, i26~27
+  recovery: ''
+  block: '-13'
+  hit: +10a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 10F delay
+
+    * Mandinga level increases by 1 on hit
+
+    * Becomes -2(-11) on hit when gaining Mandinga
+
+    * Cancel to r25 HSP with F at frame 18 (-24/-8)
+
+    * Move can be delayed by 9F'
+- id: hsp_3
+  source_id: Eddy-HSP.3
+  source_index: 115
+  command: HSP.3
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i17~18
+  recovery: ''
+  block: '-8'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - cs
+  - high_crush
+  - mid
+  notes: '* Floating state 1~5
+
+    * High crush 6~18'
+- id: hsp_3_3
+  source_id: Eddy-HSP.3,3
+  source_index: 116
+  command: HSP.3,3
+  name: ''
+  hit_level: m, h
+  damage: 10, 10
+  startup: i17~18, i27~28
+  recovery: ''
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combos from 1st hit
+- id: hsp_3_3_3
+  source_id: Eddy-HSP.3,3,3
+  source_index: 117
+  command: HSP.3,3,3
+  name: Enxurrada
+  hit_level: m, h, h
+  damage: 10, 10, 23
+  startup: i17~18, ,i30~31
+  recovery: RLX
+  block: '-5'
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - stance_transition
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Transition to RLX
+
+    * Combo from 1st CH with 4F delay
+
+    * Move can be delayed by 7F'
+- id: hsp_4
+  source_id: Eddy-HSP.4
+  source_index: 118
+  command: HSP.4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i12~13
+  recovery: r23 HSP
+  block: '-1'
+  hit: '+10'
+  counter_hit: +31a
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Transition to HSP
+
+    * Floating state 1~36?'
+- id: hsp_4_2
+  source_id: Eddy-HSP.4,2
+  source_index: 119
+  command: HSP.4,2
+  name: "Lan\xE7a de Bra\xE7o"
+  hit_level: m, m
+  damage: 10, 21
+  startup: i12~13, i23~24
+  recovery: ''
+  block: '-13'
+  hit: +12a(+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - fs
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Floating state 1~9?'
+- id: hsp_4_2_3
+  source_id: Eddy-HSP.4,2~3
+  source_index: 120
+  command: HSP.4,2~3
+  name: Salto Yotori
+  hit_level: m, M
+  damage: 10, 20
+  startup: i12~13, i28~30
+  recovery: ''
+  block: +4c
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  notes: "* Combo from 1st CH\n* 6 chip damage on block\n* Low crush \n* Floating\
+    \ state"
+- id: hsp_1p2
+  source_id: Eddy-HSP.1+2
+  source_index: 121
+  command: HSP.1+2
+  name: "Cabe\xE7ada Direta"
+  hit_level: m
+  damage: '20'
+  startup: i22~23
+  recovery: ''
+  block: '-12'
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - hed
+  - fs
+  - pc
+  - power_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Head
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Floating state 1~?
+
+    * Power crush 7~21'
+- id: hsp_bp3
+  source_id: Eddy-HSP.b+3
+  source_index: 122
+  command: HSP.b+3
+  name: Chapa Esquivando
+  hit_level: m
+  damage: '20'
+  startup: i36~37
+  recovery: ''
+  block: '-12'
+  hit: +13a
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Floating state 36?'
+- id: hsp_n_d
+  source_id: Eddy-HSP.n,d
+  source_index: 123
+  command: HSP.n,d
+  name: Bananeira > Negativa
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 RLX
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to RLX
+
+    * Floating state 1~10?
+
+    * High crush 6?~'
+- id: hsp_n_f
+  source_id: Eddy-HSP.n,f
+  source_index: 124
+  command: HSP.n,f
+  name: Bananeira > Move Forward
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r28? HSP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  notes: '* Transition to HSP
+
+    * Floating state 1~'
+- id: md1_hsp_3p4
+  source_id: Eddy-MD1.HSP.3+4
+  source_index: 125
+  command: MD1.HSP.3+4
+  name: Yansan Mandinga
+  hit_level: L,m,m
+  damage: 6,6,18
+  startup: i21~22
+  recovery: ''
+  block: '-14'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  notes: '* Low crush 28?~'
+- id: md1_hsp_bp4
+  source_id: Eddy-MD1.HSP.b+4
+  source_index: 126
+  command: MD1.HSP.b+4
+  name: Ogum Mandinga
+  hit_level: m
+  damage: '23'
+  startup: i23~25
+  recovery: ''
+  block: '+5'
+  hit: +15d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Transition to RLX with D
+
+    * 7 chip damage on block
+
+    * Low crush 9~'
+- id: md2_hsp_3p4
+  source_id: Eddy-MD2.HSP.3+4
+  source_index: 127
+  command: MD2.HSP.3+4
+  name: Yansan Mandinga
+  hit_level: L,m,m
+  damage: 16,6,24
+  startup: i21~22
+  recovery: ''
+  block: '-14'
+  hit: +18a(-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - low
+  - mid
+  notes: 'Floor Break
+
+    * Low crush 28?~'
+- id: md2_hsp_bp4
+  source_id: Eddy-MD2.HSP.b+4
+  source_index: 128
+  command: MD2.HSP.b+4
+  name: Ogum Mandinga
+  hit_level: m
+  damage: '23'
+  startup: i23~25
+  recovery: ''
+  block: '+5'
+  hit: +36a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Transition to RLX with D
+
+    * 7 chip damage on block
+
+    * Low crush 9~'
+- id: rlx_1
+  source_id: Eddy-RLX.1
+  source_index: 129
+  command: RLX.1
+  name: ''
+  hit_level: L
+  damage: '11'
+  startup: i14
+  recovery: ''
+  block: -11c
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to FC with D
+
+    * High crush 1~19'
+- id: rlx_1_3
+  source_id: Eddy-RLX.1,3
+  source_index: 130
+  command: RLX.1,3
+  name: Terra Gafanhoto
+  hit_level: L, m
+  damage: 11, 17
+  startup: i14, i25~26
+  recovery: RLX
+  block: '-14'
+  hit: +5c
+  counter_hit: +7a
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - mid
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 5F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: rlx_2
+  source_id: Eddy-RLX.2
+  source_index: 131
+  command: RLX.2
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i18~19
+  recovery: ''
+  block: '-2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: rlx_2_4
+  source_id: Eddy-RLX.2,4
+  source_index: 132
+  command: RLX.2,4
+  name: ''
+  hit_level: m, h
+  damage: 16, 17
+  startup: i18~19, i29~30
+  recovery: ''
+  block: '-5'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Transition to RLX with D (+3/+10)'
+- id: rlx_2_4_4
+  source_id: Eddy-RLX.2,4,4
+  source_index: 133
+  command: RLX.2,4,4
+  name: "Mar\xE9 Cheia"
+  hit_level: m, h, m
+  damage: 16, 17, 25
+  startup: i18~19, ,i32~33
+  recovery: ''
+  block: '-14'
+  hit: +15a(+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: Balcony Break
+- id: rlx_3
+  source_id: Eddy-RLX.3
+  source_index: 134
+  command: RLX.3
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i16~17
+  recovery: FC
+  block: -26c
+  hit: '-4'
+  counter_hit: +27a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to FC
+
+    * High crush 1~50'
+- id: rlx_3_3
+  source_id: Eddy-RLX.3,3
+  source_index: 135
+  command: RLX.3,3
+  name: "Iemanj\xE1"
+  hit_level: L, h
+  damage: 12, 30
+  startup: i16~17, i25~26
+  recovery: ''
+  block: '-13'
+  hit: +12a (+3) / +7a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st clean hit
+
+    * Jails from 1st hit
+
+    * +7a (+6) from 1st clean hit
+
+    * Mandinga level increases by 1 on hit
+
+    ** Becomes -3a (-6) on 2nd hit when gaining Mandinga'
+- id: rlx_4
+  source_id: Eddy-RLX.4
+  source_index: 136
+  command: RLX.4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15~16
+  recovery: FC
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to FC'
+- id: rlx_4_3
+  source_id: Eddy-RLX.4,3
+  source_index: 137
+  command: RLX.4,3
+  name: Chibata Ardente
+  hit_level: m, m
+  damage: 14, 25
+  startup: i15~16, i28~30
+  recovery: ''
+  block: '-13'
+  hit: +16a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 8F
+
+    * Low crush 16~34
+
+    * Floating state 35~37'
+- id: rlx_4_3p4
+  source_id: Eddy-RLX.4,3+4
+  source_index: 138
+  command: RLX.4,3+4
+  name: Chibata Avalanche
+  hit_level: m, m
+  damage: 14, 27
+  startup: i15~16, i34~36
+  recovery: r31
+  block: '-13'
+  hit: +22a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 5f delay
+
+    * Move can be delayed by 8f
+
+    * Cancel to HSP -21 -5 r23 with F
+
+    * Floating state 1~20
+
+    * Low crush 21~40
+
+    * Floating state 41~43'
+- id: rlx_1p2
+  source_id: Eddy-RLX.1+2
+  source_index: 139
+  command: RLX.1+2
+  name: "Cabe\xE7ada Fixa"
+  hit_level: m
+  damage: '25'
+  startup: i18~19
+  recovery: ''
+  block: '-8'
+  hit: +25a(+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hed
+  - cs
+  - high_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Head
+
+    * 7 chip damage on block
+
+    * High crush 1~17'
+- id: rlx_3p4
+  source_id: Eddy-RLX.3+4
+  source_index: 140
+  command: RLX.3+4
+  name: Troca e Ataque
+  hit_level: M
+  damage: '24'
+  startup: i17~18
+  recovery: r42?
+  block: '-18'
+  hit: +29a(+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - fs
+  - tornado
+  - mid
+  notes: 'Tornado
+
+    * Floating state 1~56'
+- id: rlx_n_d
+  source_id: Eddy-RLX.n,d
+  source_index: 141
+  command: RLX.n,d
+  name: Negativa > Bananeira
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r27 HSP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to HSP'
+- id: rlx_n_f
+  source_id: Eddy-RLX.n,f
+  source_index: 142
+  command: RLX.n,f
+  name: Negativa > Move Forward
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r27 RLX
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to RLX
+
+    * Recover in FC after 48F?'
+- id: 1p3
+  source_id: Eddy-1+3
+  source_index: 143
+  command: 1+3
+  name: Rio Deal
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-5'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  - high
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2'
+- id: 2p4
+  source_id: Eddy-2+4
+  source_index: 144
+  command: 2+4
+  name: Rio Special
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  - high
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2
+
+    * Sideswitch on break'
+- id: back_throw
+  source_id: Eddy-Back throw
+  source_index: 145
+  command: Back throw
+  name: Back Rodeo Spin
+  hit_level: th(h)
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Throw break: none'
+- id: hsp_1p3
+  source_id: Eddy-HSP.1+3
+  source_index: 146
+  command: HSP.1+3
+  name: Batucada
+  hit_level: th(h)
+  damage: '26'
+  startup: i23~24
+  recovery: HSP
+  block: ''
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  - high
+  notes: '* Throw break: none
+
+    * Transition to RLX on hit'
+- id: left_throw
+  source_id: Eddy-Left throw
+  source_index: 147
+  command: Left throw
+  name: Missile Launcher
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Throw break: 1'
+- id: rlx_ufp1p2
+  source_id: Eddy-RLX.uf+1+2
+  source_index: 148
+  command: RLX.uf+1+2
+  name: Rodeo Spin
+  hit_level: th(h)
+  damage: '40'
+  startup: i17~18
+  recovery: ''
+  block: '-6'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Throw break: 1+2
+
+    * Sideswitch on break'
+- id: right_throw
+  source_id: Eddy-Right throw
+  source_index: 149
+  command: Right throw
+  name: Shadow Dancer
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Throw break: 2'
+- id: dp1p3
+  source_id: Eddy-d+1+3
+  source_index: 150
+  command: d+1+3
+  name: Vingativa Zanga
+  hit_level: th(m)
+  damage: '30'
+  startup: i12~13
+  recovery: ''
+  block: ''
+  hit: '-5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - throw
+  - heat
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Throw break: none'
+- id: dp2p4
+  source_id: Eddy-d+2+4
+  source_index: 151
+  command: d+2+4
+  name: Vingativa Funeral
+  hit_level: th(m)
+  damage: '35'
+  startup: i12~13
+  recovery: ''
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  - high
+  notes: 'Throw break: none'
+- id: ufp1p2
+  source_id: Eddy-uf+1+2
+  source_index: 152
+  command: uf+1+2
+  name: Cabra Macaco Throw
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-6'
+  hit: -4(-34)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Throw break: 1+2'

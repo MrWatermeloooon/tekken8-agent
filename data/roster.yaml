@@ -1,0 +1,49 @@
+schema_version: 1
+as_of: 2026-07-21
+source: https://tekken.com/fighters
+playable_count: 42
+announced_unreleased:
+  - roger-jr
+characters:
+  - {id: 0, slug: kazuya, name: Kazuya Mishima, groups: [fundamentals, specialist], specialty: mishima_wavedash, sidestep: left, signatures: [electric_wind_god_fist, hellsweep, devil_form]}
+  - {id: 1, slug: jin, name: Jin Kazama, groups: [fundamentals, specialist], specialty: complete_toolkit, sidestep: right, signatures: [electric_wind_hook_fist, zen_stance, parry]}
+  - {id: 2, slug: king, name: King, groups: [grappler, specialist], specialty: chain_throws, sidestep: right, signatures: [giant_swing, shining_wizard, jaguar_step]}
+  - {id: 3, slug: jun, name: Jun Kazama, groups: [fundamentals, stance_heavy], specialty: kazama_purification, sidestep: right, signatures: [genjitsu, izumo, health_spending_attacks]}
+  - {id: 4, slug: paul, name: Paul Phoenix, groups: [fundamentals, keep_out], specialty: explosive_damage, sidestep: right, signatures: [deathfist, demolition_man, backsway]}
+  - {id: 5, slug: law, name: Marshall Law, groups: [rushdown, stance_heavy], specialty: nunchaku_pressure, sidestep: right, signatures: [dragon_sign_stance, slide_mixup, junkyard]}
+  - {id: 6, slug: jack-8, name: Jack-8, groups: [keep_out, specialist], specialty: long_range_power, sidestep: left, signatures: [gamma_howl, debugger, charged_attacks]}
+  - {id: 7, slug: lars, name: Lars Alexandersson, groups: [rushdown, stance_heavy], specialty: dynamic_entry_pressure, sidestep: right, signatures: [dynamic_entry, silent_entry, limited_entry]}
+  - {id: 8, slug: xiaoyu, name: Ling Xiaoyu, groups: [stance_heavy, evasive], specialty: evasive_stances, sidestep: left, signatures: [art_of_phoenix, rain_dance, hypnotist]}
+  - {id: 9, slug: nina, name: Nina Williams, groups: [rushdown, specialist], specialty: pressure_cancels, sidestep: right, signatures: [sway_cancels, chain_throws, guns]}
+  - {id: 10, slug: leroy, name: Leroy Smith, groups: [fundamentals, specialist], specialty: parry_pressure, sidestep: right, signatures: [hermit_stance, cane, wing_chun_parry]}
+  - {id: 11, slug: asuka, name: Asuka Kazama, groups: [keep_out, evasive], specialty: defensive_reversals, sidestep: right, signatures: [reversal, sabaki, falling_rain]}
+  - {id: 12, slug: lili, name: Lili, groups: [movement, evasive], specialty: lateral_evasion, sidestep: left, signatures: [dew_glide, backturn, matterhorn]}
+  - {id: 13, slug: bryan, name: Bryan Fury, groups: [keep_out, counter_hit], specialty: counter_hit_pressure, sidestep: right, signatures: [taunt, snake_edge, mach_kick]}
+  - {id: 14, slug: hwoarang, name: Hwoarang, groups: [rushdown, stance_heavy], specialty: flamingo_pressure, sidestep: left, signatures: [left_flamingo, right_flamingo, backlash]}
+  - {id: 15, slug: claudio, name: Claudio Serafino, groups: [fundamentals, keep_out], specialty: starburst, sidestep: left, signatures: [starburst, running_mid, hopkick]}
+  - {id: 16, slug: azucena, name: Azucena Milagros Ortiz Castillo, groups: [rushdown, stance_heavy], specialty: auto_evasion_stances, sidestep: right, signatures: [libertador, backturn, running_pressure]}
+  - {id: 17, slug: raven, name: Raven, groups: [stance_heavy, evasive], specialty: clone_mixups, sidestep: left, signatures: [soulzone, backturn, shadow_clone]}
+  - {id: 18, slug: leo, name: Leo Kliesen, groups: [fundamentals, stance_heavy], specialty: bajiquan_transitions, sidestep: right, signatures: [bok, knk, qcf_pressure]}
+  - {id: 19, slug: steve, name: Steve Fox, groups: [counter_hit, stance_heavy], specialty: boxing_counter_hits, sidestep: left, signatures: [flicker, peekaboo, lionheart]}
+  - {id: 20, slug: kuma, name: Kuma, groups: [evasive, specialist], specialty: bear_mixups, sidestep: right, signatures: [hunting_bear_stance, bear_roll, salmon]}
+  - {id: 21, slug: yoshimitsu, name: Yoshimitsu, groups: [stance_heavy, evasive, specialist], specialty: unconventional_evasion, sidestep: left, signatures: [flash, flea, meditation]}
+  - {id: 22, slug: shaheen, name: Shaheen, groups: [fundamentals, movement], specialty: slide_pressure, sidestep: right, signatures: [slide, stealth_step, guard_break]}
+  - {id: 23, slug: dragunov, name: Sergei Dragunov, groups: [rushdown, fundamentals], specialty: plus_frame_pressure, sidestep: right, signatures: [running_two, sneak, command_grab]}
+  - {id: 24, slug: feng, name: Feng Wei, groups: [fundamentals, evasive], specialty: evasive_pokes, sidestep: left, signatures: [kenpo, shifting_cloud, shoulder]}
+  - {id: 25, slug: panda, name: Panda, groups: [evasive, specialist], specialty: bear_mixups, sidestep: right, signatures: [hunting_bear_stance, bear_roll, shooting_star]}
+  - {id: 26, slug: lee, name: Lee Chaolan, groups: [fundamentals, counter_hit], specialty: execution_punishment, sidestep: left, signatures: [mist_step, hitman, just_frames]}
+  - {id: 27, slug: alisa, name: Alisa Bosconovitch, groups: [keep_out, movement], specialty: chainsaw_pressure, sidestep: right, signatures: [destructive_form, boot, dual_boot]}
+  - {id: 28, slug: zafina, name: Zafina, groups: [stance_heavy, evasive], specialty: stance_evasion, sidestep: left, signatures: [scarecrow, mantis, tarantula]}
+  - {id: 29, slug: devil-jin, name: Devil Jin, groups: [fundamentals, specialist], specialty: mishima_flight, sidestep: left, signatures: [electric_wind_god_fist, hellsweep, mourning_crow]}
+  - {id: 30, slug: victor, name: Victor Chevalier, groups: [keep_out, stance_heavy], specialty: weapon_teleports, sidestep: right, signatures: [iai_stance, perfumer, expulsion]}
+  - {id: 31, slug: reina, name: Reina, groups: [rushdown, stance_heavy, specialist], specialty: taido_mishima_pressure, sidestep: left, signatures: [sentai, heavens_wrath, electric_wind_god_fist]}
+  - {id: 32, slug: eddy, name: Eddy Gordo, groups: [stance_heavy, evasive], specialty: capoeira_mixups, sidestep: right, signatures: [negativa, handstand, mandinga]}
+  - {id: 33, slug: lidia, name: Lidia Sobieska, groups: [rushdown, stance_heavy], specialty: political_storm_stances, sidestep: right, signatures: [horse_stance, wolf_stance, heaven_and_earth]}
+  - {id: 34, slug: heihachi, name: Heihachi Mishima, groups: [fundamentals, specialist], specialty: warrior_instinct, sidestep: left, signatures: [electric_wind_god_fist, omen, warrior_instinct]}
+  - {id: 35, slug: clive, name: Clive Rosfield, groups: [keep_out, specialist], specialty: eikonic_abilities, sidestep: right, signatures: [phoenix_shift, zantetsuken, ranged_magic]}
+  - {id: 36, slug: anna, name: Anna Williams, groups: [rushdown, stance_heavy], specialty: chaos_judgment_mixups, sidestep: left, signatures: [chaos_judgment, crouch_mixup, chain_throws]}
+  - {id: 37, slug: fahkumram, name: Fahkumram, groups: [keep_out, rushdown], specialty: muay_thai_guard_breaks, sidestep: right, signatures: [charged_guard_break, long_range_kicks, clinch]}
+  - {id: 38, slug: armor-king, name: Armor King, groups: [grappler, fundamentals], specialty: strike_throw_wrestling, sidestep: right, signatures: [dark_upper, giant_swing, shadow_step]}
+  - {id: 39, slug: miary-zo, name: Miary Zo, groups: [stance_heavy, specialist], specialty: moraingy_pressure, sidestep: left, signatures: [moraingy_stance, animal_mimicry, rhythm_pressure]}
+  - {id: 40, slug: kunimitsu, name: Kunimitsu, groups: [movement, evasive, specialist], specialty: ninja_teleports, sidestep: left, signatures: [setsunagake, kunai, teleport]}
+  - {id: 41, slug: bob, name: Bob, groups: [rushdown, movement], specialty: speed_and_weight, sidestep: right, signatures: [spinner_ball, wavedash, belly_pressure]}

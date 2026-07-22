@@ -1,0 +1,2186 @@
+schema_version: 1
+character_id: 3
+character: jun
+display_name: Jun Kazama
+groups:
+- fundamentals
+- stance_heavy
+specialty: kazama_purification
+sidestep_tendency: right
+signature_mechanics:
+- genjitsu
+- izumo
+- health_spending_attacks
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/jun/framedata
+important_punishable_moves:
+- id: izu_4
+  command: IZU.4
+  hit_level: L
+  startup: i19
+  block: '-37'
+  notes: '* High crush 13~'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l,h
+  startup: i14 i24~27
+  block: '-25'
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st attack
+
+    * -6 only if 2nd hit is blocked
+
+    * Low crush 5~27
+
+    * Floating state 28~30'
+- id: 1p4_2_dp4
+  command: 1+4,2,d+4
+  hit_level: SL,h, h, L
+  startup: i14 i17, ,i24~25
+  block: -23~-22
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
+- id: ws3p4
+  command: ws3+4
+  hit_level: m
+  startup: i18~19
+  block: '-21'
+  notes: 'Tornado
+
+    * Floating state 15~36'
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i16~18
+  block: '-20'
+  notes: '* Low crush 10~40
+
+    * Floating state 41~43'
+- id: ws1_4_1p2
+  command: ws1,4,1+2
+  hit_level: h, m, m
+  startup: i12~13, ,i25~26
+  block: '-20'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH'
+- id: mia_2
+  command: MIA.2
+  hit_level: sm
+  startup: i16
+  block: '-20'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * DA: Range increases to 4.0
+
+    * Deals 8 (DA:11) chip damage on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 Kaza'
+- id: bp3
+  command: b+3
+  hit_level: m
+  startup: i16~17
+  block: -19~-18
+  notes: '* Low crush 10~37
+
+    * Floating state 38~40'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: sl,m
+  startup: i10 i25~26
+  block: '-19'
+  notes: '* Deals 18 damage to self (12 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit, t74 both hits
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
+
+    * High crush 1~'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i21
+  block: '-19'
+  notes: '* Clean hit +10a, 15 damage
+
+    * Opponent recovers FDFA on CL
+
+    * High crush 1~47'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp2
+  command: f+2
+  hit_level: M
+  startup: i17~18
+  block: '-18'
+  notes: Cancel to r26 FC with D
+- id: ws1_4_2
+  command: ws1,4,2
+  hit_level: h, m, L
+  startup: i12~13, ,i23~24
+  block: '-16'
+  notes: '* Spike
+
+    * Combo from 2nd CH
+
+    * High crush 17~'
+- id: 1p4_2_4
+  command: 1+4,2,4
+  hit_level: SL,h, h, m
+  startup: i14 i17, ,i24
+  block: '-15'
+  notes: Combo from 3rd CH
+- id: dbp1_1_1p2
+  command: db+1,1,1+2
+  hit_level: m, m, m,m,m
+  startup: i15~16, ,i17 i26 i49
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Combo from any hit
+
+    * Restores 4 health and 4 recoverable
+
+    * Unparryable
+
+    * Gain 10 Kazama Essence on normal hit and 7 on airborne hit'
+- id: h_gen_1_1p2
+  command: H.GEN.1,1+2
+  hit_level: L,M
+  startup: i20~21 i26~41
+  block: '-14'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit o'
+- id: dfp4
+  command: df+4
+  hit_level: m
+  startup: i15
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Crumple stun launcher (+52a) on CH'
+- id: ufp1
+  command: uf+1
+  hit_level: h,h
+  startup: i10 i26
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Jail from 1st attack
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
+- id: izu_4_1
+  command: IZU.4,1
+  hit_level: L, M
+  startup: i19, i19~20
+  block: -14~-13
+  notes: '* Balcony Break
+
+    * 2nd hit only available as combo from 1st hit
+
+    * DA: +9 damage on hit (30)
+
+    * Deals 18 damage to self (12 recoverable)
+
+    * Unparryable
+
+    * Gain 20 Kazama Essence on normal or airborne hit
+
+    * Low crush 22~38
+
+    * Floating state 39~41'
+- id: 1p4_3_1
+  command: 1+4,3,1
+  hit_level: SL,h, m, m
+  startup: i14 i17, ,i33~34
+  block: -13~-12
+  notes: ''
+- id: 1p4_3_4
+  command: 1+4,3,4
+  hit_level: SL,h, m, L
+  startup: i14 i17, ,i25~26
+  block: -13~-12
+  notes: Combo from 3rd CH
+- id: fp3_4
+  command: f+3,4
+  hit_level: m, M
+  startup: i16, i20~22
+  block: -13~-11
+  notes: '* Tornado
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F'
+- id: dfp3p4_1
+  command: df+3+4,1
+  hit_level: m, m
+  startup: i24~25, i33~34
+  block: '-13'
+  notes: ''
+- id: dfp3p4_4
+  command: df+3+4,4
+  hit_level: m, L
+  startup: i24~25, i25~26
+  block: '-13'
+  notes: Combo from 1st CH
+- id: bp2_1_1
+  command: b+2,1,1
+  hit_level: m, h, m
+  startup: i14~15, ,i25
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
+- id: bp4_2
+  command: b+4,2
+  hit_level: m, M
+  startup: i13~14, i22~23
+  block: '-13'
+  notes: Combo from 1st hit with 8f delay
+- id: ffp2_2
+  command: f,F+2,2
+  hit_level: m, m
+  startup: i16~17, i21
+  block: '-13'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit with 8f delay
+
+    * +7F crumple stun on CH'
+- id: ws1_1_1
+  command: ws1,1,1
+  hit_level: h, h, m
+  startup: i12~13, ,i25
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
+- id: ws3
+  command: ws3
+  hit_level: M
+  startup: i14~15
+  block: '-13'
+  notes: '* Low crush 17~33
+
+    * Floating state 34~36'
+- id: gen_2
+  command: GEN.2
+  hit_level: m,t
+  startup: i16~17
+  block: -13~-12
+  notes: "* Transition to attack throw on front standing or airborne hit \n* Deals\
+    \ 12 damage to self (8 recoverable)\n* Frame advantage is -9 if an attack is absorbed\n\
+    * Chip damage on block if an attack is absorbed\n* +10a (+1) and Balcony Break\
+    \ on BT h"
+- id: izu_1_2
+  command: IZU.1,2
+  hit_level: h, m
+  startup: i13~14, i24
+  block: '-13'
+  notes: '* Spike
+
+    * Combo from 1st hit with 5f delay
+
+    * Input can be delayed 6f'
+- id: izu_2
+  command: IZU.2
+  hit_level: M
+  startup: i23~25
+  block: -13~-11
+  notes: '* Tornado
+
+    * Chip damage (9) on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit
+
+    * High crush 6~20'
+common_strings_and_gaps:
+- id: h_gen_1_1p2
+  command: H.GEN.1,1+2
+  hit_level: L,M
+  startup: i20~21 i26~41
+  block: '-14'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit o'
+- id: h_fp1p2_p
+  command: H.f+1+2,P
+  hit_level: h
+  startup: i12
+  block: ''
+  notes: '* Sabaki, parries mid or high punches or kicks
+
+    * Consumes 240F of remaining Heat time
+
+    * Parry state 5~'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i10, i25
+  block: '-1'
+  notes: '* Combo from 1st hit with 1f delay
+
+    * Restores 2 health and 2 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i16
+  block: '-3'
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Combo from 1st hit with 2f delay
+
+    * Transition to r16 SS with u_d (+1/-13, +10g/-4?)
+
+    ** r16 when attacking in SS stance
+
+    ** r30? when exiting SS stance'
+- id: '1_2_2'
+  command: 1,2,2
+  hit_level: h, h, h
+  startup: i10, ,i16~17
+  block: '+4'
+  notes: '* Homing
+
+    * Combo from 2nd hit with 9F delay
+
+    * Jail from 2nd block with 1F delay
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, m
+  startup: i10, ,i27~28
+  block: '-12'
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 2nd CH with 3f delay
+
+    * Input can be delayed 9f'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, L
+  startup: i10, i23
+  block: '-12'
+  notes: '* Combo from 1st CH with 2f delay'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i12, i21
+  block: '-6'
+  notes: '* Elbow
+
+    * Combo from 1st hit with 9f delay
+
+    * Input can be delayed 10f'
+- id: '2_1_4'
+  command: 2,1,4
+  hit_level: h, m, m
+  startup: i12, ,i10
+  block: '-12'
+  notes: '* Knee
+
+    * Combo from 1st hit'
+- id: '2_1_4_1'
+  command: 2,1,4,1
+  hit_level: h, m, m, m
+  startup: i12, ,i30
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH
+
+    * Input can be delayed 10f
+
+    * Chip damage (9) on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable by traditional parries, Asuka, Nina, etc
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block '
+- id: '2_1_4_3'
+  command: 2,1,4,3
+  hit_level: h, m, m, h
+  startup: i12, ,i25
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH with 5f delay
+
+    * Input can be delayed 10f'
+- id: 2_1_1p2
+  command: 2,1,1+2
+  hit_level: h, m, h
+  startup: i12, ,i22
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH with 9f delay
+
+    * Forces tech backroll on hit'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i14~15, i14~15
+  block: '-4'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combos from 1st hit
+
+    * Delayable
+
+    * Gain 6 Kazama essence on normal hit and 5  on airborne hit'
+- id: 1p4_2
+  command: 1+4,2
+  hit_level: SL,h, h
+  startup: i14 i17, i19
+  block: '-2'
+  notes: Combo from 2nd CH
+- id: 1p4_2_4
+  command: 1+4,2,4
+  hit_level: SL,h, h, m
+  startup: i14 i17, ,i24
+  block: '-15'
+  notes: Combo from 3rd CH
+- id: 1p4_2_dp4
+  command: 1+4,2,d+4
+  hit_level: SL,h, h, L
+  startup: i14 i17, ,i24~25
+  block: -23~-22
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
+- id: 1p4_3
+  command: 1+4,3
+  hit_level: SL,h, m
+  startup: i14 i17, i24~25
+  block: -11~-10
+  notes: Combo from 2nd CH
+- id: 1p4_3_1
+  command: 1+4,3,1
+  hit_level: SL,h, m, m
+  startup: i14 i17, ,i33~34
+  block: -13~-12
+  notes: ''
+- id: 1p4_3_4
+  command: 1+4,3,4
+  hit_level: SL,h, m, L
+  startup: i14 i17, ,i25~26
+  block: -13~-12
+  notes: Combo from 3rd CH
+- id: fp2_1p2
+  command: f+2,1+2
+  hit_level: M, M
+  startup: i17~18, i29~32
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Chip damage (8) on block
+
+    * Deals 18 damage to self (12 recoverable)
+
+    * Available only on hit or block
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 K'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, h
+  startup: i16, i20~21
+  block: '+4'
+  notes: '* Homing
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: fp3_4
+  command: f+3,4
+  hit_level: m, M
+  startup: i16, i20~22
+  block: -13~-11
+  notes: '* Tornado
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F'
+- id: dfp1_1
+  command: df+1,1
+  hit_level: m, m
+  startup: i13~14, i24~25
+  block: '-11'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i5 from 1st block'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13~14, i22~23
+  block: '-4'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i4 from 1st block'
+- id: dfp2_1p2
+  command: df+2,1+2
+  hit_level: m, M
+  startup: i16~17, i25~26
+  block: '-9'
+  notes: '* Combo from 1st hit
+
+    * Chip damage (4) on block
+
+    * Deals 24 damage to self (16 recoverable)
+
+    * Available only on hit or block
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
+- id: dfp3p4_1
+  command: df+3+4,1
+  hit_level: m, m
+  startup: i24~25, i33~34
+  block: '-13'
+  notes: ''
+- id: dfp3p4_4
+  command: df+3+4,4
+  hit_level: m, L
+  startup: i24~25, i25~26
+  block: '-13'
+  notes: Combo from 1st CH
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, h
+  startup: i15, i25~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dbp1_1
+  command: db+1,1
+  hit_level: m, m
+  startup: i15~16, i21
+  block: '-11'
+  notes: Combo from 1st hit
+- id: dbp1_1_1p2
+  command: db+1,1,1+2
+  hit_level: m, m, m,m,m
+  startup: i15~16, ,i17 i26 i49
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Combo from any hit
+
+    * Restores 4 health and 4 recoverable
+
+    * Unparryable
+
+    * Gain 10 Kazama Essence on normal hit and 7 on airborne hit'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, L
+  startup: i22~24, i31~33
+  block: -7~-5
+  notes: '* Combo from 1st CH
+
+    * Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_4_4
+  command: db+4,4,4
+  hit_level: L, L, L
+  startup: i22~24, ,i31~33
+  block: -7~-5
+  notes: '* Transition to r28 FC with D
+
+    * High crush 1~49'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i16
+  block: '-3'
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Combo from 1st hit with 2f delay
+
+    * Transition to r16 SS with u_d (+1/-13, +10g/-4?)
+
+    ** r16 when attacking in SS stance
+
+    ** r30? when exiting SS stance'
+- id: '1_2_2'
+  command: 1,2,2
+  hit_level: h, h, h
+  startup: i10, ,i16~17
+  block: '+4'
+  notes: '* Homing
+
+    * Combo from 2nd hit with 9F delay
+
+    * Jail from 2nd block with 1F delay
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, m
+  startup: i10, ,i27~28
+  block: '-12'
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 2nd CH with 3f delay
+
+    * Input can be delayed 9f'
+- id: '2_1_4_3'
+  command: 2,1,4,3
+  hit_level: h, m, m, h
+  startup: i12, ,i25
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH with 5f delay
+
+    * Input can be delayed 10f'
+- id: 2_1_1p2
+  command: 2,1,1+2
+  hit_level: h, m, h
+  startup: i12, ,i22
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH with 9f delay
+
+    * Forces tech backroll on hit'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i14~15, i14~15
+  block: '-4'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combos from 1st hit
+
+    * Delayable
+
+    * Gain 6 Kazama essence on normal hit and 5  on airborne hit'
+- id: 1p4_2
+  command: 1+4,2
+  hit_level: SL,h, h
+  startup: i14 i17, i19
+  block: '-2'
+  notes: Combo from 2nd CH
+- id: 1p4_2_4
+  command: 1+4,2,4
+  hit_level: SL,h, h, m
+  startup: i14 i17, ,i24
+  block: '-15'
+  notes: Combo from 3rd CH
+- id: 1p4_2_dp4
+  command: 1+4,2,d+4
+  hit_level: SL,h, h, L
+  startup: i14 i17, ,i24~25
+  block: -23~-22
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
+- id: 1p4_3
+  command: 1+4,3
+  hit_level: SL,h, m
+  startup: i14 i17, i24~25
+  block: -11~-10
+  notes: Combo from 2nd CH
+- id: 1p4_3_1
+  command: 1+4,3,1
+  hit_level: SL,h, m, m
+  startup: i14 i17, ,i33~34
+  block: -13~-12
+  notes: ''
+- id: 1p4_3_4
+  command: 1+4,3,4
+  hit_level: SL,h, m, L
+  startup: i14 i17, ,i25~26
+  block: -13~-12
+  notes: Combo from 3rd CH
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, h
+  startup: i16, i20~21
+  block: '+4'
+  notes: '* Homing
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13~14, i22~23
+  block: '-4'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i4 from 1st block'
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, h
+  startup: i15, i25~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dbp4_1p4
+  command: db+4,1+4
+  hit_level: L, sl,h
+  startup: i22~24, i22 i17
+  block: '-3'
+  notes: '* Combo from 1st hit
+
+    * Links to 1+4 extensions
+
+    * Alternate inputs:
+
+    ** db+4,4,1+2
+
+    ** db+4,4,4,1+2
+
+    * CH advantage listed is for the last hit'
+- id: bp2_1
+  command: b+2,1
+  hit_level: m, h
+  startup: i14~15, i15~16
+  block: '-9'
+  notes: '* Elbow
+
+    * Combo from 1st hit with 15f delay
+
+    * Enter GEN +0 +11g r18 with F
+
+    * Enter MIA +0 +11g r18 with B
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 15F'
+- id: bp2_1_1
+  command: b+2,1,1
+  hit_level: m, h, m
+  startup: i14~15, ,i25
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
+- id: bp2_1_2
+  command: b+2,1,2
+  hit_level: m, h, M
+  startup: i14~15, ,i23
+  block: '-9'
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Chip damage (9) on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: bp2_1_4
+  command: b+2,1,4
+  hit_level: m, h, h
+  startup: i14~15, ,i23~25
+  block: -8~-7
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Forces tech backroll on hit'
+- id: ffp2_3
+  command: f,F+2,3
+  hit_level: m, h
+  startup: i16~17, i20~21
+  block: -8~-7
+  notes: Combo from 1st hit with 8f delay
+- id: ws1_1
+  command: ws1,1
+  hit_level: h, h
+  startup: i12~13, i15~16
+  block: '-9'
+  notes: '* Elbow
+
+    * Combo from 1st hit
+
+    * Enter GEN +0 +11g r18 with F
+
+    * Enter MIA +0 +11g r18 with B'
+- id: ws1_1_1
+  command: ws1,1,1
+  hit_level: h, h, m
+  startup: i12~13, ,i25
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
+- id: ws1_1_2
+  command: ws1,1,2
+  hit_level: h, h, M
+  startup: i12~13, ,i23
+  block: '-9'
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Chip damage on block
+
+    * Deals recoverable self-damage when not in Heat
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+stance_transitions:
+- id: h_gen_1_1p2
+  command: H.GEN.1,1+2
+  hit_level: L,M
+  startup: i20~21 i26~41
+  block: '-14'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit o'
+- id: h_fp1p2_p
+  command: H.f+1+2,P
+  hit_level: h
+  startup: i12
+  block: ''
+  notes: '* Sabaki, parries mid or high punches or kicks
+
+    * Consumes 240F of remaining Heat time
+
+    * Parry state 5~'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m
+  startup: i13 i32~75
+  block: -6~+37g
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Restores 32 recoverable on hit (16 on block)
+
+    * 10 chip damage on block
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i16
+  block: '-3'
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Combo from 1st hit with 2f delay
+
+    * Transition to r16 SS with u_d (+1/-13, +10g/-4?)
+
+    ** r16 when attacking in SS stance
+
+    ** r30? when exiting SS stance'
+- id: 3p4
+  command: 3+4
+  hit_level: m,M,M
+  startup: i23~24 i30~31 i16
+  block: '-6'
+  notes: '* Spike
+
+    * 3rd hit available only as combo from 2nd hit
+
+    * Transition to r22 FC with D on whiff or block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Gain 12 Kazama Essence on normal hit and 6 on airborne hit
+
+    * Low crush 5~33
+
+    * Floating state '
+- id: fp1p2
+  command: f+1+2
+  hit_level: h
+  startup: i12
+  block: '+2'
+  notes: '* Balcony Break (airborne)
+
+    * Transition to r20 MIA on hit only
+
+    * Deals 5 recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Power up in Heat (ps5~12)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i22~24
+  block: -11~-9
+  notes: 'Transition to r28 FC with D
+
+    * High crush 6~41'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, L
+  startup: i22~24, i31~33
+  block: -7~-5
+  notes: '* Combo from 1st CH
+
+    * Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_4_4
+  command: db+4,4,4
+  hit_level: L, L, L
+  startup: i22~24, ,i31~33
+  block: -7~-5
+  notes: '* Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: bp1
+  command: b+1
+  hit_level: L
+  startup: i29~30
+  block: -10~-9
+  notes: '* Cancel to r39 FC with D on frame 25
+
+    * Transition to attack throw on CH, +22 damage, total 44
+
+    * Opponent recovers FDFA on CH
+
+    * High crush 6~58'
+- id: bp3_4
+  command: b+3,4
+  hit_level: m, L
+  startup: i16~17, i20~22
+  block: '-11'
+  notes: '* Combo from 1st hit
+
+    * Links to db+4 extensions
+
+    * Transition in r28 FC with D
+
+    * High crush 1~42'
+- id: ufp4_3
+  command: uf+4,3
+  hit_level: m, m,M
+  startup: i16~18, i29 i18
+  block: '-12'
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * Transition to MIA on hit only
+
+    * 3rd hit available only as combo from 2nd hit
+
+    * 3rd hit deals 12 damage to self (8 recoverable)
+
+    * Gain 5 Kazama Essence on normal hit or airborne hit
+
+    * Low crush 1~20
+
+    * Floatin'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i16~17
+  block: '-12'
+  notes: '* Enter GEN +1 +16g r18 wiith F
+
+    * Enter MIA +1 +16g r18 wiith B
+
+    * Stance transitions can be delayed by up to 10F (+1~-9/+16g~+6g)'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i22
+  block: '+6'
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * Transition to +9, +26a (+16) GEN with F
+
+    * Transition to +9, +26a (+16) MIA with B
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Non-limb attack, unparryable by Asuka, Nina, etc
+
+    * Gain 8 Kazama Essence'
+- id: ss_2
+  command: SS.2
+  hit_level: m
+  startup: i16
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Restores 3 health and 3 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: ss_4
+  command: SS.4
+  hit_level: m
+  startup: i18~20
+  block: '+6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Spike
+
+    * Gain 10 Kazama Essence on Heat activation'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: h,h,m
+  startup: i16 i17 i15~16
+  block: '-4'
+  notes: '* Homing
+
+    * Spike
+
+    * Jail from 1st attack
+
+    * Combo from 1st or 2nd hit'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: sl,m
+  startup: i10 i25~26
+  block: '-19'
+  notes: '* Deals 18 damage to self (12 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit, t74 both hits
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
+
+    * High crush 1~'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i16~17
+  block: '-11'
+  notes: 'Only i14 or faster attacks guaranteed on CH
+
+    * High crush 1~'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i21
+  block: '-19'
+  notes: '* Clean hit +10a, 15 damage
+
+    * Opponent recovers FDFA on CL
+
+    * High crush 1~47'
+- id: back_to_wall_b_b_ub
+  command: (Back to wall).b,b,UB
+  hit_level: m
+  startup: i39~41
+  block: +4c~+6c
+  notes: '* Floating state 5~13
+
+    * Low crush 14~33
+
+    * Floating state 34~36'
+- id: gen_1
+  command: GEN.1
+  hit_level: L
+  startup: i20~21
+  block: '-12'
+  notes: '* Has good left sidestep tracking
+
+    * High crush 11~'
+- id: gen_2
+  command: GEN.2
+  hit_level: m,t
+  startup: i16~17
+  block: -13~-12
+  notes: "* Transition to attack throw on front standing or airborne hit \n* Deals\
+    \ 12 damage to self (8 recoverable)\n* Frame advantage is -9 if an attack is absorbed\n\
+    * Chip damage on block if an attack is absorbed\n* +10a (+1) and Balcony Break\
+    \ on BT h"
+throw_options:
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp3p4
+  command: f+3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Cancel to r34 FC with D on frame 16
+
+    * Parries low punches or kicks
+
+    * Parries throws
+
+    * Parry state 1~40'
+- id: bp1
+  command: b+1
+  hit_level: L
+  startup: i29~30
+  block: -10~-9
+  notes: '* Cancel to r39 FC with D on frame 25
+
+    * Transition to attack throw on CH, +22 damage, total 44
+
+    * Opponent recovers FDFA on CH
+
+    * High crush 6~58'
+- id: gen_2
+  command: GEN.2
+  hit_level: m,t
+  startup: i16~17
+  block: -13~-12
+  notes: "* Transition to attack throw on front standing or airborne hit \n* Deals\
+    \ 12 damage to self (8 recoverable)\n* Frame advantage is -9 if an attack is absorbed\n\
+    * Chip damage on block if an attack is absorbed\n* +10a (+1) and Balcony Break\
+    \ on BT h"
+- id: mia_f
+  command: MIA.F
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Cancel to r34 FC with D on frame 16
+
+    * Parries low punches or kicks
+
+    * Parries throws
+
+    * Parry state 1~40'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '+0'
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: ''
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Unbreakable
+
+    * Side switch'
+- id: fc_dbp1p2
+  command: FC.db+1+2
+  hit_level: t
+  startup: i14~15
+  block: '-6'
+  notes: '* Throw break 1+2
+
+    * Opponent can tech roll to reduce the landing damage'
+- id: gen_p_low
+  command: GEN.P (Low)
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Restores 14 health and 14 recoverable
+
+    * Opponent recovers FDFA
+
+    * Gain 20 Kazama Essence'
+- id: gen_p_throw
+  command: GEN.P (Throw)
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Restores 8 health and 8 recoverable
+
+    * Opponent recovers FUFA (sideways)
+
+    * Gain 20 Kazama Essence'
+- id: izu_1p3
+  command: IZU.1+3
+  hit_level: t
+  startup: i14
+  block: '-6'
+  notes: '* Throw break 1+2
+
+    * Restores 8 life and 12 recoverable
+
+    * Gain 8 Kazama Essence on hit'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break 1'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: bp1p3_p
+  command: b+1+3,P
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Opponent recovers FDFT'
+- id: dfp2p3
+  command: df+2+3
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: '* Throw break 2
+
+    * Floor Break'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: Throw break 1+2
+key_lows:
+- id: h_gen_1_1p2
+  command: H.GEN.1,1+2
+  hit_level: L,M
+  startup: i20~21 i26~41
+  block: '-14'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit o'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, L
+  startup: i10, i23
+  block: '-12'
+  notes: '* Combo from 1st CH with 2f delay'
+- id: 1p4
+  command: 1+4
+  hit_level: SL,h
+  startup: i14 i17
+  block: '-3'
+  notes: '* Jail from 1st attack
+
+    * CH advantage listed is for the 2nd hit'
+- id: 1p4_2
+  command: 1+4,2
+  hit_level: SL,h, h
+  startup: i14 i17, i19
+  block: '-2'
+  notes: Combo from 2nd CH
+- id: 1p4_2_4
+  command: 1+4,2,4
+  hit_level: SL,h, h, m
+  startup: i14 i17, ,i24
+  block: '-15'
+  notes: Combo from 3rd CH
+- id: 1p4_2_dp4
+  command: 1+4,2,d+4
+  hit_level: SL,h, h, L
+  startup: i14 i17, ,i24~25
+  block: -23~-22
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
+- id: 1p4_3
+  command: 1+4,3
+  hit_level: SL,h, m
+  startup: i14 i17, i24~25
+  block: -11~-10
+  notes: Combo from 2nd CH
+- id: 1p4_3_1
+  command: 1+4,3,1
+  hit_level: SL,h, m, m
+  startup: i14 i17, ,i33~34
+  block: -13~-12
+  notes: ''
+- id: 1p4_3_4
+  command: 1+4,3,4
+  hit_level: SL,h, m, L
+  startup: i14 i17, ,i25~26
+  block: -13~-12
+  notes: Combo from 3rd CH
+- id: dfp3p4_4
+  command: df+3+4,4
+  hit_level: m, L
+  startup: i24~25, i25~26
+  block: '-13'
+  notes: Combo from 1st CH
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i15
+  block: '-12'
+  notes: ''
+- id: dp4_4
+  command: d+4,4
+  hit_level: L, h
+  startup: i15, i25~26
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l,h
+  startup: i14 i24~27
+  block: '-25'
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st attack
+
+    * -6 only if 2nd hit is blocked
+
+    * Low crush 5~27
+
+    * Floating state 28~30'
+- id: dbp2
+  command: db+2
+  hit_level: L
+  startup: i23~24
+  block: '-12'
+  notes: '* High crush 15~'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i18
+  block: '-12'
+  notes: ''
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i22~24
+  block: -11~-9
+  notes: 'Transition to r28 FC with D
+
+    * High crush 6~41'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: L, L
+  startup: i22~24, i31~33
+  block: -7~-5
+  notes: '* Combo from 1st CH
+
+    * Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_4_4
+  command: db+4,4,4
+  hit_level: L, L, L
+  startup: i22~24, ,i31~33
+  block: -7~-5
+  notes: '* Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_1p4
+  command: db+4,1+4
+  hit_level: L, sl,h
+  startup: i22~24, i22 i17
+  block: '-3'
+  notes: '* Combo from 1st hit
+
+    * Links to 1+4 extensions
+
+    * Alternate inputs:
+
+    ** db+4,4,1+2
+
+    ** db+4,4,4,1+2
+
+    * CH advantage listed is for the last hit'
+- id: bp1
+  command: b+1
+  hit_level: L
+  startup: i29~30
+  block: -10~-9
+  notes: '* Cancel to r39 FC with D on frame 25
+
+    * Transition to attack throw on CH, +22 damage, total 44
+
+    * Opponent recovers FDFA on CH
+
+    * High crush 6~58'
+- id: bp3_4
+  command: b+3,4
+  hit_level: m, L
+  startup: i16~17, i20~22
+  block: '-11'
+  notes: '* Combo from 1st hit
+
+    * Links to db+4 extensions
+
+    * Transition in r28 FC with D
+
+    * High crush 1~42'
+- id: ws1_4_2
+  command: ws1,4,2
+  hit_level: h, m, L
+  startup: i12~13, ,i23~24
+  block: '-16'
+  notes: '* Spike
+
+    * Combo from 2nd CH
+
+    * High crush 17~'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: sl,m
+  startup: i10 i25~26
+  block: '-19'
+  notes: '* Deals 18 damage to self (12 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit, t74 both hits
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
+
+    * High crush 1~'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i16~17
+  block: '-11'
+  notes: 'Only i14 or faster attacks guaranteed on CH
+
+    * High crush 1~'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Gain 5 Kazama Essence on Heat Burst activation
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp3p4
+  command: b+3+4
+  hit_level: m
+  startup: i22~23
+  block: '-12'
+  notes: '* Balcony Break
+
+    * -8 on block after absorbing an attack
+
+    * Power crush 7~27'
+- id: gen_2
+  command: GEN.2
+  hit_level: m,t
+  startup: i16~17
+  block: -13~-12
+  notes: "* Transition to attack throw on front standing or airborne hit \n* Deals\
+    \ 12 damage to self (8 recoverable)\n* Frame advantage is -9 if an attack is absorbed\n\
+    * Chip damage on block if an attack is absorbed\n* +10a (+1) and Balcony Break\
+    \ on BT h"
+- id: izu_1p2
+  command: IZU.1+2
+  hit_level: M
+  startup: i21~22
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Frame advantage is -6c if an attack is absorbed
+
+    * Power crush 8~20'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Gain 5 Kazama Essence on Heat Burst activation
+
+    * Power crush 7~16'
+- id: h_gen_1_1p2
+  command: H.GEN.1,1+2
+  hit_level: L,M
+  startup: i20~21 i26~41
+  block: '-14'
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit o'
+- id: h_fp1p2_p
+  command: H.f+1+2,P
+  hit_level: h
+  startup: i12
+  block: ''
+  notes: '* Sabaki, parries mid or high punches or kicks
+
+    * Consumes 240F of remaining Heat time
+
+    * Parry state 5~'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m
+  startup: i13 i32~75
+  block: -6~+37g
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Restores 32 recoverable on hit (16 on block)
+
+    * 10 chip damage on block
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
+- id: 1p2
+  command: 1+2
+  hit_level: m
+  startup: i13
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Gain 10 Kazama Essence on Heat activation'
+- id: fp2_1p2
+  command: f+2,1+2
+  hit_level: M, M
+  startup: i17~18, i29~32
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Chip damage (8) on block
+
+    * Deals 18 damage to self (12 recoverable)
+
+    * Available only on hit or block
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 K'
+- id: fp1p2
+  command: f+1+2
+  hit_level: h
+  startup: i12
+  block: '+2'
+  notes: '* Balcony Break (airborne)
+
+    * Transition to r20 MIA on hit only
+
+    * Deals 5 recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Power up in Heat (ps5~12)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5'
+- id: ws1_1_2
+  command: ws1,1,2
+  hit_level: h, h, M
+  startup: i12~13, ,i23
+  block: '-9'
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Chip damage on block
+
+    * Deals recoverable self-damage when not in Heat
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: ss_4
+  command: SS.4
+  hit_level: m
+  startup: i18~20
+  block: '+6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Spike
+
+    * Gain 10 Kazama Essence on Heat activation'
+- id: izu_3
+  command: IZU.3
+  hit_level: m,h
+  startup: i16~15 i14~15
+  block: '-6'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Gain 10 Kazama Essence on Heat activation
+
+    * Low crush 20~53
+
+    * Floating state 54~56'
+- id: mia_2
+  command: MIA.2
+  hit_level: sm
+  startup: i16
+  block: '-20'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * DA: Range increases to 4.0
+
+    * Deals 8 (DA:11) chip damage on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 Kaza'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i16~17
+  block: '-12'
+  notes: '* Enter GEN +1 +16g r18 wiith F
+
+    * Enter MIA +1 +16g r18 wiith B
+
+    * Stance transitions can be delayed by up to 10F (+1~-9/+16g~+6g)'
+- id: ffp2_2
+  command: f,F+2,2
+  hit_level: m, m
+  startup: i16~17, i21
+  block: '-13'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit with 8f delay
+
+    * +7F crumple stun on CH'
+- id: ffp2_3
+  command: f,F+2,3
+  hit_level: m, h
+  startup: i16~17, i20~21
+  block: -8~-7
+  notes: Combo from 1st hit with 8f delay
+- id: ffp3
+  command: f,F+3
+  hit_level: m
+  startup: i18~19
+  block: '-9'
+  notes: '* Homing
+
+    * Balcony Break (airborne)'
+- id: ffp3_3p4
+  command: f,F+3,3+4
+  hit_level: m, m,m
+  startup: i18~19, i35~36 i41~42
+  block: '+3'
+  notes: '* Spike
+
+    * 7 chip damage on block
+
+    * Interrupt with i11 from 1st block
+
+    * +14d on BT hit
+
+    * Floating state 25~39'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i22
+  block: '+6'
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * Transition to +9, +26a (+16) GEN with F
+
+    * Transition to +9, +26a (+16) MIA with B
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Non-limb attack, unparryable by Asuka, Nina, etc
+
+    * Gain 8 Kazama Essence'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i24~28
+  block: +3~+7
+  notes: '* Balcony Break
+
+    * 8 chip damage on block
+
+    * Low crush 3~30
+
+    * Low crush 31~33'
+launch_punish_opportunities:
+- id: izu_4
+  command: IZU.4
+  hit_level: L
+  startup: i19
+  block: '-37'
+  notes: '* High crush 13~'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l,h
+  startup: i14 i24~27
+  block: '-25'
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st attack
+
+    * -6 only if 2nd hit is blocked
+
+    * Low crush 5~27
+
+    * Floating state 28~30'
+- id: 1p4_2_dp4
+  command: 1+4,2,d+4
+  hit_level: SL,h, h, L
+  startup: i14 i17, ,i24~25
+  block: -23~-22
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
+- id: ws3p4
+  command: ws3+4
+  hit_level: m
+  startup: i18~19
+  block: '-21'
+  notes: 'Tornado
+
+    * Floating state 15~36'
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i16~18
+  block: '-20'
+  notes: '* Low crush 10~40
+
+    * Floating state 41~43'
+- id: ws1_4_1p2
+  command: ws1,4,1+2
+  hit_level: h, m, m
+  startup: i12~13, ,i25~26
+  block: '-20'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH'
+- id: mia_2
+  command: MIA.2
+  hit_level: sm
+  startup: i16
+  block: '-20'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * DA: Range increases to 4.0
+
+    * Deals 8 (DA:11) chip damage on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 Kaza'
+- id: bp3
+  command: b+3
+  hit_level: m
+  startup: i16~17
+  block: -19~-18
+  notes: '* Low crush 10~37
+
+    * Floating state 38~40'
+- id: fc_dfp1
+  command: FC.df+1
+  hit_level: sl,m
+  startup: i10 i25~26
+  block: '-19'
+  notes: '* Deals 18 damage to self (12 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit, t74 both hits
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
+
+    * High crush 1~'
+- id: fc_dfp3
+  command: FC.df+3
+  hit_level: L
+  startup: i21
+  block: '-19'
+  notes: '* Clean hit +10a, 15 damage
+
+    * Opponent recovers FDFA on CL
+
+    * High crush 1~47'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp2
+  command: f+2
+  hit_level: M
+  startup: i17~18
+  block: '-18'
+  notes: Cancel to r26 FC with D
+- id: ws1_4_2
+  command: ws1,4,2
+  hit_level: h, m, L
+  startup: i12~13, ,i23~24
+  block: '-16'
+  notes: '* Spike
+
+    * Combo from 2nd CH
+
+    * High crush 17~'
+- id: 1p4_2_4
+  command: 1+4,2,4
+  hit_level: SL,h, h, m
+  startup: i14 i17, ,i24
+  block: '-15'
+  notes: Combo from 3rd CH
+- id: dbp1_1_1p2
+  command: db+1,1,1+2
+  hit_level: m, m, m,m,m
+  startup: i15~16, ,i17 i26 i49
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Combo from any hit
+
+    * Restores 4 health and 4 recoverable
+
+    * Unparryable
+
+    * Gain 10 Kazama Essence on normal hit and 7 on airborne hit'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "roster_as_of": "2026-07-21",
+  "roster_source": "https://tekken.com/fighters",
+  "characters": 42,
+  "archetypes": 10,
+  "variations_per_archetype": 5,
+  "profiles_per_character": 50,
+  "total_profiles": 2100,
+  "frame_data_characters": 41,
+  "announced_unreleased": [
+    "roger-jr"
+  ],
+  "profiles_sha256": "2c26459320d4006856b8458e9cd8eb3fa93635ff1b9d85f9a16ad09f9ab9f7be",
+  "character_move_specs": 252,
+  "character_move_specs_sha256": "6e36289f6fed4b2b12ae51a1c78dc161bdd294272547d57a45541ddc6f708666"
+}

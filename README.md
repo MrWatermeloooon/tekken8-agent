@@ -11,14 +11,27 @@ duplicated `v1/` or `v2/` source folder.
 
 ## What is implemented
 
-- Side- and style-balanced GPU training against eight scripted training styles.
-- A separate eight-style held-out V2 evaluation suite; it is never used for rollout collection.
+- One Jun learner against all 42 currently playable fighters, with 50 generated
+  opponent profiles per character (10 archetypes x 5 variations; 2,100 total).
+- Character-specific CUDA combat tables distilled from 41 public frame-data sets plus an
+  explicit abstract Bob fallback where the source API has no entry.
+- Device-resident probabilistic opponents, per-episode behavior jitter, character IDs,
+  profile assignments, side balancing, and character-aware move execution.
+- GPU temporal matchup observations: 95 visual features or 101 privileged features, including
+  character embedding, archetype identity, and eight decisions of move/phase/stance/hit-level/
+  delay/outcome/distance/side-movement history.
+- Four curriculum stages (Jun fundamentals, character groups, full roster, adversarial league)
+  and weakness scheduling from score, uncertainty, regression, and exploit severity.
+- Per-character/archetype matchup exports, behavior-rate tracking, matchup Elo, and
+  catastrophic-forgetting flags.
+- A separate held-out evaluation suite; it is never used for rollout collection.
 - Fair timeout draws, randomized seeded starts, and P1/P2 breakdowns.
 - Privileged 19-feature and screen-compatible 13-feature observations generated on GPU.
 - CUDA actor-critic inference, rollout storage, fixed-order GAE, clipped PPO policy/value losses,
   entropy, gradient clipping, Adam, and target-KL early stopping.
 - Atomic checksummed checkpoints plus exact trainer state; interrupted runs resume byte-for-byte.
-- A native `.t8ppo` Torch CUDA live loader using the V1-compatible screen/controller stack.
+- A native `.t8ppo` Torch CUDA live loader for both legacy 13-feature and roster-temporal
+  95-feature visual policies using the existing screen/controller stack.
 - Full-loop and simulator-only throughput benchmarks, automated Phase 0 aggregation, and CUDA tests.
 
 ## Build and test
@@ -42,7 +55,7 @@ images for Turing, Ampere, Ada, and Blackwell and can be overridden with
 
 ```powershell
 build\Release\t8_v2_train.exe --smoke `
-  --observation-mode visual --reward shaped --seed 2027
+  --opponents roster --observation-mode visual --reward shaped --seed 2027
 ```
 
 Use a unique `--run-dir` for each new run. Resume an interrupted run with the matching options:
@@ -81,12 +94,17 @@ python -m pip install -e ".[live]"
 python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"
 Copy-Item config\live_screen.example.yaml config\live_screen.yaml
 python scripts\live_vision_play.py --dry-run --agent v2 `
-  --ppo-checkpoint runs\my_visual_run\checkpoints\update_100.t8ppo
+  --ppo-checkpoint runs\my_visual_run\checkpoints\update_100.t8ppo `
+  --opponent-character reina --opponent-archetype movement_specialist
 ```
 
-Dry-run first. Controller output starts paused, defaults to CUDA inference, and requires an
-integrity-protected 13-feature V2 checkpoint. Press the configured hotkey to enable output only
-after capture, player side, and facing are confirmed.
+Dry-run first. Controller output starts paused and defaults to CUDA inference. A roster-temporal
+checkpoint requires the opponent character slug and archetype; an older 13-feature visual
+checkpoint does not. Press the configured hotkey to enable output only after capture, player side,
+and facing are confirmed.
+
+The roster/profile/data layout and reproducible import commands are documented in
+[docs/roster_curriculum.md](docs/roster_curriculum.md).
 
 The completed five-seed visual Phase 0 baseline found faster shaped-reward learning, but no final
 held-out win-rate advantage, so return redistribution remains gated. See the

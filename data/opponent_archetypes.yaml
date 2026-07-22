@@ -1,0 +1,40 @@
+schema_version: 1
+profiles_per_character: 50
+variation_names: [balanced, precise, patient, risky, adaptive]
+variation_deltas:
+  balanced: {aggression: 0.00, reaction: 0, error: 0.000, delay: 0.00, defense: 0.00}
+  precise:  {aggression: 0.04, reaction: -2, error: -0.010, delay: -0.04, defense: 0.08}
+  patient:  {aggression: -0.12, reaction: 2, error: 0.004, delay: 0.12, defense: 0.05}
+  risky:    {aggression: 0.14, reaction: -1, error: 0.018, delay: 0.04, defense: -0.10}
+  adaptive: {aggression: 0.02, reaction: 1, error: 0.006, delay: 0.08, defense: 0.02}
+archetypes:
+  - id: 0
+    key: rushdown
+    base: {aggression: 0.88, reaction_frames: [12, 19], input_error_rate: 0.015, approach: 0.60, backdash: 0.10, sidestep_left: 0.12, sidestep_right: 0.18, low_frequency: 0.24, throw_frequency: 0.12, delay_frequency: 0.30, stance_entry_frequency: 0.65, heat_usage: 0.78, punish_accuracy: 0.72, throw_break_accuracy: 0.50, low_block_accuracy: 0.42}
+  - id: 1
+    key: defensive_turtle
+    base: {aggression: 0.24, reaction_frames: [11, 17], input_error_rate: 0.010, approach: 0.12, backdash: 0.34, sidestep_left: 0.25, sidestep_right: 0.29, low_frequency: 0.10, throw_frequency: 0.05, delay_frequency: 0.42, stance_entry_frequency: 0.20, heat_usage: 0.44, punish_accuracy: 0.88, throw_break_accuracy: 0.72, low_block_accuracy: 0.62}
+  - id: 2
+    key: whiff_punisher
+    base: {aggression: 0.46, reaction_frames: [10, 16], input_error_rate: 0.012, approach: 0.16, backdash: 0.42, sidestep_left: 0.20, sidestep_right: 0.22, low_frequency: 0.12, throw_frequency: 0.05, delay_frequency: 0.36, stance_entry_frequency: 0.18, heat_usage: 0.55, punish_accuracy: 0.91, throw_break_accuracy: 0.58, low_block_accuracy: 0.50}
+  - id: 3
+    key: keep_out
+    base: {aggression: 0.42, reaction_frames: [13, 20], input_error_rate: 0.016, approach: 0.10, backdash: 0.38, sidestep_left: 0.24, sidestep_right: 0.28, low_frequency: 0.14, throw_frequency: 0.04, delay_frequency: 0.32, stance_entry_frequency: 0.22, heat_usage: 0.50, punish_accuracy: 0.76, throw_break_accuracy: 0.54, low_block_accuracy: 0.48}
+  - id: 4
+    key: throw_heavy
+    base: {aggression: 0.72, reaction_frames: [13, 21], input_error_rate: 0.018, approach: 0.56, backdash: 0.10, sidestep_left: 0.15, sidestep_right: 0.19, low_frequency: 0.12, throw_frequency: 0.46, delay_frequency: 0.34, stance_entry_frequency: 0.28, heat_usage: 0.62, punish_accuracy: 0.70, throw_break_accuracy: 0.60, low_block_accuracy: 0.40}
+  - id: 5
+    key: low_heavy
+    base: {aggression: 0.70, reaction_frames: [14, 22], input_error_rate: 0.020, approach: 0.48, backdash: 0.12, sidestep_left: 0.18, sidestep_right: 0.22, low_frequency: 0.52, throw_frequency: 0.08, delay_frequency: 0.38, stance_entry_frequency: 0.36, heat_usage: 0.58, punish_accuracy: 0.64, throw_break_accuracy: 0.46, low_block_accuracy: 0.44}
+  - id: 6
+    key: string_knowledge
+    base: {aggression: 0.76, reaction_frames: [15, 23], input_error_rate: 0.016, approach: 0.44, backdash: 0.14, sidestep_left: 0.19, sidestep_right: 0.23, low_frequency: 0.22, throw_frequency: 0.08, delay_frequency: 0.52, stance_entry_frequency: 0.56, heat_usage: 0.68, punish_accuracy: 0.66, throw_break_accuracy: 0.48, low_block_accuracy: 0.42}
+  - id: 7
+    key: counter_hit
+    base: {aggression: 0.62, reaction_frames: [11, 18], input_error_rate: 0.013, approach: 0.30, backdash: 0.22, sidestep_left: 0.22, sidestep_right: 0.26, low_frequency: 0.16, throw_frequency: 0.06, delay_frequency: 0.48, stance_entry_frequency: 0.30, heat_usage: 0.60, punish_accuracy: 0.84, throw_break_accuracy: 0.56, low_block_accuracy: 0.50}
+  - id: 8
+    key: movement_specialist
+    base: {aggression: 0.48, reaction_frames: [12, 19], input_error_rate: 0.012, approach: 0.22, backdash: 0.30, sidestep_left: 0.23, sidestep_right: 0.25, low_frequency: 0.14, throw_frequency: 0.05, delay_frequency: 0.36, stance_entry_frequency: 0.24, heat_usage: 0.52, punish_accuracy: 0.82, throw_break_accuracy: 0.62, low_block_accuracy: 0.54}
+  - id: 9
+    key: character_specialist
+    base: {aggression: 0.66, reaction_frames: [11, 18], input_error_rate: 0.010, approach: 0.40, backdash: 0.18, sidestep_left: 0.19, sidestep_right: 0.23, low_frequency: 0.20, throw_frequency: 0.10, delay_frequency: 0.44, stance_entry_frequency: 0.72, heat_usage: 0.84, punish_accuracy: 0.86, throw_break_accuracy: 0.64, low_block_accuracy: 0.56}

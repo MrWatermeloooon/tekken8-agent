@@ -1,108 +1,198 @@
 character_id: jun
 display_name: Jun Kazama
 game: tekken_8
-source_url: https://tekkendocs.com/t8/jun
-source_note: Full raw frame-data table imported from TekkenDocs. Core tiers are our
-  training curriculum labels.
+source_url: https://tekkendocs.com/api/t8/jun/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 876ef141f59968768cdfecee8e66a76e52b46708e609c42ff81d5ba971c602da
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- GEN
+- IZU
+- MIA
+- hFC
 moves:
 - id: 2p3
+  source_id: Jun-2+3
+  source_index: 1
   command: 2+3
+  name: Heat Burst
   hit_level: m
   damage: '[12;12]'
   startup: i16
+  recovery: r30
   block: '+1'
   hit: +2c
   counter_hit: ''
   tier: specialist
   tags:
+  - hb
+  - pc
   - heat
   - power_crush
   - chip
   - mid
-  notes: Heat Burst;  Cancel to r45 with b,b on frame 42;  2 chip damage on block;  12
-    chip damage on hit;  Only deals recoverable damage;  Cannot cause a K.O.;  Gain
-    5 Kazama Essence on Heat Burst activation;  Power crush 7~16
-  source_index: 1
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Gain 5 Kazama Essence on Heat Burst activation
+
+    * Power crush 7~16'
 - id: h_gen_1_1p2
+  source_id: Jun-H.GEN.1,1+2
+  source_index: 2
   command: H.GEN.1,1+2
+  name: Yomotsu Mihashira
   hit_level: L,M
   damage: 14,35
   startup: i20~21 i26~41
+  recovery: r25
   block: '-14'
   hit: +25a (+7)
   counter_hit: ''
   tier: specialist
   tags:
+  - rbr
+  - bbr
+  - chp
+  - cs
   - heat
   - high_crush
   - balcony_break
   - chip
   - low
   - mid
-  notes: Reversal Break;  Balcony Break;  Jail from 1st attack;  Has good left sidestep
-    tracking;  Restores 6 recoverable (3 on block);  Chip damage (2,7) on block;  Consumes
-    450f of heat timer;  Gain 5 Kazama Essence on normal hit, airborne hit or block;  High
-    crush 11~21
-  source_index: 2
-- id: h_f1p2_p
+  notes: '* Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Has good left sidestep tracking
+
+    * Restores 6 recoverable (3 on block)
+
+    * Chip damage (2,7) on block
+
+    * Consumes 450f of heat timer
+
+    * Gain 5 Kazama Essence on normal hit, airborne hit or block
+
+    * High crush 11~21'
+- id: h_fp1p2_p
+  source_id: Jun-H.f+1+2,P
+  source_index: 3
   command: H.f+1+2,P
+  name: ''
   hit_level: h
   damage: '0'
   startup: i12
+  recovery: r30 MIA
   block: ''
   hit: +40g
   counter_hit: ''
   tier: specialist
   tags:
+  - ps
   - heat
   - parry
   - high
-  notes: Sabaki, parries mid or high punches or kicks;  Consumes 240F of remaining
-    Heat time;  Parry state 5~
-  source_index: 3
+  notes: '* Sabaki, parries mid or high punches or kicks
+
+    * Consumes 240F of remaining Heat time
+
+    * Parry state 5~'
 - id: h_2p3
+  source_id: Jun-H.2+3
+  source_index: 4
   command: H.2+3
+  name: Yomotsu Ooyumi
   hit_level: m,m
   damage: 20,30
   startup: i13 i32~75
+  recovery: r1
   block: -6~+37g
   hit: +21a~+64a (-5~+38)
   counter_hit: ''
   tier: specialist
   tags:
+  - hs
+  - bbr
   - heat
   - balcony_break
   - chip
   - mid
-  notes: Heat Smash;  Balcony Break;  Restores 32 recoverable on hit (16 on block);  10
-    chip damage on block;  Gain 8 Kazama Essence on normal hit and 6 on block or airborne
-    hit
-  source_index: 4
-- id: r_df1p2
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Restores 32 recoverable on hit (16 on block)
+
+    * 10 chip damage on block
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
+- id: r_dfp1p2
+  source_id: Jun-R.df+1+2
+  source_index: 5
   command: R.df+1+2
+  name: Amatsu Izanami
   hit_level: m,t
   damage: 55+
   startup: i20
+  recovery: r39
   block: '-18'
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
+  - ra
+  - rbr
+  - pc
   - throw
   - rage
   - power_crush
   - stance_transition
   - mid
-  notes: Rage Art;  Removes Recoverable Health;  Reversal Break;  Damage increases
-    with lower health, maximum 82;  Freezes match timer on activation and on hit;  Restores
-    recoverable health on hit;  Transition to attack throw on hit;  Consumes Rage;  Power
-    crush 8~
-  source_index: 5
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
 - id: '1'
+  source_id: Jun-1
+  source_index: 6
   command: '1'
+  name: Jab
   hit_level: h
   damage: '5'
   startup: i10
+  recovery: r19
   block: '+1'
   hit: '+8'
   counter_hit: ''
@@ -110,12 +200,15 @@ moves:
   tags:
   - high
   notes: Recovers 2f faster on hit or block (t27 r17)
-  source_index: 6
 - id: '1_1'
+  source_id: Jun-1,1
+  source_index: 7
   command: 1,1
+  name: Suikei > Izumo Smash
   hit_level: h, m
   damage: 5, 15
   startup: i10, i25
+  recovery: r28 IZU
   block: '-1'
   hit: '+8'
   counter_hit: '+13'
@@ -123,14 +216,20 @@ moves:
   tags:
   - mid
   - high
-  notes: Combo from 1st hit with 1f delay;  Restores 2 health and 2 recoverable on
-    hit;  Gain 6 Kazama Essence on normal hit and 5 on airborne hit
-  source_index: 7
+  notes: '* Combo from 1st hit with 1f delay
+
+    * Restores 2 health and 2 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
 - id: '1_2'
+  source_id: Jun-1,2
+  source_index: 8
   command: 1,2
+  name: Spear Step
   hit_level: h, h
   damage: 5, 8
   startup: i10, i16
+  recovery: r24
   block: '-3'
   hit: '+6'
   counter_hit: ''
@@ -138,30 +237,50 @@ moves:
   tags:
   - stance_transition
   - high
-  notes: Jail from 1st attack with 2f delay;  Combo from 1st hit with 2f delay;  Transition
-    to r16 SS with u_d (+1/-13, +10g/-4?); ;  r16 when attacking in SS stance; ;  r30?
-    when exiting SS stance
-  source_index: 8
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Combo from 1st hit with 2f delay
+
+    * Transition to r16 SS with u_d (+1/-13, +10g/-4?)
+
+    ** r16 when attacking in SS stance
+
+    ** r30? when exiting SS stance'
 - id: '1_2_2'
+  source_id: Jun-1,2,2
+  source_index: 9
   command: 1,2,2
+  name: Spear Step > Izumo Strike
   hit_level: h, h, h
   damage: 5, 8, 12
   startup: i10, ,i16~17
+  recovery: r39 IZU
   block: '+4'
   hit: '+11'
   counter_hit: +20c
   tier: specialist
   tags:
+  - hom
   - homing
   - high
-  notes: Homing;  Combo from 2nd hit with 9F delay;  Jail from 2nd block with 1F delay;  Restores
-    2 health on hit;  Gain 6 Kazama Essence on normal hit and 5 on airborne hit
-  source_index: 9
+  notes: '* Homing
+
+    * Combo from 2nd hit with 9F delay
+
+    * Jail from 2nd block with 1F delay
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
 - id: '1_2_4'
+  source_id: Jun-1,2,4
+  source_index: 10
   command: 1,2,4
+  name: Spear Step > Spin Kick
   hit_level: h, h, m
   damage: 5, 8, 16
   startup: i10, ,i27~28
+  recovery: r34
   block: '-12'
   hit: '+5'
   counter_hit: +15a (+6)
@@ -170,14 +289,20 @@ moves:
   - balcony_break
   - mid
   - high
-  notes: Balcony Break (airborne);  Combo from 2nd CH with 3f delay;  Input can be
-    delayed 9f
-  source_index: 10
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 2nd CH with 3f delay
+
+    * Input can be delayed 9f'
 - id: '1_3'
+  source_id: Jun-1,3
+  source_index: 11
   command: 1,3
+  name: Suiren Leg Scythe
   hit_level: h, L
   damage: 5, 12
   startup: i10, i23
+  recovery: r31
   block: '-12'
   hit: '+2'
   counter_hit: +6c
@@ -185,13 +310,16 @@ moves:
   tags:
   - low
   - high
-  notes: Combo from 1st CH with 2f delay
-  source_index: 11
+  notes: '* Combo from 1st CH with 2f delay'
 - id: '2'
+  source_id: Jun-2
+  source_index: 12
   command: '2'
+  name: Right Jab
   hit_level: h
   damage: '7'
   startup: i12
+  recovery: r23
   block: '-4'
   hit: '+7'
   counter_hit: ''
@@ -199,122 +327,187 @@ moves:
   tags:
   - high
   notes: ''
-  source_index: 12
 - id: '2_1'
+  source_id: Jun-2,1
+  source_index: 13
   command: 2,1
+  name: ''
   hit_level: h, m
   damage: 7, 9
   startup: i12, i21
+  recovery: r25
   block: '-6'
   hit: '+7'
   counter_hit: ''
   tier: specialist
   tags:
+  - elb
   - mid
   - high
-  notes: Elbow;  Combo from 1st hit with 9f delay;  Input can be delayed 10f
-  source_index: 13
+  notes: '* Elbow
+
+    * Combo from 1st hit with 9f delay
+
+    * Input can be delayed 10f'
 - id: '2_1_4'
+  source_id: Jun-2,1,4
+  source_index: 14
   command: 2,1,4
+  name: ''
   hit_level: h, m, m
   damage: 7, 9, 12
   startup: i12, ,i10
+  recovery: r31
   block: '-12'
   hit: '-1'
   counter_hit: ''
   tier: specialist
   tags:
+  - kne
   - mid
   - high
-  notes: Knee;  Combo from 1st hit
-  source_index: 14
+  notes: '* Knee
+
+    * Combo from 1st hit'
 - id: '2_1_4_1'
+  source_id: Jun-2,1,4,1
+  source_index: 15
   command: 2,1,4,1
+  name: Byakuren Tsukinuki
   hit_level: h, m, m, m
   damage: 7, 9, 12, 30
   startup: i12, ,i30
+  recovery: r34
   block: '-9'
   hit: +10a (+1)
   counter_hit: +42a (-5)
   tier: specialist
   tags:
+  - bbr
+  - chp
   - balcony_break
   - parry
   - chip
   - mid
   - high
-  notes: Balcony Break;  Combo from 3rd CH;  Input can be delayed 10f;  Chip damage
-    (9) on block;  Deals 6 damage to self (4 recoverable);  Unparryable by traditional
-    parries, Asuka, Nina, etc;  Gain 10 Kazama Essence on normal hit and 7 on block
-    or airborne hit
-  source_index: 15
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH
+
+    * Input can be delayed 10f
+
+    * Chip damage (9) on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable by traditional parries, Asuka, Nina, etc
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
 - id: '2_1_4_3'
+  source_id: Jun-2,1,4,3
+  source_index: 16
   command: 2,1,4,3
+  name: Byakuren Tamasudare
   hit_level: h, m, m, h
   damage: 7, 9, 12, 21
   startup: i12, ,i25
+  recovery: r37
   block: '-9'
   hit: +13a (+4)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Combo from 3rd CH with 5f delay;  Input can be delayed 10f
-  source_index: 16
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH with 5f delay
+
+    * Input can be delayed 10f'
 - id: 2_1_1p2
+  source_id: Jun-2,1,1+2
+  source_index: 17
   command: 2,1,1+2
+  name: Byakuren Misogi
   hit_level: h, m, h
   damage: 7, 9, 21
   startup: i12, ,i22
+  recovery: r26
   block: '+2'
   hit: +22c
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - elb
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Elbow;  Combo from 2nd CH with 9f delay;  Forces tech backroll
-    on hit
-  source_index: 17
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH with 9f delay
+
+    * Forces tech backroll on hit'
 - id: '3'
+  source_id: Jun-3
+  source_index: 18
   command: '3'
+  name: Shion
   hit_level: m
   damage: '14'
   startup: i14~15
+  recovery: r31
   block: '-10'
   hit: '+2'
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   notes: Balcony Break
-  source_index: 18
 - id: '3_1'
+  source_id: Jun-3,1
+  source_index: 19
   command: 3,1
+  name: Shion Kannagi
   hit_level: m, h
   damage: 14, 20
   startup: i14~15, i14~15
+  recovery: ''
   block: '-4'
   hit: +22d
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
+  - bbr
   - tornado
   - balcony_break
   - mid
   - high
-  notes: Tornado;  Balcony Break;  Combos from 1st hit;  Delayable;  Gain 6 Kazama
-    essence on normal hit and 5 on airborne hit
-  source_index: 19
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combos from 1st hit
+
+    * Delayable
+
+    * Gain 6 Kazama essence on normal hit and 5  on airborne hit'
 - id: '4'
+  source_id: Jun-4
+  source_index: 20
   command: '4'
+  name: Magic Four
   hit_level: h
   damage: '17'
   startup: i12
+  recovery: r28
   block: '-9'
   hit: '+7'
   counter_hit: +32d
@@ -322,28 +515,43 @@ moves:
   tags:
   - high
   notes: ''
-  source_index: 20
 - id: 1p2
+  source_id: Jun-1+2
+  source_index: 21
   command: 1+2
+  name: Shunkei
   hit_level: m
   damage: '26'
   startup: i13
+  recovery: r34
   block: '-12'
   hit: +28a
   counter_hit: ''
   tier: core
   tags:
+  - bbr
+  - he
   - heat
   - balcony_break
   - mid
-  notes: Balcony Break;  Heat Engager;  Heat Dash +5, +43d (+35);  Gain 10 Kazama
-    Essence on Heat activation
-  source_index: 21
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Gain 10 Kazama Essence on Heat activation'
 - id: 1p4
+  source_id: Jun-1+4
+  source_index: 22
   command: 1+4
+  name: ''
   hit_level: SL,h
   damage: 5,8
   startup: i14 i17
+  recovery: r21
   block: '-3'
   hit: '-3'
   counter_hit: '+4'
@@ -351,13 +559,18 @@ moves:
   tags:
   - low
   - high
-  notes: Jail from 1st attack;  CH advantage listed is for the 2nd hit
-  source_index: 22
+  notes: '* Jail from 1st attack
+
+    * CH advantage listed is for the 2nd hit'
 - id: 1p4_2
+  source_id: Jun-1+4,2
+  source_index: 23
   command: 1+4,2
+  name: ''
   hit_level: SL,h, h
   damage: 5,8, 10
   startup: i14 i17, i19
+  recovery: r21
   block: '-2'
   hit: '+9'
   counter_hit: ''
@@ -366,12 +579,15 @@ moves:
   - low
   - high
   notes: Combo from 2nd CH
-  source_index: 23
 - id: 1p4_2_4
+  source_id: Jun-1+4,2,4
+  source_index: 24
   command: 1+4,2,4
+  name: White Heron Dance
   hit_level: SL,h, h, m
   damage: 5,8, 10, 23
   startup: i14 i17, ,i24
+  recovery: r34
   block: '-15'
   hit: +11a (+2)
   counter_hit: ''
@@ -381,27 +597,36 @@ moves:
   - mid
   - high
   notes: Combo from 3rd CH
-  source_index: 24
-- id: 1p4_2_d4
+- id: 1p4_2_dp4
+  source_id: Jun-1+4,2,d+4
+  source_index: 25
   command: 1+4,2,d+4
+  name: White Heron Lower Dance
   hit_level: SL,h, h, L
   damage: 5,8, 10, 15
   startup: i14 i17, ,i24~25
+  recovery: r30
   block: -23~-22
   hit: +27a
   counter_hit: ''
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
   - high
-  notes: Combo from 3rd CH;  High crush 10~38
-  source_index: 25
+  notes: 'Combo from 3rd CH
+
+    * High crush 10~38'
 - id: 1p4_3
+  source_id: Jun-1+4,3
+  source_index: 26
   command: 1+4,3
+  name: ''
   hit_level: SL,h, m
   damage: 5,8, 15
   startup: i14 i17, i24~25
+  recovery: r29
   block: -11~-10
   hit: +1~+2
   counter_hit: ''
@@ -411,12 +636,15 @@ moves:
   - mid
   - high
   notes: Combo from 2nd CH
-  source_index: 26
 - id: 1p4_3_1
+  source_id: Jun-1+4,3,1
+  source_index: 27
   command: 1+4,3,1
+  name: White Heron Sun Palm
   hit_level: SL,h, m, m
   damage: 5,8, 15, 20
   startup: i14 i17, ,i33~34
+  recovery: r32
   block: -13~-12
   hit: +17a (+10)
   counter_hit: ''
@@ -426,12 +654,15 @@ moves:
   - mid
   - high
   notes: ''
-  source_index: 27
 - id: 1p4_3_4
+  source_id: Jun-1+4,3,4
+  source_index: 28
   command: 1+4,3,4
+  name: White Heron Moon Kick
   hit_level: SL,h, m, L
   damage: 5,8, 15, 17
   startup: i14 i17, ,i25~26
+  recovery: r31
   block: -13~-12
   hit: +4c~+5c
   counter_hit: +26a
@@ -441,44 +672,66 @@ moves:
   - mid
   - high
   notes: Combo from 3rd CH
-  source_index: 28
 - id: 3p4
+  source_id: Jun-3+4
+  source_index: 29
   command: 3+4
+  name: Ryuuntsui - Misogi
   hit_level: m,M,M
   damage: 6,18,20
   startup: i23~24 i30~31 i16
+  recovery: r24
   block: '-6'
   hit: +26a (+8)
   counter_hit: ''
   tier: specialist
   tags:
+  - spk
+  - js
+  - fs
   - low_crush
   - stance_transition
   - mid
-  notes: Spike;  3rd hit available only as combo from 2nd hit;  Transition to r22
-    FC with D on whiff or block;  Deals 12 damage to self (8 recoverable);  Gain 12
-    Kazama Essence on normal hit and 6 on airborne hit;  Low crush 5~33;  Floating
-    state 34~36
-  source_index: 29
-- id: f1
+  notes: '* Spike
+
+    * 3rd hit available only as combo from 2nd hit
+
+    * Transition to r22 FC with D on whiff or block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Gain 12 Kazama Essence on normal hit and 6 on airborne hit
+
+    * Low crush 5~33
+
+    * Floating state 34~36'
+- id: fp1
+  source_id: Jun-f+1
+  source_index: 30
   command: f+1
+  name: Izumo Smash
   hit_level: m
   damage: '15'
   startup: i20
+  recovery: r28 IZU
   block: '+0'
   hit: '+9'
   counter_hit: '+14'
   tier: specialist
   tags:
   - mid
-  notes: Restores 2 health and 2 recoverable on hit;  Gain 6 Kazama Essence on normal
-    hit and 5 on airborne hit
-  source_index: 30
-- id: f2
+  notes: '* Restores 2 health and 2 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: fp2
+  source_id: Jun-f+2
+  source_index: 31
   command: f+2
+  name: Demon Slayer
   hit_level: M
   damage: '20'
   startup: i17~18
+  recovery: r36
   block: '-18'
   hit: +33a (+23)
   counter_hit: ''
@@ -486,92 +739,149 @@ moves:
   tags:
   - mid
   notes: Cancel to r26 FC with D
-  source_index: 31
-- id: f2_1p2
+- id: fp2_1p2
+  source_id: Jun-f+2,1+2
+  source_index: 32
   command: f+2,1+2
+  name: Ame-no-Habakiri
   hit_level: M, M
   damage: 20, 20
   startup: i17~18, i29~32
+  recovery: r30
   block: '-9'
   hit: +32a (+17)
   counter_hit: ''
-  tier: core
+  tier: specialist
   tags:
+  - he
+  - bbr
+  - chp
   - heat
   - balcony_break
   - chip
   - mid
-  notes: Heat Engager;  Heat Dash +5, +42a (+27);  Balcony Break;  Jail from 1st attack;  Chip
-    damage (8) on block;  Deals 18 damage to self (12 recoverable);  Available only
-    on hit or block;  Gain 16 Kazama Essence on Heat activation;  Gain 6 Kazama Essence
-    on normal hit and 5 on block or airborne hit
-  source_index: 32
-- id: f3
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Chip damage (8) on block
+
+    * Deals 18 damage to self (12 recoverable)
+
+    * Available only on hit or block
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: fp3
+  source_id: Jun-f+3
+  source_index: 33
   command: f+3
+  name: ''
   hit_level: m
   damage: '13'
   startup: i16
+  recovery: r28
   block: '-9'
   hit: '+7'
   counter_hit: ''
   tier: specialist
   tags:
   - mid
-  notes: Enter SS -16 +14g r21 with u_d;  r21 when attacking after SS;  r35 when blocking
-    after SS
-  source_index: 33
-- id: f3_2
+  notes: '* Enter SS -16 +14g r21 with u_d
+
+    * r21 when attacking after SS
+
+    * r35 when blocking after SS'
+- id: fp3_2
+  source_id: Jun-f+3,2
+  source_index: 34
   command: f+3,2
+  name: Kanbashira > Izumo Strike
   hit_level: m, h
   damage: 13, 17
   startup: i16, i20~21
+  recovery: r39 IZU
   block: '+4'
   hit: '+11'
   counter_hit: +20c
   tier: specialist
   tags:
+  - hom
   - homing
   - mid
   - high
-  notes: Homing;  Combo from 1st hit with 10F delay;  Move can be delayed by 5F;  Input
-    can be delayed by 10F;  Restores 2 health on hit;  Gain 6 Kazama Essence on normal
-    hit and 5 on airborne hit
-  source_index: 34
-- id: f3_4
+  notes: '* Homing
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F
+
+    * Restores 2 health on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: fp3_4
+  source_id: Jun-f+3,4
+  source_index: 35
   command: f+3,4
+  name: Double Kanbashira
   hit_level: m, M
   damage: 13, 22
   startup: i16, i20~22
+  recovery: r35
   block: -13~-11
   hit: +28a (+13)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
   - tornado
   - mid
-  notes: Tornado;  Combo from 1st hit with 10F delay;  Move can be delayed by 5F;  Input
-    can be delayed by 10F
-  source_index: 35
-- id: f4
+  notes: '* Tornado
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 10F'
+- id: fp4
+  source_id: Jun-f+4
+  source_index: 36
   command: f+4
+  name: Getsukankyaku
   hit_level: h
   damage: '21'
   startup: i19~21
+  recovery: r23
   block: +3~+5
   hit: +13~+15
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
   - homing
   - balcony_break
   - high
-  notes: Balcony Break (airborne);  Homing
-  source_index: 36
-- id: f1p2
+  notes: '* Balcony Break (airborne)
+
+    * Homing'
+- id: fp1p2
+  source_id: Jun-f+1+2
+  source_index: 37
   command: f+1+2
+  name: Inner Peace
   hit_level: h
   damage: (5)
   startup: i12
+  recovery: r24
   block: '+2'
   hit: +26g
   counter_hit: '+23'
@@ -582,48 +892,80 @@ moves:
   - parry
   - stance_transition
   - high
-  notes: Balcony Break (airborne);  Transition to r20 MIA on hit only;  Deals 5 recoverable
-    damage;  Cannot cause a K.O.;  Deals 6 damage to self (4 recoverable);  Power
-    up in Heat (ps5~12);  Unparryable;  Gain 6 Kazama Essence on normal hit and 5
-    on block or airborne hit
-  source_index: 37
-- id: f2p3
+  notes: '* Balcony Break (airborne)
+
+    * Transition to r20 MIA on hit only
+
+    * Deals 5 recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Power up in Heat (ps5~12)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: fp2p3
+  source_id: Jun-f+2+3
+  source_index: 38
   command: f+2+3
+  name: Wheel Kick
   hit_level: h
   damage: '21'
   startup: i28~29
+  recovery: r27
   block: '+0'
   hit: +25a
   counter_hit: ''
   tier: specialist
   tags:
+  - ps
   - balcony_break
   - parry
   - launcher
   - high
-  notes: Balcony Break (airborne);  Punch sabaki;  Crumple stun launcher (+51a) on
-    parry effect;  Parry state 4~15
-  source_index: 38
-- id: f3p4
+  notes: '* Balcony Break (airborne)
+
+    * Punch sabaki
+
+    * Crumple stun launcher (+51a) on parry effect
+
+    * Parry state 4~15'
+- id: fp3p4
+  source_id: Jun-f+3+4
+  source_index: 39
   command: f+3+4
+  name: Genjitsu
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: r16 GEN
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags:
+  - ps
   - throw
   - parry
-  notes: Cancel to r34 FC with D on frame 16;  Parries low punches or kicks;  Parries
-    throws;  Parry state 1~40
-  source_index: 39
-- id: df1
+  notes: '* Cancel to r34 FC with D on frame 16
+
+    * Parries low punches or kicks
+
+    * Parries throws
+
+    * Parry state 1~40'
+- id: dfp1
+  source_id: Jun-df+1
+  source_index: 40
   command: df+1
+  name: Mid Check
   hit_level: m
   damage: '10'
   startup: i13~14
+  recovery: r21
   block: '-3'
   hit: '+8'
   counter_hit: ''
@@ -631,25 +973,33 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 40
-- id: df1_1
+- id: dfp1_1
+  source_id: Jun-df+1,1
+  source_index: 41
   command: df+1,1
+  name: Habotan
   hit_level: m, m
   damage: 10, 17
   startup: i13~14, i24~25
+  recovery: r29
   block: '-11'
   hit: '+5'
   counter_hit: +13g
   tier: specialist
   tags:
   - mid
-  notes: Combo from 1st hit;  Interrupt with i5 from 1st block
-  source_index: 41
-- id: df1_2
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i5 from 1st block'
+- id: dfp1_2
+  source_id: Jun-df+1,2
+  source_index: 42
   command: df+1,2
+  name: Aya Stitch
   hit_level: m, h
   damage: 10, 12
   startup: i13~14, i22~23
+  recovery: r23
   block: '-4'
   hit: '+6'
   counter_hit: '+11'
@@ -657,13 +1007,18 @@ moves:
   tags:
   - mid
   - high
-  notes: Combo from 1st hit;  Interrupt with i4 from 1st block
-  source_index: 42
-- id: df2
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i4 from 1st block'
+- id: dfp2
+  source_id: Jun-df+2
+  source_index: 43
   command: df+2
+  name: Mizuho
   hit_level: m
   damage: '14'
   startup: i16~17
+  recovery: r30
   block: '-12'
   hit: +29a (+19)
   counter_hit: ''
@@ -671,59 +1026,87 @@ moves:
   tags:
   - mid
   notes: Launches crouching opponent
-  source_index: 43
-- id: df2_1p2
+- id: dfp2_1p2
+  source_id: Jun-df+2,1+2
+  source_index: 44
   command: df+2,1+2
+  name: Ame-no-Murakumo
   hit_level: m, M
   damage: 14, 12
   startup: i16~17, i25~26
+  recovery: r31
   block: '-9'
   hit: +38a (+28)
   counter_hit: ''
   tier: specialist
   tags:
+  - chp
   - chip
   - mid
-  notes: Combo from 1st hit;  Chip damage (4) on block;  Deals 24 damage to self (16
-    recoverable);  Available only on hit or block;  Gain 10 Kazama Essence on normal
-    hit and 7 on block or airborne hit
-  source_index: 44
-- id: df3
+  notes: '* Combo from 1st hit
+
+    * Chip damage (4) on block
+
+    * Deals 24 damage to self (16 recoverable)
+
+    * Available only on hit or block
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
+- id: dfp3
+  source_id: Jun-df+3
+  source_index: 45
   command: df+3
+  name: Kazakiri
   hit_level: m
   damage: '22'
   startup: i17
+  recovery: r31
   block: '-8'
   hit: +19a (+10)
   counter_hit: ''
   tier: core
   tags:
+  - hom
+  - bbr
   - homing
   - balcony_break
   - mid
-  notes: Homing;  Balcony Break
-  source_index: 45
-- id: df4
+  notes: '* Homing
+
+    * Balcony Break'
+- id: dfp4
+  source_id: Jun-df+4
+  source_index: 46
   command: df+4
+  name: Katabami
   hit_level: m
   damage: '22'
   startup: i15
+  recovery: r38
   block: '-14'
   hit: +48a (+17)
   counter_hit: +52a
   tier: core
   tags:
+  - trn
   - tornado
   - balcony_break
   - launcher
   - mid
-  notes: Tornado;  Balcony Break (airborne);  Crumple stun launcher (+52a) on CH
-  source_index: 46
-- id: df3p4
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Crumple stun launcher (+52a) on CH'
+- id: dfp3p4
+  source_id: Jun-df+3+4
+  source_index: 47
   command: df+3+4
+  name: ''
   hit_level: m
   damage: '17'
   startup: i24~25
+  recovery: r31
   block: '-11'
   hit: '+1'
   counter_hit: ''
@@ -731,12 +1114,15 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 47
-- id: df3p4_1
+- id: dfp3p4_1
+  source_id: Jun-df+3+4,1
+  source_index: 48
   command: df+3+4,1
+  name: Heavenly Sun Palm
   hit_level: m, m
   damage: 17, 20
   startup: i24~25, i33~34
+  recovery: r32
   block: '-13'
   hit: +17a (+10)
   counter_hit: ''
@@ -744,12 +1130,15 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 48
-- id: df3p4_4
+- id: dfp3p4_4
+  source_id: Jun-df+3+4,4
+  source_index: 49
   command: df+3+4,4
+  name: Heavenly Moon Kick
   hit_level: m, L
   damage: 17, 17
   startup: i24~25, i25~26
+  recovery: r31
   block: '-13'
   hit: +4c
   counter_hit: +26a
@@ -758,25 +1147,32 @@ moves:
   - low
   - mid
   notes: Combo from 1st CH
-  source_index: 49
-- id: d2
+- id: dp2
+  source_id: Jun-d+2
+  source_index: 50
   command: d+2
+  name: Narumi
   hit_level: m
   damage: '18'
   startup: i20~21
+  recovery: r30 FC
   block: -4c
   hit: +9c
   counter_hit: +18a
   tier: specialist
   tags:
+  - spk
   - mid
   notes: Spike
-  source_index: 50
-- id: d4
+- id: dp4
+  source_id: Jun-d+4
+  source_index: 51
   command: d+4
+  name: ''
   hit_level: L
   damage: '10'
   startup: i15
+  recovery: r31
   block: '-12'
   hit: '-1'
   counter_hit: ''
@@ -784,63 +1180,101 @@ moves:
   tags:
   - low
   notes: ''
-  source_index: 51
-- id: d4_4
+- id: dp4_4
+  source_id: Jun-d+4,4
+  source_index: 52
   command: d+4,4
+  name: Suminagashi
   hit_level: L, h
   damage: 10, 20
   startup: i15, i25~26
+  recovery: r36
   block: '-9'
   hit: +13a (+4)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - low
   - high
-  notes: Balcony Break;  Combo from 1st CH
-  source_index: 52
-- id: d1p2
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dp1p2
+  source_id: Jun-d+1+2
+  source_index: 53
   command: d+1+2
+  name: Kamudo-no-Tsurugi
   hit_level: M
   damage: '28'
   startup: i26
+  recovery: r32
   block: '-9'
   hit: +72a (+56)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
+  - chp
+  - cs
   - high_crush
   - tornado
   - parry
   - chip
   - mid
-  notes: 'Tornado;  Chip damage (11) on block;  Divine Aura: 12 chip damage on block;  Divine
-    Aura: +4 damage on hit (32);  Deals 12 damage to self (8 recoverable);  Unparryable
-    (projectile);  Gain 8 Kazama Essence on normal hit and 6 on block or airborne
-    hit;  High crush 8~24'
-  source_index: 53
-- id: d3p4
+  notes: '* Tornado
+
+    * Chip damage (11) on block
+
+    * Divine Aura: 12 chip damage on block
+
+    * Divine Aura: +4 damage on hit (32)
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable (projectile)
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit
+
+    * High crush 8~24'
+- id: dp3p4
+  source_id: Jun-d+3+4
+  source_index: 54
   command: d+3+4
+  name: Double Lift Kicks
   hit_level: l,h
   damage: 5,15
   startup: i14 i24~27
+  recovery: r31
   block: '-25'
   hit: +30a (+20)
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - low
   - high
-  notes: Combo from 1st CH;  Jail from 1st attack;  -6 only if 2nd hit is blocked;  Low
-    crush 5~27;  Floating state 28~30
-  source_index: 54
-- id: db1
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st attack
+
+    * -6 only if 2nd hit is blocked
+
+    * Low crush 5~27
+
+    * Floating state 28~30'
+- id: dbp1
+  source_id: Jun-db+1
+  source_index: 55
   command: db+1
+  name: ''
   hit_level: m
   damage: '7'
   startup: i15~16
+  recovery: r28
   block: '-8'
   hit: '+1'
   counter_hit: ''
@@ -848,12 +1282,15 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 55
-- id: db1_1
+- id: dbp1_1
+  source_id: Jun-db+1,1
+  source_index: 56
   command: db+1,1
+  name: ''
   hit_level: m, m
   damage: 7, 8
   startup: i15~16, i21
+  recovery: r30
   block: '-11'
   hit: '+0'
   counter_hit: ''
@@ -861,42 +1298,60 @@ moves:
   tags:
   - mid
   notes: Combo from 1st hit
-  source_index: 56
-- id: db1_1_1p2
+- id: dbp1_1_1p2
+  source_id: Jun-db+1,1,1+2
+  source_index: 57
   command: db+1,1,1+2
+  name: Hourai's Dance
   hit_level: m, m, m,m,m
   damage: 7, 8, 5,5,20
   startup: i15~16, ,i17 i26 i49
+  recovery: r34
   block: '-15'
   hit: +21a (+11)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - parry
   - mid
-  notes: Balcony Break;  Combo from any hit;  Restores 4 health and 4 recoverable;  Unparryable;  Gain
-    10 Kazama Essence on normal hit and 7 on airborne hit
-  source_index: 57
-- id: db2
+  notes: '* Balcony Break
+
+    * Combo from any hit
+
+    * Restores 4 health and 4 recoverable
+
+    * Unparryable
+
+    * Gain 10 Kazama Essence on normal hit and 7 on airborne hit'
+- id: dbp2
+  source_id: Jun-db+2
+  source_index: 58
   command: db+2
+  name: Ayame
   hit_level: L
   damage: '17'
   startup: i23~24
+  recovery: r30 FC
   block: '-12'
   hit: '+2'
   counter_hit: +14g
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
-  notes: High crush 15~
-  source_index: 58
-- id: db3
+  notes: '* High crush 15~'
+- id: dbp3
+  source_id: Jun-db+3
+  source_index: 59
   command: db+3
+  name: Leg Scythe
   hit_level: L
   damage: '14'
   startup: i18
+  recovery: r31
   block: '-12'
   hit: '+2'
   counter_hit: +6c
@@ -904,57 +1359,80 @@ moves:
   tags:
   - low
   notes: ''
-  source_index: 59
-- id: db4
+- id: dbp4
+  source_id: Jun-db+4
+  source_index: 60
   command: db+4
+  name: ''
   hit_level: L
   damage: '14'
   startup: i22~24
+  recovery: r28
   block: -11~-9
   hit: +0~+2
   counter_hit: +3~+5
   tier: core
   tags:
+  - cs
   - high_crush
   - stance_transition
   - low
-  notes: Transition to r28 FC with D;  High crush 6~41
-  source_index: 60
-- id: db4_4
+  notes: 'Transition to r28 FC with D
+
+    * High crush 6~41'
+- id: dbp4_4
+  source_id: Jun-db+4,4
+  source_index: 61
   command: db+4,4
+  name: ''
   hit_level: L, L
   damage: 14, 15
   startup: i22~24, i31~33
+  recovery: r24
   block: -7~-5
   hit: +4~+6
   counter_hit: +35a
   tier: specialist
   tags:
+  - cs
   - high_crush
   - stance_transition
   - low
-  notes: Combo from 1st CH;  Transition to r28 FC with D;  High crush 1~49
-  source_index: 61
-- id: db4_4_4
+  notes: '* Combo from 1st CH
+
+    * Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_4_4
+  source_id: Jun-db+4,4,4
+  source_index: 62
   command: db+4,4,4
+  name: Kariashi
   hit_level: L, L, L
   damage: 14, 15, 16
   startup: i22~24, ,i31~33
+  recovery: r24
   block: -7~-5
   hit: +4~+6
   counter_hit: +35a
   tier: specialist
   tags:
+  - cs
   - high_crush
   - stance_transition
   - low
-  notes: Transition to r28 FC with D;  High crush 1~49
-  source_index: 62
-- id: db4_1p4
+  notes: '* Transition to r28 FC with D
+
+    * High crush 1~49'
+- id: dbp4_1p4
+  source_id: Jun-db+4,1+4
+  source_index: 63
   command: db+4,1+4
+  name: Kariashi Hakuro
   hit_level: L, sl,h
   damage: 14, 5,8
   startup: i22~24, i22 i17
+  recovery: r21
   block: '-3'
   hit: '-3'
   counter_hit: '+4'
@@ -962,44 +1440,71 @@ moves:
   tags:
   - low
   - high
-  notes: Combo from 1st hit;  Links to 1+4 extensions;  Alternate inputs:; ;  db+4,4,1+2;
-    ;  db+4,4,4,1+2;  CH advantage listed is for the last hit
-  source_index: 63
-- id: b1
+  notes: '* Combo from 1st hit
+
+    * Links to 1+4 extensions
+
+    * Alternate inputs:
+
+    ** db+4,4,1+2
+
+    ** db+4,4,4,1+2
+
+    * CH advantage listed is for the last hit'
+- id: bp1
+  source_id: Jun-b+1
+  source_index: 64
   command: b+1
+  name: Violet
   hit_level: L
   damage: '19'
   startup: i29~30
+  recovery: r28 FC
   block: -10~-9
   hit: +6~+7
   counter_hit: +0d
   tier: specialist
   tags:
+  - cs
   - throw
   - high_crush
   - stance_transition
   - low
-  notes: Cancel to r39 FC with D on frame 25;  Transition to attack throw on CH, +22
-    damage, total 44;  Opponent recovers FDFA on CH;  High crush 6~58
-  source_index: 64
-- id: b1p3
+  notes: '* Cancel to r39 FC with D on frame 25
+
+    * Transition to attack throw on CH, +22 damage, total 44
+
+    * Opponent recovers FDFA on CH
+
+    * High crush 6~58'
+- id: bp1p3
+  source_id: Jun-b+1+3
+  source_index: 65
   command: b+1+3
+  name: Attack Reversal
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: ''
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags:
+  - ps
   - parry
-  notes: Parries mid or high punches or kicks;  Parry state 5~12
-  source_index: 65
-- id: b2
+  notes: '* Parries mid or high punches or kicks
+
+    * Parry state 5~12'
+- id: bp2
+  source_id: Jun-b+2
+  source_index: 66
   command: b+2
+  name: ''
   hit_level: m
   damage: '10'
   startup: i14~15
+  recovery: r29
   block: '-9'
   hit: '+2'
   counter_hit: ''
@@ -1007,77 +1512,125 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 66
-- id: b2_1
+- id: bp2_1
+  source_id: Jun-b+2,1
+  source_index: 67
   command: b+2,1
+  name: ''
   hit_level: m, h
   damage: 10, 7
   startup: i14~15, i15~16
+  recovery: r27
   block: '-9'
   hit: '+2'
   counter_hit: ''
-  tier: core
+  tier: specialist
   tags:
+  - elb
   - mid
   - high
-  notes: Elbow;  Combo from 1st hit with 15f delay;  Enter GEN +0 +11g r18 with F;  Enter
-    MIA +0 +11g r18 with B;  Move can be delayed by 5F;  Input can be delayed by 15F
-  source_index: 67
-- id: b2_1_1
+  notes: '* Elbow
+
+    * Combo from 1st hit with 15f delay
+
+    * Enter GEN +0 +11g r18 with F
+
+    * Enter MIA +0 +11g r18 with B
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 15F'
+- id: bp2_1_1
+  source_id: Jun-b+2,1,1
+  source_index: 68
   command: b+2,1,1
+  name: Ryuen Saika Shikei
   hit_level: m, h, m
   damage: 10, 7, 20
   startup: i14~15, ,i25
+  recovery: r32
   block: '-13'
   hit: +13a (+4)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Combo from 2nd CH with 4f delay;  Input can be delayed 14f
-  source_index: 68
-- id: b2_1_2
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
+- id: bp2_1_2
+  source_id: Jun-b+2,1,2
+  source_index: 69
   command: b+2,1,2
+  name: Ryuen Saika Renken
   hit_level: m, h, M
   damage: 10, 7, 20
   startup: i14~15, ,i23
+  recovery: r35
   block: '-9'
   hit: +30a (+15)
   counter_hit: +69a (+53)
   tier: specialist
   tags:
+  - trn
+  - chp
   - tornado
   - parry
   - chip
   - mid
   - high
-  notes: Tornado;  Combo from 2nd CH with 6f delay;  Input can be delayed 14f;  Chip
-    damage (9) on block;  Deals 12 damage to self (8 recoverable);  Unparryable;  Gain
-    6 Kazama Essence on normal hit and 5 on block or airborne hit
-  source_index: 69
-- id: b2_1_4
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Chip damage (9) on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: bp2_1_4
+  source_id: Jun-b+2,1,4
+  source_index: 70
   command: b+2,1,4
+  name: Ryuen Saika Renshuu
   hit_level: m, h, h
   damage: 10, 7, 24
   startup: i14~15, ,i23~25
+  recovery: r30
   block: -8~-7
   hit: +16c
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Combo from 2nd CH with 6f delay;  Input can be delayed 14f;  Forces
-    tech backroll on hit
-  source_index: 70
-- id: b2_2
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Forces tech backroll on hit'
+- id: bp2_2
+  source_id: Jun-b+2,2
+  source_index: 71
   command: b+2,2
+  name: Ryuen Magushi
   hit_level: m, m
   damage: 10, 10
   startup: i14~15, i16~17
+  recovery: r27
   block: '-9'
   hit: '+3'
   counter_hit: ''
@@ -1085,74 +1638,110 @@ moves:
   tags:
   - mid
   notes: Combo from 1st hit with 5f? delay
-  source_index: 71
-- id: b3
+- id: bp3
+  source_id: Jun-b+3
+  source_index: 72
   command: b+3
+  name: Dragon Wheel Kick
   hit_level: m
   damage: '20'
   startup: i16~17
+  recovery: r37
   block: -19~-18
   hit: +22a (+12)
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - mid
-  notes: Low crush 10~37;  Floating state 38~40
-  source_index: 72
-- id: b3_2
+  notes: '* Low crush 10~37
+
+    * Floating state 38~40'
+- id: bp3_2
+  source_id: Jun-b+3,2
+  source_index: 73
   command: b+3,2
+  name: Ryuusha Renken
   hit_level: m, M
   damage: 20, 22
   startup: i16~17, i20
+  recovery: r35
   block: '-9'
   hit: +30a (+15)
   counter_hit: +69a (+53)
   tier: specialist
   tags:
+  - trn
+  - chp
   - tornado
   - parry
   - chip
   - mid
-  notes: Tornado;  Combo from 1st hit;  Chip damage (8) on block;  Deals 12 damage
-    to self (8 recoverable);  Unparryable;  Gain 6 Kazama Essence on normal hit and
-    5 on block or airborne hit
-  source_index: 73
-- id: b3_4
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * Chip damage (8) on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+- id: bp3_4
+  source_id: Jun-b+3,4
+  source_index: 74
   command: b+3,4
+  name: Dragon Wheel Leg Cutter
   hit_level: m, L
   damage: 20, 14
   startup: i16~17, i20~22
+  recovery: r28
   block: '-11'
   hit: +0~+2
   counter_hit: '+3'
   tier: specialist
   tags:
+  - cs
   - high_crush
   - stance_transition
   - low
   - mid
-  notes: Combo from 1st hit;  Links to db+4 extensions;  Transition in r28 FC with
-    D;  High crush 1~42
-  source_index: 74
-- id: b4
+  notes: '* Combo from 1st hit
+
+    * Links to db+4 extensions
+
+    * Transition in r28 FC with D
+
+    * High crush 1~42'
+- id: bp4
+  source_id: Jun-b+4
+  source_index: 75
   command: b+4
+  name: ''
   hit_level: m
   damage: '14'
   startup: i13~14
+  recovery: r28
   block: '-7'
   hit: '+5'
   counter_hit: ''
   tier: core
   tags:
+  - kne
   - mid
   notes: Knee
-  source_index: 75
-- id: b4_2
+- id: bp4_2
+  source_id: Jun-b+4,2
+  source_index: 76
   command: b+4,2
+  name: Shirabyoushi
   hit_level: m, M
   damage: 14, 17
   startup: i13~14, i22~23
+  recovery: r31
   block: '-13'
   hit: +12g
   counter_hit: +28a (+18)
@@ -1160,207 +1749,330 @@ moves:
   tags:
   - mid
   notes: Combo from 1st hit with 8f delay
-  source_index: 76
-- id: b1p2
+- id: bp1p2
+  source_id: Jun-b+1+2
+  source_index: 77
   command: b+1+2
+  name: Miare
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: r10 MIA
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags: []
-  notes: Enter SS r16 with u_d;  r30 when blocking after SS;  Cancel to r15 with DB;  Restores
-    3 recoverable health and gain Kazama Essence with each pulse
-  source_index: 77
-- id: b3p4
+  notes: '* Enter SS r16 with u_d
+
+    * r30 when blocking after SS
+
+    * Cancel to r15 with DB
+
+    * Restores 3 recoverable health and gain Kazama Essence with each pulse'
+- id: bp3p4
+  source_id: Jun-b+3+4
+  source_index: 78
   command: b+3+4
+  name: Omoikane
   hit_level: m
   damage: '25'
   startup: i22~23
+  recovery: r35
   block: '-12'
   hit: +9a (+0)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - pc
   - power_crush
   - balcony_break
   - mid
-  notes: Balcony Break;  -8 on block after absorbing an attack;  Power crush 7~27
-  source_index: 78
-- id: ub1p2
+  notes: '* Balcony Break
+
+    * -8 on block after absorbing an attack
+
+    * Power crush 7~27'
+- id: ubp1p2
+  source_id: Jun-ub+1+2
+  source_index: 79
   command: ub+1+2
+  name: Shinki
   hit_level: m!
   damage: '50'
   startup: i57~58
+  recovery: r37
   block: ''
   hit: +6a
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   notes: Balcony Break
-  source_index: 79
-- id: u2
+- id: up2
+  source_id: Jun-u+2
+  source_index: 80
   command: u+2
+  name: Izumo Strike
   hit_level: h
   damage: '17'
   startup: i23~24
+  recovery: r16 IZU
   block: '+4'
   hit: '+11'
   counter_hit: +20c
   tier: specialist
   tags:
+  - hom
   - homing
   - high
-  notes: Homing;  Restores 2 health and 2 recoverable on hit;  Gain 6 Kazama Essence
-    on normal hit and 5 on airborne hit
-  source_index: 80
-- id: u4
+  notes: '* Homing
+
+    * Restores 2 health and 2 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+- id: up4
+  source_id: Jun-u+4
+  source_index: 81
   command: u+4
+  name: Chikura
   hit_level: m
   damage: '21'
   startup: i22~23
+  recovery: r30
   block: -3~-2
   hit: +22a
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - balcony_break
   - mid
-  notes: Balcony Break (airborne);  Low crush 8~28;  Floating state 29~31
-  source_index: 81
-- id: uf1
+  notes: '* Balcony Break (airborne)
+
+    * Low crush 8~28
+
+    * Floating state 29~31'
+- id: ufp1
+  source_id: Jun-uf+1
+  source_index: 82
   command: uf+1
+  name: Divine Exile - Heaven
   hit_level: h,h
   damage: 6,30
   startup: i10 i26
+  recovery: r34
   block: '-14'
   hit: +12a (+3)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - high
-  notes: Balcony Break;  Jail from 1st attack;  Deals 12 damage to self (8 recoverable);  2nd
-    hit available only on hit or block;  Recovery listed is for the 1st hit;  Gain
-    10 Kazama Essence on normal hit and 7 on block or airborne hit
-  source_index: 82
-- id: uf2
+  notes: '* Balcony Break
+
+    * Jail from 1st attack
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
+- id: ufp2
+  source_id: Jun-uf+2
+  source_index: 83
   command: uf+2
+  name: Totsuka-no-Tsurugi
   hit_level: M
   damage: '24'
   startup: i19
+  recovery: r35
   block: '-9'
   hit: +30a (+15)
   counter_hit: +69a (+53)
   tier: specialist
   tags:
+  - trn
+  - cs
   - high_crush
   - tornado
   - parry
   - chip
   - mid
-  notes: Tornado;  9 chip damage on block;  Deals 12 damage to self (8 recoverable);  Unparryable;  Gain
-    6 Kazama Essence on normal hit and 5 on block or airborne hit;  High crush 6~16
-  source_index: 83
-- id: uf3
+  notes: '* Tornado
+
+    * 9 chip damage on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit
+
+    * High crush 6~16'
+- id: ufp3
+  source_id: Jun-uf+3
+  source_index: 84
   command: uf+3
+  name: Iwato
   hit_level: m
   damage: '17'
   startup: i20~21
+  recovery: r24
   block: '-6'
   hit: '+5'
   counter_hit: +30a
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - balcony_break
   - mid
-  notes: Balcony Break (airborne);  Low crush 11~27;  Floating state 28~30
-  source_index: 84
-- id: uf4
+  notes: 'Balcony Break (airborne)
+
+    * Low crush 11~27
+
+    * Floating state 28~30'
+- id: ufp4
+  source_id: Jun-uf+4
+  source_index: 85
   command: uf+4
+  name: ''
   hit_level: m
   damage: '10'
   startup: i16~18
+  recovery: r42
   block: '-20'
   hit: '-9'
   counter_hit: ''
   tier: core
   tags:
+  - js
+  - fs
   - low_crush
   - mid
-  notes: Low crush 10~40;  Floating state 41~43
-  source_index: 85
-- id: uf4_3
+  notes: '* Low crush 10~40
+
+    * Floating state 41~43'
+- id: ufp4_3
+  source_id: Jun-uf+4,3
+  source_index: 86
   command: uf+4,3
+  name: Housenka - Misogi
   hit_level: m, m,M
   damage: 10, 8,20
   startup: i16~18, i29 i18
+  recovery: r31
   block: '-12'
   hit: +84a (+68)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
+  - js
+  - fs
   - low_crush
   - tornado
   - stance_transition
   - mid
-  notes: Tornado;  Combo from 1st hit;  Transition to MIA on hit only;  3rd hit available
-    only as combo from 2nd hit;  3rd hit deals 12 damage to self (8 recoverable);  Gain
-    5 Kazama Essence on normal hit or airborne hit;  Low crush 1~20;  Floating state
-    21~23
-  source_index: 86
-- id: uf3p4
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * Transition to MIA on hit only
+
+    * 3rd hit available only as combo from 2nd hit
+
+    * 3rd hit deals 12 damage to self (8 recoverable)
+
+    * Gain 5 Kazama Essence on normal hit or airborne hit
+
+    * Low crush 1~20
+
+    * Floating state 21~23'
+- id: ufp3p4
+  source_id: Jun-uf+3+4
+  source_index: 87
   command: uf+3+4
+  name: Saiuntsui
   hit_level: m,M
   damage: 5,21
   startup: i20~23 i2~6
+  recovery: r28 FC
   block: -8~-4
   hit: +18a
   counter_hit: ''
   tier: specialist
   tags:
+  - spk
+  - js
   - low_crush
   - mid
-  notes: Spike;  Low crush 9~30
-  source_index: 87
+  notes: '* Spike
+
+    * Low crush 9~30'
 - id: 1p2p3p4
+  source_id: Jun-1+2+3+4
+  source_index: 88
   command: 1+2+3+4
+  name: Ki Charge
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: r55
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags: []
-  notes: Can't block for 5 seconds;  CH state on your next attack for 5 seconds ''(Tekken
-    7 and prior games)'';  10% damage increase on the next attack for 5 seconds ''(Tekken
-    8 season 2 patch onward)'';  Attacks taken will be CH for 5 seconds
-  source_index: 88
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
 - id: ub_b
+  source_id: Jun-UB,b
+  source_index: 89
   command: UB,b
+  name: Back Handspring
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: ''
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
-  notes: Can perform wr3 with input 3;  Low crush 10~41;  Floating state 42~44
-  source_index: 89
-- id: ff2
+  notes: 'Can perform wr3 with input 3
+
+    * Low crush 10~41
+
+    * Floating state 42~44'
+- id: ffp2
+  source_id: Jun-f,F+2
+  source_index: 90
   command: f,F+2
+  name: ''
   hit_level: m
   damage: '16'
   startup: i16~17
+  recovery: r31
   block: '-12'
   hit: '+3'
   counter_hit: ''
@@ -1368,30 +2080,49 @@ moves:
   tags:
   - stance_transition
   - mid
-  notes: Enter GEN +1 +16g r18 wiith F;  Enter MIA +1 +16g r18 wiith B;  Stance transitions
-    can be delayed by up to 10F (+1~-9/+16g~+6g)
-  source_index: 90
-- id: ff2_2
+  notes: '* Enter GEN +1 +16g r18 wiith F
+
+    * Enter MIA +1 +16g r18 wiith B
+
+    * Stance transitions can be delayed by up to 10F (+1~-9/+16g~+6g)'
+- id: ffp2_2
+  source_id: Jun-f,F+2,2
+  source_index: 91
   command: f,F+2,2
+  name: Suiei Ura Saika
   hit_level: m, m
   damage: 16, 22
   startup: i16~17, i21
+  recovery: r37
   block: '-13'
   hit: +8a
   counter_hit: +53a
   tier: specialist
   tags:
+  - trn
+  - bbr
+  - elb
   - tornado
   - balcony_break
   - mid
-  notes: Tornado;  Balcony Break;  Elbow;  Combo from 1st hit with 8f delay;  +7F
-    crumple stun on CH
-  source_index: 91
-- id: ff2_3
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit with 8f delay
+
+    * +7F crumple stun on CH'
+- id: ffp2_3
+  source_id: Jun-f,F+2,3
+  source_index: 92
   command: f,F+2,3
+  name: Suiei Kagetsu
   hit_level: m, h
   damage: 16, 22
   startup: i16~17, i20~21
+  recovery: r35
   block: -8~-7
   hit: +29a (+14)
   counter_hit: ''
@@ -1400,78 +2131,123 @@ moves:
   - mid
   - high
   notes: Combo from 1st hit with 8f delay
-  source_index: 92
-- id: ff3
+- id: ffp3
+  source_id: Jun-f,F+3
+  source_index: 93
   command: f,F+3
+  name: ''
   hit_level: m
   damage: '23'
   startup: i18~19
+  recovery: r32
   block: '-9'
   hit: '+2'
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
   - homing
   - balcony_break
   - mid
-  notes: Homing;  Balcony Break (airborne)
-  source_index: 93
-- id: ff3_3p4
+  notes: '* Homing
+
+    * Balcony Break (airborne)'
+- id: ffp3_3p4
+  source_id: Jun-f,F+3,3+4
+  source_index: 94
   command: f,F+3,3+4
+  name: Yukimiguruma
   hit_level: m, m,m
   damage: 23, 12,15
   startup: i18~19, i35~36 i41~42
+  recovery: r25
   block: '+3'
   hit: +14a
   counter_hit: ''
   tier: specialist
   tags:
+  - spk
+  - fs
   - chip
   - mid
-  notes: Spike;  7 chip damage on block;  Interrupt with i11 from 1st block;  +14d
-    on BT hit;  Floating state 25~39
-  source_index: 94
-- id: ff1p2
+  notes: '* Spike
+
+    * 7 chip damage on block
+
+    * Interrupt with i11 from 1st block
+
+    * +14d on BT hit
+
+    * Floating state 25~39'
+- id: ffp1p2
+  source_id: Jun-f,F+1+2
+  source_index: 95
   command: f,F+1+2
+  name: Tokkei - Misogi
   hit_level: m
   damage: '32'
   startup: i22
+  recovery: r32
   block: '+6'
   hit: +23a (+13)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - parry
   - stance_transition
   - chip
   - mid
-  notes: Balcony Break;  6 chip damage on block;  Transition to +9, +26a (+16) GEN
-    with F;  Transition to +9, +26a (+16) MIA with B;  Deals 6 damage to self (4 recoverable);  Non-limb
-    attack, unparryable by Asuka, Nina, etc;  Gain 8 Kazama Essence on normal hit
-    and 6 on block or airborne hit
-  source_index: 95
-- id: f_ff3
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * Transition to +9, +26a (+16) GEN with F
+
+    * Transition to +9, +26a (+16) MIA with B
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Non-limb attack, unparryable by Asuka, Nina, etc
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
+- id: f_ffp3
+  source_id: Jun-f,f,F+3
+  source_index: 96
   command: f,f,F+3
+  name: Ame-no-Uzume
   hit_level: m
   damage: '28'
   startup: i24~28
+  recovery: r27
   block: +3~+7
   hit: +14a (+5)
   counter_hit: +46d (-1)
   tier: specialist
   tags:
+  - bbr
+  - js
   - low_crush
   - balcony_break
   - chip
   - mid
-  notes: Balcony Break;  8 chip damage on block;  Low crush 3~30;  Low crush 31~33
-  source_index: 96
+  notes: '* Balcony Break
+
+    * 8 chip damage on block
+
+    * Low crush 3~30
+
+    * Low crush 31~33'
 - id: ws1
+  source_id: Jun-ws1
+  source_index: 97
   command: ws1
+  name: ''
   hit_level: h
   damage: '14'
   startup: i12~13
+  recovery: r24
   block: '-6'
   hit: '+5'
   counter_hit: ''
@@ -1479,122 +2255,195 @@ moves:
   tags:
   - high
   notes: ''
-  source_index: 97
 - id: ws1_1
+  source_id: Jun-ws1,1
+  source_index: 98
   command: ws1,1
+  name: ''
   hit_level: h, h
   damage: 14, 7
   startup: i12~13, i15~16
+  recovery: r27
   block: '-9'
   hit: '+2'
   counter_hit: ''
   tier: specialist
   tags:
+  - elb
   - high
-  notes: Elbow;  Combo from 1st hit;  Enter GEN +0 +11g r18 with F;  Enter MIA +0
-    +11g r18 with B
-  source_index: 98
+  notes: '* Elbow
+
+    * Combo from 1st hit
+
+    * Enter GEN +0 +11g r18 with F
+
+    * Enter MIA +0 +11g r18 with B'
 - id: ws1_1_1
+  source_id: Jun-ws1,1,1
+  source_index: 99
   command: ws1,1,1
+  name: Tenkan Saika Shikei
   hit_level: h, h, m
   damage: 14, 7, 20
   startup: i12~13, ,i25
+  recovery: r32
   block: '-13'
   hit: +13a (+4)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Combo from 2nd CH with 4f delay;  Input can be delayed 14f
-  source_index: 99
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 14f'
 - id: ws1_1_2
+  source_id: Jun-ws1,1,2
+  source_index: 100
   command: ws1,1,2
+  name: Tenkan Saika Renken
   hit_level: h, h, M
   damage: 14, 7, 22
   startup: i12~13, ,i23
+  recovery: r35
   block: '-9'
   hit: +30a (+15)
   counter_hit: +69a (+53)
   tier: specialist
   tags:
+  - trn
+  - chp
   - heat
   - tornado
   - parry
   - chip
   - mid
   - high
-  notes: Tornado;  Combo from 2nd CH with 6f delay;  Input can be delayed 14f;  Chip
-    damage on block;  Deals recoverable self-damage when not in Heat;  Unparryable;  Gain
-    6 Kazama Essence on normal hit and 5 on block or airborne hit
-  source_index: 100
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * Chip damage on block
+
+    * Deals recoverable self-damage when not in Heat
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
 - id: ws1_1_4
+  source_id: Jun-ws1,1,4
+  source_index: 101
   command: ws1,1,4
+  name: Tenkan Saika Renshuu
   hit_level: h, h, h
   damage: 14, 7, 24
   startup: i12~13, ,i23~25
+  recovery: r30
   block: '-8'
   hit: +16c
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - high
-  notes: Balcony Break;  Combo from 2nd CH with 6f delay;  Input can be delayed 14f;  +13d
-    on BT hit;  Forces tech backroll on hit
-  source_index: 101
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 6f delay
+
+    * Input can be delayed 14f
+
+    * +13d on BT hit
+
+    * Forces tech backroll on hit'
 - id: ws1_4
+  source_id: Jun-ws1,4
+  source_index: 102
   command: ws1,4
+  name: ''
   hit_level: h, m
   damage: 14, 16
   startup: i12~13, i22~23
+  recovery: r29
   block: '-11'
   hit: +0c
   counter_hit: ''
   tier: specialist
   tags:
+  - spk
   - mid
   - high
-  notes: Spike;  Combo from 1st hit with 5f delay;  Input can be delayed 10f;  Move
-    can be delayed 8f
-  source_index: 102
+  notes: '* Spike
+
+    * Combo from 1st hit with 5f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 8f'
 - id: ws1_4_2
+  source_id: Jun-ws1,4,2
+  source_index: 103
   command: ws1,4,2
+  name: Tomoezakura
   hit_level: h, m, L
   damage: 14, 16, 17
   startup: i12~13, ,i23~24
+  recovery: r34 FC
   block: '-16'
   hit: +0c
   counter_hit: +13a
   tier: specialist
   tags:
+  - spk
+  - cs
   - high_crush
   - low
   - mid
   - high
-  notes: Spike;  Combo from 2nd CH;  High crush 17~
-  source_index: 103
+  notes: '* Spike
+
+    * Combo from 2nd CH
+
+    * High crush 17~'
 - id: ws1_4_1p2
+  source_id: Jun-ws1,4,1+2
+  source_index: 104
   command: ws1,4,1+2
+  name: Tomoefuji
   hit_level: h, m, m
   damage: 14, 16, 28
   startup: i12~13, ,i25~26
+  recovery: r39
   block: '-20'
   hit: +16a (+11)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - elb
   - balcony_break
   - mid
   - high
-  notes: Balcony Break;  Elbow;  Combo from 2nd CH
-  source_index: 104
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH'
 - id: ws2
+  source_id: Jun-ws2
+  source_index: 105
   command: ws2
+  name: ''
   hit_level: m
   damage: '12'
   startup: i13~14
+  recovery: r26
   block: '-8'
   hit: '+5'
   counter_hit: +32a
@@ -1602,40 +2451,56 @@ moves:
   tags:
   - mid
   notes: Hits grounded up-close only
-  source_index: 105
 - id: ws2_1
+  source_id: Jun-ws2,1
+  source_index: 106
   command: ws2,1
+  name: Hyakkaou
   hit_level: m, m
   damage: 12, 20
   startup: i13~14, i22~23
+  recovery: r30
   block: '-12'
   hit: +19a (10)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
   - balcony_break
   - mid
-  notes: Balcony Break;  Combo from 1st hit
-  source_index: 106
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
 - id: ws3
+  source_id: Jun-ws3
+  source_index: 107
   command: ws3
+  name: Gioh
   hit_level: M
   damage: '16'
   startup: i14~15
+  recovery: r38
   block: '-13'
   hit: +25a (+5)
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - mid
-  notes: Low crush 17~33;  Floating state 34~36
-  source_index: 107
+  notes: '* Low crush 17~33
+
+    * Floating state 34~36'
 - id: ws4
+  source_id: Jun-ws4
+  source_index: 108
   command: ws4
+  name: Ichikaku
   hit_level: m
   damage: '21'
   startup: i11~12
+  recovery: r31
   block: '-12'
   hit: +18a (+11)
   counter_hit: ''
@@ -1643,192 +2508,290 @@ moves:
   tags:
   - mid
   notes: ''
-  source_index: 108
 - id: ws1p2
+  source_id: Jun-ws1+2
+  source_index: 109
   command: ws1+2
+  name: Sudare Nagashi
   hit_level: m
   damage: '20'
   startup: i21
+  recovery: r27
   block: '-2'
   hit: '+5'
   counter_hit: +14 +63a
   tier: specialist
   tags:
+  - elb
   - mid
-  notes: Elbow;  Cancel to r39 FC with D on frame 20
-  source_index: 109
+  notes: '* Elbow
+
+    * Cancel to r39 FC with D on frame 20'
 - id: ws3p4
+  source_id: Jun-ws3+4
+  source_index: 110
   command: ws3+4
+  name: Flowing Moon Scent
   hit_level: m
   damage: '23'
   startup: i18~19
+  recovery: r39
   block: '-21'
   hit: +38a (+28)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
+  - fs
   - tornado
   - mid
-  notes: Tornado;  Floating state 15~36
-  source_index: 110
+  notes: 'Tornado
+
+    * Floating state 15~36'
 - id: ss_2
+  source_id: Jun-SS.2
+  source_index: 111
   command: SS.2
+  name: Kasanegasumi
   hit_level: m
   damage: '27'
   startup: i16
+  recovery: r31
   block: '-9'
   hit: +14a (+5)
   counter_hit: +34d (+26)
   tier: specialist
   tags:
+  - bbr
+  - trn
   - tornado
   - balcony_break
   - mid
-  notes: Balcony Break;  Tornado;  Restores 3 health and 3 recoverable on hit;  Gain
-    6 Kazama Essence on normal hit and 5 on airborne hit
-  source_index: 111
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Restores 3 health and 3 recoverable on hit
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
 - id: ss_4
+  source_id: Jun-SS.4
+  source_index: 112
   command: SS.4
+  name: Kagura
   hit_level: m
   damage: '20'
   startup: i18~20
+  recovery: r27
   block: '+6'
   hit: +8c
   counter_hit: ''
   tier: specialist
   tags:
+  - he
+  - spk
   - heat
   - mid
-  notes: Heat Engager;  Heat Dash +5, +67a (+50);  Spike;  Gain 10 Kazama Essence
-    on Heat activation
-  source_index: 112
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Spike
+
+    * Gain 10 Kazama Essence on Heat activation'
 - id: ss_1p2
+  source_id: Jun-SS.1+2
+  source_index: 113
   command: SS.1+2
+  name: Sankouchou
   hit_level: h,h,m
   damage: 7,9,18
   startup: i16 i17 i15~16
+  recovery: r25 FC
   block: '-4'
   hit: +7c
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
+  - spk
   - homing
   - mid
   - high
-  notes: Homing;  Spike;  Jail from 1st attack;  Combo from 1st or 2nd hit
-  source_index: 113
-- id: fc_df1
+  notes: '* Homing
+
+    * Spike
+
+    * Jail from 1st attack
+
+    * Combo from 1st or 2nd hit'
+- id: fc_dfp1
+  source_id: Jun-FC.df+1
+  source_index: 114
   command: FC.df+1
+  name: Divine Exile - Earth
   hit_level: sl,m
   damage: 6,30
   startup: i10 i25~26
+  recovery: r34 FC
   block: '-19'
   hit: +26a (+11)
   counter_hit: ''
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
   - mid
-  notes: Deals 18 damage to self (12 recoverable);  2nd hit available only on hit
-    or block;  Recovery listed is for the 1st hit, t74 both hits;  Gain 10 Kazama
-    Essence on normal hit and 7 on block or airborne hit;  High crush 1~
-  source_index: 114
-- id: fc_df2
+  notes: '* Deals 18 damage to self (12 recoverable)
+
+    * 2nd hit available only on hit or block
+
+    * Recovery listed is for the 1st hit, t74 both hits
+
+    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
+
+    * High crush 1~'
+- id: fc_dfp2
+  source_id: Jun-FC.df+2
+  source_index: 115
   command: FC.df+2
+  name: Grace
   hit_level: L
   damage: '12'
   startup: i16~17
+  recovery: r29 FC
   block: '-11'
   hit: '+0'
   counter_hit: '+14'
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
-  notes: Only i14 or faster attacks guaranteed on CH;  High crush 1~
-  source_index: 115
-- id: fc_df3
+  notes: 'Only i14 or faster attacks guaranteed on CH
+
+    * High crush 1~'
+- id: fc_dfp3
+  source_id: Jun-FC.df+3
+  source_index: 116
   command: FC.df+3
+  name: Kanamegaeshi
   hit_level: L
   damage: '12'
   startup: i21
+  recovery: r38
   block: '-19'
   hit: +0c
   counter_hit: ''
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
-  notes: Clean hit +10a, 15 damage;  Opponent recovers FDFA on CL;  High crush 1~47
-  source_index: 116
+  notes: '* Clean hit +10a, 15 damage
+
+    * Opponent recovers FDFA on CL
+
+    * High crush 1~47'
 - id: back_to_wall_b_b_ub
+  source_id: Jun-(Back to wall).b,b,UB
+  source_index: 117
   command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
   hit_level: m
   damage: '21'
   startup: i39~41
+  recovery: r26
   block: +4c~+6c
   hit: +22a
   counter_hit: ''
   tier: specialist
   tags:
+  - fs
+  - js
   - low_crush
   - mid
-  notes: Floating state 5~13;  Low crush 14~33;  Floating state 34~36
-  source_index: 117
+  notes: '* Floating state 5~13
+
+    * Low crush 14~33
+
+    * Floating state 34~36'
 - id: gen_1
+  source_id: Jun-GEN.1
+  source_index: 118
   command: GEN.1
+  name: Rurikoukai
   hit_level: L
   damage: '22'
   startup: i20~21
+  recovery: r31 FC
   block: '-12'
   hit: +3c
   counter_hit: +26a
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
-  notes: Has good left sidestep tracking;  High crush 11~
-  source_index: 118
+  notes: '* Has good left sidestep tracking
+
+    * High crush 11~'
 - id: gen_2
+  source_id: Jun-GEN.2
+  source_index: 119
   command: GEN.2
+  name: Kazama Style Spirit
   hit_level: m,t
   damage: 16,32
   startup: i16~17
+  recovery: r34
   block: -13~-12
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
+  - chp
+  - pc
   - throw
   - power_crush
   - balcony_break
   - stance_transition
   - chip
   - mid
-  notes: Transition to attack throw on front standing or airborne hit ;  Deals 12
-    damage to self (8 recoverable);  Frame advantage is -9 if an attack is absorbed;  Chip
-    damage on block if an attack is absorbed;  +10a (+1) and Balcony Break on BT hit;  Gain
-    8 Kazama Essence on normal hit or airborne hit;  Power crush 8~15
-  source_index: 119
+  notes: "* Transition to attack throw on front standing or airborne hit \n* Deals\
+    \ 12 damage to self (8 recoverable)\n* Frame advantage is -9 if an attack is absorbed\n\
+    * Chip damage on block if an attack is absorbed\n* +10a (+1) and Balcony Break\
+    \ on BT hit\n* Gain 8 Kazama Essence on normal hit or airborne hit\n* Power crush\
+    \ 8~15"
 - id: gen_3
+  source_id: Jun-GEN.3
+  source_index: 120
   command: GEN.3
+  name: ''
   hit_level: M
   damage: '14'
   startup: i17~20
+  recovery: r28
   block: -4c~-1c
   hit: +4c~+7c
   counter_hit: ''
   tier: specialist
   tags:
+  - spk
   - mid
   notes: Spike
-  source_index: 120
 - id: gen_3_2
+  source_id: Jun-GEN.3,2
+  source_index: 121
   command: GEN.3,2
+  name: Getsuun Renken
   hit_level: M, M
   damage: 14, 16
   startup: i17~20, i24
+  recovery: r32
   block: '-9'
   hit: +33a (+18)
   counter_hit: ''
@@ -1836,426 +2799,688 @@ moves:
   tags:
   - parry
   - mid
-  notes: Combo from 1st hit with 8f delay;  Input can be delayed 10f;  Deals 12 damage
-    to self (8 recoverable);  Unparryable;  Gain 8 Kazama Essence on normal hit and
-    6 on block or airborne hit
-  source_index: 121
+  notes: '* Combo from 1st hit with 8f delay
+
+    * Input can be delayed 10f
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
 - id: gen_4
+  source_id: Jun-GEN.4
+  source_index: 122
   command: GEN.4
+  name: Nichiun
   hit_level: h
   damage: '24'
   startup: i26~28
+  recovery: r22
   block: +4~+6
   hit: +26a (+17)
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
+  - bbr
+  - js
+  - fs
   - homing
   - low_crush
   - balcony_break
   - high
-  notes: Homing;  Balcony Break;  Low crush 16~33;  Floating state 34~36
-  source_index: 122
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Low crush 16~33
+
+    * Floating state 34~36'
 - id: izu_1
+  source_id: Jun-IZU.1
+  source_index: 123
   command: IZU.1
+  name: ''
   hit_level: h
   damage: '7'
   startup: i13~14
+  recovery: r25
   block: '-7'
   hit: '+4'
   counter_hit: ''
   tier: specialist
   tags:
   - high
-  notes: Enter GEN -6, +5 r18 with FEnter MIA -6, +5 r18 with B
-  source_index: 123
+  notes: 'Enter GEN -6, +5 r18 with F
+
+    Enter MIA -6, +5 r18 with B'
 - id: izu_1_1
+  source_id: Jun-IZU.1,1
+  source_index: 124
   command: IZU.1,1
+  name: Haraede Kannagi
   hit_level: h, h
   damage: 7, 26
   startup: i13~14, i23~24
+  recovery: r25
   block: '-4'
   hit: +22d
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - trn
   - tornado
   - balcony_break
   - parry
   - high
-  notes: Balcony Break;  Tornado;  Combo from 1st hit with 6f delay;  Restores 1 health
-    on hit;  Restores 1 additional recoverable on hit;  Non-limb attack, unparryable
-    by Asuka, Nina, etc;  Gain 6 Kazama Essence on normal hit and 5 on airborne hit
-  source_index: 124
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 1st hit with 6f delay
+
+    * Restores 1 health on hit
+
+    * Restores 1 additional recoverable on hit
+
+    * Non-limb attack, unparryable by Asuka, Nina, etc
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
 - id: izu_1_2
+  source_id: Jun-IZU.1,2
+  source_index: 125
   command: IZU.1,2
+  name: Haraede Musubi
   hit_level: h, m
   damage: 7, 20
   startup: i13~14, i24
+  recovery: r34
   block: '-13'
   hit: +6a
   counter_hit: +15a
   tier: specialist
   tags:
+  - spk
   - mid
   - high
-  notes: Spike;  Combo from 1st hit with 5f delay;  Input can be delayed 6f
-  source_index: 125
+  notes: '* Spike
+
+    * Combo from 1st hit with 5f delay
+
+    * Input can be delayed 6f'
 - id: izu_2
+  source_id: Jun-IZU.2
+  source_index: 126
   command: IZU.2
+  name: Setsurinbu - Misogi
   hit_level: M
   damage: '24'
   startup: i23~25
+  recovery: r34
   block: -13~-11
   hit: +34a (+24)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
+  - chp
+  - cs
   - high_crush
   - tornado
   - parry
   - chip
   - mid
-  notes: Tornado;  Chip damage (9) on block;  Deals 12 damage to self (8 recoverable);  Unparryable;  Gain
-    6 Kazama Essence on normal hit and 5 on block or airborne hit;  High crush 6~20
-  source_index: 126
+  notes: '* Tornado
+
+    * Chip damage (9) on block
+
+    * Deals 12 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit
+
+    * High crush 6~20'
 - id: izu_3
+  source_id: Jun-IZU.3
+  source_index: 127
   command: IZU.3
+  name: Zuiun Renkyaku
   hit_level: m,h
   damage: 10,16
   startup: i16~15 i14~15
+  recovery: r32
   block: '-6'
   hit: +12a (+3)
   counter_hit: ''
   tier: specialist
   tags:
+  - he
+  - bbr
+  - js
+  - fs
   - heat
   - low_crush
   - balcony_break
   - mid
   - high
-  notes: Heat Engager;  Heat Dash +5, +36a (+26);  Balcony Break;  Jail from 1st attack;  Gain
-    10 Kazama Essence on Heat activation;  Low crush 20~53;  Floating state 54~56
-  source_index: 127
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Gain 10 Kazama Essence on Heat activation
+
+    * Low crush 20~53
+
+    * Floating state 54~56'
 - id: izu_4
+  source_id: Jun-IZU.4
+  source_index: 128
   command: IZU.4
+  name: ''
   hit_level: L
   damage: '10'
   startup: i19
+  recovery: r37 FC
   block: '-37'
   hit: -1c
   counter_hit: +23a
   tier: specialist
   tags:
+  - cs
   - high_crush
   - low
-  notes: High crush 13~
-  source_index: 128
+  notes: '* High crush 13~'
 - id: izu_4_1
+  source_id: Jun-IZU.4,1
+  source_index: 129
   command: IZU.4,1
+  name: Wakeikazuchi - Misogi
   hit_level: L, M
   damage: 10, 21
   startup: i19, i19~20
+  recovery: r37
   block: -14~-13
   hit: +14a (+3)
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - js
+  - fs
   - low_crush
   - balcony_break
   - parry
   - low
   - mid
-  notes: 'Balcony Break;  2nd hit only available as combo from 1st hit;  DA: +9 damage
-    on hit (30);  Deals 18 damage to self (12 recoverable);  Unparryable;  Gain 20
-    Kazama Essence on normal or airborne hit;  Low crush 22~38;  Floating state 39~41'
-  source_index: 129
+  notes: '* Balcony Break
+
+    * 2nd hit only available as combo from 1st hit
+
+    * DA: +9 damage on hit (30)
+
+    * Deals 18 damage to self (12 recoverable)
+
+    * Unparryable
+
+    * Gain 20 Kazama Essence on normal or airborne hit
+
+    * Low crush 22~38
+
+    * Floating state 39~41'
 - id: izu_1p2
+  source_id: Jun-IZU.1+2
+  source_index: 130
   command: IZU.1+2
+  name: Mihikarioroshi
   hit_level: M
   damage: '24'
   startup: i21~22
+  recovery: r30
   block: '-12'
   hit: +19a
   counter_hit: ''
   tier: specialist
   tags:
+  - bbr
+  - spk
+  - pc
   - power_crush
   - balcony_break
   - mid
-  notes: Balcony Break;  Spike;  Frame advantage is -6c if an attack is absorbed;  Power
-    crush 8~20
-  source_index: 130
-- id: izu_f1p2
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Frame advantage is -6c if an attack is absorbed
+
+    * Power crush 8~20'
+- id: izu_fp1p2
+  source_id: Jun-IZU.f+1+2
+  source_index: 131
   command: IZU.f+1+2
+  name: Dianthus Garden
   hit_level: m
   damage: '21'
   startup: i16~17
+  recovery: r32
   block: '-6'
   hit: '+5'
   counter_hit: '+25'
   tier: specialist
   tags:
+  - hom
   - homing
   - balcony_break
   - mid
-  notes: Homing;  Balcony Break (airborne);  Only i15 or faster attacks guaranteed
-    on CH;  Jab evasion;  Gain 6 Kazama Essence on normal hit and 5 on airborne hit
-  source_index: 131
+  notes: '* Homing
+
+    * Balcony Break (airborne)
+
+    * Only i15 or faster attacks guaranteed on CH
+
+    * Jab evasion
+
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
 - id: mia_1
+  source_id: Jun-MIA.1
+  source_index: 132
   command: MIA.1
+  name: Ame-no-Sakahoko
   hit_level: M
   damage: '30'
   startup: i24~25
+  recovery: r31
   block: '-9'
   hit: +72a (+56)
   counter_hit: ''
   tier: specialist
   tags:
+  - trn
   - tornado
   - parry
   - chip
   - mid
-  notes: Tornado;  12 Chip damage on block;  Deals 9 damage to self (8 recoverable);  Unparryable;  Gain
-    8 Kazama Essence on normal hit and 6 on block or airborne hit
-  source_index: 132
+  notes: '* Tornado
+
+    * 12 Chip damage on block
+
+    * Deals 9 damage to self (8 recoverable)
+
+    * Unparryable
+
+    * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
 - id: mia_2
+  source_id: Jun-MIA.2
+  source_index: 133
   command: MIA.2
+  name: Ame-no-Nuboko
   hit_level: sm
   damage: '28'
   startup: i16
+  recovery: r40
   block: '-20'
   hit: +26a (+0)
   counter_hit: ''
   tier: specialist
   tags:
+  - he
+  - bbr
   - heat
   - balcony_break
   - parry
   - chip
   - mid
-  notes: 'Heat Engager;  Heat Dash +5, +43d (+35);  Balcony Break;  DA: Range increases
-    to 4.0;  Deals 8 (DA:11) chip damage on block;  Deals 6 damage to self (4 recoverable);  Unparryable;  Gain
-    16 Kazama Essence on Heat activation;  Gain 6 Kazama Essence on normal hit and
-    5 on block or airborne hit'
-  source_index: 133
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * DA: Range increases to 4.0
+
+    * Deals 8 (DA:11) chip damage on block
+
+    * Deals 6 damage to self (4 recoverable)
+
+    * Unparryable
+
+    * Gain 16 Kazama Essence on Heat activation
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
 - id: mia_1p2
+  source_id: Jun-MIA.1+2
+  source_index: 134
   command: MIA.1+2
+  name: Yakumodachi
   hit_level: m
   damage: '17'
   startup: i20~21
+  recovery: IZU
   block: '+4'
   hit: +11g
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
+  - cs
   - homing
   - high_crush
   - balcony_break
   - stance_transition
   - mid
-  notes: Homing;  Strong Aerial Tailspin;  Balcony Break on airborne hit;  Transitions
-    to IZU on hit or block;  Gain 6 Kazama Essence on normal hit and 5 on block or
-    airborne hit;  High crush 8~21
-  source_index: 134
+  notes: '* Homing
+
+    * Strong Aerial Tailspin
+
+    * Balcony Break on airborne hit
+
+    * Transitions to IZU on hit or block
+
+    * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit
+
+    * High crush 8~21'
 - id: mia_f
+  source_id: Jun-MIA.F
+  source_index: 135
   command: MIA.F
+  name: Genjitsu
   hit_level: ''
   damage: ''
   startup: ''
+  recovery: r16 GEN
   block: ''
   hit: ''
   counter_hit: ''
   tier: specialist
   tags:
+  - ps
   - throw
   - parry
-  notes: Cancel to r34 FC with D on frame 16;  Parries low punches or kicks;  Parries
-    throws;  Parry state 1~40
-  source_index: 135
+  notes: '* Cancel to r34 FC with D on frame 16
+
+    * Parries low punches or kicks
+
+    * Parries throws
+
+    * Parry state 1~40'
 - id: hfc_3p4
+  source_id: Jun-hFC.3+4
+  source_index: 136
   command: hFC.3+4
+  name: ''
   hit_level: m,m
   damage: 10,10
   startup: i21~22 i23~24
+  recovery: r24
   block: '-6'
   hit: +5c
   counter_hit: ''
   tier: specialist
   tags:
+  - js
+  - fs
   - low_crush
   - stance_transition
   - mid
-  notes: Transition to r24 FC with D;  Can be done from Crouch Level 1;  Low crush
-    5~19;  Floating state 20~22
-  source_index: 136
+  notes: '* Transition to r24 FC with D
+
+    * Can be done from Crouch Level 1
+
+    * Low crush 5~19
+
+    * Floating state 20~22'
 - id: hfc_3p4_3
+  source_id: Jun-hFC.3+4,3
+  source_index: 137
   command: hFC.3+4,3
+  name: Twin Cloud Kicks
   hit_level: m,m, m,m
   damage: 10,10, 10,10
   startup: i21~22 i23~24, i31~32 i40~41
+  recovery: r24
   block: +0~+1
   hit: +15a
   counter_hit: ''
   tier: specialist
   tags:
+  - js21~31
+  - fs
   - low_crush
   - stance_transition
   - mid
-  notes: Transition to r24 FC with D;  Low crush ~21~31;  Floating state 32~40
-  source_index: 137
+  notes: '* Transition to r24 FC with D
+
+    * Low crush ~21~31
+
+    * Floating state 32~40'
 - id: 1p3
+  source_id: Jun-1+3
+  source_index: 138
   command: 1+3
+  name: Shiho Nage
   hit_level: t
   damage: '35'
   startup: i12~14
+  recovery: r31
   block: '+0'
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
   - throw
   - homing
-  notes: Homing;  Throw break 1 or 2
-  source_index: 138
+  notes: '* Homing
+
+    * Throw break 1 or 2'
 - id: 2p4
+  source_id: Jun-2+4
+  source_index: 139
   command: 2+4
+  name: Katanuki
   hit_level: t
   damage: '35'
   startup: i12~14
+  recovery: r31
   block: ''
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
+  - hom
   - throw
   - homing
-  notes: Homing;  Throw break 1 or 2;  Side switch on hit
-  source_index: 139
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit'
 - id: back_throw
+  source_id: Jun-Back throw
+  source_index: 140
   command: Back throw
+  name: Twisted Limbs
   hit_level: t
   damage: '50'
   startup: ''
+  recovery: ''
   block: ''
   hit: +7d
   counter_hit: ''
   tier: specialist
   tags:
   - throw
-  notes: Unbreakable;  Side switch
-  source_index: 140
-- id: fc_db1p2
+  notes: '* Unbreakable
+
+    * Side switch'
+- id: fc_dbp1p2
+  source_id: Jun-FC.db+1+2
+  source_index: 141
   command: FC.db+1+2
+  name: Falling Rain
   hit_level: t
   damage: 15,15,15
   startup: i14~15
+  recovery: r26
   block: '-6'
   hit: +56a (+28)
   counter_hit: ''
   tier: specialist
   tags:
   - throw
-  notes: Throw break 1+2;  Opponent can tech roll to reduce the landing damage
-  source_index: 141
+  notes: '* Throw break 1+2
+
+    * Opponent can tech roll to reduce the landing damage'
 - id: gen_p_low
+  source_id: Jun-Gen.P (Low)
+  source_index: 142
   command: GEN.P (Low)
+  name: Amaterasu
   hit_level: t
   damage: '20'
   startup: ''
-  block: ''
-  hit: +0d
-  counter_hit: ''
-  tier: specialist
-  tags: []
-  notes: Restores 14 health and 14 recoverable;  Opponent recovers FDFA;  Gain 20
-    Kazama Essence
-  source_index: 142
-- id: gen_p_throw
-  command: GEN.P (Throw)
-  hit_level: t
-  damage: '40'
-  startup: ''
+  recovery: ''
   block: ''
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
   - throw
-  notes: Restores 8 health and 8 recoverable;  Opponent recovers FUFA (sideways);  Gain
-    20 Kazama Essence
+  notes: '* Restores 14 health and 14 recoverable
+
+    * Opponent recovers FDFA
+
+    * Gain 20 Kazama Essence'
+- id: gen_p_throw
+  source_id: Jun-GEN.P (Throw)
   source_index: 143
+  command: GEN.P (Throw)
+  name: Throw Reversal
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Restores 8 health and 8 recoverable
+
+    * Opponent recovers FUFA (sideways)
+
+    * Gain 20 Kazama Essence'
 - id: izu_1p3
+  source_id: Jun-IZU.1+3
+  source_index: 144
   command: IZU.1+3
+  name: Tsukuyomi
   hit_level: t
   damage: '35'
   startup: i14
+  recovery: r25
   block: '-6'
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
   - throw
-  notes: Throw break 1+2;  Restores 8 life and 12 recoverable;  Gain 8 Kazama Essence
-    on hit
-  source_index: 144
+  notes: '* Throw break 1+2
+
+    * Restores 8 life and 12 recoverable
+
+    * Gain 8 Kazama Essence on hit'
 - id: left_throw
-  command: Left throw
-  hit_level: t
-  damage: '40'
-  startup: ''
-  block: '-3'
-  hit: +0d
-  counter_hit: ''
-  tier: specialist
-  tags:
-  - throw
-  notes: Throw break 1
+  source_id: Jun-Left throw
   source_index: 145
-- id: right_throw
-  command: Right throw
+  command: Left throw
+  name: Cloud Taste
   hit_level: t
   damage: '40'
   startup: ''
+  recovery: ''
   block: '-3'
   hit: +0d
   counter_hit: ''
   tier: specialist
   tags:
   - throw
-  notes: Throw break 2;  Side switch on hit
+  notes: '* Throw break 1'
+- id: right_throw
+  source_id: Jun-Right throw
   source_index: 146
-- id: b1p3_p
+  command: Right throw
+  name: Wind Wheel
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: bp1p3_p
+  source_id: Jun-b+1+3,P
+  source_index: 147
   command: b+1+3,P
+  name: ''
   hit_level: t
   damage: '25'
   startup: ''
+  recovery: ''
   block: ''
   hit: -4d
   counter_hit: ''
   tier: specialist
-  tags: []
-  notes: Opponent recovers FDFT
-  source_index: 147
-- id: df2p3
+  tags:
+  - throw
+  notes: '* Opponent recovers FDFT'
+- id: dfp2p3
+  source_id: Jun-df+2+3
+  source_index: 148
   command: df+2+3
+  name: White Mountain
   hit_level: t
   damage: '40'
   startup: i12
+  recovery: r27
   block: '-6'
   hit: -6d
   counter_hit: ''
   tier: specialist
   tags:
+  - fbr
   - throw
   - floor_break
-  notes: Throw break 2;  Floor Break
-  source_index: 148
-- id: uf1p2
+  notes: '* Throw break 2
+
+    * Floor Break'
+- id: ufp1p2
+  source_id: Jun-uf+1+2
+  source_index: 149
   command: uf+1+2
+  name: Riai
   hit_level: t
   damage: '40'
   startup: i12
+  recovery: r27
   block: '-6'
   hit: +0d
   counter_hit: ''
@@ -2263,34 +3488,3 @@ moves:
   tags:
   - throw
   notes: Throw break 1+2
-  source_index: 149
-combos:
-- id: df2_basic_wall_carry
-  starter: df2
-  route:
-  - f2
-  - df1
-  - b2_1
-  - ff2
-  difficulty: easy
-  purpose: launcher conversion
-  notes: Placeholder route for simulator curriculum; verify exact Tekken 8 route in
-    practice.
-- id: uf4_basic_conversion
-  starter: uf4
-  route:
-  - df1
-  - f2
-  - b2_1
-  - ff2
-  difficulty: easy
-  purpose: low-crush launcher conversion
-  notes: Training route until combo calibration is recorded from the real game.
-- id: f2_whiff_punish_route
-  starter: f2
-  route:
-  - f2_1p2
-  - ff2
-  difficulty: medium
-  purpose: whiff punish and heat followup
-  notes: Use for spacing/whiff-punish curriculum.

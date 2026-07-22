@@ -1,0 +1,1811 @@
+schema_version: 1
+character_id: 32
+character: eddy
+display_name: Eddy Gordo
+groups:
+- stance_heavy
+- evasive
+specialty: capoeira_mixups
+sidestep_tendency: right
+signature_mechanics:
+- negativa
+- handstand
+- mandinga
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/eddy/framedata
+important_punishable_moves:
+- id: rlx_3
+  command: RLX.3
+  hit_level: L
+  startup: i16~17
+  block: -26c
+  notes: '* Transition to FC
+
+    * High crush 1~50'
+- id: fp4_3p4
+  command: f+4,3+4
+  hit_level: m, L,L
+  startup: i23~25, i22~24 i5~6
+  block: -24c
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: bp1_4_3p4
+  command: b+1,4,3+4
+  hit_level: m, m, L
+  startup: i14~15, ,i22~24
+  block: -24c
+  notes: '* Combo from 1st CH or 2nd hit with 3F delay
+
+    * Interrupt with i2 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 1~46
+
+    * High crush 10~54'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i24~25
+  block: -21c
+  notes: '* Transition to HSP
+
+    * Floating state 26~'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i15~18
+  block: -18~-16
+  notes: 'Tornado
+
+    * Floating state 19~33'
+- id: dbp2
+  command: db+2
+  hit_level: L
+  startup: i18~19
+  block: -18c
+  notes: '* High crush 6~55'
+- id: dbp2_3
+  command: db+2,3
+  hit_level: L, m
+  startup: i18~19, i27~28
+  block: '-18'
+  notes: '* Tornado
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i8
+
+    * Floating state 30~49'
+- id: ufp3_3
+  command: uf+3,3
+  hit_level: m, m
+  startup: i26~28, i21~24
+  block: '-18'
+  notes: Tornado
+- id: ws2
+  command: ws2
+  hit_level: m
+  startup: i15~16
+  block: '-18'
+  notes: '* Elbow'
+- id: rlx_3p4
+  command: RLX.3+4
+  hit_level: M
+  startup: i17~18
+  block: '-18'
+  notes: 'Tornado
+
+    * Floating state 1~56'
+- id: ubp4
+  command: ub+4
+  hit_level: m
+  startup: i19~21
+  block: '-17'
+  notes: '* Floating state 20~?'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i15~16
+  block: -16c
+  notes: '* Transition to FC
+
+    * High crush 6~50'
+- id: bp3_3
+  command: b+3,3
+  hit_level: m, M
+  startup: i13~14, i26~28
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i6 from 1st block'
+- id: ws1_3
+  command: ws1,3
+  hit_level: h, M
+  startup: i13~14, i19~21
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st hit'
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i13
+  block: '-15'
+  notes: '* Hits grounded up-close'
+- id: fuft_bp3p4
+  command: FUFT.b+3+4
+  hit_level: m
+  startup: i16-28
+  block: -15~-27
+  notes: '* Floating state 1~11
+
+    * Low crush 12~'
+- id: '1_2_4_3'
+  command: 1,2,4~3
+  hit_level: h, h, L
+  startup: i10, ,i32~33
+  block: -14c
+  notes: '* High crush 32~'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, m
+  startup: i10, i23~24
+  block: '-14'
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 2f delay'
+- id: fp2_4
+  command: f+2,4
+  hit_level: m, l
+  startup: i18, i23~24
+  block: -14c
+  notes: '* Combo from 1st CH with with 12f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* High crush 6~54'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i28
+  block: -14c
+  notes: '* Has good right sidestep tracking'
+- id: dbp3p4_4_3
+  command: db+3+4,4,3
+  hit_level: m,M, m, m
+  startup: i20~22, ,i22~23
+  block: '-14'
+  notes: '* Combo from 3rd CH with 12F delay
+
+    * Move can be delayed by 13F'
+- id: bp2_3_3
+  command: b+2,3,3
+  hit_level: m, m, M
+  startup: i15~16, ,i33~35
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 1F delay
+
+    * Interrupt with i12 from 2nd block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: up4_3
+  command: u+4~3
+  hit_level: L
+  startup: i32~33
+  block: -14c
+  notes: '* Balcony Break
+
+    * Transition to RLX
+
+    * Low crush 7?~'
+- id: ufp3_4
+  command: uf+3,4
+  hit_level: m, L
+  startup: i26~28, i24~25
+  block: -14c
+  notes: ''
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* Transition to RLX on hit
+
+    * Transition to FC on block or whiff
+
+    * High crush 15~33'
+- id: md1_hsp_3p4
+  command: MD1.HSP.3+4
+  hit_level: L,m,m
+  startup: i21~22
+  block: '-14'
+  notes: '* Low crush 28?~'
+- id: md2_hsp_3p4
+  command: MD2.HSP.3+4
+  hit_level: L,m,m
+  startup: i21~22
+  block: '-14'
+  notes: 'Floor Break
+
+    * Low crush 28?~'
+- id: rlx_1_3
+  command: RLX.1,3
+  hit_level: L, m
+  startup: i14, i25~26
+  block: '-14'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 5F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: rlx_2_4_4
+  command: RLX.2,4,4
+  hit_level: m, h, m
+  startup: i18~19, ,i32~33
+  block: '-14'
+  notes: Balcony Break
+- id: fp4_3
+  command: f+4,3
+  hit_level: m, m
+  startup: i23~25, i23~24
+  block: '-13'
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Move can be delayed 7f'
+common_strings_and_gaps:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Enter HSP -5 +6 r24 with F'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i24~25
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd CH with 4F delay
+
+    * Interrupt from 2nd block with i5'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h
+  startup: i10, ,
+  block: '+6'
+  notes: '* Low crush 7~37
+
+    * Floating state 38~40'
+- id: '1_2_4_3'
+  command: 1,2,4~3
+  hit_level: h, h, L
+  startup: i10, ,i32~33
+  block: -14c
+  notes: '* High crush 32~'
+- id: '1_2_4_4'
+  command: 1,2,4~4
+  hit_level: h, h, h
+  startup: i10, ,i18~20
+  block: +8~+10
+  notes: '* Balcony Break
+
+    * Tech roll to r45 FC on frames 30~31
+
+    * Low crush 7~32'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, m
+  startup: i10, i23~24
+  block: '-14'
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 2f delay'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i17~18
+  block: '-9'
+  notes: Jail from 1st attack
+- id: '2_1_4'
+  command: 2,1,4
+  hit_level: h, h, m
+  startup: i12, ,i20~22
+  block: -12~-10
+  notes: '* Balcony Break
+
+    * Combo from 2nd Ch with 10f delay
+
+    * Input can be delayed 14f'
+- id: '2_3'
+  command: 2,3
+  hit_level: h, m
+  startup: i12, i20~21
+  block: '-8'
+  notes: Combo from 1st hit
+- id: '3_3'
+  command: 3,3
+  hit_level: m, m
+  startup: i14~15, i23~25
+  block: '-3'
+  notes: '* Combo from 1st CH
+
+    * Transition to HSP'
+- id: '4_4'
+  command: 4,4
+  hit_level: m, m
+  startup: i13~14, i30~31
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st CH with 4f delay
+
+    * Input can be delayed 7f
+
+    * Low crush 22~33
+
+    * Floating state 34~36'
+- id: fp2_4
+  command: f+2,4
+  hit_level: m, l
+  startup: i18, i23~24
+  block: -14c
+  notes: '* Combo from 1st CH with with 12f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp3_4
+  command: f+3,4
+  hit_level: h, m
+  startup: i16~18, i29~31
+  block: -11~-9
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Cancel to HSP -14 -2 r40 with F on frame 20
+
+    * Floating state 25~46'
+- id: fp4_3
+  command: f+4,3
+  hit_level: m, m
+  startup: i23~25, i23~24
+  block: '-13'
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Move can be delayed 7f'
+- id: fp4_3_3p4
+  command: f+4,3,3+4
+  hit_level: m, m, M,M
+  startup: i23~25, ,i24~26
+  block: '-12'
+  notes: '* Floor Break
+
+    * Combo from 2nd CH
+
+    * Floating state 21~39'
+- id: fp4_3p4
+  command: f+4,3+4
+  hit_level: m, L,L
+  startup: i23~25, i22~24 i5~6
+  block: -24c
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, h
+  startup: i13, i26~27
+  block: '-7'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 2f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f
+
+    * Low crush 16~43
+
+    * Floating state 44~46'
+- id: dp2_3
+  command: d+2,3
+  hit_level: m, M
+  startup: i17~18, i24~25
+  block: -4c
+  notes: '* Combos from 1st CH
+
+    * Transition to RLX'
+- id: dp4_3
+  command: d+4,3
+  hit_level: L, m
+  startup: i15~16, i21~22
+  block: -13c
+  notes: ''
+- id: dbp2_3
+  command: db+2,3
+  hit_level: L, m
+  startup: i18~19, i27~28
+  block: '-18'
+  notes: '* Tornado
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i8
+
+    * Floating state 30~49'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: m, h
+  startup: i17~18, i33~34
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i8
+
+    * Mandinga level increases by 1 on hit
+
+    * Becomes +19a(-7) on hit when gaining Mandinga
+
+    * 8 chip damage on block
+
+    * Low crush 22~30
+
+    * Floating state 31~33'
+- id: dbp3p4_4
+  command: db+3+4,4
+  hit_level: m,M, m
+  startup: i20~22, i21~22
+  block: '-8'
+  notes: '* Combo from 2nd CH with 7F delay
+
+    * Interrupt with i3
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 14F'
+- id: dbp3p4_4_3
+  command: db+3+4,4,3
+  hit_level: m,M, m, m
+  startup: i20~22, ,i22~23
+  block: '-14'
+  notes: '* Combo from 3rd CH with 12F delay
+
+    * Move can be delayed by 13F'
+- id: bp1_4
+  command: b+1,4
+  hit_level: m, m
+  startup: i14~15, i25~27
+  block: '-8'
+  notes: '* Transition to HSP
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i10 from 1st block
+
+    * Floating state 19~57'
+- id: bp1_4_3
+  command: b+1,4,3
+  hit_level: m, m, m
+  startup: i14~15, ,i23~24
+  block: '-13'
+  notes: '* Combo from 1st CH or 2nd hit with 10F delay
+
+    * Interrupt with i3 from 1st block
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 10F
+
+    * Floating state 1~23'
+- id: bp1_4_3_3p4
+  command: b+1,4,3,3+4
+  hit_level: m, m, m, M,M
+  startup: i14~15, ,i24~26
+  block: '-12'
+  notes: '* Combo from 3rd CH with 5F delay
+
+    * Interrupt with i8 from 3rd block
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 11F
+
+    * Floating state 21~39'
+- id: bp1_4_3p4
+  command: b+1,4,3+4
+  hit_level: m, m, L
+  startup: i14~15, ,i22~24
+  block: -24c
+  notes: '* Combo from 1st CH or 2nd hit with 3F delay
+
+    * Interrupt with i2 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 1~46
+
+    * High crush 10~54'
+- id: bp2_3
+  command: b+2,3
+  hit_level: m, m
+  startup: i15~16, i22~23
+  block: '-11'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Interrupt with i1 from 1st block
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F'
+- id: bp2_3_3
+  command: b+2,3,3
+  hit_level: m, m, M
+  startup: i15~16, ,i33~35
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 1F delay
+
+    * Interrupt with i12 from 2nd block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F'
+- id: bp2_4
+  command: b+2,4
+  hit_level: m, h
+  startup: i15~16, i25~26
+  block: '-7'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Interrupt with i4 from 1st block
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F
+
+    * Low crush 19~23
+
+    * Floating state 24~26'
+- id: bp3_3
+  command: b+3,3
+  hit_level: m, M
+  startup: i13~14, i26~28
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i6 from 1st block'
+- id: bp4_4
+  command: b+4,4
+  hit_level: h, M,M
+  startup: i21~22, i29~31
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Cancel to HSP with F (-26/-18)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 15~40'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st attack with 4f delay
+
+    * Enter HSP -5 +6 r24 with F'
+- id: '1_2_3'
+  command: 1,2,3
+  hit_level: h, h, h
+  startup: i10, ,i24~25
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd CH with 4F delay
+
+    * Interrupt from 2nd block with i5'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h
+  startup: i10, ,
+  block: '+6'
+  notes: '* Low crush 7~37
+
+    * Floating state 38~40'
+- id: '1_2_4_3'
+  command: 1,2,4~3
+  hit_level: h, h, L
+  startup: i10, ,i32~33
+  block: -14c
+  notes: '* High crush 32~'
+- id: '1_2_4_4'
+  command: 1,2,4~4
+  hit_level: h, h, h
+  startup: i10, ,i18~20
+  block: +8~+10
+  notes: '* Balcony Break
+
+    * Tech roll to r45 FC on frames 30~31
+
+    * Low crush 7~32'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i17~18
+  block: '-9'
+  notes: Jail from 1st attack
+- id: '2_1_4'
+  command: 2,1,4
+  hit_level: h, h, m
+  startup: i12, ,i20~22
+  block: -12~-10
+  notes: '* Balcony Break
+
+    * Combo from 2nd Ch with 10f delay
+
+    * Input can be delayed 14f'
+- id: dfp1_3
+  command: df+1,3
+  hit_level: m, h
+  startup: i13, i26~27
+  block: '-7'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 2f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f
+
+    * Low crush 16~43
+
+    * Floating state 44~46'
+- id: dbp4_4
+  command: db+4,4
+  hit_level: m, h
+  startup: i17~18, i33~34
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i8
+
+    * Mandinga level increases by 1 on hit
+
+    * Becomes +19a(-7) on hit when gaining Mandinga
+
+    * 8 chip damage on block
+
+    * Low crush 22~30
+
+    * Floating state 31~33'
+- id: bp2_4
+  command: b+2,4
+  hit_level: m, h
+  startup: i15~16, i25~26
+  block: '-7'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Interrupt with i4 from 1st block
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F
+
+    * Low crush 19~23
+
+    * Floating state 24~26'
+- id: ufp1_4
+  command: uf+1,4
+  hit_level: m, h
+  startup: i14~15, i29~30
+  block: '-8'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Low crush 18~?'
+- id: ws1_4
+  command: ws1,4
+  hit_level: h, h
+  startup: i13~14, i23~25
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Combos from 1st hit'
+- id: ws4_4
+  command: ws4,4
+  hit_level: m, h
+  startup: i11~13, i26~27
+  block: '-4'
+  notes: Combos from 1st hit
+- id: ws4_4_4
+  command: ws4,4,4
+  hit_level: m, h, M,M
+  startup: i11~13, ,i29~31
+  block: '-9'
+  notes: '* Cancel to HSP with F (-28/-16)'
+- id: ws4_4_4_3
+  command: ws4,4,4,3
+  hit_level: m, h, M,M, M
+  startup: i11~13, ,i28~30
+  block: +4c
+  notes: '* Combos from 3rd hit
+
+    * 3 Chip damage on block'
+- id: hsp_3_3
+  command: HSP.3,3
+  hit_level: m, h
+  startup: i17~18, i27~28
+  block: '-3'
+  notes: Combos from 1st hit
+- id: hsp_3_3_3
+  command: HSP.3,3,3
+  hit_level: m, h, h
+  startup: i17~18, ,i30~31
+  block: '-5'
+  notes: '* Tornado
+
+    * Transition to RLX
+
+    * Combo from 1st CH with 4F delay
+
+    * Move can be delayed by 7F'
+- id: rlx_2_4
+  command: RLX.2,4
+  hit_level: m, h
+  startup: i18~19, i29~30
+  block: '-5'
+  notes: '* Combo from 1st hit
+
+    * Transition to RLX with D (+3/+10)'
+- id: rlx_2_4_4
+  command: RLX.2,4,4
+  hit_level: m, h, m
+  startup: i18~19, ,i32~33
+  block: '-14'
+  notes: Balcony Break
+- id: rlx_3_3
+  command: RLX.3,3
+  hit_level: L, h
+  startup: i16~17, i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st clean hit
+
+    * Jails from 1st hit
+
+    * +7a (+6) from 1st clean hit
+
+    * Mandinga level increases by 1 on hit
+
+    ** Becomes -3a (-6) on 2nd hit when gaining Mandinga'
+stance_transitions:
+- id: h_3p4
+  command: H.3+4
+  hit_level: m
+  startup: i20~22
+  block: '+5'
+  notes: '* Tornado
+
+    * Transition to HSP
+
+    * 6 chip damage on block
+
+    * High crush 6~11?
+
+    * Floating state 11?~?
+
+    * Low crush 20~?'
+- id: h_qcfp4
+  command: H.qcf+4
+  hit_level: h
+  startup: i22~23
+  block: '+7'
+  notes: '* Balcony Break
+
+    * 13 chip damage on block
+
+    * Transition to RLX
+
+    * Low crush 14~?'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m
+  startup: i18~19
+  block: '+6'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to RLX on block
+
+    * Low crush 34~'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, m
+  startup: i14~15, i23~25
+  block: '-3'
+  notes: '* Combo from 1st CH
+
+    * Transition to HSP'
+- id: fp4_3p4
+  command: f+4,3+4
+  hit_level: m, L,L
+  startup: i23~25, i22~24 i5~6
+  block: -24c
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: fp1p2
+  command: f+1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Auto low parry ps8?~ at Mandinga Level 1
+
+    ** Transition to Ogum Mandinga on successful parry
+
+    * Transition to HSP
+
+    * Floating state 14~53'
+- id: dp2_3
+  command: d+2,3
+  hit_level: m, M
+  startup: i17~18, i24~25
+  block: -4c
+  notes: '* Combos from 1st CH
+
+    * Transition to RLX'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i15~16
+  block: -16c
+  notes: '* Transition to FC
+
+    * High crush 6~50'
+- id: dp3p4
+  command: d+3+4
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Can block at frame 20? with B or DB
+
+    * Transition to FC after 35F
+
+    * High crush 6~55'
+- id: dbp3p4
+  command: db+3+4
+  hit_level: m,M
+  startup: i20~22
+  block: '-6'
+  notes: '* Transition to FC
+
+    * Floating state 18~30'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i14~15
+  block: '-7'
+  notes: '* Transition to FC'
+- id: bp1_4
+  command: b+1,4
+  hit_level: m, m
+  startup: i14~15, i25~27
+  block: '-8'
+  notes: '* Transition to HSP
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i10 from 1st block
+
+    * Floating state 19~57'
+- id: bp3_3
+  command: b+3,3
+  hit_level: m, M
+  startup: i13~14, i26~28
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i6 from 1st block'
+- id: bp1p2
+  command: b+1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Auto low parry ps8?~ at Mandinga Level 1
+
+    ** Transition to Ogum Mandinga on successful parry
+
+    * Transition to HSP
+
+    * Floating state 14~61'
+- id: up4
+  command: u+4
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Transition to FC
+
+    * Low crush 7~'
+- id: up4_3
+  command: u+4~3
+  hit_level: L
+  startup: i32~33
+  block: -14c
+  notes: '* Balcony Break
+
+    * Transition to RLX
+
+    * Low crush 7?~'
+- id: ufp1_3
+  command: uf+1,3
+  hit_level: m, m
+  startup: i14~15, i29~30
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Mandinga level increases by 1 on hit
+
+    * becomes -2a (-11) on hit when Mandinga level increases
+
+    * Cancel and transition to -12, -22 HSP with F'
+- id: ufp3
+  command: uf+3
+  hit_level: m
+  startup: i26~28
+  block: -10c
+  notes: '* Transition to HSP with input F (-14/-12/+8a)
+
+    * Low crush 13~'
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i22~24
+  block: '-9'
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Transition to RLX on hit
+
+    * Low crush 9~'
+- id: b_ub
+  command: b,ub
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to RLX
+
+    * Low crush 10?~'
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* Transition to RLX on hit
+
+    * Transition to FC on block or whiff
+
+    * High crush 15~33'
+- id: ffp4
+  command: f,F+4
+  hit_level: M
+  startup: i19~20
+  block: '-12'
+  notes: '* Tornado
+
+    * Transition to HSP
+
+    * Low crush 12~26?'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i25~27
+  block: '+8'
+  notes: '* Transition to HSP on block
+
+    * 9 Chip damage on block
+
+    * Low crush 9~'
+throw_options:
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 1p3
+  command: 1+3
+  hit_level: th(h)
+  startup: i12~14
+  block: '-5'
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2'
+- id: 2p4
+  command: 2+4
+  hit_level: th(h)
+  startup: i12~14
+  block: '-6'
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2
+
+    * Sideswitch on break'
+- id: back_throw
+  command: Back throw
+  hit_level: th(h)
+  startup: i12~14
+  block: ''
+  notes: 'Throw break: none'
+- id: hsp_1p3
+  command: HSP.1+3
+  hit_level: th(h)
+  startup: i23~24
+  block: ''
+  notes: '* Throw break: none
+
+    * Transition to RLX on hit'
+- id: left_throw
+  command: Left throw
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: 'Throw break: 1'
+- id: rlx_ufp1p2
+  command: RLX.uf+1+2
+  hit_level: th(h)
+  startup: i17~18
+  block: '-6'
+  notes: '* Throw break: 1+2
+
+    * Sideswitch on break'
+- id: right_throw
+  command: Right throw
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: 'Throw break: 2'
+- id: dp1p3
+  command: d+1+3
+  hit_level: th(m)
+  startup: i12~13
+  block: ''
+  notes: '* Heat Engager
+
+
+    * Throw break: none'
+- id: dp2p4
+  command: d+2+4
+  hit_level: th(m)
+  startup: i12~13
+  block: ''
+  notes: 'Throw break: none'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: th(h)
+  startup: i12~14
+  block: '-6'
+  notes: 'Throw break: 1+2'
+key_lows:
+- id: '1_2_4_3'
+  command: 1,2,4~3
+  hit_level: h, h, L
+  startup: i10, ,i32~33
+  block: -14c
+  notes: '* High crush 32~'
+- id: fp2_4
+  command: f+2,4
+  hit_level: m, l
+  startup: i18, i23~24
+  block: -14c
+  notes: '* Combo from 1st CH with with 12f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp4_3p4
+  command: f+4,3+4
+  hit_level: m, L,L
+  startup: i23~25, i22~24 i5~6
+  block: -24c
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: dfp4
+  command: df+4
+  hit_level: L
+  startup: i18
+  block: '-12'
+  notes: ''
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* High crush 6~54'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i15~16
+  block: -16c
+  notes: '* Transition to FC
+
+    * High crush 6~50'
+- id: dp4_3
+  command: d+4,3
+  hit_level: L, m
+  startup: i15~16, i21~22
+  block: -13c
+  notes: ''
+- id: dbp2
+  command: db+2
+  hit_level: L
+  startup: i18~19
+  block: -18c
+  notes: '* High crush 6~55'
+- id: dbp2_3
+  command: db+2,3
+  hit_level: L, m
+  startup: i18~19, i27~28
+  block: '-18'
+  notes: '* Tornado
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i8
+
+    * Floating state 30~49'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i28
+  block: -14c
+  notes: '* Has good right sidestep tracking'
+- id: bp1_4_3p4
+  command: b+1,4,3+4
+  hit_level: m, m, L
+  startup: i14~15, ,i22~24
+  block: -24c
+  notes: '* Combo from 1st CH or 2nd hit with 3F delay
+
+    * Interrupt with i2 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 1~46
+
+    * High crush 10~54'
+- id: up4_3
+  command: u+4~3
+  hit_level: L
+  startup: i32~33
+  block: -14c
+  notes: '* Balcony Break
+
+    * Transition to RLX
+
+    * Low crush 7?~'
+- id: ufp3_4
+  command: uf+3,4
+  hit_level: m, L
+  startup: i26~28, i24~25
+  block: -14c
+  notes: ''
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* Transition to RLX on hit
+
+    * Transition to FC on block or whiff
+
+    * High crush 15~33'
+- id: ss_4
+  command: SS.4
+  hit_level: L,L
+  startup: i21~22
+  block: -13c
+  notes: '* High crush 6~31'
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i13
+  block: '-15'
+  notes: '* Hits grounded up-close'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i24~25
+  block: -21c
+  notes: '* Transition to HSP
+
+    * Floating state 26~'
+- id: md1_hsp_3p4
+  command: MD1.HSP.3+4
+  hit_level: L,m,m
+  startup: i21~22
+  block: '-14'
+  notes: '* Low crush 28?~'
+- id: md2_hsp_3p4
+  command: MD2.HSP.3+4
+  hit_level: L,m,m
+  startup: i21~22
+  block: '-14'
+  notes: 'Floor Break
+
+    * Low crush 28?~'
+- id: rlx_1
+  command: RLX.1
+  hit_level: L
+  startup: i14
+  block: -11c
+  notes: '* Transition to FC with D
+
+    * High crush 1~19'
+- id: rlx_1_3
+  command: RLX.1,3
+  hit_level: L, m
+  startup: i14, i25~26
+  block: '-14'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 5F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: rlx_3
+  command: RLX.3
+  hit_level: L
+  startup: i16~17
+  block: -26c
+  notes: '* Transition to FC
+
+    * High crush 1~50'
+- id: rlx_3_3
+  command: RLX.3,3
+  hit_level: L, h
+  startup: i16~17, i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combo from 1st clean hit
+
+    * Jails from 1st hit
+
+    * +7a (+6) from 1st clean hit
+
+    * Mandinga level increases by 1 on hit
+
+    ** Becomes -3a (-6) on 2nd hit when gaining Mandinga'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp3p4
+  command: b+3+4
+  hit_level: h
+  startup: i20~21
+  block: '-9'
+  notes: '* Balcony Break
+
+    * +0 and 10 chip damage on block after attack absorption
+
+    * Power crush 7~19'
+- id: hsp_1p2
+  command: HSP.1+2
+  hit_level: m
+  startup: i22~23
+  block: '-12'
+  notes: '* Spike
+
+    * Head
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Floating state 1~?
+
+    * Power crush 7~21'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m
+  startup: i18~19
+  block: '+6'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to RLX on block
+
+    * Low crush 34~'
+- id: '4_4'
+  command: 4,4
+  hit_level: m, m
+  startup: i13~14, i30~31
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st CH with 4f delay
+
+    * Input can be delayed 7f
+
+    * Low crush 22~33
+
+    * Floating state 34~36'
+- id: fp3p4
+  command: f+3+4
+  hit_level: m
+  startup: i19~21
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * 5 chip damage on block
+
+    * Floating state 9~18
+
+    * Low crush 19~32
+
+    * Floating state 33~35'
+- id: ufp1_4
+  command: uf+1,4
+  hit_level: m, h
+  startup: i14~15, i29~30
+  block: '-8'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Low crush 18~?'
+- id: rlx_4_3
+  command: RLX.4,3
+  hit_level: m, m
+  startup: i15~16, i28~30
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 8F
+
+    * Low crush 16~34
+
+    * Floating state 35~37'
+- id: dp1p3
+  command: d+1+3
+  hit_level: th(m)
+  startup: i12~13
+  block: ''
+  notes: '* Heat Engager
+
+
+    * Throw break: none'
+long_range_attacks:
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21~22
+  block: -14c
+  notes: '* Transition to RLX on hit
+
+    * Transition to FC on block or whiff
+
+    * High crush 15~33'
+- id: ffp4
+  command: f,F+4
+  hit_level: M
+  startup: i19~20
+  block: '-12'
+  notes: '* Tornado
+
+    * Transition to HSP
+
+    * Low crush 12~26?'
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: m,M
+  startup: i23~24
+  block: '+5'
+  notes: '* Balcony Break
+
+    * Cancel to r18 HSP with n,f at frame 17
+
+    * 6 Chip damage on block
+
+    * Floating state 8~'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i25~27
+  block: '+8'
+  notes: '* Transition to HSP on block
+
+    * 9 Chip damage on block
+
+    * Low crush 9~'
+launch_punish_opportunities:
+- id: rlx_3
+  command: RLX.3
+  hit_level: L
+  startup: i16~17
+  block: -26c
+  notes: '* Transition to FC
+
+    * High crush 1~50'
+- id: fp4_3p4
+  command: f+4,3+4
+  hit_level: m, L,L
+  startup: i23~25, i22~24 i5~6
+  block: -24c
+  notes: '* Transition to RLX on hit or whiff
+
+    * Combo from 1st CH
+
+    * Floating state 1~70
+
+    * High crush 10~86'
+- id: bp1_4_3p4
+  command: b+1,4,3+4
+  hit_level: m, m, L
+  startup: i14~15, ,i22~24
+  block: -24c
+  notes: '* Combo from 1st CH or 2nd hit with 3F delay
+
+    * Interrupt with i2 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F
+
+    * Floating state 1~46
+
+    * High crush 10~54'
+- id: fc_dfp4
+  command: FC.df+4
+  hit_level: L
+  startup: i24~25
+  block: -21c
+  notes: '* Transition to HSP
+
+    * Floating state 26~'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dfp3
+  command: df+3
+  hit_level: m
+  startup: i15~18
+  block: -18~-16
+  notes: 'Tornado
+
+    * Floating state 19~33'
+- id: dbp2
+  command: db+2
+  hit_level: L
+  startup: i18~19
+  block: -18c
+  notes: '* High crush 6~55'
+- id: dbp2_3
+  command: db+2,3
+  hit_level: L, m
+  startup: i18~19, i27~28
+  block: '-18'
+  notes: '* Tornado
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i8
+
+    * Floating state 30~49'
+- id: ufp3_3
+  command: uf+3,3
+  hit_level: m, m
+  startup: i26~28, i21~24
+  block: '-18'
+  notes: Tornado
+- id: ws2
+  command: ws2
+  hit_level: m
+  startup: i15~16
+  block: '-18'
+  notes: '* Elbow'
+- id: rlx_3p4
+  command: RLX.3+4
+  hit_level: M
+  startup: i17~18
+  block: '-18'
+  notes: 'Tornado
+
+    * Floating state 1~56'
+- id: ubp4
+  command: ub+4
+  hit_level: m
+  startup: i19~21
+  block: '-17'
+  notes: '* Floating state 20~?'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i15~16
+  block: -16c
+  notes: '* Transition to FC
+
+    * High crush 6~50'
+- id: bp3_3
+  command: b+3,3
+  hit_level: m, M
+  startup: i13~14, i26~28
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st CH with 7F delay
+
+    * Interrupt with i6 from 1st block'
+- id: ws1_3
+  command: ws1,3
+  hit_level: h, M
+  startup: i13~14, i19~21
+  block: '-15'
+  notes: '* Transition to RLX
+
+    * Combo from 1st hit'
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i13
+  block: '-15'
+  notes: '* Hits grounded up-close'
+- id: fuft_bp3p4
+  command: FUFT.b+3+4
+  hit_level: m
+  startup: i16-28
+  block: -15~-27
+  notes: '* Floating state 1~11
+
+    * Low crush 12~'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

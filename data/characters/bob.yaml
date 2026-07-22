@@ -1,0 +1,10 @@
+character_id: bob
+display_name: Bob
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/bob/framedata
+source_note: No TekkenDocs frame-data endpoint existed when this roster snapshot was
+  generated.
+retrieved_at: '2026-07-21'
+data_status: unavailable
+stances: []
+moves: []

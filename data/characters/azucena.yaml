@@ -1,0 +1,3310 @@
+character_id: azucena
+display_name: Azucena Milagros Ortiz Castillo
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/azucena/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 082e7c09a667eaec85b98decc90121291f7c40e78bcd4821269d9206c2adae4d
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- BT
+- LIB
+moves:
+- id: 2p3
+  source_id: Azucena-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_lib_1_2_f
+  source_id: Azucena-H.LIB.1,2,F
+  source_index: 2
+  command: H.LIB.1,2,F
+  name: Blend Tempestad > Nuevo Libertador
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r38 LIB
+  block: '+4'
+  hit: +26a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - fs
+  - heat
+  - chip
+  notes: '* Strong Aerial Tailspin
+
+    * Consumes 210F of remaining Heat time
+
+    * 70% scaling on combo
+
+    * Chip damage on block
+
+    * Floating state 15~33'
+- id: h_lib_p_high
+  source_id: Azucena-H.LIB.P (High)
+  source_index: 3
+  command: H.LIB.P (High)
+  name: "Pu\xF1o de Fuego Evitacion"
+  hit_level: m
+  damage: '25'
+  startup: i17~18
+  recovery: r35
+  block: '-8'
+  hit: +32a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - is
+  - parry
+  - mid
+  notes: '* Restores 5 recoverable health on successful parry
+
+    * Opponent recovers FUFA
+
+    * is1~17'
+- id: h_lib_p_low
+  source_id: Azucena-H.LIB.P (Low)
+  source_index: 4
+  command: H.LIB.P (Low)
+  name: One Drip Cielo Evitacion
+  hit_level: m
+  damage: '20'
+  startup: i16~18
+  recovery: r44
+  block: '-9'
+  hit: +58a (+42)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - is
+  - fs
+  - tornado
+  - parry
+  - mid
+  notes: '* Tornado
+
+    * Restores 5 recoverable health on successful parry
+
+    * is1
+
+    * Floating state 2~48'
+- id: h_lib_dp3p4
+  source_id: Azucena-H.LIB.d+3+4
+  source_index: 5
+  command: H.LIB.d+3+4
+  name: One Drip Cielo
+  hit_level: M
+  damage: '27'
+  startup: i16~18
+  recovery: r44
+  block: +4~+6
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - fs
+  - heat
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Consumes 210F of remaining Heat time
+
+    * Transition to FC with D
+
+    * Floating state 2~48'
+- id: h_bp1_1_2_f
+  source_id: Azucena-H.b+1,1,2,F
+  source_index: 6
+  command: H.b+1,1,2,F
+  name: Double Blend Tempestad > Nuevo Libertador
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r38 LIB
+  block: '+4'
+  hit: +26a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - fs
+  - heat
+  - chip
+  notes: '* Strong Aerial Tailspin
+
+    * Consumes 210F of remaining Heat time
+
+    * 70% scaling on combo
+
+    * Chip damage on block
+
+    * Floating state 15~33'
+- id: h_bp2_f
+  source_id: Azucena-H.b+2,F
+  source_index: 7
+  command: H.b+2,F
+  name: Mil Nudillo > Nuevo Libertador
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r38 LIB
+  block: '+4'
+  hit: +26a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - js
+  - fs
+  - heat
+  - homing
+  - low_crush
+  - chip
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * 70% scaling on combo
+
+    * Consumes 210f of remaining Heat time
+
+    * 7 Chip damage on block
+
+    * Low crush 15~30
+
+    * Floating state 31~33'
+- id: h_fp3p4
+  source_id: Azucena-H.f+3+4
+  source_index: 8
+  command: H.f+3+4
+  name: "Libertador Revoluci\xF3n"
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r24 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - ps
+  - heat
+  - high_crush
+  - parry
+  notes: '* Parries all high or low attacks
+
+    * Consumes 120F of remaining Heat time
+
+    * Cancel to r20 with DB
+
+    * High crush 4~20
+
+    * Parry state 17~'
+- id: h_2p3
+  source_id: Azucena-H.2+3
+  source_index: 9
+  command: H.2+3
+  name: Azucena Speciality
+  hit_level: m,m,t
+  damage: 15,9,29
+  startup: i15~16
+  recovery: r81
+  block: '+6'
+  hit: +0a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - bbr
+  - js
+  - fs
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * 7 chip damage on block
+
+    * Transition to attack throw on hit
+
+    * Enter LIB +6 automatically on block/whiff
+
+    * +15a if only the last hit connects
+
+    * +30a (+20) if only the last two hits connect
+
+    * 2nd hit damage 9 > 15 if 1st hit whiffs
+
+    * 3rd hit damage 29 > 30 if 1st hit whiffs
+
+    * Hit level becomes m,h,m on block/whiff
+
+    * Spike on the last hit if the first two whiff
+
+    * Low crush 18~57
+
+    * Floating state 58~60'
+- id: h_2p3p4
+  source_id: Azucena-H.2+3+4
+  source_index: 10
+  command: H.2+3+4
+  name: Coffee Break
+  hit_level: h!
+  damage: '0'
+  startup: i45
+  recovery: r51
+  block: ''
+  hit: +35a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: r_dfp1p2
+  source_id: Azucena-R.df+1+2
+  source_index: 11
+  command: R.df+1+2
+  name: "Alegr\xEDa del Caf\xE9"
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Azucena-1
+  source_index: 12
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Azucena-1,1
+  source_index: 13
+  command: 1,1
+  name: High Mountain Combo
+  hit_level: h, m
+  damage: 5, 15
+  startup: i10, i24~25
+  recovery: r28
+  block: '-10'
+  hit: '+8'
+  counter_hit: +18a
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 1f delay
+
+    * Transition to LIB on standing hit only
+
+    * Move can be delayed 8f'
+- id: '1_2'
+  source_id: Azucena-1,2
+  source_index: 14
+  command: 1,2
+  name: High Roast Combo
+  hit_level: h, h
+  damage: 5, 23
+  startup: i10, i20~21
+  recovery: r34
+  block: '-14'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 4f delay
+
+    * Can transition to BT with B'
+- id: 1p3p4
+  source_id: Azucena-1+3+4
+  source_index: 15
+  command: 1+3+4
+  name: Taunt
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 1p3p4
+  source_id: Azucena-1+3+4*
+  source_index: 16
+  command: 1+3+4*
+  name: Shuffle Recital
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r60
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: '* Regenerates heat
+
+    * Heat meter won''t disappear, even if it fully depletes'
+- id: '2'
+  source_id: Azucena-2
+  source_index: 17
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '9'
+  startup: i10
+  recovery: r19
+  block: '+0'
+  hit: '+9'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Azucena-2,1
+  source_index: 18
+  command: 2,1
+  name: ''
+  hit_level: h, m
+  damage: 9, 11
+  startup: i10, i17~18
+  recovery: r26
+  block: '-7'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Jail from 1st attack with 2f delay'
+- id: '2_1_2'
+  source_id: Azucena-2,1,2
+  source_index: 19
+  command: 2,1,2
+  name: Andes Mountain Uppercut Combo
+  hit_level: h, m, h
+  damage: 9, 11, 21
+  startup: i10, ,i24~25
+  recovery: r29
+  block: '-5'
+  hit: +20a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd CH with 5f delay
+
+    * Move can be delayed 10f'
+- id: '3'
+  source_id: Azucena-3
+  source_index: 20
+  command: '3'
+  name: Left Kick
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_2'
+  source_id: Azucena-3,2
+  source_index: 21
+  command: 3,2
+  name: Groovy Strike
+  hit_level: m, m
+  damage: 13, 20
+  startup: i14, i23~24
+  recovery: r31
+  block: '-12'
+  hit: +23g
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 7f delay
+
+    * Move can be delayed 10f
+
+    * Opponent recovers crouching on hit'
+- id: 3_2_f
+  source_id: Azucena-3,2~F
+  source_index: 22
+  command: 3,2~F
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: 'i14, '
+  recovery: r23 LIB
+  block: '-18'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - 'on'
+  - whiff
+  - block
+  - hit
+  - parry
+  - mid
+  notes: 'Listed parry state is at earliest cancel
+
+    * Parry state 36~
+
+    * on
+
+    * whiff
+
+    * Parry state 17~
+
+    * on
+
+    * block
+
+    * Parry state 6~
+
+    * on
+
+    * hit'
+- id: '3_3'
+  source_id: Azucena-3,3
+  source_index: 23
+  command: 3,3
+  name: Groovy Punalada
+  hit_level: m, h
+  damage: 13, 23
+  startup: i14, i24~25
+  recovery: r30
+  block: '-1'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6f delay'
+- id: '4'
+  source_id: Azucena-4
+  source_index: 24
+  command: '4'
+  name: Right Kick
+  hit_level: h
+  damage: '15'
+  startup: i12~13
+  recovery: r26 BT
+  block: '-8'
+  hit: '+3'
+  counter_hit: '+8'
+  tier: core
+  tags:
+  - high
+  notes: '* Has good left sidestep tracking'
+- id: '4_1'
+  source_id: Azucena-4,1
+  source_index: 25
+  command: 4,1
+  name: "Guapu\xF1o"
+  hit_level: h, h
+  damage: 15, 14
+  startup: i12~13, i21~22
+  recovery: r20 BT
+  block: '-2'
+  hit: '+4'
+  counter_hit: +6~+7
+  tier: specialist
+  tags:
+  - parry
+  - high
+  notes: '* Combo from 1st hit
+
+    * Unparryable by traditional punch parries (bug?)'
+- id: '4_3'
+  source_id: Azucena-4,3
+  source_index: 26
+  command: 4,3
+  name: Delfin Patadas
+  hit_level: h, M
+  damage: 15, 20
+  startup: i12~13, i26~27
+  recovery: r30
+  block: '-11'
+  hit: +37a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 8f delay
+
+    * Move can be delayed 12f'
+- id: 1p2
+  source_id: Azucena-1+2
+  source_index: 27
+  command: 1+2
+  name: Boomerang Scythe
+  hit_level: h
+  damage: '17'
+  startup: i15
+  recovery: r30
+  block: '-8'
+  hit: +13g
+  counter_hit: +56a
+  tier: core
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - high
+  notes: 'Balcony Break
+
+    * High crush 8~15'
+- id: 2p3p4
+  source_id: Azucena-2+3+4
+  source_index: 28
+  command: 2+3+4
+  name: Coffee Break
+  hit_level: h!
+  damage: '0'
+  startup: i45
+  recovery: r51
+  block: ''
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: fp2
+  source_id: Azucena-f+2
+  source_index: 29
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i17~18
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: fp2_1
+  source_id: Azucena-f+2,1
+  source_index: 30
+  command: f+2,1
+  name: ''
+  hit_level: h, m
+  damage: 14, 17
+  startup: i17~18, i22~23
+  recovery: r29
+  block: '-10'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 7f delay
+
+    * Move can be delayed 8f'
+- id: fp2_1_4
+  source_id: Azucena-f+2,1,4
+  source_index: 31
+  command: f+2,1,4
+  name: "Danza Del C\xF3ndor"
+  hit_level: h, m, m
+  damage: 14, 17, 23
+  startup: i17~18, ,i24~25
+  recovery: r35
+  block: '-14'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 10f delay
+
+    * Low crush 18~38
+
+    * Floating state 39~41'
+- id: fp3
+  source_id: Azucena-f+3
+  source_index: 32
+  command: f+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17
+  recovery: r25 LIB
+  block: '-4'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Has good right sidestep tracking'
+- id: fp3_2
+  source_id: Azucena-f+3,2
+  source_index: 33
+  command: f+3,2
+  name: Sumatra Back Knuckle
+  hit_level: m, h
+  damage: 15, 20
+  startup: i17, i22~23
+  recovery: r32
+  block: '-4'
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8f delay'
+- id: fp3_4
+  source_id: Azucena-f+3,4
+  source_index: 34
+  command: f+3,4
+  name: Sumatra Patadas
+  hit_level: m, m
+  damage: 15, 21
+  startup: i17, i24~25
+  recovery: r33
+  block: '-11'
+  hit: '+8'
+  counter_hit: +52a
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 6f delay
+
+    * Input can be delayed for 8f
+
+    * Move can be delayed for 7f'
+- id: fp4
+  source_id: Azucena-f+4
+  source_index: 35
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i17~18
+  recovery: r28
+  block: '-8'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: Homing
+- id: fp4_4
+  source_id: Azucena-f+4,4
+  source_index: 36
+  command: f+4,4
+  name: "Tif\xF3n Patear"
+  hit_level: m, h
+  damage: 16, 21
+  startup: i17~18, i24~25
+  recovery: r30
+  block: '-7'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Cancel 2nd hit into BT -19 -10 r20 with B
+
+    * Low crush 15~23
+
+    * Floating state 24~26'
+- id: fp4_4_2
+  source_id: Azucena-f+4,4~2
+  source_index: 37
+  command: f+4,4~2
+  name: "Tif\xF3n Trueno"
+  hit_level: m, h
+  damage: 16, 23
+  startup: i17~18, i23~24
+  recovery: r26
+  block: '+1'
+  hit: +52a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* 6 chip damage on block
+
+    * 9 chip damage on block during heat
+
+    * Interrupt with i21 from 1st block'
+- id: fp4_4_3
+  source_id: Azucena-f+4,4~3
+  source_index: 38
+  command: f+4,4~3
+  name: "Tif\xF3n Ca\xF1\xF3n"
+  hit_level: m, m
+  damage: 16, 24
+  startup: i17~18, i21~22
+  recovery: r29
+  block: -9~-8
+  hit: +15a (+6)
+  counter_hit: +70a (+54)
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Tornado on CH
+
+    * Interrupt with i19 from 1st block
+
+    * Low crush 1~6
+
+    * Floating state 7~9'
+- id: fp1p2
+  source_id: Azucena-f+1+2
+  source_index: 39
+  command: f+1+2
+  name: Aero Press Pegar
+  hit_level: h
+  damage: '25'
+  startup: i16~17
+  recovery: r32
+  block: '-9'
+  hit: +23a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * +0 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~15'
+- id: fp3p4
+  source_id: Azucena-f+3+4
+  source_index: 40
+  command: f+3+4
+  name: Libertador
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r28 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Completely evades all high/low attacks
+
+    * Cancel to r20 with DB
+
+    * Parry state 18~'
+- id: fp3p4
+  source_id: Azucena-f+3+4*
+  source_index: 41
+  command: f+3+4*
+  name: Shuffle Jamboree
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r50 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - heat
+  - parry
+  notes: '* Restores 120F, 150F and 240F of remaining Heat time
+
+    * Heat meter won''t disappear, even if it fully depletes
+
+    * Parry state 1~'
+- id: dfp1
+  source_id: Azucena-df+1
+  source_index: 42
+  command: df+1
+  name: Mid Check
+  hit_level: m
+  damage: '11'
+  startup: i13~14
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_4
+  source_id: Azucena-df+1,4
+  source_index: 43
+  command: df+1,4
+  name: ''
+  hit_level: m, h
+  damage: 11, 13
+  startup: i13~14, i17~18
+  recovery: r25
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Jail from 1st attack with 1f delay
+
+    * Enter BT -5 +6 r23 with B'
+- id: dfp1_4_1
+  source_id: Azucena-df+1,4,1
+  source_index: 44
+  command: df+1,4,1
+  name: Grande Combo
+  hit_level: m, h, h
+  damage: 11, 13, 20
+  startup: i13~14, ,i22~23
+  recovery: r30
+  block: '-5'
+  hit: +44d (-14)
+  counter_hit: +56a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 7f delay
+
+    * Move can be delayed 8f delay
+
+    * Enter LIB -17 -6 r20 with F'
+- id: dfp1_4_1_2
+  source_id: Azucena-df+1,4,1~2
+  source_index: 45
+  command: df+1,4,1~2
+  name: Full Body Grande Combo
+  hit_level: m, h, M
+  damage: 11, 13, 23
+  startup: i13~14, ,i18~19
+  recovery: r30
+  block: '-10'
+  hit: +12c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - high
+  notes: Spike
+- id: dfp2
+  source_id: Azucena-df+2
+  source_index: 46
+  command: df+2
+  name: Mount Rainier
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r31
+  block: '-13'
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: Launches crouching opponent
+- id: dfp3
+  source_id: Azucena-df+3
+  source_index: 47
+  command: df+3
+  name: Rodilla Shot
+  hit_level: m
+  damage: '17'
+  startup: i17~18
+  recovery: r29
+  block: '-5'
+  hit: '+5'
+  counter_hit: +59a
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: Knee
+- id: dfp4
+  source_id: Azucena-df+4
+  source_index: 48
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i16~17
+  recovery: r27
+  block: '-7'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_1
+  source_id: Azucena-df+4,1
+  source_index: 49
+  command: df+4,1
+  name: Blue Mountain Combo
+  hit_level: m, h
+  damage: 15, 23
+  startup: i16~17, i23~24
+  recovery: r29
+  block: '-5'
+  hit: +20a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6f delay
+
+    * Move can be delayed 10f'
+- id: dp1
+  source_id: Azucena-d+1
+  source_index: 50
+  command: d+1
+  name: Hand Drip Hammer
+  hit_level: m
+  damage: '20'
+  startup: i20~21
+  recovery: r30 FC
+  block: '+4'
+  hit: +7c
+  counter_hit: +44a
+  tier: specialist
+  tags:
+  - spk
+  - elb
+  - mid
+  notes: '* Spike
+
+    * Elbow'
+- id: dp2
+  source_id: Azucena-d+2
+  source_index: 51
+  command: d+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r29
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: dp2_3
+  source_id: Azucena-d+2,3
+  source_index: 52
+  command: d+2,3
+  name: "La Ni\xF1a Kick Combo"
+  hit_level: m, h
+  damage: 15, 20
+  startup: i17~18, i24~25
+  recovery: r26 LIB
+  block: '+1'
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 7f delay'
+- id: dp3
+  source_id: Azucena-d+3
+  source_index: 53
+  command: d+3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i15
+  recovery: r33
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp3_3
+  source_id: Azucena-d+3,3
+  source_index: 54
+  command: d+3,3
+  name: ''
+  hit_level: L, m
+  damage: 10, 14
+  startup: i15, i23
+  recovery: r34
+  block: '-13'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st CH with 7f delay
+
+    * Move can be delayed 10f'
+- id: dp3_3_4
+  source_id: Azucena-d+3,3,4
+  source_index: 55
+  command: d+3,3,4
+  name: Passionate Kick Combo
+  hit_level: L, m, m
+  damage: 10, 14, 21
+  startup: i15, ,i25~26
+  recovery: r34
+  block: '-14'
+  hit: +15a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd CH with 10f delay'
+- id: dp4
+  source_id: Azucena-d+4
+  source_index: 56
+  command: d+4
+  name: ''
+  hit_level: L
+  damage: '13'
+  startup: i15~16
+  recovery: r31
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_1
+  source_id: Azucena-d+4,1
+  source_index: 57
+  command: d+4,1
+  name: Roast Knuckle Combo
+  hit_level: L, h
+  damage: 13, 5
+  startup: i15~16, i27~28
+  recovery: r21
+  block: '-1'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH with 2f delay
+
+    * Move can be delayed 10f
+
+    * Cancel to LIB -20 -9 r18 with F'
+- id: dp4_1_2
+  source_id: Azucena-d+4,1~2
+  source_index: 58
+  command: d+4,1~2
+  name: Full City Roast Knuckle Combo
+  hit_level: L, m
+  damage: 13, 20
+  startup: i15~16, i17~18
+  recovery: r29
+  block: '-8'
+  hit: +20a (+11)
+  counter_hit: +59a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break'
+- id: dp1p2
+  source_id: Azucena-d+1+2
+  source_index: 59
+  command: d+1+2
+  name: UFO Roll
+  hit_level: l
+  damage: '[21;21]'
+  startup: i25~26
+  recovery: r41 LIB
+  block: '-4'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - fs
+  - throw
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to throw on front standing hit only
+
+    * 18 damage to Azucena when hitting crouching opponent (block)
+
+    * Damage on hit and block is recoverable health
+
+    * Cannot KO Azucena when blocked
+
+    * r41 FC on whiff
+
+    * High crush 8~
+
+    * Floating state 25~'
+- id: dbp1
+  source_id: Azucena-db+1
+  source_index: 60
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Can recover standing with F
+
+    * High crush 4~'
+- id: dbp2
+  source_id: Azucena-db+2
+  source_index: 61
+  command: db+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dbp3
+  source_id: Azucena-db+3
+  source_index: 62
+  command: db+3
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i16~17
+  recovery: r25 BT
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dbp3_4
+  source_id: Azucena-db+3,4
+  source_index: 63
+  command: db+3,4
+  name: Borrasca Kick Combo
+  hit_level: L, h
+  damage: 14, 20
+  startup: i16~17, i24~25
+  recovery: r34
+  block: '-13'
+  hit: +66a (+50)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - low
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Jails from first hit
+
+    * Combo from 1st CH'
+- id: dbp4
+  source_id: Azucena-db+4
+  source_index: 64
+  command: db+4
+  name: Bitter Low Kick
+  hit_level: L
+  damage: '13'
+  startup: i19
+  recovery: r33
+  block: '-14'
+  hit: '-3'
+  counter_hit: +12g
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~20'
+- id: dbp1p2
+  source_id: Azucena-db+1+2
+  source_index: 65
+  command: db+1+2
+  name: Kilimanjaro Uppercut
+  hit_level: M
+  damage: '23'
+  startup: i20~21
+  recovery: r40
+  block: '-21'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: 'Steel pedal
+
+    * High crush 6~21'
+- id: dbp3p4
+  source_id: Azucena-db+3+4
+  source_index: 66
+  command: db+3+4
+  name: "El C\xF3ndor Pasa"
+  hit_level: m
+  damage: '30'
+  startup: i26~30
+  recovery: r36
+  block: -16~-12
+  hit: +15a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Backswing blow
+
+    * Low crush 20~35
+
+    * Floating state 36~38'
+- id: bp1
+  source_id: Azucena-b+1
+  source_index: 67
+  command: b+1
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i14~15
+  recovery: r26
+  block: '-3'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bp1_1
+  source_id: Azucena-b+1,1
+  source_index: 68
+  command: b+1,1
+  name: ''
+  hit_level: h, h
+  damage: 10, 14
+  startup: i14~15, i23
+  recovery: r27 LIB
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - high
+  notes: '* Combo from 1st CH hit with 6f delay
+
+    * Only jails on block with 1f delay
+
+    * 4 chip damage on block
+
+    * 5 chip damage on block during heat'
+- id: bp1_1_2
+  source_id: Azucena-b+1,1,2
+  source_index: 69
+  command: b+1,1,2
+  name: Double Blend Tempestad
+  hit_level: h, h, h
+  damage: 10, 14, 20
+  startup: i14~15, ,i24~25
+  recovery: r32
+  block: '-5'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: "* Balcony Break\n* Combo from 1st CH\n* Combo from 2nd CH with 6f delay\n\
+    * Input can be delayed 9f\n* Move can be delayed 7f\n* 6 chip damage on block\n\
+    * 7 chip damage on block during heat \n* Cancel to BT -21 -10 r18 with B"
+- id: bp2
+  source_id: Azucena-b+2
+  source_index: 70
+  command: b+2
+  name: Mil Nudillo
+  hit_level: h
+  damage: '21'
+  startup: i18~19
+  recovery: r27
+  block: '+2'
+  hit: +22a (+13)
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - hom
+  - heat
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * 6 chip damage on block
+
+    * 7 chip damage on block during heat'
+- id: bp3
+  source_id: Azucena-b+3
+  source_index: 71
+  command: b+3
+  name: "Tac\xF3n Plunger"
+  hit_level: m
+  damage: '21'
+  startup: i19
+  recovery: r30
+  block: +2c
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - spk
+  - heat
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Spike
+
+    * 6 chip damage on block
+
+    * 7 chip damage on block during heat'
+- id: bp4
+  source_id: Azucena-b+4
+  source_index: 72
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15~16
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: Knee
+- id: bp4_3
+  source_id: Azucena-b+4,3
+  source_index: 73
+  command: b+4,3
+  name: ''
+  hit_level: m, m
+  damage: 10, 10
+  startup: i15~16, i23~24
+  recovery: r30
+  block: '-10'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st hit with 6f delay'
+- id: bp4_3_4
+  source_id: Azucena-b+4,3,4
+  source_index: 74
+  command: b+4,3,4
+  name: ''
+  hit_level: m, m, m
+  damage: 10, 10, 16
+  startup: i15~16, ,i23~24
+  recovery: r31
+  block: '-10'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 2nd CH with 10f delay'
+- id: bp4_3_4_3
+  source_id: Azucena-b+4,3,4,3
+  source_index: 75
+  command: b+4,3,4,3
+  name: Seattle Skipper
+  hit_level: m, m, m, h
+  damage: 10, 10, 16, 23
+  startup: i15~16, ,i27~28
+  recovery: r34
+  block: '-7'
+  hit: +39d (-19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 6f delay
+
+    * Combo from 3rd hit with 2f delay
+
+    * Move can be delayed 6f'
+- id: bp3p4
+  source_id: Azucena-b+3+4
+  source_index: 76
+  command: b+3+4
+  name: Hopping Turn
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 6~19
+
+    * Floating state 20~22'
+- id: bp3p4
+  source_id: Azucena-b+3+4*
+  source_index: 77
+  command: b+3+4*
+  name: Shuffle Carnival
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: Regenerates heat
+- id: ufp1
+  source_id: Azucena-uf+1
+  source_index: 78
+  command: uf+1
+  name: Eye Opener
+  hit_level: h
+  damage: '18'
+  startup: i18~19
+  recovery: r32
+  block: '-9'
+  hit: +7 +15w
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - ps
+  - balcony_break
+  - parry
+  - high
+  notes: '* Wall Crush +15g on hit
+
+
+
+    * Balcony break on airborne hit
+
+    * Punch Sabaki, parries high or mid punches
+
+    * Parry state 3~10'
+- id: ufp1_p
+  source_id: Azucena-uf+1,P
+  source_index: 79
+  command: uf+1,P
+  name: Close Encounter
+  hit_level: h, t
+  damage: 18, 25
+  startup: 'i18~19, '
+  recovery: ''
+  block: ''
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  - throw
+  notes: Opponent recovers FUFA
+- id: ufp2
+  source_id: Azucena-uf+2
+  source_index: 80
+  command: uf+2
+  name: Rhythmic Hook
+  hit_level: h
+  damage: '20'
+  startup: i17~18
+  recovery: r32
+  block: '-5'
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Guaranteed 14f or faster follow-up mid on hit
+
+    * 70% scaling on combo
+
+    * Sidesteps to the right'
+- id: ufp3
+  source_id: Azucena-uf+3
+  source_index: 81
+  command: uf+3
+  name: ''
+  hit_level: h
+  damage: '20'
+  startup: i21~22
+  recovery: r43 FUFT
+  block: -16a
+  hit: +36a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - high
+  notes: '* Low crush 10~30
+
+    * Floating state 31~65'
+- id: ufp3_4
+  source_id: Azucena-uf+3,4
+  source_index: 82
+  command: uf+3,4
+  name: Daylight Disk
+  hit_level: h, m
+  damage: 20, 17
+  startup: i21~22, i20~21
+  recovery: r34
+  block: '-14'
+  hit: +15a (+6)
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 11f delay'
+- id: ufp4
+  source_id: Azucena-uf+4
+  source_index: 83
+  command: uf+4
+  name: Tacones Drip
+  hit_level: M
+  damage: '22'
+  startup: i24~26
+  recovery: r27
+  block: '-8'
+  hit: +21a
+  counter_hit: ''
+  tier: core
+  tags:
+  - spk
+  - js
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    *20 damage when u+4 or ub+4 input is used
+
+    * Low crush 9~26'
+- id: ufp3p4
+  source_id: Azucena-uf+3+4
+  source_index: 84
+  command: uf+3+4
+  name: Ortiz Molino
+  hit_level: m,M
+  damage: 10,18
+  startup: i21~22 i10~12
+  recovery: r25 LIB
+  block: +4~+6
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - heat
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Enter BT with B
+
+    * 8 chip damage on block
+
+    * 9 chip damage on block during heat
+
+    * Low crush 16~36
+
+    * Floating state 37~39'
+- id: 1p2p3p4
+  source_id: Azucena-1+2+3+4
+  source_index: 85
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r72
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
+- id: 1p2p3p4_3p4
+  source_id: Azucena-1+2+3+4,3+4
+  source_index: 86
+  command: 1+2+3+4,3+4
+  name: Black Ivory Talon
+  hit_level: m!
+  damage: '54'
+  startup: i75
+  recovery: r57
+  block: ''
+  hit: -8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Base damage is 45
+- id: ub_b
+  source_id: Azucena-UB,b
+  source_index: 87
+  command: UB,b
+  name: Volterador
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r54
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: 'Transition to r28 LIB with F
+
+    * Low crush 18~37
+
+    * Floating state 38~40'
+- id: ffp3
+  source_id: Azucena-f,F+3
+  source_index: 88
+  command: f,F+3
+  name: Luna Llena
+  hit_level: M
+  damage: '20'
+  startup: i15~17
+  recovery: r37
+  block: -14~-12
+  hit: +35a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: 'Tornado
+
+    * Low crush 17~37
+
+    * Floating state 38~40'
+- id: ffp4
+  source_id: Azucena-f,F+4
+  source_index: 89
+  command: f,F+4
+  name: Demitasse Molino
+  hit_level: M
+  damage: '25'
+  startup: i25~27
+  recovery: r26
+  block: +0~+2
+  hit: +13c~+15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Guaranteed 13f or faster mid on hit
+
+    * 70% scaling on combo
+
+    * Chip damage on block'
+- id: f_ffp3
+  source_id: Azucena-f,f,F+3
+  source_index: 90
+  command: f,f,F+3
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15~16
+  recovery: r38
+  block: '-14'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Knee
+
+    * Low crush 9~36
+
+    * Floating state 37~39'
+- id: f_ffp3_2
+  source_id: Azucena-f,f,F+3,2
+  source_index: 91
+  command: f,f,F+3,2
+  name: "Espresso Agresi\xF3n"
+  hit_level: m, h
+  damage: 10, 20
+  startup: i15~16, i10~12
+  recovery: r38
+  block: '+2'
+  hit: +25a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Jail from 1st attack
+
+    * 8 chip damage on block
+
+    * Available only as combo from 1st hit
+
+    * Enter LIB +3 +28a (+2) r35 with F on frame 22
+
+    * Low crush 1~24
+
+    * Floating state 25~27'
+- id: ws1
+  source_id: Azucena-ws1
+  source_index: 92
+  command: ws1
+  name: Gold Mountain Fist
+  hit_level: m
+  damage: '17'
+  startup: i13~14
+  recovery: r26
+  block: '-8'
+  hit: '+6'
+  counter_hit: +32a (+26)
+  tier: specialist
+  tags:
+  - mid
+  notes: Only hits grounded up-close and off-axis
+- id: ws2
+  source_id: Azucena-ws2
+  source_index: 93
+  command: ws2
+  name: Rainbow Mountain Swing
+  hit_level: m
+  damage: '14'
+  startup: i15~16
+  recovery: r31
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws3
+  source_id: Azucena-ws3
+  source_index: 94
+  command: ws3
+  name: Viento Fuerte
+  hit_level: m
+  damage: '23'
+  startup: i20~21
+  recovery: r33 LIB
+  block: '+4'
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * 9 chip damage on block during heat
+
+    * Opponent recovers crouching'
+- id: ws4
+  source_id: Azucena-ws4
+  source_index: 95
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4_1
+  source_id: Azucena-ws4,1
+  source_index: 96
+  command: ws4,1
+  name: ''
+  hit_level: m, h
+  damage: 13, 10
+  startup: i11~12, i21~22
+  recovery: r23
+  block: '-2'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 6f delay
+
+    * Enter LIB +0 +8 r21 with F'
+- id: ws4_1_3
+  source_id: Azucena-ws4,1,3
+  source_index: 97
+  command: ws4,1,3
+  name: Combo de Cantuta
+  hit_level: m, h, m
+  damage: 13, 10, 28
+  startup: i11~12, ,i22~23
+  recovery: r39
+  block: '-13'
+  hit: +10a (+1)
+  counter_hit: +27a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 7f delay
+
+    * Move can be delayed 10f
+
+    * Cancel to BT -16 -8 r20 with B'
+- id: ss_4
+  source_id: Azucena-SS.4
+  source_index: 98
+  command: SS.4
+  name: Mowing Kick
+  hit_level: L
+  damage: '18'
+  startup: i20
+  recovery: r32 FC
+  block: '-13'
+  hit: '+0'
+  counter_hit: +13g
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Sidestep adds 9f, effective startup i29
+
+    * High crush 6~'
+- id: fc_dfp3
+  source_id: Azucena-FC.df+3
+  source_index: 99
+  command: FC.df+3
+  name: "Cosecha L\xE1tigo"
+  hit_level: L
+  damage: '17'
+  startup: i18~19
+  recovery: r31 FC
+  block: '-13'
+  hit: +3c
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dfp4
+  source_id: Azucena-FC.df+4
+  source_index: 100
+  command: FC.df+4
+  name: Etching Blade
+  hit_level: L
+  damage: '23'
+  startup: i17~18
+  recovery: r33 FC
+  block: '-15'
+  hit: '+5'
+  counter_hit: +24d
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r33 LIB on hit only
+
+    * High crush 1~'
+- id: fc_dp1
+  source_id: Azucena-FC.d+1
+  source_index: 101
+  command: FC.d+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Can recover standing with F
+
+    * High crush 1~'
+- id: fc_dp2
+  source_id: Azucena-FC.d+2
+  source_index: 102
+  command: FC.d+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp3
+  source_id: Azucena-FC.d+3
+  source_index: 103
+  command: FC.d+3
+  name: Crouch Spin Kick
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp4
+  source_id: Azucena-FC.d+4
+  source_index: 104
+  command: FC.d+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: back_to_wall_b_b_ub
+  source_id: Azucena-(Back to wall).b,b,UB
+  source_index: 105
+  command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
+  hit_level: m
+  damage: '25'
+  startup: i27~33
+  recovery: r43
+  block: +1~+7
+  hit: +7a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Floating state 5~13
+
+    * Low crush 14~26
+
+    * Floating state 27~54'
+- id: bt_1
+  source_id: Azucena-BT.1
+  source_index: 106
+  command: BT.1
+  name: ''
+  hit_level: h
+  damage: '9'
+  startup: i10~11
+  recovery: r18 BT
+  block: '+2'
+  hit: '+6'
+  counter_hit: '+8'
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bt_1_2
+  source_id: Azucena-BT.1,2
+  source_index: 107
+  command: BT.1,2
+  name: Mocha Attaque Matari
+  hit_level: h, h
+  damage: 9, 23
+  startup: i10~11, i22~23
+  recovery: r30
+  block: '-1'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: "* Balcony Break\n* Combo from 1st hit with 2f delay\n* Combo from 1st CH\
+    \ with 4f delay\n* Move can be delayed 10f\n* 6 chip damage on block \n* 9 chip\
+    \ damage on block during heat \n* Cancel to LIB -19 -13 r20 with F"
+- id: bt_1_4
+  source_id: Azucena-BT.1,4
+  source_index: 108
+  command: BT.1,4
+  name: Mocha Attaque Sidamo
+  hit_level: h, m
+  damage: 9, 21
+  startup: i10~11, i24~25
+  recovery: r33
+  block: '-11'
+  hit: '+8'
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Combo from 1st CH with 2f delay
+
+    * Move can be delayed 10f
+
+    * Will not combo if the kick impacts on i25'
+- id: bt_2
+  source_id: Azucena-BT.2
+  source_index: 109
+  command: BT.2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r31
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  - mid
+  notes: Transition to attack throw on front standing hit by inputting 2 on frames
+    10~16
+- id: bt_2_2
+  source_id: Azucena-BT.2,2
+  source_index: 110
+  command: BT.2:2
+  name: "Qhapaq \xD1an"
+  hit_level: m, t
+  damage: 15, 23
+  startup: 'i17~18, '
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  - mid
+  notes: Transition to attack throw on front standing hit by inputting 2 on frames
+    10~16
+- id: bt_3
+  source_id: Azucena-BT.3
+  source_index: 111
+  command: BT.3
+  name: Calf Reaper
+  hit_level: L
+  damage: '23'
+  startup: i19~20
+  recovery: r32
+  block: '-13'
+  hit: +4 LIB
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - balcony_break
+  - stance_transition
+  - low
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony break on airborne hit
+
+    * Transition to LIB on hit'
+- id: bt_4
+  source_id: Azucena-BT.4
+  source_index: 112
+  command: BT.4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: r23 BT
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bt_4_3
+  source_id: Azucena-BT.4,3
+  source_index: 113
+  command: BT.4,3
+  name: Upbeat Patadas
+  hit_level: m, m
+  damage: 15, 21
+  startup: i15~16, i23~24
+  recovery: r33
+  block: '-14'
+  hit: +16a (-1)
+  counter_hit: +70a (+54)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6f delay
+
+    * Move can be delayed 10f
+
+    * Only hits grounded when up-close and off-axis'
+- id: bt_1p2
+  source_id: Azucena-BT.1+2
+  source_index: 114
+  command: BT.1+2
+  name: Golpe Affogato
+  hit_level: m
+  damage: '17'
+  startup: i14~15
+  recovery: r31
+  block: '-11'
+  hit: '+3'
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bt_3p4
+  source_id: Azucena-BT.3+4
+  source_index: 115
+  command: BT.3+4
+  name: Foo Fighter
+  hit_level: M
+  damage: '23'
+  startup: i27~29
+  recovery: r28 BT
+  block: -5c~-3c
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Chip damage on block
+
+    * Evasive, can evade mids and some highs
+
+    * Low crush 9~29'
+- id: bt_bp3
+  source_id: Azucena-BT.b+3
+  source_index: 116
+  command: BT.b+3
+  name: Shuffle Walk
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r33 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: bt_bp1p2
+  source_id: Azucena-BT.b+1+2
+  source_index: 117
+  command: BT.b+1+2
+  name: Runaway
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: 'Parries all mids
+
+    * Parry state 2~8'
+- id: bt_bp3p4
+  source_id: Azucena-BT.b+3+4
+  source_index: 118
+  command: BT.b+3+4
+  name: Hide Turn
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r33 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* High crush 6~20'
+- id: bt_fp3p4
+  source_id: Azucena-BT.f+3+4
+  source_index: 119
+  command: BT.f+3+4
+  name: Libertador (Regreso)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r33 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 6~21
+
+    * Floating state 22~24'
+- id: lib_1
+  source_id: Azucena-LIB.1
+  source_index: 120
+  command: LIB.1
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i13
+  recovery: r22 LIB
+  block: '+3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - high
+  notes: '* 4 chip damage on block
+
+    * 5 chip damage on block during heat'
+- id: lib_1_2
+  source_id: Azucena-LIB.1,2
+  source_index: 121
+  command: LIB.1,2
+  name: Blend Tempestad
+  hit_level: h, h
+  damage: 14, 20
+  startup: i13, i24~25
+  recovery: r32
+  block: '-5'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 6f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 7f
+
+    * 6 chip damage on block
+
+    * Cancel to BT -15 -10 r18 with B'
+- id: lib_2
+  source_id: Azucena-LIB.2
+  source_index: 122
+  command: LIB.2
+  name: Golpe Cappuccino
+  hit_level: m
+  damage: '22'
+  startup: i14~15
+  recovery: r28
+  block: '-8'
+  hit: +22g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break'
+- id: lib_3
+  source_id: Azucena-LIB.3
+  source_index: 123
+  command: LIB.3
+  name: Acerbic Low Kick
+  hit_level: L
+  damage: '15'
+  startup: i16~17
+  recovery: r27 BT
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: lib_3_1
+  source_id: Azucena-LIB.3,1
+  source_index: 124
+  command: LIB.3,1
+  name: Blend Reganar
+  hit_level: L, m
+  damage: 15, 20
+  startup: i16~17, i22~23
+  recovery: r32 BT
+  block: '-10'
+  hit: +21d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - low
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st CH with 7f delay
+
+    * Move can be delayed 8f
+
+    * On block only regular i10 punishers are guaranteed, even though she is backturned'
+- id: lib_4
+  source_id: Azucena-LIB.4
+  source_index: 125
+  command: LIB.4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15~16
+  recovery: r24 LIB
+  block: '-3'
+  hit: '+10'
+  counter_hit: +10a
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: lib_4_1
+  source_id: Azucena-LIB.4,1
+  source_index: 126
+  command: LIB.4,1
+  name: ''
+  hit_level: m, h
+  damage: 14, 10
+  startup: i15~16, i23~24
+  recovery: r19
+  block: '-1'
+  hit: '+5'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 9f delay
+
+    * Launches from first counter hit'
+- id: lib_4_1_2
+  source_id: Azucena-LIB.4,1,2
+  source_index: 127
+  command: LIB.4,1,2
+  name: Blend Asaltar
+  hit_level: m, h, m
+  damage: 14, 10, 23
+  startup: i15~16, ,i28~29
+  recovery: r33
+  block: '-10'
+  hit: +67a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 2nd CH with 1f delay
+
+    * Move can be delayed 10f'
+- id: lib_4_2
+  source_id: Azucena-LIB.4,2
+  source_index: 128
+  command: LIB.4,2
+  name: Blend Martillo
+  hit_level: m, M
+  damage: 14, 21
+  startup: i15~16, i25~26
+  recovery: r33
+  block: '-13'
+  hit: +16a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 1st hit with 5f delay
+
+    * Will not wall splat when the first hit is a counter hit due to float state'
+- id: lib_1p2
+  source_id: Azucena-LIB.1+2
+  source_index: 129
+  command: LIB.1+2
+  name: Rana Barista
+  hit_level: M
+  damage: '23'
+  startup: i18~19
+  recovery: r35
+  block: '-14'
+  hit: +38a (+28)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Cancel to r20 BT with B
+
+    * Low crush 20~30
+
+    * Floating state 31~33'
+- id: lib_3p4
+  source_id: Azucena-LIB.3+4
+  source_index: 130
+  command: LIB.3+4
+  name: "El Ni\xF1o High Kick"
+  hit_level: h
+  damage: '25'
+  startup: i16~17
+  recovery: r31
+  block: '-2'
+  hit: +32a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - pc
+  - homing
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * 7 chip damage on block
+
+    * +3 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~15'
+- id: lib_b
+  source_id: Azucena-LIB.B
+  source_index: 131
+  command: LIB.B
+  name: Salida Castillo
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: 'Completely evades high or low attacks
+
+    * Parry state 1~'
+- id: lib_f
+  source_id: Azucena-LIB.F
+  source_index: 132
+  command: LIB.F
+  name: Azucena Admission
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Completely evades high or low attacks
+
+    * Parry state 1~'
+- id: lib_p_high
+  source_id: Azucena-LIB.P (High)
+  source_index: 133
+  command: LIB.P (High)
+  name: Crema Petalo
+  hit_level: ''
+  damage: '0'
+  startup: ''
+  recovery: r22 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - is
+  notes: '* Restores recoverable health
+
+    * Frame advantage depends on the move that gets parried
+
+    * is1~16'
+- id: lib_p_low
+  source_id: Azucena-LIB.P (Low)
+  source_index: 134
+  command: LIB.P (Low)
+  name: Flush Valve Gracia
+  hit_level: m,m
+  damage: 15,20
+  startup: i7~8 i19~20
+  recovery: r26 LIB
+  block: ''
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - is
+  - fs
+  - js
+  - low_crush
+  - mid
+  notes: '* Restores recoverable health
+
+    * Will cause a juggle on lows with float properties
+
+    * is1~6
+
+    * Floating state 7
+
+    * Low crush 8~19
+
+    * Floating state 20~22'
+- id: lib_u
+  source_id: Azucena-LIB.U_D
+  source_index: 135
+  command: LIB.U
+  name: Milagros Show
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Completely evades high or low attacks
+
+    * Parry state 1~'
+- id: lib_b_b
+  source_id: Azucena-LIB.b,b
+  source_index: 136
+  command: LIB.b,b
+  name: Caer Back Funnel
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r45 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can be canceled at r20 with b+1 or uf+1, performs the same attack as uf+1'
+- id: lib_dp3
+  source_id: Azucena-LIB.d+3
+  source_index: 137
+  command: LIB.d+3
+  name: Pedalada Tron
+  hit_level: m
+  damage: '25'
+  startup: i24~26
+  recovery: r35 FC
+  block: '+2'
+  hit: +13a
+  counter_hit: +38a
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - floor_break
+  - mid
+  notes: '* Balcony Break
+
+    * Floor Break on airborne hit
+
+    * High crush 6~'
+- id: lib_dp4
+  source_id: Azucena-LIB.d+4
+  source_index: 138
+  command: LIB.d+4
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i19~20
+  recovery: r31
+  block: '-31'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: lib_dp4_4
+  source_id: Azucena-LIB.d+4,4
+  source_index: 139
+  command: LIB.d+4,4
+  name: Blend Cortar
+  hit_level: L, h
+  damage: 14, 27
+  startup: i19~20, i30~31
+  recovery: r34
+  block: '-7'
+  hit: +14a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: lib_f_f
+  source_id: Azucena-LIB.f,f
+  source_index: 140
+  command: LIB.f,f
+  name: Libertador (Varios)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r28 LIB
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 1p3
+  source_id: Azucena-1+3
+  source_index: 141
+  command: 1+3
+  name: Amaru Head Squeeze
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Azucena-2+4
+  source_index: 142
+  command: 2+4
+  name: El Dorado Neck Snap
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit and break'
+- id: back_throw
+  source_id: Azucena-Back throw
+  source_index: 143
+  command: Back throw
+  name: Caffeine Abduction
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable
+
+    * Side switch'
+- id: left_throw
+  source_id: Azucena-Left Throw
+  source_index: 144
+  command: Left throw
+  name: Urubamba Neck Lock
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1'
+- id: right_throw
+  source_id: Azucena-Right Throw
+  source_index: 145
+  command: Right throw
+  name: Giratorio Sleeper Throw
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2'
+- id: tackle_2_1_2_1
+  source_id: Azucena-Tackle.2,1,2,1
+  source_index: 146
+  command: Tackle.2,1,2,1
+  name: Ultimate Punch
+  hit_level: t
+  damage: 5,5,5,15
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1 for right punches
+
+    * Throw break 2 for left punches
+
+    * Only 1st and 4th hits can be blocked
+
+    * Inputs are reversed for tackle from behind
+
+    * Can cancel the last punch to Arm Breaker with 1+2'
+- id: tackle_1p2
+  source_id: Azucena-Tackle.1+2
+  source_index: 147
+  command: Tackle.1+2
+  name: Arm Breaker
+  hit_level: t
+  damage: '25'
+  startup: ''
+  recovery: ''
+  block: '-9'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2'
+- id: dp1p3
+  source_id: Azucena-d+1+3
+  source_index: 148
+  command: d+1+3
+  name: Smell the Coffee
+  hit_level: t(m)
+  damage: '35'
+  startup: i12~13
+  recovery: r28
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - throw
+  - heat
+  - mid
+  notes: '* Heat Engager
+
+
+    * Regains heat during heat
+
+    * Crouch throw
+
+    * Unbreakable
+
+    * Can''t Heat Dash cancel'
+- id: hfc_1p2
+  source_id: Azucena-hFC.1+2
+  source_index: 149
+  command: hFC.1+2
+  name: Ultimate Tackle
+  hit_level: t
+  damage: '0'
+  startup: i32
+  recovery: r33
+  block: '-5'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2 in a 6f window, frames 1~6
+
+    * Reverse tackle with 1+2 in a 17f window, frames 7~23, then 1+2 in a 2f window,
+    frames 24~25
+
+    * Works on standing and crouching opponent
+
+    * Can be done from Crouch Level 1'
+- id: ufp1p2
+  source_id: Azucena-uf+1+2
+  source_index: 150
+  command: uf+1+2
+  name: Inti Raymi Necklace
+  hit_level: t
+  damage: '40'
+  startup: i11
+  recovery: r28
+  block: '+0'
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2
+
+    * side switch on hit'

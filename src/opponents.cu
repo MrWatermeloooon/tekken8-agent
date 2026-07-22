@@ -27,6 +27,92 @@ __device__ __forceinline__ std::uint64_t mix(std::uint64_t value) {
     return value ^ (value >> 31U);
 }
 
+__device__ __forceinline__ float random_unit(std::uint64_t key, std::uint64_t salt) {
+    return static_cast<float>(mix(key ^ mix(salt)) & 0xFFFFFFULL) / 16777216.0F;
+}
+
+__device__ __forceinline__ float clamp_probability(float value) {
+    return fminf(1.0F, fmaxf(0.0F, value));
+}
+
+__device__ Action profiled_action(
+    const float* observations,
+    std::size_t obs,
+    const OpponentProfileParameters& profile,
+    std::uint64_t seed,
+    std::uint64_t step,
+    std::size_t lane) {
+    const float distance = observations[obs + 3] * 7.2F;
+    const bool opponent_attacking = observations[obs + 12] > 0.5F;
+    const bool throw_threat = observations[obs + 17] > 0.5F;
+    const float opponent_move_remaining = observations[obs + 14];
+    const auto frame_decision = static_cast<std::uint64_t>(fmaxf(0.0F, observations[obs + 6]) * 900.0F);
+    const std::uint64_t episode_key = step >= frame_decision ? step - frame_decision : 0;
+    const std::uint64_t key = seed ^ mix(lane) ^ mix(episode_key) ^ mix(profile.id);
+    const float episode_jitter = (random_unit(key, 991) - 0.5F) * 0.07F;
+    const auto probability = [&](float base) { return clamp_probability(base + episode_jitter); };
+
+    if (random_unit(key ^ mix(step), 1) < probability(profile.input_error_rate)) {
+        const float error = random_unit(key ^ mix(step), 2);
+        return error < 0.34F ? Action::Neutral :
+            (error < 0.67F ? Action::SidestepLeft : Action::SidestepRight);
+    }
+    if (throw_threat) {
+        if (random_unit(key ^ mix(step), 3) < probability(profile.throw_break_accuracy)) {
+            const auto break_roll = static_cast<int>(mix(key ^ mix(step) ^ 4ULL) % 3ULL);
+            return break_roll == 0 ? Action::ThrowBreak1 :
+                (break_roll == 1 ? Action::ThrowBreak2 : Action::ThrowBreak12);
+        }
+        return Action::BlockHigh;
+    }
+    if (opponent_attacking) {
+        const float reaction_span = static_cast<float>(max(1, profile.reaction_max - profile.reaction_min + 1));
+        const float sampled_reaction = static_cast<float>(profile.reaction_min) +
+            random_unit(key ^ mix(step), 5) * reaction_span;
+        const float observed_attack_frames = (1.0F - opponent_move_remaining) * 30.0F;
+        if (observed_attack_frames < sampled_reaction) return Action::Neutral;
+        if (random_unit(key ^ mix(step), 6) < probability(profile.delay_frequency) * 0.25F) {
+            return Action::Neutral;
+        }
+        if (distance < 1.05F && random_unit(key ^ mix(step), 7) < probability(profile.punish_accuracy) * 0.35F) {
+            return random_unit(key ^ mix(step), 8) < profile.heat_usage ? Action::Hopkick : Action::Df1;
+        }
+        const float defense = random_unit(key ^ mix(step), 9);
+        if (defense < probability(profile.low_block_accuracy) * 0.35F) return Action::BlockLow;
+        if (defense < probability(profile.low_block_accuracy) * 0.45F) return Action::LowParry;
+        return Action::BlockHigh;
+    }
+    if (distance > 1.15F) {
+        const float total = profile.approach + profile.backdash +
+            profile.sidestep_left + profile.sidestep_right;
+        float movement = random_unit(key ^ mix(step), 10) * fmaxf(total, 1e-6F);
+        movement -= profile.approach;
+        if (movement <= 0.0F) {
+            return profile.aggression > 0.65F ? Action::DashForward : Action::WalkForward;
+        }
+        movement -= profile.backdash;
+        if (movement <= 0.0F) return Action::DashBack;
+        movement -= profile.sidestep_left;
+        if (movement <= 0.0F) return Action::SidestepLeft;
+        return Action::SidestepRight;
+    }
+    const float offense = random_unit(key ^ mix(step), 11);
+    float boundary = probability(profile.delay_frequency) * 0.16F;
+    if (offense < boundary) return Action::Neutral;
+    boundary += probability(profile.throw_frequency) * 0.34F;
+    if (offense < boundary && distance < 0.65F) return Action::Throw;
+    boundary += probability(profile.low_frequency) * 0.42F;
+    if (offense < boundary) return Action::Db3;
+    boundary += probability(profile.stance_entry_frequency) * 0.22F;
+    if (offense < boundary) {
+        return random_unit(key ^ mix(step), 12) < 0.5F ? Action::SidestepLeft : Action::Df1;
+    }
+    if (random_unit(key ^ mix(step), 13) < probability(profile.heat_usage) * 0.42F) {
+        return random_unit(key ^ mix(step), 14) < 0.55F ? Action::F2 : Action::Hopkick;
+    }
+    return random_unit(key ^ mix(step), 15) < profile.aggression ? Action::Jab : Action::BlockHigh;
+}
+
 __global__ void scripted_actions_kernel(
     const float* observations,
     const std::uint8_t* masks,
@@ -34,6 +120,9 @@ __global__ void scripted_actions_kernel(
     std::uint64_t seed,
     std::uint64_t step,
     ScriptedOpponentSet opponent_set,
+    const OpponentProfileParameters* profiles,
+    const std::uint32_t* profile_assignments,
+    std::size_t profile_count,
     std::int64_t* actions) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= count) return;
@@ -41,6 +130,18 @@ __global__ void scripted_actions_kernel(
     const std::size_t mask = lane * kActionCount;
     if (!masks[mask + static_cast<int>(Action::Jab)]) {
         actions[lane] = static_cast<std::int64_t>(Action::Neutral);
+        return;
+    }
+    if (profiles != nullptr && profile_assignments != nullptr) {
+        const std::uint32_t profile_index = profile_assignments[lane];
+        if (profile_index >= profile_count) {
+            actions[lane] = static_cast<std::int64_t>(Action::Neutral);
+            return;
+        }
+        Action selected = profiled_action(
+            observations, obs, profiles[profile_index], seed, step, lane);
+        if (!masks[mask + static_cast<std::size_t>(selected)]) selected = Action::Neutral;
+        actions[lane] = static_cast<std::int64_t>(selected);
         return;
     }
     const float distance = observations[obs + 3] * 7.2F;
@@ -149,11 +250,30 @@ __global__ void scripted_actions_kernel(
 struct GpuScriptedOpponent::Impl {
     std::size_t capacity;
     std::int64_t* actions = nullptr;
+    OpponentProfileParameters* profiles = nullptr;
+    std::uint32_t* profile_assignments = nullptr;
+    std::size_t profile_count = 0;
     explicit Impl(std::size_t requested) : capacity(requested) {
         if (capacity == 0) throw std::invalid_argument("opponent capacity must be positive");
-        check_cuda(cudaMalloc(&actions, sizeof(std::int64_t) * capacity), "allocate scripted actions");
+        try {
+            check_cuda(cudaMalloc(&actions, sizeof(std::int64_t) * capacity), "allocate scripted actions");
+            check_cuda(cudaMemset(actions, 0, sizeof(std::int64_t) * capacity),
+                       "initialize scripted actions");
+            check_cuda(cudaMalloc(&profile_assignments, sizeof(std::uint32_t) * capacity),
+                       "allocate profile assignments");
+            check_cuda(cudaMemset(profile_assignments, 0, sizeof(std::uint32_t) * capacity),
+                       "initialize profile assignments");
+        } catch (...) {
+            cudaFree(profile_assignments);
+            cudaFree(actions);
+            throw;
+        }
     }
-    ~Impl() { cudaFree(actions); }
+    ~Impl() {
+        cudaFree(profiles);
+        cudaFree(profile_assignments);
+        cudaFree(actions);
+    }
 };
 
 GpuScriptedOpponent::GpuScriptedOpponent(std::size_t capacity)
@@ -162,6 +282,70 @@ GpuScriptedOpponent::~GpuScriptedOpponent() = default;
 GpuScriptedOpponent::GpuScriptedOpponent(GpuScriptedOpponent&&) noexcept = default;
 GpuScriptedOpponent& GpuScriptedOpponent::operator=(GpuScriptedOpponent&&) noexcept = default;
 std::size_t GpuScriptedOpponent::capacity() const noexcept { return impl_->capacity; }
+
+void GpuScriptedOpponent::set_profiles(
+    std::span<const OpponentProfileParameters> profiles,
+    void* stream) {
+    if (profiles.empty()) throw std::invalid_argument("profile table cannot be empty");
+    OpponentProfileParameters* uploaded = nullptr;
+    check_cuda(cudaMalloc(&uploaded, sizeof(OpponentProfileParameters) * profiles.size()),
+               "allocate opponent profiles");
+    try {
+        check_cuda(cudaMemcpyAsync(uploaded, profiles.data(),
+                                   sizeof(OpponentProfileParameters) * profiles.size(),
+                                   cudaMemcpyHostToDevice, as_stream(stream)),
+                   "upload opponent profiles");
+        check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize opponent profile upload");
+    } catch (...) {
+        cudaFree(uploaded);
+        throw;
+    }
+    cudaFree(impl_->profiles);
+    impl_->profiles = uploaded;
+    impl_->profile_count = profiles.size();
+}
+
+void GpuScriptedOpponent::set_profile_assignments(
+    std::span<const std::uint32_t> assignments,
+    void* stream) {
+    if (impl_->profiles == nullptr) throw std::logic_error("set profiles before profile assignments");
+    if (assignments.size() != impl_->capacity) {
+        throw std::invalid_argument("profile assignments must match opponent capacity");
+    }
+    for (const auto index : assignments) {
+        if (index >= impl_->profile_count) throw std::out_of_range("profile assignment is out of range");
+    }
+    check_cuda(cudaMemcpyAsync(impl_->profile_assignments, assignments.data(),
+                               sizeof(std::uint32_t) * assignments.size(),
+                               cudaMemcpyHostToDevice, as_stream(stream)),
+               "upload profile assignments");
+    check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize profile assignment upload");
+}
+
+void GpuScriptedOpponent::set_action_history(
+    std::span<const std::int64_t> actions,
+    void* stream) {
+    if (actions.size() != impl_->capacity) {
+        throw std::invalid_argument("action history must match opponent capacity");
+    }
+    check_cuda(cudaMemcpyAsync(impl_->actions, actions.data(),
+                               sizeof(std::int64_t) * actions.size(),
+                               cudaMemcpyHostToDevice, as_stream(stream)),
+               "upload opponent action history");
+    check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize opponent action history upload");
+}
+
+bool GpuScriptedOpponent::uses_profiles() const noexcept { return impl_->profiles != nullptr; }
+const std::uint32_t* GpuScriptedOpponent::profile_assignments_device() const noexcept {
+    return impl_->profile_assignments;
+}
+const OpponentProfileParameters* GpuScriptedOpponent::profiles_device() const noexcept {
+    return impl_->profiles;
+}
+const std::int64_t* GpuScriptedOpponent::actions_buffer_device() const noexcept {
+    return impl_->actions;
+}
+std::size_t GpuScriptedOpponent::profile_count() const noexcept { return impl_->profile_count; }
 
 const std::int64_t* GpuScriptedOpponent::actions_device(
     const float* observations,
@@ -175,9 +359,24 @@ const std::int64_t* GpuScriptedOpponent::actions_device(
         throw std::invalid_argument("invalid scripted-opponent input");
     }
     scripted_actions_kernel<<<blocks_for(count), kThreads, 0, as_stream(stream)>>>(
-        observations, masks, count, seed, step, opponent_set, impl_->actions);
+        observations, masks, count, seed, step, opponent_set,
+        impl_->profiles, impl_->profile_assignments, impl_->profile_count, impl_->actions);
     check_cuda(cudaGetLastError(), "launch scripted opponent kernel");
     return impl_->actions;
+}
+
+std::vector<std::uint32_t> GpuScriptedOpponent::download_profile_assignments(
+    std::size_t count,
+    void* stream) const {
+    if (count > impl_->capacity) throw std::invalid_argument("download exceeds opponent capacity");
+    std::vector<std::uint32_t> host(count);
+    const auto cuda_stream = as_stream(stream);
+    check_cuda(cudaMemcpyAsync(host.data(), impl_->profile_assignments,
+                               sizeof(std::uint32_t) * count,
+                               cudaMemcpyDeviceToHost, cuda_stream),
+               "download profile assignments");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize profile assignment download");
+    return host;
 }
 
 void GpuScriptedOpponent::synchronize(void* stream) const {

@@ -7,12 +7,12 @@ import numpy as np
 import pytest
 
 from t8_agent.live.v2_policy import LiveV2GpuAgent, V2Checkpoint, _fnv1a
+from t8_agent.roster.temporal import TemporalFrame
 from t8_agent.sim.action_space import ACTION_SPACE
 from t8_agent.vision.temporal import VisualEstimate
 
 
-def write_checkpoint(path: Path) -> None:
-    observations = 13
+def write_checkpoint(path: Path, observations: int = 13) -> None:
     actions = len(ACTION_SPACE)
     hidden = 4
     output = actions + 1
@@ -68,6 +68,31 @@ def test_native_checkpoint_cuda_inference(tmp_path: Path) -> None:
     assert logits.is_cuda
     assert torch.isfinite(logits).all()
     assert agent.act(estimate()) == ACTION_SPACE[3]
+
+
+def test_matchup_checkpoint_requires_context_and_runs_95_features(tmp_path: Path) -> None:
+    pytest.importorskip("torch")
+    checkpoint_path = tmp_path / "visual_matchup.t8ppo"
+    write_checkpoint(checkpoint_path, observations=95)
+    with pytest.raises(ValueError, match="requires opponent_character"):
+        LiveV2GpuAgent(checkpoint_path, device="cpu")
+    agent = LiveV2GpuAgent(
+        checkpoint_path,
+        device="cpu",
+        opponent_character="reina",
+        opponent_archetype="movement_specialist",
+    )
+    observation = agent.observation(
+        estimate(),
+        temporal_frame=TemporalFrame(
+            move_id=18, animation_phase=0.5, hit_level=1, distance=1.7,
+        ),
+    )
+    assert observation.shape == (95,)
+    assert observation[21 + 8] == 1.0
+    assert np.count_nonzero(observation[-8:]) >= 4
+    assert agent.act(estimate()) == ACTION_SPACE[3]
+    agent.reset_episode()
 
 
 def test_native_checkpoint_rejects_corruption(tmp_path: Path) -> None:

@@ -1,0 +1,32 @@
+schema_version: 1
+character_id: 41
+character: bob
+display_name: Bob
+groups:
+- rushdown
+- movement
+specialty: speed_and_weight
+sidestep_tendency: right
+signature_mechanics:
+- spinner_ball
+- wavedash
+- belly_pressure
+frame_data_status: unavailable
+frame_data_source: https://tekkendocs.com/api/t8/bob/framedata
+important_punishable_moves: []
+common_strings_and_gaps: []
+duckable_highs: []
+stance_transitions: []
+throw_options: []
+key_lows: []
+power_crushes: []
+heat_threats: []
+long_range_attacks: []
+launch_punish_opportunities: []
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

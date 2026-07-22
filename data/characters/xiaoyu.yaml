@@ -1,0 +1,3738 @@
+character_id: xiaoyu
+display_name: Ling Xiaoyu
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/xiaoyu/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: de717560a4161469bfd4e4e2babf800c3b74ac6280602817e9bf64af433bbe42
+data_status: available
+stances:
+- H
+- While
+- ws
+- SS
+- FC
+- AOP
+- BT
+- HYP
+- hFC
+moves:
+- id: 2p3
+  source_id: Xiaoyu-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_bt_2p3
+  source_id: Xiaoyu-H.BT.2+3
+  source_index: 2
+  command: H.BT.2+3
+  name: Innumerable Moons
+  hit_level: m,m,m,m
+  damage: '51'
+  startup: i15~16
+  recovery: HYP
+  block: '+9'
+  hit: +20g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - spk
+  - chp
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Spike
+
+    * Transition to HYP 2nd step
+
+    * Transition to standing with F (+3, +5)
+
+    * Chip on block [7]'
+- id: h_2p3
+  source_id: Xiaoyu-H.2+3
+  source_index: 3
+  command: H.2+3
+  name: Divine Shooting Star
+  hit_level: m,m,m,M
+  damage: '50'
+  startup: i15~16
+  recovery: BT
+  block: '+9'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - chp
+  - js
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to standing with F (+5 oB)
+
+    * Transition to attack throw on hit
+
+    * Chip on block [7]
+
+    * Low crush 9~'
+- id: r_dfp1p2
+  source_id: Xiaoyu-R.df+1+2
+  source_index: 4
+  command: R.df+1+2
+  name: Wang's Celestial Epic
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Xiaoyu-1
+  source_index: 5
+  command: '1'
+  name: ''
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: ''
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '1_2'
+  source_id: Xiaoyu-1,2
+  source_index: 6
+  command: 1,2
+  name: Bayonet
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i11
+  recovery: ''
+  block: '-3'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 4F delay
+
+    * Jail from 1st block with 4F delay'
+- id: '1_2_1'
+  source_id: Xiaoyu-1,2,1
+  source_index: 7
+  command: 1,2,1
+  name: Bayonet Thruster
+  hit_level: h, h, m
+  damage: 5, 8, 20
+  startup: i10, ,i16~17
+  recovery: ''
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 10F delay
+
+    * Jail from 2nd block with 3F delay'
+- id: 1_dp2
+  source_id: Xiaoyu-1,d+2
+  source_index: 8
+  command: 1,d+2
+  name: Fan Dance
+  hit_level: h, m
+  damage: 5, 10
+  startup: i10, i20~23
+  recovery: BT
+  block: '-3'
+  hit: '+8'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 5F delay
+
+    * Move can be delayed by 10F
+
+    * Transition to standing with 1,D+2 or 1,d+2,F (-4, +7, +9)
+
+    * Transition to HYP with 1,d+2~B (-2, +9, +11)'
+- id: 1_dp2_1p2
+  source_id: Xiaoyu-1,d+2,1+2
+  source_index: 9
+  command: 1,d+2,1+2
+  name: Fan Dance > Birds Flock
+  hit_level: h, m, m
+  damage: 5, 10, 24
+  startup: i10, ,i29~31
+  recovery: ''
+  block: '-12'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd hit CH'
+- id: 1p3p4
+  source_id: Xiaoyu-1+3+4
+  source_index: 10
+  command: 1+3+4
+  name: False Salute
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  notes: '* Low crush 8~15'
+- id: '2'
+  source_id: Xiaoyu-2
+  source_index: 11
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i10
+  recovery: ''
+  block: '-2'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '*'
+- id: '2_1'
+  source_id: Xiaoyu-2,1
+  source_index: 12
+  command: 2,1
+  name: April Showers
+  hit_level: h, m
+  damage: 8, 10
+  startup: i10, i19
+  recovery: BT
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st block
+
+    * Transition to standing by holding any direction (-4, +7)'
+- id: '3'
+  source_id: Xiaoyu-3
+  source_index: 13
+  command: '3'
+  name: Cloud Kick
+  hit_level: h
+  damage: '17'
+  startup: i14~15
+  recovery: ''
+  block: '-11'
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '*'
+- id: '4'
+  source_id: Xiaoyu-4
+  source_index: 14
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i11
+  recovery: ''
+  block: '-9'
+  hit: '+8'
+  counter_hit: +33a
+  tier: core
+  tags:
+  - balcony_break
+  - high
+  notes: '* Balcony Break on CH'
+- id: 1p2
+  source_id: Xiaoyu-1+2
+  source_index: 15
+  command: 1+2
+  name: Birds Flock
+  hit_level: m
+  damage: '24'
+  startup: i20~21
+  recovery: ''
+  block: '-7'
+  hit: +20a
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: 2p3p4
+  source_id: Xiaoyu-2+3+4
+  source_index: 16
+  command: 2+3+4
+  name: Greetings
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 3p4
+  source_id: Xiaoyu-3+4
+  source_index: 17
+  command: 3+4
+  name: Crescent Moon Kick
+  hit_level: M
+  damage: '23'
+  startup: i23~25
+  recovery: r29
+  block: -1c
+  hit: +3c
+  counter_hit: +19a
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Transition to AOP r30 with D (+0/+4c/+20a)
+
+    ** AOP transition is r32 on whiff
+
+    * Low crush 10~22
+
+    * Floating state 23~25'
+- id: fp2
+  source_id: Xiaoyu-f+2
+  source_index: 18
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i16~17
+  recovery: ''
+  block: '-5'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: fp2_1
+  source_id: Xiaoyu-f+2,1
+  source_index: 19
+  command: f+2,1
+  name: ''
+  hit_level: m, h
+  damage: 12, 14
+  startup: i16~17, i20
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+7'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Jails from 1st block
+
+    * Transition to HYP with B (+0, +11)'
+- id: fp2_1_4
+  source_id: Xiaoyu-f+2,1,4
+  source_index: 20
+  command: f+2,1,4
+  name: Bai Yang Zhuan Wu
+  hit_level: m, h, m
+  damage: 12, 14, 20
+  startup: i16~17, ,i26~27
+  recovery: ''
+  block: '-13'
+  hit: +17a (+8)
+  counter_hit: +62a (+42)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 6F delay
+
+    * Move can be delayed by 10F'
+- id: h_fp2_1_2
+  source_id: Xiaoyu-f+2,1,H.2
+  source_index: 21
+  command: H.f+2,1,2
+  name: Bai Yang Yan Di Po
+  hit_level: m, h, m
+  damage: 12, 14, 20
+  startup: i16~17, ,i26~28
+  recovery: BT
+  block: '+6'
+  hit: +23d
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Partially uses remaining Heat time
+
+    * Combo from 1st hit with no delay
+
+    * Combo from 2nd CH with 6F delay
+
+    * Move can be delayed by 5-10F
+
+    * Transition to standing with F (+4, +21d, +47a)
+
+    * Low crush'
+- id: fp3
+  source_id: Xiaoyu-f+3
+  source_index: 22
+  command: f+3
+  name: ''
+  hit_level: M
+  damage: '14'
+  startup: i16~18
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: "* Knee \n* Doesn't hit grounded if opponent is on-axis in FUFT"
+- id: fp3_1
+  source_id: Xiaoyu-f+3,1
+  source_index: 23
+  command: f+3,1
+  name: ''
+  hit_level: M, m
+  damage: 14, 8
+  startup: i16~18, i22~23
+  recovery: BT
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit'
+- id: fp3_1_4
+  source_id: Xiaoyu-f+3,1,4
+  source_index: 24
+  command: f+3,1,4
+  name: Talons of Fury
+  hit_level: M, m, M
+  damage: 14, 8, 20
+  startup: i16~18, ,i26
+  recovery: ''
+  block: '-22'
+  hit: +62a (+46)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Instant Tornado
+
+    * Combo from 2nd hit CH'
+- id: fp3_1_1p2
+  source_id: Xiaoyu-f+3,1,1+2
+  source_index: 25
+  command: f+3,1,1+2
+  name: Wings of Fury
+  hit_level: M, m, m,M
+  damage: 14, 8, 6,20
+  startup: i16~18, ,i16~18 i5~6
+  recovery: ''
+  block: '-12'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 2nd CH'
+- id: fp4
+  source_id: Xiaoyu-f+4
+  source_index: 26
+  command: f+4
+  name: Swivel Kick
+  hit_level: h
+  damage: '23'
+  startup: i19
+  recovery: ''
+  block: '+1'
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - chp
+  - homing
+  - chip
+  - high
+  notes: '* Homing
+
+    * Chip on block [4]'
+- id: fp1p2
+  source_id: Xiaoyu-f+1+2
+  source_index: 27
+  command: f+1+2
+  name: Clouded Peak
+  hit_level: m
+  damage: '30'
+  startup: i12
+  recovery: ''
+  block: '-16'
+  hit: +15d (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: "* Balcony Break \n* Shoulder"
+- id: fp3p4
+  source_id: Xiaoyu-f+3+4
+  source_index: 28
+  command: f+3+4
+  name: Forward Roll
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  notes: '* Transition to AOP with D
+
+    * Low crush 9~'
+- id: fp3p4_3p4
+  source_id: Xiaoyu-f+3+4,3+4
+  source_index: 29
+  command: f+3+4,3+4
+  name: Forward Roll > Phoenix Talon
+  hit_level: m,m,m
+  damage: 8,8,14
+  startup: i20~21 i4~5 i5~8
+  recovery: ''
+  block: '+8'
+  hit: +2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '*
+
+    * Low crush 23~'
+- id: dfp1
+  source_id: Xiaoyu-df+1
+  source_index: 30
+  command: df+1
+  name: Belly Chop
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: BT
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - mid
+  notes: '* Transition to standing by holding any direction (-4, +7)
+
+    * High crush 6~14'
+- id: dfp2
+  source_id: Xiaoyu-df+2
+  source_index: 31
+  command: df+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i14
+  recovery: ''
+  block: '-6'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: dfp2_3
+  source_id: Xiaoyu-df+2,3
+  source_index: 32
+  command: df+2,3
+  name: Moon Swallow
+  hit_level: m, h
+  damage: 15, 23
+  startup: i14, i23~24
+  recovery: r30
+  block: '-1'
+  hit: +35a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Cancel to r15 FC with DB, D, or DF (-3, -16)
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 9F'
+- id: dfp2_1p2
+  source_id: Xiaoyu-df+2,1+2
+  source_index: 33
+  command: df+2,1+2
+  name: Moon Scorched Feather Tackle
+  hit_level: m, m
+  damage: 15, 25
+  startup: i14, i24~25
+  recovery: ''
+  block: '-14'
+  hit: +21a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 9F'
+- id: dfp3
+  source_id: Xiaoyu-df+3
+  source_index: 34
+  command: df+3
+  name: Phoenix Tail
+  hit_level: L
+  damage: '23'
+  startup: i29~30
+  recovery: ''
+  block: '-23'
+  hit: +71a (+55)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - tornado
+  - stance_transition
+  - low
+  notes: '* Tornado
+
+    * Instant Tornado
+
+    * Homing
+
+    * Cancel to BT with B (r31)
+
+    * On hit of whiff, transition to AOP with D
+
+    * Snake Edge
+
+    * High crush 6~29'
+- id: dfp4
+  source_id: Xiaoyu-df+4
+  source_index: 35
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i12
+  recovery: ''
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: dp1
+  source_id: Xiaoyu-d+1
+  source_index: 36
+  command: d+1
+  name: Sunset Fan
+  hit_level: m,m,M
+  damage: 7,7,7
+  startup: i17~19 i4~6 i3~9
+  recovery: FC
+  block: '-5'
+  hit: +8c
+  counter_hit: +9c
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: "* Transition to AOP with D+1 (-10, +4c, +5c)\n* This move can become more\
+    \ minus if the final hit whiffs\n** Standing (-13, -2c) \n** AOP (-17, -5c)"
+- id: dp2
+  source_id: Xiaoyu-d+2
+  source_index: 37
+  command: d+2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Alternate input FC.2
+
+    * High crush 4~'
+- id: dp3
+  source_id: Xiaoyu-d+3
+  source_index: 38
+  command: d+3
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i14
+  recovery: FC
+  block: '-12'
+  hit: '-3'
+  counter_hit: '+1'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush 6~'
+- id: dp3_4
+  source_id: Xiaoyu-d+3,4
+  source_index: 39
+  command: d+3,4
+  name: Giant Slayer
+  hit_level: L, h
+  damage: 12, 21
+  startup: i14, i25~26
+  recovery: ''
+  block: '+0'
+  hit: +26a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: dp4
+  source_id: Xiaoyu-d+4
+  source_index: 40
+  command: d+4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: '* Alternate input FC.4'
+- id: dp1p2
+  source_id: Xiaoyu-d+1+2
+  source_index: 41
+  command: d+1+2
+  name: Phoenix
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 AOP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: "* Transition to AOP\n* Transition to r10 FC with AOP.u \n* Alternate input\
+    \ BT.d+1+2\n* High crush 1~"
+- id: dp3p4
+  source_id: Xiaoyu-d+3+4
+  source_index: 42
+  command: d+3+4
+  name: Spinner
+  hit_level: special
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Alternate input u+3+4'
+- id: dbp1
+  source_id: Xiaoyu-db+1
+  source_index: 43
+  command: db+1
+  name: Storming Flower
+  hit_level: m
+  damage: '22'
+  startup: i18
+  recovery: ''
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Clean hit damage: 30'
+- id: dbp2
+  source_id: Xiaoyu-db+2
+  source_index: 44
+  command: db+2
+  name: Feathered Fan
+  hit_level: L
+  damage: '13'
+  startup: i18~19
+  recovery: BT
+  block: '-8'
+  hit: +5c
+  counter_hit: '+12'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush 6~'
+- id: dbp3
+  source_id: Xiaoyu-db+3
+  source_index: 45
+  command: db+3
+  name: Knee Cracker
+  hit_level: L
+  damage: '0'
+  startup: i15
+  recovery: ''
+  block: +2c
+  hit: +2c
+  counter_hit: '+14'
+  tier: core
+  tags:
+  - low
+  notes: '*'
+- id: dbp4
+  source_id: Xiaoyu-db+4
+  source_index: 46
+  command: db+4
+  name: Nutcracker
+  hit_level: L
+  damage: '14'
+  startup: i18
+  recovery: ''
+  block: '-12'
+  hit: +4c
+  counter_hit: '+14'
+  tier: core
+  tags:
+  - low
+  notes: '* This move is +20 on a traded hit'
+- id: dbp1p2
+  source_id: Xiaoyu-db+1+2
+  source_index: 47
+  command: db+1+2
+  name: Hypnotist
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 HYP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Transition to HYP
+
+    * db+1+2: perform Hypnotist right
+
+    * ub+1+2: perform Hypnotist left
+
+    * Actionable for 70F
+
+    * Stance move properties change with amount of time spent in stance:
+
+    * 1 step: 20~24F
+
+    * 2 steps: 45~50F
+
+    * 3 steps: 70~90F
+
+    * Can cancel stance after 40F with b, db, u, uf, f, df or 1 jab
+
+    * Punch parry (+9 HYP, opponent BT)
+
+    * Alternate input ub+1+2
+
+    * Parry state 2~10?'
+- id: dbp3p4
+  source_id: Xiaoyu-FC.db+3+4
+  source_index: 48
+  command: db+3+4
+  name: Low Back Turn
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25? BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to BT
+
+    * High crush'
+- id: bp1
+  source_id: Xiaoyu-b+1
+  source_index: 49
+  command: b+1
+  name: Great Wall Left
+  hit_level: m
+  damage: '10'
+  startup: i8~13
+  recovery: ''
+  block: '-12'
+  hit: +1~+6
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to BT on hit
+
+    * Transition to standing on hit with B+1 (-1~+4)'
+- id: bp1p3
+  source_id: Xiaoyu-b+1+3
+  source_index: 50
+  command: b+1+3
+  name: High Mid Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Transition to BT on successful parry
+
+    * Alternate input b+2+4
+
+    * Also possible during HYP and BT
+
+    * Parry state 5~12?'
+- id: bp2
+  source_id: Xiaoyu-b+2
+  source_index: 51
+  command: b+2
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: BT
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - stance_transition
+  - mid
+  notes: "* Homing \n* Transition to BT"
+- id: bp2_2
+  source_id: Xiaoyu-b+2,2
+  source_index: 52
+  command: b+2,2
+  name: Seven Star Fist
+  hit_level: m, L
+  damage: 13, 15
+  startup: i15~16, i21~23
+  recovery: BT
+  block: '-7'
+  hit: '+4'
+  counter_hit: +22a
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - mid
+  notes: '* Transition to BT
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 11F'
+- id: bp3
+  source_id: Xiaoyu-b+3
+  source_index: 53
+  command: b+3
+  name: Peacock Kick
+  hit_level: h
+  damage: '22'
+  startup: i18~19
+  recovery: BT
+  block: '+3'
+  hit: +8c
+  counter_hit: +32d
+  tier: specialist
+  tags:
+  - parry
+  - stance_transition
+  - chip
+  - high
+  notes: '* Unparryable by standard kick parries (bug? backturned heel?)
+
+    * 6 chip damage on block
+
+    * Transition to BT'
+- id: bp4
+  source_id: Xiaoyu-b+4
+  source_index: 54
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: ''
+  block: '-9'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: bp4_1
+  source_id: Xiaoyu-b+4,1
+  source_index: 55
+  command: b+4,1
+  name: Moonhare Palm
+  hit_level: m, m
+  damage: 10, 20
+  startup: i13~14, i27
+  recovery: ''
+  block: '-14'
+  hit: +40d (-18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 8F'
+- id: bp1p2
+  source_id: Xiaoyu-b+1+2
+  source_index: 56
+  command: b+1+2
+  name: Cross Lifting Palms
+  hit_level: M,M
+  damage: 8,12
+  startup: i15~16 i5~6
+  recovery: ''
+  block: '-13'
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: bp3p4
+  source_id: Xiaoyu-b+3+4
+  source_index: 57
+  command: b+3+4
+  name: Rain Dance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r21 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to BT
+
+    * r25 BT when performed from BT
+
+    * r15 BT when performed from AOP
+
+    * Alternate input BT.b+3+4 (r25), AOP.b+3+4 (r15)'
+- id: ubp3
+  source_id: Xiaoyu-ub+3
+  source_index: 58
+  command: ub+3
+  name: From the Ashes
+  hit_level: m
+  damage: '23'
+  startup: i20~21
+  recovery: AOP
+  block: '-13'
+  hit: +36a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transition to AOP
+
+    * Low crush 18~'
+- id: ubp4
+  source_id: Xiaoyu-ub+4
+  source_index: 59
+  command: ub+4
+  name: Born of Fire
+  hit_level: M
+  damage: '20'
+  startup: i22~24
+  recovery: r35
+  block: '-13'
+  hit: +13d (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - pc
+  - power_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Power crush 7~21'
+- id: up4
+  source_id: Xiaoyu-u+4
+  source_index: 60
+  command: u+4
+  name: 1st Hit
+  hit_level: m
+  damage: '20'
+  startup: i23~26
+  recovery: ''
+  block: '-7'
+  hit: +4c
+  counter_hit: +24a
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Transition to FC with D (-7, +4c, +24a)
+
+    * Transition with AOP with d+1+2 (-9, +2, +22)
+
+    * Low crush 9~'
+- id: up4_1
+  source_id: Xiaoyu-u+4,1
+  source_index: 61
+  command: u+4,1
+  name: 2nd Hit
+  hit_level: m, h
+  damage: 20, 4
+  startup: i23~26, i18
+  recovery: r29
+  block: '-10'
+  hit: '-4'
+  counter_hit: '-1'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '*'
+- id: up4_1_2
+  source_id: Xiaoyu-u+4,1,2
+  source_index: 62
+  command: u+4,1,2
+  name: 3rd Hit
+  hit_level: m, h, h
+  damage: 20, 4, 7
+  startup: i23~26, ,i11
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd hit
+
+    * Jail from 2nd block'
+- id: up1p2
+  source_id: Xiaoyu-u+1+2
+  source_index: 63
+  command: u+1+2
+  name: ''
+  hit_level: m,m
+  damage: 5,5
+  startup: i16~18 i2~4
+  recovery: ''
+  block: '-11'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: up1p2_2
+  source_id: Xiaoyu-u+1+2,2
+  source_index: 64
+  command: u+1+2,2
+  name: ''
+  hit_level: m,m, m
+  damage: 5,5, 12
+  startup: i16~18 i2~4, i27
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st CH'
+- id: up1p2_2_1
+  source_id: Xiaoyu-u+1+2,2,1
+  source_index: 65
+  command: u+1+2,2,1
+  name: Fortune Cookie
+  hit_level: m,m, m, m
+  damage: 5,5, 12, 20
+  startup: i16~18 i2~4, ,i27~28
+  recovery: ''
+  block: '-12'
+  hit: +16a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Cancel to BT with B (-19/-8)'
+- id: ufp1
+  source_id: Xiaoyu-uf+1
+  source_index: 66
+  command: uf+1
+  name: Silver Needle
+  hit_level: L
+  damage: '15'
+  startup: i33
+  recovery: AOP
+  block: '-7'
+  hit: +10g c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  notes: '* Cancel to r42? FC with D
+
+    * Low crush 9~'
+- id: ufp2
+  source_id: Xiaoyu-uf+2
+  source_index: 67
+  command: uf+2
+  name: Phoenix Flight
+  hit_level: m
+  damage: '23'
+  startup: i26~27
+  recovery: BT
+  block: +6c
+  hit: +7c
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - js
+  - low_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Transition to standing with F (+4c, +5c, +47a)
+
+    * Alternate input u+2
+
+    * Chip on block [6]
+
+    * Low crush 9~'
+- id: ufp3
+  source_id: Xiaoyu-uf+3
+  source_index: 68
+  command: uf+3
+  name: Bolting Rabbit
+  hit_level: m
+  damage: '13'
+  startup: i16~17
+  recovery: ''
+  block: '-13'
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: ufp4
+  source_id: Xiaoyu-uf+4
+  source_index: 69
+  command: uf+4
+  name: Flare Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~26
+  recovery: ''
+  block: '-7'
+  hit: +4c
+  counter_hit: +24a
+  tier: core
+  tags:
+  - spk
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Transition to FC with D (-7, +4c, +24a)
+
+    * Transition with AOP with d+1+2 (-9, +2, +22)
+
+    * Low crush 9~'
+- id: ufp3p4
+  source_id: Xiaoyu-uf+3+4
+  source_index: 70
+  command: uf+3+4
+  name: Shooting Star
+  hit_level: m,m,m
+  damage: 8,10,12
+  startup: i16~17, i10~11, i8~9
+  recovery: BT
+  block: '-1'
+  hit: +4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Transition to BT on block or whiff
+
+    * Transition to standing on hit
+
+    * Low crush 9~'
+- id: 1p2p3p4
+  source_id: Xiaoyu-1+2+3+4
+  source_index: 71
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: while_in_the_air_3
+  source_id: Xiaoyu-AOP.While in the Air 3
+  source_index: 72
+  command: While in the air 3
+  name: Jumping Pirouette
+  hit_level: m
+  damage: '30'
+  startup: i14
+  recovery: ''
+  block: '-2'
+  hit: +29d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Transition to AOP with D (-3, +28)
+
+    * Low crush'
+- id: while_landing_3
+  source_id: Xiaoyu-While landing 3
+  source_index: 73
+  command: While landing 3
+  name: Sky Kick
+  hit_level: L
+  damage: '19'
+  startup: i15
+  recovery: FC
+  block: '-18'
+  hit: +27a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '*'
+- id: while_landing_4
+  source_id: Xiaoyu-While in the air 4
+  source_index: 74
+  command: While landing 4
+  name: Crane Kick
+  hit_level: m
+  damage: '25'
+  startup: i8
+  recovery: ''
+  block: '-8'
+  hit: +23a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush'
+- id: ffp1
+  source_id: Xiaoyu-f,F+1
+  source_index: 75
+  command: f,F+1
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i15
+  recovery: ''
+  block: '-11'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Transition to AOP with D (-5, +13)'
+- id: ffp1_3
+  source_id: Xiaoyu-f,F+1,3
+  source_index: 76
+  command: f,F+1,3
+  name: Poison Flower
+  hit_level: m, h
+  damage: 13, 20
+  startup: i15, i18~19
+  recovery: ''
+  block: '-1'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: ffp1_4
+  source_id: Xiaoyu-f,F+1,4
+  source_index: 77
+  command: f,F+1,4
+  name: Eclipsing Moon
+  hit_level: m, m
+  damage: 13, 20
+  startup: i15, i21~22
+  recovery: ''
+  block: '-12'
+  hit: +22d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combos from 1st CH'
+- id: ffp2
+  source_id: Xiaoyu-f,F+2
+  source_index: 78
+  command: f,F+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '*'
+- id: ffp2_1
+  source_id: Xiaoyu-f,F+2,1
+  source_index: 79
+  command: f,F+2,1
+  name: Fortune
+  hit_level: m, m
+  damage: 12, 20
+  startup: i15, i27~28
+  recovery: ''
+  block: '-12'
+  hit: +16a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 2F delay
+
+    * Move can be delayed by 12F
+
+    * Cancel to BT with B (-19,-8)'
+- id: ffp3
+  source_id: Xiaoyu-f,F+3
+  source_index: 80
+  command: f,F+3
+  name: Raccoon Swing
+  hit_level: M
+  damage: '12'
+  startup: i14~15
+  recovery: BT
+  block: '-5'
+  hit: '+6'
+  counter_hit: '+12'
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: ffp4
+  source_id: Xiaoyu-f,F+4
+  source_index: 81
+  command: f,F+4
+  name: Soaring Blaze
+  hit_level: h
+  damage: '20'
+  startup: i20~23
+  recovery: ''
+  block: '+9'
+  hit: +13g c
+  counter_hit: +58a (+38)
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Transition to HYP on hit or block
+
+    * Chip on block [6]'
+- id: ffp1p2
+  source_id: Xiaoyu-f,F+1+2
+  source_index: 82
+  command: f,F+1+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14~16
+  recovery: ''
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ffp1p2_1p2
+  source_id: Xiaoyu-f,F+1+2,1+2
+  source_index: 83
+  command: f,F+1+2,1+2
+  name: X Marks the Spot
+  hit_level: m, m
+  damage: 12, 20
+  startup: i14~16, i19~20
+  recovery: ''
+  block: '-8'
+  hit: +7c
+  counter_hit: +43a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 8F delay
+
+    * Jail from 1st block with no delay
+
+    * Move can be delayed by 14F
+
+    * Input can be delayed by 16F'
+- id: ffp3p4
+  source_id: Xiaoyu-f,F+3+4
+  source_index: 84
+  command: f,F+3+4
+  name: Front Layout
+  hit_level: M
+  damage: '23'
+  startup: i37~45
+  recovery: ''
+  block: '-3'
+  hit: +39a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Chip on block [9]
+
+    * Low crush 9~'
+- id: uf_n_4
+  source_id: Xiaoyu-uf,n,4
+  source_index: 85
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~24
+  recovery: ''
+  block: '-18'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '*
+
+    * Low crush 9~'
+- id: f_ffp3
+  source_id: Xiaoyu-f,f,F+3
+  source_index: 86
+  command: f,f,F+3
+  name: Diving Falcon
+  hit_level: m
+  damage: '20'
+  startup: i23~30
+  recovery: r14 AOP
+  block: +7g~+14g
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Transition to AOP
+
+    * Chip on block [9]
+
+    * Alternate input wr3
+
+    * Low crush 3~31
+
+    * Floating state 32~34'
+- id: ws1
+  source_id: Xiaoyu-ws1
+  source_index: 87
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i12~13
+  recovery: r25
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_4
+  source_id: Xiaoyu-ws1,4
+  source_index: 88
+  command: ws1,4
+  name: Whirlwind Cross Kick
+  hit_level: m, m
+  damage: 8, 16
+  startup: i12~13, i22~23
+  recovery: r30 BT
+  block: '-10'
+  hit: +12g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 9F'
+- id: ws2
+  source_id: Xiaoyu-ws2
+  source_index: 89
+  command: ws2
+  name: Sunflower
+  hit_level: m
+  damage: '17'
+  startup: i13~14
+  recovery: r21 BT
+  block: '-3'
+  hit: '+7'
+  counter_hit: +38a (+28)
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to r22 standing by holding down any direction (-4, +6, +37a
+    (+27))'
+- id: ws2
+  source_id: Xiaoyu-ws2*
+  source_index: 90
+  command: ws2*
+  name: Jasmine Blossom
+  hit_level: m
+  damage: '20'
+  startup: i22~23
+  recovery: r21 BT
+  block: '-3'
+  hit: +38a (+28)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to r22 standing by holding down any direction (-4, +37a (+27))'
+- id: ws3
+  source_id: Xiaoyu-ws3
+  source_index: 91
+  command: ws3
+  name: Rising Axe Kick
+  hit_level: m
+  damage: '22'
+  startup: i22~23
+  recovery: r23
+  block: '+3'
+  hit: +6c
+  counter_hit: +51a
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to FC +3 +6c with D'
+- id: ws4
+  source_id: Xiaoyu-ws4
+  source_index: 92
+  command: ws4
+  name: Skyscraper Kick
+  hit_level: m
+  damage: '20'
+  startup: i11~13
+  recovery: r28
+  block: '-10'
+  hit: +20a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: ws1p2
+  source_id: Xiaoyu-ws+1+2
+  source_index: 93
+  command: ws1+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14~16
+  recovery: ''
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1p2_1p2
+  source_id: Xiaoyu-ws+1+2,1+2
+  source_index: 94
+  command: ws1+2,1+2
+  name: X Marks the Spot
+  hit_level: m, m
+  damage: 12, 20
+  startup: i14~16, i19~20
+  recovery: ''
+  block: '-8'
+  hit: +7c
+  counter_hit: +43a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 8F delay
+
+    * Jail from 1st block with no delay
+
+    * Move can be delayed by 14F
+
+    * Input can be delayed by 16F'
+- id: ss_4
+  source_id: Xiaoyu-ss4
+  source_index: 95
+  command: SS.4
+  name: Street Sweeper
+  hit_level: L
+  damage: '19'
+  startup: i18
+  recovery: FC
+  block: '-13'
+  hit: '-2'
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush 6~'
+- id: fc_dfp2
+  source_id: Xiaoyu-FC.df+2
+  source_index: 96
+  command: FC.df+2
+  name: ''
+  hit_level: L
+  damage: '8'
+  startup: i19
+  recovery: BT
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to FC BT with DF_D_DB
+
+    * High crush 1~27'
+- id: fc_dfp2_1
+  source_id: Xiaoyu-FC.df+2,1
+  source_index: 97
+  command: FC.df+2,1
+  name: Lotus Twist
+  hit_level: L, l
+  damage: 8, 10
+  startup: i19, i18
+  recovery: BT
+  block: '-8'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to FC BT with DF_D_DB
+
+    * High crush 1~45'
+- id: fc_dfp4
+  source_id: Xiaoyu-FC.df+4
+  source_index: 98
+  command: FC.df+4
+  name: ''
+  hit_level: L
+  damage: '13'
+  startup: i18~20
+  recovery: AOP
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to AOP
+
+    * Alternate input AOP.f+4
+
+    * High crush 1~'
+- id: fc_dfp4_4
+  source_id: Xiaoyu-FC.df+4,4
+  source_index: 99
+  command: FC.df+4,4
+  name: Flower Garden
+  hit_level: L, L
+  damage: 13, 13
+  startup: i18~20, i27~29
+  recovery: FC
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Combo from 1st hit CH
+
+    * Alternate input AOP.f+4,4
+
+    * High crush 1~'
+- id: back_to_wall_b_b_ub
+  source_id: Xiaoyu-(back to wall).b,b,UB
+  source_index: 100
+  command: (back to wall).b,b,UB
+  name: Wall Jump Backflip
+  hit_level: m
+  damage: '21'
+  startup: i35~38
+  recovery: r17 BT
+  block: '+1'
+  hit: +34d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - is
+  - js
+  - low_crush
+  - mid
+  notes: '* Floating state 5~7
+
+    * is8~24
+
+    * Floating state 25~33
+
+    * Low crush 34~37
+
+    * Floating state 38~40'
+- id: aop_1
+  source_id: Xiaoyu-AOP.1
+  source_index: 101
+  command: AOP.1
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i18
+  recovery: FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to HYP with B (-2, +9)'
+- id: aop_1_2
+  source_id: Xiaoyu-AOP.1,2
+  source_index: 102
+  command: AOP.1,2
+  name: Double Serving
+  hit_level: m, h
+  damage: 11, 15
+  startup: i18, i21
+  recovery: BT
+  block: '-3'
+  hit: +30g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 11F
+
+    * Input can be delayed by 12F'
+- id: aop_1_4
+  source_id: Xiaoyu-AOP.1,4
+  source_index: 103
+  command: AOP.1,4
+  name: Twin Mandarin Blows
+  hit_level: m, M
+  damage: 11, 20
+  startup: i18, i25
+  recovery: BT
+  block: '-9'
+  hit: +15d (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 4F delay
+
+    * Move can be delayed by 11F
+
+    * Input can be delayed by 12F'
+- id: aop_2
+  source_id: Xiaoyu-AOP.2
+  source_index: 104
+  command: AOP.2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13
+  recovery: ''
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: aop_2_1
+  source_id: Xiaoyu-AOP.2,1
+  source_index: 105
+  command: AOP.2,1
+  name: Phoenix Double Palm
+  hit_level: m, m
+  damage: 10, 20
+  startup: i13, i21
+  recovery: ''
+  block: '-12'
+  hit: +13a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 12F
+
+    * Cancel to BT with B
+
+    ** (-14, -3)'
+- id: aop_3
+  source_id: Xiaoyu-AOP.3
+  source_index: 106
+  command: AOP.3
+  name: Piercing Spear Kick
+  hit_level: L
+  damage: '19'
+  startup: i25
+  recovery: ''
+  block: '-16'
+  hit: '+0'
+  counter_hit: +27a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush'
+- id: aop_4
+  source_id: Xiaoyu-AOP.4
+  source_index: 107
+  command: AOP.4
+  name: Rising Front Kick
+  hit_level: m
+  damage: '14'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Inconsistent grounded hit (more consistent on side hit)'
+- id: aop_1p2
+  source_id: Xiaoyu-AOP.1+2
+  source_index: 108
+  command: AOP.1+2
+  name: Phoenix Cannon
+  hit_level: m
+  damage: '25'
+  startup: i19
+  recovery: ''
+  block: '-1'
+  hit: +19a (+10)
+  counter_hit: +64a
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break'
+- id: aop_3p4
+  source_id: Xiaoyu-AOP.3+4
+  source_index: 109
+  command: AOP.3+4
+  name: Sliding Firecracker
+  hit_level: L
+  damage: '22'
+  startup: i23
+  recovery: FC
+  block: '-33'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to FUFT on block'
+- id: aop_d
+  source_id: Xiaoyu-AOP.d
+  source_index: 110
+  command: AOP.d
+  name: Butterfly
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: AOP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Xiaoyu ducks lower
+
+    * will crush most mids
+
+    * High crush'
+- id: aop_dp1
+  source_id: Xiaoyu-AOP.d+1
+  source_index: 111
+  command: AOP.d+1
+  name: Phoenix Swipe
+  hit_level: L
+  damage: '13'
+  startup: i19
+  recovery: AOP
+  block: '-12'
+  hit: '-1'
+  counter_hit: '+0'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush'
+- id: aop_dp1p2
+  source_id: Xiaoyu-AOP.d+1+2
+  source_index: 112
+  command: AOP.d+1+2
+  name: Wave Crest
+  hit_level: m
+  damage: '21'
+  startup: i26
+  recovery: ''
+  block: '-8'
+  hit: +42a (+32)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: aop_fp4
+  source_id: Xiaoyu-AOP.f+4
+  source_index: 113
+  command: AOP.f+4
+  name: ''
+  hit_level: L
+  damage: '13'
+  startup: i18~20
+  recovery: AOP
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to AOP
+
+    * Alternate input FC.df+4
+
+    * High crush 1~'
+- id: aop_fp4_4
+  source_id: Xiaoyu-AOP.f+4,4
+  source_index: 114
+  command: AOP.f+4,4
+  name: Flower Garden
+  hit_level: L, L
+  damage: 13, 13
+  startup: i18~20, i27~29
+  recovery: FC
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Combos from 1st hit CH
+
+    * Alternate input FC.df+4,4
+
+    * High crush 1~'
+- id: aop_fp3p4
+  source_id: Xiaoyu-AOP.f+3+4
+  source_index: 115
+  command: AOP.f+3+4
+  name: Roll Ball
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to AOP with D
+
+    * High crush'
+- id: aop_uf
+  source_id: Xiaoyu-AOP.uf
+  source_index: 116
+  command: AOP.uf
+  name: Jumping
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  notes: '* Alternate input AOP.ub AOP.u
+
+    * Low crush'
+- id: aop_ufp3
+  source_id: Xiaoyu-AOP.uf+3
+  source_index: 117
+  command: AOP.uf+3
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15
+  recovery: ''
+  block: '-17'
+  hit: +27a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Alternate input AOP.ub+3, AOP.u+3
+
+    * Low crush'
+- id: aop_ufp3_1
+  source_id: Xiaoyu-AOP.uf+3,1
+  source_index: 118
+  command: AOP.uf+3,1
+  name: Alley-Oop
+  hit_level: m, m
+  damage: 14, 22
+  startup: i15, i24
+  recovery: AOP
+  block: '-4'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - floor_break
+  - mid
+  notes: '* Alternate input AOP.ub+3,1 AOP.u+3,1
+
+    * Floor Break on airborne opponent'
+- id: aop_ufp3_4
+  source_id: Xiaoyu-AOP.uf+3,4
+  source_index: 119
+  command: AOP.uf+3,4
+  name: Double Scissor Kick
+  hit_level: m, M
+  damage: 14, 17
+  startup: i15, i15
+  recovery: ''
+  block: '-14'
+  hit: '-3'
+  counter_hit: +22g
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Alternate input AOP.ub+3,4 AOP.u+3,4'
+- id: aop_ufp4
+  source_id: Xiaoyu-AOP.uf+4
+  source_index: 120
+  command: AOP.uf+4
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i16
+  recovery: FC
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Transition to AOP with D (-12, +0)
+
+    * Transition to BT with B (-15, -3)
+
+    * Alternate input AOP.u+4
+
+    * Low crush'
+- id: aop_ufp4_4
+  source_id: Xiaoyu-AOP.uf+4,4
+  source_index: 121
+  command: AOP.uf+4,4
+  name: Flower Power
+  hit_level: m, m
+  damage: 12, 12
+  startup: i16, i23
+  recovery: FC
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Alternate input AOP.u+4,4
+
+    * Low crush'
+- id: bt_1
+  source_id: Xiaoyu-BT.1
+  source_index: 122
+  command: BT.1
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i16~18
+  recovery: r24 BT
+  block: '-5'
+  hit: '+4'
+  counter_hit: +64a
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Jab evasion'
+- id: bt_1_2
+  source_id: Xiaoyu-BT.1,2
+  source_index: 123
+  command: BT.1,2
+  name: Waking Prominence
+  hit_level: m, m
+  damage: 17, 20
+  startup: i16~18, i24~25
+  recovery: r32
+  block: '-13'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: "* Tornado\n* Balcony Break \n* Combo from 1st hit\n* Interrupt with i6\n\
+    * Move is delayed 2F\n* Move cannot be delayed\n* Cancel to r15 FC with D at frame\
+    \ 18 (-16/-7/+53a)\n* Low crush 9~21"
+- id: bt_2
+  source_id: Xiaoyu-BT.2
+  source_index: 124
+  command: BT.2
+  name: ''
+  hit_level: h
+  damage: '9'
+  startup: i12
+  recovery: BT
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '*'
+- id: bt_2_1
+  source_id: Xiaoyu-BT.2,1
+  source_index: 125
+  command: BT.2,1
+  name: ''
+  hit_level: h, h
+  damage: 9, 8
+  startup: i12, i14
+  recovery: ''
+  block: '-1'
+  hit: '+6'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to HYP with B (-2, +5)
+
+    * Combos from 1st hit
+
+    * Jail from 1st block'
+- id: bt_2_1_4
+  source_id: Xiaoyu-BT.2,1,4
+  source_index: 126
+  command: BT.2,1,4
+  name: Dark & Stormy
+  hit_level: h, h, M
+  damage: 9, 8, 15
+  startup: i12, ,i18~20
+  recovery: ''
+  block: '-18'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd CH with 11F delay
+
+    * Jail from 2nd block with no delay
+
+    * Move can be delayed by 14F'
+- id: bt_2_2
+  source_id: Xiaoyu-BT.2,2
+  source_index: 127
+  command: BT.2,2
+  name: ''
+  hit_level: h, m
+  damage: 9, 12
+  startup: i12, i21~23
+  recovery: BT
+  block: '-7'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combos from 1st CH'
+- id: bt_2_2_1
+  source_id: Xiaoyu-BT.2,2,1
+  source_index: 128
+  command: BT.2,2,1
+  name: Turn of Fortune
+  hit_level: h, m, m,M,M
+  damage: 9, 12, 7,7,7
+  startup: i12, ,i12~14,i17~19,i21~27
+  recovery: FC
+  block: '-11'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to AOP with D (-10, +5)
+
+    * Combos from 2nd hit'
+- id: bt_3
+  source_id: Xiaoyu-BT.3
+  source_index: 129
+  command: BT.3
+  name: Peg Leg
+  hit_level: M
+  damage: '13'
+  startup: i16
+  recovery: BT
+  block: '-5'
+  hit: '+12'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* +21d on backturned hit
+
+    * Low crush 5~'
+- id: bt_4
+  source_id: Xiaoyu-BT.4
+  source_index: 130
+  command: BT.4
+  name: Mistrust
+  hit_level: M
+  damage: '13'
+  startup: i13~15
+  recovery: ''
+  block: '-18'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: bt_1p2
+  source_id: Xiaoyu-BT.1+2
+  source_index: 131
+  command: BT.1+2
+  name: ''
+  hit_level: m,m
+  damage: 6,6
+  startup: i16~18,i3~5
+  recovery: ''
+  block: '-6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: bt_1p2_4
+  source_id: Xiaoyu-BT.1+2,4
+  source_index: 132
+  command: BT.1+2,4
+  name: Battering Storm
+  hit_level: m,m, h
+  damage: 6,6, 20
+  startup: i16~18,i3~5, i23~24
+  recovery: BT
+  block: '+3'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 14F delay
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 15F
+
+    * 6 chip damage on block'
+- id: bt_1p2_1p2
+  source_id: Xiaoyu-BT.1+2,1+2
+  source_index: 133
+  command: BT.1+2,1+2
+  name: Battering Winds
+  hit_level: m,m, m
+  damage: 6,6, 6,6
+  startup: i16~18,i3~5, i17~18, i4~5
+  recovery: ''
+  block: '-13'
+  hit: +8d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 15F delay
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 15F'
+- id: bt_3p4
+  source_id: Xiaoyu-BT.3+4
+  source_index: 134
+  command: BT.3+4
+  name: Monkey Kick
+  hit_level: m
+  damage: '25'
+  startup: i18~19
+  recovery: BT
+  block: '-16'
+  hit: +10a (+1)
+  counter_hit: +33a
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush 9'
+- id: bt_bp1p2
+  source_id: Xiaoyu-BT.b+1+2
+  source_index: 135
+  command: BT.b+1+2
+  name: Scorched Feather Tackle
+  hit_level: m
+  damage: '25'
+  startup: i17~18
+  recovery: r34
+  block: '-14'
+  hit: +21a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * -9 on block if an attack is absorbed
+
+    * 10 chip damage on block after absorbing an attack in power crush state
+
+    * Power crush 6~16'
+- id: bt_dbp4
+  source_id: Xiaoyu-BT.db+4
+  source_index: 136
+  command: BT.db+4
+  name: Reverse Knee Cracker
+  hit_level: L
+  damage: '0'
+  startup: i15
+  recovery: ''
+  block: +2c
+  hit: +2c
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - low
+  notes: '* Alternate input BT.df+4'
+- id: bt_dp1p3
+  source_id: Xiaoyu-BT.d+1+3
+  source_index: 137
+  command: BT.d+1+3
+  name: Reverse Low Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25?
+  block: ''
+  hit: +51a (+35)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Low Parry from BT
+
+    * Alternate input BT.d+2+4
+
+    * Parry state 1?~14?'
+- id: bt_dp3
+  source_id: Xiaoyu-BT.d+3
+  source_index: 138
+  command: BT.d+3
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i16
+  recovery: ''
+  block: '-12'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '*'
+- id: bt_dp3_4
+  source_id: Xiaoyu-BT.d+3,4
+  source_index: 139
+  command: BT.d+3,4
+  name: Spinning Crane
+  hit_level: L, h
+  damage: 12, 20
+  startup: i16, i19
+  recovery: ''
+  block: '-5'
+  hit: +20a (+11)
+  counter_hit: +37a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st CH with 12F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: bt_dp4
+  source_id: Xiaoyu-BT.d+4
+  source_index: 140
+  command: BT.d+4
+  name: Hou Sao Tui
+  hit_level: L
+  damage: '19'
+  startup: i20~22
+  recovery: ''
+  block: '-26'
+  hit: '-1'
+  counter_hit: +27d
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - tornado
+  - low
+  notes: '* Instant Tornado
+
+    * Clean hit damage: 20
+
+    * +27d on clean hit
+
+    * High crush 8~'
+- id: bt_dp3p4
+  source_id: Xiaoyu-BT.d+3+4
+  source_index: 141
+  command: BT.d+3+4
+  name: Spin Tornado Up (Down)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Xiaoyu spins and steps to the right
+
+    * Alternate input BT.u+3+4 (steps to the left)'
+- id: bt_ffp3p4
+  source_id: Xiaoyu-BT.f,F+3+4
+  source_index: 142
+  command: BT.f,F+3+4
+  name: Back Layout
+  hit_level: M (t)
+  damage: 15 (43)
+  startup: i39
+  recovery: BT
+  block: '+4'
+  hit: +39d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - js
+  - throw
+  - low_crush
+  - chip
+  - mid
+  notes: '* Unbreakable throw when connecting at close range on front standing hit
+
+    * Chip on block [9]
+
+    * Low crush 10~'
+- id: bt_fp1p2
+  source_id: Xiaoyu-BT.f+1+2
+  source_index: 143
+  command: BT.f+1+2
+  name: Spinning Push Hands
+  hit_level: m
+  damage: '21'
+  startup: i23
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: '+5'
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  - mid
+  notes: '* Punch parry
+
+    ** 50 damage, +20d
+
+    ** Transition to BT
+
+    * Parry state 1~5?'
+- id: bt_fp3p4
+  source_id: Xiaoyu-BT.f+3+4
+  source_index: 144
+  command: BT.f+3+4
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: FC BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - js
+  - low_crush
+  - high_crush
+  notes: '* "Cali Roll"
+
+    * High crush 1~8
+
+    * Low crush 9~
+
+    * High crush 28~30'
+- id: bt_fp3p4_3p4
+  source_id: Xiaoyu-BT.f+3+4,3+4
+  source_index: 145
+  command: BT.f+3+4,3+4
+  name: Cyclone Left
+  hit_level: M
+  damage: '23'
+  startup: i12
+  recovery: BT
+  block: '-11'
+  hit: +40a (+30)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - fs
+  - high_crush
+  - mid
+  notes: '* "Cali Roll"
+
+    * High crush 1?~13?
+
+    * Floating state 1?~13?'
+- id: bt_ufp1
+  source_id: Xiaoyu-BT.uf+1
+  source_index: 146
+  command: BT.uf+1
+  name: Silver Needle
+  hit_level: L
+  damage: '15'
+  startup: i33
+  recovery: AOP
+  block: '-7'
+  hit: +12g c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - low
+  notes: '* Transition to AOP
+
+    * Cancel to FC with D
+
+    * Alternate input BT.u+1
+
+    * Low crush 9~'
+- id: ch_aop_dp1
+  source_id: Xiaoyu-CH AOP.d+1
+  source_index: 147
+  command: CH AOP.d+1
+  name: Return to the Nest
+  hit_level: l,t
+  damage: '40'
+  startup: i19
+  recovery: ''
+  block: '-12'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - cs
+  - throw
+  - high_crush
+  - floor_break
+  - low
+  notes: '* Floor Break
+
+    * Attack throw on CH
+
+    * High crush'
+- id: hyp_2
+  source_id: Xiaoyu-HYP.2
+  source_index: 148
+  command: HYP.2
+  name: Spin Sticker
+  hit_level: m
+  damage: '25'
+  startup: i18
+  recovery: ''
+  block: '-4'
+  hit: +22 (-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Powered UpBased on the number of steps taken in HYP:HYP.2 damage increases and
+    becomes plus on block. See the charts in th HYP section for more details. up when
+    in Heat or based on the number of steps taken.
+
+    * Consumes 240?F of heat timer during heat
+
+    * 9 chip damage on block (2 steps)
+
+    * 14 chip damage on block (3 steps)'
+- id: hyp_3
+  source_id: Xiaoyu-HYP.3
+  source_index: 149
+  command: HYP.3
+  name: Blue Luan Sweep
+  hit_level: L
+  damage: '17'
+  startup: i20
+  recovery: ''
+  block: '-13'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - heat
+  - homing
+  - high_crush
+  - low
+  notes: '* Homing
+
+    * Powered UpBased on the number of steps taken in HYP:HYP.3 damage increases and
+    becomes more plus on hit. See the charts in th HYP section for more details. up
+    when in Heat or based on the number of steps taken.
+
+    * Consumes 600F of heat timer during heat
+
+    * High crush 6~30'
+- id: hyp_4
+  source_id: Xiaoyu-HYP.4
+  source_index: 150
+  command: HYP.4
+  name: Falling Tiger Kick
+  hit_level: h
+  damage: '20'
+  startup: i14
+  recovery: ''
+  block: '-2'
+  hit: +57a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break'
+- id: hyp_1p2
+  source_id: Xiaoyu-HYP.1+2
+  source_index: 151
+  command: HYP.1+2
+  name: Hypnotist
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 HYP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Starts taking steps in the opposite direction
+
+    * Can be performed any time in HYP after 25F from manual stance transition, or
+    20?F after other stance transitions?
+
+    * Parry state 2?~11?'
+- id: hyp_2p3
+  source_id: Xiaoyu-HYP.2+3
+  source_index: 152
+  command: HYP.2+3
+  name: Thunder Strike
+  hit_level: m!
+  damage: '40'
+  startup: i61
+  recovery: ''
+  block: ''
+  hit: +10d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Unblockable
+
+    * Cancel to BT with BB'
+- id: hyp_3p4
+  source_id: Xiaoyu-HYP.3+4
+  source_index: 153
+  command: HYP.3+4
+  name: Deadly Orchid
+  hit_level: h
+  damage: '20'
+  startup: i25
+  recovery: ''
+  block: '+8'
+  hit: +30a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - js
+  - low_crush
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Cancel to BT with B
+
+    * Chip on block [8]
+
+    * Low crush 12~'
+- id: h_ffp1_2
+  source_id: Xiaoyu-f,F+1,H.2
+  source_index: 154
+  command: H.f,F+1,2
+  name: Bai Lian Yan Di Po
+  hit_level: m, m
+  damage: 13, 20
+  startup: i15, i26~28
+  recovery: BT
+  block: '+6'
+  hit: +24d
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Partially uses remaining Heat time
+
+    * Combos from 1st hit
+
+    * Transition to with F (+4, +22d, +48a)
+
+    * Low crush'
+- id: hfc_1
+  source_id: Xiaoyu-hFC.1
+  source_index: 155
+  command: hFC.1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~34'
+- id: hfc_2
+  source_id: Xiaoyu-hFC.2
+  source_index: 156
+  command: hFC.2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~34'
+- id: hfc_3
+  source_id: Xiaoyu-hFC.3
+  source_index: 157
+  command: hFC.3
+  name: ''
+  hit_level: L
+  damage: '11'
+  startup: i15~17
+  recovery: FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~49'
+- id: hfc_3_2
+  source_id: Xiaoyu-hFC.3,2
+  source_index: 158
+  command: hFC.3,2
+  name: ''
+  hit_level: L, h
+  damage: 11, 6
+  startup: i15~17, i18
+  recovery: BT
+  block: '+0'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st hit CH'
+- id: hfc_3_2_1
+  source_id: Xiaoyu-hFC.3,2,1
+  source_index: 159
+  command: hFC.3,2,1
+  name: ''
+  hit_level: L, h, h
+  damage: 11, 6, 6
+  startup: i15~17, ,i14
+  recovery: ''
+  block: '-1'
+  hit: '+6'
+  counter_hit: +10g
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Transition to HYP with B (-2, +5)
+
+    * Combo from 2nd hit
+
+    * Jail from 2nd block'
+- id: hfc_3_2_1_4
+  source_id: Xiaoyu-hFC.3,2,1,4
+  source_index: 160
+  command: hFC.3,2,1,4
+  name: Fire Dancer
+  hit_level: L, h, h, M
+  damage: 11, 6, 6, 12
+  startup: i15~17, ,i18~20
+  recovery: ''
+  block: '-18'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Combo from 3rd hit CH with 11F delay
+
+    * Jail from 3rd block with no delay
+
+    * Move can be delayed by 14F'
+- id: hfc_4
+  source_id: Xiaoyu-hFC.4
+  source_index: 161
+  command: hFC.4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '*
+
+    * High crush 1~46'
+- id: 1p3
+  source_id: Xiaoyu-1+3
+  source_index: 162
+  command: 1+3
+  name: Jade
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Xiaoyu-2+4
+  source_index: 163
+  command: 2+4
+  name: Ruby
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side swap'
+- id: aop_1p3
+  source_id: Xiaoyu-AOP.1+3
+  source_index: 164
+  command: AOP.1+3
+  name: Feng Huang Zhuan Wu
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - throw
+  - high_crush
+  notes: '* Actual startup: i32
+
+    * AOP.1+3: Xiaoyu rolls to her left and throws (Throw break 1)
+
+    * AOP.2+4: Xiaoyu rolls to her right and throws (Throw break 2)
+
+    * Cancel to r40 FC with D
+
+    * High crush 1~30'
+- id: bt_fp1p3
+  source_id: Xiaoyu-BT.f+1+3
+  source_index: 165
+  command: BT.f+1+3
+  name: Bei Shen Zhuan Wu
+  hit_level: t
+  damage: '35'
+  startup: i31
+  recovery: ''
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - js
+  - throw
+  - homing
+  - low_crush
+  notes: '* Homing
+
+    * Throw Break 1
+
+    * Alternate input BT.f+2+4 (Throw Break 2)
+
+    * Cancel to FC with D
+
+    * Low crush'
+- id: bt_fp2p3
+  source_id: Xiaoyu-BT.f+2+3
+  source_index: 166
+  command: BT.f+2+3
+  name: Wang's Waning Moon (BT)
+  hit_level: t
+  damage: '20'
+  startup: i31~33
+  recovery: ''
+  block: '-2'
+  hit: +20cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - throw
+  - homing
+  - low_crush
+  - balcony_break
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Throw Break 1+2
+
+    * 16 additional damage on wall splat
+
+    * Cancel to FC with D
+
+    * Low crush 1~'
+- id: back_throw
+  source_id: Xiaoyu-Back Throw
+  source_index: 167
+  command: Back Throw
+  name: Crank up
+  hit_level: t
+  damage: '50'
+  startup: i12
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable'
+- id: left_throw
+  source_id: Xiaoyu-Left Throw
+  source_index: 168
+  command: Left Throw
+  name: Arm Flip
+  hit_level: t
+  damage: '45'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1'
+- id: right_throw
+  source_id: Xiaoyu-Right Throw
+  source_index: 169
+  command: Right Throw
+  name: Dump the Bucket
+  hit_level: t
+  damage: '45'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2'
+- id: dfp2p4
+  source_id: Xiaoyu-df+2+4
+  source_index: 170
+  command: df+2+4
+  name: Dragon Fall
+  hit_level: t
+  damage: '38'
+  startup: i12
+  recovery: ''
+  block: '-2'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Throw Break 2
+
+    * Floor Break
+
+    * Side Swap'
+- id: fp2p3
+  source_id: Xiaoyu-f+2+3
+  source_index: 171
+  command: f+2+3
+  name: Wang's Waning Moon
+  hit_level: t
+  damage: '20'
+  startup: i14
+  recovery: ''
+  block: '-2'
+  hit: +20cs
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  notes: '* Balcony Break
+
+    * Throw Break 1+2
+
+    * 16 additional damage on wall splat
+
+    * Side Swap'
+- id: ufp1p2
+  source_id: Xiaoyu-uf+1+2
+  source_index: 172
+  command: uf+1+2
+  name: Dislocator
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw Break 1+2
+
+    * Side swap'
