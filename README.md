@@ -71,11 +71,14 @@ system.
 
 ## Live screen inference
 
-Install the live dependencies with a CUDA-enabled PyTorch build selected from the
-[official PyTorch installer](https://pytorch.org/get-started/locally/), then install this project:
+Install the validated PyTorch 2.13 CUDA 13.0 wheel first, then install this project.
+The explicit CUDA index prevents pip from silently selecting a CPU-only build:
 
 ```powershell
+python -m pip uninstall -y torch
+python -m pip install --no-cache-dir torch==2.13.0 --index-url https://download.pytorch.org/whl/cu130
 python -m pip install -e ".[live]"
+python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"
 Copy-Item config\live_screen.example.yaml config\live_screen.yaml
 python scripts\live_vision_play.py --dry-run --agent v2 `
   --ppo-checkpoint runs\my_visual_run\checkpoints\update_100.t8ppo

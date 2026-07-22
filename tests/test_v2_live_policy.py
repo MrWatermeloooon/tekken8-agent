@@ -56,6 +56,20 @@ def test_native_checkpoint_load_and_inference(tmp_path: Path) -> None:
     )
 
 
+def test_native_checkpoint_cuda_inference(tmp_path: Path) -> None:
+    torch = pytest.importorskip("torch")
+    if not torch.cuda.is_available():
+        pytest.skip("CUDA GPU is not available")
+    checkpoint_path = tmp_path / "visual_cuda.t8ppo"
+    write_checkpoint(checkpoint_path)
+    agent = LiveV2GpuAgent(checkpoint_path, device="cuda", deterministic=True)
+    logits = agent._logits_tensor(agent.observation(estimate()))
+    assert agent.weights_1.is_cuda
+    assert logits.is_cuda
+    assert torch.isfinite(logits).all()
+    assert agent.act(estimate()) == ACTION_SPACE[3]
+
+
 def test_native_checkpoint_rejects_corruption(tmp_path: Path) -> None:
     checkpoint_path = tmp_path / "corrupt.t8ppo"
     write_checkpoint(checkpoint_path)
