@@ -2,25 +2,32 @@
 
 ## Observation and reward modes
 
-`--observation-mode visual` trains the deployable 13-feature policy from screen-compatible
-health, positions, distance, motion, hit events, and attack-likelihood signals. These tensors are
-generated and routed on GPU. `privileged` uses the 19-feature simulator-state contract and is
-useful as a teacher/oracle, but is not directly deployable from screen capture.
+Roster training is the default (`--opponents roster`). `--observation-mode visual` starts with the
+13 screen-compatible health/position/distance/motion/hit/attack features and augments them on GPU
+with character identity, archetype, and an eight-decision temporal stack, producing 95 features.
+`privileged` similarly augments the 19 simulator features to 101. `--opponents legacy` retains the
+old 13/19 contracts for controlled comparisons.
 
 `--reward shaped` consumes dense combat rewards. `--reward sparse` consumes only terminal
 win/loss/draw outcomes. Evaluation always uses sparse outcomes regardless of training reward.
 The clipped policy/value objective follows the core algorithm described in the
 [PPO paper](https://arxiv.org/abs/1707.06347), with target-KL stopping and gradient clipping.
 
-Training is balanced in blocks of 16 lanes: eight styles with the learner as P1 and the same eight
-with the learner as P2. Starts are deterministically randomized by seed. Evaluation uses a distinct
-held-out eight-style suite, equal P1/P2 episodes, fair timeout draws, and a fixed seed sequence.
+Training is balanced in blocks of 16 lanes: eight matched profiles with the Jun learner as P1 and
+the same profiles with Jun as P2. Starts are deterministically randomized by seed. Profile tables,
+assignments, temporal history, character IDs, character move lookup, and actions remain in VRAM.
+Evaluation uses equal P1/P2 episodes, fair timeout draws, and a fixed seed sequence.
+
+The automatic curriculum divides a run into four stages: Jun fundamentals, rotating character
+groups, the full roster, and adversarial/weakness-focused profiles. Use
+`--curriculum-stage 1|2|3|4` to pin a stage. Scheduling weight combines low score, uncertainty,
+regression from the best score, exploit severity, and easier variations for extremely weak cells.
 
 ## Example
 
 ```powershell
 build\Release\t8_v2_train.exe `
-  --observation-mode visual --reward shaped --seed 2027 `
+  --opponents roster --observation-mode visual --reward shaped --seed 2027 `
   --envs 4096 --horizon 128 --updates 100 `
   --epochs 4 --minibatch 4096 `
   --run-dir runs\visual_shaped_seed2027
@@ -64,10 +71,12 @@ bound so one heavily instrumented kernel family does not hide results from other
 
 `metrics.jsonl` contains one ordered row per update. The ledger is rewritten through an atomic
 temporary-file replacement so an interrupted write leaves a complete previous or new version.
-Optimization fields include policy/value
-loss, entropy, approximate KL, clip fraction, gradient norm, minibatches, completed epochs, and
-target-KL early-stop status. Evaluation rows include total, P1, P2, and per-style outcomes plus
-timeouts, stalemates, frames, and damage dealt/taken.
+Optimization fields include policy/value loss, entropy, approximate KL, clip fraction, gradient
+norm, minibatches, completed epochs, and target-KL early-stop status. Evaluation rows include total,
+P1, P2, and per-style outcomes plus timeouts, stalemates, frames, and damage dealt/taken. Roster runs
+also update `matchup_matrix.json` with every character/archetype cell, draw-aware score, matchup Elo,
+and forgetting flags. The Python `MatchupEvaluation` exporter adds punishment, throw-break,
+low-defense, string-interruption, sidestep, Heat-defense, and wall-escape rates in JSON/CSV.
 
 ## Phase 0 paired baseline
 

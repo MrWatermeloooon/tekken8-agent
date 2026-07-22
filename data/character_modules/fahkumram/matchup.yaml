@@ -1,0 +1,2029 @@
+schema_version: 1
+character_id: 37
+character: fahkumram
+display_name: Fahkumram
+groups:
+- keep_out
+- rushdown
+specialty: muay_thai_guard_breaks
+sidestep_tendency: right
+signature_mechanics:
+- charged_guard_break
+- long_range_kicks
+- clinch
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/fahkumram/framedata
+important_punishable_moves:
+- id: ffp4_3
+  command: f,F+4~3
+  hit_level: L
+  startup: i19
+  block: '-23'
+  notes: ''
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fc_3
+  command: FC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-16'
+  notes: ''
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i20
+  block: '-16'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Low crush'
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, L
+  startup: i12, i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp3_4_4
+  command: d+3,4,4
+  hit_level: L, h, L
+  startup: i16, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i14
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: bp2
+  command: b+2
+  hit_level: h
+  startup: i14
+  block: '-15'
+  notes: ''
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush'
+- id: '1_2_1_4'
+  command: 1,2,1,4
+  hit_level: h, h, m, m
+  startup: i10, ,i21~22
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 3rd hit with 10f delay
+
+    * Interrupt with i4 from 1st block
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f'
+- id: '3_1_4'
+  command: 3,1,4
+  hit_level: m, h, m
+  startup: i13, ,i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, m
+  startup: i15, i20
+  block: '-14'
+  notes: '* Combos from 1st hit'
+- id: fp3p4
+  command: f+3+4
+  hit_level: m
+  startup: i22
+  block: '-14'
+  notes: '* Knee
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Grants GRF on hit
+
+    * Power crush 7~21'
+- id: ufp3
+  command: uf+3
+  hit_level: m
+  startup: i14
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Knee
+
+    * Low crush'
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21
+  block: '-14'
+  notes: ''
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i18
+  block: '-14'
+  notes: '* Grants GRF on hit'
+- id: ws3
+  command: ws3
+  hit_level: m
+  startup: i15
+  block: '-14'
+  notes: '* Knee'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i19
+  block: '-14'
+  notes: '* Elbow
+
+    * High crush'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, M
+  startup: i15, i27
+  block: '-13'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combos from 1st hit
+
+    * Grants GRF on hit
+
+    * Interrupt with i7 from 1st block
+
+    * Low crush'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, m
+  startup: i15, i24
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Floor Break
+
+    * Elbow
+
+    * Combos from 1st hit'
+- id: dfp2_3
+  command: df+2,3
+  hit_level: m, h
+  startup: i15, i21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: dfp3
+  command: df+3
+  hit_level: l
+  startup: i20
+  block: '-13'
+  notes: ''
+- id: dbp2_2
+  command: db+2,2
+  hit_level: m, m
+  startup: i16, i25
+  block: '-13'
+  notes: '* Elbow
+
+    * Combos from 1st hit'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i14
+  block: '-13'
+  notes: ''
+- id: bp3p4
+  command: b+3+4
+  hit_level: m
+  startup: i17
+  block: '-13'
+  notes: '* Balcony Break'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i22
+  block: '-13'
+  notes: '* Homing
+
+    * Balcony Break'
+- id: uf_n_4
+  command: uf,n,4
+  hit_level: m
+  startup: i23
+  block: '-13'
+  notes: '* Low crush 9~'
+- id: ws2_4
+  command: ws2,4
+  hit_level: m, m
+  startup: i14, i22
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Combo from 1st hit with 6F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F
+
+    * Can cancel into the same options as f,F+4 (f,F+4~1 and f,F+4~3,2)'
+- id: ram_4
+  command: RAM.4
+  hit_level: l
+  startup: i21
+  block: '-13'
+  notes: '* Balcony Break'
+common_strings_and_gaps:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i10, i20~21
+  block: '-9'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combo from 1st CH with 2F delay
+
+    * Input can be delayed by 2F
+
+    * Move cannot be delayed
+
+    * +10a on BT hit
+
+    * Interrupt with i3 from 1st block'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st block with 2f delay
+
+    * Combo from 1st hit with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i17~18
+  block: '-10'
+  notes: '* Input can be delayed 12f'
+- id: '1_2_1_4'
+  command: 1,2,1,4
+  hit_level: h, h, m, m
+  startup: i10, ,i21~22
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 3rd hit with 10f delay
+
+    * Interrupt with i4 from 1st block
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, h
+  startup: i10, ,i17
+  block: '-9'
+  notes: '* Input can be delayed 2f
+
+    * Move cannot be delayed'
+- id: '1_2_4_3'
+  command: 1,2,4,3
+  hit_level: h, h, h, h
+  startup: i10, ,i19~20
+  block: '-7'
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 3rd hit'
+- id: '1_2_4_3_4'
+  command: 1,2,4,3~4
+  hit_level: h, h, h, m
+  startup: i10, ,i21~22
+  block: '-5'
+  notes: '* Knee
+
+    * Can be charged with held input
+
+    * Effective startup i36~37
+
+    * Interrupt with i17 from 3rd block
+
+    * Interrupt with i5 from 3rd hit
+
+    * Move can be delayed by 2F
+
+    * Recovers 2f slower on hit or block'
+- id: '1_2_4_3_4'
+  command: 1,2,4,3~4*
+  hit_level: h, h, h, m
+  startup: i10, ,i36~37
+  block: '+9'
+  notes: '* Knee
+
+    * Unparryable
+
+    * Instant Tornado on hit
+
+    * Chip damage on block
+
+    * Effective startup i51~52
+
+    * Interrupt with i32 from 3rd block
+
+    * Interrupt with i20 from 3rd hit
+
+    * Cancel to r20 FC with F at frames 16-24 (frames 31-39 from 3rd attack)
+
+    *'
+- id: 1_2_4_3_4_b
+  command: 1,2,4,3~4*~B
+  hit_level: h, h, h, m
+  startup: i10, ,i22
+  block: '-7'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Effective startup i53
+
+    * Interrupt with i34 from 3rd block
+
+    * Interrupt with i22 from 3rd hit
+
+    * Input B during frames 16-24 of Eruption Maw (charged)
+
+    * Move can be delayed by 8F from Eruption Maw (charged)'
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: '1_4'
+  command: 1,4
+  hit_level: h, h
+  startup: i10, i17
+  block: '-8'
+  notes: '* Combos from 1st hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i20
+  block: '-12'
+  notes: '*
+
+    Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * r29 on hit'
+- id: '2_3'
+  command: 2,3
+  hit_level: h, m
+  startup: i12, i31
+  block: '-4'
+  notes: '*
+
+    Balcony Break
+
+    * Combos from 1st hit CH'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i13, i18
+  block: '-3'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 2F'
+- id: '3_1_2'
+  command: 3,1,2
+  hit_level: m, h, h
+  startup: i13, ,i21
+  block: '-0'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combos from 2nd hit CH'
+- id: '3_1_4'
+  command: 3,1,4
+  hit_level: m, h, m
+  startup: i13, ,i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '3_4'
+  command: 3,4
+  hit_level: m, m
+  startup: i13, i19
+  block: '-12'
+  notes: '* Knee
+
+    * Wallbreak on CH
+
+    * Combo from 1st hit CH with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F'
+- id: '3_4_3'
+  command: 3,4~3
+  hit_level: m, m
+  startup: i13, i18
+  block: '-7'
+  notes: "* Tornado\n* Balcony Break on CH\n* Effective startup i34 \n* Interrupt\
+    \ with i16 from 1st block\n* Interrupt with i5 from 1st hit\n* Combo from 1st\
+    \ CH with no delay\n* Move cannot be delayed\n* Input can be delayed by 15F\n\
+    * Can be charged"
+- id: '3_4_3'
+  command: 3,4~3*
+  hit_level: m, m
+  startup: i13, i36
+  block: '+9'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Effective startup i52
+
+    * Interrupt with i34 from 1st block
+
+    * Interrupt with i23 from 1st hit
+
+    * Cancel to r20 FC with F at frames 20-24 (frames 36-40 from 1st attack)
+
+    ** Interrupt with i39? from 1st block
+
+    ** Interr'
+- id: 3_4_3_b
+  command: 3,4~3*~B
+  hit_level: m, m
+  startup: i13, i22
+  block: '-7'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Effective startup i54
+
+    * Interrupt with i36 from 3rd block
+
+    * Interrupt with i25 from 3rd hit
+
+    * Input B during frames 16-24 of Tornado Maw (charged)
+
+    * Move can be delayed by 8F from Tornado Maw (charged)'
+- id: '3_4_4'
+  command: 3,4~4
+  hit_level: m, h
+  startup: i13, i16
+  block: '+3'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Effective startup i29
+
+    * Interrupt with i11 from 1st block
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Interrupt with i11 from 1st block
+
+    * Just frame input 3,4:4; effective startup '
+- id: '4_3'
+  command: 4,3
+  hit_level: h, h
+  startup: i12, i19
+  block: '-7'
+  notes: '* Combos from 1st hit'
+- id: '4_3_4'
+  command: 4,3~4
+  hit_level: h, m
+  startup: i12, i21
+  block: '-5'
+  notes: '* Knee
+
+    * Can be charged
+
+    * r25 on block'
+- id: '4_3_4'
+  command: 4,3~4*
+  hit_level: h, m
+  startup: i12, i36
+  block: '+9'
+  notes: '* Tornado
+
+    * Knee
+
+    * Powered up with GRF
+
+    * Cancel to FC with F'
+- id: 4_3_4_b
+  command: 4,3~4*~B
+  hit_level: h, m
+  startup: i12, i22
+  block: '-7'
+  notes: '*
+
+    Homing
+
+    * Balcony Break'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, L
+  startup: i12, i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, m
+  startup: i15, i20
+  block: '-14'
+  notes: '* Combos from 1st hit'
+- id: grf_fp2_1_2
+  command: GRF.f+2,1,2
+  hit_level: m, m, m
+  startup: i15, ,i29
+  block: '+2'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, m
+  startup: i17, i20
+  block: '-12'
+  notes: ''
+- id: fp3_2_1
+  command: f+3,2,1
+  hit_level: m, m, h
+  startup: i17, ,i19
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH
+
+    * Delayable'
+- id: fp3_2_4
+  command: f+3,2,4
+  hit_level: m, m, m
+  startup: i17, ,i20
+  block: '-12'
+  notes: '* Knee
+
+    * Combos from 2nd hit CH
+
+    * Delayable'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Jail from 1st block with 2f delay
+
+    * Combo from 1st hit with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i17~18
+  block: '-10'
+  notes: '* Input can be delayed 12f'
+- id: '1_2_1_4'
+  command: 1,2,1,4
+  hit_level: h, h, m, m
+  startup: i10, ,i21~22
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 3rd hit with 10f delay
+
+    * Interrupt with i4 from 1st block
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f'
+- id: '1_2_4'
+  command: 1,2,4
+  hit_level: h, h, h
+  startup: i10, ,i17
+  block: '-9'
+  notes: '* Input can be delayed 2f
+
+    * Move cannot be delayed'
+- id: '1_2_4_3'
+  command: 1,2,4,3
+  hit_level: h, h, h, h
+  startup: i10, ,i19~20
+  block: '-7'
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 3rd hit'
+- id: '1_2_4_3_4'
+  command: 1,2,4,3~4
+  hit_level: h, h, h, m
+  startup: i10, ,i21~22
+  block: '-5'
+  notes: '* Knee
+
+    * Can be charged with held input
+
+    * Effective startup i36~37
+
+    * Interrupt with i17 from 3rd block
+
+    * Interrupt with i5 from 3rd hit
+
+    * Move can be delayed by 2F
+
+    * Recovers 2f slower on hit or block'
+- id: '1_2_4_3_4'
+  command: 1,2,4,3~4*
+  hit_level: h, h, h, m
+  startup: i10, ,i36~37
+  block: '+9'
+  notes: '* Knee
+
+    * Unparryable
+
+    * Instant Tornado on hit
+
+    * Chip damage on block
+
+    * Effective startup i51~52
+
+    * Interrupt with i32 from 3rd block
+
+    * Interrupt with i20 from 3rd hit
+
+    * Cancel to r20 FC with F at frames 16-24 (frames 31-39 from 3rd attack)
+
+    *'
+- id: 1_2_4_3_4_b
+  command: 1,2,4,3~4*~B
+  hit_level: h, h, h, m
+  startup: i10, ,i22
+  block: '-7'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Effective startup i53
+
+    * Interrupt with i34 from 3rd block
+
+    * Interrupt with i22 from 3rd hit
+
+    * Input B during frames 16-24 of Eruption Maw (charged)
+
+    * Move can be delayed by 8F from Eruption Maw (charged)'
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: '1_4'
+  command: 1,4
+  hit_level: h, h
+  startup: i10, i17
+  block: '-8'
+  notes: '* Combos from 1st hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i20
+  block: '-12'
+  notes: '*
+
+    Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * r29 on hit'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i13, i18
+  block: '-3'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 2F'
+- id: '3_1_2'
+  command: 3,1,2
+  hit_level: m, h, h
+  startup: i13, ,i21
+  block: '-0'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combos from 2nd hit CH'
+- id: '3_1_4'
+  command: 3,1,4
+  hit_level: m, h, m
+  startup: i13, ,i21
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '3_4_4'
+  command: 3,4~4
+  hit_level: m, h
+  startup: i13, i16
+  block: '+3'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Effective startup i29
+
+    * Interrupt with i11 from 1st block
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Interrupt with i11 from 1st block
+
+    * Just frame input 3,4:4; effective startup '
+- id: '4_3'
+  command: 4,3
+  hit_level: h, h
+  startup: i12, i19
+  block: '-7'
+  notes: '* Combos from 1st hit'
+- id: fp3_2_1
+  command: f+3,2,1
+  hit_level: m, m, h
+  startup: i17, ,i19
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH
+
+    * Delayable'
+- id: fp3_2_4_4
+  command: f+3,2,4~4
+  hit_level: m, m, h
+  startup: i17, ,i16
+  block: '+3'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Just frame input 3,4:4
+
+    * 24 damage, 7 chip damage, slightly different juggle properties'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, h
+  startup: i15, i25
+  block: '-5'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +62a (+42)
+
+
+    * Knee
+
+    * Combo from 1st hit with'
+- id: dfp1_4_4
+  command: df+1,4~4
+  hit_level: m, h
+  startup: i15, i16
+  block: '+3'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * 6 chip damage on block
+
+    * Combos from 1st hit CH
+
+    * Just frame input 3,4:4
+
+    ** 24 damage, 7 chip damage, slightly different juggle properties
+
+    ** Interrupt with i16 from 1st block or i7 from 1'
+- id: dfp2_3
+  command: df+2,3
+  hit_level: m, h
+  startup: i15, i21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: dfp4_1
+  command: df+4,1
+  hit_level: m, h
+  startup: i16, i22
+  block: '-6'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: dp3_4
+  command: d+3,4
+  hit_level: L, h
+  startup: i16, i20
+  block: '-9'
+  notes: '* Combos from 1st hit CH'
+stance_transitions:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m (t)
+  startup: i16
+  block: '+7'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to Attack Throw on hit
+
+    * 2nd hit damage 25
+
+    * +27a (+1) If only last hit connects on standing opponent
+
+    * 5 chip damage on block
+
+    * Low crush 15~25'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: grf_fp2_1_2
+  command: GRF.f+2,1,2
+  hit_level: m, m, m
+  startup: i15, ,i29
+  block: '+2'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: grf_dfp3p4_3
+  command: GRF.df+3+4,3
+  hit_level: m,m, m
+  startup: i13, i26
+  block: '-9'
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Transition to +13g RAM on hit
+
+    * Combos from 1st hit
+
+    * 9 chip damage on block'
+- id: ss_4
+  command: SS.4
+  hit_level: m
+  startup: i15
+  block: '-11'
+  notes: '* Tornado
+
+    * Knee
+
+    * Low crush'
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* High crush'
+- id: fc_2
+  command: FC.2
+  hit_level: sl
+  startup: i12
+  block: '-9'
+  notes: '* Elbow
+
+    * High crush'
+- id: fc_3
+  command: FC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush'
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i19
+  block: '-14'
+  notes: '* Elbow
+
+    * High crush'
+- id: grf_3
+  command: '...GRF.3*'
+  hit_level: m
+  startup: i36
+  block: +13 RAM
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on bloc'
+- id: grf_3_d
+  command: '...GRF.3*~d'
+  hit_level: L,h
+  startup: i27,i23
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * +31a (+5) if only the 2nd hit hits'
+- id: grf_4
+  command: '...GRF.4*'
+  hit_level: m
+  startup: i36
+  block: +13 RAM
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on bloc'
+- id: grf_1p2
+  command: GRF.1+2
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Power crush 5~19'
+- id: grf_1p2_p
+  command: GRF.1+2,P
+  hit_level: sp, m
+  startup: i21
+  block: '-9'
+  notes: "* Transitions to +13g RAM\n* Only occurs when GRF.1+2 absorbs an attack\n\
+    * r21? freeze for the opponent after absorbing an attack \n* i36? effective startup\n\
+    * 8 chip damage on block"
+- id: ram_1
+  command: RAM.1
+  hit_level: m
+  startup: i19
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * 6 chip damage on block'
+- id: ram_2
+  command: RAM.2
+  hit_level: m!
+  startup: i40
+  block: '!'
+  notes: '* Balcony Break
+
+    * Unblockable'
+- id: ram_3
+  command: RAM.3
+  hit_level: m
+  startup: i21
+  block: '-11'
+  notes: ''
+- id: ram_3_4
+  command: RAM.3,4
+  hit_level: m, h
+  startup: i21, i24
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * 10 chip damage on block
+
+    * Jails from 1st hit'
+- id: ram_4
+  command: RAM.4
+  hit_level: l
+  startup: i21
+  block: '-13'
+  notes: '* Balcony Break'
+- id: ram_db
+  command: RAM.db
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Cancels RAM'
+- id: grf_ffp4_3_2
+  command: GRF.f,F+4~3,2
+  hit_level: L, m (t)
+  startup: i19, i25
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Shift to attack throw on hit
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block'
+- id: ram_1p3
+  command: RAM.1+3
+  hit_level: t!
+  startup: i23
+  block: '!'
+  notes: '* Homing
+
+    * Floor Break
+
+    * Unbreakable throw
+
+    * Grants GRF on hit'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m (t)
+  startup: i16
+  block: '+7'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to Attack Throw on hit
+
+    * 2nd hit damage 25
+
+    * +27a (+1) If only last hit connects on standing opponent
+
+    * 5 chip damage on block
+
+    * Low crush 15~25'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, L
+  startup: i12, i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp3_4_4
+  command: d+3,4,4
+  hit_level: L, h, L
+  startup: i16, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i14
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4_counterhit
+  command: d+4 (counterhit)
+  hit_level: l (t)
+  startup: i14
+  block: ''
+  notes: '* Shifts to throw on front gounded CH
+
+    * Grants GRF on hit'
+- id: grf_ffp4_3_2
+  command: GRF.f,F+4~3,2
+  hit_level: L, m (t)
+  startup: i19, i25
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Shift to attack throw on hit
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12
+  block: '-6'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Sideswaps on hit'
+- id: back_throw
+  command: Back Throw
+  hit_level: t!
+  startup: i12
+  block: '!'
+  notes: '* Homing
+
+    * Unbreakable throw'
+- id: left_throw
+  command: Left Throw
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break 1'
+- id: ram_1p3
+  command: RAM.1+3
+  hit_level: t!
+  startup: i23
+  block: '!'
+  notes: '* Homing
+
+    * Floor Break
+
+    * Unbreakable throw
+
+    * Grants GRF on hit'
+- id: right_throw
+  command: Right Throw
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break 2
+
+    * Sideswaps on hit'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12
+  block: '-3'
+  notes: '* Balcony Break
+
+    * Throw break 1+2'
+key_lows:
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, L
+  startup: i12, i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dfp3
+  command: df+3
+  hit_level: l
+  startup: i20
+  block: '-13'
+  notes: ''
+- id: dp2
+  command: d+2
+  hit_level: sl
+  startup: i12
+  block: '-9'
+  notes: '* Elbow
+
+    * High crush'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-16'
+  notes: ''
+- id: dp3_4
+  command: d+3,4
+  hit_level: L, h
+  startup: i16, i20
+  block: '-9'
+  notes: '* Combos from 1st hit CH'
+- id: dp3_4_3
+  command: d+3,4,3
+  hit_level: L, h, h
+  startup: i16, ,i19
+  block: '-7'
+  notes: '* Combos from 1st hit CH'
+- id: dp3_4_3_4
+  command: d+3,4,3~4
+  hit_level: L, h, m
+  startup: i16, ,i21
+  block: '-5'
+  notes: '* Knee
+
+    * Can be charged'
+- id: dp3_4_3_4
+  command: d+3,4,3~4*
+  hit_level: L, h, m
+  startup: i16, ,i36
+  block: '+9'
+  notes: '* Tornado
+
+    * Knee
+
+    * Powered up with GRF
+
+    * Cancel to FC with F'
+- id: dp3_4_3_4_b
+  command: d+3,4,3~4*~B
+  hit_level: L, h, m
+  startup: i16, ,i22
+  block: '-7'
+  notes: '*
+
+    Homing
+
+    * Balcony Break'
+- id: dp3_4_4
+  command: d+3,4,4
+  hit_level: L, h, L
+  startup: i16, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i14
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4_counterhit
+  command: d+4 (counterhit)
+  hit_level: l (t)
+  startup: i14
+  block: ''
+  notes: '* Shifts to throw on front gounded CH
+
+    * Grants GRF on hit'
+- id: dbp1
+  command: db+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: ''
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21
+  block: '-14'
+  notes: ''
+- id: ffp4_3
+  command: f,F+4~3
+  hit_level: L
+  startup: i19
+  block: '-23'
+  notes: ''
+- id: ffp4_3_2
+  command: f,F+4~3,2
+  hit_level: L, m
+  startup: i19, i25
+  block: '+0'
+  notes: '* Elbow
+
+    * Powered up in GRF
+
+    * Combos from 1st hit CH
+
+    * 6 chip damage on block'
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* High crush'
+- id: fc_2
+  command: FC.2
+  hit_level: sl
+  startup: i12
+  block: '-9'
+  notes: '* Elbow
+
+    * High crush'
+- id: fc_3
+  command: FC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush'
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i19
+  block: '-14'
+  notes: '* Elbow
+
+    * High crush'
+- id: grf_3_d
+  command: '...GRF.3*~d'
+  hit_level: L,h
+  startup: i27,i23
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * +31a (+5) if only the 2nd hit hits'
+power_crushes:
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp3p4
+  command: f+3+4
+  hit_level: m
+  startup: i22
+  block: '-14'
+  notes: '* Knee
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Grants GRF on hit
+
+    * Power crush 7~21'
+- id: ufp2
+  command: uf+2
+  hit_level: h
+  startup: i18
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Power crush'
+- id: grf_1p2
+  command: GRF.1+2
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Power crush 5~19'
+heat_threats:
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,m (t)
+  startup: i16
+  block: '+7'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to Attack Throw on hit
+
+    * 2nd hit damage 25
+
+    * +27a (+1) If only last hit connects on standing opponent
+
+    * 5 chip damage on block
+
+    * Low crush 15~25'
+- id: '1_2_4_3_4'
+  command: 1,2,4,3~4*
+  hit_level: h, h, h, m
+  startup: i10, ,i36~37
+  block: '+9'
+  notes: '* Knee
+
+    * Unparryable
+
+    * Instant Tornado on hit
+
+    * Chip damage on block
+
+    * Effective startup i51~52
+
+    * Interrupt with i32 from 3rd block
+
+    * Interrupt with i20 from 3rd hit
+
+    * Cancel to r20 FC with F at frames 16-24 (frames 31-39 from 3rd attack)
+
+    *'
+- id: grf_fp2_1_2
+  command: GRF.f+2,1,2
+  hit_level: m, m, m
+  startup: i15, ,i29
+  block: '+2'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i21
+  block: '-4'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +36a (+26)
+
+
+    * Balcony Break
+
+    * 7 chip damage on block'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, h
+  startup: i15, i25
+  block: '-5'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +62a (+42)
+
+
+    * Knee
+
+    * Combo from 1st hit with'
+- id: grf_dfp3p4_3
+  command: GRF.df+3+4,3
+  hit_level: m,m, m
+  startup: i13, i26
+  block: '-9'
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Transition to +13g RAM on hit
+
+    * Combos from 1st hit
+
+    * 9 chip damage on block'
+- id: bp3
+  command: b+3
+  hit_level: h
+  startup: i16
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Homing
+
+    * 5 chip damage on block'
+- id: ufp3
+  command: uf+3
+  hit_level: m
+  startup: i14
+  block: '-14'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Knee
+
+    * Low crush'
+- id: ws1_2
+  command: ws1,2
+  hit_level: m, h
+  startup: i13, i18
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Elbow
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 13F'
+- id: grf_3
+  command: '...GRF.3*'
+  hit_level: m
+  startup: i36
+  block: +13 RAM
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on bloc'
+- id: grf_3_d
+  command: '...GRF.3*~d'
+  hit_level: L,h
+  startup: i27,i23
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * +31a (+5) if only the 2nd hit hits'
+- id: grf_4
+  command: '...GRF.4*'
+  hit_level: m
+  startup: i36
+  block: +13 RAM
+  notes: '* Tornado
+
+    * Guard Break
+
+    * Reversal Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Transition to +13 RAM on block
+
+    * Cancel to FC with F
+
+    * Cancel to Surendrajit with D at frames 16-24? of Tornado Kick
+
+    * 10 chip damage on bloc'
+- id: grf_1p2
+  command: GRF.1+2
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Consumes GRF
+
+    * Partially consumes remaining Heat time
+
+    * Power crush 5~19'
+- id: grf_ffp4_3_2
+  command: GRF.f,F+4~3,2
+  hit_level: L, m (t)
+  startup: i19, i25
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Shift to attack throw on hit
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block'
+long_range_attacks:
+- id: ffp3
+  command: f,F+3
+  hit_level: L
+  startup: i21
+  block: '-14'
+  notes: ''
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i22
+  block: '-13'
+  notes: '* Homing
+
+    * Balcony Break'
+- id: ffp4_1
+  command: f,F+4~1
+  hit_level: m
+  startup: i21
+  block: -3c
+  notes: '* Spike (CH)
+
+    * Floor Break'
+- id: ffp4_3
+  command: f,F+4~3
+  hit_level: L
+  startup: i19
+  block: '-23'
+  notes: ''
+- id: ffp4_3_2
+  command: f,F+4~3,2
+  hit_level: L, m
+  startup: i19, i25
+  block: '+0'
+  notes: '* Elbow
+
+    * Powered up in GRF
+
+    * Combos from 1st hit CH
+
+    * 6 chip damage on block'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i18
+  block: '-14'
+  notes: '* Grants GRF on hit'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i19
+  block: '+6'
+  notes: '* Knee
+
+    * 9 chip damage on block
+
+    * Low crush'
+- id: grf_ffp4_3_2
+  command: GRF.f,F+4~3,2
+  hit_level: L, m (t)
+  startup: i19, i25
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Consumes GRF
+
+    * Partially consumes remaining Heat Time
+
+    * Shift to attack throw on hit
+
+    * Combos from 1st hit
+
+    * 6 chip damage on block'
+launch_punish_opportunities:
+- id: ffp4_3
+  command: f,F+4~3
+  hit_level: L
+  startup: i19
+  block: '-23'
+  notes: ''
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fc_3
+  command: FC.3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* High crush'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-16'
+  notes: ''
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i20
+  block: '-16'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Low crush'
+- id: '1_2_4_4'
+  command: 1,2,4,4
+  hit_level: h, h, h, L
+  startup: i10, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: 3_1_dp4
+  command: 3,1,d+4
+  hit_level: m, h, L
+  startup: i13, ,i20
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH
+
+    * Combos from 2nd hit CH'
+- id: '4_4'
+  command: 4,4
+  hit_level: h, L
+  startup: i12, i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp3_4_4
+  command: d+3,4,4
+  hit_level: L, h, L
+  startup: i16, ,i25
+  block: '-15'
+  notes: '* Combos from 3rd hit
+
+    * Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i14
+  block: '-15'
+  notes: '* Shift to attack throw Murderous Sweep and gain GRF on CH'
+- id: bp2
+  command: b+2
+  hit_level: h
+  startup: i14
+  block: '-15'
+  notes: ''
+- id: fc_4
+  command: FC.4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

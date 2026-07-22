@@ -1,0 +1,3306 @@
+character_id: zafina
+display_name: Zafina
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/zafina/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 48ab149d00372f0b75d78111fda96cc48b2b952981529b8ce9efbaf3ccfe282b
+data_status: available
+stances:
+- H
+- b+1:ORB
+- ws
+- SS
+- FC
+- MNT
+- ORB
+- SCR
+- TRT
+- WR
+moves:
+- id: h_2p3
+  source_id: Zafina-H.2+3
+  source_index: 1
+  command: H.2+3
+  name: Curse of Azazel
+  hit_level: h,sm
+  damage: '51'
+  startup: i12~13 i47~53 i1~7 i1~7 i1~6 i1~2
+  recovery: ''
+  block: '+3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - bbr
+  - throw
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * 10 chip damage on block
+
+    * Transition to attack throw on hit'
+- id: r_dfp1p2
+  source_id: Zafina-R.df+1+2
+  source_index: 2
+  command: R.df+1+2
+  name: Semper Avarus Eget
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Zafina-1
+  source_index: 3
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: Zafina-1,2
+  source_index: 4
+  command: 1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 9
+  startup: i10, i12
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Jail from 1st attack
+- id: '1_2_3'
+  source_id: Zafina-1,2,3
+  source_index: 5
+  command: 1,2,3
+  name: Left Right Scarecrow
+  hit_level: h, h, h
+  damage: 5, 9, 12
+  startup: i10, ,i20
+  recovery: r42 SCR
+  block: '0'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Combo from 2nd hit CH with 8f delay
+
+    * Move can be delayed 7f
+
+    * Cancel SCR transition -9 +0 t71 r28 with B'
+- id: '1_3'
+  source_id: Zafina-1,3
+  source_index: 6
+  command: 1,3
+  name: Anzu
+  hit_level: h, h
+  damage: 5, 14
+  startup: i10, i17~18
+  recovery: r31 SCR
+  block: '-2'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Combo from 1st hit with 3f delay
+
+    * Jail from 1st attack with 1f delay
+
+    * Move can be delayed 2f
+
+    * Cancel SCR transition -8 +1 t55 r26 with B'
+- id: '1_4'
+  source_id: Zafina-1,4
+  source_index: 7
+  command: 1,4
+  name: Ecdysis
+  hit_level: h, m
+  damage: 5, 17
+  startup: i10, i19
+  recovery: r25 TRT
+  block: '-5'
+  hit: '+8'
+  counter_hit: +42a
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st hit with 3f delay
+
+    * Move can be delayed 1f'
+- id: '2'
+  source_id: Zafina-2
+  source_index: 8
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i10
+  recovery: r26
+  block: '-7'
+  hit: '-1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Zafina-2,1
+  source_index: 9
+  command: 2,1
+  name: ''
+  hit_level: h, m
+  damage: 8, 9
+  startup: i10, i23~25
+  recovery: r31
+  block: -6c
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st hit CH with 3f delay
+
+    * Move can be delayed 1f'
+- id: '2_1_3'
+  source_id: Zafina-2,1,3
+  source_index: 10
+  command: 2,1,3
+  name: Kapara
+  hit_level: h, m, L
+  damage: 8, 9, 11
+  startup: i10, ,i32
+  recovery: r36 MNT
+  block: '-17'
+  hit: +4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - cs
+  - high_crush
+  - low
+  - mid
+  - high
+  notes: '* Combo from 2nd hit CH with 1f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel 3rd hit to MNT -17 -9 r25 with D
+
+    * Floating state 6~31
+
+    * High crush 32~69'
+- id: '2_2'
+  source_id: Zafina-2,2
+  source_index: 11
+  command: 2,2
+  name: ''
+  hit_level: h, m
+  damage: 8, 12
+  startup: i10, i19-20
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: '+7'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit CH with 6f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 11f'
+- id: 2_2_1p2
+  source_id: Zafina-2,2,1+2
+  source_index: 12
+  command: 2,2,1+2
+  name: Anamalech
+  hit_level: h, m, m,m,m
+  damage: 8, 12, 7,11,14
+  startup: i10, ,i25~26 i10~11 i4~5
+  recovery: r35
+  block: -9c
+  hit: +19d (-16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 2nd hit CH with 9f delay
+
+    * Input can be delayed 14f
+
+    * Move can be delayed 9f'
+- id: '3'
+  source_id: Zafina-3
+  source_index: 13
+  command: '3'
+  name: Sharur
+  hit_level: h
+  damage: '17'
+  startup: i13
+  recovery: r19 SCR
+  block: '+0'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Cancel SCR transition -8 +1 t40 r27 with B'
+- id: '4'
+  source_id: Zafina-4
+  source_index: 14
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '19'
+  startup: i14~15
+  recovery: r30
+  block: '-6'
+  hit: '-1'
+  counter_hit: +19a (+10)
+  tier: core
+  tags:
+  - balcony_break
+  - high
+  notes: Balcony break on airborne hit
+- id: 1p2
+  source_id: Zafina-1+2
+  source_index: 15
+  command: 1+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i16~17
+  recovery: r30
+  block: '-12'
+  hit: '+4'
+  counter_hit: +25a
+  tier: core
+  tags:
+  - spk
+  - mid
+  notes: Spike
+- id: 1p2_4
+  source_id: Zafina-1+2,4
+  source_index: 16
+  command: 1+2,4
+  name: ''
+  hit_level: m, m
+  damage: 17, 10
+  startup: i16~17, i24~25
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: '+6'
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 1f delay
+
+    * Interrupt with i6 from 1st block'
+- id: 1p2_4_4
+  source_id: Zafina-1+2,4,4
+  source_index: 17
+  command: 1+2,4,4
+  name: Manticore
+  hit_level: m, m, m
+  damage: 17, 10, 20
+  startup: i16~17, ,i30~31
+  recovery: r35
+  block: '-11'
+  hit: +19a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 2nd hit CH with 1f delay
+
+    * Can pick up from the ground with db+3 for a juggle
+
+    * Interrupt with i12 from 2nd block'
+- id: 3p4
+  source_id: Zafina-3+4
+  source_index: 18
+  command: 3+4
+  name: Scarecrow Stance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 SCR
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Cancel to r20 with db
+
+    * Can block after 21 frames with db
+
+    * Cancel to r28 with UB_U_UF
+
+    * Stance sidestep with u_d
+
+    * Backdash/dash with b_f'
+- id: fp2
+  source_id: Zafina-f+2
+  source_index: 19
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i19
+  recovery: r38
+  block: '-18'
+  hit: '-6'
+  counter_hit: +52a
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: fp2_3
+  source_id: Zafina-f+2,3
+  source_index: 20
+  command: f+2,3
+  name: ''
+  hit_level: m, h
+  damage: 17, 12
+  startup: i19, i19
+  recovery: r40 SCR
+  block: '+0'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Cancel SCR transition -9 +0 t68 r28 with B
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 17f
+
+    * Move can be delayed 15f'
+- id: fp2_3_4
+  source_id: Zafina-f+2,3,4
+  source_index: 21
+  command: f+2,3,4
+  name: Ettimu
+  hit_level: m, h, m
+  damage: 17, 12, 25
+  startup: i19, ,i28~29
+  recovery: r37
+  block: '-18'
+  hit: +18a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: fp3
+  source_id: Zafina-f+3
+  source_index: 22
+  command: f+3
+  name: Scarecrow Side Kick
+  hit_level: h
+  damage: '28'
+  startup: i17
+  recovery: r31 SCR
+  block: '+3'
+  hit: '+14'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - high
+  notes: '* Balcony Break
+
+    * Good left sidestep tracking
+
+    * Cancel SCR transition -1 +10 t? r? with B'
+- id: fp4
+  source_id: Zafina-f+4
+  source_index: 23
+  command: f+4
+  name: Aqrabuamelu
+  hit_level: h
+  damage: '13'
+  startup: i14~15
+  recovery: r30
+  block: '-6'
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: fp1p2
+  source_id: Zafina-f+1+2
+  source_index: 24
+  command: f+1+2
+  name: Malicious Nail
+  hit_level: m,m
+  damage: 16,22
+  startup: i19~20 i13~14
+  recovery: r28
+  block: '-9'
+  hit: +5a (-5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Jab evasion?
+
+    * Second hit available only on hit or block
+
+    * 8 chip damage on block
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Azazel''s Power
+
+    * Gain ORB on hit or heat activation'
+- id: dfp1
+  source_id: Zafina-df+1
+  source_index: 25
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r22
+  block: '-5'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Zafina-df+1,2
+  source_index: 26
+  command: df+1,2
+  name: ''
+  hit_level: m, m
+  damage: 10, 16
+  startup: i13~14, i15~16
+  recovery: r36
+  block: '-13'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 3f delay'
+- id: dfp1_2_1
+  source_id: Zafina-df+1,2,1
+  source_index: 27
+  command: df+1,2,1
+  name: Bloody Saif - Execution
+  hit_level: m, m, m
+  damage: 10, 16, 16
+  startup: i13~14, ,i25
+  recovery: SCR
+  block: '-12'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 2nd hit CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dfp1_2_1p2
+  source_id: Zafina-df+1,2,1+2
+  source_index: 28
+  command: df+1,2,1+2
+  name: Calamity Trifecta
+  hit_level: m, m, sm
+  damage: 10, 16, 10,10 (7),20 (10)
+  startup: i13~14, ,i37
+  recovery: ''
+  block: '-9'
+  hit: +17a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd hit CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 2nd block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * 16 chip damage on block
+
+    * Available on 2nd hit or block only'
+- id: dfp1_4
+  source_id: Zafina-df+1,4
+  source_index: 29
+  command: df+1,4
+  name: Sharp Shamshir
+  hit_level: m, h
+  damage: 10, 18
+  startup: i13~14, i19~20
+  recovery: r30
+  block: '-6'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 1st hit'
+- id: dfp2
+  source_id: Zafina-df+2
+  source_index: 30
+  command: df+2
+  name: Lamashtu Claw
+  hit_level: m
+  damage: '13'
+  startup: i16~17
+  recovery: r31
+  block: '-12'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Launches crouching opponent
+
+    * Can evade some highs'
+- id: dfp3
+  source_id: Zafina-df+3
+  source_index: 31
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: r22 SCR
+  block: '-5'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Cancel SCR transition -10 -1 t43 r28 with B'
+- id: dfp3_4
+  source_id: Zafina-df+3,4
+  source_index: 32
+  command: df+3,4
+  name: Dueling Scimitars
+  hit_level: m, h
+  damage: 15, 17
+  startup: i15~16, i23~24
+  recovery: r30
+  block: '-6'
+  hit: +22a
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 1st hit'
+- id: dfp3_dp4
+  source_id: Zafina-df+3,d+4
+  source_index: 33
+  command: df+3,d+4
+  name: Pukku
+  hit_level: m, L
+  damage: 15, 15
+  startup: i15~16, i25~26
+  recovery: r35 FC
+  block: '-14'
+  hit: +1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: 'Combo from 1st hit
+
+    * High crush 11~'
+- id: dfp4
+  source_id: Zafina-df+4
+  source_index: 34
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i13
+  recovery: r32
+  block: '-13'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_1
+  source_id: Zafina-df+4,1
+  source_index: 35
+  command: df+4,1
+  name: Miasma Bearer
+  hit_level: m, m
+  damage: 14, 22
+  startup: i13, i31
+  recovery: r47
+  block: '-9'
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - spk
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Cancel to FC -18 -2 r37 with D
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i11 from 1st block
+
+    * 8 chip damage on block
+
+    * Azazel''s Power
+
+    * Gain ORB on hit or heat activation'
+- id: dfp4_2
+  source_id: Zafina-df+4,2
+  source_index: 36
+  command: df+4,2
+  name: Cerberus Strike
+  hit_level: m, m
+  damage: 14, 20
+  startup: i13, i27~29
+  recovery: r39
+  block: '-13'
+  hit: +24a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i7 from 1st block'
+- id: dp1
+  source_id: Zafina-d+1
+  source_index: 37
+  command: d+1
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i12
+  recovery: r38
+  block: '-16'
+  hit: '-8'
+  counter_hit: -3c
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike'
+- id: dp1_1
+  source_id: Zafina-d+1,1
+  source_index: 38
+  command: d+1,1
+  name: Ningishzida
+  hit_level: m, m
+  damage: 11, 17
+  startup: i12, i17~18
+  recovery: r30
+  block: '-12'
+  hit: +19a (+12)
+  counter_hit: +29a (+23)
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit CH with 18f delay
+
+    * Input can be delayed 18f
+
+    * Move can be delayed 10f'
+- id: dp2
+  source_id: Zafina-d+2
+  source_index: 39
+  command: d+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i19~20
+  recovery: r42
+  block: -16c
+  hit: -3c
+  counter_hit: +17a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike'
+- id: dp2_4
+  source_id: Zafina-d+2,4
+  source_index: 40
+  command: d+2,4
+  name: ''
+  hit_level: m, m
+  damage: 17, 10
+  startup: i19~20, i26
+  recovery: r44 MNT
+  block: '-22'
+  hit: '-4'
+  counter_hit: -4c
+  tier: specialist
+  tags:
+  - spk
+  - cs
+  - fs
+  - high_crush
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter TRT -22 -4 with D
+
+    * High crush 56~84
+
+    * Floating state 6~55'
+- id: dp2_4_3
+  source_id: Zafina-d+2,4,3
+  source_index: 41
+  command: d+2,4,3
+  name: Poison Rosette
+  hit_level: m, m, m
+  damage: 17, 10, 10
+  startup: i19~20, ,i28~31
+  recovery: r29
+  block: -13~-10
+  hit: +18a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st and 2nd CH'
+- id: dp3
+  source_id: Zafina-d+3
+  source_index: 42
+  command: d+3
+  name: Earwig Pincer
+  hit_level: L
+  damage: '14'
+  startup: i22
+  recovery: r34 FC
+  block: '-15'
+  hit: +5c
+  counter_hit: +24d
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to MNT -13 +7c +26d r32 with D
+
+    * Evasive (can go under some mids)
+
+    * High crush 6~'
+- id: dp4
+  source_id: Zafina-d+4
+  source_index: 43
+  command: d+4
+  name: ''
+  hit_level: L
+  damage: '8'
+  startup: i17~18
+  recovery: r37
+  block: '-19'
+  hit: '-3'
+  counter_hit: '+7'
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_3
+  source_id: Zafina-d+4,3
+  source_index: 44
+  command: d+4,3
+  name: Iskur
+  hit_level: L, h
+  damage: 8, 10
+  startup: i17~18, i19
+  recovery: r34
+  block: '-6'
+  hit: +36a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - low
+  - high
+  notes: '* Combo from 1st hit CH with 11f delay
+
+    * Move can be delayed 9f
+
+    * Low crush 11~17
+
+    * Floating state 18~20'
+- id: dp1p2
+  source_id: Zafina-d+1+2
+  source_index: 45
+  command: d+1+2
+  name: Tarantula Stance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30 TRT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - fs
+  - high_crush
+  notes: '* Cancel to r30 with DB_UB_U_UF
+
+    * Cancel to r10 standing guard with DB
+
+    * Crawl with F
+
+    * High crush 6~33
+
+    * Floating state 34~'
+- id: dp3p4
+  source_id: Zafina-d+3+4
+  source_index: 46
+  command: d+3+4
+  name: Mantis Stance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30 MNT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Cancel to r30 with db
+
+    * Cancel to r38 with UB_U_UF
+
+    * Can block in stance on frame 31~
+
+    * Stance sidestep with u_d
+
+    * Move backward/forward with b_f
+
+    * Dash with f,f
+
+    * High crush 6~30'
+- id: dbp2
+  source_id: Zafina-db+2
+  source_index: 47
+  command: db+2
+  name: Backhand Thrust
+  hit_level: m
+  damage: '17'
+  startup: i13~14
+  recovery: r36
+  block: '-13'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: dbp2_1
+  source_id: Zafina-db+2,1
+  source_index: 48
+  command: db+2,1
+  name: Shulshaga
+  hit_level: m, m
+  damage: 17, 16
+  startup: i13~14, i25
+  recovery: SCR
+  block: '-12'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 1st CH with 12f delay
+
+    * Transition to standing with B (-12/+4)'
+- id: dbp2_1p2
+  source_id: Zafina-db+2,1+2
+  source_index: 49
+  command: db+2,1+2
+  name: Calamity Vortex
+  hit_level: m, sm
+  damage: 17, 10,10 (7),20 (10)
+  startup: i13~14, i37
+  recovery: ''
+  block: '-9'
+  hit: +17a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH with 2F delay
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Interrupt with i13 from 1st block
+
+    * 27 damage with aerial combo scaling
+
+    * Gain ORB on hit
+
+    * 16 chip damage on block
+
+    * Azazel''s Power
+
+    * Available on 1st hit or block only'
+- id: dbp3
+  source_id: Zafina-db+3
+  source_index: 50
+  command: db+3
+  name: Acinaces
+  hit_level: L
+  damage: '13'
+  startup: i18
+  recovery: r27 SCR
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - low
+  notes: '* Cancel SCR transition -11 +0 t48 r30 with B'
+- id: dbp4
+  source_id: Zafina-db+4
+  source_index: 51
+  command: db+4
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i21~22
+  recovery: r31
+  block: '-12'
+  hit: '-3'
+  counter_hit: '+3'
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to -13 -4 +2 MNT with D
+
+    * High crush 6~40'
+- id: dbp4_2
+  source_id: Zafina-db+4,2
+  source_index: 52
+  command: db+4,2
+  name: Euphrates Cannon
+  hit_level: L, m
+  damage: 14, 17
+  startup: i21~22, i29~32
+  recovery: r33
+  block: '-13'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - tornado
+  - low
+  - mid
+  notes: '* Combo from 1st hit CH
+
+    * Instant tornado launch on standing hit only'
+- id: dbp1p2
+  source_id: Zafina-db+1+2
+  source_index: 53
+  command: db+1+2
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i28~29
+  recovery: r34 MNT
+  block: '-16'
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 9~66'
+- id: dbp1p2_1p2
+  source_id: Zafina-db+1+2,1+2
+  source_index: 54
+  command: db+1+2,1+2
+  name: Sirrush
+  hit_level: L, m
+  damage: 10, 20
+  startup: i28~29, i33
+  recovery: r40
+  block: '-16'
+  hit: +5a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - tornado
+  - balcony_break
+  - low
+  - mid
+  notes: "* Combos from 1st hit\n* Tornado when combo from first hit only.\n* +37a\
+    \ (-10) on combo from first hit \n* Balcony Break on airborn hit"
+- id: bp1
+  source_id: Zafina-b+1
+  source_index: 55
+  command: b+1
+  name: Cursed Crow
+  hit_level: m
+  damage: '14'
+  startup: i18
+  recovery: r38
+  block: '-14'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  - mid
+  notes: '* Transition to attack throw on standing or airborne front hit with 1+2
+
+    * 8f input window for attack throw (frames 10~17)'
+- id: bp1_1
+  source_id: Zafina-b+1:1
+  source_index: 56
+  command: b+1:1
+  name: Cursed Claw
+  hit_level: m, t
+  damage: 14, 36
+  startup: 'i18, '
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - heat
+  - low_crush
+  - mid
+  - throw
+  notes: '* Deal 5 (8) recoverable damage to self without Heat
+
+    * Side switch on hit
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * Low crush 80~92
+
+    * Floating state 93~95'
+- id: bp1_orb_1p2
+  source_id: Zafina-b+1:ORB.1+2
+  source_index: 57
+  command: b+1:ORB.1+2
+  name: Anathematic Claw
+  hit_level: m, t
+  damage: 14, 19,10,16
+  startup: 'i18, '
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - mid
+  - throw
+  notes: '* Consumes ORB
+
+    * Consumes 180F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals (5) 8 recoverable damage to Zafina without Heat
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * Available only from 1st front hit'
+- id: bp1p3
+  source_id: Zafina-b+1+3
+  source_index: 58
+  command: b+1+3
+  name: Revenge Hand
+  hit_level: m,m
+  damage: 5,23
+  startup: i30~34, i29~30
+  recovery: r75
+  block: '+2'
+  hit: +12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Zafina automatically retaliates on successful power crush
+
+    * Deal 8 recoverable damage to self without Heat
+
+    * +2 and 11 chip damage on block after attack absorption
+
+    * Gain ORB on hit
+
+    * Power crush 6~29'
+- id: bp2
+  source_id: Zafina-b+2
+  source_index: 59
+  command: b+2
+  name: Brisingamen Backfist
+  hit_level: h
+  damage: '22'
+  startup: i22~23
+  recovery: r29
+  block: '-5'
+  hit: '+14'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break on airborne hit
+
+    * +23a on BT hit'
+- id: bp3
+  source_id: Zafina-b+3
+  source_index: 60
+  command: b+3
+  name: Ereshkigal Stomp
+  hit_level: m
+  damage: '23'
+  startup: i24~26
+  recovery: r36
+  block: '-14'
+  hit: +12a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~23'
+- id: bp3_orb_1p2
+  source_id: Zafina-b+3,ORB.1+2
+  source_index: 61
+  command: b+3,ORB.1+2
+  name: Anathematic Stomp
+  hit_level: m
+  damage: 13,8,(20)14
+  startup: i24~26
+  recovery: ''
+  block: '-9'
+  hit: -14a (-15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - heat
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Deals 3 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * -9 frame advantage and 17 chip damage on block after absorbing an attack in
+    power crush state
+
+    ** 22 chip damage when Zafina''s remaining health is below 48
+
+    * Available only on hit or block
+
+    * Power crush 7~23'
+- id: bp4
+  source_id: Zafina-b+4
+  source_index: 62
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i22~23
+  recovery: r32
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp4_4
+  source_id: Zafina-b+4,4
+  source_index: 63
+  command: b+4,4
+  name: Tiamat's Tail
+  hit_level: m, m
+  damage: 14, 20
+  startup: i22~23, i20~22
+  recovery: r34
+  block: '-14'
+  hit: +9a (+0)
+  counter_hit: +41a (-6)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combos from 1st hit with 16f delay
+
+    * Move can be delayed 9f'
+- id: bp1p2
+  source_id: Zafina-b+1+2
+  source_index: 64
+  command: b+1+2
+  name: Evil Razer
+  hit_level: m
+  damage: '27'
+  startup: i19~20
+  recovery: r37
+  block: '-6'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * 5 chip damage on block'
+- id: bp1p2_orb_1p2
+  source_id: Zafina-b+1+2,ORB.1+2
+  source_index: 65
+  command: b+1+2,ORB.1+2
+  name: Anathematic Razer
+  hit_level: m
+  damage: 17,5,15
+  startup: i19~20
+  recovery: ''
+  block: '+2'
+  hit: +10a (-16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Deals 12 recoverable damage to self without Heat
+
+    * Consumes ORB
+
+    * Consumes 240F of remaining Heat time
+
+    * Azazel''s Power
+
+    * Deals 5 additional damage when Zafina''s remaining health is below 48
+
+    * 8 chip damage on block
+
+    ** Deals 13 chip damage on block when Zafina''s remaining health is below 48
+
+    * Available only on hit or block'
+- id: ubp3
+  source_id: Zafina-ub+3
+  source_index: 66
+  command: ub+3
+  name: ''
+  hit_level: m
+  damage: '19'
+  startup: i22~23
+  recovery: r35
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony break on airborne hit
+
+    * Low crush 8~31
+
+    * Floating state 32~34'
+- id: ubp4
+  source_id: Zafina-ub+4
+  source_index: 67
+  command: ub+4
+  name: ''
+  hit_level: m
+  damage: '18'
+  startup: i17~18
+  recovery: r32
+  block: '-13'
+  hit: +19a (+9)
+  counter_hit: +29a (+19)
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Recovers 2f faster on hit (t48 r30)
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: ubp1p2
+  source_id: Zafina-ub+1+2
+  source_index: 68
+  command: ub+1+2
+  name: Spear of Alu
+  hit_level: m!
+  damage: '40'
+  startup: i64
+  recovery: r44
+  block: ''
+  hit: +41a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* +45a on side/BT hit'
+- id: ufp1
+  source_id: Zafina-uf+1
+  source_index: 69
+  command: uf+1
+  name: Lapis Dagger
+  hit_level: h
+  damage: '19'
+  startup: i19
+  recovery: r21
+  block: '+4'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ufp2
+  source_id: Zafina-uf+2
+  source_index: 70
+  command: uf+2
+  name: Kur
+  hit_level: m
+  damage: '20'
+  startup: i36~37
+  recovery: r29
+  block: '-9'
+  hit: +60a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * High crush 6~35'
+- id: ufp3
+  source_id: Zafina-uf+3
+  source_index: 71
+  command: uf+3
+  name: Arali
+  hit_level: m
+  damage: '19'
+  startup: i22~23
+  recovery: r35
+  block: '-8'
+  hit: +19a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Transition to MNT -8 +19a with D
+
+    * No forward movement when using input ub+3
+
+    * Low crush 8~31
+
+    * Floating state 32~34'
+- id: ufp4
+  source_id: Zafina-uf+4
+  source_index: 72
+  command: uf+4
+  name: Rahab
+  hit_level: m
+  damage: '18'
+  startup: i17~18
+  recovery: r32
+  block: '-13'
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Recovers 2 frames faster on hit (t48 r30)
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: 1p2p3p4
+  source_id: Zafina-1+2+3+4
+  source_index: 73
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
+- id: ffp2
+  source_id: Zafina-f,f+2
+  source_index: 74
+  command: f,F+2
+  name: Gilgamesh Blast
+  hit_level: h
+  damage: '20'
+  startup: i15~16
+  recovery: r34
+  block: '+1'
+  hit: +21a (+12)
+  counter_hit: +38a
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 6 chip damage on block'
+- id: ffp3
+  source_id: Zafina-f,f+3
+  source_index: 75
+  command: f,F+3
+  name: Sagaris
+  hit_level: m
+  damage: '20'
+  startup: i20~22
+  recovery: r29 SCR
+  block: '+4'
+  hit: +9c
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - spk
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Cancel SCR transition +4 +9c +14c t51 r29 with B'
+- id: ffp3_1
+  source_id: Zafina-f,f+3,1
+  source_index: 76
+  command: f,F+3,1
+  name: Sagaris Smash
+  hit_level: m, m
+  damage: 20, 24
+  startup: i20~22, i18
+  recovery: r40
+  block: '-16'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 13F delay
+
+    * Input can be delayed by 13F
+
+    * Move cannot be delayed'
+- id: ffp4
+  source_id: Zafina-f,f+4
+  source_index: 77
+  command: f,F+4
+  name: Roundhouse Kick
+  hit_level: m
+  damage: '16'
+  startup: i17~19
+  recovery: r30
+  block: '-8'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    *'
+- id: ffp3p4
+  source_id: Zafina-f,f+3+4
+  source_index: 78
+  command: f,F+3+4
+  name: Gallu
+  hit_level: m,m
+  damage: 10,21
+  startup: i21 i8~12
+  recovery: r31
+  block: '-11'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Enter MNT -12 +14a (+5) with D
+
+    * Low crush 6~23
+
+    * Floating state 24~26'
+- id: f_ffp3
+  source_id: Zafina-f,f,F+3
+  source_index: 79
+  command: f,f,F+3
+  name: Leaping Side Kick
+  hit_level: m
+  damage: '30'
+  startup: i23~26
+  recovery: r28 SCR
+  block: '+7'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Cancel SCR transition +3 +15a (+5) t58 r32 with B
+
+    * 9 chip damage on block
+
+    * Low crush 3~34
+
+    * Floating state 35~37'
+- id: f_ffp1p2
+  source_id: Zafina-f,f,F+1+2
+  source_index: 80
+  command: f,f,F+1+2
+  name: Tiamat
+  hit_level: h
+  damage: '20'
+  startup: i20~21
+  recovery: 34 TRT
+  block: '+6'
+  hit: +32a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * 8 chip damage on block
+
+    * Low crush 20~39
+
+    * Floating state 40~'
+- id: ws1
+  source_id: Zafina-ws1
+  source_index: 81
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i15~16
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: High evasion during move startup
+- id: ws1_2
+  source_id: Zafina-ws1,2
+  source_index: 82
+  command: ws1,2
+  name: Alraune
+  hit_level: m, m
+  damage: 8, 8
+  startup: i15~16, i20~21
+  recovery: r23
+  block: '-13'
+  hit: +36a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 9f delay
+
+    * Can always interupt with i10 from 1st block
+
+    * Delay does not change the timing of the attack'
+- id: ws2
+  source_id: Zafina-ws2
+  source_index: 83
+  command: ws2
+  name: Rising Claw
+  hit_level: m
+  damage: '20'
+  startup: i18~19
+  recovery: r41
+  block: '-14'
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Enter MNT -40 +2a (-8) r60 with D'
+- id: ws3
+  source_id: Zafina-ws3
+  source_index: 84
+  command: ws3
+  name: Shargaz
+  hit_level: m
+  damage: '16'
+  startup: i12
+  recovery: r19 SCR
+  block: '+0'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Cancel SCR transition -8 +1 t39 r27 with B'
+- id: ws4
+  source_id: Zafina-ws4
+  source_index: 85
+  command: ws4
+  name: Bashmu
+  hit_level: m
+  damage: '14'
+  startup: i11
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_1p2
+  source_id: Zafina-SS.1+2
+  source_index: 86
+  command: SS.1+2
+  name: Adramelech
+  hit_level: m
+  damage: '22'
+  startup: i17~18
+  recovery: r31
+  block: -2c
+  hit: +8c
+  counter_hit: +28a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike'
+- id: fc_dfp3
+  source_id: Zafina-FC.df+3
+  source_index: 87
+  command: FC.df+3
+  name: Spinning Sweep
+  hit_level: L
+  damage: '15'
+  startup: i23~24
+  recovery: r30
+  block: '-26'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Enter MNT -26 +13a with D
+
+    * High crush 1~'
+- id: fc_dp1
+  source_id: Zafina-FC.d+1
+  source_index: 88
+  command: FC.d+1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * Transition input can be delayed 16f
+
+    * High crush 1~'
+- id: fc_dp2
+  source_id: Zafina-FC.d+2
+  source_index: 89
+  command: FC.d+2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r24 FC
+  block: '-4'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp3
+  source_id: Zafina-FC.d+3
+  source_index: 90
+  command: FC.d+3
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: r36
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp4
+  source_id: Zafina-FC.d+4
+  source_index: 91
+  command: FC.d+4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: mnt_1
+  source_id: Zafina-MNT.1
+  source_index: 92
+  command: MNT.1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: mnt_1_3
+  source_id: Zafina-MNT.1,3
+  source_index: 93
+  command: MNT.1,3
+  name: Butterfly Capture Combo
+  hit_level: m, h
+  damage: 12, 12
+  startup: i13, i19
+  recovery: 19 SCR
+  block: '0'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jails from first attack
+
+    * Cancel SCR transition -8 +1 t46 r27 with B'
+- id: mnt_2
+  source_id: Zafina-MNT.2
+  source_index: 94
+  command: MNT.2
+  name: ''
+  hit_level: m
+  damage: '19'
+  startup: i13~14
+  recovery: 32 MNT
+  block: '-14'
+  hit: '-3'
+  counter_hit: +57a
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: mnt_2_1
+  source_id: Zafina-MNT.2,1
+  source_index: 95
+  command: MNT.2,1
+  name: ''
+  hit_level: m, m
+  damage: 19, 10
+  startup: i13~14, i18~19
+  recovery: r32 MNT
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Input can be delayed 5f'
+- id: mnt_2_1_4
+  source_id: Zafina-MNT.2,1,4
+  source_index: 96
+  command: MNT.2,1,4
+  name: Mantis Sting
+  hit_level: m, m, m
+  damage: 19, 10, 25
+  startup: i13~14, ,i27~28
+  recovery: r38
+  block: '-13'
+  hit: +13a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit'
+- id: mnt_3
+  source_id: Zafina-MNT.3
+  source_index: 97
+  command: MNT.3
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i15~16
+  recovery: r30 MNT
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~46'
+- id: mnt_3_1
+  source_id: Zafina-MNT.3,1
+  source_index: 98
+  command: MNT.3,1
+  name: Sweeping Claw
+  hit_level: L, m
+  damage: 12, 16
+  startup: i15~16, i24
+  recovery: r28 MNT
+  block: '-9'
+  hit: +22a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st CH'
+- id: mnt_4
+  source_id: Zafina-MNT.4
+  source_index: 99
+  command: MNT.4
+  name: ''
+  hit_level: L
+  damage: '13'
+  startup: i17~18
+  recovery: r37 MNT
+  block: '-19'
+  hit: '-3'
+  counter_hit: '+7'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Enter TRT with D
+
+    * High crush 1~62'
+- id: mnt_4_3
+  source_id: Zafina-MNT.4,3
+  source_index: 100
+  command: MNT.4,3
+  name: Neti
+  hit_level: L, m
+  damage: 13, 23
+  startup: i17~18, i27
+  recovery: r58 MNT
+  block: '-30'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - fs
+  - tornado
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st CH
+
+    * Floating state 10~63'
+- id: mnt_1p2
+  source_id: Zafina-MNT.1+2
+  source_index: 101
+  command: MNT.1+2
+  name: Scarecrow Strike
+  hit_level: m
+  damage: '21'
+  startup: i20
+  recovery: r42
+  block: '-12'
+  hit: +18a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - pc
+  - power_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 8~19'
+- id: mnt_2p3
+  source_id: Zafina-MNT.2+3
+  source_index: 102
+  command: MNT.2+3
+  name: Paradox
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 BT MNT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: mnt_dfp1
+  source_id: Zafina-MNT.df+1
+  source_index: 103
+  command: MNT.df+1
+  name: Vicious Claw
+  hit_level: M
+  damage: '30'
+  startup: i20~21
+  recovery: SCR
+  block: '+10'
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - spk
+  - wpn
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * 12 chip damage on block
+
+    * Transition to SCR on normal hit
+
+    * Transition to standing with B (+6/+11a)
+
+    * Deal 8 recoverable damage to self without heat
+
+    * Gain ORB on hit or heat activation
+
+    * Azazel''s Power'
+- id: mnt_dfp2
+  source_id: Zafina-MNT.df+2
+  source_index: 104
+  command: MNT.df+2
+  name: Enlil
+  hit_level: m
+  damage: '10'
+  startup: i19~20
+  recovery: r29
+  block: '-9'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: mnt_dfp3
+  source_id: Zafina-MNT.df+3
+  source_index: 105
+  command: MNT.df+3
+  name: Negal's Lance
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: r35 MNT
+  block: '-17'
+  hit: +19g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - balcony_break
+  - mid
+  notes: '* Balcony break on airborne hit
+
+    * Hitbox extends to both legs, can hit while Zafina is BT
+
+    * Floating state 10~43'
+- id: mnt_dfp4
+  source_id: Zafina-MNT.df+4
+  source_index: 106
+  command: MNT.df+4
+  name: Mantis Slash
+  hit_level: m
+  damage: '18'
+  startup: i17~18
+  recovery: r29 TRT
+  block: '-5'
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - cs
+  - gs
+  - homing
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * High crush 1~40
+
+    * gs41~56'
+- id: mnt_dp1
+  source_id: Zafina-MNT.d+1
+  source_index: 107
+  command: MNT.d+1
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i15~16
+  recovery: r29 MNT
+  block: '-11'
+  hit: '0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~58'
+- id: mnt_dp1_4
+  source_id: Zafina-MNT.d+1,4
+  source_index: 108
+  command: MNT.d+1,4
+  name: Mantis Sickle
+  hit_level: L, m
+  damage: 14, 23
+  startup: i15~16, i27~30
+  recovery: r32
+  block: '-16'
+  hit: +15 (+6)
+  counter_hit: +60a (+40)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: mnt_dp4
+  source_id: Zafina-MNT.d+4
+  source_index: 109
+  command: MNT.d+4
+  name: Mantis Slide
+  hit_level: L
+  damage: '19'
+  startup: i20~27
+  recovery: r34 MNT
+  block: -22~-15
+  hit: +4c~+11c
+  counter_hit: +19a~+26a
+  tier: specialist
+  tags:
+  - kne
+  - cs
+  - high_crush
+  - low
+  notes: '* Knee
+
+    * Evasive (can go under mids)
+
+    * High crush 1~'
+- id: mnt_ufp3
+  source_id: Zafina-MNT.uf+3
+  source_index: 110
+  command: MNT.uf+3
+  name: Enki
+  hit_level: M
+  damage: '25'
+  startup: i26~28
+  recovery: r37 FC
+  block: -9c
+  hit: +11d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - cs
+  - low_crush
+  - high_crush
+  - mid
+  notes: '* Spike
+
+    * Enter MNT with D
+
+    * Low crush 7~23
+
+    * Floating state 24~26
+
+    * High crush 27~50'
+- id: orb_scr_dfp3p4
+  source_id: Zafina-ORB.SCR.df+3+4
+  source_index: 111
+  command: ORB.SCR.df+3+4
+  name: Anathematic Malice
+  hit_level: L,m,m,sm
+  damage: 6,13,3,10
+  startup: i19
+  recovery: ''
+  block: '-14'
+  hit: -13a (-14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - heat
+  - high_crush
+  - stance_transition
+  - chip
+  - low
+  - mid
+  notes: '* Transition to 3rd hit on 2nd hit
+
+    * Consumes ORB
+
+    * Consumes 450F of Heat time
+
+    * Deals 4 additional damage when Zafina''s remaining health is below 48
+
+    * 4 chip damage on block
+
+    ** Deals 6 chip damage on block when Zafina''s remaining health is below 48
+
+    * High crush 6~'
+- id: scr_1
+  source_id: Zafina-SCR.1
+  source_index: 112
+  command: SCR.1
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i10~11
+  recovery: r20 SCR
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: scr_1_4
+  source_id: Zafina-SCR.1,4
+  source_index: 113
+  command: SCR.1,4
+  name: Scarecrow Nightmare
+  hit_level: h, m
+  damage: 12, 18
+  startup: i10~11, i22
+  recovery: r28 TRT
+  block: '-6'
+  hit: '+7'
+  counter_hit: +32a
+  tier: specialist
+  tags:
+  - spk
+  - parry
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Unparryable with traditional kick parries'
+- id: scr_2
+  source_id: Zafina-SCR.2
+  source_index: 114
+  command: SCR.2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i14
+  recovery: r28 SCR
+  block: '-7'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: scr_2_1
+  source_id: Zafina-SCR.2,1
+  source_index: 115
+  command: SCR.2,1
+  name: Binal Venom
+  hit_level: m, m
+  damage: 17, 25
+  startup: i14, i21
+  recovery: r48
+  block: '-6'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 10 chip damage on block
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power'
+- id: scr_2_2
+  source_id: Zafina-SCR.2,2
+  source_index: 116
+  command: SCR.2,2
+  name: Circling Cutlass
+  hit_level: m, m
+  damage: 17, 17
+  startup: i14, i22
+  recovery: r32
+  block: '-10'
+  hit: +8c
+  counter_hit: +8a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 6f delay
+
+    * Delay does not change the timing of the attack'
+- id: scr_3
+  source_id: Zafina-SCR.3
+  source_index: 117
+  command: SCR.3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i13
+  recovery: r25 SCR
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: scr_3_3
+  source_id: Zafina-SCR.3,3
+  source_index: 118
+  command: SCR.3,3
+  name: Gizal
+  hit_level: m, h
+  damage: 15, 20
+  startup: i13, i16
+  recovery: r25 SCR
+  block: '+0'
+  hit: +25a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 14f delay
+
+    * Move can be delayed 9f'
+- id: scr_4
+  source_id: Zafina-SCR.4
+  source_index: 119
+  command: SCR.4
+  name: Spinning Sappara
+  hit_level: M
+  damage: '20'
+  startup: i15~16
+  recovery: r44
+  block: '-18'
+  hit: +58a (+42)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - pc
+  - power_crush
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * -8 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~14'
+- id: scr_1p2
+  source_id: Zafina-SCR.1+2
+  source_index: 120
+  command: SCR.1+2
+  name: Huwawa
+  hit_level: m
+  damage: '20'
+  startup: i17~19
+  recovery: r41
+  block: '+6'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Enter TRT with D'
+- id: scr_3p4
+  source_id: Zafina-SCR.3+4
+  source_index: 121
+  command: SCR.3+4
+  name: Kigal
+  hit_level: m,m
+  damage: 10,20
+  startup: i18~19 i6~8
+  recovery: r33
+  block: '-12'
+  hit: +8g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Transition to MNT -13 +7 with D
+
+    * Jail from 1st attack
+
+    * Low crush 6~22
+
+    * Floating state 23~25'
+- id: scr_bp1p2
+  source_id: Zafina-SCR.b+1+2
+  source_index: 122
+  command: SCR.b+1+2
+  name: Sinister Bite
+  hit_level: L
+  damage: '20'
+  startup: i16
+  recovery: r37?
+  block: '-18'
+  hit: +23g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - heat
+  - high_crush
+  - low
+  notes: '* Weapon
+
+    * Evasive (can go under some mids)
+
+    * Deal 10 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power
+
+    * High crush 7~35'
+- id: scr_dfp1
+  source_id: Zafina-SCR.df+1
+  source_index: 123
+  command: SCR.df+1
+  name: Dark Rising
+  hit_level: m,M
+  damage: 10,30
+  startup: i18 i17~19
+  recovery: r30
+  block: '-9'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - heat
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Instant tornado on 1st hit
+
+    * Jail from 1st attack
+
+    * 15 chip damage on block
+
+    * Deal 18 recoverable damage to self without Heat
+
+    * Gain ORB on hit
+
+    * Azazel''s Power'
+- id: scr_dfp3
+  source_id: Zafina-SCR.df+3
+  source_index: 124
+  command: SCR.df+3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i28~30
+  recovery: r30 FC
+  block: '-23'
+  hit: -10c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - low
+  notes: '* Homing
+
+    * High crush 6~'
+- id: scr_dfp3_3
+  source_id: Zafina-SCR.df+3,3
+  source_index: 125
+  command: SCR.df+3,3
+  name: Double Abzu Abyss
+  hit_level: L, L
+  damage: 10, 10
+  startup: i28~30, i29~31
+  recovery: r48 FC
+  block: '-23'
+  hit: +54a (+38)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - low
+  notes: '* Homing
+
+    * Combo from 1st hit
+
+    * High crush 1~'
+- id: scr_dfp4
+  source_id: Zafina-SCR.df+4
+  source_index: 126
+  command: SCR.df+4
+  name: Scarecrow Scythe
+  hit_level: L
+  damage: '17'
+  startup: i19~20
+  recovery: 32 MNT
+  block: '-14'
+  hit: +7c
+  counter_hit: +37a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: scr_dp3
+  source_id: Zafina-SCR.d+3
+  source_index: 127
+  command: SCR.d+3
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i18
+  recovery: r25 SCR
+  block: '-6'
+  hit: '-3'
+  counter_hit: +9c
+  tier: specialist
+  tags:
+  - low
+  notes: '* Interrupt with i13 if Zafina uses SCR.4
+
+    * Can hit grounded when off-axis'
+- id: scr_dp3_3
+  source_id: Zafina-SCR.d+3,3
+  source_index: 128
+  command: SCR.d+3,3
+  name: Sag-Giga Sickle
+  hit_level: l, h
+  damage: 10, 28
+  startup: i18, i24
+  recovery: r31 SCR
+  block: '+3'
+  hit: +77a (+61)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - tornado
+  - stance_transition
+  - low
+  - high
+  notes: '* Combo from 1st CH
+
+    * Cancel SCR transition -1 +73a (+57) t55 r31 with B
+
+    * Tornado launches on standing hit only'
+- id: scr_dp4
+  source_id: Zafina-SCR.d+4
+  source_index: 129
+  command: SCR.d+4
+  name: Scarecrow Slide
+  hit_level: L
+  damage: '20'
+  startup: i24~30
+  recovery: r38 FC
+  block: '-25'
+  hit: -4a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Enter MNT with D
+
+    * High crush 10~'
+- id: scr_dp3p4
+  source_id: Zafina-SCR.d+3+4
+  source_index: 130
+  command: SCR.d+3+4
+  name: Mantis Stance
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r67 MNT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - fs
+  - high_crush
+  notes: '* High crush 1~70
+
+    * Floating state 6~50'
+- id: trt_1
+  source_id: Zafina-TRT.1
+  source_index: 131
+  command: TRT.1
+  name: Tarantula Shotel
+  hit_level: L
+  damage: '13'
+  startup: i18
+  recovery: r30 TRT
+  block: '-11'
+  hit: '+5'
+  counter_hit: +15a
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: trt_2
+  source_id: Zafina-TRT.2
+  source_index: 132
+  command: TRT.2
+  name: Tarantula Cutlass
+  hit_level: M
+  damage: '24'
+  startup: i34~36
+  recovery: r32
+  block: '-13'
+  hit: +38a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - pc
+  - power_crush
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Recover 4f faster on hit (t64 r28)
+
+    * -9 frame advantage and 9 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 8~33'
+- id: trt_3
+  source_id: Zafina-TRT.3
+  source_index: 133
+  command: TRT.3
+  name: Deathstalker
+  hit_level: m
+  damage: '16'
+  startup: i14~i15
+  recovery: r34 TRT
+  block: '-7'
+  hit: +5c
+  counter_hit: +19c
+  tier: specialist
+  tags:
+  - spk
+  - fs
+  - mid
+  notes: '* Spike
+
+    * Floating state 1~49?'
+- id: trt_4
+  source_id: Zafina-TRT.4
+  source_index: 134
+  command: TRT.4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i26
+  recovery: r44 MNT
+  block: '-22'
+  hit: '-4'
+  counter_hit: -4c
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Transition to TRT with D
+
+    * Floating state 1~70?'
+- id: trt_4_3
+  source_id: Zafina-TRT.4,3
+  source_index: 135
+  command: TRT.4,3
+  name: Tarantula's Bite
+  hit_level: m, m
+  damage: 10, 10
+  startup: i26, i28~31
+  recovery: r29
+  block: '-13'
+  hit: +18a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st CH'
+- id: trt_1p2
+  source_id: Zafina-TRT.1+2
+  source_index: 136
+  command: TRT.1+2
+  name: Tarantula Claw
+  hit_level: m,M
+  damage: 7,20
+  startup: i19~20 i9~10
+  recovery: r68
+  block: -12c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break on airborne hit
+
+    * Homing
+
+    * Low crush 7~24
+
+    * Floating state 25~27'
+- id: trt_dfp1
+  source_id: Zafina-TRT.df+1
+  source_index: 137
+  command: TRT.df+1
+  name: Primitive Grudge
+  hit_level: M
+  damage: '30'
+  startup: i19~20
+  recovery: r34
+  block: '+6'
+  hit: +30a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 12 chip damage on block
+
+    * Deal 8 recoverable damage to self without Heat
+
+    * Gain ORB on hit or heat activation
+
+    * Azazel''s Power'
+- id: trt_dp1p2
+  source_id: Zafina-TRT.d+1+2
+  source_index: 138
+  command: TRT.d+1+2
+  name: Tarantula Scimitar
+  hit_level: L
+  damage: '20'
+  startup: i25
+  recovery: r40 MNT
+  block: '-21'
+  hit: +10a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: wr_fp4
+  source_id: Zafina-WR.f+4
+  source_index: 139
+  command: WR.f+4
+  name: Tarantula Dive
+  hit_level: L
+  damage: '21'
+  startup: i14~30
+  recovery: r52 FUFA
+  block: -52~-36
+  hit: -7a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - low
+  notes: '* Enter BT -52 -7a with U
+
+    * Enter TRT -52 -7a r35 with D
+
+    * Zafina must run for 32f to access this move
+
+    * Floating state 14~40'
+- id: 1p3
+  source_id: Zafina-1+3
+  source_index: 140
+  command: 1+3
+  name: Diabolos
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-4'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Zafina-2+4
+  source_index: 141
+  command: 2+4
+  name: Akhazu
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-4'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - stance_transition
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Transition to MNT on hit
+
+    * Side switch on hit'
+- id: back_throw
+  source_id: Zafina-Back Throw
+  source_index: 142
+  command: Back Throw
+  name: ''
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable'
+- id: left_throw
+  source_id: Zafina-Left Throw
+  source_index: 143
+  command: Left Throw
+  name: ''
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * Side switch on hit'
+- id: right_throw
+  source_id: Zafina-Right Throw
+  source_index: 144
+  command: Right Throw
+  name: Labartu
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: ufp1p2
+  source_id: Zafina-uf+1+2
+  source_index: 145
+  command: uf+1+2
+  name: Dumuzi's Fate
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2
+
+    * Can side switch on hit'

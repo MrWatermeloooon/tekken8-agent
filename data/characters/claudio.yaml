@@ -1,0 +1,2450 @@
+character_id: claudio
+display_name: Claudio Serafino
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/claudio/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 866c277f84cfe35394d07ca4fc88d0058d9e51615e0630190dc75b3d09f09677
+data_status: available
+stances:
+- H
+- STB
+- ws
+- SS
+- FC
+moves:
+- id: 2p3
+  source_id: Claudio-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_2p3
+  source_id: Claudio-H.2+3
+  source_index: 2
+  command: H.2+3
+  name: Stella Cadente
+  hit_level: L,M
+  damage: '40'
+  startup: i18~19
+  recovery: r44
+  block: '-14'
+  hit: +11d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - bbr
+  - chp
+  - throw
+  - heat
+  - homing
+  - balcony_break
+  - stance_transition
+  - chip
+  - low
+  - mid
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Transition to attack throw on hit
+
+    * Chip damage on block
+
+    * Pseudo homing low?'
+- id: r_dfp1p2
+  source_id: Claudio-R.df+1+2
+  source_index: 3
+  command: R.df+1+2
+  name: La Luce Di Sirio
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Claudio-1
+  source_index: 4
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: Claudio-1,2
+  source_index: 5
+  command: 1,2
+  name: Scattered Ashes
+  hit_level: h, h
+  damage: 5, 12
+  startup: i10, i13~14
+  recovery: r20
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 5f delay
+
+    * Input can be delayed 5f
+
+    * Move can be delayed 4f'
+- id: '1_3'
+  source_id: Claudio-1,3
+  source_index: 6
+  command: 1,3
+  name: Absolve
+  hit_level: h, l
+  damage: 5, 11
+  startup: i10, i22
+  recovery: r31
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH with 3f delay
+
+    * Input can be delayed 5f
+
+    * Move can be delayed 4f'
+- id: '2'
+  source_id: Claudio-2
+  source_index: 7
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: r22
+  block: '-3'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Claudio-2,1
+  source_index: 8
+  command: 2,1
+  name: ''
+  hit_level: h, m
+  damage: 10, 13
+  startup: i12, i20
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit with 2f delay
+- id: '2_1_2'
+  source_id: Claudio-2,1,2
+  source_index: 9
+  command: 2,1,2
+  name: Circle of Judgment
+  hit_level: h, m, m
+  damage: 10, 13, 25
+  startup: i12, ,i16~18
+  recovery: r36
+  block: '-13'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 2nd CH with 14f delay
+
+    * Input can be delayed 15f
+
+    * Move can be delayed 10f
+
+    * Transition to r65 STB on hit without STB
+
+    * -10a (-1) upon STB gain on an airborne hit
+
+    * Interrupt with i1 from 1st block'
+- id: '3'
+  source_id: Claudio-3
+  source_index: 10
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i14
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Tracks sidestep right and sidewalk right completely?'
+- id: '3_2'
+  source_id: Claudio-3,2
+  source_index: 11
+  command: 3,2
+  name: Requiescat
+  hit_level: m, h
+  damage: 14, 22
+  startup: i14, i22~23
+  recovery: r24
+  block: '-6'
+  hit: +25a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Transition to r55 STB on hit without STB
+
+    * -6a (-13) upon STB gain on an airborne hit'
+- id: '4'
+  source_id: Claudio-4
+  source_index: 12
+  command: '4'
+  name: High Kick
+  hit_level: h
+  damage: '13'
+  startup: i12
+  recovery: r30
+  block: '-11'
+  hit: '+5'
+  counter_hit: +9s
+  tier: core
+  tags:
+  - homing
+  - high
+  notes: '* Pseudo homing to sidestep left and sidewalk left?'
+- id: '4_3'
+  source_id: Claudio-4,3
+  source_index: 13
+  command: 4,3
+  name: Battle Scars
+  hit_level: h, h
+  damage: 13, 14
+  startup: i12, i25~26
+  recovery: r27
+  block: '+1'
+  hit: +15g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Combo from 1st hit with 1f delay
+
+    * +22a (+15) if the 1st hit counterhits
+
+    * Low crush 17~30'
+- id: stb_4_2
+  source_id: Claudio-4,STB.2
+  source_index: 14
+  command: STB.4,2
+  name: Aurora Pactum
+  hit_level: h, sm
+  damage: 13, 32
+  startup: i12, i28-36
+  recovery: r33
+  block: -19~-11
+  hit: +27a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - heat
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 1f delay
+
+    * 6 chip damage on block
+
+    * 12 chip damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead'
+- id: 1p2
+  source_id: Claudio-1+2
+  source_index: 15
+  command: 1+2
+  name: Crimson Delta Edge
+  hit_level: m
+  damage: '20'
+  startup: i17
+  recovery: r38
+  block: '-14'
+  hit: +2c
+  counter_hit: ''
+  tier: core
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: Floor Break
+- id: 1p2_1p2
+  source_id: Claudio-1+2,1+2
+  source_index: 16
+  command: 1+2,1+2
+  name: ''
+  hit_level: m, t
+  damage: 20, 10
+  startup: i17, i17
+  recovery: r48
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - throw
+  notes: '* Combo from 1st hit
+
+    * Only comes out on standing hit
+
+    * Doesn''t work at tip range
+
+    * Doesn''t work in the side or back
+
+    * Not a timed input'
+- id: 1p2_1p2_2
+  source_id: Claudio-1+2,1+2,2
+  source_index: 17
+  command: 1+2,1+2,2
+  name: Crimson Delta Edge to Starburst
+  hit_level: m, t, t
+  damage: 20, 10, 18
+  startup: i17, ,i17
+  recovery: r101 STB or r76
+  block: ''
+  hit: -5d or +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - throw
+  notes: '* Combo from 1st hit
+
+    * Gain STB on hit
+
+    * -5d vs FUFT when gaining STB
+
+    * +0d vs FUFA if already STB
+
+    * Deals 20 damage with input b,f+2
+
+    * Not a timed input'
+- id: 3p4
+  source_id: Claudio-3+4
+  source_index: 18
+  command: 3+4
+  name: Rolling Strike
+  hit_level: M
+  damage: '28'
+  startup: i24~26
+  recovery: r34 FC
+  block: -11c
+  hit: +4a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Low crush 13~22
+
+    * Floating state 23~25'
+- id: fp2
+  source_id: Claudio-f+2
+  source_index: 19
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '9'
+  startup: i12
+  recovery: r19
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - homing
+  - high
+  notes: '* Homing to sidestep left and sidewalk left?'
+- id: fp2_1
+  source_id: Claudio-f+2,1
+  source_index: 20
+  command: f+2,1
+  name: ''
+  hit_level: h, m
+  damage: 9, 12
+  startup: i12, i15~16
+  recovery: r33
+  block: '-10'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Combo from 1st hit'
+- id: fp2_1_1p2
+  source_id: Claudio-f+2,1,1+2
+  source_index: 21
+  command: f+2,1,1+2
+  name: Trinity of Pain
+  hit_level: h, m, m
+  damage: 9, 12, 25
+  startup: i12, ,i21~22
+  recovery: r37
+  block: '-18'
+  hit: +7a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 1st CH with 16F delay
+
+    * Input can be delayed 16F
+
+    * Move can be delayed 12F'
+- id: fp2_2
+  source_id: Claudio-f+2,2
+  source_index: 22
+  command: f+2,2
+  name: Deadly Sin
+  hit_level: h, m
+  damage: 9, 20
+  startup: i12, i14
+  recovery: r46
+  block: '-26'
+  hit: +18a (-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony break on airborne hit
+
+    * Combo from 1st hit
+
+    * Transition to r67 STB on hit without STB
+
+    * Tremendous backstep on block'
+- id: fp3
+  source_id: Claudio-f+3
+  source_index: 23
+  command: f+3
+  name: Sacred Edge
+  hit_level: h
+  damage: '18'
+  startup: i18
+  recovery: r28
+  block: '+1'
+  hit: +15g
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * +22a (+13) on BT hit
+
+    * Low crush 9~24'
+- id: fp4
+  source_id: Claudio-f+4
+  source_index: 24
+  command: f+4
+  name: Into the Abyss
+  hit_level: m
+  damage: '23'
+  startup: i22~23
+  recovery: r25
+  block: +4c
+  hit: +4c
+  counter_hit: +28d
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp1p2
+  source_id: Claudio-f+1+2
+  source_index: 25
+  command: f+1+2
+  name: Cross Arm Strike
+  hit_level: m
+  damage: '8'
+  startup: i16
+  recovery: r37
+  block: '-18'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp1p2_1p2
+  source_id: Claudio-f+1+2,1+2
+  source_index: 26
+  command: f+1+2,1+2
+  name: Cross Arm Impact
+  hit_level: m, m
+  damage: 8, 16
+  startup: i16, i18
+  recovery: r36
+  block: '-14'
+  hit: +4a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 11f delay
+
+    * Jail from 1st block with no delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f'
+- id: stb_fp1p2_1p2
+  source_id: Claudio-f+1+2,STB.1+2
+  source_index: 27
+  command: STB.f+1+2,1+2
+  name: Cross Arm Impact Burst
+  hit_level: m, m
+  damage: 8, 16
+  startup: i16, i18
+  recovery: r36
+  block: '-9'
+  hit: +64a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Jail from 1st attack with 1f delay
+
+    * Combo from 1st hit with 11f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * 3 chip damage on block
+
+    * 6 chip damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead'
+- id: fp3p4
+  source_id: Claudio-f+3+4
+  source_index: 28
+  command: f+3+4
+  name: Above the Storm
+  hit_level: h
+  damage: '18'
+  startup: i17~18
+  recovery: r35
+  block: '-4'
+  hit: +19a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * 3 chip damage on block'
+- id: dfp1
+  source_id: Claudio-df+1
+  source_index: 29
+  command: df+1
+  name: Quick Upper
+  hit_level: m
+  damage: '10'
+  startup: i15
+  recovery: r22
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Cannot be sidestepped or sidewalked right?'
+- id: dfp1_2
+  source_id: Claudio-df+1,2
+  source_index: 30
+  command: df+1,2
+  name: Sky's Arc
+  hit_level: m, m
+  damage: 10, 15
+  startup: i15, i23~24
+  recovery: r33
+  block: '-15'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 1f delay'
+- id: dfp2
+  source_id: Claudio-df+2
+  source_index: 31
+  command: df+2
+  name: Chaos Fist
+  hit_level: m
+  damage: '19'
+  startup: i14
+  recovery: r32
+  block: '-13'
+  hit: '+5'
+  counter_hit: +57a
+  tier: core
+  tags:
+  - homing
+  - mid
+  notes: '* Gain STB on counterhit
+
+    * Completely homing to SSL/SWL?'
+- id: dfp3
+  source_id: Claudio-df+3
+  source_index: 32
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14
+  recovery: r46
+  block: '-7'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - homing
+  - mid
+  notes: '* Completely homing to SSR/SWR?'
+- id: dfp3_1
+  source_id: Claudio-df+3,1
+  source_index: 33
+  command: df+3,1
+  name: Dispel Magic
+  hit_level: m, m
+  damage: 12, 18
+  startup: i14, i17~19
+  recovery: r34
+  block: '-14'
+  hit: +29a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit with 14f delay
+
+    * Input can be delayed 14f
+
+    * Move can be delayed 8f'
+- id: dfp3_2
+  source_id: Claudio-df+3,2
+  source_index: 34
+  command: df+3,2
+  name: Dispel Force
+  hit_level: m, h
+  damage: 12, 10
+  startup: i14, i15
+  recovery: r20
+  block: '-1'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 14f delay
+
+    * Input can be delayed 14f
+
+    * Move can be delayed 9f'
+- id: dfp4
+  source_id: Claudio-df+4
+  source_index: 35
+  command: df+4
+  name: Front Kick
+  hit_level: m
+  damage: '14'
+  startup: i13
+  recovery: r27
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dp1
+  source_id: Claudio-d+1
+  source_index: 36
+  command: d+1
+  name: Axion
+  hit_level: m
+  damage: '14'
+  startup: i17~18
+  recovery: r27
+  block: '-8'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: stb_dp1_2
+  source_id: Claudio-d+1,STB.2
+  source_index: 37
+  command: STB.d+1,2
+  name: Mystic Ray Burst
+  hit_level: m, M
+  damage: 14, 23
+  startup: i17~18, i28
+  recovery: r36
+  block: '+6'
+  hit: +28a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - heat
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * 8 chip damage on block in heat
+
+    * Interrupt with i8 from 1st block
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead'
+- id: dp2
+  source_id: Claudio-d+2
+  source_index: 38
+  command: d+2
+  name: ''
+  hit_level: L
+  damage: '6'
+  startup: i20
+  recovery: r30 FC
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: dp2_2
+  source_id: Claudio-d+2,2
+  source_index: 39
+  command: d+2,2
+  name: Gravity Hole
+  hit_level: L, L
+  damage: 6, 8
+  startup: i20, i16~17
+  recovery: r32 FC
+  block: '-13'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * High crush 1~'
+- id: dp3
+  source_id: Claudio-d+3
+  source_index: 40
+  command: d+3
+  name: Crouch Spin Kick
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -6c on crouching hit
+
+    * High crush 4~'
+- id: dp4
+  source_id: Claudio-d+4
+  source_index: 41
+  command: d+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: dp1p2
+  source_id: Claudio-d+1+2
+  source_index: 42
+  command: d+1+2
+  name: Superbia
+  hit_level: m
+  damage: '28'
+  startup: i13~14
+  recovery: r37
+  block: '-18'
+  hit: +7a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: dbp1
+  source_id: Claudio-db+1
+  source_index: 43
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dbp2
+  source_id: Claudio-db+2
+  source_index: 44
+  command: db+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* +7c on crouching hit
+
+    * High crush 4~'
+- id: dbp2_1
+  source_id: Claudio-db+2,1
+  source_index: 45
+  command: db+2,1
+  name: Twin Claws
+  hit_level: sl, m
+  damage: 8, 12
+  startup: i11, i18
+  recovery: r32 FC
+  block: '-9'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: '* Combo from 1st CH
+
+    * Jail from 1st block
+
+    * High crush 1~'
+- id: dbp3
+  source_id: Claudio-db+3
+  source_index: 46
+  command: db+3
+  name: Acedia
+  hit_level: L
+  damage: '17'
+  startup: i21~22
+  recovery: r33 FC
+  block: -15~-14
+  hit: +3c
+  counter_hit: +13c
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: dbp4
+  source_id: Claudio-db+4
+  source_index: 47
+  command: db+4
+  name: ''
+  hit_level: L
+  damage: '7'
+  startup: i15
+  recovery: r32
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - homing
+  - low
+  notes: '* Pseudo homing to SSL/SWL side?'
+- id: dbp4_3
+  source_id: Claudio-db+4,3
+  source_index: 48
+  command: db+4,3
+  name: Lagrange Needle
+  hit_level: L, h
+  damage: 7, 10
+  startup: i15, i18
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st hit with 1f delay
+
+    * -30 from 1st block'
+- id: dbp1p2
+  source_id: Claudio-db+1+2
+  source_index: 49
+  command: db+1+2
+  name: Blue Moon
+  hit_level: M
+  damage: '20'
+  startup: i17~18
+  recovery: r41
+  block: '-12'
+  hit: +8a (-9)
+  counter_hit: +62a (+46)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - cs
+  - js
+  - fs
+  - low_crush
+  - high_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * High crush 6~16
+
+    * Low crush 20~32
+
+    * Floating state 33~35'
+- id: bp1
+  source_id: Claudio-b+1
+  source_index: 50
+  command: b+1
+  name: Vanishing Storm
+  hit_level: m
+  damage: '17'
+  startup: i18~19
+  recovery: r35
+  block: '-8'
+  hit: +9a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break'
+- id: bp2
+  source_id: Claudio-b+2
+  source_index: 51
+  command: b+2
+  name: Spinning Skies
+  hit_level: h
+  damage: '25'
+  startup: i14
+  recovery: r30
+  block: '-9'
+  hit: +9a
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - homing
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Pseudo homing?'
+- id: bp3
+  source_id: Claudio-b+3
+  source_index: 52
+  command: b+3
+  name: Burning Core
+  hit_level: m
+  damage: '14'
+  startup: i13
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - homing
+  - mid
+  notes: '* Knee
+
+    * Completely homing to SSL/SSR/SWR?'
+- id: bp3_n_3
+  source_id: Claudio-b+3,n,3
+  source_index: 53
+  command: b+3,n,3
+  name: Crescent Heel
+  hit_level: m, m
+  damage: 14, 21
+  startup: i13, i24~25
+  recovery: r28
+  block: '-12'
+  hit: +9c
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st CH with 6f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 8f'
+- id: bp4
+  source_id: Claudio-b+4
+  source_index: 54
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i17
+  recovery: r33
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Increased tracking when b4,1 is input?'
+- id: bp4_1
+  source_id: Claudio-b+4,1
+  source_index: 55
+  command: b+4,1
+  name: Shining Wind
+  hit_level: m, h
+  damage: 10, 18
+  startup: i17, i20~21
+  recovery: r28
+  block: '+1'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - heat
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony break on airborne hit
+
+    * Combo from 1st hit with no delay
+
+    * Combo from 1st CH with 10f delay
+
+    * Input can be delayed 12F
+
+    * 5 chip damage on block
+
+    * 7 chip damage on block in heat'
+- id: bp4_2
+  source_id: Claudio-b+4,2
+  source_index: 56
+  command: b+4,2
+  name: Shining Ray
+  hit_level: m, m
+  damage: 10, 20
+  startup: i17, i20
+  recovery: r36
+  block: '-11'
+  hit: +29a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with no delay
+
+    * Combo from 1st CH with 10f delay
+
+    * Input can be delayed 12F
+
+    * Transition to r45 STB on hit without STB and Heat'
+- id: bp4_3
+  source_id: Claudio-b+4,3
+  source_index: 57
+  command: b+4,3
+  name: Axial Ray
+  hit_level: m, h
+  damage: 10, 14
+  startup: i17, i22~23
+  recovery: r33
+  block: '-12'
+  hit: '-4'
+  counter_hit: '+1'
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  - high
+  notes: '* Homing
+
+    * Combo from 1st hit with no delay
+
+    * Combo from 1st CH with 8f delay
+
+    * Input can be delayed 12F'
+- id: bp4_3_2
+  source_id: Claudio-b+4,3,2
+  source_index: 58
+  command: b+4,3,2
+  name: Avaritia
+  hit_level: m, h, M
+  damage: 10, 14, 20
+  startup: i17, ,i31~32
+  recovery: r33
+  block: '-13'
+  hit: +16a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 2nd CH
+
+    * Interrupt with i5 from 2nd block
+
+    * Low crush 1~31'
+- id: stb_bp4_3_2
+  source_id: Claudio-b+4,3,STB.2
+  source_index: 59
+  command: STB.b+4,3,2
+  name: Avaritia Burst
+  hit_level: m, h, M
+  damage: 10, 14, 38
+  startup: i17, ,i31~32
+  recovery: r33
+  block: -1c
+  hit: 43a (+33)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 2nd CH
+
+    * Interrupt with i5 from 2nd block
+
+    * 7 chip damage on block
+
+    * 14 chip damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead
+
+    * Low crush 1~31'
+- id: bp4_4
+  source_id: Claudio-b+4,4
+  source_index: 60
+  command: b+4,4
+  name: Lunar Ray
+  hit_level: m, m
+  damage: 10, 16
+  startup: i17, i28~29
+  recovery: r33
+  block: '-13'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st CH with 2f delay
+
+    * Input can be delayed 12F
+
+    * Interrupt with i8 from 1st block
+
+    * Low crush 22~37
+
+    * Floating state 38~40'
+- id: bp1p2
+  source_id: Claudio-b+1+2
+  source_index: 61
+  command: b+1+2
+  name: Judgment Claw
+  hit_level: m
+  damage: '25'
+  startup: i22
+  recovery: r34
+  block: '-13'
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * -9 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~21'
+- id: bp3p4
+  source_id: Claudio-b+3+4
+  source_index: 62
+  command: b+3+4
+  name: Eternal Moon
+  hit_level: m
+  damage: '24'
+  startup: i29~30
+  recovery: r35
+  block: '-15'
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Backswing blow
+
+    * Max distance from opponent when performed from tip range: 3.07-3.09 (frames
+    10-13?)'
+- id: ubp2
+  source_id: Claudio-ub+2
+  source_index: 63
+  command: ub+2
+  name: Orbit Slice
+  hit_level: m
+  damage: '20'
+  startup: i17~18
+  recovery: r34
+  block: '-7'
+  hit: +20d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Gain STB on hit
+
+    * Frame advantage +4d on STB gain'
+- id: ufp2
+  source_id: Claudio-uf+2
+  source_index: 64
+  command: uf+2
+  name: Meteor Storm
+  hit_level: m
+  damage: '21'
+  startup: i21
+  recovery: r29
+  block: +4c
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - spk
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Transition to r49 STB on hit without STB and Heat
+
+    * Transition to FC r30 with D
+
+    * 4 chip damage on block
+
+    * Low crush 9~22'
+- id: ufp3
+  source_id: Claudio-uf+3
+  source_index: 65
+  command: uf+3
+  name: Ground Slash Nova
+  hit_level: m
+  damage: '22'
+  startup: i23~25
+  recovery: r29
+  block: '-6'
+  hit: +23d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * 20 damage with input ub+3
+
+    * 21 damage with input u+3
+
+    * Linear move?
+
+    * No tracking to SSL/SWL side?
+
+    * Low crush 9~26
+
+    * Floating state 27~29'
+- id: ufp4
+  source_id: Claudio-uf+4
+  source_index: 66
+  command: uf+4
+  name: Sky Slash Nova
+  hit_level: m
+  damage: '13'
+  startup: i15~17
+  recovery: r29
+  block: '-13'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~30
+
+    * Floating state 31~33'
+- id: ufp3p4
+  source_id: Claudio-uf+3+4
+  source_index: 67
+  command: uf+3+4
+  name: Pollux
+  hit_level: m,m
+  damage: 10,12
+  startup: i17,i13~14
+  recovery: r30
+  block: '-11'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* First hit can be parried
+
+    * Low crush 18~35'
+- id: ufp3p4_2
+  source_id: Claudio-uf+3+4,2
+  source_index: 68
+  command: uf+3+4,2
+  name: Orion's Belt
+  hit_level: m,m, m
+  damage: 10,12, 14
+  startup: i17,i13~14, i20
+  recovery: ''
+  block: '-12'
+  hit: +30a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Gain STB on hit
+
+    * Combos from 1st hit'
+- id: 1p2p3p4
+  source_id: Claudio-1+2+3+4
+  source_index: 69
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
+- id: b_bp2p3
+  source_id: Claudio-b,B+2+3
+  source_index: 70
+  command: b,B+2+3
+  name: Big Bang
+  hit_level: m!
+  damage: '60'
+  startup: i72
+  recovery: r50
+  block: ''
+  hit: +15a (-11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: Balcony Break
+- id: ffp2
+  source_id: Claudio-f,F+2
+  source_index: 71
+  command: f,F+2
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i14~16
+  recovery: r35
+  block: '-18'
+  hit: '-7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * i15 fastest startup when buffered during blockstun. i17 fastest startup when
+    unbuffered'
+- id: ffp2_2
+  source_id: Claudio-f,F+2,2
+  source_index: 72
+  command: f,F+2,2
+  name: Dual Guns
+  hit_level: m, h
+  damage: 14, 20
+  startup: i14~16, i14~15
+  recovery: r31
+  block: -2c
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 6f'
+- id: ffp2_1p2
+  source_id: Claudio-f,F+2,1+2
+  source_index: 73
+  command: f,F+2,1+2
+  name: Bringer of Justice
+  hit_level: m, m
+  damage: 14, 14,20
+  startup: i14~16, i14~16
+  recovery: r34
+  block: '-13'
+  hit: +10a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 10f
+
+    * Transition to r57 STB on hit without STB
+
+    * Frame advantage -14a (-23) on STB gain'
+- id: ffp3
+  source_id: Claudio-f,F+3
+  source_index: 74
+  command: f,F+3
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i15~16
+  recovery: ''
+  block: '-8'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ffp3_2
+  source_id: Claudio-f,F+3,2
+  source_index: 75
+  command: f,F+3,2
+  name: Purgatorio
+  hit_level: m, m
+  damage: 8, 4,13
+  startup: i15~16, i20~21,i16~17
+  recovery: ''
+  block: '-13'
+  hit: +22a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * 2 chip damage on block
+
+    * Can be charged
+
+    * Has roughly 5 levels of charge
+
+    * Combos from 1st hit if uncharged'
+- id: ffp3_2
+  source_id: Claudio-f,F+3,2*
+  source_index: 76
+  command: f,F+3,2*
+  name: Purgatorio (full charge)
+  hit_level: m, m
+  damage: 8, 4,20
+  startup: i15~16, i20~21,i39~40
+  recovery: ''
+  block: '0'
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 6 chip damage on block
+
+    * Gain STB on hit or block'
+- id: ffp4
+  source_id: Claudio-f,F+4
+  source_index: 77
+  command: f,F+4
+  name: Invidia
+  hit_level: m
+  damage: '20'
+  startup: i15~17
+  recovery: r27
+  block: -1~+1
+  hit: +6~+8
+  counter_hit: +13~+15
+  tier: specialist
+  tags:
+  - kne
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Knee
+
+    * i16 startup when buffering f,n. i18 fastest startup when unbuffered
+
+    * Low crush 11~28
+
+    * Floating state 29~31'
+- id: uf_n_4
+  source_id: Claudio-uf,n,4
+  source_index: 78
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~i25
+  recovery: r30
+  block: '-13'
+  hit: +32a (+22a)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~30
+
+    * Floating state 31~33'
+- id: f_ffp2
+  source_id: Claudio-f,f,F+2
+  source_index: 79
+  command: f,f,F+2
+  name: Ira
+  hit_level: h
+  damage: '40'
+  startup: i13~16
+  recovery: r28
+  block: '+6'
+  hit: +24a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Transition to r51 STB without STB and Heat
+
+    * Frame advantage +1a (-4) on STB gain
+
+    * 8 chip damage on block
+
+    * 15 chip damage on block in heat
+
+    * Cannot be buffered
+
+    * Low crush 3~26
+
+    * Floating state 27~29'
+- id: ws1
+  source_id: Claudio-ws1
+  source_index: 80
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i12~13
+  recovery: r22
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_1
+  source_id: Claudio-ws1,1
+  source_index: 81
+  command: ws1,1
+  name: Noble Step
+  hit_level: m, h
+  damage: 12, 15
+  startup: i12~13, i20
+  recovery: r31
+  block: '-7'
+  hit: +19g c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Transition to STB on hit without STB
+
+    Frame advantage +44g on STB gain
+
+    * Combo from 1st hit with 1f delay'
+- id: ws1_2
+  source_id: Claudio-ws1,2
+  source_index: 82
+  command: ws1,2
+  name: Malefic Draw
+  hit_level: m, M
+  damage: 12, 12
+  startup: i12~13, i28~29
+  recovery: r36
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit with 1f delay
+
+    * Interrupt with i10 from 1st block'
+- id: stb_ws1_2
+  source_id: Claudio-ws1,STB.2
+  source_index: 83
+  command: STB.ws1,2
+  name: Malefic Draw Burst
+  hit_level: m, M
+  damage: 12, 23
+  startup: i12~13, i28~29
+  recovery: r36
+  block: '+6'
+  hit: +28a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - heat
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit with 1f delay
+
+    * Interrupt with i10 from 1st block
+
+    * 4 chip damage on block
+
+    * 8 chip damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead'
+- id: ws2
+  source_id: Claudio-ws2
+  source_index: 84
+  command: ws2
+  name: Sylvia
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: r37
+  block: '-14'
+  hit: +26a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to r39 STB on hit without STB
+
+    * Frame advantage +24a (+14) on STB gain'
+- id: ws3
+  source_id: Claudio-ws3
+  source_index: 85
+  command: ws3
+  name: Piercing Wind
+  hit_level: m
+  damage: '20'
+  startup: i16
+  recovery: r34
+  block: '-12'
+  hit: +11a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: Balcony Break
+- id: ws4
+  source_id: Claudio-ws4
+  source_index: 86
+  command: ws4
+  name: Holy Smash
+  hit_level: m
+  damage: '18'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_4
+  source_id: Claudio-SS.4
+  source_index: 87
+  command: SS.4
+  name: Luxuria
+  hit_level: L
+  damage: '20'
+  startup: i20~21
+  recovery: r30
+  block: '-12'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - homing
+  - low
+  notes: '* Side step takes 9f, effective startup i29
+
+    * Tracking and range notes:
+
+    * Assuming i29 startup with 9f left sidestep
+
+    * SSL4 range: 2.45
+
+    * SSR4 range: 2.39
+
+    * Pseudo homing low?'
+- id: fc_dfp2
+  source_id: Claudio-FC.df+2
+  source_index: 88
+  command: FC.df+2
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i14~16
+  recovery: r35
+  block: '-18'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: fc_dfp2_2
+  source_id: Claudio-FC.df+2,2
+  source_index: 89
+  command: FC.df+2,2
+  name: Dual Guns
+  hit_level: m, h
+  damage: 14, 20
+  startup: i14~16, i14~15
+  recovery: r31
+  block: -2c
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st hit with 13f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 6f'
+- id: fc_dfp2_1p2
+  source_id: Claudio-FC.df+2,1+2
+  source_index: 90
+  command: FC.df+2,1+2
+  name: Bringer of Justice
+  hit_level: m,m
+  damage: 14,20
+  startup: i14~16
+  recovery: r34
+  block: '-13'
+  hit: +10a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Input can be delayed 13f
+
+    * Move can be delayed 10f
+
+    * Transition to r57 STB on hit without STB'
+- id: back_to_wall_b_b_ub
+  source_id: Claudio-(back to wall).b,b,ub
+  source_index: 91
+  command: (back to wall).b,b,ub
+  name: '[[Wall Jump Attack]]'
+  hit_level: m
+  damage: '21'
+  startup: i36~38
+  recovery: r30
+  block: +0c
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  - mid
+  notes: '* Floating state 5~13
+
+    * Low crush 14~32
+
+    * Floating state 33~35'
+- id: stb_dbp1p2
+  source_id: Claudio-STB.db+1+2
+  source_index: 92
+  command: STB.db+1+2
+  name: Blue Moon Burst
+  hit_level: M
+  damage: '25'
+  startup: i17~18
+  recovery: r41
+  block: '-9'
+  hit: +62a (+46)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - cs
+  - js
+  - fs
+  - heat
+  - low_crush
+  - high_crush
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * 5 chip damage on block
+
+    * 9 chip damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead
+
+    * High crush 6~16
+
+    * Low crush 20~32
+
+    * Floating state 33~35'
+- id: stb_f_ffp1p2
+  source_id: Claudio-STB.f,f,F+1+2
+  source_index: 93
+  command: STB.f,f,F+1+2
+  name: Anima
+  hit_level: h
+  damage: '45'
+  startup: i13~16
+  recovery: r46
+  block: +8g~+11g
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * 22 damage on block in heat
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead
+
+    * Assuming i19 startup from buffered manual input (temporary tracking score result)
+
+    * Low crush 3~26
+
+    * Floating state 27~29'
+- id: stb_ffp3_2
+  source_id: Claudio-f,F+3,STB.2
+  source_index: 94
+  command: STB.f,F+3,2
+  name: Purgatorio Burst
+  hit_level: m, m,m
+  damage: 8, 4,20
+  startup: i15~16, i20,i16
+  recovery: ''
+  block: '-9'
+  hit: +22a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - heat
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break on airborne hit only
+
+    * Can be charged
+
+    * Roughly 5 levels of charge
+
+    * 6 chip damage on block
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead
+
+    * Combo from 1st if uncharged'
+- id: stb_ffp3_2
+  source_id: Claudio-f,F+3,STB.2*
+  source_index: 95
+  command: STB.f,F+3,2*
+  name: Purgatorio Burst (full charge)
+  hit_level: m, m,m
+  damage: 8, 4,25
+  startup: i15~16, i20,i39~40
+  recovery: ''
+  block: '+12'
+  hit: +67a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - heat
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Guard Break
+
+    * Instant Tornado on hit
+
+    * 7 chip damage on block
+
+    * Consumes STB, but if in Heat, partially depletes the remaining Heat time instead
+
+    * Combo from 1st if uncharged'
+- id: 1p3
+  source_id: Claudio-1+3
+  source_index: 96
+  command: 1+3
+  name: Punishment
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw Break 1 or 2'
+- id: 2p4
+  source_id: Claudio-2+4
+  source_index: 97
+  command: 2+4
+  name: Roche Limit
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - stance_transition
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit
+
+    * Both players transition to FUFA on hit'
+- id: back_throw
+  source_id: Claudio-Back throw
+  source_index: 98
+  command: Back throw
+  name: Sudden Shadow
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable
+
+    * Can side switch on hit
+
+    * Opponent recovers in FDFT'
+- id: left_throw
+  source_id: Claudio-Left Throw
+  source_index: 99
+  command: Left throw
+  name: Avalaunche Throw
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Break: 1
+
+    * Opponent recovers in off-axis FUFT'
+- id: right_throw
+  source_id: Claudio-Right Throw
+  source_index: 100
+  command: Right throw
+  name: Prayer into the Void
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: FC
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Can side switch on hit
+
+    * Opponent recovers in FUFT'
+- id: ufp1p2
+  source_id: Claudio-uf+1+2
+  source_index: 101
+  command: uf+1+2
+  name: Gula
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2
+
+    * Side switch on hit
+
+    * Can be buffered
+
+    * Opponent recovers in FUFA'

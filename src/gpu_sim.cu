@@ -15,8 +15,8 @@ namespace {
 
 constexpr int kThreads = 256;
 constexpr int kFloatStateFields = 6;
-constexpr int kIntStateFields = 25;
-constexpr int kFighterIntFields = 10;
+constexpr int kIntStateFields = 27;
+constexpr int kFighterIntFields = 11;
 
 enum FloatField : int {
     P1Health,
@@ -38,10 +38,11 @@ enum FighterIntField : int {
     ThrowBreakActive,
     LaunchesTaken,
     Whiffs,
+    CharacterId,
 };
 
 enum StateIntField : int {
-    Frame = 20,
+    Frame = 22,
     StallFrames,
     NoActionFrames,
     RoundOver,
@@ -153,6 +154,10 @@ __device__ __constant__ DeviceMove c_moves[6] = {
     {HitThrow, 12, 2, 24, 25.0F, 0.48F, 30, 0, 0.22F, 0, 0},
 };
 
+__device__ __constant__ DeviceMove
+    c_character_moves[kRosterCharacterCount * kCharacterMoveSlotCount];
+__device__ __constant__ int c_character_move_catalog_enabled = 0;
+
 struct FighterD {
     float health;
     float x;
@@ -167,6 +172,7 @@ struct FighterD {
     int throw_break_active;
     int launches_taken;
     int whiffs;
+    int character_id;
 };
 
 struct StateD {
@@ -282,6 +288,7 @@ __device__ FighterD load_fighter(
         state_i[(int_base + ThrowBreakActive) * n + lane],
         state_i[(int_base + LaunchesTaken) * n + lane],
         state_i[(int_base + Whiffs) * n + lane],
+        state_i[(int_base + CharacterId) * n + lane],
     };
 }
 
@@ -307,6 +314,7 @@ __device__ void store_fighter(
     state_i[(int_base + ThrowBreakActive) * n + lane] = f.throw_break_active;
     state_i[(int_base + LaunchesTaken) * n + lane] = f.launches_taken;
     state_i[(int_base + Whiffs) * n + lane] = f.whiffs;
+    state_i[(int_base + CharacterId) * n + lane] = f.character_id;
 }
 
 __device__ StateD load_state(
@@ -372,8 +380,18 @@ __device__ __forceinline__ int move_total_frames(const DeviceMove& move) {
     return move.startup + move.active + move.recovery + move.whiff_recovery;
 }
 
+__device__ __forceinline__ const DeviceMove& move_for(const FighterD& fighter) {
+    if (c_character_move_catalog_enabled != 0 && fighter.character_id >= 0 &&
+        fighter.character_id < static_cast<int>(kRosterCharacterCount)) {
+        return c_character_moves[
+            fighter.character_id * static_cast<int>(kCharacterMoveSlotCount) + fighter.move];
+    }
+    return c_moves[fighter.move];
+}
+
 __device__ FighterD initial_fighter(float health, float x) {
-    return {health, x, 0.0F, HitNone, -1, 0, 0, 0, 0, 0, 0, 0, 0};
+    return {health, x, 0.0F, HitNone, -1, 0, 0, 0, 0, 0, 0, 0, 0,
+            static_cast<int>(kJunCharacterId)};
 }
 
 __device__ float reset_random_unit(unsigned long long value) {
@@ -546,7 +564,7 @@ __device__ void apply_attack(
 
 __device__ bool finish_move_if_needed(FighterD& fighter, bool active_whiff) {
     if (fighter.move < 0) return false;
-    const DeviceMove move = c_moves[fighter.move];
+    const DeviceMove move = move_for(fighter);
     bool whiffed = false;
     if (active_whiff && !fighter.has_hit && fighter.move_frame == move.startup + move.active) {
         whiffed = true;
@@ -574,26 +592,30 @@ __device__ FrameInfoD advance_frame(
     FrameInfoD info{};
     const int p1_move = p1.move;
     const int p2_move = p2.move;
-    const bool p1_active = p1_move >= 0 && p1.move_frame > c_moves[p1_move].startup &&
-                           p1.move_frame <= c_moves[p1_move].startup + c_moves[p1_move].active;
-    const bool p2_active = p2_move >= 0 && p2.move_frame > c_moves[p2_move].startup &&
-                           p2.move_frame <= c_moves[p2_move].startup + c_moves[p2_move].active;
+    DeviceMove p1_move_data{};
+    DeviceMove p2_move_data{};
+    if (p1_move >= 0) p1_move_data = move_for(p1);
+    if (p2_move >= 0) p2_move_data = move_for(p2);
+    const bool p1_active = p1_move >= 0 && p1.move_frame > p1_move_data.startup &&
+                           p1.move_frame <= p1_move_data.startup + p1_move_data.active;
+    const bool p2_active = p2_move >= 0 && p2.move_frame > p2_move_data.startup &&
+                           p2.move_frame <= p2_move_data.startup + p2_move_data.active;
     const bool has_p1_check = p1_active && !p1.has_hit;
     const bool has_p2_check = p2_active && !p2.has_hit;
     AttackCheckD p1_check{};
     AttackCheckD p2_check{};
-    if (has_p1_check) p1_check = check_attack(p1, p2, c_moves[p1_move], config);
-    if (has_p2_check) p2_check = check_attack(p2, p1, c_moves[p2_move], config);
+    if (has_p1_check) p1_check = check_attack(p1, p2, p1_move_data, config);
+    if (has_p2_check) p2_check = check_attack(p2, p1, p2_move_data, config);
 
     const bool p2_whiff_recovery = p2.move >= 0 && !p2.has_hit &&
-        p2.move_frame > c_moves[p2.move].startup + c_moves[p2.move].active;
+        p2.move_frame > p2_move_data.startup + p2_move_data.active;
     const bool p1_whiff_recovery = p1.move >= 0 && !p1.has_hit &&
-        p1.move_frame > c_moves[p1.move].startup + c_moves[p1.move].active;
+        p1.move_frame > p1_move_data.startup + p1_move_data.active;
     const bool p1_punishes = has_p1_check && p1_check.damage > 0.0F && p2_whiff_recovery;
     const bool p2_punishes = has_p2_check && p2_check.damage > 0.0F && p1_whiff_recovery;
 
     if (has_p1_check) {
-        const DeviceMove move = c_moves[p1_move];
+        const DeviceMove move = p1_move_data;
         apply_attack(p1, p2, move, p1_check, 1, config);
         info.damage_to_p2 += p1_check.damage;
         if (move.hit_level == HitThrow) {
@@ -604,7 +626,7 @@ __device__ FrameInfoD advance_frame(
         info.p2_block = p1_check.blocked;
     }
     if (has_p2_check) {
-        const DeviceMove move = c_moves[p2_move];
+        const DeviceMove move = p2_move_data;
         apply_attack(p2, p1, move, p2_check, -1, config);
         info.damage_to_p1 += p2_check.damage;
         if (move.hit_level == HitThrow) {
@@ -688,16 +710,18 @@ __device__ void write_player_outputs(
 
     float own_move_remaining = 0.0F;
     if (own.move >= 0) {
-        const int total = move_total_frames(c_moves[own.move]);
+        const int total = move_total_frames(move_for(own));
         own_move_remaining = fminf(1.0F, static_cast<float>(maxi(0, total - own.move_frame)) / total);
     }
     float opponent_move_remaining = 0.0F;
     if (opponent.move >= 0) {
-        const int total = move_total_frames(c_moves[opponent.move]);
+        const int total = move_total_frames(move_for(opponent));
         opponent_move_remaining = fminf(1.0F, static_cast<float>(maxi(0, total - opponent.move_frame)) / total);
     }
-    const bool throw_threat = opponent.move >= 0 && c_moves[opponent.move].hit_level == HitThrow &&
-        opponent.move_frame <= c_moves[opponent.move].startup + c_moves[opponent.move].active;
+    DeviceMove opponent_move{};
+    if (opponent.move >= 0) opponent_move = move_for(opponent);
+    const bool throw_threat = opponent.move >= 0 && opponent_move.hit_level == HitThrow &&
+        opponent.move_frame <= opponent_move.startup + opponent_move.active;
 
     const std::size_t base = lane * kObservationSize;
     observations[base + 0] = own.health / config.max_health;
@@ -729,7 +753,7 @@ __device__ void write_player_outputs(
 
 __device__ float visual_attack_likelihood(const FighterD& fighter, float distance) {
     if (fighter.move < 0) return 0.0F;
-    const DeviceMove& move = c_moves[fighter.move];
+    const DeviceMove& move = move_for(fighter);
     const float proximity = clampf(1.0F - distance / fmaxf(move.range + 0.8F, 0.1F), 0.0F, 1.0F);
     const bool active_window = fighter.move_frame <= move.startup + move.active;
     return (active_window ? 0.6F : 0.25F) + 0.4F * proximity;
@@ -970,7 +994,12 @@ __global__ void reset_kernel(
     unsigned long long seed) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= n || (only_done && !terminated[lane])) return;
-    const StateD state = initial_state(config, seed, lane);
+    StateD state = initial_state(config, seed, lane);
+    if (only_done) {
+        const StateD previous = load_state(state_f, state_i, n, lane);
+        state.p1.character_id = previous.p1.character_id;
+        state.p2.character_id = previous.p2.character_id;
+    }
     store_state(state_f, state_i, n, lane, state);
     rewards_p1[lane] = 0.0F;
     rewards_p2[lane] = 0.0F;
@@ -980,6 +1009,46 @@ __global__ void reset_kernel(
     truncated[lane] = 0;
     write_all_outputs(state, state, config, lane, obs_p1, obs_p2,
                       visual_obs_p1, visual_obs_p2, masks_p1, masks_p2);
+}
+
+__global__ void assign_character_ids_kernel(
+    int* state_i,
+    const float* state_f,
+    std::size_t n,
+    DeviceConfig config,
+    const OpponentProfileParameters* profiles,
+    std::size_t profile_count,
+    const std::uint32_t* assignments,
+    int learner_player,
+    float* obs_p1,
+    float* obs_p2,
+    float* visual_obs_p1,
+    float* visual_obs_p2,
+    std::uint8_t* masks_p1,
+    std::uint8_t* masks_p2) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= n) return;
+    const std::uint32_t profile_index = assignments[lane];
+    std::uint32_t opponent_character = kJunCharacterId;
+    if (profile_index < profile_count &&
+        profiles[profile_index].character_id < kRosterCharacterCount) {
+        opponent_character = profiles[profile_index].character_id;
+    }
+    const bool learner_is_p1 = learner_player == 1 ||
+        (learner_player == 0 && ((lane / kEvaluationStyleCount) & 1ULL) == 0ULL);
+    state_i[(learner_is_p1 ? CharacterId : kFighterIntFields + CharacterId) * n + lane] =
+        static_cast<int>(kJunCharacterId);
+    state_i[(learner_is_p1 ? kFighterIntFields + CharacterId : CharacterId) * n + lane] =
+        static_cast<int>(opponent_character);
+    const StateD state = load_state(state_f, state_i, n, lane);
+    write_player_outputs(state, config, 1, lane, obs_p1, masks_p1);
+    write_player_outputs(state, config, 2, lane, obs_p2, masks_p2);
+    const float distance = fabsf(state.p2.x - state.p1.x);
+    const std::size_t visual_base = lane * kVisualObservationSize;
+    visual_obs_p1[visual_base + 11] = visual_attack_likelihood(state.p1, distance);
+    visual_obs_p1[visual_base + 12] = visual_attack_likelihood(state.p2, distance);
+    visual_obs_p2[visual_base + 11] = visual_attack_likelihood(state.p2, distance);
+    visual_obs_p2[visual_base + 12] = visual_attack_likelihood(state.p1, distance);
 }
 
 __global__ void refresh_outputs_kernel(
@@ -1215,6 +1284,71 @@ void GpuSimulatorBatch::reset_done_seeded(std::uint64_t seed, void* stream) {
     impl_->launch_reset(true, seed, as_stream(stream));
 }
 
+void GpuSimulatorBatch::set_character_move_specs(
+    std::span<const CharacterMoveParameters> moves,
+    void* stream) {
+    constexpr std::size_t expected = kRosterCharacterCount * kCharacterMoveSlotCount;
+    if (moves.size() != expected) {
+        throw std::invalid_argument("character move catalog must contain exactly 42 x 6 rows");
+    }
+    std::vector<DeviceMove> catalog(expected);
+    std::vector<std::uint8_t> seen(expected, 0);
+    for (const auto& move : moves) {
+        if (move.character_id >= kRosterCharacterCount || move.slot >= kCharacterMoveSlotCount) {
+            throw std::invalid_argument("character move catalog contains an invalid character or slot");
+        }
+        if (move.hit_level < HitHigh || move.hit_level > HitThrow || move.startup <= 0 ||
+            move.active <= 0 || move.recovery < 0 || move.damage < 0.0F || move.range <= 0.0F) {
+            throw std::invalid_argument("character move catalog contains invalid combat values");
+        }
+        const std::size_t index =
+            move.character_id * kCharacterMoveSlotCount + move.slot;
+        if (seen[index] != 0) {
+            throw std::invalid_argument("character move catalog contains a duplicate slot");
+        }
+        seen[index] = 1;
+        catalog[index] = {
+            move.hit_level, move.startup, move.active, move.recovery,
+            move.damage, move.range, move.hitstun, move.blockstun,
+            move.pushback, move.whiff_recovery, move.launches,
+        };
+    }
+    if (std::find(seen.begin(), seen.end(), std::uint8_t{0}) != seen.end()) {
+        throw std::invalid_argument("character move catalog is missing a required slot");
+    }
+    const cudaStream_t cuda_stream = as_stream(stream);
+    check_cuda(cudaMemcpyToSymbolAsync(
+        c_character_moves, catalog.data(), sizeof(DeviceMove) * catalog.size(),
+        0, cudaMemcpyHostToDevice, cuda_stream), "upload character move catalog");
+    const int enabled = 1;
+    check_cuda(cudaMemcpyToSymbolAsync(
+        c_character_move_catalog_enabled, &enabled, sizeof(enabled),
+        0, cudaMemcpyHostToDevice, cuda_stream), "enable character move catalog");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize character move catalog upload");
+}
+
+void GpuSimulatorBatch::set_opponent_characters_device(
+    const OpponentProfileParameters* device_profiles,
+    std::size_t profile_count,
+    const std::uint32_t* device_profile_assignments,
+    int learner_player,
+    void* stream) {
+    if (device_profiles == nullptr || device_profile_assignments == nullptr || profile_count == 0) {
+        throw std::invalid_argument("profile table and assignments must be non-null and non-empty");
+    }
+    if (learner_player < 0 || learner_player > 2) {
+        throw std::invalid_argument("learner_player must be 0 (mirrored), 1, or 2");
+    }
+    const cudaStream_t cuda_stream = as_stream(stream);
+    assign_character_ids_kernel<<<blocks_for(impl_->count), kThreads, 0, cuda_stream>>>(
+        impl_->state_i, impl_->state_f, impl_->count, impl_->device_config,
+        device_profiles, profile_count, device_profile_assignments, learner_player,
+        impl_->observations_p1, impl_->observations_p2,
+        impl_->visual_observations_p1, impl_->visual_observations_p2,
+        impl_->masks_p1, impl_->masks_p2);
+    check_cuda(cudaGetLastError(), "launch GPU character-assignment kernel");
+}
+
 void GpuSimulatorBatch::step_device(
     const std::uint8_t* device_p1_actions,
     const std::uint8_t* device_p2_actions,
@@ -1271,6 +1405,7 @@ void GpuSimulatorBatch::upload_states(std::span<const State> states, void* strea
         ints[(int_base + ThrowBreakActive) * impl_->count + lane] = fighter.throw_break_active;
         ints[(int_base + LaunchesTaken) * impl_->count + lane] = fighter.launches_taken;
         ints[(int_base + Whiffs) * impl_->count + lane] = fighter.whiffs;
+        ints[(int_base + CharacterId) * impl_->count + lane] = static_cast<int>(kJunCharacterId);
     };
     for (std::size_t lane = 0; lane < impl_->count; ++lane) {
         put_fighter(lane, 1, states[lane].p1);

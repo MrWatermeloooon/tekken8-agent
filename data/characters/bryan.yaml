@@ -1,0 +1,3570 @@
+character_id: bryan
+display_name: Bryan Fury
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/bryan/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 131aeea4fc5458858a372ea8001c0b2b326adfe8911cd01d3fb8f47372b4e0ee
+data_status: available
+stances:
+- H
+- SNE
+- ws
+- SS
+- FC
+- SLS
+moves:
+- id: h_2p3
+  source_id: Bryan-H.2+3
+  source_index: 1
+  command: H.2+3
+  name: Notorious Monster
+  hit_level: m,m,t
+  damage: 20,20,35
+  startup: i16
+  recovery: r34
+  block: '+9'
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - spk
+  - js
+  - throw
+  - heat
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Spike
+
+    * Transition to attack throw on hit
+
+    * Low crush 9~'
+- id: r_dfp1p2
+  source_id: Bryan-R.df+1+2
+  source_index: 2
+  command: R.df+1+2
+  name: Total Vandalization
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Bryan-1
+  source_index: 3
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_2'
+  source_id: Bryan-1,2
+  source_index: 4
+  command: 1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i12
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: '+9'
+  tier: core
+  tags:
+  - high
+  notes: Jail from 1st attack
+- id: '1_2_1'
+  source_id: Bryan-1,2,1
+  source_index: 5
+  command: 1,2,1
+  name: One Two Body Blow
+  hit_level: h, h, m
+  damage: 5, 8, 18
+  startup: i10, ,i19
+  recovery: r25
+  block: '-6'
+  hit: '+6'
+  counter_hit: +65a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH with no delay
+
+    * Combo from 2nd CH with 10F delay
+
+    * Move can be delayed by 10F'
+- id: '1_2_3'
+  source_id: Bryan-1,2,3
+  source_index: 6
+  command: 1,2,3
+  name: One Two Low Kick
+  hit_level: h, h, L
+  damage: 5, 8, 15
+  startup: i10, ,i24
+  recovery: r31
+  block: '-12'
+  hit: '+2'
+  counter_hit: +14a
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH with no delay
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 3F'
+- id: '1_2_4'
+  source_id: Bryan-1,2,4
+  source_index: 7
+  command: 1,2,4
+  name: One Two Neck Breaker
+  hit_level: h, h, h
+  damage: 5, 8, 24
+  startup: i10, ,i20
+  recovery: r30
+  block: '-5'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st CH or 2nd CH with 3f delay
+
+    * Move can be delayed 2F
+
+    * Input can be delayed by 3F'
+- id: '1_4'
+  source_id: Bryan-1,4
+  source_index: 8
+  command: 1,4
+  name: ''
+  hit_level: h, h
+  damage: 5, 14
+  startup: i10, i15
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Jail from 1st attack
+- id: '1_4_2'
+  source_id: Bryan-1,4,2
+  source_index: 9
+  command: 1,4,2
+  name: ''
+  hit_level: h, h, h
+  damage: 5, 14, 18
+  startup: i10, ,i24
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 2nd CH with 10f delay
+
+    * Input can be delayed 18f
+
+    * Move can be delayed 16f
+
+    * Cancel into 1,4,2,1 with f+1
+
+    * Cancel into 1,4,2,4 with f+4
+
+    * Interrupt with i8 from 3rd block'
+- id: '1_4_2_1'
+  source_id: Bryan-1,4,2,1
+  source_index: 10
+  command: 1,4,2,1
+  name: ''
+  hit_level: h, h, h, h
+  damage: 5, 14, 18, 16
+  startup: i10, ,i19
+  recovery: r25
+  block: '+0'
+  hit: +55a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Enter SLS +7 +62a r13 with f
+
+    * Cancel to r9 SS with u_d
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 6f'
+- id: '1_4_2_1_2'
+  source_id: Bryan-1,4,2,1,2
+  source_index: 11
+  command: 1,4,2,1,2
+  name: Lair's Dance
+  hit_level: h, h, h, h, h
+  damage: 5, 14, 18, 16, 22
+  startup: i10, ,i24
+  recovery: r33
+  block: '-9'
+  hit: +41d (-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Input can be delayed 1f'
+- id: '1_4_2_1_4'
+  source_id: Bryan-1,4,2,1,4
+  source_index: 12
+  command: 1,4,2,1,4
+  name: Cremation
+  hit_level: h, h, h, h, m
+  damage: 5, 14, 18, 16, 21
+  startup: i10, ,i25~26
+  recovery: r30
+  block: '-10'
+  hit: +37a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Strong Aerial Tailspin
+
+    * Can hit grounded while off-axis'
+- id: '1_4_2_4'
+  source_id: Bryan-1,4,2,4
+  source_index: 13
+  command: 1,4,2,4
+  name: Whipping Fury
+  hit_level: h, h, h, m
+  damage: 5, 14, 18, 21
+  startup: i10, ,i30~31
+  recovery: r25
+  block: '-5'
+  hit: +40a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Low crush 16~31
+
+    * Floating state 32~34'
+- id: '1_4_3'
+  source_id: Bryan-1,4,3
+  source_index: 14
+  command: 1,4,3
+  name: Jab > Double Spin Kick
+  hit_level: h, h, m
+  damage: 5, 14, 15
+  startup: i10, ,i21
+  recovery: r26
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 2nd CH with 5f delay
+- id: '1_4_3_3'
+  source_id: Bryan-1,4,3,3
+  source_index: 15
+  command: 1,4,3,3
+  name: Running Blind
+  hit_level: h, h, m, h
+  damage: 5, 14, 15, 18
+  startup: i10, ,i23
+  recovery: r26
+  block: '-7'
+  hit: '+7'
+  counter_hit: +14a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 3rd CH
+- id: 1p3p4
+  source_id: Bryan-1+3+4
+  source_index: 16
+  command: 1+3+4
+  name: Taunt
+  hit_level: m!
+  damage: '0'
+  startup: i28~31
+  recovery: r78 SNE
+  block: ''
+  hit: '+16'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Cancellable with any input on frames 1~31
+
+    * Gain SNE
+
+    * -34 if not cancelled'
+- id: '2'
+  source_id: Bryan-2
+  source_index: 17
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: r18
+  block: '+1'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_3'
+  source_id: Bryan-2,3
+  source_index: 18
+  command: 2,3
+  name: PK Combination
+  hit_level: h, m
+  damage: 10, 14
+  startup: i10, i16
+  recovery: r29
+  block: '-10'
+  hit: '+6'
+  counter_hit: +16a (+7)
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: 'Balcony Break (CH)
+
+    * Combo from 1st hit with 1f delay
+
+    * CH frames also apply to combo from 1st CH'
+- id: '3'
+  source_id: Bryan-3
+  source_index: 19
+  command: '3'
+  name: Mid Kick
+  hit_level: m
+  damage: '14'
+  startup: i16
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_2'
+  source_id: Bryan-3,2
+  source_index: 20
+  command: 3,2
+  name: ''
+  hit_level: m, m
+  damage: 14, 11
+  startup: i16, i22
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Combo from 1st CH
+- id: '3_2_1'
+  source_id: Bryan-3,2,1
+  source_index: 21
+  command: 3,2,1
+  name: ''
+  hit_level: m, m, m
+  damage: 14, 11, 10
+  startup: i16, ,i20
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 2nd hit
+
+    * Combo from 1st CH'
+- id: '3_2_1_2'
+  source_id: Bryan-3,2,1,2
+  source_index: 22
+  command: 3,2,1,2
+  name: Mid Kick > Rush
+  hit_level: m, m, m, m
+  damage: 14, 11, 10, 14
+  startup: i16, ,i19
+  recovery: r31
+  block: '-10'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH with 2f delay'
+- id: '3_2_1_4'
+  source_id: Bryan-3,2,1,4
+  source_index: 23
+  command: 3,2,1,4
+  name: Gatling Combination
+  hit_level: m, m, m, L
+  damage: 14, 11, 10, 12
+  startup: i16, ,i22
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: Combo from 3rd CH with 3f delay
+- id: '3_3'
+  source_id: Bryan-3,3
+  source_index: 24
+  command: 3,3
+  name: ''
+  hit_level: m, h
+  damage: 14, 13
+  startup: i16, i23
+  recovery: r24
+  block: '-6'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st CH
+- id: '3_3_2'
+  source_id: Bryan-3,3,2
+  source_index: 25
+  command: 3,3,2
+  name: Anaconda Bite
+  hit_level: m, h, h
+  damage: 14, 13, 20
+  startup: i16, ,i22~23
+  recovery: r30
+  block: '-7'
+  hit: +43a (+33)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 2nd CH'
+- id: '3_3_4'
+  source_id: Bryan-3,3,4
+  source_index: 26
+  command: 3,3,4
+  name: Anaconda Rage
+  hit_level: m, h, m
+  damage: 14, 13, 25
+  startup: i16, ,i28
+  recovery: r37
+  block: '-12'
+  hit: +37d (-21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: '4'
+  source_id: Bryan-4
+  source_index: 27
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i12
+  recovery: r26
+  block: '-7'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_1'
+  source_id: Bryan-4,1
+  source_index: 28
+  command: 4,1
+  name: Viper Bite
+  hit_level: h, h
+  damage: 15, 15
+  startup: i12, i23~24
+  recovery: r22
+  block: '-1'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Combo from 1st hit
+
+    * Transition to +8 +0  r15 SWA with B'
+- id: '4_3'
+  source_id: Bryan-4,3
+  source_index: 29
+  command: 4,3
+  name: ''
+  hit_level: h, m
+  damage: 15, 12
+  startup: i12, i24~25
+  recovery: r27
+  block: '-10'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: '4_3_4'
+  source_id: Bryan-4,3,4
+  source_index: 30
+  command: 4,3,4
+  name: Double Spin Tomahawk
+  hit_level: h, m, m
+  damage: 15, 12, 16
+  startup: i12, ,i24~25
+  recovery: r30
+  block: '-12'
+  hit: +14a (+5)
+  counter_hit: +33d (+25)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Hold to power up and deal more chip damage on block'
+- id: '4_3_4'
+  source_id: Bryan-4,3,4*
+  source_index: 31
+  command: 4,3,4*
+  name: Double Spin Tomahawk (Hold)
+  hit_level: h, m, m
+  damage: 15, 12, 25
+  startup: i12, ,i40~41
+  recovery: r30
+  block: '-6'
+  hit: +35a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Chip damage on block'
+- id: 4_3_fp4
+  source_id: Bryan-4,3,f+4
+  source_index: 32
+  command: 4,3,f+4
+  name: Triple Spin Kick
+  hit_level: h, m, h
+  damage: 15, 12, 18
+  startup: i12, ,i24~25
+  recovery: r30
+  block: '-5'
+  hit: '+6'
+  counter_hit: +31a (+21)
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 2nd CH
+- id: 1p2
+  source_id: Bryan-1+2
+  source_index: 33
+  command: 1+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r27
+  block: '-7'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: Homing
+- id: 1p2_1
+  source_id: Bryan-1+2,1
+  source_index: 34
+  command: 1+2,1
+  name: Snake Bite
+  hit_level: m, h
+  damage: 15, 15
+  startup: i17~18, i23~24
+  recovery: r22
+  block: '-1'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Enter SWA +0 +7 r15 with b'
+- id: 1p2_2
+  source_id: Bryan-1+2,2
+  source_index: 35
+  command: 1+2,2
+  name: Snake Pit
+  hit_level: m, m
+  damage: 15, 20
+  startup: i17~18, i26~27
+  recovery: r34
+  block: '-14'
+  hit: +51d (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with delay'
+- id: 3p4
+  source_id: Bryan-3+4
+  source_index: 36
+  command: 3+4
+  name: Middle Side Kick
+  hit_level: m
+  damage: '20'
+  startup: i18
+  recovery: r32
+  block: '-13'
+  hit: '+8'
+  counter_hit: +59a
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: Balcony Break (airborne)
+- id: sne_3p4_2
+  source_id: Bryan-3+4,SNE.2
+  source_index: 37
+  command: SNE.3+4,2
+  name: Neo Soul Eraser
+  hit_level: m, m
+  damage: 20, 20
+  startup: i18, i14~15
+  recovery: r30
+  block: '-9'
+  hit: +25a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - parry
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Consumes SNE
+
+    * Chip damage on block (8)
+
+    * Interrupt with i5 from 1st block
+
+    * Unparryable by traditional parries, Asuka, Nina, etc'
+- id: sne_3p4_2
+  source_id: Bryan-3+4,SNE.2*
+  source_index: 38
+  command: SNE.3+4,2*
+  name: Neo Soul Eraser Exceed
+  hit_level: m, M
+  damage: 20, 30
+  startup: i18, i55~56
+  recovery: r34
+  block: +9g~+10g
+  hit: +66a (+50)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - rbr
+  - bbr
+  - chp
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Consumes SNE
+
+    * Chip damage on block (12)
+
+    * Wall splat on block'
+- id: fp2
+  source_id: Bryan-f+2
+  source_index: 39
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: fp2_1
+  source_id: Bryan-f+2,1
+  source_index: 40
+  command: f+2,1
+  name: ''
+  hit_level: m, m
+  damage: 10, 12
+  startup: i15, i10
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Jail from 1st attack
+- id: fp2_1_4
+  source_id: Bryan-f+2,1,4
+  source_index: 41
+  command: f+2,1,4
+  name: Right Left > Spin Kick > Snake Eyes
+  hit_level: m, m, m
+  damage: 10, 12, 20
+  startup: i15, ,i18~19
+  recovery: r36
+  block: '-13'
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st or 2nd hit
+
+    * Gain SNE on hit with 1+2
+
+    * SNE gain is r25'
+- id: sne_fp2_1_2
+  source_id: Bryan-f+2,1,SNE.2
+  source_index: 42
+  command: SNE.f+2,1,2
+  name: ''
+  hit_level: m, m, m
+  damage: 10, 12, 5
+  startup: i15, ,i14~15
+  recovery: r29
+  block: '-7'
+  hit: +9c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - elb
+  - chp
+  - heat
+  - floor_break
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Consumes SNE
+
+    * Consumes 240f of Heat Time
+
+    * Chip damage on block (1)'
+- id: sne_fp2_1_2_3
+  source_id: Bryan-f+2,1,SNE.2,3
+  source_index: 43
+  command: SNE.f+2,1,2,3
+  name: ''
+  hit_level: m, m, m, m
+  damage: 10, 12, 5, 7
+  startup: i15, ,i22
+  recovery: r32
+  block: '-10'
+  hit: +18a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - chp
+  - chip
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st hit
+
+    * Chip damage on block (2)'
+- id: sne_fp2_1_2_3_2
+  source_id: Bryan-f+2,1,SNE.2,3,2
+  source_index: 44
+  command: SNE.f+2,1,2,3,2
+  name: Neo Incinerator
+  hit_level: m, m, m, m, m
+  damage: 10, 12, 5, 7, 20
+  startup: i15, ,i35~36
+  recovery: r39
+  block: '-13'
+  hit: +25a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - heat
+  - balcony_break
+  - parry
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Chip damage on block (8)
+
+    * Unparryable by traditional parries, Asuka, Nina, etc
+
+    * Consumes 210f of Heat'
+- id: fp3
+  source_id: Bryan-f+3
+  source_index: 45
+  command: f+3
+  name: Knee Strike
+  hit_level: m
+  damage: '18'
+  startup: i16~18
+  recovery: r27
+  block: +0~+2
+  hit: +4~+6
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: Knee
+- id: fp4
+  source_id: Bryan-f+4
+  source_index: 46
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i18
+  recovery: r30
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp4_1
+  source_id: Bryan-f+4,1
+  source_index: 47
+  command: f+4,1
+  name: Boa Crusher
+  hit_level: m, m
+  damage: 10, 10
+  startup: i18, i25~26
+  recovery: r40
+  block: -13c
+  hit: +40a (+32)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 5f delay
+
+    * Move can be delayed 4f'
+- id: fp1p2
+  source_id: Bryan-f+1+2
+  source_index: 48
+  command: f+1+2
+  name: Sidestep Elbow
+  hit_level: h
+  damage: '22'
+  startup: i20~21
+  recovery: r29
+  block: '+1'
+  hit: +19d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * 6 chip damage on block'
+- id: dfp1
+  source_id: Bryan-DF+1
+  source_index: 49
+  command: DF+1
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i15
+  recovery: r24
+  block: '-5'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* DF must be held for the extensions'
+- id: dfp1_1
+  source_id: Bryan-DF+1,1
+  source_index: 50
+  command: DF+1,1
+  name: ''
+  hit_level: m, m
+  damage: 8, 2
+  startup: i15, i10
+  recovery: r29
+  block: '-10'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Jail from 1st block with 8F delay
+
+    * Combo from 1st hit with 14F delay
+
+    * Move can be delayed 16F'
+- id: dfp1_1_1
+  source_id: Bryan-DF+1,1,1
+  source_index: 51
+  command: DF+1,1,1
+  name: ''
+  hit_level: m, m, m
+  damage: 8, 2, 2
+  startup: i15, ,i10
+  recovery: r29
+  block: '-10'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Jail from 1st block with 8?F delay
+
+    * Combo from 1st hit with 14F delay
+
+    * Move can be delayed by 25F'
+- id: dfp1_1_1_1
+  source_id: Bryan-DF+1,1,1,1
+  source_index: 52
+  command: DF+1,1,1,1
+  name: Vulcan Cannon
+  hit_level: m, m, m, m
+  damage: 8, 2, 2, 2
+  startup: i15, ,i10
+  recovery: r29
+  block: '-10'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Jail from 1st block with 8?F delay
+
+    * Combo from 1st hit with 14F delay
+
+    * Move can be delayed by 25F'
+- id: dfp1_2
+  source_id: Bryan-DF+1,2
+  source_index: 53
+  command: DF+1,2
+  name: Double Body Blow
+  hit_level: m, m
+  damage: 8, 20
+  startup: i15, i23
+  recovery: r36
+  block: '-15'
+  hit: '+1'
+  counter_hit: +14a (+5)
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st hit
+
+    * Alternate inputs:
+
+    ** DF+1,1,2
+
+    ** DF+1,1,1,2
+
+    ** DF+1,1,1,1,2
+
+    * Interrupt with i3 from 1st block'
+- id: dfp2
+  source_id: Bryan-df+2
+  source_index: 54
+  command: df+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - elb
+  - mid
+  notes: Elbow
+- id: dfp2_1
+  source_id: Bryan-df+2,1
+  source_index: 55
+  command: df+2,1
+  name: Blackout Combo
+  hit_level: m, h
+  damage: 12, 11
+  startup: i13, i16
+  recovery: r22
+  block: '-4'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Enter SWA -1 +8 r15 with b'
+- id: dfp2_3
+  source_id: Bryan-df+2,3
+  source_index: 56
+  command: df+2,3
+  name: Blackout Trap
+  hit_level: m, m
+  damage: 12, 20
+  startup: i13, i23
+  recovery: r32
+  block: '-13'
+  hit: '+8'
+  counter_hit: +59a
+  tier: specialist
+  tags:
+  - mid
+  notes: Combo from 1st CH
+- id: dfp3
+  source_id: Bryan-df+3
+  source_index: 57
+  command: df+3
+  name: Snake Edge
+  hit_level: L
+  damage: '20'
+  startup: i29~30
+  recovery: r33
+  block: '-26'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - low
+  notes: '* Homing
+
+    * High crush 6~'
+- id: dfp4
+  source_id: Bryan-df+4
+  source_index: 58
+  command: df+4
+  name: Wolf's Tail
+  hit_level: m
+  damage: '23'
+  startup: i22~24
+  recovery: r32
+  block: -6~-4
+  hit: +19a
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break (airborne)'
+- id: dp2
+  source_id: Bryan-d+2
+  source_index: 59
+  command: d+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i14~15
+  recovery: r28
+  block: '-2'
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - elb
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Elbow
+
+    * Transition to FC with D'
+- id: dp2_3
+  source_id: Bryan-d+2,3
+  source_index: 60
+  command: d+2,3
+  name: Python Crush
+  hit_level: m, m
+  damage: 17, 21
+  startup: i14~15, i22
+  recovery: r34
+  block: '-10'
+  hit: +16a (-1)
+  counter_hit: +32a (+18)
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Combo from 1st CH with 10f delay
+
+    * Move can be delayed 9f'
+- id: dp3
+  source_id: Bryan-d+3
+  source_index: 61
+  command: d+3
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp3_2
+  source_id: Bryan-d+3,2
+  source_index: 62
+  command: d+3,2
+  name: Quick Low Screw Punch > Snake Eyes
+  hit_level: l, h
+  damage: 10, 22
+  startup: i16, i21
+  recovery: r31
+  block: '-7'
+  hit: +35a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Gain SNE on hit with 1+2'
+- id: dp4
+  source_id: Bryan-d+4
+  source_index: 63
+  command: d+4
+  name: Low Kick
+  hit_level: L
+  damage: '13'
+  startup: i15
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp1p2
+  source_id: Bryan-d+1+2
+  source_index: 64
+  command: d+1+2
+  name: ''
+  hit_level: m,m
+  damage: 10,15
+  startup: i17
+  recovery: r29
+  block: '-10'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Can be canceled into stances after 24 frames
+
+    * Enter SLS -3 +10g r13 with f
+
+    * Enter SWA -5 +8 r15 with b
+
+    * Opponent is further away on CH
+
+    * Can be done from Crouch Level 1'
+- id: dp1p2_3
+  source_id: Bryan-d+1+2,3
+  source_index: 65
+  command: d+1+2,3
+  name: Hammer Driver Hatchet
+  hit_level: m,m, l
+  damage: 10,15, 20
+  startup: i17, i27~28
+  recovery: r31
+  block: '-13'
+  hit: '+5'
+  counter_hit: +25a
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: ''
+- id: dp1p2_2
+  source_id: Bryan-d+1+2~2
+  source_index: 66
+  command: d+1+2~2
+  name: Snake Bomb
+  hit_level: m
+  damage: '24'
+  startup: i30
+  recovery: r33
+  block: '+7'
+  hit: +53a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Chip damage on block'
+- id: dp3p4
+  source_id: Bryan-d+3+4
+  source_index: 67
+  command: d+3+4
+  name: ''
+  hit_level: l
+  damage: '16'
+  startup: i19
+  recovery: r31
+  block: '-12'
+  hit: '-1'
+  counter_hit: '+4'
+  tier: specialist
+  tags:
+  - low
+  notes: Can hit grounded on certain ranges
+- id: dp3p4_2
+  source_id: Bryan-d+3+4,2
+  source_index: 68
+  command: d+3+4,2
+  name: Side Low Knuckle Whip
+  hit_level: l, m
+  damage: 16, 25
+  startup: i19, i19
+  recovery: r36
+  block: '-12'
+  hit: +14a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st CH
+
+    * Cancel to -23 -12 -7 FC with DB'
+- id: dbp2
+  source_id: Bryan-db+2
+  source_index: 69
+  command: db+2
+  name: Stomach Blow
+  hit_level: m
+  damage: '13'
+  startup: i15~17
+  recovery: r25
+  block: '-6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: dbp3
+  source_id: Bryan-db+3
+  source_index: 70
+  command: db+3
+  name: Sweeper kick
+  hit_level: L
+  damage: '11'
+  startup: i16~17
+  recovery: r30 FC
+  block: '-12'
+  hit: '-1'
+  counter_hit: '+4'
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: dbp1p2
+  source_id: Bryan-db+1+2
+  source_index: 71
+  command: db+1+2
+  name: Crash Impact
+  hit_level: m,h
+  damage: 8,16
+  startup: i15 i12
+  recovery: r34
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43a (+35)
+
+
+    * Balcony Break (airborne)
+
+    * Jail from 1st attack'
+- id: bp1
+  source_id: Bryan-b+1
+  source_index: 72
+  command: b+1
+  name: Chopping Elbow
+  hit_level: m
+  damage: '21'
+  startup: i20~21
+  recovery: r35
+  block: '+4'
+  hit: +7c
+  counter_hit: +78a (+58)
+  tier: specialist
+  tags:
+  - spk
+  - elb
+  - mid
+  notes: '* Spike
+
+    * Elbow'
+- id: bp1p3
+  source_id: Bryan-b+1+3
+  source_index: 73
+  command: b+1+3
+  name: Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r35
+  block: ''
+  hit: '+31'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high or mid punches
+
+    * Parry state 5~12'
+- id: bp1p3_p_2
+  source_id: Bryan-b+1+3,P.2
+  source_index: 74
+  command: b+1+3,P.2
+  name: Parry > Mach Breaker > Snake Eyes
+  hit_level: h
+  damage: '30'
+  startup: ',i13~14'
+  recovery: r33
+  block: '-10'
+  hit: +20d (-38)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Gain SNE on hit
+
+    * SNE gain is r25
+
+    * +40d (-18) if Bryan has SNE already
+
+    * Chip damage on block'
+- id: bp2
+  source_id: Bryan-b+2
+  source_index: 75
+  command: b+2
+  name: ''
+  hit_level: h
+  damage: '18'
+  startup: i17
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: +53a
+  tier: core
+  tags:
+  - high
+  notes: '* Cancel into b+2,1 with f+1
+
+    * Cancel into b+2,4 with f+4'
+- id: bp2_1
+  source_id: Bryan-b+2,1
+  source_index: 76
+  command: b+2,1
+  name: ''
+  hit_level: h, h
+  damage: 18, 16
+  startup: i17, i19
+  recovery: r25
+  block: '+0'
+  hit: '+55'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Enter SLS +7 +62a r13 with f
+
+    * Cancel to r9 SS with u_d
+
+    * Inpput can be delayed 17f
+
+    * Move can be delayed 16f'
+- id: bp2_1_2
+  source_id: Bryan-b+2,1,2
+  source_index: 77
+  command: b+2,1,2
+  name: Hands of Doom
+  hit_level: h, h, h
+  damage: 18, 16, 22
+  startup: i17, ,i24
+  recovery: r33
+  block: '-9'
+  hit: +41d (-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break'
+- id: bp2_1_4
+  source_id: Bryan-b+2,1,4
+  source_index: 78
+  command: b+2,1,4
+  name: Kickass Combo
+  hit_level: h, h, m
+  damage: 18, 16, 20
+  startup: i17, ,i25-26
+  recovery: r30
+  block: '-10'
+  hit: +37a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Can hit grounded when off-axis'
+- id: bp2_4
+  source_id: Bryan-b+2,4
+  source_index: 79
+  command: b+2,4
+  name: Wolf Call
+  hit_level: h, m
+  damage: 18, 21
+  startup: i17, i30-31
+  recovery: r25
+  block: '-5'
+  hit: +40a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Low crush 16~31
+
+    * Floating state 32~34'
+- id: bp3
+  source_id: Bryan-b+3
+  source_index: 80
+  command: b+3
+  name: 1st Hit
+  hit_level: m
+  damage: '12'
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3
+  source_id: Bryan-b+3
+  source_index: 81
+  command: b+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i19
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Enter SLS +1 +12g +12 r18 with f
+- id: bp3_2
+  source_id: Bryan-b+3,2
+  source_index: 82
+  command: b+3,2
+  name: ''
+  hit_level: m, h
+  damage: 12, 12
+  startup: ',i16'
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st CH
+- id: bp3_2_1
+  source_id: Bryan-b+3,2,1
+  source_index: 83
+  command: b+3,2,1
+  name: ''
+  hit_level: m, h, m
+  damage: 12, 12, 10
+  startup: ',i16, i20'
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd hit
+
+    * Combo from 1st CH'
+- id: bp3_2_1_2
+  source_id: Bryan-b+3,2,1,2
+  source_index: 84
+  command: b+3,2,1,2
+  name: Front Kick > Rush
+  hit_level: m, h, m, m
+  damage: 12, 12, 10, 14
+  startup: ',i16, ,i19'
+  recovery: r31
+  block: '-10'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH'
+- id: bp3_2_1_4
+  source_id: Bryan-b+3,2,1,4
+  source_index: 85
+  command: b+3,2,1,4
+  name: Run for Cover
+  hit_level: m, h, m, L
+  damage: 12, 12, 10, 12
+  startup: ',i16, ,i22'
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Combo from 2nd CH'
+- id: bp3_4
+  source_id: Bryan-b+3,4
+  source_index: 86
+  command: b+3,4
+  name: 2nd Hit
+  hit_level: m, m
+  damage: 12, 18
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3_4_1
+  source_id: Bryan-b+3,4,1
+  source_index: 87
+  command: b+3,4,1
+  name: 3rd Hit
+  hit_level: m, m, m
+  damage: 12, 18, 5
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3_4_1_2
+  source_id: Bryan-b+3,4,1,2
+  source_index: 88
+  command: b+3,4,1,2
+  name: 4th Hit
+  hit_level: m, m, m, m
+  damage: 12, 18, 5, 7
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3_4_1_2_1
+  source_id: Bryan-b+3,4,1,2,1
+  source_index: 89
+  command: b+3,4,1,2,1
+  name: 5th Hit
+  hit_level: m, m, m, m, h
+  damage: 12, 18, 5, 7, 3
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_4_1_2_1_4
+  source_id: Bryan-b+3,4,1,2,1,4
+  source_index: 90
+  command: b+3,4,1,2,1,4
+  name: 6th Hit
+  hit_level: m, m, m, m, h, h
+  damage: 12, 18, 5, 7, 3, 8
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_4_1_2_1_4_2
+  source_id: Bryan-b+3,4,1,2,1,4,2
+  source_index: 91
+  command: b+3,4,1,2,1,4,2
+  name: 7th Hit
+  hit_level: m, m, m, m, h, h, h
+  damage: 12, 18, 5, 7, 3, 8, 5
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_4_1_2_1_4_2_1
+  source_id: Bryan-b+3,4,1,2,1,4,2,1
+  source_index: 92
+  command: b+3,4,1,2,1,4,2,1
+  name: 8th Hit
+  hit_level: m, m, m, m, h, h, h, h
+  damage: 12, 18, 5, 7, 3, 8, 5, 5
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_4_1_2_1_4_2_1_4
+  source_id: Bryan-b+3,4,1,2,1,4,2,1,4
+  source_index: 93
+  command: b+3,4,1,2,1,4,2,1,4
+  name: 9th Hit
+  hit_level: m, m, m, m, h, h, h, h, m
+  damage: 12, 18, 5, 7, 3, 8, 5, 5, 10
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_4_1_2_1_4_2_1_4_2
+  source_id: Bryan-b+3,4,1,2,1,4,2,1,4,2
+  source_index: 94
+  command: b+3,4,1,2,1,4,2,1,4,2
+  name: 10 Hit Combo
+  hit_level: m, m, m, m, h, h, h, h, m, h
+  damage: 12, 18, 5, 7, 3, 8, 5, 5, 10, 20
+  startup: ''
+  recovery: r
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp3_1p2
+  source_id: Bryan-b+3,1+2
+  source_index: 95
+  command: b+3,1+2
+  name: Front Kick > Double Hammer
+  hit_level: m, m
+  damage: 12, 25
+  startup: ',i22'
+  recovery: r34
+  block: '-6'
+  hit: +4c
+  counter_hit: +26d
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st CH with 8f delay
+
+    * Interrupt with i4 from 1st block
+
+    * Transition to FC with d
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f'
+- id: bp4
+  source_id: Bryan-b+4
+  source_index: 96
+  command: b+4
+  name: Knee Break
+  hit_level: m
+  damage: '18'
+  startup: i16
+  recovery: r29
+  block: '-10'
+  hit: '+15'
+  counter_hit: ''
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Hit vs BT +9a'
+- id: bp1p4
+  source_id: Bryan-b+1+4
+  source_index: 97
+  command: b+1+4
+  name: Gravity Blow
+  hit_level: m
+  damage: '26'
+  startup: i28
+  recovery: r36
+  block: '-9'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: Spike
+- id: bp1p4
+  source_id: Bryan-b+1+4*
+  source_index: 98
+  command: b+1+4*
+  name: Meteor Smash
+  hit_level: m!
+  damage: '45'
+  startup: i53
+  recovery: r42
+  block: ''
+  hit: +7a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: Spike
+- id: ubp1p2
+  source_id: Bryan-ub+1+2
+  source_index: 99
+  command: ub+1+2
+  name: ''
+  hit_level: m,m
+  damage: 5,2
+  startup: i15 i12
+  recovery: r35
+  block: '-16'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit'
+- id: ubp1p2_1
+  source_id: Bryan-ub+1+2,1
+  source_index: 100
+  command: ub+1+2,1
+  name: ''
+  hit_level: m,m, m
+  damage: 5,2, 2
+  startup: i15 i12, i12
+  recovery: ''
+  block: '-13'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit 8f delay
+
+    * Input can be delayed 18f'
+- id: ubp1p2_1_2
+  source_id: Bryan-ub+1+2,1,2
+  source_index: 101
+  command: ub+1+2,1,2
+  name: ''
+  hit_level: m,m, m, m
+  damage: 5,2, 2, 2
+  startup: i15 i12, ,i11
+  recovery: ''
+  block: '-16'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 11f input window-'
+- id: ubp1p2_1_2_1
+  source_id: Bryan-ub+1+2,1,2,1
+  source_index: 102
+  command: ub+1+2,1,2,1
+  name: ''
+  hit_level: m,m, m, m, m
+  damage: 5,2, 2, 2, 2
+  startup: i15 i12, ,i10
+  recovery: ''
+  block: '-13'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 9f input window'
+- id: ubp1p2_1_2_1_2
+  source_id: Bryan-ub+1+2,1,2,1,2
+  source_index: 103
+  command: ub+1+2,1,2,1,2
+  name: ''
+  hit_level: m,m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2
+  startup: i15 i12, ,i9
+  recovery: ''
+  block: '-16'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 8f input window'
+- id: ubp1p2_1_2_1_2_1
+  source_id: Bryan-ub+1+2,1,2,1,2,1
+  source_index: 104
+  command: ub+1+2,1,2,1,2,1
+  name: ''
+  hit_level: m,m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2
+  startup: i15 i12, ,i8
+  recovery: ''
+  block: '-13'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 7f input window'
+- id: ubp1p2_1_2_1_2_1_2
+  source_id: Bryan-ub+1+2,1,2,1,2,1,2
+  source_index: 105
+  command: ub+1+2,1,2,1,2,1,2
+  name: ''
+  hit_level: m,m, m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2, 2
+  startup: i15 i12, ,i7
+  recovery: ''
+  block: '-16'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 6f input window'
+- id: ubp1p2_1_2_1_2_1_2_1
+  source_id: Bryan-ub+1+2,1,2,1,2,1,2,1
+  source_index: 106
+  command: ub+1+2,1,2,1,2,1,2,1
+  name: ''
+  hit_level: m,m, m, m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2, 2, 2
+  startup: i15 i12, ,i6
+  recovery: ''
+  block: '-13'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 5f input window'
+- id: ubp1p2_1_2_1_2_1_2_1_2
+  source_id: Bryan-ub+1+2,1,2,1,2,1,2,1,2
+  source_index: 107
+  command: ub+1+2,1,2,1,2,1,2,1,2
+  name: ''
+  hit_level: m,m, m, m, m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2, 2, 2, 2
+  startup: i15 i12, ,i5
+  recovery: ''
+  block: '-16'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 4f input window'
+- id: ubp1p2_1_2_1_2_1_2_1_2_1
+  source_id: Bryan-ub+1+2,1,2,1,2,1,2,1,2,1
+  source_index: 108
+  command: ub+1+2,1,2,1,2,1,2,1,2,1
+  name: ''
+  hit_level: m,m, m, m, m, m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2, 2, 2, 2, 2
+  startup: i15 i12, ,i5
+  recovery: ''
+  block: '-26'
+  hit: '-15'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit
+
+    * 4f input window'
+- id: ubp1p2_1_2_1_2_1_2_1_2_1_4
+  source_id: Bryan-ub+1+2,1,2,1,2,1,2,1,2,1,4
+  source_index: 109
+  command: ub+1+2,1,2,1,2,1,2,1,2,1,4
+  name: Gatling Rush
+  hit_level: m,m, m, m, m, m, m, m, m, m, m, m
+  damage: 5,2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 14
+  startup: i15 i12, ,i10
+  recovery: r60
+  block: '-35'
+  hit: -15a (-24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Knee
+
+    * Balcony Break
+
+    * Combo from 1st hit'
+- id: ufp1
+  source_id: Bryan-uf+1
+  source_index: 110
+  command: uf+1
+  name: Berserker Volley
+  hit_level: m
+  damage: '22'
+  startup: i20~21
+  recovery: r34
+  block: '-13'
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fbr
+  - pc
+  - power_crush
+  - balcony_break
+  - floor_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Floor Break
+
+    * Gain SNE on hit (+3a on hit)
+
+    * -9 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~19'
+- id: ufp2
+  source_id: Bryan-uf+2
+  source_index: 111
+  command: uf+2
+  name: ''
+  hit_level: m
+  damage: '6'
+  startup: i13
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ufp2_2
+  source_id: Bryan-uf+2,2
+  source_index: 112
+  command: uf+2,2
+  name: ''
+  hit_level: m, m
+  damage: 6, 4
+  startup: i13, i10
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 7f delay
+
+    * Move can be delayed 5f'
+- id: ufp2_2_2
+  source_id: Bryan-uf+2,2,2
+  source_index: 113
+  command: uf+2,2,2
+  name: ''
+  hit_level: m, m, m
+  damage: 6, 4, 4
+  startup: i13, ,i10
+  recovery: r29
+  block: '-10'
+  hit: +1s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Combo from 1st hit with 5f delay
+- id: ufp2_2_2_3
+  source_id: Bryan-uf+2,2,2,3
+  source_index: 114
+  command: uf+2,2,2,3
+  name: Bloody War
+  hit_level: m, m, m, m
+  damage: 6, 4, 4, 20
+  startup: i13, ,i22~23
+  recovery: r36
+  block: '-15'
+  hit: +30a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 3rd hit with 5f delay'
+- id: sne_ufp2_2_2_2
+  source_id: Bryan-uf+2,2,2,SNE.2
+  source_index: 115
+  command: SNE.uf+2,2,2,2
+  name: ''
+  hit_level: m, m, m, m
+  damage: 6, 4, 4, 9
+  startup: i13, ,i10
+  recovery: r31
+  block: '-12'
+  hit: -1s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - chip
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Consumes SNE
+
+    * Chip damage on block (2)'
+- id: sne_ufp2_2_2_2_2
+  source_id: Bryan-uf+2,2,2,SNE.2,2
+  source_index: 116
+  command: SNE.uf+2,2,2,2,2
+  name: ''
+  hit_level: m, m, m, m, m
+  damage: 6, 4, 4, 9, 9
+  startup: i13, ,i10
+  recovery: r32
+  block: '-12'
+  hit: -2s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chp
+  - chip
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Chip damage 2 (22%) on block'
+- id: sne_ufp2_2_2_2_2_3
+  source_id: Bryan-uf+2,2,2,SNE.2,2,3
+  source_index: 117
+  command: SNE.uf+2,2,2,2,2,3
+  name: Neo Bloody War
+  hit_level: m, m, m, m, m, m
+  damage: 6, 4, 4, 9, 9, 23
+  startup: i13, ,i22~23
+  recovery: r36
+  block: '-15'
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - chip
+  - mid
+  notes: '* Knee
+
+    * Combo from 3rd or 4th or 5th hit
+
+    ** +35a (+17) from 3rd hit
+
+    ** +31a (+13) from 4th hit
+
+    ** +30a (+12) from 5th hit
+
+    * 9 chip damage (39%) on block'
+- id: ufp3
+  source_id: Bryan-uf+3
+  source_index: 118
+  command: uf+3
+  name: Rolling Driver
+  hit_level: m
+  damage: '15'
+  startup: i27~28
+  recovery: r20
+  block: '-2'
+  hit: '+15'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~28
+
+    * Floating state 29~31'
+- id: ufp4
+  source_id: Bryan-uf+4
+  source_index: 119
+  command: uf+4
+  name: Orbital Heel Kick
+  hit_level: m
+  damage: '20'
+  startup: i24~26
+  recovery: r22
+  block: '-5'
+  hit: +26a
+  counter_hit: ''
+  tier: core
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Spike
+
+    * Low crush 9~32
+
+    * Floating state 33~35'
+- id: ufp3p4
+  source_id: Bryan-uf+3+4
+  source_index: 120
+  command: uf+3+4
+  name: Bullet Knee > Snake Eyes
+  hit_level: m
+  damage: '22'
+  startup: i16~17
+  recovery: r31
+  block: '-7'
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Knee
+
+    * Gain SNE on hit
+
+    * Low crush 9~26
+
+    * Floating state 27~29'
+- id: 1p2p3p4
+  source_id: Bryan-1+2+3+4
+  source_index: 121
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
+- id: b_bp4
+  source_id: Bryan-b,B+4
+  source_index: 122
+  command: b,B+4
+  name: Flying Knee Kick
+  hit_level: M
+  damage: '24'
+  startup: i21~33
+  recovery: r35 FUFT
+  block: -19~-7
+  hit: -7a~+5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Spike
+
+    * Low crush 18~32
+
+    * Floating state 33~'
+- id: b_dfp4
+  source_id: Bryan-b,df+4
+  source_index: 123
+  command: b,df+4
+  name: Wedge Driver
+  hit_level: l
+  damage: '25'
+  startup: i29
+  recovery: r41
+  block: '-13'
+  hit: +14g
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - low
+  notes: '* Cancel to r26 with B'
+- id: d_db_b
+  source_id: Bryan-d,db,b
+  source_index: 124
+  command: d,db,b
+  name: Sway
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: SWA
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Cancel to SS on any frame with u
+
+    * Minimum 3f needed to enter (one for each directional)
+
+    * High crush 1~10'
+- id: ffp2
+  source_id: Bryan-f,F+2
+  source_index: 125
+  command: f,F+2
+  name: Mach Breaker
+  hit_level: h
+  damage: '29'
+  startup: i13
+  recovery: r33
+  block: '-9'
+  hit: +41d (-17)
+  counter_hit: ''
+  tier: core
+  tags:
+  - he
+  - bbr
+  - chp
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Chip damage on block (8)'
+- id: ffp3
+  source_id: Bryan-f,F+3
+  source_index: 126
+  command: f,F+3
+  name: Slash Kick > Snake Eyes
+  hit_level: m
+  damage: '25'
+  startup: i24~25
+  recovery: r37
+  block: '-13'
+  hit: +28a (-8)
+  counter_hit: +39a (-8)
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Gain SNE on hit with 1+2
+
+    * SNE gain is r25
+
+    * Chip damage on block (7)
+
+    * Hitstop 20f on hit'
+- id: ffp3
+  source_id: Bryan-f,F+3*
+  source_index: 127
+  command: f,F+3*
+  name: ''
+  hit_level: m
+  damage: '33'
+  startup: i34~35
+  recovery: r37
+  block: '+8'
+  hit: +71a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Gain SNE on hit with 1+2
+
+    * Chip damage on block (9)
+
+    * Hitstop 20f on hit'
+- id: ffp4
+  source_id: Bryan-f,F+4
+  source_index: 128
+  command: f,F+4
+  name: Mach Kick
+  hit_level: h
+  damage: '32'
+  startup: i16~19
+  recovery: r32
+  block: -9c~-6c
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - chp
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break (airborne)
+
+    * Chip damage on block (9)
+
+    * Initial side step can evade some attacks'
+- id: f_n_bp2
+  source_id: Bryan-f,n,b+2
+  source_index: 129
+  command: f,n,b+2
+  name: Jet Uppercut
+  hit_level: h
+  damage: '20'
+  startup: i14~15
+  recovery: r30
+  block: '-7'
+  hit: +43a (+33)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Can be buffered'
+- id: qcf
+  source_id: Bryan-qcf
+  source_index: 130
+  command: qcf
+  name: Slither Step (SLS)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 SLS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Enter FC r25 with no input
+
+    * Cancel to SS on any frame with u
+
+    * Cancel to block on frames 1~9 with b
+
+    * Actionable on frame 1~
+
+    * High crush 1~25'
+- id: uf_n_4
+  source_id: Bryan-uf,n,4
+  source_index: 131
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: r30
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Jump takes 9 frames
+
+    * Low crush 9~30
+
+    * Floating state 31~33'
+- id: f_ffp3
+  source_id: Bryan-f,f,F+3
+  source_index: 132
+  command: f,f,F+3
+  name: Snake Slash
+  hit_level: m
+  damage: '30'
+  startup: i22~25
+  recovery: r34
+  block: +6~+9
+  hit: +13a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Chip damage on block (9)
+
+    * Low crush 3~25
+
+    * Floating state 26~28'
+- id: ws1
+  source_id: Bryan-ws1
+  source_index: 133
+  command: ws1
+  name: Left Upper
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: r34
+  block: '-14'
+  hit: +35a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws2
+  source_id: Bryan-ws2
+  source_index: 134
+  command: ws2
+  name: Fisherman's Slam
+  hit_level: m,t
+  damage: 10,20
+  startup: i19
+  recovery: r29
+  block: '-10'
+  hit: +50a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - stance_transition
+  - mid
+  notes: '* Transition to r90 attack throw on front/side standing hit
+
+    * +31a (+21) on BT hit
+
+    * Power up with f+2 or b+2 on frames 18~19, additional 5 damage'
+- id: ws3
+  source_id: Bryan-ws3
+  source_index: 135
+  command: ws3
+  name: High Knee Kick
+  hit_level: m
+  damage: '17'
+  startup: i12
+  recovery: r26
+  block: '-10'
+  hit: '+4'
+  counter_hit: +33a (+27)
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: ws3_4
+  source_id: Bryan-ws3,4
+  source_index: 136
+  command: ws3,4
+  name: Double High Knee Kick
+  hit_level: m, m
+  damage: 17, 21
+  startup: i12, i28
+  recovery: r26
+  block: '-10'
+  hit: '+4'
+  counter_hit: +29g
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Input can be delayed 10f
+
+    * Interrupt with i8 from 1st block'
+- id: ws4
+  source_id: Bryan-ws4
+  source_index: 137
+  command: ws4
+  name: Toe Smash
+  hit_level: m
+  damage: '16'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_1
+  source_id: Bryan-SS.1
+  source_index: 138
+  command: SS.1
+  name: Hellraiser
+  hit_level: h
+  damage: '23'
+  startup: i17~18
+  recovery: r29
+  block: '-5'
+  hit: +15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - high
+  notes: Balcony Break (airborne)
+- id: ss_2
+  source_id: Bryan-SS.2
+  source_index: 139
+  command: SS.2
+  name: ''
+  hit_level: M
+  damage: '15'
+  startup: i17~18
+  recovery: r29
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_2_1
+  source_id: Bryan-SS.2,1
+  source_index: 140
+  command: SS.2,1
+  name: Snake Fang
+  hit_level: M, h
+  damage: 15, 20
+  startup: i17~18, i21~22
+  recovery: r30
+  block: '-9'
+  hit: +43d (-15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - elb
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Cancel to r35 with B (-15/-1)'
+- id: fc_dfp2
+  source_id: Bryan-FC.df+2
+  source_index: 141
+  command: FC.df+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r30
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: Elbow
+- id: fc_dfp2_1
+  source_id: Bryan-FC.df+2,1
+  source_index: 142
+  command: FC.df+2,1
+  name: Snake Rampage
+  hit_level: m, h
+  damage: 12, 25
+  startup: i13, i22~23
+  recovery: r31
+  block: '-8'
+  hit: +34a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 7f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f'
+- id: fc_dfp4
+  source_id: Bryan-FC.df+4
+  source_index: 143
+  command: FC.df+4
+  name: Northern Cross
+  hit_level: m
+  damage: '21'
+  startup: i15~16
+  recovery: r29
+  block: '-10'
+  hit: +13g
+  counter_hit: +25d
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * High crush 1~14'
+- id: back_to_wall_b_b_ub
+  source_id: Bryan-(Back to wall).b,b,UB
+  source_index: 144
+  command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
+  hit_level: m
+  damage: '25'
+  startup: i29~30
+  recovery: r25
+  block: '-1'
+  hit: +45d (-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Floating state 5~13
+
+    * Low crush 14~33
+
+    * Floating state 34~36'
+- id: sls_2
+  source_id: Bryan-SLS.2
+  source_index: 145
+  command: SLS.2
+  name: ''
+  hit_level: h
+  damage: '16'
+  startup: i15~16
+  recovery: r27
+  block: '-6'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: sls_2_1
+  source_id: Bryan-SLS.2,1
+  source_index: 146
+  command: SLS.2,1
+  name: Cross Bazooka
+  hit_level: h, m
+  damage: 16, 23
+  startup: i15~16, i15~16
+  recovery: r31
+  block: '-11'
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit with 4f delay
+- id: sls_2_2
+  source_id: Bryan-SLS.2,2
+  source_index: 147
+  command: SLS.2,2
+  name: Cross Grenade
+  hit_level: h, m
+  damage: 16, 25
+  startup: i15~16, i25
+  recovery: r35
+  block: '-7'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 1st hit with 4f delay
+
+    * +9a on BT hit'
+- id: sls_2_4
+  source_id: Bryan-SLS.2,4
+  source_index: 148
+  command: SLS.2,4
+  name: Cross Bullet > Snake Eyes
+  hit_level: h, m
+  damage: 16, 22
+  startup: i15~16, i16~17
+  recovery: r34
+  block: '-10'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Knee
+
+    * Combo from 1st hit with 4f delay
+
+    * Gain SNE on hit, -12a
+
+    * Low crush 9~26
+
+    * Floating state 27~29'
+- id: sls_4
+  source_id: Bryan-SLS.4
+  source_index: 149
+  command: SLS.4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i18
+  recovery: r29
+  block: '-5'
+  hit: '+1'
+  counter_hit: '+3'
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: sls_4_1
+  source_id: Bryan-SLS.4,1
+  source_index: 150
+  command: SLS.4,1
+  name: ''
+  hit_level: m, h
+  damage: 13, 13
+  startup: i18, i27
+  recovery: r25
+  block: '+0'
+  hit: +55a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH
+
+    * Cancel to SS -12 -5 -3 r9 with u_d'
+- id: sls_4_1_2
+  source_id: Bryan-SLS.4,1,2
+  source_index: 151
+  command: SLS.4,1,2
+  name: Snake Spin Mach Breaker
+  hit_level: m, h, h
+  damage: 13, 13, 22
+  startup: i18, ,i24
+  recovery: r33
+  block: '-9'
+  hit: +41d (-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit'
+- id: sls_4_1_4
+  source_id: Bryan-SLS.4,1,4
+  source_index: 152
+  command: SLS.4,1,4
+  name: Snake Spin Kickass
+  hit_level: m, h, M
+  damage: 13, 13, 20
+  startup: i18, ,i25
+  recovery: r30
+  block: '-10'
+  hit: +37a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 2nd hit
+
+    * Opponent recovers FUFA on hit'
+- id: sls_1p2
+  source_id: Bryan-SLS.1+2
+  source_index: 153
+  command: SLS.1+2
+  name: Requiem
+  hit_level: m
+  damage: '23'
+  startup: i15~16
+  recovery: r33
+  block: '-9'
+  hit: +23a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - elb
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Elbow'
+- id: sne_fc_dfp3
+  source_id: Bryan-SNE.FC.df+3
+  source_index: 154
+  command: SNE.FC.df+3
+  name: Neo Grim Reaper
+  hit_level: l
+  damage: '24'
+  startup: i20
+  recovery: ''
+  block: '-13'
+  hit: '+7'
+  counter_hit: +25a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - parry
+  - low
+  notes: '* Balcony Break
+
+    * Consumes SNE
+
+    * Unparryable'
+- id: sne_bp1p2
+  source_id: Bryan-SNE.b+1+2
+  source_index: 155
+  command: SNE.b+1+2
+  name: Neo Murderous Strikes
+  hit_level: m,m
+  damage: 9,15
+  startup: i20 i14
+  recovery: FC
+  block: '+4'
+  hit: +33d (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Consumes SNE
+
+    * Chip damage on block (6)'
+- id: sne_ffp1p2
+  source_id: Bryan-SNE.f,F+1+2
+  source_index: 156
+  command: SNE.f,F+1+2
+  name: Neo Mach Breaker
+  hit_level: h
+  damage: '30'
+  startup: i13
+  recovery: r33
+  block: '-9'
+  hit: +23a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - ps
+  - throw
+  - heat
+  - balcony_break
+  - parry
+  - chip
+  - high
+  notes: "* Balcony Break\n* Consumes SNE\n* Can not be buffered\n* Chip damage 10\
+    \ (30%) on block\n* Strong parry, parries all mid or high attacks except charge\
+    \ moves, throws and unlockables \n* On a successful parry, the attack is canceled\
+    \ and Bryan automatically retaliates\n* Unparryable with traditional parries,\
+    \ Asuka, Nina, etc\n* Consumes 300f of Heat\n* Parry state 2~10"
+- id: sne_ffp1p2_p
+  source_id: Bryan-SNE.f,F+1+2,P
+  source_index: 157
+  command: SNE.f,F+1+2,P
+  name: Immortal Payback
+  hit_level: h, m
+  damage: 30, 20
+  startup: i13, i13~14
+  recovery: r30
+  block: '0'
+  hit: +25a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Chip damage on block (8)
+
+    * Consumes SNE
+
+    * Initial attack absorbing animating takes 9 frames (pc1~9), effective startup
+    is i22~23
+
+    * Power crush 1~14'
+- id: qcbp1
+  source_id: Bryan-SWA.1
+  source_index: 158
+  command: qcb+1
+  name: Cannonball Straight
+  hit_level: h
+  damage: '22'
+  startup: i13~14
+  recovery: r28
+  block: '+5'
+  hit: +19cg
+  counter_hit: +72a (+56)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 6 chip damage on block
+
+    * Forces tech back roll on hit'
+- id: qcbp2
+  source_id: Bryan-SWA.2
+  source_index: 159
+  command: qcb+2
+  name: Smash
+  hit_level: m
+  damage: '16'
+  startup: i15~16
+  recovery: r30
+  block: '-9'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: qcbp2_4
+  source_id: Bryan-SWA.2,4
+  source_index: 160
+  command: qcb+2,4
+  name: Smash and Mach Kick
+  hit_level: m, h
+  damage: 16, 25
+  startup: i15~16, i22~25
+  recovery: r32
+  block: -9c
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st hit with 10f delay
+
+    * Move can be delayed 7f
+
+    * 7 chip damage on block'
+- id: qcbp3
+  source_id: Bryan-SWA.3
+  source_index: 161
+  command: qcb+3
+  name: Hatchet Kick
+  hit_level: l
+  damage: '23'
+  startup: i19~20
+  recovery: r31
+  block: '-13'
+  hit: '+5'
+  counter_hit: +26a
+  tier: specialist
+  tags:
+  - balcony_break
+  - low
+  notes: Balcony Break (airborne)
+- id: qcbp4
+  source_id: Bryan-SWA.4
+  source_index: 162
+  command: qcb+4
+  name: '<div class="dotlist">
+
+
+    * Soccer Kick
+
+    * Kickoff
+
+    </div>'
+  hit_level: M
+  damage: '23'
+  startup: i17~18
+  recovery: r32
+  block: '-12'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: 1p3
+  source_id: Bryan-1+3
+  source_index: 163
+  command: 1+3
+  name: Gravity Brain Buster
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: -2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Bryan-2+4
+  source_index: 164
+  command: 2+4
+  name: Guillotine
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit'
+- id: back_throw
+  source_id: Bryan-Back throw
+  source_index: 165
+  command: Back throw
+  name: Neck throw
+  hit_level: t
+  damage: '60'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Unbreakable
+- id: fc_dbp1p2
+  source_id: Bryan-FC.db+1+2
+  source_index: 166
+  command: FC.db+1+2
+  name: Chains of Misery
+  hit_level: t
+  damage: '45'
+  startup: i11
+  recovery: r28
+  block: '-6'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2'
+- id: left_throw
+  source_id: Bryan-Left throw
+  source_index: 167
+  command: Left throw
+  name: Gravity Throw
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break 1
+
+    * Side switch on hit'
+- id: right_throw
+  source_id: Bryan-Right throw
+  source_index: 168
+  command: Right throw
+  name: Knee Blast
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2'
+- id: ufp1p2
+  source_id: Bryan-uf+1+2
+  source_index: 169
+  command: uf+1+2
+  name: Anaconda Assassin
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break 1+2'

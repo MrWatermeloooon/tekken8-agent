@@ -1,0 +1,4256 @@
+character_id: kunimitsu
+display_name: Kunimitsu
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/kunimitsu/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 8bae253760b2400c4f747ba7113934a039aa64c089d6e4769d6740c5ec14ed19
+data_status: available
+stances:
+- H
+- ws
+- SS
+- (Airborne)
+- BT
+- KAT
+- MUS
+- SET
+- hFC
+moves:
+- id: 2p3
+  source_id: Kunimitsu-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_kat_dp1p2
+  source_id: Kunimitsu-H.KAT.d+1+2
+  source_index: 2
+  command: H.KAT.d+1+2
+  name: 'Flame Dance: Waning Moon'
+  hit_level: L,m,m
+  damage: 8,8,14
+  startup: i20~21 i19~20 i7~8
+  recovery: r43
+  block: '-14'
+  hit: +23a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - heat
+  - high_crush
+  - chip
+  - low
+  - mid
+  notes: '* Weapon
+
+    * Consumes 600F of remaining Heat Time
+
+    * 6 chip damage on block
+
+    * High crush 5~22'
+- id: h_dbp1p2
+  source_id: Kunimitsu-H.db+1+2
+  source_index: 3
+  command: H.db+1+2
+  name: 'Flame Dance: Waxing Moon'
+  hit_level: M,M
+  damage: 10,15
+  startup: i18~19,i18
+  recovery: r45
+  block: '-9'
+  hit: +59a (+43)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Instant Tornado on normal hit
+
+    * Consumes 600F of remaining Heat Time
+
+    * 5 chip damage on block
+
+    * Steel pedal
+
+    * Low crush 41~65
+
+    * Floating state 66~68'
+- id: h_up1p2
+  source_id: Kunimitsu-H.u+1+2
+  source_index: 4
+  command: H.u+1+2
+  name: 'Flame Dance: Izayoi Moon'
+  hit_level: m,m,m
+  damage: 8,10,20
+  startup: i16 i9 i20
+  recovery: r40 BT
+  block: '+5'
+  hit: +25a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Consumes 240F of remaining Heat Time
+
+    * 7 chip damage on block
+
+    * Low crush 21~30
+
+    * Floating state 31~33'
+- id: h_2p3
+  source_id: Kunimitsu-H.2+3
+  source_index: 5
+  command: H.2+3
+  name: 'Flame Riot: Lunar Mirror'
+  hit_level: m,t
+  damage: '50'
+  startup: i14~15
+  recovery: r38
+  block: '+3'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - rbr
+  - bbr
+  - js
+  - fs
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Transition to attack throw on hit
+
+    * 10 chip damage on block
+
+    * High evasion at frame 6?
+
+    * Low crush 20~44
+
+    * Floating state 45~47'
+- id: r_dfp1p2
+  source_id: Kunimitsu-R.df+1+2
+  source_index: 6
+  command: R.df+1+2
+  name: Nine-Tailed Razing Lily
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Kunimitsu-1
+  source_index: 7
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Kunimitsu-1,1
+  source_index: 8
+  command: 1,1
+  name: Memai Tsuki
+  hit_level: h, m
+  damage: 5, 12
+  startup: i10, i21
+  recovery: r24
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 2f delay
+
+    * Move can be delayed 2f
+
+    * Interrupt with i2 from 1st block
+
+    * Enter KAT -7 +4 r26 with 1+2'
+- id: '1_1_1'
+  source_id: Kunimitsu-1,1,1
+  source_index: 9
+  command: 1,1,1
+  name: Memai Tsuki > Ryu Enko
+  hit_level: h, m, M
+  damage: 5, 12, 18
+  startup: i10, ,i21~22
+  recovery: r34
+  block: '-11'
+  hit: +15a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 9f delay
+
+    * Input can be delayed 9f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i10 from 2nd block
+
+    * Low crush 5~15
+
+    * Floating state 16~18'
+- id: '1_1_2'
+  source_id: Kunimitsu-1,1,2
+  source_index: 10
+  command: 1,1,2
+  name: Memai Tsuki > Dark Clutch
+  hit_level: h, m, m
+  damage: 5, 12, 24
+  startup: i10, ,i19~20
+  recovery: r30
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: +46a (-1)
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 9f delay
+
+    * Input can be delayed 9f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i8 from 2nd block'
+- id: '1_1_4'
+  source_id: Kunimitsu-1,1,4
+  source_index: 11
+  command: 1,1,4
+  name: Memai Tsuki > Pouncing Strike
+  hit_level: h, m, m
+  damage: 5, 12, 23
+  startup: i10, ,i26~27
+  recovery: r34
+  block: '+3'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chp
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Spike
+
+    * Input can be delayed 9f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i15 from 2nd block
+
+    * Chip damage on block
+
+    * Low crush 5~29
+
+    * Floating state 30~32'
+- id: '1_2'
+  source_id: Kunimitsu-1,2
+  source_index: 12
+  command: 1,2
+  name: Multi-palm Strike
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i12
+  recovery: r20
+  block: '-3'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Move can be delayed 2f'
+- id: '1_2_2'
+  source_id: Kunimitsu-1,2,2
+  source_index: 13
+  command: 1,2,2
+  name: Spinning Slash
+  hit_level: h, h, h
+  damage: 5, 8, 10
+  startup: i10, ,i20~21
+  recovery: r30
+  block: '-12'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - stance_transition
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Transition to BT with B'
+- id: '1_2_4'
+  source_id: Kunimitsu-1,2,4
+  source_index: 14
+  command: 1,2,4
+  name: Flash Kick Combination
+  hit_level: h, h, m
+  damage: 5, 8, 20
+  startup: i10, ,i23~24
+  recovery: r35
+  block: '-14'
+  hit: +12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Hit vs BT +9d
+
+    * Low crush 12~32
+
+    * Floating state 33~35'
+- id: 1p3p4
+  source_id: Kunimitsu-1+3+4
+  source_index: 15
+  command: 1+3+4
+  name: Taunt 1
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r110
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: '2'
+  source_id: Kunimitsu-2
+  source_index: 16
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i12
+  recovery: r24
+  block: '-5'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon'
+- id: '2_2'
+  source_id: Kunimitsu-2,2
+  source_index: 17
+  command: 2,2
+  name: Lotus Blade
+  hit_level: h, m
+  damage: 12, 14
+  startup: i12, i12~13
+  recovery: r26
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Jail from 1st block with 5f delay
+
+    * Combo from 1st hit with 5f delay
+
+    * Transition to KAT -6 +5 r26 with 1+2
+
+    * Input can be delayed 5f
+
+    * Move cannot be delayed'
+- id: '2_2_2'
+  source_id: Kunimitsu-2,2,2
+  source_index: 18
+  command: 2,2,2
+  name: Shrouded Lotus Blade
+  hit_level: h, m, h
+  damage: 12, 14, 16
+  startup: i12, ,i18~19
+  recovery: r32
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd CH with 4f delay
+
+    * Interrupt with i4 from 2nd block
+
+    * Enter SET -4 +7 r27 with F
+
+    * Input can be delayed 4f
+
+    * Move is delayed 7f
+
+    * Move cannot be delayed'
+- id: '2_2_2_2'
+  source_id: Kunimitsu-2,2,2,2
+  source_index: 19
+  command: 2,2,2,2
+  name: ''
+  hit_level: h, m, h, h
+  damage: 12, 14, 16, 16
+  startup: i12, ,i15~16
+  recovery: r31
+  block: '-6'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Jail from 3rd block with 5F delay
+
+    * Combo from 2nd CH or 3rd hit with 5f delay
+
+    * Input can be delayed 5f
+
+    * Move cannot be delayed'
+- id: '2_2_2_2_2'
+  source_id: Kunimitsu-2,2,2,2,2
+  source_index: 20
+  command: 2,2,2,2,2
+  name: Shadow Lotus Blade
+  hit_level: h, m, h, h, M
+  damage: 12, 14, 16, 16, 18
+  startup: i12, ,i19~20
+  recovery: r30
+  block: '-12'
+  hit: +19a (+2)
+  counter_hit: +33a (+23)
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Weapon
+
+    * Move cannot be delayed
+
+    * Input can be delayed 7f
+
+    * Low crush 21~35
+
+    * Floating state 36~38'
+- id: '3'
+  source_id: Kunimitsu-3
+  source_index: 21
+  command: '3'
+  name: Crescent Kick
+  hit_level: h
+  damage: '17'
+  startup: i16~17
+  recovery: r32
+  block: '-7'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break (airborne)'
+- id: '3_4'
+  source_id: Kunimitsu-3,4
+  source_index: 22
+  command: 3,4
+  name: Getsurin Renkyaku
+  hit_level: h, h
+  damage: 17, 21
+  startup: i16~17, i25~27
+  recovery: r31
+  block: '-5'
+  hit: +20a
+  counter_hit: +46a
+  tier: specialist
+  tags:
+  - balcony_break
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st hit with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed'
+- id: '4'
+  source_id: Kunimitsu-4
+  source_index: 23
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i12~13
+  recovery: r32
+  block: '-9'
+  hit: '-3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_2'
+  source_id: Kunimitsu-4,2
+  source_index: 24
+  command: 4,2
+  name: Kagenade Slash
+  hit_level: h, h
+  damage: 15, 13
+  startup: i12~13, i19~20
+  recovery: r28 BT
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Transition to BT
+
+    * Jail from 1st attack with 1f delay
+
+    * Combo from 1st hit with ? delay
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Low crush 15~25
+
+    * Floating state 26~28'
+- id: 1p2
+  source_id: Kunimitsu-1+2
+  source_index: 25
+  command: 1+2
+  name: Katon
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r17 KAT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  notes: '* Actionable after 17f
+
+    * Transition to r22 BT with B
+
+    * Transition to r14 SET with F'
+- id: 2p3p4
+  source_id: Kunimitsu-2+3+4
+  source_index: 26
+  command: 2+3+4
+  name: Taunt 2
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r100
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 3p4
+  source_id: Kunimitsu-3+4
+  source_index: 27
+  command: 3+4
+  name: Growling Jewel
+  hit_level: h
+  damage: '18'
+  startup: i21~22
+  recovery: r28
+  block: '-1'
+  hit: +21a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Low crush 11~30
+
+    * Floating state 31~33'
+- id: fp2
+  source_id: Kunimitsu-f+2
+  source_index: 28
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i13
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: fp2_3
+  source_id: Kunimitsu-f+2,3
+  source_index: 29
+  command: f+2,3
+  name: Phoenix Tail
+  hit_level: h, h
+  damage: 12, 20
+  startup: i13, i16~18
+  recovery: r28
+  block: '-6'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 3f'
+- id: fp3
+  source_id: Kunimitsu-f+3
+  source_index: 30
+  command: f+3
+  name: Setsunagake
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r10 SET
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to r16 FC with D
+
+    * Cancel to r25 with B (can block mids or highs on frame 12~)'
+- id: fp4
+  source_id: Kunimitsu-f+4
+  source_index: 31
+  command: f+4
+  name: Kusabiyuki
+  hit_level: m
+  damage: '12'
+  startup: i15
+  recovery: r27
+  block: '-5'
+  hit: '-1'
+  counter_hit: '+7'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Enter SET +3 +7 +15 r19 with F'
+- id: fp1p2
+  source_id: Kunimitsu-f+1+2
+  source_index: 32
+  command: f+1+2
+  name: Gozuryu
+  hit_level: m
+  damage: '23'
+  startup: i17~18
+  recovery: r35
+  block: '-6'
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 4 chip damage on block'
+- id: fp3p4
+  source_id: Kunimitsu-f+3+4
+  source_index: 33
+  command: f+3+4
+  name: Whirling Snapdragon
+  hit_level: m,h
+  damage: 10,13
+  startup: i15 i13
+  recovery: r27 BT
+  block: '-5'
+  hit: +23a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * BT transition is -11
+
+    * Low crush 19~24
+
+    * Floating state 25~27'
+- id: dfp1
+  source_id: Kunimitsu-df+1
+  source_index: 34
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r20
+  block: '-2'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Kunimitsu-df+1,2
+  source_index: 35
+  command: df+1,2
+  name: ''
+  hit_level: m, m
+  damage: 10, 12
+  startup: i13~14, i18~19
+  recovery: r30
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st CH with 7f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 8f
+
+    * Trade with i1 from 1st block'
+- id: dfp1_2_2
+  source_id: Kunimitsu-df+1,2,2
+  source_index: 36
+  command: df+1,2,2
+  name: Unmuzan > Oboro Engetsu
+  hit_level: m, m, M
+  damage: 10, 12, 20
+  startup: i13~14, ,i22~23
+  recovery: r41
+  block: -14c
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 2nd hit with 1f delay
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Combo from 1st CH
+
+    * Chip damage on block'
+- id: dfp1_3
+  source_id: Kunimitsu-df+1,3
+  source_index: 37
+  command: df+1,3
+  name: Muten Cannon
+  hit_level: m, h
+  damage: 10, 20
+  startup: i13~14, i21
+  recovery: r30
+  block: '-9'
+  hit: '+5'
+  counter_hit: +44a (+34)
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st Ch with 4f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 8f'
+- id: dfp2
+  source_id: Kunimitsu-df+2
+  source_index: 38
+  command: df+2
+  name: Rising Moon Slash
+  hit_level: M
+  damage: '13'
+  startup: i15~16
+  recovery: r34
+  block: '-14'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: core
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * Can launch crouching opponent
+
+    * Recovers 5f faster on hit'
+- id: dfp3
+  source_id: Kunimitsu-df+3
+  source_index: 39
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i17~18
+  recovery: r27
+  block: '-6'
+  hit: '+2'
+  counter_hit: '+4'
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp3_2
+  source_id: Kunimitsu-df+3,2
+  source_index: 40
+  command: df+3,2
+  name: Ice Cleaver
+  hit_level: m, L
+  damage: 14, 20
+  startup: i17~18, i28~29
+  recovery: r33
+  block: '-15'
+  hit: +1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Cancel to FC -13 -5 -3 r34 with D
+
+    * Interrupt with i6 from 1st block
+
+    * High crush 22~35'
+- id: dfp4
+  source_id: Kunimitsu-df+4
+  source_index: 41
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i12
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp3p4
+  source_id: Kunimitsu-df+3+4
+  source_index: 42
+  command: df+3+4
+  name: Falling Hail
+  hit_level: m,m
+  damage: 8,12
+  startup: i17~18 i7~9
+  recovery: r22 BT
+  block: '-2'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Transition to BT
+
+    * Can hit grounded when off-axis
+
+    * High evasion at frame 5?
+
+    * Floating state 10~24'
+- id: dp1
+  source_id: Kunimitsu-d+1
+  source_index: 43
+  command: d+1
+  name: Sakumaishi
+  hit_level: m
+  damage: '23'
+  startup: i19
+  recovery: r31 FC
+  block: '+3'
+  hit: '+6'
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike'
+- id: dp2
+  source_id: Kunimitsu-d+2
+  source_index: 44
+  command: d+2
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i16
+  recovery: r28
+  block: '-9'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Does not floor break if string is continued'
+- id: dp2_1
+  source_id: Kunimitsu-d+2,1
+  source_index: 45
+  command: d+2,1
+  name: ''
+  hit_level: m, m
+  damage: 11, 7
+  startup: i16, i16~17
+  recovery: r30
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st CH with 2f delay
+
+    * Input can be delayed 2f
+
+    * Move cannot be delayed'
+- id: dp2_1_2
+  source_id: Kunimitsu-d+2,1,2
+  source_index: 46
+  command: d+2,1,2
+  name: ''
+  hit_level: m, m, m
+  damage: 11, 7, 7
+  startup: i16, ,i11~12
+  recovery: r32
+  block: '-12'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * Combo from 2nd hit with 1f delay
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed'
+- id: dp2_1_2_1p2
+  source_id: Kunimitsu-d+2,1,2,1+2
+  source_index: 47
+  command: d+2,1,2,1+2
+  name: Amamikanameishi
+  hit_level: m, m, m, m
+  damage: 11, 7, 7, 20
+  startup: i16, ,i23~24
+  recovery: r33
+  block: '-13'
+  hit: +7a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Hitstop 20f on hit
+
+    * Combo from 3rd CH'
+- id: dp3
+  source_id: Kunimitsu-d+3
+  source_index: 48
+  command: d+3
+  name: ''
+  hit_level: L
+  damage: '11'
+  startup: i16~17
+  recovery: r32
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp3_4
+  source_id: Kunimitsu-d+3,4
+  source_index: 49
+  command: d+3,4
+  name: ''
+  hit_level: L, h
+  damage: 11, 12
+  startup: i16~17, i21~22
+  recovery: r29
+  block: '-9'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH with 7f delay
+
+    * Input can be delayed 7f
+
+    * Move can be delayed 6f'
+- id: dp3_4_1
+  source_id: Kunimitsu-d+3,4,1
+  source_index: 50
+  command: d+3,4,1
+  name: Rinbu Kick > Savage Kunai Throw
+  hit_level: L, h, sm,t
+  damage: 11, 12, 10,28
+  startup: i16~17, ,i26~37
+  recovery: r38
+  block: '-13'
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - stance_transition
+  - low
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd hit with 1f delay
+
+    * Combo from 1st CH
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Recovers 12f faster on block
+
+    * Transitions to attack throw automatically on hit
+
+    * 15 scaled damage on attack throw'
+- id: dp3_4_1_f
+  source_id: Kunimitsu-d+3,4,1,F
+  source_index: 51
+  command: d+3,4,1,F
+  name: Rinbu Kick > Piercing Kunai Throw
+  hit_level: L, h, sm,t, sm,t
+  damage: 11, 12, 10,28, 10,28
+  startup: i16~17, ,i26~37
+  recovery: r38
+  block: '-13'
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - stance_transition
+  - low
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd hit with 1f delay
+
+    * Combo from 1st CH
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Recovers 12f faster on block
+
+    * Transitions to attack throw automatically on hit
+
+    * 15 scaled damage on attack throw
+
+    * Side switch on hit'
+- id: dp1p2
+  source_id: Kunimitsu-d+1+2
+  source_index: 52
+  command: d+1+2
+  name: Seneizan
+  hit_level: L
+  damage: '17'
+  startup: i20
+  recovery: r33 FC
+  block: '-14'
+  hit: '+0'
+  counter_hit: +15g
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - low
+  notes: 'Weapon
+
+    * High crush 6~'
+- id: dp3p4
+  source_id: Kunimitsu-d+3+4
+  source_index: 53
+  command: d+3+4
+  name: Blazing Fire Lilies
+  hit_level: M
+  damage: '22'
+  startup: i20~23
+  recovery: r34
+  block: '-13'
+  hit: +12a (-5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - rbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * On successful attack absorption shift to Wrathful Bloom:
+
+    ** Reversal Break
+
+    ** -9 on block
+
+    ** 8 chip damage on block
+
+    ** Two additional mid hits (i9~12 i7~10)
+
+    ** 28 damage in total
+
+    * Power crush 7~19'
+- id: dbp2
+  source_id: Kunimitsu-db+2
+  source_index: 54
+  command: db+2
+  name: ''
+  hit_level: M
+  damage: '10'
+  startup: i16~17
+  recovery: r27 FC
+  block: '-6'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: dbp2_4
+  source_id: Kunimitsu-db+2,4
+  source_index: 55
+  command: db+2,4
+  name: ''
+  hit_level: M, m
+  damage: 10, 15
+  startup: i16~17, i24~25
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st hit with 7f delay
+
+    * Input can be delayed 7f
+
+    * Move can be delayed 6f
+
+    * Interrupt with i3 from 1st block'
+- id: dbp2_4_2
+  source_id: Kunimitsu-db+2,4,2
+  source_index: 56
+  command: db+2,4,2
+  name: Kousa Renbu
+  hit_level: M, m, M
+  damage: 10, 15, 23
+  startup: i16~17, ,i35
+  recovery: r35 FC
+  block: -8c
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Interrupt with i17 from 2nd block'
+- id: dbp3
+  source_id: Kunimitsu-db+3
+  source_index: 57
+  command: db+3
+  name: ''
+  hit_level: l
+  damage: '8'
+  startup: i18
+  recovery: r43 FC
+  block: '-15'
+  hit: '-14'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: dbp3_3
+  source_id: Kunimitsu-db+3,3
+  source_index: 58
+  command: db+3,3
+  name: ''
+  hit_level: l, l
+  damage: 8, 7
+  startup: i18, i15~17
+  recovery: r35 FC
+  block: '-19'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st attack
+
+    * High crush 1~'
+- id: dbp3_3_3
+  source_id: Kunimitsu-db+3,3,3
+  source_index: 59
+  command: db+3,3,3
+  name: ''
+  hit_level: l, l, l
+  damage: 8, 7, 7
+  startup: i18, ,i15~17
+  recovery: r35 FC
+  block: '-19'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st block
+
+    * Combo from 2nd CH
+
+    * Interrupt with i13 from 2nd block
+
+    * High crush 1~'
+- id: dbp3_3_3_3
+  source_id: Kunimitsu-db+3,3,3,3
+  source_index: 60
+  command: db+3,3,3,3
+  name: ''
+  hit_level: l, l, l, l
+  damage: 8, 7, 7, 5
+  startup: i18, ,i15~17
+  recovery: r35 FC
+  block: '-19'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st block
+
+    * Combo from 3rd CH
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3
+  source_id: Kunimitsu-db+3,3,3,3,3
+  source_index: 61
+  command: db+3,3,3,3,3
+  name: ''
+  hit_level: l, l, l, l, l
+  damage: 8, 7, 7, 5, 5
+  startup: i18, ,i15~17
+  recovery: r35 FC
+  block: '-19'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st block
+
+    * Combo from 4th CH
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3_3
+  source_id: Kunimitsu-db+3,3,3,3,3,3
+  source_index: 62
+  command: db+3,3,3,3,3,3
+  name: Manji Spin Low Kicks
+  hit_level: l, l, l, l, l, l
+  damage: 8, 7, 7, 5, 5, 5
+  startup: i18, ,i15~17
+  recovery: r63 FUFT
+  block: '-47'
+  hit: '-35'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st block
+
+    * Combo from 5th CH
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3_4
+  source_id: Kunimitsu-db+3,3,3,3,3,4
+  source_index: 63
+  command: db+3,3,3,3,3,4
+  name: Manji Spin Low Kicks Front Kick
+  hit_level: l, l, l, l, l, m
+  damage: 8, 7, 7, 5, 5, 15
+  startup: i18, ,i12~13
+  recovery: r26
+  block: '-8'
+  hit: +23a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Same animation as ws4
+
+    * Can be performed following any number of db+3 lows except the first and last'
+- id: dbp4
+  source_id: Kunimitsu-db+4
+  source_index: 64
+  command: db+4
+  name: Yamashiro Kuzushi
+  hit_level: L
+  damage: '13'
+  startup: i17
+  recovery: r30
+  block: '-12'
+  hit: '+0'
+  counter_hit: '+8'
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: bp1
+  source_id: Kunimitsu-b+1
+  source_index: 65
+  command: b+1
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i17
+  recovery: r18
+  block: '+1'
+  hit: '+7'
+  counter_hit: '+12'
+  tier: specialist
+  tags:
+  - high
+  notes: Can continue into db+3 up to 3 times (at 13,15,16f respectively) after up
+    to 3 b+1 hits.
+- id: bp1_1
+  source_id: Kunimitsu-b+1,1
+  source_index: 66
+  command: b+1,1
+  name: ''
+  hit_level: h, h
+  damage: 8, 9
+  startup: i17, i12
+  recovery: r14
+  block: '+5'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit'
+- id: bp1_1_1
+  source_id: Kunimitsu-b+1,1,1
+  source_index: 67
+  command: b+1,1,1
+  name: ''
+  hit_level: h, h, h
+  damage: 8, 9, 10
+  startup: i17, ,i12
+  recovery: r14
+  block: '+5'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit
+
+    * Combo from 2nd hit'
+- id: bp1_1_1_1
+  source_id: Kunimitsu-b+1,1,1,1
+  source_index: 68
+  command: b+1,1,1,1
+  name: ''
+  hit_level: h, h, h, h
+  damage: 8, 9, 10, 12
+  startup: i17, ,i12
+  recovery: r14
+  block: '+5'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 3rd CH'
+- id: bp1_1_1_1_1
+  source_id: Kunimitsu-b+1,1,1,1,1
+  source_index: 69
+  command: b+1,1,1,1,1
+  name: ''
+  hit_level: h, h, h, h, h
+  damage: 8, 9, 10, 12, 14
+  startup: i17, ,i12
+  recovery: r14
+  block: '+5'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 4th hit
+
+    * Combo from 3rd CH'
+- id: bp1_1_1_1_1_1
+  source_id: Kunimitsu-b+1,1,1,1,1,1
+  source_index: 70
+  command: b+1,1,1,1,1,1
+  name: Slap U Silly
+  hit_level: h, h, h, h, h, h
+  damage: 8, 9, 10, 12, 14, 16
+  startup: i17, ,i12
+  recovery: r80 FUFT
+  block: '-72'
+  hit: '-71'
+  counter_hit: '-66'
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 4th hit
+
+    * Combo from 3rd CH'
+- id: bp1p3
+  source_id: Kunimitsu-b+1+3
+  source_index: 71
+  command: b+1+3
+  name: Secret Flower
+  hit_level: m!
+  damage: '25'
+  startup: i19~20
+  recovery: r30
+  block: ''
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - ps
+  - parry
+  - mid
+  notes: '* Spike
+
+    * Parry mid and high punches and kicks
+
+    * Parry state 5~12'
+- id: bp2
+  source_id: Kunimitsu-b+2
+  source_index: 72
+  command: b+2
+  name: Hakkouen
+  hit_level: m
+  damage: '17'
+  startup: i17~18
+  recovery: r31
+  block: '-9'
+  hit: '+5'
+  counter_hit: '+57'
+  tier: core
+  tags:
+  - wpn
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Weapon'
+- id: bp3
+  source_id: Kunimitsu-b+3
+  source_index: 73
+  command: b+3
+  name: ''
+  hit_level: M
+  damage: '10'
+  startup: i21~24
+  recovery: r26
+  block: -10~-7
+  hit: +1c~+4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - floor_break
+  - mid
+  notes: 'Floor Break
+
+    * Floating state 10~26'
+- id: bp3_4
+  source_id: Kunimitsu-b+3,4
+  source_index: 74
+  command: b+3,4
+  name: Kodama Flip
+  hit_level: M, M
+  damage: 10, 23
+  startup: i21~24, i17~18
+  recovery: r40
+  block: '-20'
+  hit: +9a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Move is delayed 1f
+
+    * Steel pedal
+
+    * Floating state 15~45'
+- id: bp4
+  source_id: Kunimitsu-b+4
+  source_index: 75
+  command: b+4
+  name: Tenrou
+  hit_level: M
+  damage: '15'
+  startup: i18~19
+  recovery: r28 BT
+  block: '-8'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 17~30
+
+    * Floating state 31~33'
+- id: bp4_3
+  source_id: Kunimitsu-b+4,3
+  source_index: 76
+  command: b+4,3
+  name: Uratenrou
+  hit_level: M, M
+  damage: 15, 20
+  startup: i18~19, i17~18
+  recovery: r39
+  block: '-16'
+  hit: +25a (+10)
+  counter_hit: +34a (+24)
+  tier: specialist
+  tags:
+  - trn
+  - fs
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move cannot be delayed
+
+    * Steel pedal
+
+    * Floating state 20~34'
+- id: bp1p2
+  source_id: Kunimitsu-b+1+2
+  source_index: 77
+  command: b+1+2
+  name: Burning Petals
+  hit_level: m,t
+  damage: 13,25
+  startup: i15~16
+  recovery: r29
+  block: '-7'
+  hit: -3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Transitions to attack throw on grounded hit automatically
+
+    * Does not transition on BT hit
+
+    * Hit vs BT +9'
+- id: bp3p4
+  source_id: Kunimitsu-b+3+4
+  source_index: 78
+  command: b+3+4
+  name: Disengage
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: Actionable after 20f
+- id: ubp2
+  source_id: Kunimitsu-ub+2
+  source_index: 79
+  command: ub+2
+  name: Tenton
+  hit_level: m!
+  damage: '21'
+  startup: i51
+  recovery: r39
+  block: ''
+  hit: +10a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Hitstop 20f on hit
+
+    * Low crush 27~50'
+- id: ubp3
+  source_id: Kunimitsu-ub+3
+  source_index: 80
+  command: ub+3
+  name: Nigemizu
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r45
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: 'Evasive
+
+    * Low crush 6~17
+
+    * Floating state 18~20'
+- id: ubp3p4
+  source_id: Kunimitsu-ub+3+4
+  source_index: 81
+  command: ub+3+4
+  name: Hiryu Scorching Blossoms
+  hit_level: m,t
+  damage: 15,7,13
+  startup: i19
+  recovery: r38
+  block: '-17'
+  hit: +31a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - throw
+  - low_crush
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transitions to attack throw on front hit
+
+    * Does not transition on BT hit
+
+    * Hit vs BT +36a (+26)
+
+    * Low crush 9~40
+
+    * Floating state 41~43'
+- id: up2
+  source_id: Kunimitsu-u+2
+  source_index: 82
+  command: u+2
+  name: Kurama Itto
+  hit_level: L
+  damage: '25'
+  startup: i35~36
+  recovery: r34 FC
+  block: '-16'
+  hit: '+6'
+  counter_hit: +25a
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - low
+  notes: '* Weapon
+
+    * Cancel to r47 FC with D
+
+    * Low crush 10~27
+
+    * Floating state 28~30'
+- id: up3p4
+  source_id: Kunimitsu-u+3+4
+  source_index: 83
+  command: u+3+4
+  name: Guillotine Crow Kick
+  hit_level: M,M
+  damage: 10,12
+  startup: i39~42 i4~6
+  recovery: r24
+  block: +1c
+  hit: +24a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Kunimitsu is invisible on frames 12~29, but can still be hit
+
+    * Low crush 12~42
+
+    * Floating state 43~45'
+- id: ufp1
+  source_id: Kunimitsu-uf+1
+  source_index: 84
+  command: uf+1
+  name: Cloud Scorching Blossoms
+  hit_level: h,t
+  damage: 22,20
+  startup: i16~27
+  recovery: r23
+  block: ''
+  hit: +31a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - throw
+  - tornado
+  - stance_transition
+  - high
+  notes: '* Tornado
+
+    * Weapon
+
+    * Only hits airborne opponents
+
+    * Transitions to attack throw on airborne hit
+
+    * Does not transition on BT hit or after Tornado
+
+    * Hit vs BT or after Tornado +15a (+8)
+
+    * 25 total scaled damage'
+- id: ufp2
+  source_id: Kunimitsu-uf+2
+  source_index: 85
+  command: uf+2
+  name: Ashura Blade
+  hit_level: M,M
+  damage: 9,20
+  startup: i17~18 i22~24
+  recovery: r37
+  block: -14~-12
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Low crush 23~34
+
+    * Floating state 35~37'
+- id: ufp3
+  source_id: Kunimitsu-uf+3
+  source_index: 86
+  command: uf+3
+  name: Double Rising Knee
+  hit_level: m,m
+  damage: 13,20
+  startup: i15~16 i13~14
+  recovery: r32
+  block: -13~-12
+  hit: +25a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Knee
+
+    * 2nd hit available on hit or block only
+
+    * 27 total scaled damage
+
+    * Low crush 9~32
+
+    * Floating state 33~35'
+- id: ufp4
+  source_id: Kunimitsu-uf+4
+  source_index: 87
+  command: uf+4
+  name: Crescent Moon Kick
+  hit_level: m
+  damage: '22'
+  startup: i24~25
+  recovery: r32
+  block: '-8'
+  hit: +20a
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break (airborne)
+
+    * Low crush 9~26'
+- id: ufp3p4
+  source_id: Kunimitsu-uf+3+4
+  source_index: 88
+  command: uf+3+4
+  name: Musasabi (MUS)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r18 MUS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Actionable after 18f
+
+    * Transition to FC on frame 40~
+
+    * Low crush 8~30
+
+    * Floating state 31~33'
+- id: 1p2p3p4
+  source_id: Kunimitsu-1+2+3+4
+  source_index: 89
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Can''t block for 5 seconds
+
+    * CH state on your next attack for 5 seconds ''''(Tekken 7 and prior games)''''
+
+    * 10% damage increase on the next attack for 5 seconds ''''(Tekken 8 season 2
+    patch onward)''''
+
+    * Attacks taken will be CH for 5 seconds'
+- id: '4'
+  source_id: Kunimitsu-1,b+2,1,4,4,4
+  source_index: 90
+  command: ',4'
+  name: ''
+  hit_level: l
+  damage: '5'
+  startup: i33~34
+  recovery: FC
+  block: '-16'
+  hit: '-5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Interrupt with i13
+
+    * -5c on crouching hit
+
+    * High crush 20~59'
+- id: ffp2
+  source_id: Kunimitsu-f,F+2
+  source_index: 91
+  command: f,F+2
+  name: Climbing Shadow
+  hit_level: M
+  damage: '18'
+  startup: i19~20
+  recovery: r30
+  block: '-12'
+  hit: +19a (+2)
+  counter_hit: +33a (+22)
+  tier: core
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Low crush 21~35
+
+    * Floating state 36~38'
+- id: ffp4
+  source_id: Kunimitsu-f,F+4
+  source_index: 92
+  command: f,F+4
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i9~11
+  recovery: r34
+  block: -17~-15
+  hit: -1~+1
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Knee
+
+    * Low crush 9~25
+
+    * Floating state 26~28'
+- id: ffp4_2
+  source_id: Kunimitsu-f,F+4,2
+  source_index: 93
+  command: f,F+4,2
+  name: Raging Blizzard
+  hit_level: m, h
+  damage: 11, 23
+  startup: i9~11, i13~14
+  recovery: r37
+  block: -17~-16
+  hit: +10c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Jail from 1st attack with 1f delay
+
+    * Forces tech backroll on hit
+
+    * Low crush 1~15
+
+    * Floating state 16~18'
+- id: f_d_dfp2
+  source_id: Kunimitsu-f,d,df+2
+  source_index: 94
+  command: f,d,df+2
+  name: Tensho Kaisen
+  hit_level: M,h
+  damage: 15,21
+  startup: i14~15 i25~26
+  recovery: r39
+  block: -17~-16
+  hit: +73a (+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - chip
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Weapon
+
+    * 2nd hit available only as combo from 1st hit
+
+    * Bufferable
+
+    * 29 total scaled damage
+
+    * 3 chip damage on block
+
+    * Low crush 16~36
+
+    * Floating state 37~39'
+- id: qcfp1
+  source_id: Kunimitsu-qcf+1
+  source_index: 95
+  command: qcf+1
+  name: Savage Kunai Throw
+  hit_level: sm,t
+  damage: 10,28
+  startup: i15~26
+  recovery: r49
+  block: '-13'
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Bufferable
+
+    * Block advantage is always -13
+
+    * Transitions to attack throw on hit
+
+    * 25 total scaled damage'
+- id: qcfp1_f
+  source_id: Kunimitsu-qcf+1,F
+  source_index: 96
+  command: qcf+1,F
+  name: Piercing Kunai Throw
+  hit_level: sm,t
+  damage: 10,28
+  startup: i15~26
+  recovery: r49
+  block: '-13'
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Bufferable
+
+    * Block advantage is always -13
+
+    * Transitions to attack throw on hit
+
+    * 25 total scaled damage
+
+    * Available on hit only
+
+    * Side switch on hit'
+- id: qcfp2
+  source_id: Kunimitsu-qcf+2
+  source_index: 97
+  command: qcf+2
+  name: Oboro Engetsu
+  hit_level: M
+  damage: '24'
+  startup: i13~14
+  recovery: r41
+  block: -12c
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - wpn
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Bufferable
+
+    * 2 chip damage on block
+
+    * Hit vs BT +3d'
+- id: qcfp1p2
+  source_id: Kunimitsu-qcf+1+2
+  source_index: 98
+  command: qcf+1+2
+  name: Ensa Sogetsu
+  hit_level: m
+  damage: '25'
+  startup: i20~21
+  recovery: r38
+  block: '-9'
+  hit: +6a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Bufferable
+
+    * 5 chip damage on block
+
+    * Low crush 21~38
+
+    * Floating state 39~41'
+- id: uf_n_3
+  source_id: Kunimitsu-uf,n,3
+  source_index: 99
+  command: uf,n,3
+  name: ''
+  hit_level: m
+  damage: '25'
+  startup: i31
+  recovery: ''
+  block: '-29'
+  hit: +2a (-8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush'
+- id: uf_n_4
+  source_id: Kunimitsu-uf,n,4
+  source_index: 100
+  command: uf,n,4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i24
+  recovery: ''
+  block: '-14'
+  hit: +17a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Low crush'
+- id: f_ffp2
+  source_id: Kunimitsu-f,f,F+2
+  source_index: 101
+  command: f,f,F+2
+  name: Sword Smash
+  hit_level: h,t
+  damage: 20,20
+  startup: i15~17
+  recovery: r32
+  block: '+6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Transitions to attack throw on front standing hit
+
+    * 4 chip damage on block
+
+    * Side switch on hit
+
+    * Hit vs Side +15a
+
+    * Hit vs BT +15a (+6)'
+- id: f_ffp3
+  source_id: Kunimitsu-f,f,F+3
+  source_index: 102
+  command: f,f,F+3
+  name: Kuga
+  hit_level: m
+  damage: '30'
+  startup: i23~27
+  recovery: r26
+  block: +3~+7
+  hit: +18c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Hit vs BT +15d
+
+    * Forces tech backroll on hit
+
+    * Low crush 3~29'
+- id: ws1
+  source_id: Kunimitsu-ws1
+  source_index: 103
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i12
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_1
+  source_id: Kunimitsu-ws1,1
+  source_index: 104
+  command: ws1,1
+  name: Shigure
+  hit_level: m, m
+  damage: 11, 15
+  startup: i12, i15
+  recovery: r31
+  block: '-12'
+  hit: +8c
+  counter_hit: +13d
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 10f delay
+
+    * Combo from 1st CH with 15f delay
+
+    * Input can be delayed 15f
+
+    * Move can be delayed 8f'
+- id: ws2
+  source_id: Kunimitsu-ws2
+  source_index: 105
+  command: ws2
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i13~14
+  recovery: r30
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: ws2_1
+  source_id: Kunimitsu-ws2,1
+  source_index: 106
+  command: ws2,1
+  name: Kaisen Ryujin
+  hit_level: m, m
+  damage: 14, 20
+  startup: i13~14, i20
+  recovery: r32
+  block: '-13'
+  hit: +18a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 9f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 6f'
+- id: ws3
+  source_id: Kunimitsu-ws3
+  source_index: 107
+  command: ws3
+  name: Kaede
+  hit_level: m
+  damage: '16'
+  startup: i15~16
+  recovery: r31
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~25
+
+    * Floating state 26~28'
+- id: ws4
+  source_id: Kunimitsu-ws4
+  source_index: 108
+  command: ws4
+  name: Fox Toe Smash
+  hit_level: m
+  damage: '15'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_2
+  source_id: Kunimitsu-SS.2
+  source_index: 109
+  command: SS.2
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i17~18
+  recovery: r24 BT
+  block: '-5'
+  hit: '+6'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Sidestep adds 9f, effective startup i26~27'
+- id: ss_2_1p2
+  source_id: Kunimitsu-SS.2,1+2
+  source_index: 110
+  command: SS.2,1+2
+  name: Spiral Sunder
+  hit_level: m, M,M
+  damage: 13, 10,20
+  startup: i17~18, i22~23 i9~10
+  recovery: r30
+  block: '-12'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit CH
+
+    * Sidestep adds 9f, effective startup i31~32
+
+    * Move is delayed 1f'
+- id: ss_4
+  source_id: Kunimitsu-SS.4
+  source_index: 111
+  command: SS.4
+  name: Will-O-the-Wisp
+  hit_level: l
+  damage: '16'
+  startup: i20~22
+  recovery: r30 FC
+  block: '-37'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Clean Hit +13d
+
+    * Clean Hit damage 20
+
+    * Sidestep adds 9f, effective startup i29~31
+
+    * Stagger on block
+
+    * High crush 6~'
+- id: airborne_ubp3p4
+  source_id: Kunimitsu-(Airborne).ub+3+4
+  source_index: 112
+  command: (Airborne).ub+3+4
+  name: Hiryu Falling Sakura
+  hit_level: m,t
+  damage: 15,15
+  startup: i19
+  recovery: ''
+  block: '-17'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - throw
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Transitions to attack throw on front airborne hit
+
+    * Does not transition on BT hit
+
+    * Hit vs BT +36a (+26)
+
+    * 17 total scaled damage
+
+    * Low crush 9~40
+
+    * Floating state 41~43'
+- id: back_to_wall_b_b_ub
+  source_id: Kunimitsu-(Back to wall).b,b,UB
+  source_index: 113
+  command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
+  hit_level: M
+  damage: '21'
+  startup: i37~38
+  recovery: r34
+  block: -3c
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - fs
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Floating state 5~13
+
+    * Low crush 14~31
+
+    * Floating state 32~34'
+- id: bt_1
+  source_id: Kunimitsu-BT.1
+  source_index: 114
+  command: BT.1
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i11
+  recovery: r27 BT
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - high
+  notes: '* Elbow'
+- id: bt_1_2
+  source_id: Kunimitsu-BT.1,2
+  source_index: 115
+  command: BT.1,2
+  name: Aratama Slash
+  hit_level: h, m
+  damage: 10, 14
+  startup: i11, i21~22
+  recovery: r28
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 4f
+
+    * Transition to KAT -8 +3 r28 with 1+2'
+- id: bt_1_2_1
+  source_id: Kunimitsu-BT.1,2,1
+  source_index: 116
+  command: BT.1,2,1
+  name: Aratama Slash > Ryu Enko
+  hit_level: h, m, M
+  damage: 10, 14, 18
+  startup: i11, ,i21~22
+  recovery: r34
+  block: '-11'
+  hit: +15a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Available on hit or block only
+
+    * Combo from 2nd hit CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed
+
+    * Low crush 5~15
+
+    * Floating state 16~18'
+- id: bt_1_2_2
+  source_id: Kunimitsu-BT.1,2,2
+  source_index: 117
+  command: BT.1,2,2
+  name: Aratama Slash > Dark Clutch
+  hit_level: h, m, m
+  damage: 10, 14, 24
+  startup: i11, ,i19~20
+  recovery: r30
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: +46a (-1)
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Available on hit or block only
+
+    * Combo from 2nd hit CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed'
+- id: bt_1_2_4
+  source_id: Kunimitsu-BT.1,2,4
+  source_index: 118
+  command: BT.1,2,4
+  name: Aratama Slash > Pouncing Strike
+  hit_level: h, m, m
+  damage: 10, 14, 23
+  startup: i11, ,i26~27
+  recovery: r34
+  block: '+3'
+  hit: +5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Spike
+
+    * Available on hit or block only
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed
+
+    * 4 chip damage on block
+
+    * Low crush 5~29
+
+    * Floating state 30~32'
+- id: bt_1_3
+  source_id: Kunimitsu-BT.1,3
+  source_index: 119
+  command: BT.1,3
+  name: Aratama Kick
+  hit_level: h, m
+  damage: 10, 12
+  startup: i11, i22~23
+  recovery: r23
+  block: '-5'
+  hit: '+2'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - kne
+  - stance_transition
+  - mid
+  - high
+  notes: '* Knee
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 4f
+
+    * Transition to SET -1 +6 +15 r19 with F'
+- id: bt_1_4
+  source_id: Kunimitsu-BT.1,4
+  source_index: 120
+  command: BT.1,4
+  name: Aratama Crusher
+  hit_level: h, h
+  damage: 10, 20
+  startup: i11, i21
+  recovery: r33
+  block: '+3'
+  hit: +15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 4f
+
+    * Forces tech backroll on hit
+
+    * 4 chip damage on block'
+- id: bt_2
+  source_id: Kunimitsu-BT.2
+  source_index: 121
+  command: BT.2
+  name: Cross Strike
+  hit_level: h,t
+  damage: 10,20
+  startup: i19~20
+  recovery: r29
+  block: '-7'
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - chp
+  - pc
+  - throw
+  - power_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Transitions to attack throw on front standing hit
+
+    * Hit vs BT/Side +5
+
+    * Chip damage and +0 block advantage on successful attack absorption
+
+    * Power crush 7~18'
+- id: bt_3
+  source_id: Kunimitsu-BT.3
+  source_index: 122
+  command: BT.3
+  name: Tobitengu
+  hit_level: m
+  damage: '20'
+  startup: i24~26
+  recovery: r27 BT
+  block: '-3'
+  hit: +11d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Low crush 6~29
+
+    * Floating state 30~32'
+- id: bt_4
+  source_id: Kunimitsu-BT.4
+  source_index: 123
+  command: BT.4
+  name: Graceful Tail Whip
+  hit_level: h
+  damage: '20'
+  startup: i16~17
+  recovery: r31
+  block: '+6'
+  hit: +35d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Transition to SET +6 +35d r31 with F
+
+    * 6 chip damage on block
+
+    * Low crush 6~16
+
+    * Floating state 17~19'
+- id: bt_1p2
+  source_id: Kunimitsu-BT.1+2
+  source_index: 124
+  command: BT.1+2
+  name: Lycoris Radiata
+  hit_level: m,m
+  damage: 10,15
+  startup: i14 i10~11
+  recovery: r22
+  block: '-2'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Weapon'
+- id: bt_3p4
+  source_id: Kunimitsu-BT.3+4
+  source_index: 125
+  command: BT.3+4
+  name: Secret Flower Ura
+  hit_level: m!
+  damage: '25'
+  startup: i19~20
+  recovery: r22 BT
+  block: ''
+  hit: +3a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - ps
+  - parry
+  - mid
+  notes: '* Spike
+
+    * Parry mid and high punches and kicks
+
+    * Parry state 5~18'
+- id: bt_dp2
+  source_id: Kunimitsu-BT.d+2
+  source_index: 126
+  command: BT.d+2
+  name: Sinking Thrust
+  hit_level: L
+  damage: '20'
+  startup: i17~18
+  recovery: r31
+  block: '-13'
+  hit: '+4'
+  counter_hit: +8d
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - cs
+  - high_crush
+  - floor_break
+  - stance_transition
+  - low
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Transition to FC with D
+
+    * High crush 6~18'
+- id: bt_dp4
+  source_id: Kunimitsu-BT.d+4
+  source_index: 127
+  command: BT.d+4
+  name: Araremaki
+  hit_level: L,L
+  damage: 10,18
+  startup: i20~21 i26~27
+  recovery: r32 FC
+  block: '-14'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Jail from 1st attack
+
+    * High crush 4~'
+- id: bt_fp1p2
+  source_id: Kunimitsu-BT.f+1+2
+  source_index: 128
+  command: BT.f+1+2
+  name: Shadow Strike
+  hit_level: m
+  damage: '21'
+  startup: i16~17
+  recovery: r35
+  block: '-13'
+  hit: +54a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Weapon
+
+    * Hit vs BT +9a (+0)'
+- id: ch_set_2
+  source_id: Kunimitsu-CH.SET.2
+  source_index: 129
+  command: CH.SET.2
+  name: Souenzan
+  hit_level: m,t
+  damage: 20,10
+  startup: i12
+  recovery: r65
+  block: ''
+  hit: ''
+  counter_hit: +55a (+48)
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - tornado
+  - mid
+  notes: '* Weapon
+
+    * Attack Throw
+
+    * Instant tornado'
+- id: kat_1
+  source_id: Kunimitsu-KAT.1
+  source_index: 130
+  command: KAT.1
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i11
+  recovery: r28
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Has good left sidestep tracking'
+- id: kat_1_2
+  source_id: Kunimitsu-KAT.1,2
+  source_index: 131
+  command: KAT.1,2
+  name: Severing Snow
+  hit_level: h, m
+  damage: 12, 20
+  startup: i11, i21
+  recovery: r34
+  block: '-9'
+  hit: +9g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 11f delay
+
+    * Interrupt from 1st block with i3
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 7f
+
+    * Cancel to FC -14 -3 r31 with D on frame 12 (cs7~)'
+- id: kat_2
+  source_id: Kunimitsu-KAT.2
+  source_index: 132
+  command: KAT.2
+  name: Veil of Night
+  hit_level: m
+  damage: '21'
+  startup: i23~24
+  recovery: r33
+  block: '+5'
+  hit: +20d
+  counter_hit: +80a (+60)
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Spike
+
+    * Weapon
+
+    * Transition to FC with D
+
+    * Low crush 7~24
+
+    * Floating state 25~27'
+- id: kat_3
+  source_id: Kunimitsu-KAT.3
+  source_index: 133
+  command: KAT.3
+  name: ''
+  hit_level: M
+  damage: '8'
+  startup: i18~25
+  recovery: r23
+  block: -12~-5
+  hit: +2c~+9c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - fs
+  - js
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Evasive, can go over mids and some highs
+
+    * Floating state 1~4
+
+    * Low crush 5~26'
+- id: kat_3_2
+  source_id: Kunimitsu-KAT.3,2
+  source_index: 134
+  command: KAT.3,2
+  name: Leaping Moon Blade
+  hit_level: M, M
+  damage: 8, 8
+  startup: i18~25, i20~22
+  recovery: r38
+  block: '-16'
+  hit: +34a (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit with 3f delay
+
+    * Input can be delayed 3f
+
+    * Move cannot be delayed
+
+    * Steel pedal
+
+    * Low crush 21~38
+
+    * Floating state 39~41'
+- id: kat_4
+  source_id: Kunimitsu-KAT.4
+  source_index: 135
+  command: KAT.4
+  name: ''
+  hit_level: L
+  damage: '16'
+  startup: i22~28
+  recovery: r29
+  block: -16~-10
+  hit: -2~+4
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  - low
+  notes: '* Floating state 1~4
+
+    * Low crush 5~18
+
+    * Floating state 19~21'
+- id: kat_4_2
+  source_id: Kunimitsu-KAT.4,2
+  source_index: 136
+  command: KAT.4,2
+  name: Moonlight Assassin
+  hit_level: L, h
+  damage: 16, 23
+  startup: i22~28, i23~24
+  recovery: r34
+  block: '-9'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - low
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH with 2f delay
+
+    * Input can be delayed 2f
+
+    * Move cannot be delayed'
+- id: kat_1p2
+  source_id: Kunimitsu-KAT.1+2
+  source_index: 137
+  command: KAT.1+2
+  name: Fire Blossom Breath
+  hit_level: h!
+  damage: '20'
+  startup: i24~36
+  recovery: r28
+  block: ''
+  hit: +0d~+12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: kat_u
+  source_id: Kunimitsu-KAT.U
+  source_index: 138
+  command: KAT.U
+  name: Cumulonimbi
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r36
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  notes: '* Kunimitsu teleports upwards and lands in place
+
+    * Floating state 1~4
+
+    * Low crush 5~19'
+- id: mus_2
+  source_id: Kunimitsu-MUS.2
+  source_index: 139
+  command: MUS.2
+  name: Sasabi Barai
+  hit_level: L
+  damage: '25'
+  startup: i25
+  recovery: r37
+  block: '-18'
+  hit: +21d
+  counter_hit: +39a
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - low
+  notes: 'Weapon
+
+    * High crush 11~43'
+- id: mus_4
+  source_id: Kunimitsu-MUS.4
+  source_index: 140
+  command: MUS.4
+  name: Sasabi Kujiki
+  hit_level: m
+  damage: '30'
+  startup: i13~15
+  recovery: r40
+  block: '-14'
+  hit: -8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Massive pushback, difficult to punish without walls
+
+    * Low crush 1~28
+
+    * Floating state 29~31'
+- id: mus_3p4
+  source_id: Kunimitsu-MUS.3+4
+  source_index: 141
+  command: MUS.3+4
+  name: Sasabi Tobikage
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r65 FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Initial uf+3+4 jump takes 35f
+
+    * Evasive jump, can side switch
+
+    * Low crush 10~42
+
+    * Floating state 43~45'
+- id: set_1
+  source_id: Kunimitsu-SET.1
+  source_index: 142
+  command: SET.1
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i10~11
+  recovery: r21
+  block: '-1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - high
+  notes: '* Elbow'
+- id: set_1_2
+  source_id: Kunimitsu-SET.1,2
+  source_index: 143
+  command: SET.1,2
+  name: Gekka Renzan
+  hit_level: h, h
+  damage: 8, 13
+  startup: i10~11, i17~18
+  recovery: r26
+  block: '-6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 12f delay
+
+    * Jail from 1st attack with 3f delay
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 10f
+
+    * Transition to BT with B'
+- id: set_1_2_1
+  source_id: Kunimitsu-SET.1,2,1
+  source_index: 144
+  command: SET.1,2,1
+  name: Gekka Renzan > Ryu Enko
+  hit_level: h, h, M
+  damage: 8, 13, 18
+  startup: i10~11, ,i21~22
+  recovery: r34
+  block: '-11'
+  hit: +15a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i10 from 2nd block
+
+    * Low crush 5~15
+
+    * Floating state 16~18'
+- id: set_1_2_2
+  source_id: Kunimitsu-SET.1,2,2
+  source_index: 145
+  command: SET.1,2,2
+  name: Gekka Renzan > Dark Clutch
+  hit_level: h, h, m
+  damage: 8, 13, 24
+  startup: i10~11, ,i19~20
+  recovery: r30
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: +46a (-1)
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 10f delay
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i8 from 2nd block'
+- id: set_1_2_3
+  source_id: Kunimitsu-SET.1,2,3
+  source_index: 146
+  command: SET.1,2,3
+  name: Gekka Renzan > Moon Light Dance
+  hit_level: h, h, M
+  damage: 8, 13, 23
+  startup: i10~11, ,i33~34
+  recovery: r28
+  block: '-4'
+  hit: +25d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Combo from 2nd CH
+
+    * Interrupt with i12 from 2nd block
+
+    * Available on hit or block only
+
+    * Low crush 14~33
+
+    * Floating state 34~36'
+- id: set_1_2_4
+  source_id: Kunimitsu-SET.1,2,4
+  source_index: 147
+  command: SET.1,2,4
+  name: Gekka Renzan > Pouncing Strike
+  hit_level: h, h, m
+  damage: 8, 13, 23
+  startup: i10~11, ,i26~27
+  recovery: r34
+  block: '+3'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Spike
+
+    * Input can be delayed 10f
+
+    * Move cannot be delayed
+
+    * Available on hit or block only
+
+    * Interrupt with i15 from 2nd block
+
+    * 4 chip damage on block
+
+    * Low crush 5~29
+
+    * Floating state 30~32'
+- id: set_2
+  source_id: Kunimitsu-SET.2
+  source_index: 148
+  command: SET.2
+  name: Kasumi Slash
+  hit_level: m
+  damage: '17'
+  startup: i12
+  recovery: r31
+  block: '-9'
+  hit: '+8'
+  counter_hit: +55a (+48)
+  tier: specialist
+  tags:
+  - wpn
+  - throw
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Shifts to Attack Throw "Souenzan" on CH from the front on standing opponent
+
+    * Instant Tornado on CH'
+- id: set_3
+  source_id: Kunimitsu-SET.3
+  source_index: 149
+  command: SET.3
+  name: Frost Slide
+  hit_level: L
+  damage: '17'
+  startup: i18~23
+  recovery: r30 FC
+  block: -16~-11
+  hit: +0c~+5c
+  counter_hit: +25a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: set_4
+  source_id: Kunimitsu-SET.4
+  source_index: 150
+  command: SET.4
+  name: ''
+  hit_level: M
+  damage: '13'
+  startup: i18~19
+  recovery: r28 BT
+  block: '-8'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Hits grounded but can miss when too close vs small bodies
+- id: set_4_3
+  source_id: Kunimitsu-SET.4,3
+  source_index: 151
+  command: SET.4,3
+  name: Into the Dark
+  hit_level: M, m
+  damage: 13, 21
+  startup: i18~19, i22
+  recovery: r35
+  block: '-13'
+  hit: +5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 9f delay
+
+    * Input can be delayed 9f
+
+    * Move can be delayed 5f
+
+    * Interrupt with i5 from 1st block
+
+    * Low crush 5~17
+
+    * Floating state 18~20'
+- id: set_1p2
+  source_id: Kunimitsu-SET.1+2
+  source_index: 152
+  command: SET.1+2
+  name: Twin Crescent Slash
+  hit_level: m,m
+  damage: 8,18
+  startup: i15 i18
+  recovery: r33
+  block: '-5'
+  hit: +22a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35)
+
+
+    * Balcony Break
+
+    * Weapon'
+- id: set_1p4
+  source_id: Kunimitsu-SET.1+4
+  source_index: 153
+  command: SET.1+4
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: i15
+  recovery: r28
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: set_b
+  source_id: Kunimitsu-SET.B
+  source_index: 154
+  command: SET.B
+  name: Sliding Sweep
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Cancels to standing block (blocks at frame 12)'
+- id: set_ufp4
+  source_id: Kunimitsu-SET.uf+4
+  source_index: 155
+  command: SET.uf+4
+  name: Chakra Drop
+  hit_level: m,t
+  damage: 8,16
+  startup: i13~14
+  recovery: r41
+  block: '-14'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - throw
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Shift to Attack Throw when hit from the front
+
+    * Hit vs BT/Side +8a (+1)
+
+    * Low crush 11~32
+
+    * Floating state 33~35'
+- id: set_ufp1p2
+  source_id: Kunimitsu-SET.uf+1+2
+  source_index: 156
+  command: SET.uf+1+2
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: i16
+  recovery: r28
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: hfc_1
+  source_id: Kunimitsu-hFC.1
+  source_index: 157
+  command: hFC.1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 1~'
+- id: hfc_2
+  source_id: Kunimitsu-hFC.2
+  source_index: 158
+  command: hFC.2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: hfc_3
+  source_id: Kunimitsu-hFC.3
+  source_index: 159
+  command: hFC.3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: hfc_4
+  source_id: Kunimitsu-hFC.4
+  source_index: 160
+  command: hFC.4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: hfc_1p2
+  source_id: Kunimitsu-hFC.1+2
+  source_index: 161
+  command: hFC.1+2
+  name: Yakouga
+  hit_level: l,sm
+  damage: 8,15
+  startup: i18 i15
+  recovery: r31
+  block: '-12'
+  hit: +5 BT
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  - mid
+  notes: '* Weapon
+
+    * Can hit grounded when off-axis
+
+    * Transition to BT on hit
+
+    * High crush 1~24'
+- id: 1p3
+  source_id: Kunimitsu-1+3
+  source_index: 162
+  command: 1+3
+  name: Tamaki
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovers in FUFL.'
+- id: 2p4
+  source_id: Kunimitsu-2+4
+  source_index: 163
+  command: 2+4
+  name: Mizore
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '+0'
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break: 1 or 2
+
+    * Side switch
+
+    * Opponent recovers in FDFA.'
+- id: bt_1p4
+  source_id: Kunimitsu-BT.1+4
+  source_index: 164
+  command: BT.1+4
+  name: Skybound Falling Sakura
+  hit_level: t
+  damage: '45'
+  startup: i12~14
+  recovery: r31
+  block: '+0'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1+2
+
+    * Opponent recovers in FDFA'
+- id: back_throw
+  source_id: Kunimitsu-Back Throw
+  source_index: 165
+  command: Back Throw
+  name: Yamikazan
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable
+
+    * Opponent recovers FDFT'
+- id: left_throw
+  source_id: Kunimitsu-Left Throw
+  source_index: 166
+  command: Left Throw
+  name: Avalanche
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: -2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1
+
+    * Opponent recovers FUFA'
+- id: right_throw
+  source_id: Kunimitsu-Right Throw
+  source_index: 167
+  command: Right Throw
+  name: Tornado
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 2
+
+    * Randomly side switches
+
+    * Opponent recovers FDFT or FDFR on side switch'
+- id: fp1p4
+  source_id: Kunimitsu-f+1+4
+  source_index: 168
+  command: f+1+4
+  name: Manji Rana
+  hit_level: t
+  damage: '38'
+  startup: i11
+  recovery: r28
+  block: -3 BT
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1
+
+    * Side switch
+
+    * Kunimitsu and the opponent recover in BT on break
+
+    * Opponent recovers in FUFA
+
+    * SET.1+4: i15 (t43 r28)'
+- id: ufp1p2
+  source_id: Kunimitsu-uf+1+2
+  source_index: 169
+  command: uf+1+2
+  name: Manji Cartwheel
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '+0'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1+2
+
+    * Side switch
+
+    * Opponent recovers in FDFT
+
+    * SET.uf+1+2: i16 (t44 r28)'

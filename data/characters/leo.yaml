@@ -1,0 +1,3009 @@
+character_id: leo
+display_name: Leo Kliesen
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/leo/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 573e0c8749c01fa43b6e8d34f8e71bd5b4147296bc42ae16b935c1efdca184bf
+data_status: available
+stances:
+- H
+- LTG
+- ws
+- SS
+- FC
+- BOK
+- BT
+- KNK
+- hFC
+moves:
+- id: 2p3
+  source_id: Leo-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_2p3
+  source_id: Leo-H.2+3
+  source_index: 2
+  command: H.2+3
+  name: Ultimate Feng Huo Lun Kick
+  hit_level: m,m,h
+  damage: 14,13,23 (50)
+  startup: i16~17
+  recovery: ''
+  block: +8~+9
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - throw
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to attack throw on 1st hit
+
+    * +8a(-1) on hit on first whiff
+
+    * Enter CD +16g with df on block
+
+    * 7 chip damage on block'
+- id: r_dfp1p2
+  source_id: Leo-R.df+1+2
+  source_index: 3
+  command: R.df+1+2
+  name: Transcendent Blow
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Leo-1
+  source_index: 4
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: ''
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '1_2'
+  source_id: Leo-1,2
+  source_index: 5
+  command: 1,2
+  name: He Zi Shou
+  hit_level: h, h
+  damage: 5, 10
+  startup: i10, i12
+  recovery: ''
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st attack
+
+    * Enter KNK -9 +2 with b'
+- id: '1_2_1'
+  source_id: Leo-1,2,1
+  source_index: 6
+  command: 1,2,1
+  name: ''
+  hit_level: h, h, h
+  damage: 5, 10, 16
+  startup: i10, ,i20~21
+  recovery: ''
+  block: -5~-4
+  hit: '+6'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - high
+  notes: Combo from 2nd CH
+- id: '1_2_1_1'
+  source_id: Leo-1,2,1,1
+  source_index: 7
+  command: 1,2,1,1
+  name: Liang Yi Zhou
+  hit_level: h, h, h, m
+  damage: 5, 10, 16, 21
+  startup: i10, ,i18
+  recovery: ''
+  block: '-13'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - mid
+  - high
+  notes: '*
+
+    Balcony Break
+
+    * Elbow
+
+    * Combo from 3rd Hit'
+- id: '1_2_1_4'
+  source_id: Leo-1,2,1,4
+  source_index: 8
+  command: 1,2,1,4
+  name: Wai Bai Tui
+  hit_level: h, h, h, h
+  damage: 5, 10, 16, 30
+  startup: i10, ,i21~23
+  recovery: ''
+  block: -6~-4
+  hit: +32a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '*
+
+    Balcony Break
+
+    * Combo from 3rd Hit'
+- id: '1_2_4'
+  source_id: Leo-1,2,4
+  source_index: 9
+  command: 1,2,4
+  name: Ye Chui
+  hit_level: h, h, L
+  damage: 5, 10, 15
+  startup: i10, ,i24
+  recovery: ''
+  block: '-13'
+  hit: '+3'
+  counter_hit: +8d
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: Combo from 2nd CH
+- id: '1_4'
+  source_id: Leo-1,4
+  source_index: 10
+  command: 1,4
+  name: Lian Tan Jin Ji Du Li
+  hit_level: h, h
+  damage: 5, 17
+  startup: i10, i16
+  recovery: KNK
+  block: '-2'
+  hit: '+11'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - high
+  notes: '* Knee
+
+    * Jail from 1st attack'
+- id: '2'
+  source_id: Leo-2
+  source_index: 11
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '9'
+  startup: i11
+  recovery: ''
+  block: '-1'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Leo-2,1
+  source_index: 12
+  command: 2,1
+  name: Xiang Long Shi Chong Tian Zhang
+  hit_level: h, h
+  damage: 9, 12
+  startup: i11, i16~17
+  recovery: ''
+  block: -7~-6
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: '2_2'
+  source_id: Leo-2,2
+  source_index: 13
+  command: 2,2
+  name: Xiang Long Shi Ling Zhou
+  hit_level: h, m
+  damage: 9, 20
+  startup: i11, i22
+  recovery: ''
+  block: '-12'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  - high
+  notes: '* Elbow
+
+    * Combo from 1st Hit'
+- id: '3'
+  source_id: Leo-3
+  source_index: 14
+  command: '3'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i14
+  recovery: ''
+  block: '-8'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: '3_2'
+  source_id: Leo-3,2
+  source_index: 15
+  command: 3,2
+  name: ''
+  hit_level: h, h
+  damage: 15, 10
+  startup: i14, i19
+  recovery: ''
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit
+
+    * Enter BOK -6 +5 with d'
+- id: '3_2_3'
+  source_id: Leo-3,2,3
+  source_index: 16
+  command: 3,2,3
+  name: Wu Dang Xuan Feng Jiao
+  hit_level: h, h, m
+  damage: 15, 10, 23
+  startup: i14, ,i23~24
+  recovery: ''
+  block: -7~-6
+  hit: +13a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '*
+
+    Tornado
+
+    *
+
+    Balcony Break
+
+    * Combo from 2nd CH
+
+    * Cancel to -15 -4 with B'
+- id: '3_2_4'
+  source_id: Leo-3,2,4
+  source_index: 17
+  command: 3,2,4
+  name: Wu Dang Jin Ji Du Li
+  hit_level: h, h, m
+  damage: 15, 10, 14
+  startup: i14, ,i22~23
+  recovery: KNK
+  block: +9~+10
+  hit: +15g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Combo from 2nd CH'
+- id: '4'
+  source_id: Leo-4
+  source_index: 18
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '17'
+  startup: i12
+  recovery: ''
+  block: '-7'
+  hit: '+6'
+  counter_hit: +31a
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: 1p2
+  source_id: Leo-1+2
+  source_index: 19
+  command: 1+2
+  name: Dual Thunder Fists
+  hit_level: m
+  damage: '25'
+  startup: i22
+  recovery: r34
+  block: '-12'
+  hit: +11a (+2)
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * -7 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~21'
+- id: fp2
+  source_id: Leo-f+2
+  source_index: 20
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i14~16
+  recovery: r22
+  block: 0~+2
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: fp2_2
+  source_id: Leo-f+2,2
+  source_index: 21
+  command: f+2,2
+  name: Heng Da Er Lang Dan Shan
+  hit_level: h, m
+  damage: 14, 21
+  startup: i14~16, i23~24
+  recovery: r34
+  block: -12~-11
+  hit: '+8'
+  counter_hit: +25d
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 6F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: fp2_4
+  source_id: Leo-f+2,4
+  source_index: 22
+  command: f+2,4
+  name: Heng Da Bai Tui
+  hit_level: h, h
+  damage: 14, 16
+  startup: i14~16, i22~23
+  recovery: r26
+  block: -1~0
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Jail from 1st block with no delay
+
+    * Enter r20 CD -1 +7 with df
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: ltg_fp2_4_3
+  source_id: Leo-f+2,4,LTG.3
+  source_index: 23
+  command: LTG.f+2,4,3
+  name: Jue Zhao Heng Da Bai Tui
+  hit_level: h, h, M
+  damage: 14, 16, 20
+  startup: i14~16, ,i32~35
+  recovery: ''
+  block: -3c~?
+  hit: +16d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: "* Balcony Break\n* Spike\n* Combo from 1st hit\n* Transition to BOK with\
+    \ D (0c~?/+19d~+22d \n* 8 chip damage on block\n* Consumes 240F of heat timer\
+    \ during heat\n* Low crush 16~"
+- id: fp3
+  source_id: Leo-f+3
+  source_index: 24
+  command: f+3
+  name: Bai Tui
+  hit_level: h
+  damage: '23'
+  startup: i20~21
+  recovery: ''
+  block: 0~+1
+  hit: '+4'
+  counter_hit: +27a
+  tier: specialist
+  tags:
+  - high
+  notes: '* Enter BOK +2 +6 +29a with d'
+- id: fp4
+  source_id: Leo-f+4
+  source_index: 25
+  command: f+4
+  name: Jin Ji Du Li
+  hit_level: m
+  damage: '14'
+  startup: i17~18
+  recovery: KNK
+  block: +9~+10
+  hit: +15g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Stance moves may be delayed by 11F
+
+    * Enter CD -5 +1 +5 with df'
+- id: fp1p2
+  source_id: Leo-f+1+2
+  source_index: 26
+  command: f+1+2
+  name: Bei Zhe Kao
+  hit_level: m
+  damage: '24'
+  startup: i17~18
+  recovery: ''
+  block: -14~-13
+  hit: +10a (+1)
+  counter_hit: +56a
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: fp2p3
+  source_id: Leo-f+2+3
+  source_index: 27
+  command: f+2+3
+  name: Xiang Chui
+  hit_level: h
+  damage: '21'
+  startup: i20~21
+  recovery: r33
+  block: -9~-8
+  hit: +11a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Sidesteps to the right'
+- id: fp3p4
+  source_id: Leo-f+3+4
+  source_index: 28
+  command: f+3+4
+  name: Yellow Crane
+  hit_level: h
+  damage: '24'
+  startup: i17~18
+  recovery: ''
+  block: 0~-1
+  hit: '+8'
+  counter_hit: +71a (+55)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 7 chip damage on block'
+- id: dfp1
+  source_id: Leo-df+1
+  source_index: 29
+  command: df+1
+  name: Quick Upper
+  hit_level: m
+  damage: '13'
+  startup: i13~14
+  recovery: ''
+  block: -1~0
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Leo-df+1,2
+  source_index: 30
+  command: df+1,2
+  name: Shuang Huan Da
+  hit_level: m, h
+  damage: 13, 20
+  startup: i13~14, i18
+  recovery: ''
+  block: '-6'
+  hit: +9d
+  counter_hit: +34d (+26)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '*
+
+    Tornado
+
+    *
+
+    Balcony Break
+
+    * Combo from 1st CH with 8F delay
+
+    * Move can be delayed 4F
+
+    * Input can be delayed 8F'
+- id: dfp2
+  source_id: Leo-df+2
+  source_index: 31
+  command: df+2
+  name: Sheng Pao
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: ''
+  block: -13~-12
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp3
+  source_id: Leo-df+3
+  source_index: 32
+  command: df+3
+  name: Chuan Pao
+  hit_level: m
+  damage: '22'
+  startup: i17~19
+  recovery: ''
+  block: -9~-7
+  hit: +6a (-3)
+  counter_hit: +27a (-9)
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break'
+- id: dfp4
+  source_id: Leo-df+4
+  source_index: 33
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i13
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp2p3
+  source_id: Leo-df+2+3
+  source_index: 34
+  command: df+2+3
+  name: Gui Xi
+  hit_level: L
+  damage: '20'
+  startup: i21~22
+  recovery: FC
+  block: -12~-11
+  hit: '+5'
+  counter_hit: +21d
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: dp1
+  source_id: Leo-d+1
+  source_index: 35
+  command: d+1
+  name: Fu Hu
+  hit_level: m
+  damage: '18'
+  startup: i18~19
+  recovery: ''
+  block: -2~-1
+  hit: '+5'
+  counter_hit: '+13'
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Enter FC with d'
+- id: dp2
+  source_id: Leo-d+2
+  source_index: 36
+  command: d+2
+  name: Pi Zhong
+  hit_level: m
+  damage: '23'
+  startup: i21
+  recovery: ''
+  block: +4c
+  hit: +9c
+  counter_hit: +56a
+  tier: specialist
+  tags:
+  - spk
+  - chip
+  - mid
+  notes: '* Spike
+
+    * 4 chip damage on block'
+- id: dp3
+  source_id: Leo-d+3
+  source_index: 37
+  command: d+3
+  name: Crouch Spin Kick
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dp4
+  source_id: Leo-d+4
+  source_index: 38
+  command: d+4
+  name: Sao Tang Ti
+  hit_level: L
+  damage: '13'
+  startup: i16~17
+  recovery: ''
+  block: -11~-10
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_2
+  source_id: Leo-d+4,2
+  source_index: 39
+  command: d+4,2
+  name: Sao Tang Ti > Shang Bu Zhuang Zhang
+  hit_level: L, h
+  damage: 13, 23
+  startup: i16~17, i26~27
+  recovery: ''
+  block: -5~-4
+  hit: -7d
+  counter_hit: +3d
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH
+
+    * Gain LTG -11d -1d on hit with 1+2'
+- id: dp1p2
+  source_id: Leo-d+1+2
+  source_index: 40
+  command: d+1+2
+  name: Fo Bu
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20? BOK
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* High crush 6~'
+- id: dp3p4
+  source_id: Leo-d+3+4
+  source_index: 41
+  command: d+3+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '7'
+  startup: i12
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dbp1
+  source_id: Leo-db+1
+  source_index: 42
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '6'
+  startup: i10
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dbp2
+  source_id: Leo-db+2
+  source_index: 43
+  command: db+2
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i16~17
+  recovery: ''
+  block: -9~-8
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: dbp2_4
+  source_id: Leo-db+2,4
+  source_index: 44
+  command: db+2,4
+  name: Bei Zhan Juan Long Jiao
+  hit_level: m, h
+  damage: 16, 24
+  startup: i16~17, i24~26
+  recovery: ''
+  block: -9~-7
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 14F delay
+
+    * Low crush 12~'
+- id: dbp3
+  source_id: Leo-db+3
+  source_index: 45
+  command: db+3
+  name: Lie Huo Fan Jiao
+  hit_level: h
+  damage: '23'
+  startup: i31~32
+  recovery: ''
+  block: -8~-9
+  hit: +38a (+28)
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: No crouching state
+- id: dbp4
+  source_id: Leo-db+4
+  source_index: 46
+  command: db+4
+  name: ''
+  hit_level: L
+  damage: '11'
+  startup: i20~22
+  recovery: ''
+  block: -31~-29
+  hit: '+2'
+  counter_hit: +33a
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Clean hit +2
+
+    * Staggers on block
+
+    * Causes float on hit if db+4,1 is input
+
+    * High crush 11~'
+- id: dbp4_1
+  source_id: Leo-db+4,1
+  source_index: 47
+  command: db+4,1
+  name: Qian Sao Lei Wang Quan
+  hit_level: L, m
+  damage: 11, 27
+  startup: i20~22, i25~26
+  recovery: ''
+  block: -16~-15
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    ** +14a (+7)'
+- id: ltg_dbp4_1_1p2
+  source_id: Leo-db+4,1,LTG.1+2
+  source_index: 48
+  command: LTG.db+4,1,1+2
+  name: Jue Zhao Qian Sao Lei Wang Quan
+  hit_level: L, m, m
+  damage: 11, 27, 20
+  startup: i20~22, ,i15~16
+  recovery: ''
+  block: -15~-14
+  hit: +6a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - heat
+  - balcony_break
+  - chip
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 1st hit
+
+    ** +27a (+17)
+
+    * 8 chip damage on block
+
+    * Partially consumes remaining heat time during heat'
+- id: dbp1p2
+  source_id: Leo-db+1+2
+  source_index: 49
+  command: db+1+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i21~23
+  recovery: ''
+  block: -9~-7
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Enter BOK -12 +4 with d'
+- id: dbp1p2_1
+  source_id: Leo-db+1+2,1
+  source_index: 50
+  command: db+1+2,1
+  name: Ba Wang Zhe Jiang
+  hit_level: m, m
+  damage: 17, 20
+  startup: i21~23, i17~18
+  recovery: ''
+  block: -12~-11
+  hit: +22a (+17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with delay'
+- id: bp1
+  source_id: Leo-b+1
+  source_index: 51
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i18~19
+  recovery: r30
+  block: '-12'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: bp1_4
+  source_id: Leo-b+1,4
+  source_index: 52
+  command: b+1,4
+  name: Ding Zhou Jin Ji Du Li
+  hit_level: m, m
+  damage: 17, 14
+  startup: i18~19, i23
+  recovery: r9? KNK
+  block: '+9'
+  hit: +15g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st CH'
+- id: bp1_1p2
+  source_id: Leo-b+1,1+2
+  source_index: 53
+  command: b+1,1+2
+  name: Ding Zhou Meng Po Kao
+  hit_level: m, m
+  damage: 17, 18
+  startup: i18~19, i22~23
+  recovery: r30
+  block: -12~-11
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - shd
+  - stance_transition
+  - mid
+  notes: '* Shoulder
+
+    * Combo from 1st hit with 2F delay
+
+    * Combo from 1st CH with 10F delay
+
+    * Transition to BOK r28? with d (-10/+11)
+
+    * Move can be delayed by 16F
+
+    * Input can be delayed by 18F'
+- id: bp1p3
+  source_id: Leo-b+1+3
+  source_index: 54
+  command: b+1+3
+  name: Shi Zi Xiao Zhang Kou
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high and mid punches and kicks
+
+    * Parry state 5~12'
+- id: bp1p3_p_2
+  source_id: Leo-b+1+3,P.2
+  source_index: 55
+  command: b+1+3,P.2
+  name: Shang Bu Zhuang Quan
+  hit_level: m
+  damage: '30'
+  startup: i14~15
+  recovery: ''
+  block: -9~-8
+  hit: -9a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - parry
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from parry
+
+    * Gain LTG on hit
+
+    * +9a on hit during LTG'
+- id: bp2
+  source_id: Leo-b+2
+  source_index: 56
+  command: b+2
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i14
+  recovery: ''
+  block: '-9'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp2_1
+  source_id: Leo-b+2,1
+  source_index: 57
+  command: b+2,1
+  name: Wu Hu Chu Dong
+  hit_level: m, h
+  damage: 11, 11
+  startup: i14, i22~23
+  recovery: ''
+  block: -4~-3
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: bp2_1p2
+  source_id: Leo-b+2,1+2
+  source_index: 58
+  command: b+2,1+2
+  name: Er Lang Dan Shan
+  hit_level: m, m
+  damage: 11, 21
+  startup: i14, i27~28
+  recovery: ''
+  block: -11c~-10c
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Combo from 1st hit'
+- id: bp2p4
+  source_id: Leo-b+2+4
+  source_index: 59
+  command: b+2+4
+  name: Shi Zi Zhou
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - ps
+  - balcony_break
+  - parry
+  notes: '* Balcony Break
+
+    * Parries high and mid punches and kicks
+
+    * Side switch on punch parry (+5)
+
+    * 25 damage on kick parry (+1d), does not Balcony Break
+
+    * Parry state 5~12'
+- id: bp3
+  source_id: Leo-b+3
+  source_index: 60
+  command: b+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14~15
+  recovery: ''
+  block: -7~-6
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3_1
+  source_id: Leo-b+3,1
+  source_index: 61
+  command: b+3,1
+  name: Ying Mian Tui
+  hit_level: m, m
+  damage: 12, 13
+  startup: i14~15, i20
+  recovery: ''
+  block: '-10'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter BOK -8 +3 with d
+
+    * Enter KNK -10 +1 with b'
+- id: ltg_bp3_1_2
+  source_id: Leo-b+3,1,LTG.2
+  source_index: 62
+  command: LTG.b+3,1,2
+  name: Jue Zhao Ying Mian Tui
+  hit_level: m, m, m
+  damage: 12, 13, 17 (25)
+  startup: i14~15, ,i17
+  recovery: ''
+  block: '-12'
+  hit: +25a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * +10a on 2nd whiff and 3rd hit
+
+    * 42 damage from 1st hit with scaling
+
+    * 10 chip damage on block
+
+    * Consumes 210F of heat timer during heat'
+- id: bp4
+  source_id: Leo-b+4
+  source_index: 63
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i18
+  recovery: ''
+  block: '-8'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp4_1
+  source_id: Leo-b+4,1
+  source_index: 64
+  command: b+4,1
+  name: Dragon's Impact
+  hit_level: m, m
+  damage: 13, 20
+  startup: i18, i30~31
+  recovery: ''
+  block: -12~-11
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 1st hit
+
+    * Cancel to FC -16 -3 with D'
+- id: bp4_1_4
+  source_id: Leo-b+4,1~4
+  source_index: 65
+  command: b+4,1~4
+  name: Dragon's Impact > Jin Ji Du Li
+  hit_level: m, m
+  damage: 13, 14
+  startup: i18, i17~18
+  recovery: KNK
+  block: +9~+10
+  hit: +15g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st hit
+
+    * Enter CD -5 +1 +5 with df'
+- id: bp1p2
+  source_id: Leo-b+1+2
+  source_index: 66
+  command: b+1+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: ''
+  block: -24~-23
+  hit: '-11'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: Elbow
+- id: bp1p2_1p2
+  source_id: Leo-b+1+2,1+2
+  source_index: 67
+  command: b+1+2,1+2
+  name: ''
+  hit_level: m, m
+  damage: 15, 13
+  startup: i17~18, i21~22
+  recovery: ''
+  block: -14~-13
+  hit: '-3'
+  counter_hit: '+7'
+  tier: specialist
+  tags:
+  - shd
+  - mid
+  notes: '* Shoulder
+
+    * Combo from 1st hit'
+- id: bp1p2_1p2_2
+  source_id: Leo-b+1+2,1+2,2
+  source_index: 68
+  command: b+1+2,1+2,2
+  name: Jin Gang Hua Shan Tuo Tian Zhang
+  hit_level: m, m, m
+  damage: 15, 13, 25 (30)
+  startup: i17~18, ,i20~21
+  recovery: ''
+  block: -13~-12
+  hit: +17d (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* Combo from 2nd CH
+
+    * Power up with motion input d,df,f+2
+
+    * 12 chip damage on block with motion input
+
+    * Deals 25 damage without motion input'
+- id: bp1p4
+  source_id: Leo-b+1+4
+  source_index: 69
+  command: b+1+4
+  name: Cuo Zhang
+  hit_level: h,l
+  damage: 6,12
+  startup: i19~21
+  recovery: ''
+  block: -12~-10
+  hit: '+3'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: ''
+- id: bp2p3
+  source_id: Leo-b+2+3
+  source_index: 70
+  command: b+2+3
+  name: Ye Kua
+  hit_level: m
+  damage: '21'
+  startup: i30~31
+  recovery: ''
+  block: -8~-7
+  hit: +23g
+  counter_hit: +28a
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - mid
+  notes: '* Parries high and mid punches
+
+    * Hit after parry is the same as on CH
+
+    * Parry state 5~9'
+- id: bp3p4
+  source_id: Leo-b+3+4
+  source_index: 71
+  command: b+3+4
+  name: Tui Bu Jin Ji Du Li
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: KNK
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: ubp1
+  source_id: Leo-ub+1
+  source_index: 72
+  command: ub+1
+  name: Bao Zhou
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high and mid kicks
+
+    * Parry state 5~12'
+- id: ubp1_p_4
+  source_id: Leo-ub+1,P.4
+  source_index: 73
+  command: ub+1,P.4
+  name: Bao Zhou Ji Tui
+  hit_level: h
+  damage: '30'
+  startup: i17~18
+  recovery: ''
+  block: -16~-15
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - parry
+  - high
+  notes: '* Combo from parry'
+- id: ubp3
+  source_id: Leo-ub+3
+  source_index: 74
+  command: ub+3
+  name: Sky Vibration
+  hit_level: M
+  damage: '26'
+  startup: i24~27
+  recovery: ''
+  block: +0c~+3c
+  hit: +6c
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: ubp4
+  source_id: Leo-ub+4
+  source_index: 75
+  command: ub+4
+  name: Yue Bu San Jing Ti
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: ''
+  block: -13~-12
+  hit: +19a (+9)
+  counter_hit: +33a (+23)
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Same move as uf+4
+
+    * Low crush 9~'
+- id: ubp1p2
+  source_id: Leo-ub+1+2
+  source_index: 76
+  command: ub+1+2
+  name: Xiao Jia Er Lu Liang Yi Zhou
+  hit_level: m!
+  damage: '60'
+  startup: i70~71
+  recovery: ''
+  block: ''
+  hit: +26a (-21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: up1
+  source_id: Leo-u+1
+  source_index: 77
+  command: u+1
+  name: Xiang Quan
+  hit_level: m
+  damage: '17'
+  startup: i19~20
+  recovery: ''
+  block: -6~-5
+  hit: '+2'
+  counter_hit: +22a (+5)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    ** CH only
+
+    ** Doesn''t Balcony Break on airborne'
+- id: ufp1
+  source_id: Leo-uf+1
+  source_index: 78
+  command: uf+1
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i13
+  recovery: ''
+  block: '-1'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ufp1_1
+  source_id: Leo-uf+1,1
+  source_index: 79
+  command: uf+1,1
+  name: Li Xiang Quan
+  hit_level: h, m
+  damage: 8, 17
+  startup: i13, i19~20
+  recovery: ''
+  block: -6~-5
+  hit: '+2'
+  counter_hit: +22a (+5)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    ** CH only
+
+    ** Doesn''t Balcony Break on airborne'
+- id: ufp1_2
+  source_id: Leo-uf+1,2
+  source_index: 80
+  command: uf+1,2
+  name: Chuan Chong Quan
+  hit_level: h, m
+  damage: 8, 25
+  startup: i13, i20~21
+  recovery: ''
+  block: -14~-13
+  hit: +37d (-21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: 'Balcony Break
+
+    * Combo from 1st hit
+
+    * Gain LTG +22g on hit with 1+2'
+- id: ufp2
+  source_id: Leo-uf+2
+  source_index: 81
+  command: uf+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i18~21
+  recovery: ''
+  block: -14~-11
+  hit: +18a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Enter BOK -11 +21a (+14) with d
+
+    * Low crush 20~'
+- id: ufp2_1
+  source_id: Leo-uf+2,1
+  source_index: 82
+  command: uf+2,1
+  name: Yue Bu Si Quan
+  hit_level: m, m
+  damage: 15, 17
+  startup: i18~21, i25~26
+  recovery: ''
+  block: -8~-7
+  hit: '+4'
+  counter_hit: +32d
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Combo from 1st hit
+
+    ** +23a (+16)
+
+    * Low crush 0~12'
+- id: ufp3
+  source_id: Leo-uf+3
+  source_index: 83
+  command: uf+3
+  name: Yi Qi Jiao
+  hit_level: m
+  damage: '21'
+  startup: i17~21
+  recovery: ''
+  block: -9~-5
+  hit: +13a (+4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Can input with u+3
+
+    ** Less forward movement and deals 20 damage
+
+    * Low crush 9~'
+- id: ufp4
+  source_id: Leo-uf+4
+  source_index: 84
+  command: uf+4
+  name: Yue Bu San Jing Ti
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: ''
+  block: -13~-12
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Can input with u+4
+
+    ** Less forward movement
+
+    * Low crush 9~'
+- id: 1p2p3p4
+  source_id: Leo-1+2+3+4
+  source_index: 85
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: Gain LTG
+- id: d_df_f
+  source_id: Leo-d,df,f
+  source_index: 86
+  command: d,df,f
+  name: Jin Bu
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Cancel to SS with U?
+
+    * No crouching state
+
+    * Transition to r6? hFC with alternate input d,DF
+
+    ** Crouching state
+
+    ** Cannot access stance moves'
+- id: ffp2
+  source_id: Leo-f,F+2
+  source_index: 87
+  command: f,F+2
+  name: Shang Bu Zhuang Quan
+  hit_level: m
+  damage: '25'
+  startup: i14~15
+  recovery: ''
+  block: -9~-8
+  hit: +8a
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Gain LTG -9a on hit with 1+2
+
+    * 5 chip damage on block'
+- id: ffp3
+  source_id: Leo-f,F+3
+  source_index: 88
+  command: f,F+3
+  name: Tiao Shan Fu Ren
+  hit_level: M
+  damage: '20'
+  startup: i26~29
+  recovery: ''
+  block: -7c~-4c
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Enter BOK +0 +10d with d
+
+    * Low crush 9~'
+- id: ffp4
+  source_id: Leo-f,F+4
+  source_index: 89
+  command: f,F+4
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i19
+  recovery: ''
+  block: '-13'
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 17'
+- id: ffp4_3
+  source_id: Leo-f,F+4,3
+  source_index: 90
+  command: f,F+4,3
+  name: ''
+  hit_level: m, h
+  damage: 12, 23
+  startup: i19, i12
+  recovery: ''
+  block: '-14'
+  hit: +20 (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Combo from 1st hit +28a (+21)
+
+    * Low crush 0~12'
+- id: ffp4_3_4
+  source_id: Leo-f,F+4,3,4
+  source_index: 91
+  command: f,F+4,3,4
+  name: Tiao Shan Pu Bu
+  hit_level: m, h, L
+  damage: 12, 23, 17
+  startup: i19, ,i29~31
+  recovery: ''
+  block: -12~-10
+  hit: '-1'
+  counter_hit: +30a
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - cs
+  - low_crush
+  - high_crush
+  - low
+  - mid
+  - high
+  notes: '* Low crush 0~7
+
+    * Floating state 8~10
+
+    * High crush 20~'
+- id: uf_n_4
+  source_id: Leo-uf,n,4
+  source_index: 92
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: ''
+  block: -13~-11
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: f_ffp3
+  source_id: Leo-f,f,F+3
+  source_index: 93
+  command: f,f,F+3
+  name: Tiao Shan Jiang Jiao
+  hit_level: m
+  damage: '30'
+  startup: i23~26
+  recovery: r34
+  block: +6g~+11g
+  hit: +17a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Alternate input wr3
+
+    * Transition to BOK with D (+6/+17a (+7))
+
+    * Low crush 3~'
+- id: ws1
+  source_id: Leo-ws1
+  source_index: 94
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i14~15
+  recovery: ''
+  block: -8~-7
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_4
+  source_id: Leo-ws1,4
+  source_index: 95
+  command: ws1,4
+  name: ''
+  hit_level: m, L
+  damage: 13, 12
+  startup: i14~15, i19~20
+  recovery: ''
+  block: -12~-11
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: Combo from 1st CH
+- id: ws1_4_1
+  source_id: Leo-ws1,4,1
+  source_index: 96
+  command: ws1,4,1
+  name: Huo Da Ding Zhou
+  hit_level: m, L, m
+  damage: 13, 12, 24
+  startup: i14~15, ,i22
+  recovery: ''
+  block: '-14'
+  hit: +12a (+3)
+  counter_hit: +44a (-3)
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 2nd CH'
+- id: ws2
+  source_id: Leo-ws2
+  source_index: 97
+  command: ws2
+  name: Shang Bu Gua Shan
+  hit_level: m
+  damage: '17'
+  startup: i15~16
+  recovery: ''
+  block: -13~-12
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws3
+  source_id: Leo-ws3
+  source_index: 98
+  command: ws3
+  name: ''
+  hit_level: M
+  damage: '9'
+  startup: i13~14
+  recovery: ''
+  block: -6~-5
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Alternate input CD.3'
+- id: ws3_1
+  source_id: Leo-ws3,1
+  source_index: 99
+  command: ws3,1
+  name: ''
+  hit_level: M, m
+  damage: 9, 9
+  startup: i13~14, i21
+  recovery: ''
+  block: '-10'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Combo from 1st hit
+
+    * Enter BOK -4 +9 with d
+
+    * Alternate input CD.3,1'
+- id: ws3_1_2
+  source_id: Leo-ws3,1,2
+  source_index: 100
+  command: ws3,1,2
+  name: Liang Yi Er Tui Ya Zhou
+  hit_level: M, m, h
+  damage: 9, 9, 20
+  startup: i13~14, ,i24~25
+  recovery: ''
+  block: -9~-8
+  hit: +6d
+  counter_hit: +31d (+23)
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  - high
+  notes: '* Elbow
+
+    * Combo from 1st CH or 2nd CH
+
+    * Alternate input CD.3,1,2'
+- id: ws4
+  source_id: Leo-ws4
+  source_index: 101
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i11~12
+  recovery: ''
+  block: -9~-8
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Alternate input CD.4
+- id: ws4_1p2
+  source_id: Leo-ws4,1+2
+  source_index: 102
+  command: ws4,1+2
+  name: Rising Bei Zhe Kao
+  hit_level: m, m
+  damage: 8, 18
+  startup: i11~12, i25~27
+  recovery: ''
+  block: -12~-10
+  hit: +4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - shd
+  - heat
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Shoulder
+
+    * Combo from 1st hit
+
+    * Alternate input CD.4,1+2'
+- id: ws1p2
+  source_id: Leo-ws1+2
+  source_index: 103
+  command: ws1+2
+  name: Le Kua Kao
+  hit_level: m
+  damage: '25'
+  startup: i13~15
+  recovery: ''
+  block: -14~-12
+  hit: +22g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - shd
+  - mid
+  notes: '* Shoulder
+
+    * Gain LTG +3 on hit with 1+2
+
+    * Alternate input CD.1+2'
+- id: ss_1p2
+  source_id: Leo-SS.1+2
+  source_index: 104
+  command: SS.1+2
+  name: Da Kai
+  hit_level: m
+  damage: '25'
+  startup: i19
+  recovery: ''
+  block: '-9'
+  hit: +14a (+5)
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: fc_dfp3
+  source_id: Leo-FC.df+3
+  source_index: 105
+  command: FC.df+3
+  name: Hou Sao Xuan
+  hit_level: L
+  damage: '20'
+  startup: i21~23
+  recovery: ''
+  block: -26~-24
+  hit: +37a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: bok_1
+  source_id: Leo-BOK.1
+  source_index: 106
+  command: BOK.1
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i13
+  recovery: ''
+  block: '-4'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* High crush 0~12'
+- id: bok_1_2
+  source_id: Leo-BOK.1,2
+  source_index: 107
+  command: BOK.1,2
+  name: Ya Sui Ying Quan
+  hit_level: m, m
+  damage: 14, 20
+  startup: i13, i17~18
+  recovery: ''
+  block: -14~-13
+  hit: +72 (+56)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * Gain LTG +57a (+41) on hit with 1+2'
+- id: bok_2
+  source_id: Leo-BOK.2
+  source_index: 108
+  command: BOK.2
+  name: Fan Lan Chui
+  hit_level: M
+  damage: '23'
+  startup: i19~20
+  recovery: ''
+  block: -9~-8
+  hit: +41a (+31)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* High crush 0~17'
+- id: bok_3
+  source_id: Leo-BOK.3
+  source_index: 109
+  command: BOK.3
+  name: Startled Crane
+  hit_level: h
+  damage: '30'
+  startup: i21
+  recovery: ''
+  block: '+5'
+  hit: +15d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 9 chip damage on block
+
+    * Low crush 10~'
+- id: bok_4
+  source_id: Leo-BOK.4
+  source_index: 110
+  command: BOK.4
+  name: Jin Ji Du Li
+  hit_level: m
+  damage: '14'
+  startup: i20
+  recovery: KNK
+  block: '+9'
+  hit: +15g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Same move as f+4'
+- id: bok_1p2
+  source_id: Leo-BOK.1+2
+  source_index: 111
+  command: BOK.1+2
+  name: Lao Pao Ba
+  hit_level: M
+  damage: '22'
+  startup: i20~21
+  recovery: ''
+  block: -12~-11
+  hit: +15d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - spk
+  - pc
+  - heat
+  - power_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Power crush 8~'
+- id: bok_3p4
+  source_id: Leo-BOK.3+4
+  source_index: 112
+  command: BOK.3+4
+  name: Shuang Sao Tui
+  hit_level: L,L
+  damage: 7,13
+  startup: i16~17,i12~14
+  recovery: r30? FC
+  block: '-13'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: bok_n
+  source_id: Leo-BOK.n
+  source_index: 113
+  command: BOK.n
+  name: Fo Bu (Elapsed)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: FC? r14?
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Stance moves may be delayed by 8F?
+
+    * May perform FC moves from frame 9?
+
+    * High crush'
+- id: bt_1p2
+  source_id: Leo-BT.1+2
+  source_index: 114
+  command: BT.1+2
+  name: Tui Bu Dan Yi
+  hit_level: m
+  damage: '21'
+  startup: i11
+  recovery: ''
+  block: '-20'
+  hit: +1a (-8)
+  counter_hit: +22a (-14)
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow'
+- id: qcfp1
+  source_id: Leo-CD.1
+  source_index: 115
+  command: qcf+1
+  name: Lei Zhang
+  hit_level: L
+  damage: '17'
+  startup: i18~19
+  recovery: FC
+  block: -13~-12
+  hit: '-1'
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: qcfp2
+  source_id: Leo-CD.2
+  source_index: 116
+  command: qcf+2
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i17
+  recovery: ''
+  block: '-9'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Enter KNK -9 +9 with b'
+- id: qcfp2_1
+  source_id: Leo-CD.2,1
+  source_index: 117
+  command: qcf+2,1
+  name: Lightning Spear
+  hit_level: m, m
+  damage: 14, 17
+  startup: i17, i18~19
+  recovery: ''
+  block: -6~-5
+  hit: '+10'
+  counter_hit: +30d
+  tier: specialist
+  tags:
+  - wc
+  - elb
+  - mid
+  notes: '* Wall Crush on hit +22g
+
+
+
+    * Elbow
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 4F
+
+    * Input can be delayed by 8F'
+- id: qcfp2_4
+  source_id: Leo-CD.2,4
+  source_index: 118
+  command: qcf+2,4
+  name: Lightning Skypiercer
+  hit_level: m, h
+  damage: 14, 26
+  startup: i17, i25~28
+  recovery: ''
+  block: -4~-1
+  hit: +10d (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 4F
+
+    * Input can be delayed by 8F
+
+    * 7 chip damage on block
+
+    * Low crush 13~'
+- id: qcfp3p4
+  source_id: Leo-CD.3+4
+  source_index: 119
+  command: qcf+3+4
+  name: Swallow Step
+  hit_level: m,m
+  damage: 6,20
+  startup: i18~20 i22~24
+  recovery: ''
+  block: -6~-4
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Low crush 17~'
+- id: knk_1
+  source_id: Leo-KNK.1
+  source_index: 120
+  command: KNK.1
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i18
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to r25 BOK with D (-7/+4)'
+- id: knk_1_2
+  source_id: Leo-KNK.1,2
+  source_index: 121
+  command: KNK.1,2
+  name: Bai She Tui Chuang
+  hit_level: h, m
+  damage: 12, 17
+  startup: i18, i18
+  recovery: ''
+  block: '-10'
+  hit: '+17'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: knk_1_4
+  source_id: Leo-KNK.1,4
+  source_index: 122
+  command: KNK.1,4
+  name: Bai She Luan Tui
+  hit_level: h, h
+  damage: 12, 20
+  startup: i18, i22~24
+  recovery: ''
+  block: '+4'
+  hit: +32a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 7F delay
+
+    * Transition to r18 BOK with D (+8/+32a (+6))
+
+    * 4 chip damage on block
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: knk_2
+  source_id: Leo-KNK.2
+  source_index: 123
+  command: KNK.2
+  name: Heng Quan
+  hit_level: h
+  damage: '20'
+  startup: i13~14
+  recovery: ''
+  block: '-4'
+  hit: +22a (+13)
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break'
+- id: knk_3
+  source_id: Leo-KNK.3
+  source_index: 124
+  command: KNK.3
+  name: Yi Qi Jiao
+  hit_level: m
+  damage: '13'
+  startup: i20
+  recovery: ''
+  block: '-13'
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 13~'
+- id: knk_3_4
+  source_id: Leo-KNK.3,4
+  source_index: 125
+  command: KNK.3,4
+  name: Er Qi Jiao
+  hit_level: m, m
+  damage: 13, 18
+  startup: i20, i15
+  recovery: ''
+  block: '-12'
+  hit: +80a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: 'Tornado
+
+    * Low crush 1~'
+- id: knk_4
+  source_id: Leo-KNK.4
+  source_index: 126
+  command: KNK.4
+  name: Cuo Ti Fu Ren
+  hit_level: L
+  damage: '18'
+  startup: i20
+  recovery: ''
+  block: '-12'
+  hit: +4c
+  counter_hit: +17d
+  tier: specialist
+  tags:
+  - spk
+  - low
+  notes: '* Spike
+
+    * Enter CD -10 +6c +19d with df'
+- id: ltg_knk_4_1p2
+  source_id: Leo-KNK.4,LTG.1+2
+  source_index: 127
+  command: LTG.KNK.4,1+2
+  name: Ultimate Huo Jian Qiang Fist
+  hit_level: L, m,m
+  damage: 18, 13,14 (20)
+  startup: i20, i20~21,i31~32
+  recovery: ''
+  block: -14~-13
+  hit: +31a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * 35 damage with scaling from 1st hit
+
+    * Combo from 1st hit
+
+    * +15a (-2) on 2nd whiff and 3rd hit
+
+    * Consumes 450F of heat timer during heat'
+- id: knk_1p2
+  source_id: Leo-KNK.1+2
+  source_index: 128
+  command: KNK.1+2
+  name: Upper Rising Fist
+  hit_level: M
+  damage: '20'
+  startup: i22~24
+  recovery: ''
+  block: '-6'
+  hit: +21cg
+  counter_hit: +41a (+31)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    ** On non-CH grounded connect
+
+    * Opponent recovers crouching
+
+    * 6 chip damage on block'
+- id: knk_3p4
+  source_id: Leo-KNK.3+4
+  source_index: 129
+  command: KNK.3+4
+  name: Tree Feller
+  hit_level: L
+  damage: '24'
+  startup: i24
+  recovery: ''
+  block: '-26'
+  hit: +19d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 8~'
+- id: knk_df
+  source_id: Leo-KNK.DF
+  source_index: 130
+  command: KNK.DF
+  name: Jin Bu
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r12 CD
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: otg_dp3p4
+  source_id: Leo-OTG.d+3+4
+  source_index: 131
+  command: OTG.d+3+4
+  name: Zhen Jiao
+  hit_level: L
+  damage: '22'
+  startup: i21~22
+  recovery: ''
+  block: -13~-12
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - low
+  notes: '* Spike
+
+    * -2d (-10) on grounded hit'
+- id: hfc_1
+  source_id: Leo-hFC.1
+  source_index: 132
+  command: hFC.1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 1~'
+- id: hfc_2
+  source_id: Leo-hFC.2
+  source_index: 133
+  command: hFC.2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: ''
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: hfc_3
+  source_id: Leo-hFC.3
+  source_index: 134
+  command: hFC.3
+  name: Crouch Spin Kick
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: hfc_4
+  source_id: Leo-hFC.4
+  source_index: 135
+  command: hFC.4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: 1p3
+  source_id: Leo-1+3
+  source_index: 136
+  command: 1+3
+  name: Bao Hu Gui Shan
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Leo-2+4
+  source_index: 137
+  command: 2+4
+  name: Dan Yang Da
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit
+
+    * Deals 4 more damage at the wall'
+- id: back_throw
+  source_id: Leo-Back throw
+  source_index: 138
+  command: Back throw
+  name: Yang Di Tou
+  hit_level: t
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: -3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Deals 10 more damage at the wall'
+- id: left_throw
+  source_id: Leo-Left throw
+  source_index: 139
+  command: Left throw
+  name: Chou Bie Zi
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * Side switch on hit
+
+    * Deals 4 more damage at the wall'
+- id: right_throw
+  source_id: Leo-Right throw
+  source_index: 140
+  command: Right throw
+  name: Da Zhe Jiang
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Side switch on hit'
+- id: ufp1p2
+  source_id: Leo-uf+1+2
+  source_index: 141
+  command: uf+1+2
+  name: Shuang Pai Shou
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-6'
+  hit: +8d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  notes: '* Balcony Break
+
+    * Throw break 1+2
+
+    * Side switch
+
+    * Usable from KNK'

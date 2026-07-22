@@ -1,10 +1,12 @@
 #include "t8_v2/gpu_sim.hpp"
 #include "t8_v2/opponents.hpp"
 #include "t8_v2/ppo.hpp"
+#include "t8_v2/temporal.hpp"
 #include "t8_v2/training_router.hpp"
 
 #include <cuda_runtime.h>
 
+#include <algorithm>
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
@@ -181,6 +183,186 @@ void test_scripted_opponent_mixture() {
     }
 }
 
+void test_profiled_gpu_opponents() {
+    constexpr std::size_t environments = 4096;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    std::vector<t8::v2::OpponentProfileParameters> profiles(2);
+    profiles[0].id = 0;
+    profiles[0].aggression = 1.0F;
+    profiles[0].approach = 1.0F;
+    profiles[0].backdash = 0.0F;
+    profiles[0].sidestep_left = 0.0F;
+    profiles[0].sidestep_right = 0.0F;
+    profiles[0].input_error_rate = 0.0F;
+    profiles[1] = profiles[0];
+    profiles[1].id = 1;
+    profiles[1].aggression = 0.0F;
+    profiles[1].approach = 0.0F;
+    profiles[1].backdash = 1.0F;
+    std::vector<std::uint32_t> assignments(environments);
+    for (std::size_t lane = 0; lane < environments; ++lane) assignments[lane] = lane & 1U;
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(assignments);
+    check(opponent.uses_profiles() && opponent.profile_count() == 2,
+          "profile table stays device resident");
+    check(opponent.download_profile_assignments(environments) == assignments,
+          "profile assignments round-trip exactly");
+    const auto view = simulator.device_view();
+    static_cast<void>(opponent.actions_device(
+        view.observations_p2, view.action_masks_p2, environments, 515, 0));
+    const auto actions = opponent.download_actions(environments);
+    std::size_t approach_actions = 0;
+    std::size_t retreat_actions = 0;
+    for (std::size_t lane = 0; lane < environments; ++lane) {
+        if ((lane & 1U) == 0U && actions[lane] == static_cast<std::int64_t>(t8::v2::Action::DashForward)) {
+            ++approach_actions;
+        }
+        if ((lane & 1U) != 0U && actions[lane] == static_cast<std::int64_t>(t8::v2::Action::DashBack)) {
+            ++retreat_actions;
+        }
+    }
+    check(approach_actions > environments * 0.45,
+          "approach-heavy profiles produce GPU dash-forward behavior");
+    check(retreat_actions > environments * 0.45,
+          "backdash-heavy profiles produce GPU retreat behavior");
+}
+
+void test_gpu_temporal_matchup_encoder() {
+    constexpr std::size_t environments = 32;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    std::vector<t8::v2::OpponentProfileParameters> profiles(2);
+    profiles[0].id = 0;
+    profiles[0].character_id = 0;
+    profiles[0].archetype_id = 0;
+    profiles[0].approach = 1.0F;
+    profiles[1] = profiles[0];
+    profiles[1].id = 1;
+    profiles[1].character_id = 31;
+    profiles[1].archetype_id = 6;
+    profiles[1].stance_entry_frequency = 1.0F;
+    std::vector<std::uint32_t> assignments(environments);
+    for (std::size_t lane = 0; lane < environments; ++lane) assignments[lane] = lane & 1U;
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(assignments);
+    t8::v2::GpuTemporalMatchupEncoder encoder(environments, t8::v2::kVisualObservationSize);
+    check(encoder.observation_size() == t8::v2::kMatchupVisualObservationSize,
+          "temporal visual contract has 95 features");
+    auto view = simulator.device_view();
+    const float* encoded = encoder.encode(
+        view.visual_observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments);
+    t8::v2::ActorCriticConfig config{};
+    config.observation_size = static_cast<int>(t8::v2::kMatchupVisualObservationSize);
+    t8::v2::GpuActorCritic policy(environments, config, 42);
+    static_cast<void>(policy.forward(encoded, view.action_masks_p2, environments, 1, 0, true));
+    for (const auto action : policy.download_actions(environments)) {
+        check(action >= 0 && action < static_cast<std::int64_t>(t8::v2::kActionCount),
+              "95-feature temporal policy runs directly from GPU encoder output");
+    }
+    const auto first_state = encoder.download_state();
+    check(first_state.valid.size() == environments &&
+          std::all_of(first_state.valid.begin(), first_state.valid.end(), [](auto value) { return value == 1; }),
+          "temporal encoder marks every lane valid after first frame");
+    const auto* opponent_actions = opponent.actions_device(
+        view.observations_p2, view.action_masks_p2, environments, 99, 0);
+    simulator.step_device_i64(opponent_actions, opponent_actions);
+    view = simulator.device_view();
+    encoded = encoder.encode(
+        view.visual_observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments);
+    std::vector<float> host(environments * encoder.observation_size());
+    cuda_check(cudaMemcpy(host.data(), encoded, sizeof(float) * host.size(), cudaMemcpyDeviceToHost),
+               "download temporal matchup observations");
+    const std::size_t identity = t8::v2::kVisualObservationSize;
+    check(host[identity] != host[encoder.observation_size() + identity],
+          "character identity embedding differs across assigned fighters");
+    const std::size_t archetype = identity + t8::v2::kCharacterEmbeddingSize;
+    check(host[archetype] == 1.0F && host[encoder.observation_size() + archetype + 6] == 1.0F,
+          "archetype one-hot conditioning follows profile assignments");
+    const auto second_state = encoder.download_state();
+    check(second_state.history != first_state.history,
+          "move, phase, outcome, distance, and movement history advances on GPU");
+    encoder.reset();
+    encoder.synchronize();
+    const auto reset_state = encoder.download_state();
+    check(std::all_of(reset_state.valid.begin(), reset_state.valid.end(), [](auto value) { return value == 0; }),
+          "temporal reset clears episode history");
+    encoder.upload_state(second_state);
+    encoder.synchronize();
+    check(encoder.download_state().history == second_state.history,
+          "temporal history supports exact checkpoint round-trip");
+}
+
+void test_character_specific_moves_execute_on_gpu() {
+    constexpr std::size_t environments = 2;
+    t8::v2::Config config{};
+    config.decision_frames = 4;
+    config.max_frames = 4;
+    t8::v2::GpuSimulatorBatch simulator(environments, config);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+
+    std::vector<t8::v2::CharacterMoveParameters> moves(
+        t8::v2::kRosterCharacterCount * t8::v2::kCharacterMoveSlotCount);
+    for (std::uint32_t character = 0; character < t8::v2::kRosterCharacterCount; ++character) {
+        for (std::uint32_t slot = 0; slot < t8::v2::kCharacterMoveSlotCount; ++slot) {
+            auto& move = moves[character * t8::v2::kCharacterMoveSlotCount + slot];
+            move.character_id = character;
+            move.slot = slot;
+            move.hit_level = slot == 5 ? 4 : (slot == 3 ? 3 : (slot == 0 ? 1 : 2));
+            move.startup = 1;
+            move.active = 2;
+            move.recovery = 8;
+            move.damage = 10.0F;
+            move.range = 3.0F;
+            move.hitstun = 12;
+            move.blockstun = 6;
+            move.pushback = 0.1F;
+        }
+    }
+    moves[0].damage = 5.0F;
+    moves[t8::v2::kCharacterMoveSlotCount].damage = 25.0F;
+    simulator.set_character_move_specs(moves);
+
+    std::vector<t8::v2::OpponentProfileParameters> profiles(2);
+    profiles[0].id = 0;
+    profiles[0].character_id = 0;
+    profiles[1] = profiles[0];
+    profiles[1].id = 1;
+    profiles[1].character_id = 1;
+    const std::vector<std::uint32_t> assignments = {0, 1};
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(assignments);
+    simulator.set_opponent_characters_device(
+        opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), 1);
+
+    const std::vector<std::uint8_t> p1_actions(
+        environments, static_cast<std::uint8_t>(t8::v2::Action::Crouch));
+    const std::vector<std::uint8_t> p2_actions(
+        environments, static_cast<std::uint8_t>(t8::v2::Action::Jab));
+    simulator.step_host(p1_actions, p2_actions);
+    const auto states = simulator.download_states();
+    const double expected_character_0 = config.max_health - 5.0;
+    const double expected_character_1 = config.max_health - 25.0;
+    if (std::fabs(states[0].p1.health - expected_character_0) >= 1e-5 ||
+        std::fabs(states[1].p1.health - expected_character_1) >= 1e-5) {
+        std::cerr << "character damage healths=" << states[0].p1.health
+                  << ',' << states[1].p1.health << '\n';
+    }
+    check(std::fabs(states[0].p1.health - expected_character_0) < 1e-5,
+          "character 0 uses its five-damage jab in the CUDA combat kernel");
+    check(std::fabs(states[1].p1.health - expected_character_1) < 1e-5,
+          "character 1 uses its twenty-five-damage jab in the CUDA combat kernel");
+    simulator.reset_done();
+    simulator.step_host(p1_actions, p2_actions);
+    const auto reset_states = simulator.download_states();
+    check(std::fabs(reset_states[0].p1.health - expected_character_0) < 1e-5 &&
+          std::fabs(reset_states[1].p1.health - expected_character_1) < 1e-5,
+          "done-lane GPU resets preserve roster character assignments");
+}
+
 void test_held_out_opponent_and_side_router() {
     constexpr std::size_t environments = 32;
     t8::v2::GpuSimulatorBatch simulator(environments);
@@ -294,7 +476,10 @@ int main() {
     test_zero_copy_policy_to_simulator_chain();
     test_checkpoint_round_trip();
     test_scripted_opponent_mixture();
+    test_profiled_gpu_opponents();
+    test_gpu_temporal_matchup_encoder();
     test_held_out_opponent_and_side_router();
+    test_character_specific_moves_execute_on_gpu();
     if (failures != 0) {
         std::cerr << failures << " policy assertion(s) failed\n";
         return EXIT_FAILURE;

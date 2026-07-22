@@ -1,0 +1,2518 @@
+schema_version: 1
+character_id: 35
+character: clive
+display_name: Clive Rosfield
+groups:
+- keep_out
+- specialist
+specialty: eikonic_abilities
+sidestep_tendency: right
+signature_mechanics:
+- phoenix_shift
+- zantetsuken
+- ranged_magic
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/clive/framedata
+important_punishable_moves:
+- id: wol_2
+  command: WOL.2
+  hit_level: sm,t
+  startup: i25~40
+  block: -38~-23
+  notes: '* Weapon
+
+    * Transition to attack throw on airborne hit
+
+    * 56 damage in total with attack throw and scaling
+
+    * Forces tech backroll on hit'
+- id: dfp3
+  command: df+3
+  hit_level: L
+  startup: i29~30
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~65'
+- id: phx_3
+  command: PHX.3
+  hit_level: L
+  startup: i21
+  block: '-26'
+  notes: '* Stagger on block'
+- id: wol_1
+  command: WOL.1
+  hit_level: sm
+  startup: i18~27
+  block: -20~-11
+  notes: '* Weapon
+
+    * Transition to r22? PHX on hit'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, M
+  startup: i16, i30~32
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Input can be delayed 1f
+
+    * Floating state 31~'
+- id: dfp1_4_3
+  command: df+1,4,3
+  hit_level: m, m, M
+  startup: i14~15, ,i27~28
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Move can be delayed by 9f
+
+    * Floating state 28~'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i19~20
+  block: '-18'
+  notes: '* Effectively homing?'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit
+
+    * High crush 4~'
+- id: ufp2
+  command: uf+2
+  hit_level: m,m,m
+  startup: i20 i4 i3
+  block: '-17'
+  notes: '* Chip damage on block
+
+    * 24 damage in total with scaling
+
+    * Low crush 20~45
+
+    * Floating state 46~48'
+- id: gar_2_2
+  command: GAR.2,2
+  hit_level: m, m,M
+  startup: i18~19, i26~27 i3~4
+  block: '-17'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Low crush 1~26
+
+    * Floating state 27~29'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14~15, i23
+  block: '-16'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i22
+  block: '-15'
+  notes: '* Removes Recoverable Health (ZAN5 only)
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.20 on ZAN1 hit
+
+    * Increases ZAN gauge by 0.10 on ZAN1 block
+
+    * Transitions to attack throw on hit with ZAN2-5
+
+    * Resets ZAN gauge on hit with ZAN2-5
+
+    * Damage increase'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, m
+  startup: i14~15, ,i26~27
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: ss_2_1
+  command: SS.2,1
+  hit_level: M, m
+  startup: i17~18, i22~23
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35a)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Input 1 during the 1st hit animation on frames 16~18 to add +3 damage
+
+    * Combo from 1st hit with 11f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Force t'
+- id: gar_2
+  command: GAR.2
+  hit_level: m
+  startup: i18~19
+  block: '-15'
+  notes: '* Weapon
+
+    * 24 damage with delayed input
+
+    * -16 on block, -14 on hit, 12 damage, 15 delayed input damage with ub+2
+
+    * Jump takes 17f, effective minimum startup i35~36
+
+    * js1~48 with u+2
+
+    * Low crush 1~49'
+- id: wol_3
+  command: WOL.3
+  hit_level: M
+  startup: i27~28
+  block: -15~-14
+  notes: '* Tornado
+
+    * Low crush 1~52
+
+    * Floating state 53~55'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, M
+  startup: i10, i21~22
+  block: '-14'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit with 2f delay
+
+    * Increases ZAN gauge by 0.40 on hit
+
+    * Increases ZAN gauge by 0.14 on block
+
+    * Only deals recoverable damage
+
+    * +11d on BT hit
+
+    * +14c on side hit; forces tech backroll'
+- id: fp3
+  command: f+3
+  hit_level: M
+  startup: i20~21
+  block: '-14'
+  notes: '* Spike
+
+    * 3 Chip Damage on block
+
+    * Low crush 9~24
+
+    * Floating state 25~27'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i24~25
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Reversal Break (after attack absorb)
+
+    * 34 in total damage after absorbing an attack in power crush state
+
+    * Damage taken during power crush state is recoverable
+
+    * -7 frame advantage and 12 chip damage on block afte'
+- id: ws2
+  command: ws2
+  hit_level: m
+  startup: i15~16
+  block: -14~-13
+  notes: '* Weapon'
+- id: phx_1
+  command: PHX.1
+  hit_level: M,m,t
+  startup: i21
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to attack throw on front standing hit
+
+    * -9 frame advantage and 6 chip damage on block after absorbing an attack in power
+    crush state
+
+    * On 1st hit regain 5 additional recoverable health
+
+    * +4d on side or BT hit
+
+    * Power c'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Input 1 during the 1st hit animation on frames 10~12 to add +3 damage'
+- id: '2_2_1'
+  command: 2,2,1
+  hit_level: h, m, m
+  startup: i12, ,i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd CH with 10f? delay
+
+    * Jail from 1st block with 1F delay
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: '3'
+  command: '3'
+  hit_level: m
+  startup: i16
+  block: '-13'
+  notes: ''
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: m, m, M
+  startup: i15, ,i27~28
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a {+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd hit
+
+    * Interrupt with i8 from 2nd block
+
+    * Input can be delayed by 8F
+
+    * Move cannot be delayed'
+- id: fp2_2_1p2
+  command: f+2,2,1+2
+  hit_level: m, m, M
+  startup: i15, ,i27~28
+  block: -13c
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd hit
+
+    * Interrupt with i8 from 2nd block
+
+    * Increases ZAN gauge by 0.70 on hit
+
+    * Increases ZAN gauge by 0.30 on block
+
+    * Only deals recoverable damage
+
+    * Input can be delayed '
+- id: dfp2
+  command: df+2
+  hit_level: m,m
+  startup: i15~16 i26~27
+  block: '-13'
+  notes: '* Weapon
+
+    * 2nd hit available only on hit or block'
+- id: dp1
+  command: d+1
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: '* High crush 6~'
+- id: dbp2_1
+  command: db+2,1
+  hit_level: m, M
+  startup: i17~18, i25~26
+  block: '-13'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 1st hit'
+- id: dbp1p2_1
+  command: db+1+2,1
+  hit_level: M,m, M
+  startup: i17~18 i23, i22~i23
+  block: '-13'
+  notes: '* Balcony Break (BT)
+
+    * Weapon
+
+    * Combo from 2nd CH
+
+    * Transition to +41a (+23) GAR on airborne hit
+
+    * Cancel GAR transition with B
+
+    * 6 Chip damage on block'
+common_strings_and_gaps:
+- id: h_up1p2_1
+  command: H.u+1+2,1
+  hit_level: M,m, m,m
+  startup: i19~20,i20~21, i25~26,i20~21
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Weapon 2nd hit
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 25F
+
+    * Interrupt with i3 from 2nd block
+
+    * 7 chip damage on block
+
+    * Same move as (df+1,H.1),1'
+- id: h_up1p2_2
+  command: H.u+1+2,2
+  hit_level: M,m, h,h
+  startup: i19~20,i20~21, i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 2nd normal hit
+
+    * 4 chip damage on block
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * Same move as (df+1,H.1),2'
+- id: h_up1p2_2_1
+  command: H.u+1+2,2,1
+  hit_level: M,m, h,h, M,M
+  startup: i19~20,i20~21, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 4th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Same move as (df+1,H.1,2),1
+
+    * Tornado launching steel pedal'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i18~19
+  block: '-3'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Enter PHX -3 +6 r23 with F or 4 on hit or block'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, M
+  startup: i10, i21~22
+  block: '-14'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit with 2f delay
+
+    * Increases ZAN gauge by 0.40 on hit
+
+    * Increases ZAN gauge by 0.14 on block
+
+    * Only deals recoverable damage
+
+    * +11d on BT hit
+
+    * +14c on side hit; forces tech backroll'
+- id: 1_fp2
+  command: 1,f+2
+  hit_level: h, h
+  startup: i10, i25~26
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Input can be delayed 2f
+
+    * 6 chip damage on block
+
+    * +20a (+11) on BT hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Input 1 during the 1st hit animation on frames 10~12 to add +3 damage'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, m
+  startup: i12, i23
+  block: '-8'
+  notes: '* Balcony Break (airborne)
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Enter PHX -1 +6 r25 with F or 4 on hit or block'
+- id: '2_2_1'
+  command: 2,2,1
+  hit_level: h, m, m
+  startup: i12, ,i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd CH with 10f? delay
+
+    * Jail from 1st block with 1F delay
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m, M,m
+  startup: i12, ,i27~28 i31~32
+  block: '-11'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Power up in Heat (24 damage)
+
+    * Input can be delayed 6f
+
+    * Move cannot be delayed
+
+    * Transition to PHX on hit only
+
+    * Cancel PHX transition with B'
+- id: 2_2_1p2
+  command: 2,2,1+2
+  hit_level: h, m, m,M
+  startup: i12, ,i27 i23~24
+  block: -9c
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.70 on hit (0.30 + 0.40)
+
+    * Increases ZAN gauge by 0.24 on block (0.10 + 0.14)
+
+    * Increases ZAN gauge by 0.40 on hit if only the final hit connects
+
+    * Increases ZAN gauge by 0.14 on bl'
+- id: '3_2'
+  command: 3,2
+  hit_level: m, m,m
+  startup: i16, i23~24 i29~41
+  block: -12~+0
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Jail from 2nd block
+
+    * 3rd hit never combos on standing hit
+
+    * 3rd hit available only on hit or block
+
+    * Interrupt with i4 from 1st block
+
+    * +23a (+13) on BT hit
+
+    * Power up in Heat (15,20dmg)'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, M
+  startup: i16, i30~32
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Input can be delayed 1f
+
+    * Floating state 31~'
+- id: '4_2'
+  command: 4,2
+  hit_level: m, M
+  startup: i12, i20~21
+  block: '-11'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Input can be delayed 3f'
+- id: '4_4'
+  command: 4,4
+  hit_level: m, h
+  startup: i12, i25
+  block: '-8'
+  notes: '* Combo from 1st hit
+
+    * Input can be delayed 3f
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: 3p4_p
+  command: 3+4,P
+  hit_level: M
+  startup: ',i27~28'
+  block: ''
+  notes: '* Tornado
+
+    * is1~27
+
+    * Floating state 28~70'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, h
+  startup: i15, i21~22
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: fp2_2
+  command: f+2,2
+  hit_level: m, m
+  startup: i15, i17~18
+  block: '-8'
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jail from 1st block
+
+    * Enter PHX -5 +6 r30 with F or 4 on hit or block'
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: m, m, M
+  startup: i15, ,i27~28
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a {+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd hit
+
+    * Interrupt with i8 from 2nd block
+
+    * Input can be delayed by 8F
+
+    * Move cannot be delayed'
+- id: fp2_2_1p2
+  command: f+2,2,1+2
+  hit_level: m, m, M
+  startup: i15, ,i27~28
+  block: -13c
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd hit
+
+    * Interrupt with i8 from 2nd block
+
+    * Increases ZAN gauge by 0.70 on hit
+
+    * Increases ZAN gauge by 0.30 on block
+
+    * Only deals recoverable damage
+
+    * Input can be delayed '
+- id: h_fp2_2_1
+  command: H.f+2,2,1
+  hit_level: m, m, m
+  startup: i15, ,i26~27
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * Consumes 150F of remaining Heat time
+
+    * Forces tech backroll on hit
+
+    * 5 chip damage on block'
+- id: h_fp2_2_1
+  command: H.f+2,2,1*
+  hit_level: m, m, m
+  startup: i15, ,i42~43
+  block: '+11'
+  notes: '* Guard Break
+
+    * Consumes 150F of remaining Heat time
+
+    * Interrupt with i24? from 2nd block
+
+    * Interrupt with i12 from 2nd hit
+
+    * 12 chip damage on block'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14~15, i23
+  block: '-16'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, m
+  startup: i14~15, ,i26~27
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, m
+  startup: i14~15, i20~21
+  block: '-10'
+  notes: '* Knee
+
+    * Combo from 1st hit'
+- id: dfp1_4_3
+  command: df+1,4,3
+  hit_level: m, m, M
+  startup: i14~15, ,i27~28
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Move can be delayed by 9f
+
+    * Floating state 28~'
+- id: h_dfp1_1
+  command: H.df+1,1
+  hit_level: m, M,m
+  startup: i14~15, i22~23,i20~21
+  block: '-12'
+  notes: '* Weapon 2nd hit
+
+    * Combo from 1st hit with 1F delay
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed by 2F
+
+    * Move is delayed by 2F
+
+    * Consumes 150F of remaining Heat time
+
+    * Transition to r15 PHX with F or 4 on hit or block (-1/+14c)
+
+    * 5'
+- id: h_dfp1_1_1
+  command: H.df+1,1,1
+  hit_level: m, M,m, m,m
+  startup: i14~15, ,i25~26,i20~21
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Weapon 2nd hit
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 25F
+
+    * Interrupt with i3 from 3rd block
+
+    * 7 chip damage on block'
+- id: h_dfp1_1_2
+  command: H.df+1,1,2
+  hit_level: m, M,m, h,h
+  startup: i14~15, ,i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 3rd normal hit
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * 4 chip damage on block'
+- id: h_dfp1_1_2_1
+  command: H.df+1,1,2,1
+  hit_level: m, M,m, h,h, M,M
+  startup: i14~15, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 5th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Tornado launching steel pedal'
+- id: dfp2_2
+  command: df+2,2
+  hit_level: m,m, m
+  startup: i15~16 i26~27, i18~19
+  block: ''
+  notes: '* Weapon
+
+    * Available only as combo from 2nd hit
+
+    * Available on standing hit only
+
+    * Low crush 9~'
+- id: dfp2_2_2
+  command: df+2,2,2
+  hit_level: m,m, m, m,M
+  startup: i15~16 i26~27, ,i26~27 i3~4
+  block: ''
+  notes: '* Tornado
+
+    * Weapon
+
+    * Available only as combo from 3rd hit
+
+    * Available on standing hit only'
+duckable_highs:
+- id: h_up1p2_2
+  command: H.u+1+2,2
+  hit_level: M,m, h,h
+  startup: i19~20,i20~21, i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 2nd normal hit
+
+    * 4 chip damage on block
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * Same move as (df+1,H.1),2'
+- id: h_up1p2_2_1
+  command: H.u+1+2,2,1
+  hit_level: M,m, h,h, M,M
+  startup: i19~20,i20~21, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 4th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Same move as (df+1,H.1,2),1
+
+    * Tornado launching steel pedal'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i18~19
+  block: '-3'
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Enter PHX -3 +6 r23 with F or 4 on hit or block'
+- id: 1_fp2
+  command: 1,f+2
+  hit_level: h, h
+  startup: i10, i25~26
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Input can be delayed 2f
+
+    * 6 chip damage on block
+
+    * +20a (+11) on BT hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12, i17~18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Input 1 during the 1st hit animation on frames 10~12 to add +3 damage'
+- id: '4_4'
+  command: 4,4
+  hit_level: m, h
+  startup: i12, i25
+  block: '-8'
+  notes: '* Combo from 1st hit
+
+    * Input can be delayed 3f
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, h
+  startup: i15, i21~22
+  block: '+1'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14~15, i23
+  block: '-16'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, m
+  startup: i14~15, ,i26~27
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: h_dfp1_1_2
+  command: H.df+1,1,2
+  hit_level: m, M,m, h,h
+  startup: i14~15, ,i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 3rd normal hit
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * 4 chip damage on block'
+- id: h_dfp1_1_2_1
+  command: H.df+1,1,2,1
+  hit_level: m, M,m, h,h, M,M
+  startup: i14~15, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 5th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Tornado launching steel pedal'
+- id: ufp2_2
+  command: uf+2,2
+  hit_level: m,m,m, h
+  startup: i20 i4 i3, i16
+  block: '+0'
+  notes: '* Balcony Break
+
+    * Chip damage on block
+
+    * 36 damage in total with scaling
+
+    * Last hit available on hit or block only
+
+    * Low crush 1~43
+
+    * Floating state 44~46'
+stance_transitions:
+- id: h_phx_2p3
+  command: H.PHX.2+3
+  hit_level: m
+  startup: i15~16
+  block: '+8'
+  notes: '* Heat Smash
+
+    * Floor Break
+
+    * Weapon
+
+    * Increases ZAN gauge by 1.16 on hit
+
+    * Increases ZAN gauge by 0.66 on block
+
+    * Transition to throw on hit
+
+    * Opponent recovers in FDFA state
+
+    * Only deals recoverable damage
+
+    * (32) damage balcony break on 1s'
+- id: h_up1p2
+  command: H.u+1+2
+  hit_level: M,m
+  startup: i19~20,i20~21
+  block: '-12'
+  notes: '* Weapon 2nd hit
+
+    * Consumes 150F of remaining Heat time
+
+    * Transition to r15 PHX with F or 4 on hit or block (-1/+14c)
+
+    * 7 chip damage on block'
+- id: h_up1p2_1
+  command: H.u+1+2,1
+  hit_level: M,m, m,m
+  startup: i19~20,i20~21, i25~26,i20~21
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Weapon 2nd hit
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 25F
+
+    * Interrupt with i3 from 2nd block
+
+    * 7 chip damage on block
+
+    * Same move as (df+1,H.1),1'
+- id: h_up1p2_2
+  command: H.u+1+2,2
+  hit_level: M,m, h,h
+  startup: i19~20,i20~21, i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 2nd normal hit
+
+    * 4 chip damage on block
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * Same move as (df+1,H.1),2'
+- id: h_up1p2_2_1
+  command: H.u+1+2,2,1
+  hit_level: M,m, h,h, M,M
+  startup: i19~20,i20~21, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 4th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Same move as (df+1,H.1,2),1
+
+    * Tornado launching steel pedal'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t,m,m,m,m,m,m
+  startup: i18
+  block: '+5'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to attack throw on 1st hit
+
+    * 45 damage Balcony Break on 1st whiff
+
+    * Recover 27-45 recoverable health on hit:
+
+    * Regain 18?-19? additional recoverable health on hit
+
+    * Recover 19 recoverable health on '
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m, M,m
+  startup: i12, ,i27~28 i31~32
+  block: '-11'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Power up in Heat (24 damage)
+
+    * Input can be delayed 6f
+
+    * Move cannot be delayed
+
+    * Transition to PHX on hit only
+
+    * Cancel PHX transition with B'
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i22
+  block: '-15'
+  notes: '* Removes Recoverable Health (ZAN5 only)
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.20 on ZAN1 hit
+
+    * Increases ZAN gauge by 0.10 on ZAN1 block
+
+    * Transitions to attack throw on hit with ZAN2-5
+
+    * Resets ZAN gauge on hit with ZAN2-5
+
+    * Damage increase'
+- id: h_fp2_2_1
+  command: H.f+2,2,1
+  hit_level: m, m, m
+  startup: i15, ,i26~27
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * Consumes 150F of remaining Heat time
+
+    * Forces tech backroll on hit
+
+    * 5 chip damage on block'
+- id: h_fp2_2_1
+  command: H.f+2,2,1*
+  hit_level: m, m, m
+  startup: i15, ,i42~43
+  block: '+11'
+  notes: '* Guard Break
+
+    * Consumes 150F of remaining Heat time
+
+    * Interrupt with i24? from 2nd block
+
+    * Interrupt with i12 from 2nd hit
+
+    * 12 chip damage on block'
+- id: h_dfp1_1
+  command: H.df+1,1
+  hit_level: m, M,m
+  startup: i14~15, i22~23,i20~21
+  block: '-12'
+  notes: '* Weapon 2nd hit
+
+    * Combo from 1st hit with 1F delay
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed by 2F
+
+    * Move is delayed by 2F
+
+    * Consumes 150F of remaining Heat time
+
+    * Transition to r15 PHX with F or 4 on hit or block (-1/+14c)
+
+    * 5'
+- id: h_dfp1_1_1
+  command: H.df+1,1,1
+  hit_level: m, M,m, m,m
+  startup: i14~15, ,i25~26,i20~21
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Weapon 2nd hit
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 25F
+
+    * Interrupt with i3 from 3rd block
+
+    * 7 chip damage on block'
+- id: h_dfp1_1_2
+  command: H.df+1,1,2
+  hit_level: m, M,m, h,h
+  startup: i14~15, ,i23~24,i12~13
+  block: '-9'
+  notes: '* Weapon 1st hit
+
+    * Jail from 3rd normal hit
+
+    * Transition to r15 PHX with F or 4 on hit or block (-3/+14)
+
+    * 4 chip damage on block'
+- id: h_dfp1_1_2_1
+  command: H.df+1,1,2,1
+  hit_level: m, M,m, h,h, M,M
+  startup: i14~15, ,i20~21,i11~12
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon 2nd hit
+
+    * Combo from 5th hit with 17F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 17F
+
+    * 5 chip damage on block
+
+    * Tornado launching steel pedal'
+- id: dbp1p2_1
+  command: db+1+2,1
+  hit_level: M,m, M
+  startup: i17~18 i23, i22~i23
+  block: '-13'
+  notes: '* Balcony Break (BT)
+
+    * Weapon
+
+    * Combo from 2nd CH
+
+    * Transition to +41a (+23) GAR on airborne hit
+
+    * Cancel GAR transition with B
+
+    * 6 Chip damage on block'
+- id: bp3_p_1p2
+  command: b+3,P,1+2
+  hit_level: m,t
+  startup: i20~21
+  block: '-13'
+  notes: '* Reversal Break
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.72 on hit
+
+    * Increases ZAN gauge by 0.10 on block
+
+    * Transition to attack throw on hit
+
+    * Side switch on hit
+
+    * is1~20'
+- id: qcfp1
+  command: qcf+1
+  hit_level: h
+  startup: i20-31
+  block: -12~-10
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Hold to power up
+
+    * 1 chip damage on block
+
+    * Cancel to r15 PHX with 4 or F from frames 10-16
+
+    * Transitions to unbreakable throw from i23-31 5,10 +3
+
+    * Throw deals recoverable damage only
+
+    * Forces tech backroll on hi'
+- id: qcfp1
+  command: qcf+1*
+  hit_level: h
+  startup: i30-41
+  block: -5~-3
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 2 chip damage on block
+
+    * Cancel to r15 PHX with 4 or F from frames 10-16
+
+    * Transitions to unbreakable throw from i33-41 10,15 +3
+
+    * Throw deals recoverable damage only'
+- id: ss_2
+  command: SS.2
+  hit_level: M
+  startup: i17~18
+  block: '-9'
+  notes: '* Weapon
+
+    * Side step takes 9f, effective startup i26'
+- id: ss_2_1
+  command: SS.2,1
+  hit_level: M, m
+  startup: i17~18, i22~23
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35a)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Input 1 during the 1st hit animation on frames 16~18 to add +3 damage
+
+    * Combo from 1st hit with 11f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Force t'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: M
+  startup: i25~26
+  block: '+2'
+  notes: '* Spike
+
+    * Weapon
+
+    * 6 Chip Damage on block
+
+    * Transition to FC with D
+
+    * Side step takes 9f, effective startup i34~35'
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to Standing with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i19~20
+  block: '-13'
+  notes: '* Weapon
+
+    * High crush 1~20'
+throw_options:
+- id: h_phx_2p3
+  command: H.PHX.2+3
+  hit_level: m
+  startup: i15~16
+  block: '+8'
+  notes: '* Heat Smash
+
+    * Floor Break
+
+    * Weapon
+
+    * Increases ZAN gauge by 1.16 on hit
+
+    * Increases ZAN gauge by 0.66 on block
+
+    * Transition to throw on hit
+
+    * Opponent recovers in FDFA state
+
+    * Only deals recoverable damage
+
+    * (32) damage balcony break on 1s'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t,m,m,m,m,m,m
+  startup: i18
+  block: '+5'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to attack throw on 1st hit
+
+    * 45 damage Balcony Break on 1st whiff
+
+    * Recover 27-45 recoverable health on hit:
+
+    * Regain 18?-19? additional recoverable health on hit
+
+    * Recover 19 recoverable health on '
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i22
+  block: '-15'
+  notes: '* Removes Recoverable Health (ZAN5 only)
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.20 on ZAN1 hit
+
+    * Increases ZAN gauge by 0.10 on ZAN1 block
+
+    * Transitions to attack throw on hit with ZAN2-5
+
+    * Resets ZAN gauge on hit with ZAN2-5
+
+    * Damage increase'
+- id: bp3
+  command: b+3
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Strong parry effect: parries all highs or mids, except throws, unblockables
+    and charge moves
+
+    * Parry state 5~13'
+- id: bp3_p_1p2
+  command: b+3,P,1+2
+  hit_level: m,t
+  startup: i20~21
+  block: '-13'
+  notes: '* Reversal Break
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.72 on hit
+
+    * Increases ZAN gauge by 0.10 on block
+
+    * Transition to attack throw on hit
+
+    * Side switch on hit
+
+    * is1~20'
+- id: qcfp1
+  command: qcf+1
+  hit_level: h
+  startup: i20-31
+  block: -12~-10
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Hold to power up
+
+    * 1 chip damage on block
+
+    * Cancel to r15 PHX with 4 or F from frames 10-16
+
+    * Transitions to unbreakable throw from i23-31 5,10 +3
+
+    * Throw deals recoverable damage only
+
+    * Forces tech backroll on hi'
+- id: qcfp1
+  command: qcf+1*
+  hit_level: h
+  startup: i30-41
+  block: -5~-3
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 2 chip damage on block
+
+    * Cancel to r15 PHX with 4 or F from frames 10-16
+
+    * Transitions to unbreakable throw from i33-41 10,15 +3
+
+    * Throw deals recoverable damage only'
+- id: ch_ffp1p2
+  command: CH.f,F+1+2
+  hit_level: m
+  startup: i20
+  block: ''
+  notes: '* Weapon
+
+    * Throw from front hit
+
+    * Opponent recovers FUFA'
+- id: phx_1
+  command: PHX.1
+  hit_level: M,m,t
+  startup: i21
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to attack throw on front standing hit
+
+    * -9 frame advantage and 6 chip damage on block after absorbing an attack in power
+    crush state
+
+    * On 1st hit regain 5 additional recoverable health
+
+    * +4d on side or BT hit
+
+    * Power c'
+- id: phx_2_2
+  command: PHX.2,2
+  hit_level: m, m,t
+  startup: i15, i20
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Transition to attack throw on hit
+
+    * Cancel throw transition with B
+
+    * Increases ZAN gauge by 0.72 on hit
+
+    * Increases ZAN gauge by 0.40 on hit without throw
+
+    * Increases ZAN gauge by 0.10 on bloc'
+- id: wol_2
+  command: WOL.2
+  hit_level: sm,t
+  startup: i25~40
+  block: -38~-23
+  notes: '* Weapon
+
+    * Transition to attack throw on airborne hit
+
+    * 56 damage in total with attack throw and scaling
+
+    * Forces tech backroll on hit'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-5'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Can be done from FC
+
+    * Opponent recovers in FUFA state'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '-5'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Can be done from FC
+
+    * Side switch on hit and on throw break
+
+    * Opponent recovers in FUFT'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Unbreakable
+
+    * Opponent recovers in FUFA'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break 1
+
+    * Opponent recovers in FUFA'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break 2
+
+    * Side switch on hit
+
+    * Opponent recovers in FUFT'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12~14
+  block: '-5'
+  notes: '* Throw break 1+2
+
+    * PHX.uf+1+2: i15 startup
+
+    * Can be done from FC
+
+    * Opponent recovers in FDFA'
+key_lows:
+- id: dfp3
+  command: df+3
+  hit_level: L
+  startup: i29~30
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~65'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: L, M,M
+  startup: i29~30, i27~29 i3~10
+  block: ''
+  notes: '* Available only as combo from 1st hit
+
+    * 38 damage in total for the full string with scaling
+
+    * Input 1 during the 1st hit animation on frames 25~28 to add +4 damage'
+- id: dp1
+  command: d+1
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: '* High crush 6~'
+- id: dp2
+  command: d+2
+  hit_level: sl
+  startup: i11
+  block: '-6'
+  notes: '+5c on crouching hit
+
+    * High crush 4~'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit
+
+    * High crush 4~'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i19~20
+  block: '-18'
+  notes: '* Effectively homing?'
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to Standing with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: fc_dfp2
+  command: FC.df+2
+  hit_level: L
+  startup: i19~20
+  block: '-13'
+  notes: '* Weapon
+
+    * High crush 1~20'
+- id: phx_3
+  command: PHX.3
+  hit_level: L
+  startup: i21
+  block: '-26'
+  notes: '* Stagger on block'
+- id: phx_3_2
+  command: PHX.3,2
+  hit_level: L, m,m
+  startup: i21, i30 i29~34
+  block: ''
+  notes: '* Balcony Break
+
+    * Power up in Heat
+
+    * Available only as combo from 1st hit
+
+    * 30 (38 in heat) damage in total for the full string with scaling'
+- id: phx_3_1p2
+  command: PHX.3,1+2
+  hit_level: L, m,M
+  startup: i21, i27~28 i23~24
+  block: ''
+  notes: '* Spike
+
+    * Available only as combo from 1st hit
+
+    * Increases ZAN gauge by 0.70 on hit (0.30 + 0.40)
+
+    * Increases ZAN gauge by 0.24 on block (0.10 + 0.14)
+
+    * 30 damage in total for the full string with scaling
+
+    * Only deals recoverable damage
+
+    * L'
+- id: phx_4
+  command: PHX.4
+  hit_level: L
+  startup: i15~16
+  block: '-13'
+  notes: '* High crush 6~'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1p2
+  command: b+1+2
+  hit_level: m
+  startup: i24~25
+  block: '-14'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Reversal Break (after attack absorb)
+
+    * 34 in total damage after absorbing an attack in power crush state
+
+    * Damage taken during power crush state is recoverable
+
+    * -7 frame advantage and 12 chip damage on block afte'
+- id: phx_1
+  command: PHX.1
+  hit_level: M,m,t
+  startup: i21
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to attack throw on front standing hit
+
+    * -9 frame advantage and 6 chip damage on block after absorbing an attack in power
+    crush state
+
+    * On 1st hit regain 5 additional recoverable health
+
+    * +4d on side or BT hit
+
+    * Power c'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_phx_2p3
+  command: H.PHX.2+3
+  hit_level: m
+  startup: i15~16
+  block: '+8'
+  notes: '* Heat Smash
+
+    * Floor Break
+
+    * Weapon
+
+    * Increases ZAN gauge by 1.16 on hit
+
+    * Increases ZAN gauge by 0.66 on block
+
+    * Transition to throw on hit
+
+    * Opponent recovers in FDFA state
+
+    * Only deals recoverable damage
+
+    * (32) damage balcony break on 1s'
+- id: h_up1p2
+  command: H.u+1+2
+  hit_level: M,m
+  startup: i19~20,i20~21
+  block: '-12'
+  notes: '* Weapon 2nd hit
+
+    * Consumes 150F of remaining Heat time
+
+    * Transition to r15 PHX with F or 4 on hit or block (-1/+14c)
+
+    * 7 chip damage on block'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t,m,m,m,m,m,m
+  startup: i18
+  block: '+5'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transition to attack throw on 1st hit
+
+    * 45 damage Balcony Break on 1st whiff
+
+    * Recover 27-45 recoverable health on hit:
+
+    * Regain 18?-19? additional recoverable health on hit
+
+    * Recover 19 recoverable health on '
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m, M,m
+  startup: i12, ,i27~28 i31~32
+  block: '-11'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Power up in Heat (24 damage)
+
+    * Input can be delayed 6f
+
+    * Move cannot be delayed
+
+    * Transition to PHX on hit only
+
+    * Cancel PHX transition with B'
+- id: '3_2'
+  command: 3,2
+  hit_level: m, m,m
+  startup: i16, i23~24 i29~41
+  block: -12~+0
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Jail from 2nd block
+
+    * 3rd hit never combos on standing hit
+
+    * 3rd hit available only on hit or block
+
+    * Interrupt with i4 from 1st block
+
+    * +23a (+13) on BT hit
+
+    * Power up in Heat (15,20dmg)'
+- id: 1p2
+  command: 1+2
+  hit_level: m
+  startup: i13
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35d)
+
+
+    * Balcony Break (airborne)
+
+    * Weapon
+
+    * On hit regain 5 additional recoverable health'
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: m, m, M
+  startup: i15, ,i27~28
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a {+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * Combo from 2nd hit
+
+    * Interrupt with i8 from 2nd block
+
+    * Input can be delayed by 8F
+
+    * Move cannot be delayed'
+- id: h_fp2_2_1
+  command: H.f+2,2,1
+  hit_level: m, m, m
+  startup: i15, ,i26~27
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * Consumes 150F of remaining Heat time
+
+    * Forces tech backroll on hit
+
+    * 5 chip damage on block'
+- id: h_fp2_2_1
+  command: H.f+2,2,1*
+  hit_level: m, m, m
+  startup: i15, ,i42~43
+  block: '+11'
+  notes: '* Guard Break
+
+    * Consumes 150F of remaining Heat time
+
+    * Interrupt with i24? from 2nd block
+
+    * Interrupt with i12 from 2nd hit
+
+    * 12 chip damage on block'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m,m
+  startup: i16~17 i19
+  block: '-12'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 5 chip damage on block
+
+    * 7 chip damage on block in heat'
+- id: h_dfp1_1
+  command: H.df+1,1
+  hit_level: m, M,m
+  startup: i14~15, i22~23,i20~21
+  block: '-12'
+  notes: '* Weapon 2nd hit
+
+    * Combo from 1st hit with 1F delay
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed by 2F
+
+    * Move is delayed by 2F
+
+    * Consumes 150F of remaining Heat time
+
+    * Transition to r15 PHX with F or 4 on hit or block (-1/+14c)
+
+    * 5'
+- id: ws3
+  command: ws3
+  hit_level: m,m
+  startup: i20~21 i28~41
+  block: '-8'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Power up in Heat: 20 damage and +20a(+10a) on hit
+
+    * Jail from 1st attack'
+- id: ss_2_1
+  command: SS.2,1
+  hit_level: M, m
+  startup: i17~18, i22~23
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35a)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Input 1 during the 1st hit animation on frames 16~18 to add +3 damage
+
+    * Combo from 1st hit with 11f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Force t'
+- id: h_phx_2_1p2
+  command: H.PHX.2,1+2
+  hit_level: m, m
+  startup: i15, i23~24
+  block: '+4'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Interrupt with i5 from 1st block
+
+    * 6 chip damage on block
+
+    * Consumes 150F of remaining Heat time'
+- id: phx_3_2
+  command: PHX.3,2
+  hit_level: L, m,m
+  startup: i21, i30 i29~34
+  block: ''
+  notes: '* Balcony Break
+
+    * Power up in Heat
+
+    * Available only as combo from 1st hit
+
+    * 30 (38 in heat) damage in total for the full string with scaling'
+- id: phx_1p2
+  command: PHX.1+2
+  hit_level: m,m
+  startup: i23~24 i19~20
+  block: '-7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 6 chip damage on block
+
+    * 8 chip damage on block in heat
+
+    * On hit regain 3 additional recoverable health'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i19~20
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.50 on hit
+
+    * Increases ZAN gauge by 0.14 on block
+
+    * Only deals recoverable damage'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i20
+  block: '+3'
+  notes: '* Spike
+
+    * Weapon
+
+    * 2 chip damage on block'
+- id: f_ffp2
+  command: f,f,F+2
+  hit_level: m
+  startup: i24~26
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Enter PHX +8 +43d (+22) r26 with F or 4 on hit or block
+
+    * 4 Chip Damage on block'
+- id: ch_ffp1p2
+  command: CH.f,F+1+2
+  hit_level: m
+  startup: i20
+  block: ''
+  notes: '* Weapon
+
+    * Throw from front hit
+
+    * Opponent recovers FUFA'
+launch_punish_opportunities:
+- id: wol_2
+  command: WOL.2
+  hit_level: sm,t
+  startup: i25~40
+  block: -38~-23
+  notes: '* Weapon
+
+    * Transition to attack throw on airborne hit
+
+    * 56 damage in total with attack throw and scaling
+
+    * Forces tech backroll on hit'
+- id: dfp3
+  command: df+3
+  hit_level: L
+  startup: i29~30
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~65'
+- id: phx_3
+  command: PHX.3
+  hit_level: L
+  startup: i21
+  block: '-26'
+  notes: '* Stagger on block'
+- id: wol_1
+  command: WOL.1
+  hit_level: sm
+  startup: i18~27
+  block: -20~-11
+  notes: '* Weapon
+
+    * Transition to r22? PHX on hit'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '3_3'
+  command: 3,3
+  hit_level: m, M
+  startup: i16, i30~32
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Input can be delayed 1f
+
+    * Floating state 31~'
+- id: dfp1_4_3
+  command: df+1,4,3
+  hit_level: m, m, M
+  startup: i14~15, ,i27~28
+  block: -18~-16
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Move can be delayed by 9f
+
+    * Floating state 28~'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i19~20
+  block: '-18'
+  notes: '* Effectively homing?'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* -6c on crouching hit
+
+    * High crush 4~'
+- id: ufp2
+  command: uf+2
+  hit_level: m,m,m
+  startup: i20 i4 i3
+  block: '-17'
+  notes: '* Chip damage on block
+
+    * 24 damage in total with scaling
+
+    * Low crush 20~45
+
+    * Floating state 46~48'
+- id: gar_2_2
+  command: GAR.2,2
+  hit_level: m, m,M
+  startup: i18~19, i26~27 i3~4
+  block: '-17'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Low crush 1~26
+
+    * Floating state 27~29'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i14~15, i23
+  block: '-16'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Enter PHX +6 +14 r21 with F or 4 on hit or block'
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i22
+  block: '-15'
+  notes: '* Removes Recoverable Health (ZAN5 only)
+
+    * Weapon
+
+    * Increases ZAN gauge by 0.20 on ZAN1 hit
+
+    * Increases ZAN gauge by 0.10 on ZAN1 block
+
+    * Transitions to attack throw on hit with ZAN2-5
+
+    * Resets ZAN gauge on hit with ZAN2-5
+
+    * Damage increase'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, m
+  startup: i14~15, ,i26~27
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Input 1 during the 2nd hit animation on frames 21~23 to add +3 damage'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: ss_2_1
+  command: SS.2,1
+  hit_level: M, m
+  startup: i17~18, i22~23
+  block: '-15'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +45a (+35a)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Input 1 during the 1st hit animation on frames 16~18 to add +3 damage
+
+    * Combo from 1st hit with 11f delay
+
+    * Input can be delayed 11f
+
+    * Move can be delayed 10f
+
+    * Force t'
+- id: gar_2
+  command: GAR.2
+  hit_level: m
+  startup: i18~19
+  block: '-15'
+  notes: '* Weapon
+
+    * 24 damage with delayed input
+
+    * -16 on block, -14 on hit, 12 damage, 15 delayed input damage with ub+2
+
+    * Jump takes 17f, effective minimum startup i35~36
+
+    * js1~48 with u+2
+
+    * Low crush 1~49'
+- id: wol_3
+  command: WOL.3
+  hit_level: M
+  startup: i27~28
+  block: -15~-14
+  notes: '* Tornado
+
+    * Low crush 1~52
+
+    * Floating state 53~55'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

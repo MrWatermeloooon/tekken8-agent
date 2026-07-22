@@ -1,0 +1,2623 @@
+schema_version: 1
+character_id: 21
+character: yoshimitsu
+display_name: Yoshimitsu
+groups:
+- stance_heavy
+- evasive
+- specialist
+specialty: unconventional_evasion
+sidestep_tendency: left
+signature_mechanics:
+- flash
+- flea
+- meditation
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/yoshimitsu/framedata
+important_punishable_moves:
+- id: bp1_1_1_1_1_1
+  command: b+1,1,1,1,1,1
+  hit_level: h, h, h, h, h, h
+  startup: i17, ,i11~12
+  block: '-73'
+  notes: '* Combo from 4th hit
+
+    * Combo from 3rd CH'
+- id: 4_4_2_2_nss_1
+  command: 4,4,2,2,NSS.1
+  hit_level: h, h, m, h, m
+  startup: i12~13, ,i67
+  block: '-54'
+  notes: ''
+- id: dbp2_2_2_2_2_2
+  command: db+2,2,2,2,2,2
+  hit_level: m, m, m, m, m, m
+  startup: i15, ,i10~14
+  block: '-49'
+  notes: Combo from 5th CH
+- id: ffp3p4_1p2
+  command: f,F+3+4,1+2
+  hit_level: m, m
+  startup: i22~24, i12~18
+  block: '-31'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Tremendous forward travel
+
+    * Automatically recovers to r55 IND on self-wallsplat
+
+    * Low crush 24~46
+
+    * Floating state 47~90'
+- id: ind_3
+  command: IND.3
+  hit_level: m
+  startup: i32~38
+  block: '-31'
+  notes: '* Balcony Break
+
+    * Automatically recovers to r55 IND on self-wallsplat
+
+    * Low crush 12~34
+
+    * Floating state 35~90'
+- id: dbp3_3_3_3_3_3
+  command: db+3,3,3,3,3,3
+  hit_level: l, l, l, l, l, l
+  startup: i18~19, ,i9~11
+  block: '-26'
+  notes: '* Combo from 5th CH
+
+    * High crush 1~'
+- id: ind_4
+  command: IND.4
+  hit_level: L
+  startup: i47~48
+  block: '-26'
+  notes: '* Homing
+
+    * Enter IND -26 +8 +35a r24 with d+3+4
+
+    * High crush 1~'
+- id: nss_fc_dfp3
+  command: NSS.FC.df+3
+  hit_level: L
+  startup: i20~21
+  block: '-26'
+  notes: '* High crush 1~'
+- id: hfc_dfp4
+  command: hFC.df+4
+  hit_level: L
+  startup: i18~19
+  block: '-26'
+  notes: '* Homing
+
+    * Enter IND -26 +8c +35a r24 with d+3+4
+
+    * Can be done from Crouch Level 1
+
+    * High crush 1~'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i18~19
+  block: '-25'
+  notes: '* High crush 6~'
+- id: hfc_dbp3
+  command: hFC.db+3
+  hit_level: l
+  startup: i18~19
+  block: '-25'
+  notes: '* Leads to db+3 extensions
+
+    * Can be done from Crouch Level 1
+
+    * High crush 1~'
+- id: '4_4_2_2'
+  command: 4,4,2,2
+  hit_level: h, h, m, h
+  startup: i12~13, ,i22~23
+  block: '-24'
+  notes: '* Combo from 3rd hit'
+- id: '4_4_2'
+  command: 4,4,2
+  hit_level: h, h, m
+  startup: i12~13, ,i30~31
+  block: '-22'
+  notes: Yoshimitsu recovers sideturned on block
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i6~9
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: bp1_1_dbp3
+  command: b+1,1,db+3
+  hit_level: h, h, l
+  startup: i17, ,i13~14
+  block: '-20'
+  notes: '* Combo from 1st hit
+
+    * Can combo to DB+3 extensions
+
+    * Can be performed after one or three b+1
+
+    * High crush 10~'
+- id: b_bp1p4_b
+  command: b,B+1+4,B
+  hit_level: m
+  startup: i22~25
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: m
+  startup: i22~24
+  block: '-20'
+  notes: '* Floor Break
+
+    * Cannot be buffered
+
+    * Visually similar to f,F+1+2
+
+    * Low crush 10~27
+
+    * Floating state 28~30'
+- id: kin_1p4
+  command: KIN.1+4
+  hit_level: m
+  startup: i10~13
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: med_1p4
+  command: MED.1+4
+  hit_level: m
+  startup: i6~9
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: nss_1p4
+  command: NSS.1+4
+  hit_level: m
+  startup: i8~11
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: nss_kin_1p4
+  command: NSS.KIN.1+4
+  hit_level: m
+  startup: i12~15
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: nss_b_bp1p4_b
+  command: NSS.b,B+1+4,B
+  hit_level: m
+  startup: ',i22~25'
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: dbp3_3
+  command: db+3,3
+  hit_level: l, l
+  startup: i18~19, i15~17
+  block: '-19'
+  notes: '* Combo from 1st hit
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3
+  command: db+3,3,3
+  hit_level: l, l, l
+  startup: i18~19, ,i15~17
+  block: -19~-17
+  notes: '* Combo from 2nd CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3_3
+  command: db+3,3,3,3
+  hit_level: l, l, l, l
+  startup: i18~19, ,i15~17
+  block: '-19'
+  notes: '* Combo from 3rd CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3
+  command: db+3,3,3,3,3
+  hit_level: l, l, l, l, l
+  startup: i18~19, ,i15~17
+  block: '-19'
+  notes: '* Combo from 4th CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: bp1_1_dbp3_3
+  command: b+1,1,db+3,3
+  hit_level: h, h, l, l
+  startup: i17, ,i15~17
+  block: '-19'
+  notes: '* Combo from 3rd CH
+
+    * Can combo to db+3 extensions
+
+    * Enter IND r20 with d+3+4
+
+    * Can be performed after one or three b+1
+
+    * High crush 1~'
+- id: ubp4
+  command: ub+4
+  hit_level: m
+  startup: i20~22
+  block: '-19'
+  notes: '* Balcony Break
+
+    * Floor Break
+
+    * Low crush 9~32
+
+    * Floating state 33~35'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i15~17
+  block: -18~-16
+  notes: 'Most commonly impacts on frame 16, except when tracking right
+
+    * High crush 4~'
+- id: fle_n
+  command: FLE.n
+  hit_level: M
+  startup: i2~60
+  block: -18~
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Hitlines exist on the sword and directly behind Yoshimitsu
+
+    * Can be canceled at any time into another FLE move
+
+    * After hitting with this attack, FLE.n has no hitbox until another FLE action
+    (other than FLE.d) is t'
+- id: nss_1p2p3
+  command: NSS.1+2+3
+  hit_level: h
+  startup: i22~40
+  block: -18~+0
+  notes: Balcony Break
+common_strings_and_gaps:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit with 1f delay
+
+    * Move can be delayed 3f
+
+    * Interrupt with i4 from 1st block
+
+    * 3 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: 1_nss_1
+  command: 1,NSS.1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit with 1f delay\n* Input can\
+    \ be delayed 3f\n* Interrupt with i4 from 1st block\n* 8 chip damage on block\n\
+    * Recovers 1 base health or 6 additional recoverable health on hit \n* Recovers\
+    \ 1 base health whe"
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i11, i26~27
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH with 1f delay
+
+    * Move cannot be delayed
+
+    * Cancel to -12 -6 r30 with B
+
+    * Interrupt with i8 from 1st block
+
+    * Replaced by a different move in NSS'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i24
+  block: '-1'
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Combo from 1st hit with 1f delay
+
+    * Move cannot be delayed
+
+    * Enter KIN r25 with 1+2
+
+    * Transitions to NSS on hit or block only
+
+    * Recovers 2f faster on hit or block
+
+    * Interrupt with i5 from 1st block
+
+    * Hi'
+- id: '2_3'
+  command: 2,3
+  hit_level: h, h
+  startup: i11, i26~27
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay
+
+    * Move can be delayed 5f'
+- id: 2_nss_1
+  command: 2,NSS.1
+  hit_level: h, h
+  startup: i11, i23~24 i18
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Jail from 2nd attack'
+- id: 2_dp3
+  command: 2,d+3
+  hit_level: h, L
+  startup: i11, i22
+  block: '-12'
+  notes: '* Combo from 1st hit with 2f delay
+
+    * Input can be delayed 2f
+
+    * Move cannot be delayed
+
+    * High crush 10~'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Does not transition to DGF during Heat activation or Heat Dash
+
+    * Power up in NSS or Heat
+
+    * Recovers in 1SS
+
+    * Low crush 26~'
+- id: '3_2'
+  command: 3,2
+  hit_level: m, m
+  startup: i15~16, i22
+  block: '-12'
+  notes: Interrupt with i1 from 1st block
+- id: 3_2_1p2
+  command: 3,2,1+2
+  hit_level: m, m, M
+  startup: i15~16, ,i26~27
+  block: -14c
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd hit with 4f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f
+
+    * Interrupt with i7 from 2nd block
+
+    * 5 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: 3_2_nss_1p2
+  command: 3,2,NSS.1+2
+  hit_level: m, m, M
+  startup: i15~16, ,i26~27
+  block: -14c
+  notes: "* Balcony Break\n* Weapon\n* Combo from 2nd hit with 4f delay\n* Input can\
+    \ be delayed 10f\n* Move can be delayed 9f\n* 10 chip damage on block\n* Clean\
+    \ hit 35 damage\n* Recovers 1 base health or 6 additional recoverable health on\
+    \ hit \n* Recovers 1"
+- id: 3_nss_1
+  command: 3,NSS.1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +62a (+42)\n\n* Balcony Break\n* Weapon\n\
+    * Combo from 1st hit\n* 6 chip damage on block\n* Recovers 1 base health or 6\
+    \ additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable healt"
+- id: '4_4'
+  command: 4,4
+  hit_level: h, h
+  startup: i12~13, i24~25
+  block: '-4'
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Move cannot be delayed'
+- id: '4_4_2'
+  command: 4,4,2
+  hit_level: h, h, m
+  startup: i12~13, ,i30~31
+  block: '-22'
+  notes: Yoshimitsu recovers sideturned on block
+- id: '4_4_2_2'
+  command: 4,4,2,2
+  hit_level: h, h, m, h
+  startup: i12~13, ,i22~23
+  block: '-24'
+  notes: '* Combo from 3rd hit'
+- id: '4_4_2_2_1'
+  command: 4,4,2,2,1
+  hit_level: h, h, m, h, m!
+  startup: i12~13, ,i67
+  block: ''
+  notes: '* Weapon'
+- id: '4_4_2_2_1_1'
+  command: 4,4,2,2,1~1
+  hit_level: h, h, m, h, m!, m!
+  startup: i12~13, ,i28~113
+  block: ''
+  notes: '* Weapon
+
+    * Cancel early to r26 with B (earliest cancel -12a)
+
+    * Possible to double-hit'
+- id: 4_4_2_2_nss_1
+  command: 4,4,2,2,NSS.1
+  hit_level: h, h, m, h, m
+  startup: i12~13, ,i67
+  block: '-54'
+  notes: ''
+- id: 4_4_2_2_nss_1_1
+  command: 4,4,2,2,NSS.1~1
+  hit_level: h, h, m, h, m, h!
+  startup: i12~13, ,i20~105
+  block: ''
+  notes: '* Balcony Break
+
+    * Cancel early to r30 with B'
+- id: '4_4_4'
+  command: 4,4,4
+  hit_level: h, h, h
+  startup: i12~13, ,i24~25
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Move cannot be delayed'
+- id: 1p2_p
+  command: 1+2,P
+  hit_level: M,M
+  startup: i15~18 i3~6
+  block: +1c~+4c
+  notes: '* is1~20
+
+    * Low crush 11~42
+
+    * Floating state 43~45'
+- id: fp2_1
+  command: f+2,1
+  hit_level: h, M
+  startup: i17~18, i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 1st CH +66a (+50)'
+- id: fp2_nss_1
+  command: f+2,NSS.1
+  hit_level: h, m
+  startup: i17~18, i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Airborne combo from 1st CH (+66a (+50))'
+- id: fp2_dbp2
+  command: f+2,db+2
+  hit_level: h, m
+  startup: i17~18, i15
+  block: '-5'
+  notes: '* Input can be delayed 2f
+
+    * Move cannot be delayed
+
+    * Leads to db+2 extensions'
+- id: fp3_4
+  command: f+3,4
+  hit_level: h, m
+  startup: i16~17, i23~24
+  block: '-6'
+  notes: '* Knee
+
+    * 2nd hit delayed 18f
+
+    * Interrupt with i17 from 1st block
+
+    * Low crush 22~29
+
+    * Floating state 30~32'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13, i25~26
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay
+
+    * Move cannot be delayed'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, M
+  startup: i13, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 2nd CH +66a (+50)'
+- id: dfp1_2_nss_1
+  command: df+1,2,NSS.1
+  hit_level: m, h, M
+  startup: i13, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Combo from 2nd CH'
+- id: dfp1_2_dbp2
+  command: df+1,2,db+2
+  hit_level: m, h, m
+  startup: i13, ,i15
+  block: '-5'
+  notes: '* Leads to db+2 extensions'
+- id: dfp1_4
+  command: df+1,4
+  hit_level: m, m
+  startup: i13, i17
+  block: '-12'
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Input can be delayed 2f
+
+    * Move cannot be delayed
+
+    * 2nd hit can whiff at certain ranges, -20 on whiff'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat
+
+    * Input can be held to transition to d+1*'
+- id: dfp3_nss_1
+  command: df+3,NSS.1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit\n* Recovers 1 base health\
+    \ or 6 additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable health is 5 or less\n* 9 chip damage on block\n* Input can be held\
+    \ to transiti"
+duckable_highs:
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i24
+  block: '-1'
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Combo from 1st hit with 1f delay
+
+    * Move cannot be delayed
+
+    * Enter KIN r25 with 1+2
+
+    * Transitions to NSS on hit or block only
+
+    * Recovers 2f faster on hit or block
+
+    * Interrupt with i5 from 1st block
+
+    * Hi'
+- id: '2_3'
+  command: 2,3
+  hit_level: h, h
+  startup: i11, i26~27
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay
+
+    * Move can be delayed 5f'
+- id: 2_nss_1
+  command: 2,NSS.1
+  hit_level: h, h
+  startup: i11, i23~24 i18
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Jail from 2nd attack'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Does not transition to DGF during Heat activation or Heat Dash
+
+    * Power up in NSS or Heat
+
+    * Recovers in 1SS
+
+    * Low crush 26~'
+- id: 3_nss_1
+  command: 3,NSS.1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +62a (+42)\n\n* Balcony Break\n* Weapon\n\
+    * Combo from 1st hit\n* 6 chip damage on block\n* Recovers 1 base health or 6\
+    \ additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable healt"
+- id: '4_4'
+  command: 4,4
+  hit_level: h, h
+  startup: i12~13, i24~25
+  block: '-4'
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Move cannot be delayed'
+- id: '4_4_2'
+  command: 4,4,2
+  hit_level: h, h, m
+  startup: i12~13, ,i30~31
+  block: '-22'
+  notes: Yoshimitsu recovers sideturned on block
+- id: '4_4_2_2'
+  command: 4,4,2,2
+  hit_level: h, h, m, h
+  startup: i12~13, ,i22~23
+  block: '-24'
+  notes: '* Combo from 3rd hit'
+- id: '4_4_2_2_1'
+  command: 4,4,2,2,1
+  hit_level: h, h, m, h, m!
+  startup: i12~13, ,i67
+  block: ''
+  notes: '* Weapon'
+- id: '4_4_2_2_1_1'
+  command: 4,4,2,2,1~1
+  hit_level: h, h, m, h, m!, m!
+  startup: i12~13, ,i28~113
+  block: ''
+  notes: '* Weapon
+
+    * Cancel early to r26 with B (earliest cancel -12a)
+
+    * Possible to double-hit'
+- id: 4_4_2_2_nss_1
+  command: 4,4,2,2,NSS.1
+  hit_level: h, h, m, h, m
+  startup: i12~13, ,i67
+  block: '-54'
+  notes: ''
+- id: 4_4_2_2_nss_1_1
+  command: 4,4,2,2,NSS.1~1
+  hit_level: h, h, m, h, m, h!
+  startup: i12~13, ,i20~105
+  block: ''
+  notes: '* Balcony Break
+
+    * Cancel early to r30 with B'
+- id: '4_4_4'
+  command: 4,4,4
+  hit_level: h, h, h
+  startup: i12~13, ,i24~25
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 4f delay
+
+    * Move cannot be delayed'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13, i25~26
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 2f delay
+
+    * Move cannot be delayed'
+- id: dfp1_2_1
+  command: df+1,2,1
+  hit_level: m, h, M
+  startup: i13, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Combo from 2nd CH +66a (+50)'
+- id: dfp1_2_nss_1
+  command: df+1,2,NSS.1
+  hit_level: m, h, M
+  startup: i13, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Combo from 2nd CH'
+- id: dfp1_2_dbp2
+  command: df+1,2,db+2
+  hit_level: m, h, m
+  startup: i13, ,i15
+  block: '-5'
+  notes: '* Leads to db+2 extensions'
+- id: dp2_1
+  command: d+2,1
+  hit_level: M, h
+  startup: i16~17, i27~28
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 16f
+
+    * Move can be delayed 10f'
+- id: dp2_2_1
+  command: d+2,2,1
+  hit_level: M, m, h
+  startup: i16~17, ,i19~20
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f'
+- id: dp2_2_nss_1
+  command: d+2,2,NSS.1
+  hit_level: M, m, h
+  startup: i16~17, ,i19~20
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f'
+- id: dp2_nss_1
+  command: d+2,NSS.1
+  hit_level: M, h
+  startup: i16~17, i27~28
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 16f
+
+    * Move can be delayed 10f'
+- id: bp1_1
+  command: b+1,1
+  hit_level: h, h
+  startup: i17, i11~12
+  block: '+4'
+  notes: '* Combo from 1st hit
+
+    * Can transition to Spinning Evade with b+3 or b+4'
+- id: bp1_1_1
+  command: b+1,1,1
+  hit_level: h, h, h
+  startup: i17, ,i11~12
+  block: '+4'
+  notes: '* Combo from 1st hit
+
+    * Can transition to Spinning Evade with b+3 or b+4'
+- id: bp1_1_1_1
+  command: b+1,1,1,1
+  hit_level: h, h, h, h
+  startup: i17, ,i11~12
+  block: '+4'
+  notes: '* Combo from 3rd CH
+
+    * Can transition to Spinning Evade with b+3 or b+4'
+stance_transitions:
+- id: h_dgf_1
+  command: H.DGF.1
+  hit_level: M
+  startup: i30~31
+  block: '+2'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 13 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Consumes 240F of remaining Heat time
+
+    * Low crush 1~27'
+- id: h_dgf_fp1p2
+  command: H.DGF.f+1+2
+  hit_level: h,h,h
+  startup: i16~17 i11~12 i11~12
+  block: '+4'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Weapon
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * 16 chip damage on block
+
+    * Recovers 1 base health or 5 additional recoverable health on hit
+
+    * Consumes 90F of remaining Heat time
+
+    * Low crush 1~65'
+- id: h_2p3
+  command: H.2+3
+  hit_level: M,m,m,m
+  startup: i18~19
+  block: '+4'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Recovers 4 base health or 14 additional recoverable health on hit
+
+    * Enter DGF +10 r29 with U on block
+
+    * Transition to attack throw after 1st hit
+
+    * 9 chip damage on block
+
+    * Jail from 1st attack'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 1_nss_1
+  command: 1,NSS.1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit with 1f delay\n* Input can\
+    \ be delayed 3f\n* Interrupt with i4 from 1st block\n* 8 chip damage on block\n\
+    * Recovers 1 base health or 6 additional recoverable health on hit \n* Recovers\
+    \ 1 base health whe"
+- id: '2_2'
+  command: 2,2
+  hit_level: h, h
+  startup: i11, i24
+  block: '-1'
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Combo from 1st hit with 1f delay
+
+    * Move cannot be delayed
+
+    * Enter KIN r25 with 1+2
+
+    * Transitions to NSS on hit or block only
+
+    * Recovers 2f faster on hit or block
+
+    * Interrupt with i5 from 1st block
+
+    * Hi'
+- id: 2_nss_1
+  command: 2,NSS.1
+  hit_level: h, h
+  startup: i11, i23~24 i18
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Jail from 2nd attack'
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Does not transition to DGF during Heat activation or Heat Dash
+
+    * Power up in NSS or Heat
+
+    * Recovers in 1SS
+
+    * Low crush 26~'
+- id: 3_2_nss_1p2
+  command: 3,2,NSS.1+2
+  hit_level: m, m, M
+  startup: i15~16, ,i26~27
+  block: -14c
+  notes: "* Balcony Break\n* Weapon\n* Combo from 2nd hit with 4f delay\n* Input can\
+    \ be delayed 10f\n* Move can be delayed 9f\n* 10 chip damage on block\n* Clean\
+    \ hit 35 damage\n* Recovers 1 base health or 6 additional recoverable health on\
+    \ hit \n* Recovers 1"
+- id: 3_nss_1
+  command: 3,NSS.1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +62a (+42)\n\n* Balcony Break\n* Weapon\n\
+    * Combo from 1st hit\n* 6 chip damage on block\n* Recovers 1 base health or 6\
+    \ additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable healt"
+- id: '3_4'
+  command: 3~4
+  hit_level: m,m
+  startup: i17~18 i28~29
+  block: '-6'
+  notes: '* Jail from 1st attack
+
+    * Enter DGF +5 +14 r18 with 1SS.U
+
+    * Cannot transition after frame 29
+
+    * Low crush 12~37
+
+    * Floating state 38~40'
+- id: 4_4_2_2_nss_1
+  command: 4,4,2,2,NSS.1
+  hit_level: h, h, m, h, m
+  startup: i12~13, ,i67
+  block: '-54'
+  notes: ''
+- id: 4_4_2_2_nss_1_1
+  command: 4,4,2,2,NSS.1~1
+  hit_level: h, h, m, h, m, h!
+  startup: i12~13, ,i20~105
+  block: ''
+  notes: '* Balcony Break
+
+    * Cancel early to r30 with B'
+- id: 1p2
+  command: 1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to r17 FC with D
+
+    * Strong Attack Reversal: parries all highs or mids, except throws, unblockables
+    and charge moves
+
+    * Parry state 3~9'
+- id: fp2_nss_1
+  command: f+2,NSS.1
+  hit_level: h, m
+  startup: i17~18, i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Airborne combo from 1st CH (+66a (+50))'
+- id: fp3p4
+  command: f+3+4
+  hit_level: m,M,M,M
+  startup: i21~25
+  block: -13~-9
+  notes: '* Balcony Break
+
+    * Floor Break
+
+    * Head
+
+    * Floor break occurs on 4th hit
+
+    * Transition to FLE on hit only
+
+    * Attacks after 1st only come out on hit
+
+    * Combo from 1st hit does 2,1,1 damage
+
+    * Combo does 2 extra damage from FLE.n
+
+    * Cancel to r65 BT e'
+- id: dfp1_2_nss_1
+  command: df+1,2,NSS.1
+  hit_level: m, h, M
+  startup: i13, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Combo from 2nd CH'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat
+
+    * Input can be held to transition to d+1*'
+- id: dfp3_nss_1
+  command: df+3,NSS.1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit\n* Recovers 1 base health\
+    \ or 6 additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable health is 5 or less\n* 9 chip damage on block\n* Input can be held\
+    \ to transiti"
+- id: dfp1p4
+  command: df+1+4
+  hit_level: M
+  startup: i20~21
+  block: '-17'
+  notes: '* Weapon
+
+    * Can be performed in FC
+
+    * Recovers 7f faster on hit
+
+    * Transition to r34 KIN with 1+2
+
+    * Transition to r30 KIN with 1+2 only when performing KIN.f+2 immediately after
+
+    * Faster startup and 22 damage with input f,n,d,df+1
+
+    * Low crush '
+- id: dp2_2_nss_1
+  command: d+2,2,NSS.1
+  hit_level: M, m, h
+  startup: i16~17, ,i19~20
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f'
+- id: dp2_2_nss_dp1
+  command: d+2,2,NSS.d+1
+  hit_level: M, m, m
+  startup: i16~17, ,i29~30
+  block: '-12'
+  notes: '* Floor Break
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f'
+- id: dp2_nss_1
+  command: d+2,NSS.1
+  hit_level: M, h
+  startup: i16~17, i27~28
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 8f delay
+
+    * Input can be delayed 16f
+
+    * Move can be delayed 10f'
+- id: dbp1p2
+  command: DB+1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Continues as long as DB is held
+
+    * Transition to r25 releasing db
+
+    * Actionable after 10f, mashing delays follow-ups
+
+    * Follow-ups are fastest with inputs timed on frame 11
+
+    * High crush 11~'
+throw_options:
+- id: h_2p3
+  command: H.2+3
+  hit_level: M,m,m,m
+  startup: i18~19
+  block: '+4'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Recovers 4 base health or 14 additional recoverable health on hit
+
+    * Enter DGF +10 r29 with U on block
+
+    * Transition to attack throw after 1st hit
+
+    * 9 chip damage on block
+
+    * Jail from 1st attack'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 1p2
+  command: 1+2
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Transition to r17 FC with D
+
+    * Strong Attack Reversal: parries all highs or mids, except throws, unblockables
+    and charge moves
+
+    * Parry state 3~9'
+- id: ffp2_2
+  command: f,F+2:2
+  hit_level: m, t
+  startup: 'i15, '
+  block: ''
+  notes: '* Transitions to attack throw only on front hit (air hit OK)
+
+    * 3f perfect input window on frames 13~15, +2 damage
+
+    * After hit, enter IND r20 with d+3+4'
+- id: dgf_3p4
+  command: DGF.3+4
+  hit_level: h!,t
+  startup: i20~21
+  block: ''
+  notes: '* Floor Break
+
+    * Transitions to attack throw on front hit (air hit OK)
+
+    * Attack throw recovers standing
+
+    * Low crush 1~'
+- id: wfl_3
+  command: WFL.3
+  hit_level: m
+  startup: i17
+  block: '-16'
+  notes: '* Balcony Break
+
+    * Clean hit, 1st hit 25 > 37 damage
+
+    * Transition to attack throw on close standing hit, +15a r43 FLE and 20 extra
+    damage
+
+    * Can side switch on throw hit
+
+    * Low crush 1~'
+- id: tackle_reverse
+  command: (Tackle reverse)
+  hit_level: t
+  startup: ''
+  block: +0d
+  notes: '* Available only after reversing Ultimate Tackle with 1+2
+
+    * Unbreakable (even in NSS)'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '+0'
+  notes: '* Homing
+
+    * Floor Break
+
+    * Throw break 1 or 2
+
+    * Side switch on hit'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: ''
+  block: ''
+  notes: '* Floor Break
+
+    * Unbreakable'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: '* Throw break 1
+
+    * Side switch on hit'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: Throw break 2
+- id: qcb_fp2
+  command: qcb,f+2
+  hit_level: t
+  startup: i15~16
+  block: ''
+  notes: '* Unbreakable
+
+    * Opponent recovers 26 health
+
+    * Yoshimitsu loses 35 health'
+- id: qcfp2
+  command: qcf+2
+  hit_level: t
+  startup: i15~16
+  block: '+0'
+  notes: '* Throw break 1+2
+
+    * 35 damage as a backthrow
+
+    * Yoshimitsu recovers 16 health
+
+    * On break:
+
+    ** -Opponent recovers 22 health (35 on backthrow)
+
+    ** -Yoshimitsu loses 16 health'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i11
+  block: '+0'
+  notes: '* Floor Break
+
+    * Throw break 1+2
+
+    * Side switch on break'
+key_lows:
+- id: 2_dp3
+  command: 2,d+3
+  hit_level: h, L
+  startup: i11, i22
+  block: '-12'
+  notes: '* Combo from 1st hit with 2f delay
+
+    * Input can be delayed 2f
+
+    * Move cannot be delayed
+
+    * High crush 10~'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i15~17
+  block: -18~-16
+  notes: 'Most commonly impacts on frame 16, except when tracking right
+
+    * High crush 4~'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i12
+  block: '-15'
+  notes: '* High crush 4~'
+- id: dbp1
+  command: db+1
+  hit_level: L
+  startup: i26~28
+  block: -11~-9
+  notes: 'Unavailable in NSS
+
+    * High crush 8~'
+- id: dbp1_2
+  command: db+1,2
+  hit_level: L, m
+  startup: i26~28, i25~26
+  block: '-13'
+  notes: '* Balcony Break (airborne or CH)
+
+    * Combo from 1st with 1f delay
+
+    * Combo from 1st CH with 8f delay
+
+    * Input can be delayed 8f'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i18~19
+  block: '-25'
+  notes: '* High crush 6~'
+- id: dbp3_3
+  command: db+3,3
+  hit_level: l, l
+  startup: i18~19, i15~17
+  block: '-19'
+  notes: '* Combo from 1st hit
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3
+  command: db+3,3,3
+  hit_level: l, l, l
+  startup: i18~19, ,i15~17
+  block: -19~-17
+  notes: '* Combo from 2nd CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3_3
+  command: db+3,3,3,3
+  hit_level: l, l, l, l
+  startup: i18~19, ,i15~17
+  block: '-19'
+  notes: '* Combo from 3rd CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3
+  command: db+3,3,3,3,3
+  hit_level: l, l, l, l, l
+  startup: i18~19, ,i15~17
+  block: '-19'
+  notes: '* Combo from 4th CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3_3
+  command: db+3,3,3,3,3,3
+  hit_level: l, l, l, l, l, l
+  startup: i18~19, ,i9~11
+  block: '-26'
+  notes: '* Combo from 5th CH
+
+    * High crush 1~'
+- id: dbp3_3_3_3_3_4
+  command: db+3,3,3,3,3,4
+  hit_level: l, l, l, l, l, m
+  startup: i18~19, ,i12~13
+  block: '-8'
+  notes: '* Balcony Break
+
+    * Enter KIN -6 +25a (+15) r21 with 1+2
+
+    * Enter NSS -6 +25a (+15) r24 with B
+
+    * Same animation as ws4
+
+    * Can be performed following any number of db+3 lows except the first and last'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i17
+  block: '-12'
+  notes: ''
+- id: bp1_1_dbp3
+  command: b+1,1,db+3
+  hit_level: h, h, l
+  startup: i17, ,i13~14
+  block: '-20'
+  notes: '* Combo from 1st hit
+
+    * Can combo to DB+3 extensions
+
+    * Can be performed after one or three b+1
+
+    * High crush 10~'
+- id: bp1_1_dbp3_3
+  command: b+1,1,db+3,3
+  hit_level: h, h, l, l
+  startup: i17, ,i15~17
+  block: '-19'
+  notes: '* Combo from 3rd CH
+
+    * Can combo to db+3 extensions
+
+    * Enter IND r20 with d+3+4
+
+    * Can be performed after one or three b+1
+
+    * High crush 1~'
+- id: ufp2
+  command: uf+2
+  hit_level: L
+  startup: i35~36
+  block: '-16'
+  notes: '* Weapon
+
+    * Cancel to r47 FC with D on frame 27
+
+    * Low crush 10~29
+
+    * Floating state 30~32'
+- id: fc_dfp1
+  command: FC.DF+1
+  hit_level: l!
+  startup: i26
+  block: ''
+  notes: '* Weapon
+
+    * 100% recoverable damage
+
+    * Cannot be buffered after Heat Dash
+
+    * Must hold DF for 5 frames
+
+    * i27 effective startup (with FC.db,b+1 input)
+
+    * i31 effective startup (with FC.DF+1 input)
+
+    * i37 effective startup (FC.db,b+1 from manual c'
+- id: bt_dp1
+  command: BT.d+1
+  hit_level: L
+  startup: i17~18
+  block: '-13'
+  notes: 'Weapon
+
+    * High crush 6~'
+- id: dgf_3
+  command: DGF.3
+  hit_level: L
+  startup: i22~23
+  block: '-13'
+  notes: 'Airborne attack, can''t be low parried
+
+    * Low crush 1~18'
+- id: fle_2
+  command: FLE.2
+  hit_level: L
+  startup: i24~28
+  block: -12~-8
+  notes: '* Side switches on close hit
+
+    * Can combo to ws4 on no side switch
+
+    * Floating state 1~
+
+    * High crush 6~'
+- id: ind_4
+  command: IND.4
+  hit_level: L
+  startup: i47~48
+  block: '-26'
+  notes: '* Homing
+
+    * Enter IND -26 +8 +35a r24 with d+3+4
+
+    * High crush 1~'
+- id: kin_3
+  command: KIN.3
+  hit_level: L
+  startup: i25~32
+  block: -16~-9
+  notes: '* Low crush 10~20
+
+    * Floating state 21~23
+
+    * High crush 24~'
+- id: kin_dp1
+  command: KIN.d+1
+  hit_level: L
+  startup: i23~24
+  block: '-13'
+  notes: '* Weapon
+
+    * Cancel to r34 FC with DB on frame 16
+
+    * High crush 22~'
+- id: nss_bt_dp1
+  command: NSS.BT.d+1
+  hit_level: l
+  startup: ''
+  block: ''
+  notes: Yoshimitsu remains in NSS
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~62
+
+    * On
+
+    * cancel:
+
+    * Floating state 12~20
+
+    * Low crush 21~29
+
+    * Floating s'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp4
+  command: f+4
+  hit_level: m
+  startup: i18
+  block: '-13'
+  notes: '* Balcony Break
+
+    * -9 on block after absorbing an attack
+
+    * 8 chip damage on attack absorption
+
+    * Power crush 7~17'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~62
+
+    * On
+
+    * cancel:
+
+    * Floating state 12~20
+
+    * Low crush 21~29
+
+    * Floating s'
+- id: h_dgf_1
+  command: H.DGF.1
+  hit_level: M
+  startup: i30~31
+  block: '+2'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 13 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Consumes 240F of remaining Heat time
+
+    * Low crush 1~27'
+- id: h_dgf_fp1p2
+  command: H.DGF.f+1+2
+  hit_level: h,h,h
+  startup: i16~17 i11~12 i11~12
+  block: '+4'
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Weapon
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * 16 chip damage on block
+
+    * Recovers 1 base health or 5 additional recoverable health on hit
+
+    * Consumes 90F of remaining Heat time
+
+    * Low crush 1~65'
+- id: h_2p3
+  command: H.2+3
+  hit_level: M,m,m,m
+  startup: i18~19
+  block: '+4'
+  notes: '* Heat Smash
+
+    * Reversal Break
+
+    * Balcony Break
+
+    * Recovers 4 base health or 14 additional recoverable health on hit
+
+    * Enter DGF +10 r29 with U on block
+
+    * Transition to attack throw after 1st hit
+
+    * 9 chip damage on block
+
+    * Jail from 1st attack'
+- id: '1_1'
+  command: 1,1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit with 1f delay
+
+    * Move can be delayed 3f
+
+    * Interrupt with i4 from 1st block
+
+    * 3 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: 1_nss_1
+  command: 1,NSS.1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit with 1f delay\n* Input can\
+    \ be delayed 3f\n* Interrupt with i4 from 1st block\n* 8 chip damage on block\n\
+    * Recovers 1 base health or 6 additional recoverable health on hit \n* Recovers\
+    \ 1 base health whe"
+- id: '3_1'
+  command: 3,1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Does not transition to DGF during Heat activation or Heat Dash
+
+    * Power up in NSS or Heat
+
+    * Recovers in 1SS
+
+    * Low crush 26~'
+- id: 3_2_1p2
+  command: 3,2,1+2
+  hit_level: m, m, M
+  startup: i15~16, ,i26~27
+  block: -14c
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd hit with 4f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f
+
+    * Interrupt with i7 from 2nd block
+
+    * 5 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: 3_2_nss_1p2
+  command: 3,2,NSS.1+2
+  hit_level: m, m, M
+  startup: i15~16, ,i26~27
+  block: -14c
+  notes: "* Balcony Break\n* Weapon\n* Combo from 2nd hit with 4f delay\n* Input can\
+    \ be delayed 10f\n* Move can be delayed 9f\n* 10 chip damage on block\n* Clean\
+    \ hit 35 damage\n* Recovers 1 base health or 6 additional recoverable health on\
+    \ hit \n* Recovers 1"
+- id: 3_nss_1
+  command: 3,NSS.1
+  hit_level: m, h
+  startup: i15~16, i22~24
+  block: '+7'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +62a (+42)\n\n* Balcony Break\n* Weapon\n\
+    * Combo from 1st hit\n* 6 chip damage on block\n* Recovers 1 base health or 6\
+    \ additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable healt"
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i6~9
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: fp1p2
+  command: f+1+2
+  hit_level: M
+  startup: i20
+  block: '-12'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat (29 damage and extended range)'
+- id: dfp3_1
+  command: df+3,1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat
+
+    * Input can be held to transition to d+1*'
+- id: dfp3_nss_1
+  command: df+3,NSS.1
+  hit_level: m, M
+  startup: i17~18, i23~24
+  block: '-9'
+  notes: "* Floor Break\n* Weapon\n* Combo from 1st hit\n* Recovers 1 base health\
+    \ or 6 additional recoverable health on hit \n* Recovers 1 base health when remaining\
+    \ recoverable health is 5 or less\n* 9 chip damage on block\n* Input can be held\
+    \ to transiti"
+- id: dp1
+  command: d+1
+  hit_level: M
+  startup: i24~25
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: bp2_2
+  command: b+2,2
+  hit_level: m, h
+  startup: i14~15, i22~23
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Weapon
+
+    * Combo from 1st with 1f delay
+
+    * Combo from 1st CH with 7f delay
+
+    * Input can be delayed 14f'
+- id: bp2_nss_2
+  command: b+2,NSS.2
+  hit_level: m, h
+  startup: i14~15, i22~23
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Combo from 1st with 1f delay
+
+    * Combo from 1st CH with 7f delay
+
+    * Input can be delayed 14f'
+- id: ubp1p2
+  command: ub+1+2
+  hit_level: M
+  startup: i24~25
+  block: -8c
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 5 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: ufp1
+  command: uf+1
+  hit_level: m
+  startup: i17
+  block: '-10'
+  notes: '* Weapon
+
+    * Good right sidestep tracking
+
+    * Transition to KIN -3 +9 r26 with 1+2
+
+    * H.uf+1: Consumes 90F of remaining Heat time'
+- id: ufp1_1
+  command: uf+1,1
+  hit_level: m, M
+  startup: i17, i29~30
+  block: '-10'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * Combo from 1st hit with 4f delay
+
+    * Input can be delayed 4f
+
+    * Move can be delayed 3f
+
+    * Interrupt with i6 from 1st block
+
+    * Transition to FLE on hit only
+
+    * Power up in NSS or Heat'
+- id: ufp3p4_1_4_1
+  command: uf+3+4,1,4,1
+  hit_level: M, h, m, M
+  startup: i31~35, ,i24~25
+  block: '-9'
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 4 chip damage on block
+
+    * Power up in NSS or Heat'
+- id: b_bp1p4_b
+  command: b,B+1+4,B
+  hit_level: m
+  startup: i22~25
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: fc_dfp1
+  command: FC.DF+1
+  hit_level: l!
+  startup: i26
+  block: ''
+  notes: '* Weapon
+
+    * 100% recoverable damage
+
+    * Cannot be buffered after Heat Dash
+
+    * Must hold DF for 5 frames
+
+    * i27 effective startup (with FC.db,b+1 input)
+
+    * i31 effective startup (with FC.DF+1 input)
+
+    * i37 effective startup (FC.db,b+1 from manual c'
+- id: dgf_1
+  command: DGF.1
+  hit_level: M
+  startup: i30~31
+  block: -2c
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 11 chip damage on block
+
+    * Power up in Heat
+
+    * Low crush 1~27'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i15
+  block: '-9'
+  notes: '* Elbow
+
+    * Cannot be buffered
+
+    * Increased pushback on CH'
+- id: ffp2_2
+  command: f,F+2:2
+  hit_level: m, t
+  startup: 'i15, '
+  block: ''
+  notes: '* Transitions to attack throw only on front hit (air hit OK)
+
+    * 3f perfect input window on frames 13~15, +2 damage
+
+    * After hit, enter IND r20 with d+3+4'
+- id: ffp3
+  command: f,F+3
+  hit_level: m
+  startup: i23~24
+  block: '-4'
+  notes: '* Enter KIN r25 +3 +12 with 1+2
+
+    * Cannot be buffered'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i15~16
+  block: '-6'
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Cannot be buffered
+
+    * -12 if Yoshimitsu holds back to turn around and block
+
+    * Low crush 13~21
+
+    * Floating state 22~24'
+- id: ffp1p2
+  command: f,F+1+2
+  hit_level: m
+  startup: i22~24
+  block: '-8'
+  notes: '* Floor Break
+
+    * Cannot be buffered
+
+    * Visually similar to f,F+3+4
+
+    * Low crush 10~21
+
+    * Floating state 22~24
+
+    * Low crush 25~29
+
+    * Floating state 30~32'
+- id: ffp1p4
+  command: f,F+1+4
+  hit_level: m!
+  startup: i45
+  block: ''
+  notes: "* Weapon\n* Cannot be buffered\n* 60 self-damage during 1st recovery frame\n\
+    * NSS.f,F+1+4 will always cancel into f,F+1+4,n \n* Dealing lethal damage will\
+    \ award the victory to Yoshimitsu\n* Holding any direction will trigger the attack,\
+    \ not just"
+- id: ffp1p4_f
+  command: f,F+1+4,F
+  hit_level: m!, m!
+  startup: i45, i35~37
+  block: ''
+  notes: '* Weapon
+
+    * 200 self-damage during 1st recovery frame
+
+    * Dealing lethal damage will award the victory to Yoshimitsu'
+- id: ffp1p4_n
+  command: f,F+1+4,n
+  hit_level: m!
+  startup: 'i45, '
+  block: ''
+  notes: ''
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: m
+  startup: i22~24
+  block: '-20'
+  notes: '* Floor Break
+
+    * Cannot be buffered
+
+    * Visually similar to f,F+1+2
+
+    * Low crush 10~27
+
+    * Floating state 28~30'
+- id: ffp3p4_1p2
+  command: f,F+3+4,1+2
+  hit_level: m, m
+  startup: i22~24, i12~18
+  block: '-31'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Tremendous forward travel
+
+    * Automatically recovers to r55 IND on self-wallsplat
+
+    * Low crush 24~46
+
+    * Floating state 47~90'
+- id: ffp3p4_1p2_3p4
+  command: f,F+3+4,1+2,3+4
+  hit_level: m, m, m
+  startup: i22~24, ,i27
+  block: '-13'
+  notes: '* Tornado
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH
+
+    * Tremendous forward travel
+
+    * Low crush 1~13
+
+    * Floating state 14~54'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: M
+  startup: i22~23
+  block: +5g
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Enter DGF +7 +15a (+5) r34 with 1SS.U
+
+    * Low crush 3~33
+
+    * Floating state 34~36'
+- id: fle_f_f
+  command: FLE.f,f
+  hit_level: M,M,M,M,M
+  startup: i17~19 i6~8 i5~7 i6~8 i6~8
+  block: '-10'
+  notes: '* Combos from any hit
+
+    * Floor break on all hits
+
+    * Sometimes combos into FLE.n
+
+    * Low crush 1~'
+launch_punish_opportunities:
+- id: bp1_1_1_1_1_1
+  command: b+1,1,1,1,1,1
+  hit_level: h, h, h, h, h, h
+  startup: i17, ,i11~12
+  block: '-73'
+  notes: '* Combo from 4th hit
+
+    * Combo from 3rd CH'
+- id: 4_4_2_2_nss_1
+  command: 4,4,2,2,NSS.1
+  hit_level: h, h, m, h, m
+  startup: i12~13, ,i67
+  block: '-54'
+  notes: ''
+- id: dbp2_2_2_2_2_2
+  command: db+2,2,2,2,2,2
+  hit_level: m, m, m, m, m, m
+  startup: i15, ,i10~14
+  block: '-49'
+  notes: Combo from 5th CH
+- id: ffp3p4_1p2
+  command: f,F+3+4,1+2
+  hit_level: m, m
+  startup: i22~24, i12~18
+  block: '-31'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Tremendous forward travel
+
+    * Automatically recovers to r55 IND on self-wallsplat
+
+    * Low crush 24~46
+
+    * Floating state 47~90'
+- id: ind_3
+  command: IND.3
+  hit_level: m
+  startup: i32~38
+  block: '-31'
+  notes: '* Balcony Break
+
+    * Automatically recovers to r55 IND on self-wallsplat
+
+    * Low crush 12~34
+
+    * Floating state 35~90'
+- id: dbp3_3_3_3_3_3
+  command: db+3,3,3,3,3,3
+  hit_level: l, l, l, l, l, l
+  startup: i18~19, ,i9~11
+  block: '-26'
+  notes: '* Combo from 5th CH
+
+    * High crush 1~'
+- id: ind_4
+  command: IND.4
+  hit_level: L
+  startup: i47~48
+  block: '-26'
+  notes: '* Homing
+
+    * Enter IND -26 +8 +35a r24 with d+3+4
+
+    * High crush 1~'
+- id: nss_fc_dfp3
+  command: NSS.FC.df+3
+  hit_level: L
+  startup: i20~21
+  block: '-26'
+  notes: '* High crush 1~'
+- id: hfc_dfp4
+  command: hFC.df+4
+  hit_level: L
+  startup: i18~19
+  block: '-26'
+  notes: '* Homing
+
+    * Enter IND -26 +8c +35a r24 with d+3+4
+
+    * Can be done from Crouch Level 1
+
+    * High crush 1~'
+- id: dbp3
+  command: db+3
+  hit_level: l
+  startup: i18~19
+  block: '-25'
+  notes: '* High crush 6~'
+- id: hfc_dbp3
+  command: hFC.db+3
+  hit_level: l
+  startup: i18~19
+  block: '-25'
+  notes: '* Leads to db+3 extensions
+
+    * Can be done from Crouch Level 1
+
+    * High crush 1~'
+- id: '4_4_2_2'
+  command: 4,4,2,2
+  hit_level: h, h, m, h
+  startup: i12~13, ,i22~23
+  block: '-24'
+  notes: '* Combo from 3rd hit'
+- id: '4_4_2'
+  command: 4,4,2
+  hit_level: h, h, m
+  startup: i12~13, ,i30~31
+  block: '-22'
+  notes: Yoshimitsu recovers sideturned on block
+- id: 1p4
+  command: 1+4
+  hit_level: m
+  startup: i6~9
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: bp1_1_dbp3
+  command: b+1,1,db+3
+  hit_level: h, h, l
+  startup: i17, ,i13~14
+  block: '-20'
+  notes: '* Combo from 1st hit
+
+    * Can combo to DB+3 extensions
+
+    * Can be performed after one or three b+1
+
+    * High crush 10~'
+- id: b_bp1p4_b
+  command: b,B+1+4,B
+  hit_level: m
+  startup: i22~25
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: m
+  startup: i22~24
+  block: '-20'
+  notes: '* Floor Break
+
+    * Cannot be buffered
+
+    * Visually similar to f,F+1+2
+
+    * Low crush 10~27
+
+    * Floating state 28~30'
+- id: kin_1p4
+  command: KIN.1+4
+  hit_level: m
+  startup: i10~13
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: med_1p4
+  command: MED.1+4
+  hit_level: m
+  startup: i6~9
+  block: '-20'
+  notes: '* Weapon
+
+    * 70% proration on standing hit
+
+    * Recovers 12f faster on hit
+
+    * Hit vs BT +11d (FDFT)
+
+    * Power up in NSS or Heat
+
+    * Can be done from Crouch Level 1'
+- id: nss_1p4
+  command: NSS.1+4
+  hit_level: m
+  startup: i8~11
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: nss_kin_1p4
+  command: NSS.KIN.1+4
+  hit_level: m
+  startup: i12~15
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: nss_b_bp1p4_b
+  command: NSS.b,B+1+4,B
+  hit_level: m
+  startup: ',i22~25'
+  block: '-20'
+  notes: '* Strong Aerial Tailspin
+
+    * Weapon
+
+    * Knockdown against BT opponent, +19a (+9)
+
+    * 4 chip damage on block
+
+    * Recovers 1 base health or 6 additional recoverable health on hit
+
+    * Can be done from Crouch Level 1
+
+    * H.1+4: Consumes 300F of remaining H'
+- id: dbp3_3
+  command: db+3,3
+  hit_level: l, l
+  startup: i18~19, i15~17
+  block: '-19'
+  notes: '* Combo from 1st hit
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+- id: dbp3_3_3
+  command: db+3,3,3
+  hit_level: l, l, l
+  startup: i18~19, ,i15~17
+  block: -19~-17
+  notes: '* Combo from 2nd CH
+
+    * Enter IND r20 with d+3+4
+
+    * High crush 1~'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: left

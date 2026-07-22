@@ -1,0 +1,2028 @@
+schema_version: 1
+character_id: 30
+character: victor
+display_name: Victor Chevalier
+groups:
+- keep_out
+- stance_heavy
+specialty: weapon_teleports
+sidestep_tendency: right
+signature_mechanics:
+- iai_stance
+- perfumer
+- expulsion
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/victor/framedata
+important_punishable_moves:
+- id: iai_dp1p2
+  command: IAI.d+1+2
+  hit_level: l,l
+  startup: i20~21,i14~15
+  block: '-29'
+  notes: '* Weapon
+
+    * Unparryable (weapon low,low)'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i20~21
+  block: '-26'
+  notes: '* High crush 6'
+- id: hfc_1p2
+  command: hFC.1+2
+  hit_level: l,h
+  startup: i16,i10~11
+  block: -23, -13
+  notes: '* Weapon
+
+    * Not parryable (weapon low and weapon high)
+
+    * Can be done from Crouch Level 1
+
+    * Transition to PRF (-17 / +6) with F'
+- id: bp1p4
+  command: b+1+4
+  hit_level: m
+  startup: i26~27
+  block: '-21'
+  notes: '* Weapon
+
+    * ~i5-6 backsway'
+- id: up1p2
+  command: u+1+2
+  hit_level: m
+  startup: i31~32
+  block: -20c
+  notes: '* Weapon
+
+    * Deals 11 chip damage on block
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * is10~?
+
+    * Low crush ?~'
+- id: ufp4
+  command: uf+4
+  hit_level: m,sm
+  startup: i15~17, i28~30
+  block: '-19'
+  notes: '* Tornado
+
+    * Followup available only on 1st hit
+
+    * Low crush 9'
+- id: iai_1_2
+  command: IAI.1,2
+  hit_level: m, m
+  startup: i13~14, i22~24
+  block: '-19'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Hit Confirmable 11F
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: iai_1_2_2
+  command: IAI.1,2,2
+  hit_level: m, m, m
+  startup: i13~14, ,i23~24
+  block: -18c
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 9 chip damage on block
+
+    * is?
+
+    * Low crush ?'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m
+  startup: i14~15
+  block: '-17'
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: dp1
+  command: d+1
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* Weapon
+
+    * Cannot be parried (weapon low)
+
+    * High crush 6~52'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i18~20
+  block: '-16'
+  notes: '* Tornado
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Jab evasion from frame 6 to 17?'
+- id: ws1
+  command: ws1
+  hit_level: m
+  startup: i15~16
+  block: '-16'
+  notes: '* Weapon'
+- id: fp2_2
+  command: f+2,2
+  hit_level: h, h
+  startup: i13~14, i11
+  block: '-15'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: fp2_2_1_1
+  command: f+2,2,1,1
+  hit_level: h, h, m, m
+  startup: i13~14, ,i20~21
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Hit confirmable if (f22)1 is ch'
+- id: h_2p3
+  command: H.2+3
+  hit_level: l,m
+  startup: i20
+  block: '-14'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.R1
+
+    * 8 chip damage on block'
+- id: dfp2
+  command: df+2
+  hit_level: m
+  startup: i15~16
+  block: '-14'
+  notes: '* Weapon'
+- id: ufp1_1
+  command: uf+1,1
+  hit_level: m, m
+  startup: i13, i25~26
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 8F delay
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF (-10/+19gc) with F
+
+    * Cancel to IAI (-9/+4) with D or 3+4'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: L,L
+  startup: i18, i14~15
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+- id: ws3
+  command: ws3
+  hit_level: h
+  startup: i14~15
+  block: '-14'
+  notes: ''
+- id: iai_1_1
+  command: IAI.1,1
+  hit_level: m, m
+  startup: i13~14, i25~26
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF with F (-10/+19gc)
+
+    * Cancel to IAI with D or 3+4 (-9/+'
+- id: '4_3_2'
+  command: 4,3,2
+  hit_level: h, m, m
+  startup: i13~14, ,i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 10F delay
+
+    * 7 chip damage on block
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: h, h, h,m,m
+  startup: i13~14, ,i14,i12~13,i7~8
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: ''
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: '* Perform Guilty Mariko on counter hit'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i14
+  block: '-13'
+  notes: '* Weapon
+
+    * Transition to PRF r25 with F (-5/+5) with 9F delay'
+- id: bp3_1
+  command: b+3,1
+  hit_level: m, m
+  startup: i17, i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 7F delay'
+- id: iai_3
+  command: IAI.3
+  hit_level: m,th(m)
+  startup: i17
+  block: '-13'
+  notes: '* Knee
+
+    * Power crush 8~16'
+- id: prf_2_2_1p2
+  command: PRF.2,2,1+2
+  hit_level: m, m, m
+  startup: i12~13, ,i12
+  block: '-13'
+  notes: '* Weapon
+
+    * Combo from 2nd CH'
+- id: '1_1_2'
+  command: 1,1,2
+  hit_level: h, h, h,h
+  startup: i10, ,i17~18,i9~10
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to r27 PRF with F (-8/+7)'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 4F delay
+
+    * Move can be delayed by 12F'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, L
+  startup: i10, i21~22
+  block: '-12'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * -1c on crouching hit'
+common_strings_and_gaps:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i16
+  block: '-3'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_1_2'
+  command: 1,1,2
+  hit_level: h, h, h,h
+  startup: i10, ,i17~18,i9~10
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to r27 PRF with F (-8/+7)'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 4F delay
+
+    * Move can be delayed by 12F'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, L
+  startup: i10, i21~22
+  block: '-12'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * -1c on crouching hit'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12~13, i16
+  block: '-6'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Transition to PRF with F (-4/+7)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F'
+- id: '2_2'
+  command: 2,2
+  hit_level: h, m,m
+  startup: i12~13, i17~18,i7
+  block: '-10'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F
+
+    * -10 if last hit whiffs'
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m,m, h
+  startup: i12~13, ,i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Combo from 2nd hit with 8F delay
+
+    * Transitions to IAI on hit or block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * 4 chip damage on block'
+- id: 3_1p2
+  command: 3,1+2
+  hit_level: h, h,h
+  startup: i12~13, i19~20,i8~9
+  block: '-9'
+  notes: '* Combo from 1st hit with 6F delay'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, m
+  startup: i13~14, i23~24
+  block: '-10'
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 8F'
+- id: '4_3_2'
+  command: 4,3,2
+  hit_level: h, m, m
+  startup: i13~14, ,i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 10F delay
+
+    * 7 chip damage on block
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: fp2_2
+  command: f+2,2
+  hit_level: h, h
+  startup: i13~14, i11
+  block: '-15'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: fp2_2_1
+  command: f+2,2,1
+  hit_level: h, h, m
+  startup: i13~14, ,i13~14
+  block: '-11'
+  notes: '* Weapon
+
+    * Combo from 2nd CH'
+- id: fp2_2_1_1
+  command: f+2,2,1,1
+  hit_level: h, h, m, m
+  startup: i13~14, ,i20~21
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Hit confirmable if (f22)1 is ch'
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: h, h, h,m,m
+  startup: i13~14, ,i14,i12~13,i7~8
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+- id: fp4_1
+  command: f+4,1
+  hit_level: m, h
+  startup: i14, i23~24
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Weapon
+
+    * Combo from 1st hit'
+- id: fp4_2
+  command: f+4,2
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * CH on last hit or wallhit causes FDFA knockdown
+
+    * Transition to IAI (-12/+5c/+7a) with D or 3+4'
+- id: dfp1_1
+  command: df+1,1
+  hit_level: m, h,h
+  startup: i13~14, i20
+  block: '-4'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: dfp3_4
+  command: df+3,4
+  hit_level: m, m
+  startup: i16, i21
+  block: '-9'
+  notes: '* Knee
+
+    * Combo from 1st CH'
+- id: dfp3_4_2
+  command: df+3,4,2
+  hit_level: m, m, sm
+  startup: i16, ,i32~34
+  block: '-9'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile
+
+    * Deals 6 chip damage on block'
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, h
+  startup: i13~14, i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * Deals 6 chip damage on blocked gunshot
+
+    * Transitions to IAI (cannot cancel)'
+- id: dp1_1
+  command: d+1,1
+  hit_level: L, h
+  startup: i16, i18
+  block: '-7'
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jail on 1st hit
+
+    * -26 on 1st block'
+- id: dbp1_1
+  command: db+1,1
+  hit_level: m, m
+  startup: i14~15, i21~22
+  block: '-7'
+  notes: '* Weapon
+
+    * Transition to PRF with F (-5/+4)
+
+    * Combo from 1st hit'
+- id: bp1_2
+  command: b+1,2
+  hit_level: m, h,th
+  startup: i14, i20
+  block: '-8'
+  notes: '* Combo from 1st CH with 10F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * Side switch after attack throw connects'
+- id: bp3_1
+  command: b+3,1
+  hit_level: m, m
+  startup: i17, i25~26
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 7F delay'
+- id: ufp1_1
+  command: uf+1,1
+  hit_level: m, m
+  startup: i13, i25~26
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 8F delay
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF (-10/+19gc) with F
+
+    * Cancel to IAI (-9/+4) with D or 3+4'
+- id: b_bp2p3
+  command: b,B+2+3
+  hit_level: ub(m)
+  startup: i65~66
+  block: ''
+  notes: '* Balcony Break'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i18~20
+  block: '-16'
+  notes: '* Tornado
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Jab evasion from frame 6 to 17?'
+- id: ub_b
+  command: ub,b
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: ''
+- id: f_ffp2
+  command: f,f,F+2
+  hit_level: m
+  startup: i18~19
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Transition to IAI r36 with d or 3+4 (+5/+11cg/+64a (+48a))
+
+    * Forces tech back roll on hit
+
+    * 6 chip damage on block'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: L,L
+  startup: i18, i14~15
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+- id: ws3_2
+  command: ws3,2
+  hit_level: h, sm
+  startup: i14~15, i30~32
+  block: '-9'
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block'
+duckable_highs:
+- id: '1_1'
+  command: 1,1
+  hit_level: h, h
+  startup: i10, i16
+  block: '-3'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_1_2'
+  command: 1,1,2
+  hit_level: h, h, h,h
+  startup: i10, ,i17~18,i9~10
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to r27 PRF with F (-8/+7)'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i26~27
+  block: '-12'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 4F delay
+
+    * Move can be delayed by 12F'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12~13, i16
+  block: '-6'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Transition to PRF with F (-4/+7)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F'
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m,m, h
+  startup: i12~13, ,i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Combo from 2nd hit with 8F delay
+
+    * Transitions to IAI on hit or block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * 4 chip damage on block'
+- id: 3_1p2
+  command: 3,1+2
+  hit_level: h, h,h
+  startup: i12~13, i19~20,i8~9
+  block: '-9'
+  notes: '* Combo from 1st hit with 6F delay'
+- id: fp2_2
+  command: f+2,2
+  hit_level: h, h
+  startup: i13~14, i11
+  block: '-15'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: fp2_2_1
+  command: f+2,2,1
+  hit_level: h, h, m
+  startup: i13~14, ,i13~14
+  block: '-11'
+  notes: '* Weapon
+
+    * Combo from 2nd CH'
+- id: fp2_2_1_1
+  command: f+2,2,1,1
+  hit_level: h, h, m, m
+  startup: i13~14, ,i20~21
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Hit confirmable if (f22)1 is ch'
+- id: fp2_2_2
+  command: f+2,2,2
+  hit_level: h, h, h,m,m
+  startup: i13~14, ,i14,i12~13,i7~8
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+- id: fp4_1
+  command: f+4,1
+  hit_level: m, h
+  startup: i14, i23~24
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Weapon
+
+    * Combo from 1st hit'
+- id: dfp1_1
+  command: df+1,1
+  hit_level: m, h,h
+  startup: i13~14, i20
+  block: '-4'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, h
+  startup: i13~14, i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * Deals 6 chip damage on blocked gunshot
+
+    * Transitions to IAI (cannot cancel)'
+- id: dp1_1
+  command: d+1,1
+  hit_level: L, h
+  startup: i16, i18
+  block: '-7'
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jail on 1st hit
+
+    * -26 on 1st block'
+- id: bp1_2
+  command: b+1,2
+  hit_level: m, h,th
+  startup: i14, i20
+  block: '-8'
+  notes: '* Combo from 1st CH with 10F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * Side switch after attack throw connects'
+- id: iai_1_1p2
+  command: IAI.1,1+2
+  hit_level: m, h
+  startup: i13~14, i20~21
+  block: '+3'
+  notes: '* Homing
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Deals 9 chip damage on block
+
+    * Hit confirmable 11F
+
+    * Opponent is FUFA on CH
+
+    * Low crush'
+- id: iai_4_2
+  command: IAI.4,2
+  hit_level: L, h
+  startup: i18~19, i26~27
+  block: '-5'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * 8 chip damage on block'
+- id: prf_2_2_1
+  command: PRF.2,2,1
+  hit_level: m, m, h
+  startup: i12~13, ,i12~13
+  block: '-1'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+stance_transitions:
+- id: h_iai_dp2
+  command: H.IAI.d+2
+  hit_level: M,M,M,SM,SM
+  startup: i23~24, i6, i4, i3, i4
+  block: '+5'
+  notes: '* Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * 10 chip damage on block
+
+    * Consumes 210F of remaining Heat time'
+- id: h_dbp1p2
+  command: H.db+1+2
+  hit_level: m
+  startup: i28~29
+  block: '+6'
+  notes: '* Weapon
+
+    * Transitions to IAI
+
+    * Consumes 270F of remaining Heat time'
+- id: h_up1p2
+  command: H.u+1+2
+  hit_level: m
+  startup: i31~32
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * 15 chip damage on block
+
+    * Consumes 450F of r'
+- id: h_2p3
+  command: H.2+3
+  hit_level: l,m
+  startup: i20
+  block: '-14'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.R1
+
+    * 8 chip damage on block'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_1_2'
+  command: 1,1,2
+  hit_level: h, h, h,h
+  startup: i10, ,i17~18,i9~10
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to r27 PRF with F (-8/+7)'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, h
+  startup: i12~13, i16
+  block: '-6'
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Transition to PRF with F (-4/+7)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F'
+- id: '2_2_2'
+  command: 2,2,2
+  hit_level: h, m,m, h
+  startup: i12~13, ,i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Combo from 2nd hit with 8F delay
+
+    * Transitions to IAI on hit or block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * 4 chip damage on block'
+- id: fp4_2
+  command: f+4,2
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '-12'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * CH on last hit or wallhit causes FDFA knockdown
+
+    * Transition to IAI (-12/+5c/+7a) with D or 3+4'
+- id: dfp4_2
+  command: df+4,2
+  hit_level: m, h
+  startup: i13~14, i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * Deals 6 chip damage on blocked gunshot
+
+    * Transitions to IAI (cannot cancel)'
+- id: dbp1_1
+  command: db+1,1
+  hit_level: m, m
+  startup: i14~15, i21~22
+  block: '-7'
+  notes: '* Weapon
+
+    * Transition to PRF with F (-5/+4)
+
+    * Combo from 1st hit'
+- id: bp1
+  command: b+1
+  hit_level: m
+  startup: i14
+  block: '-13'
+  notes: '* Weapon
+
+    * Transition to PRF r25 with F (-5/+5) with 9F delay'
+- id: ubp2
+  command: ub+2
+  hit_level: m
+  startup: i17~18
+  block: '-5'
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Can be charged
+
+    * Transition to PRF -4 +9 with F'
+- id: ubp2
+  command: ub+2*
+  hit_level: m
+  startup: i28~29
+  block: '+3'
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Tornado on CH
+
+    * Transition to PRF +4 +33a with F'
+- id: ufp1_1
+  command: uf+1,1
+  hit_level: m, m
+  startup: i13, i25~26
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 8F delay
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF (-10/+19gc) with F
+
+    * Cancel to IAI (-9/+4) with D or 3+4'
+- id: qcfp2
+  command: qcf+2
+  hit_level: h
+  startup: i22
+  block: '-3'
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * Deals 6 chip damage on block'
+- id: f_ffp2
+  command: f,f,F+2
+  hit_level: m
+  startup: i18~19
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Transition to IAI r36 with d or 3+4 (+5/+11cg/+64a (+48a))
+
+    * Forces tech back roll on hit
+
+    * 6 chip damage on block'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: L,L
+  startup: i18, i14~15
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+- id: ws1p2
+  command: ws1+2
+  hit_level: m,m
+  startup: i13~14,i9~10
+  block: '-8'
+  notes: '* Weapon
+
+    * Transition to PRF (-8/+8) with F'
+- id: ss_1p2
+  command: SS.1+2
+  hit_level: m
+  startup: i18~19
+  block: '-9'
+  notes: '* Balcony Break'
+- id: ch_dbp4
+  command: CH.db+4
+  hit_level: l,th
+  startup: i20~21
+  block: ''
+  notes: ''
+- id: ch_dp4
+  command: CH.d+4
+  hit_level: L,t
+  startup: i16
+  block: ''
+  notes: ''
+- id: iai_1
+  command: IAI.1
+  hit_level: m
+  startup: i13~14
+  block: '-9'
+  notes: '* Weapon'
+- id: iai_1_1
+  command: IAI.1,1
+  hit_level: m, m
+  startup: i13~14, i25~26
+  block: '-14'
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF with F (-10/+19gc)
+
+    * Cancel to IAI with D or 3+4 (-9/+'
+throw_options:
+- id: h_up1p2
+  command: H.u+1+2
+  hit_level: m
+  startup: i31~32
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * 15 chip damage on block
+
+    * Consumes 450F of r'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1_2
+  command: b+1,2
+  hit_level: m, h,th
+  startup: i14, i20
+  block: '-8'
+  notes: '* Combo from 1st CH with 10F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * Side switch after attack throw connects'
+- id: up1p2
+  command: u+1+2
+  hit_level: m
+  startup: i31~32
+  block: -20c
+  notes: '* Weapon
+
+    * Deals 11 chip damage on block
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * is10~?
+
+    * Low crush ?~'
+- id: ch_dbp4
+  command: CH.db+4
+  hit_level: l,th
+  startup: i20~21
+  block: ''
+  notes: ''
+- id: ch_dp4
+  command: CH.d+4
+  hit_level: L,t
+  startup: i16
+  block: ''
+  notes: ''
+- id: iai_3
+  command: IAI.3
+  hit_level: m,th(m)
+  startup: i17
+  block: '-13'
+  notes: '* Knee
+
+    * Power crush 8~16'
+- id: 1p3
+  command: 1+3
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: FDFT'
+- id: 2p4
+  command: 2+4
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: opp. side FDFT off-axis to the right'
+- id: back_throw
+  command: Back throw
+  hit_level: t
+  startup: i12~14
+  block: ''
+  notes: '* Throw break: none
+
+    * Opponent recovery on hit: FUFA'
+- id: left_throw
+  command: Left throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break: 1
+
+    * Opponent recovery on hit: FDFT'
+- id: right_throw
+  command: Right throw
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break: 2
+
+    * Opponent recovery on hit: opp. side FDFT off-axis to the right'
+- id: ufp1p2
+  command: uf+1+2
+  hit_level: t
+  startup: i12~14
+  block: '-3'
+  notes: '* Floor Break
+
+    * Throw break: 1+2
+
+    * Opponent recovery on hit: FUFA'
+key_lows:
+- id: h_2p3
+  command: H.2+3
+  hit_level: l,m
+  startup: i20
+  block: '-14'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.R1
+
+    * 8 chip damage on block'
+- id: '1_3'
+  command: 1,3
+  hit_level: h, L
+  startup: i10, i21~22
+  block: '-12'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * -1c on crouching hit'
+- id: dp1
+  command: d+1
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* Weapon
+
+    * Cannot be parried (weapon low)
+
+    * High crush 6~52'
+- id: dp1_1
+  command: d+1,1
+  hit_level: L, h
+  startup: i16, i18
+  block: '-7'
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jail on 1st hit
+
+    * -26 on 1st block'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i18~19
+  block: '-13'
+  notes: ''
+- id: dp4
+  command: d+4
+  hit_level: L
+  startup: i16
+  block: '-13'
+  notes: '* Perform Guilty Mariko on counter hit'
+- id: dbp2
+  command: db+2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* High crush 4'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i20~21
+  block: '-26'
+  notes: '* High crush 6'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: L,L
+  startup: i18, i14~15
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+- id: ch_dbp4
+  command: CH.db+4
+  hit_level: l,th
+  startup: i20~21
+  block: ''
+  notes: ''
+- id: ch_dp4
+  command: CH.d+4
+  hit_level: L,t
+  startup: i16
+  block: ''
+  notes: ''
+- id: iai_4
+  command: IAI.4
+  hit_level: L
+  startup: i18~19
+  block: '-12'
+  notes: ''
+- id: iai_4_2
+  command: IAI.4,2
+  hit_level: L, h
+  startup: i18~19, i26~27
+  block: '-5'
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * 8 chip damage on block'
+- id: iai_dp1p2
+  command: IAI.d+1+2
+  hit_level: l,l
+  startup: i20~21,i14~15
+  block: '-29'
+  notes: '* Weapon
+
+    * Unparryable (weapon low,low)'
+- id: prf_1
+  command: PRF.1
+  hit_level: L
+  startup: i19~20
+  block: '-12'
+  notes: '* Weapon
+
+    * Unparryable (weapon low)
+
+    * High crush 6~50'
+- id: hfc_1p2
+  command: hFC.1+2
+  hit_level: l,h
+  startup: i16,i10~11
+  block: -23, -13
+  notes: '* Weapon
+
+    * Not parryable (weapon low and weapon high)
+
+    * Can be done from Crouch Level 1
+
+    * Transition to PRF (-17 / +6) with F'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: bp1p2
+  command: b+1+2
+  hit_level: h
+  startup: i19~20
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Forces tech back roll on hit
+
+    * 7 chip damage on block
+
+    * +0 and 10 chip damage on block after attack absorption
+
+    * Power crush 7~18'
+- id: iai_3
+  command: IAI.3
+  hit_level: m,th(m)
+  startup: i17
+  block: '-13'
+  notes: '* Knee
+
+    * Power crush 8~16'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_iai_dp2
+  command: H.IAI.d+2
+  hit_level: M,M,M,SM,SM
+  startup: i23~24, i6, i4, i3, i4
+  block: '+5'
+  notes: '* Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * 10 chip damage on block
+
+    * Consumes 210F of remaining Heat time'
+- id: h_dbp1p2
+  command: H.db+1+2
+  hit_level: m
+  startup: i28~29
+  block: '+6'
+  notes: '* Weapon
+
+    * Transitions to IAI
+
+    * Consumes 270F of remaining Heat time'
+- id: h_up1p2
+  command: H.u+1+2
+  hit_level: m
+  startup: i31~32
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * 15 chip damage on block
+
+    * Consumes 450F of r'
+- id: h_2p3
+  command: H.2+3
+  hit_level: l,m
+  startup: i20
+  block: '-14'
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.R1
+
+    * 8 chip damage on block'
+- id: fp3
+  command: f+3
+  hit_level: sp
+  startup: i20
+  block: ''
+  notes: '* Cancel to r20 cs5~ FC with df
+
+    * Punch parry only
+
+    * +15~+20 PRF on successful parry
+
+    * Can perform Heat Burst and Heat Smash from stance
+
+    * Parry state 5-10'
+- id: fp4_1
+  command: f+4,1
+  hit_level: m, h
+  startup: i14, i23~24
+  block: '-4'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Weapon
+
+    * Combo from 1st hit'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i24~25
+  block: '+3'
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Weapon
+
+    * 9 chip damage on block'
+- id: dp2
+  command: d+2
+  hit_level: m
+  startup: i18
+  block: '+0'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Weapon
+
+    * 6 chip damage on block'
+- id: iai_dp1
+  command: IAI.d+1
+  hit_level: M
+  startup: i18
+  block: '0'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 7 chip damage on block'
+- id: prf_3
+  command: PRF.3
+  hit_level: m
+  startup: i15~17
+  block: '-8'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Knee
+
+    * Forces tech backroll on hit
+
+    * Low crush 11~23
+
+    * Floating state 24~25'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i18~20
+  block: '-16'
+  notes: '* Tornado
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Jab evasion from frame 6 to 17?'
+- id: f_ffp2
+  command: f,f,F+2
+  hit_level: m
+  startup: i18~19
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Transition to IAI r36 with d or 3+4 (+5/+11cg/+64a (+48a))
+
+    * Forces tech back roll on hit
+
+    * 6 chip damage on block'
+- id: f_ffp1p2
+  command: f,f,F+1+2
+  hit_level: L,L
+  startup: i18, i14~15
+  block: '-14'
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+launch_punish_opportunities:
+- id: iai_dp1p2
+  command: IAI.d+1+2
+  hit_level: l,l
+  startup: i20~21,i14~15
+  block: '-29'
+  notes: '* Weapon
+
+    * Unparryable (weapon low,low)'
+- id: dbp4
+  command: db+4
+  hit_level: l
+  startup: i20~21
+  block: '-26'
+  notes: '* High crush 6'
+- id: hfc_1p2
+  command: hFC.1+2
+  hit_level: l,h
+  startup: i16,i10~11
+  block: -23, -13
+  notes: '* Weapon
+
+    * Not parryable (weapon low and weapon high)
+
+    * Can be done from Crouch Level 1
+
+    * Transition to PRF (-17 / +6) with F'
+- id: bp1p4
+  command: b+1+4
+  hit_level: m
+  startup: i26~27
+  block: '-21'
+  notes: '* Weapon
+
+    * ~i5-6 backsway'
+- id: up1p2
+  command: u+1+2
+  hit_level: m
+  startup: i31~32
+  block: -20c
+  notes: '* Weapon
+
+    * Deals 11 chip damage on block
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * is10~?
+
+    * Low crush ?~'
+- id: ufp4
+  command: uf+4
+  hit_level: m,sm
+  startup: i15~17, i28~30
+  block: '-19'
+  notes: '* Tornado
+
+    * Followup available only on 1st hit
+
+    * Low crush 9'
+- id: iai_1_2
+  command: IAI.1,2
+  hit_level: m, m
+  startup: i13~14, i22~24
+  block: '-19'
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Hit Confirmable 11F
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: iai_1_2_2
+  command: IAI.1,2,2
+  hit_level: m, m, m
+  startup: i13~14, ,i23~24
+  block: -18c
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 9 chip damage on block
+
+    * is?
+
+    * Low crush ?'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: m
+  startup: i14~15
+  block: '-17'
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: dp1
+  command: d+1
+  hit_level: L
+  startup: i16
+  block: '-17'
+  notes: '* Weapon
+
+    * Cannot be parried (weapon low)
+
+    * High crush 6~52'
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i18~20
+  block: '-16'
+  notes: '* Tornado
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Jab evasion from frame 6 to 17?'
+- id: ws1
+  command: ws1
+  hit_level: m
+  startup: i15~16
+  block: '-16'
+  notes: '* Weapon'
+- id: fp2_2
+  command: f+2,2
+  hit_level: h, h
+  startup: i13~14, i11
+  block: '-15'
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: fp2_2_1_1
+  command: f+2,2,1,1
+  hit_level: h, h, m, m
+  startup: i13~14, ,i20~21
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Hit confirmable if (f22)1 is ch'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

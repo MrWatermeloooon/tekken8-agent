@@ -1,0 +1,3469 @@
+character_id: law
+display_name: Marshall Law
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/law/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 3017c5bc69d9f4dd09696e24297af67f51dca699c08a5afefd8d3538cf9b79e6
+data_status: available
+stances:
+- H
+- (While
+- ws
+- FC
+- BT
+- DSS
+- hFC
+moves:
+- id: 2p3
+  source_id: Law-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_1p2
+  source_id: Law-H.1+2
+  source_index: 2
+  command: H.1+2
+  name: ''
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: -8~-7
+  hit: +30a
+  counter_hit: +66a (+50)
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - heat
+  - tornado
+  notes: '* Tornado
+
+    * Weapon
+
+    * Consumes 240F remaining Heat Time on block or whiff
+
+    * Alternate input DSS.1+2'
+- id: h_ufp2
+  source_id: Law-H.uf+2
+  source_index: 3
+  command: H.uf+2
+  name: Gale Claw
+  hit_level: h
+  damage: '21'
+  startup: i19~20
+  recovery: r33
+  block: '+4'
+  hit: +21d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Weapon
+
+    * Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Consumes 120F of remaining Heat Time
+
+    * 4 chip damage on block'
+- id: h_2p3
+  source_id: Law-H.2+3
+  source_index: 4
+  command: H.2+3
+  name: Heavenly Dragon
+  hit_level: m,t
+  damage: 24,4,5,5,5,7 (50)
+  startup: i14
+  recovery: ''
+  block: +11g
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - throw
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Transitions to DSS on block
+
+    * 8 chip damage on block'
+- id: r_dfp1p2
+  source_id: Law-R.df+1+2
+  source_index: 5
+  command: R.df+1+2
+  name: Fate of the Dragon
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Law-1
+  source_index: 6
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Law-1,1
+  source_index: 7
+  command: 1,1
+  name: ''
+  hit_level: h, h
+  damage: 5, 5
+  startup: i10, i18
+  recovery: r24
+  block: '-8'
+  hit: '-6'
+  counter_hit: '+6'
+  tier: specialist
+  tags:
+  - high
+  notes: '* CH frames also apply to combo from 1st CH'
+- id: '1_1_1'
+  source_id: Law-1,1,1
+  source_index: 8
+  command: 1,1,1
+  name: Furious Rush
+  hit_level: h, h, m
+  damage: 5, 5, 20
+  startup: i10, ,i20
+  recovery: ''
+  block: '-12'
+  hit: +15cg
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Combos from 1st or 2nd hit CH
+
+    * Balcony Break
+
+    * Forces tech backroll on hit'
+- id: '1_1_2'
+  source_id: Law-1,1,2
+  source_index: 9
+  command: 1,1,2
+  name: Knuckle Barrage Combo
+  hit_level: h, h, h
+  damage: 5, 5, 12
+  startup: i10, ,i17
+  recovery: r24
+  block: '-6'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to DSS with F
+
+    ** (-6 oB, +6 oH)'
+- id: '1_2'
+  source_id: Law-1,2
+  source_index: 10
+  command: 1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i12
+  recovery: ''
+  block: '-3'
+  hit: '+6'
+  counter_hit: '+6'
+  tier: core
+  tags:
+  - high
+  notes: '* Jails from 1st attack
+
+    * Combos from 1st hit'
+- id: '1_2_2'
+  source_id: Law-1,2,2
+  source_index: 11
+  command: 1,2,2
+  name: ''
+  hit_level: h, h, m
+  damage: 5, 8, 10
+  startup: i10, ,i20
+  recovery: ''
+  block: '-8'
+  hit: '+4'
+  counter_hit: '+4'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combos from 1st hit CH
+- id: '1_2_2_2'
+  source_id: Law-1,2,2,2
+  source_index: 12
+  command: 1,2,2,2
+  name: Left Right Dragon Fist Combo
+  hit_level: h, h, m, h
+  damage: 5, 8, 10, 15
+  startup: i10, ,i13
+  recovery: ''
+  block: '-9'
+  hit: '+4'
+  counter_hit: +9d
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combos from 1st or 3rd hit CH
+
+    * Delay-able
+
+    * Transition to DSS with F
+
+    ** (-4 oB, +9g oH, +14d CH)'
+- id: 1_2_2_1p2
+  source_id: Law-1,2,2,1+2
+  source_index: 13
+  command: 1,2,2,1+2
+  name: Left Right Blazing Fist Combo
+  hit_level: h, h, m, m
+  damage: 5, 8, 10, 23
+  startup: i10, ,i19
+  recovery: ''
+  block: '-13'
+  hit: +5a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: Balcony Break
+- id: '1_2_3'
+  source_id: Law-1,2,3
+  source_index: 14
+  command: 1,2,3
+  name: Left Right > Knee
+  hit_level: h, h, m
+  damage: 5, 8, 10
+  startup: i10, ,i15
+  recovery: ''
+  block: '-5'
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - kne
+  - mid
+  - high
+  notes: '* Wall Crush +24g on hit
+
+
+
+    * Knee
+
+    * Combos from 1st hit CH
+
+    * Jails from 1st attack'
+- id: 1_2_ufp3_4
+  source_id: Law-1,2,uf+3,4
+  source_index: 15
+  command: 1,2,uf+3,4
+  name: Left Right Combo > Somersault Feint
+  hit_level: h,h,Special,M
+  damage: '20'
+  startup: i15
+  recovery: ''
+  block: '-12'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: ''
+- id: '2'
+  source_id: Law-2
+  source_index: 16
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '8'
+  startup: i10
+  recovery: ''
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_2'
+  source_id: Law-2,2
+  source_index: 17
+  command: 2,2
+  name: ''
+  hit_level: h, m
+  damage: 8, 10
+  startup: i10, i20
+  recovery: ''
+  block: '-8'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Delay-able
+- id: '2_2_2'
+  source_id: Law-2,2,2
+  source_index: 18
+  command: 2,2,2
+  name: Rave War Combo
+  hit_level: h, m, h
+  damage: 8, 10, 10
+  startup: i10, ,i13
+  recovery: ''
+  block: '-9'
+  hit: '+4'
+  counter_hit: +9d
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combos from 2nd hit
+
+    * Transition to DSS with F
+
+    ** (-4 oB, +9g oH, +14d)'
+- id: 2_2_1p2
+  source_id: Law-2,2,1+2
+  source_index: 19
+  command: 2,2,1+2
+  name: Blazing Fist Combo
+  hit_level: h, m, m
+  damage: 8, 10, 20
+  startup: i10, ,i19
+  recovery: ''
+  block: '-13'
+  hit: +5a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 2nd hit CH
+
+    * Delay-able'
+- id: 2_bp2
+  source_id: Law-2,b+2
+  source_index: 20
+  command: 2,b+2
+  name: ''
+  hit_level: h, h
+  damage: 8, 8
+  startup: i10, i17
+  recovery: BT
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - high
+  notes: '* Elbow
+
+    * Combos from 1st hit
+
+    * Delay-able'
+- id: 2_bp2_1
+  source_id: Law-2,b+2,1
+  source_index: 21
+  command: 2,b+2,1
+  name: ''
+  hit_level: h, h, h
+  damage: 8, 8, 8
+  startup: i10, ,i23
+  recovery: ''
+  block: '-3'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combos from 2nd hit CH
+
+    * Delay-able'
+- id: 2_bp2_1_2
+  source_id: Law-2,b+2,1,2
+  source_index: 22
+  command: 2,b+2,1,2
+  name: Rage Dragon Combo
+  hit_level: h, h, h, m
+  damage: 8, 8, 8, 21
+  startup: i10, ,i20
+  recovery: ''
+  block: '-3'
+  hit: +20a
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combos from 3rd hit CH
+
+    * Delay-able
+
+    * Transition to FC with D'
+- id: '3'
+  source_id: Law-3
+  source_index: 23
+  command: '3'
+  name: High Kick
+  hit_level: h
+  damage: '12'
+  startup: i12
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: '3_3'
+  source_id: Law-3,3
+  source_index: 24
+  command: 3,3
+  name: Feint > Middle Kick
+  hit_level: h, m
+  damage: 12, 17
+  startup: i12, i27
+  recovery: ''
+  block: '-14'
+  hit: '-3'
+  counter_hit: +53a (+22)
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combos from 1st hit CH
+
+    * Delay-able'
+- id: '3_4'
+  source_id: Law-3,4
+  source_index: 25
+  command: 3,4
+  name: High Kick > Bloody Cleaver
+  hit_level: h, h
+  damage: 12, 20
+  startup: i12, i22
+  recovery: ''
+  block: '-10'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Combos from 1st hit
+
+    * Balcony Break'
+- id: '4'
+  source_id: Law-4
+  source_index: 26
+  command: '4'
+  name: Right High Kick
+  hit_level: h
+  damage: '15'
+  startup: i13
+  recovery: ''
+  block: '-9'
+  hit: '+7'
+  counter_hit: +7s
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_3'
+  source_id: Law-4,3
+  source_index: 27
+  command: 4,3
+  name: ''
+  hit_level: h, h
+  damage: 15, 12
+  startup: i13, i18~19
+  recovery: ''
+  block: '-8'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Combo from 1st hit
+
+    * Airborne combo from 1st CH (+24a (+17))
+
+    * Transition to DSS with F (+7/+16g/+39a (+32))'
+- id: '4_3_4'
+  source_id: Law-4,3,4
+  source_index: 28
+  command: 4,3,4
+  name: Shaolin Spin Kicks
+  hit_level: h, h, h
+  damage: 15, 12, 14
+  startup: i13, ,i20
+  recovery: ''
+  block: '-6'
+  hit: '-1'
+  counter_hit: +31a (+24)
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Airborne combo from 1st CH (+31a (+24)/+44a (+37))
+
+    * Transition to DSS with F (+7/+12g/+43a (+33))'
+- id: 4_up3
+  source_id: Law-4,u+3
+  source_index: 29
+  command: 4,u+3
+  name: Crescent Kick Combo
+  hit_level: h, m
+  damage: 15, 23
+  startup: i13, i33
+  recovery: ''
+  block: '-1'
+  hit: +30a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  - high
+  notes: 'Move can be delayed by 4F
+
+    * Low crush 23~'
+- id: 1p2
+  source_id: Law-1+2
+  source_index: 30
+  command: 1+2
+  name: Tornado Claw
+  hit_level: M
+  damage: '20'
+  startup: i16~17
+  recovery: ''
+  block: -13~12
+  hit: +12a (+5)
+  counter_hit: +66a (+50)
+  tier: core
+  tags:
+  - trn
+  - wpn
+  - heat
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Partially uses remaining Heat Time in heat
+
+    * Instant Tornado on CH'
+- id: 2p3p4
+  source_id: Law-2+3+4
+  source_index: 31
+  command: 2+3+4
+  name: Taunt
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 3p4
+  source_id: Law-3+4
+  source_index: 32
+  command: 3+4
+  name: ''
+  hit_level: m,m
+  damage: 5,10
+  startup: i14~15, i11
+  recovery: ''
+  block: '-13'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: 'Alternate input DSS.3+4
+
+    * Low crush 14~'
+- id: 3p4_4
+  source_id: Law-3+4,4
+  source_index: 33
+  command: 3+4,4
+  name: Wild Dragon's Flight
+  hit_level: m,m, h
+  damage: 5,10, 25
+  startup: i14~15, i11, i30
+  recovery: ''
+  block: '+7'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit
+
+    * 5 chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Alternate input DSS.3+4,4
+
+    * Low crush 22~'
+- id: fp2
+  source_id: Law-f+2
+  source_index: 34
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: ''
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Can route into:
+
+    ** Rave War Combo (f+2,2,2), or
+
+    ** Blazing Fist Combo (f+2,2,1+2)
+
+    * Alternate input DSS.f+2'
+- id: fp2_1
+  source_id: Law-f+2~1
+  source_index: 35
+  command: f+2~1
+  name: Poison Arrow
+  hit_level: m
+  damage: '24'
+  startup: i19~20
+  recovery: ''
+  block: '+4'
+  hit: +30a (+4)
+  counter_hit: +54a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 4 chip damage on block
+
+    * Transition to DSS with F (+6/+32a (+6)/+56a)
+
+    * Alternate input DSS.f+2~1'
+- id: fp3
+  source_id: Law-f+3
+  source_index: 36
+  command: f+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i18
+  recovery: ''
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp3_1
+  source_id: Law-f+3,1
+  source_index: 37
+  command: f+3,1
+  name: Plunging Knock
+  hit_level: m, m
+  damage: 12, 15
+  startup: i18, i20
+  recovery: ''
+  block: '-2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to DSS with F
+
+    ** (+3 oB, +13g)'
+- id: fp1p2
+  source_id: Law-f+1+2
+  source_index: 38
+  command: f+1+2
+  name: Dragon Hammer
+  hit_level: m
+  damage: '20'
+  startup: i20
+  recovery: ''
+  block: +3c
+  hit: +8c
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: Transition to FC with D
+- id: fp3p4
+  source_id: Law-f+3+4
+  source_index: 39
+  command: f+3+4
+  name: Dragon Killer
+  hit_level: M
+  damage: '20'
+  startup: i25~26
+  recovery: ''
+  block: '-2'
+  hit: +7c
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: 'Alternate input DSS.f+3+4
+
+    * Low crush 11~'
+- id: dfp1
+  source_id: Law-df+1
+  source_index: 40
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13
+  recovery: r20
+  block: '-1'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: First hit of Law's 10 String
+- id: dfp1_2
+  source_id: Law-df+1,2
+  source_index: 41
+  command: df+1,2
+  name: Blast Claw
+  hit_level: m, h
+  damage: 10, 24
+  startup: i13, i20~21
+  recovery: r33
+  block: '-8'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Combo from 1st hit with 2F delay
+
+    * Interrupt wiht i2
+
+    * Powered up in Heat
+
+    * Move cannot be delayed'
+- id: dfp1_3
+  source_id: Law-df+1,3
+  source_index: 42
+  command: df+1,3
+  name: ''
+  hit_level: m, l
+  damage: 10, 6
+  startup: i13, i20
+  recovery: r35
+  block: '-16'
+  hit: '-5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Interrupt with i2
+
+    * Move cannot be delayed
+
+    * Links to 10-hit combo'
+- id: dfp1_3_2
+  source_id: Law-df+1,3,2
+  source_index: 43
+  command: df+1,3,2
+  name: ''
+  hit_level: m, l, m
+  damage: 10, 6, 6
+  startup: i13, ,i28
+  recovery: r31
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i8'
+- id: dfp1_3_2_2_3_3_3_4_4_4
+  source_id: Law-10 String
+  source_index: 44
+  command: df+1,3,2,2,3,3,3,4,4,4
+  name: 10 Hit Combo
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: First 3 hits are a natural combo
+- id: h_dfp1_2
+  source_id: Law-df+1,H.2
+  source_index: 45
+  command: H.df+1,2
+  name: Blast Claw
+  hit_level: m, h
+  damage: 10, 27
+  startup: i13, i20~21
+  recovery: r33
+  block: '-5'
+  hit: +16a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Strong Aerial Tailspin
+
+    * Combo from 1st hit with 2F delay
+
+    * Interrupt with i2
+
+    * Consumes 120F of remaining Heat Time
+
+    * Move cannot be delayed
+
+    * 5 chip damage on block'
+- id: dfp2
+  source_id: Law-df+2
+  source_index: 46
+  command: df+2
+  name: Dragon Raise
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r25
+  block: '-7'
+  hit: +34a (+24)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: +4s on crouching normal hit
+- id: dfp3
+  source_id: Law-df+3
+  source_index: 47
+  command: df+3
+  name: Dragon Lance
+  hit_level: m
+  damage: '23'
+  startup: i21
+  recovery: r34 FC
+  block: '-13'
+  hit: +52a (+21)
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* High crush 6~55'
+- id: dfp4
+  source_id: Law-df+4
+  source_index: 48
+  command: df+4
+  name: Right Middle Kick
+  hit_level: m
+  damage: '15'
+  startup: i13
+  recovery: r27
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_3
+  source_id: Law-df+4,3
+  source_index: 49
+  command: df+4,3
+  name: Right Middle Kick > Somersault Kick
+  hit_level: m, m
+  damage: 15, 23
+  startup: i13, i29~31
+  recovery: r17 FC
+  block: '-14'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Instant tornado
+
+    * Combo from 1st CH
+
+    * Low crush 14~'
+- id: dfp3p4
+  source_id: Law-df+3+4
+  source_index: 50
+  command: df+3+4
+  name: Banana Peel
+  hit_level: l
+  damage: '12'
+  startup: i18
+  recovery: r34 FC
+  block: '-15'
+  hit: +4c
+  counter_hit: +6a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~52'
+- id: dp1
+  source_id: Law-d+1
+  source_index: 51
+  command: d+1
+  name: Low Backhand
+  hit_level: l
+  damage: '15'
+  startup: i19~20
+  recovery: FC
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: 'Transition to Slide Step with DF
+
+    * High crush 6~'
+- id: dp1_3
+  source_id: Law-d+1,3
+  source_index: 52
+  command: d+1,3
+  name: Low Backhand > High Kick
+  hit_level: l, h
+  damage: 15, 21
+  startup: i19~20, i24
+  recovery: ''
+  block: '-9'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break'
+- id: dp2
+  source_id: Law-d+2
+  source_index: 53
+  command: d+2
+  name: Body Blow
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Alternate input hFC.d+2
+
+    * High crush 4~'
+- id: dp2_3
+  source_id: Law-d+2,3
+  source_index: 54
+  command: d+2,3
+  name: Body Blow > Dragon Lift
+  hit_level: sl, m
+  damage: 8, 21
+  startup: i11, i23
+  recovery: ''
+  block: '-15'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - low
+  - mid
+  notes: '* Combos from 1st hit CH
+
+    * Tornado'
+- id: dp3
+  source_id: Law-d+3
+  source_index: 55
+  command: d+3
+  name: Dragon Low
+  hit_level: l
+  damage: '8'
+  startup: i16
+  recovery: ''
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: Transition to FC with D
+- id: dp3_3
+  source_id: Law-d+3,3
+  source_index: 56
+  command: d+3,3
+  name: Dragon Low > Hook Kick
+  hit_level: l, h
+  damage: 8, 17
+  startup: i16, i16
+  recovery: ''
+  block: '-7'
+  hit: +20a
+  counter_hit: +46CS
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combos from 1st hit CH
+
+    * -30 on block from 1st block
+
+    * Delay-able'
+- id: dp4
+  source_id: Law-d+4
+  source_index: 57
+  command: d+4
+  name: ''
+  hit_level: l
+  damage: '7'
+  startup: i15
+  recovery: ''
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_3
+  source_id: Law-d+4,3
+  source_index: 58
+  command: d+4,3
+  name: Construct Kick
+  hit_level: l, h
+  damage: 7, 12
+  startup: i15, i12
+  recovery: ''
+  block: '-12'
+  hit: '+0'
+  counter_hit: '+5'
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - low
+  - high
+  notes: '* Combos from 1st hit
+
+    * -26 on 1st block
+
+    * Nosebleed stun
+
+    * Low crush 5~9?
+
+    * Floating state 10?~12?'
+- id: dp1p2
+  source_id: Law-d+1+2
+  source_index: 59
+  command: d+1+2
+  name: Dragon Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: DSS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Enters DSS
+
+    * Transition to Slide Step with DF'
+- id: dp3p4
+  source_id: Law-d+3+4
+  source_index: 60
+  command: d+3+4
+  name: Low Kick
+  hit_level: l
+  damage: '7'
+  startup: i12
+  recovery: FC
+  block: '-15'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Alternate input hFC.4
+
+    * High crush 4~'
+- id: dp3p4_3
+  source_id: Law-d+3+4,3
+  source_index: 61
+  command: d+3+4,3
+  name: Low Kick > Somersault
+  hit_level: l, m
+  damage: 7, 23
+  startup: i12, i29
+  recovery: FC
+  block: '-14'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Combos from 1st hit CH
+
+    * Alternate input hFC.4,3
+
+    * Low crush 19~'
+- id: dbp1
+  source_id: Law-db+1
+  source_index: 62
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dbp2
+  source_id: Law-db+2
+  source_index: 63
+  command: db+2
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i14
+  recovery: BT
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: dbp2_4
+  source_id: Law-db+2,4
+  source_index: 64
+  command: db+2,4
+  name: Elbow Spring Kick
+  hit_level: m, M
+  damage: 15, 25
+  startup: i14, i33
+  recovery: BT
+  block: '-15'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: 'Transition to FUFA with D
+
+    * Low crush'
+- id: dbp3
+  source_id: Law-db+3
+  source_index: 65
+  command: db+3
+  name: Shin Crusher
+  hit_level: l
+  damage: '15'
+  startup: i17
+  recovery: ''
+  block: '-13'
+  hit: +3c
+  counter_hit: +13g
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dbp4
+  source_id: Law-db+4
+  source_index: 66
+  command: db+4
+  name: Dragon's Tail
+  hit_level: l
+  damage: '20'
+  startup: i26
+  recovery: ''
+  block: '-37'
+  hit: +15a
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - low
+  notes: 'Homing
+
+    * High crush 6~'
+- id: dbp4_4
+  source_id: Law-db+4,4
+  source_index: 67
+  command: db+4,4
+  name: Dragon's Tail > Somersault Kick
+  hit_level: l, m
+  damage: 20, 27
+  startup: i26, i37
+  recovery: ''
+  block: '-8'
+  hit: +30a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  notes: '* Low crush'
+- id: dbp1p2
+  source_id: Law-db+1+2
+  source_index: 68
+  command: db+1+2
+  name: ''
+  hit_level: m,h,m
+  damage: 8,8,8
+  startup: i17
+  recovery: DSS
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to DSS
+
+    ** Reduced input window for blue spark moves (input f+1_3_4 on frame 2 of DSS
+    only)'
+- id: dbp1p2_1
+  source_id: Law-db+1+2,1
+  source_index: 69
+  command: db+1+2,1
+  name: Dragon Judgment
+  hit_level: m,h,m, m
+  damage: 8,8,8, 28
+  startup: i17, i22
+  recovery: ''
+  block: '-16'
+  hit: +16d (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 3rd CH'
+- id: bp1
+  source_id: Law-b+1
+  source_index: 70
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i14
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to DSS with F
+
+    ** (-4 oB, +7 oH)'
+- id: bp1_2
+  source_id: Law-b+1,2
+  source_index: 71
+  command: b+1,2
+  name: ''
+  hit_level: m, m
+  damage: 12, 12
+  startup: i14, i19
+  recovery: ''
+  block: '-12'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 1st hit with 11F delay
+
+    * Move can be delayed by 14F
+
+    * Transition to DSS with F
+
+    ** (-10 oB, +4 oH)'
+- id: bp1_2_2
+  source_id: Law-b+1,2,2
+  source_index: 72
+  command: b+1,2,2
+  name: Dragon Storm
+  hit_level: m, m, m
+  damage: 12, 12, 22
+  startup: i14, ,i18
+  recovery: ''
+  block: '-14'
+  hit: +12a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st or 2nd hit CH with 12F delay
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 16F'
+- id: bp1p3
+  source_id: Law-b+1+3
+  source_index: 73
+  command: b+1+3
+  name: Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: '35'
+  block: ''
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Transition to DSS on successful parry with F to be +20g (i14? guaranteed
+    followups)
+
+    * Parry state 5?~11?'
+- id: bp2
+  source_id: Law-b+2
+  source_index: 74
+  command: b+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i16
+  recovery: ''
+  block: '-8'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp2_1
+  source_id: Law-b+2,1
+  source_index: 75
+  command: b+2,1
+  name: Vortex Rush
+  hit_level: m, m
+  damage: 12, 16
+  startup: i16, i26
+  recovery: ''
+  block: '-15'
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combos from 1st hit CH'
+- id: bp2_2
+  source_id: Law-b+2,2
+  source_index: 76
+  command: b+2,2
+  name: Knuckle Rush
+  hit_level: m, h
+  damage: 12, 15
+  startup: i16, i13
+  recovery: ''
+  block: '-9'
+  hit: '+4'
+  counter_hit: +9d
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combos from 1st hit
+
+    * Delay-able
+
+    * Transition to DSS with F
+
+    ** (-4 oB, +9 oH, +14d CH)'
+- id: bp2_3
+  source_id: Law-b+2,3
+  source_index: 77
+  command: b+2,3
+  name: ''
+  hit_level: m, l
+  damage: 12, 10
+  startup: i16, i23
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  notes: Delay-able
+- id: bp2_3_4
+  source_id: Law-b+2,3,4
+  source_index: 78
+  command: b+2,3,4
+  name: Junkyard Kick
+  hit_level: m, l, m
+  damage: 12, 10, 23
+  startup: i16, ,i23
+  recovery: ''
+  block: '-7'
+  hit: +36a (+26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - stance_transition
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Combos from 2nd hit CH
+
+    * Delay-able
+
+    * Transition to DSS with F
+
+    ** (+5 oB, +48a (+38) oH)'
+- id: bp2_3_dp4
+  source_id: Law-b+2,3,d+4
+  source_index: 79
+  command: b+2,3,d+4
+  name: Dragon Rush Combo
+  hit_level: m, l, l
+  damage: 12, 10, 23
+  startup: i16, ,i34
+  recovery: FC
+  block: '-37'
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: 'Delay-able
+
+    * High crush'
+- id: bp3
+  source_id: Law-b+3
+  source_index: 80
+  command: b+3
+  name: Dragon Spin Kick
+  hit_level: m
+  damage: '27'
+  startup: i23
+  recovery: ''
+  block: '-12'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Transition to BT with B
+
+    ** (-11 oB, +18a (+9) oH)'
+- id: bp4
+  source_id: Law-b+4
+  source_index: 81
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: ''
+  block: '-7'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - stance_transition
+  - mid
+  notes: '* Homing
+
+    * Transition to BT with B
+
+    ** (-4 oB, +6 oH)'
+- id: bp4_3
+  source_id: Law-b+4,3
+  source_index: 82
+  command: b+4,3
+  name: Tiger Fang
+  hit_level: m, h
+  damage: 13, 21
+  startup: i14, i32
+  recovery: ''
+  block: '-5'
+  hit: +24a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit'
+- id: bp1p2
+  source_id: Law-b+1+2
+  source_index: 83
+  command: b+1+2
+  name: Dragon Stinger
+  hit_level: m
+  damage: '21'
+  startup: i20
+  recovery: ''
+  block: '-14'
+  hit: +31a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Power crush 7~'
+- id: bp3p4
+  source_id: Law-b+3+4
+  source_index: 84
+  command: b+3+4
+  name: Dragon Arrow
+  hit_level: m
+  damage: '25'
+  startup: i23
+  recovery: ''
+  block: '-18'
+  hit: +16a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * High crush 6~10?'
+- id: ubp1_1p2_2
+  source_id: Law-ub+1,1+2,2
+  source_index: 85
+  command: ub+1,1+2,2
+  name: Fury Fist Rush
+  hit_level: h,h,h,h
+  damage: 3,3,3,25
+  startup: i12,i6,i6,i13
+  recovery: ''
+  block: '-14'
+  hit: +28a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combos from 1st CH
+
+    * Jails from 1st to 4st attack
+
+    * Last hit delay-able
+
+    * Frame data for 1st, 2nd and 3rd hits:
+
+    ** (-9 oB, -3 oH)'
+- id: ubp2
+  source_id: Law-ub+2
+  source_index: 86
+  command: ub+2
+  name: generic hook
+  hit_level: h
+  damage: '17'
+  startup: i15
+  recovery: ''
+  block: '-12'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ubp3
+  source_id: Law-ub+3
+  source_index: 87
+  command: ub+3
+  name: Somersault
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  notes: '* Transition to Slide Step with DF
+
+    * Alternate input u+3
+
+    * Low crush 9~'
+- id: ubp3_4
+  source_id: Law-ub+3,4
+  source_index: 88
+  command: ub+3,4
+  name: Somersault Fake
+  hit_level: M
+  damage: '20'
+  startup: i15
+  recovery: ''
+  block: '-12'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ubp1p2
+  source_id: Law-ub+1+2
+  source_index: 89
+  command: ub+1+2
+  name: Dragon Back Blow
+  hit_level: h
+  damage: '20'
+  startup: i16~17
+  recovery: r26
+  block: '+1'
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Jab evasion'
+- id: up4
+  source_id: Law-u+4
+  source_index: 90
+  command: u+4
+  name: Rising Toe Kick
+  hit_level: m
+  damage: '12'
+  startup: i15
+  recovery: ''
+  block: '-13'
+  hit: +19a (+9)
+  counter_hit: +33a (+23)
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush'
+- id: ufp4
+  source_id: Law-UF+4
+  source_index: 91
+  command: UF+4
+  name: Somersault Kick
+  hit_level: m
+  damage: '23'
+  startup: i18
+  recovery: FC
+  block: '-17'
+  hit: +28a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Alternate input
+
+    ** UB+4, U+4, FC.ub+4, FC.u+4, FC.uf+4
+
+    * 18 dmg when performed with UB+4 or FC.ub+4
+
+    * Low crush 9~'
+- id: ufp4_3
+  source_id: Law-UF+4,3
+  source_index: 92
+  command: UF+4,3
+  name: Backflipper
+  hit_level: m, m
+  damage: 23, 16
+  startup: i18, i19
+  recovery: ''
+  block: '-14'
+  hit: +78a (+62)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Combos from 1st hit
+
+    * Tornado
+
+    * 2nd hit Instant Tornado
+
+    ** (+68a (+52) oH)
+
+    * Alternate input
+
+    ** UB+4,3 U+4,3
+
+    ** FC.ub+4,3 FC.u+4,3 FC.uf+4,3
+
+    * Low crush'
+- id: ufp1
+  source_id: Law-uf+1
+  source_index: 93
+  command: uf+1
+  name: Blackout
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Alternate input:
+
+    ** Ki Charge~1
+
+    ** b,B+2+3~1,3'
+- id: ufp1_3
+  source_id: Law-uf+1,3
+  source_index: 94
+  command: uf+1,3
+  name: Blackout > Muggin'
+  hit_level: h, l
+  damage: 10, 10
+  startup: i12, i19
+  recovery: ''
+  block: '-13'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combos from 1st hit
+
+    * Alternate input:
+
+    ** Ki Charge~1,3
+
+    ** b,B+2+3~1,3'
+- id: ufp2
+  source_id: Law-uf+2
+  source_index: 95
+  command: uf+2
+  name: Gale Claw
+  hit_level: h
+  damage: '21'
+  startup: i19~20
+  recovery: r33
+  block: '-1'
+  hit: '+9'
+  counter_hit: +21d
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - balcony_break
+  - chip
+  - high
+  notes: '* Weapon
+
+    * Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * 4 chip damage on block'
+- id: ufp3
+  source_id: Law-uf+3
+  source_index: 96
+  command: uf+3
+  name: Dragon's Fury
+  hit_level: m
+  damage: '20'
+  startup: i18
+  recovery: ''
+  block: '-8'
+  hit: +16c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36d (+26)
+
+
+    * Balcony Break
+
+    * Forces tech backroll on hit
+
+    * Low crush 9~'
+- id: ufp4
+  source_id: Law-uf+4
+  source_index: 97
+  command: uf+4
+  name: Dragon's Rising Kick
+  hit_level: m
+  damage: '14'
+  startup: i15
+  recovery: ''
+  block: '-13'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: ufp3p4
+  source_id: Law-uf+3+4
+  source_index: 98
+  command: uf+3+4
+  name: Dragon's Descent
+  hit_level: l
+  damage: '27'
+  startup: i29
+  recovery: ''
+  block: '-24'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  notes: 'Alternate input DSS.uf+3+4
+
+    * Low crush 8~30?'
+- id: 1p2p3p4
+  source_id: Law-1+2+3+4
+  source_index: 99
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 1p2p3p4
+  source_id: Law-1+2+3+4,1+2*
+  source_index: 100
+  command: 1+2+3+4
+  name: Ki Charge (Hold)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 1p2p3p4_2
+  source_id: Law-1+2+3+4,1+2*,2
+  source_index: 101
+  command: 1+2+3+4,2
+  name: Cloud Gates
+  hit_level: h
+  damage: '22'
+  startup: i14
+  recovery: ''
+  block: '+1'
+  hit: +15a
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 6 chip damage on block'
+- id: 1p2p3p4_1
+  source_id: Law-1+2+3+4~1
+  source_index: 102
+  command: 1+2+3+4~1
+  name: Blackout
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Alternate input:
+
+    ** uf+1
+
+    ** b,B+2+3~1,3'
+- id: 1p2p3p4_1_3
+  source_id: Law-1+2+3+4~1,3
+  source_index: 103
+  command: 1+2+3+4~1,3
+  name: Blackout > Muggin'
+  hit_level: h, l
+  damage: 10, 10
+  startup: i12, i19
+  recovery: ''
+  block: '-13'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combos from 1st hit
+
+    * Alternate input:
+
+    ** uf+1,3
+
+    ** b,B+2+3~1,3'
+- id: while_down_facing_up_1p2p3p4
+  source_id: Law-(While down, facing up).1+2+3+4
+  source_index: 104
+  command: (While down, facing up) 1+2+3+4
+  name: Taunt
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_bp2p3
+  source_id: Law-b,B+2+3
+  source_index: 105
+  command: b,B+2+3
+  name: Charge Power Punch
+  hit_level: m!
+  damage: '60'
+  startup: i78
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: Can cancel and transition to DSS with b,b
+- id: ffp2
+  source_id: Law-f,F+2
+  source_index: 106
+  command: f,F+2
+  name: Dragon's Poke
+  hit_level: m
+  damage: '12'
+  startup: i14~16
+  recovery: r26
+  block: '-6'
+  hit: '+2'
+  counter_hit: '+7'
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: ffp2_1
+  source_id: Law-f,F+2,1
+  source_index: 107
+  command: f,F+2,1
+  name: ''
+  hit_level: m, h
+  damage: 12, 12
+  startup: i14~16, i22~23
+  recovery: r27
+  block: '-4'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 8F delay
+
+    * Combo from 1st CH with 13F delay
+
+    * Move can be delayed by 17F
+
+    * Input can be delayed by 19F'
+- id: ffp2_1_3
+  source_id: Law-f,F+2,1,3
+  source_index: 108
+  command: f,F+2,1,3
+  name: Dragon Strike Combo
+  hit_level: m, h, m
+  damage: 12, 12, 23
+  startup: i14~16, ,i28~30
+  recovery: r32
+  block: '-13'
+  hit: +11a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit CH with 1F delay
+
+    * Move can be delayed by 17F
+
+    * Input can be delayed by 18F'
+- id: ffp2_3
+  source_id: Law-f,F+2,3
+  source_index: 109
+  command: f,F+2,3
+  name: Dragon Dagger
+  hit_level: m, h
+  damage: 12, 20
+  startup: i14~16, i16
+  recovery: r37
+  block: '-14'
+  hit: +11c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Jail from 1st block with 6F delay
+
+    * Combo from 1st hit with 13F delay
+
+    * Move can be delayed by 11F
+
+    * Input can be delayed by 13F
+
+    * Forces tech backroll on hit'
+- id: ffp2_fp1p2
+  source_id: Law-f,F+2,f+1+2
+  source_index: 110
+  command: f,F+2,f+1+2
+  name: Dragon's Poke > Poison Arrow
+  hit_level: m, m
+  damage: 12, 24
+  startup: i14~16, i31~32
+  recovery: r35
+  block: '+4'
+  hit: +30a (+4)
+  counter_hit: +54a
+  tier: specialist
+  tags:
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Combo from 1st CH with 4F delay
+
+    * Transition to DSS with F (+6/+32a (+6)/+56a)
+
+    * 4 chip damage on block
+
+    * Move can be delayed by 17F
+
+    * Input can be delayed by 19F'
+- id: ffp3
+  source_id: Law-f,F+3
+  source_index: 111
+  command: f,F+3
+  name: Dragon Divide
+  hit_level: M
+  damage: '30'
+  startup: i23~26
+  recovery: r30
+  block: +0c
+  hit: +7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * 6 chip damage
+
+    * Low crush 11~26
+
+    * Floating state 27~29'
+- id: ffp4
+  source_id: Law-f,F+4
+  source_index: 112
+  command: f,F+4
+  name: Dragon's Leap Shot
+  hit_level: M
+  damage: '17'
+  startup: i20~21
+  recovery: r30
+  block: '-9'
+  hit: +19cg
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Low crush 23~36
+
+    * Floating state 37~39'
+- id: uf_n_4
+  source_id: Law-uf,n,4
+  source_index: 113
+  command: uf,n,4
+  name: Dragon's Rising Cannon
+  hit_level: m
+  damage: '20'
+  startup: i19
+  recovery: ''
+  block: '-15'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush'
+- id: f_ffp3
+  source_id: Law-f,f,F+3
+  source_index: 114
+  command: f,f,F+3
+  name: Running Side Kick
+  hit_level: m
+  damage: '30'
+  startup: i20~28
+  recovery: r31
+  block: '+6'
+  hit: +9c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Low crush 3~29
+
+    * Floating state 30~32'
+- id: ws1
+  source_id: Law-ws1
+  source_index: 115
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13
+  recovery: ''
+  block: '-7'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to DSS with F
+
+    ** (-5 oB, +1 oH)'
+- id: ws1_2
+  source_id: Law-ws1,2
+  source_index: 116
+  command: ws1,2
+  name: Flash Fist
+  hit_level: m, h
+  damage: 10, 25
+  startup: i13, i16
+  recovery: ''
+  block: '-9'
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Delayable
+
+    * Forces tech backroll on hit'
+- id: ws2
+  source_id: Law-ws2
+  source_index: 117
+  command: ws2
+  name: Dragon Uppercut
+  hit_level: m
+  damage: '20'
+  startup: i15
+  recovery: ''
+  block: '-18'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws3
+  source_id: Law-ws3
+  source_index: 118
+  command: ws3
+  name: Side Kick
+  hit_level: h
+  damage: '16'
+  startup: i16
+  recovery: DSS
+  block: +16g
+  hit: '+18'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to DSS'
+- id: ws4
+  source_id: Law-ws4
+  source_index: 119
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i11
+  recovery: ''
+  block: '-4'
+  hit: '+4'
+  counter_hit: '+5'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to +4, +12, +13 DSS with F'
+- id: ws4_3
+  source_id: Law-ws4,3
+  source_index: 120
+  command: ws4,3
+  name: Front Kick Somersault Variation
+  hit_level: m, m
+  damage: 14, 23
+  startup: i11, i27
+  recovery: FC
+  block: '-14'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    ** Combos from 1st hit CH
+
+    * Low crush'
+- id: ws3p4
+  source_id: Law-ws3+4
+  source_index: 121
+  command: ws3+4
+  name: Catapult Kick
+  hit_level: m
+  damage: '30'
+  startup: i14
+  recovery: ''
+  block: '-21'
+  hit: +0a (-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Low crush'
+- id: ss2
+  source_id: Law-ss2
+  source_index: 122
+  command: ss2
+  name: Spinning Dragon Blow
+  hit_level: m
+  damage: '23'
+  startup: i18
+  recovery: ''
+  block: '+0'
+  hit: +16d (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 4 chip damage on block'
+- id: ss3
+  source_id: Law-ss3
+  source_index: 123
+  command: ss3
+  name: Low Crush
+  hit_level: l
+  damage: '17'
+  startup: i18
+  recovery: ''
+  block: '-13'
+  hit: '+7'
+  counter_hit: +16c
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to DSS on hit'
+- id: ss3p4
+  source_id: Law-ss3+4
+  source_index: 124
+  command: ss3+4
+  name: Double Dragon
+  hit_level: m,h
+  damage: 9,10
+  startup: i15
+  recovery: ''
+  block: '-12'
+  hit: +63a (+43)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: 'Balcony Break
+
+    * Low crush'
+- id: fc_ufp3p4
+  source_id: Law-FC.UF+3+4
+  source_index: 125
+  command: FC.UF+3+4
+  name: Rainbow Kick
+  hit_level: m
+  damage: '30'
+  startup: i46~49
+  recovery: FUFT
+  block: '-4'
+  hit: +17a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush'
+- id: fc_df_d_dfp3
+  source_id: Law-FC.df,d,df+3
+  source_index: 126
+  command: FC.df,d,df+3
+  name: Slide Kick
+  hit_level: l
+  damage: '17'
+  startup: i16~20
+  recovery: ''
+  block: '-23'
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Alternate input df+3 in Slide Step'
+- id: back_to_wall_b_b_ub
+  source_id: Law-(Back to wall).b,b,ub
+  source_index: 127
+  command: (Back to wall).b,b,UB
+  name: Wall Jump Divekick
+  hit_level: m
+  damage: '25'
+  startup: i29~33
+  recovery: r25
+  block: '-1'
+  hit: +19c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit
+
+    * Floating state 5~13
+
+    * Low crush 14~33
+
+    * Floating state 34~36'
+- id: bt_1
+  source_id: Law-BT.1
+  source_index: 128
+  command: BT.1
+  name: Turning Knuckles
+  hit_level: h
+  damage: '7'
+  startup: i10
+  recovery: ''
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Can route into the same strings as his normal 1
+- id: bt_2
+  source_id: Law-BT.2
+  source_index: 129
+  command: BT.2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i15
+  recovery: ''
+  block: '-14'
+  hit: '-1'
+  counter_hit: +52a
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: bt_2_2
+  source_id: Law-BT.2,2
+  source_index: 130
+  command: BT.2,2
+  name: Blind Elbow Combo
+  hit_level: m, m
+  damage: 17, 20
+  startup: i15, i14
+  recovery: ''
+  block: '-14'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Combos from 1st hit
+
+    * Delay-able
+
+    * Forces tech backroll on hit'
+- id: bt_3
+  source_id: Law-BT.3
+  source_index: 131
+  command: BT.3
+  name: ''
+  hit_level: h
+  damage: '18'
+  startup: i10
+  recovery: ''
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bt_4
+  source_id: Law-BT.4
+  source_index: 132
+  command: BT.4
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i11
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bt_4_3
+  source_id: Law-BT.4,3
+  source_index: 133
+  command: BT.4,3
+  name: Wolf Fang
+  hit_level: h, m
+  damage: 14, 24
+  startup: i11, i24
+  recovery: ''
+  block: '-12'
+  hit: +12a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combos from 1st hit CH'
+- id: bt_1p2
+  source_id: Law-BT.1+2
+  source_index: 134
+  command: BT.1+2
+  name: Dragon Back Blow
+  hit_level: h
+  damage: '20'
+  startup: i15~16
+  recovery: r26
+  block: '+1'
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Jab evasion'
+- id: bt_dp3
+  source_id: Law-BT.d+3
+  source_index: 135
+  command: BT.d+3
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: bt_dp4
+  source_id: Law-BT.d+4
+  source_index: 136
+  command: BT.d+4
+  name: Reverse Low
+  hit_level: l
+  damage: '17'
+  startup: i23
+  recovery: ''
+  block: '-13'
+  hit: +6c
+  counter_hit: +26d
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: bt_dp3p4
+  source_id: Law-BT.d+3+4
+  source_index: 137
+  command: BT.d+3+4
+  name: Frogman
+  hit_level: M
+  damage: '25'
+  startup: i26
+  recovery: BT
+  block: '-15'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to FUFA with D
+
+    ** (-2 oB, +13d oH)'
+- id: dss_1
+  source_id: Law-DSS.1
+  source_index: 138
+  command: DSS.1
+  name: Dragon Knuckle
+  hit_level: h
+  damage: '14'
+  startup: i12
+  recovery: r36? DSS
+  block: '+3'
+  hit: '+7'
+  counter_hit: +17c
+  tier: specialist
+  tags:
+  - stance_transition
+  - chip
+  - high
+  notes: '* 4 chip damage on block
+
+    * Transition to DSS'
+- id: dss_2
+  source_id: Law-DSS.2
+  source_index: 139
+  command: DSS.2
+  name: Cloud Gates
+  hit_level: h
+  damage: '20'
+  startup: i14
+  recovery: ''
+  block: '+1'
+  hit: +15a
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 6 chip damage on block'
+- id: dss_3
+  source_id: Law-DSS.3
+  source_index: 140
+  command: DSS.3
+  name: Dragon Charge Spin Kick
+  hit_level: h
+  damage: '25'
+  startup: i19
+  recovery: ''
+  block: '+3'
+  hit: +40a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 5 Chip damage on block'
+- id: dss_4
+  source_id: Law-DSS.4
+  source_index: 141
+  command: DSS.4
+  name: Dragon Charge Kick
+  hit_level: l
+  damage: '21'
+  startup: i21
+  recovery: ''
+  block: '-13'
+  hit: +6c
+  counter_hit: +38a
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dss_fp1
+  source_id: Law-DSS.f+1
+  source_index: 142
+  command: DSS.f+1
+  name: Dragon Roar
+  hit_level: m
+  damage: 20 (24)
+  startup: i14
+  recovery: ''
+  block: '-11'
+  hit: +12c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * 4 chip damage on block
+
+    * 7 chip damage on block (Just Frame)
+
+    * Forces tech backroll on hit
+
+    * While transitioning to DSS from other moves, it is possible to input DSS.f+1
+    on frame 1 or 2 of DSS (ex; 4,3~F:DSS.f+1) for 4 more damage on hit, 3 more chip
+    damage on block, and startup becomes i13~14 with increased pushback on block'
+- id: dss_fp3
+  source_id: Law-DSS.f+3
+  source_index: 143
+  command: DSS.f+3
+  name: Dragon Cannon
+  hit_level: m
+  damage: 27 (32)
+  startup: i20
+  recovery: ''
+  block: '-9'
+  hit: +22d (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * 8 chip damage on block
+
+    * 9 chip damage on block (Just Frame)
+
+    * While transitioning to DSS from other moves, it is possible to input DSS.f+3
+    on frame 1 or 2 of DSS (ex; 4,3~F:DSS.f+3) for 5 more damage with increased pushback
+    on block'
+- id: dss_fp4
+  source_id: Law-DSS.f+4
+  source_index: 144
+  command: DSS.f+4
+  name: Dragon's Flight
+  hit_level: h
+  damage: 36 (40)
+  startup: i19
+  recovery: ''
+  block: '+7'
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 7 chip damage on block
+
+    * 12 chip damage on block (Just Frame)
+
+    * Forces tech backroll on hit
+
+    * While transitioning to DSS from other moves, it is possible to input DSS.f+4
+    on frame 1 or 2 of DSS (ex; 4,3~F:DSS.f+4) for 4 more damage.'
+- id: hfc_1
+  source_id: Law-hFC.1
+  source_index: 145
+  command: hFC.1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: hfc_2
+  source_id: Law-hFC.2
+  source_index: 146
+  command: hFC.2
+  name: Body Blow
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Alternate input d+2
+
+    * High crush 4~'
+- id: hfc_3
+  source_id: Law-hFC.3
+  source_index: 147
+  command: hFC.3
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: hfc_3_4
+  source_id: Law-hFC.3,4
+  source_index: 148
+  command: hFC.3,4
+  name: Double Impact
+  hit_level: l, m
+  damage: 10, 27
+  startup: i16, i29
+  recovery: FC
+  block: '-14'
+  hit: +14a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  notes: 'Combo from 1st hit CH
+
+    * Low crush'
+- id: hfc_4
+  source_id: Law-hFC.4
+  source_index: 149
+  command: hFC.4
+  name: Low Kick
+  hit_level: l
+  damage: '7'
+  startup: i12
+  recovery: FC
+  block: '-15'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: 'Alternate input d+3+4
+
+    * High crush 4~'
+- id: hfc_4_3
+  source_id: Law-hFC.4,3
+  source_index: 150
+  command: hFC.4,3
+  name: Low Kick > Somersault
+  hit_level: l, m
+  damage: 7, 23
+  startup: i12, i29
+  recovery: FC
+  block: '-14'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  notes: '* Combos from 1st hit CH
+
+    * Alternate input d+3+4,3
+
+    * Low crush'
+- id: 1p3
+  source_id: Law-1+3
+  source_index: 151
+  command: 1+3
+  name: Dragon's Fire
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2'
+- id: 2p4
+  source_id: Law-2+4
+  source_index: 152
+  command: 2+4
+  name: Hopping Frog
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - stance_transition
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side swap
+
+    * Transition to BT with D
+
+    ** (+5 BT)'
+- id: back_throw
+  source_id: Law-Back throw
+  source_index: 153
+  command: Back Throw
+  name: Dragon Bites
+  hit_level: t
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Unbreakable
+- id: dss_ufp1p2
+  source_id: Law-DSS.uf+1+2
+  source_index: 154
+  command: DSS.uf+1+2
+  name: Facelift
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-2'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 1+2
+- id: h_dss_p
+  source_id: Law-H.DSS,P
+  source_index: 155
+  command: H.DSS,P
+  name: Dragon Parry
+  hit_level: t
+  damage: '38'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - heat
+  - parry
+  notes: '* Punches only
+
+    * Heat only
+
+    * Consumes 240F? of remaining Heat Time on successful parry
+
+    * Throws are unbreakable
+
+    * Parry state 5~?'
+- id: left_throw
+  source_id: Law-Left throw
+  source_index: 156
+  command: Left Throw
+  name: Headlock Kick
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 1
+- id: right_throw
+  source_id: Law-Right throw
+  source_index: 157
+  command: Right Throw
+  name: Ball Breaker
+  hit_level: t
+  damage: '42'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 2
+- id: bp2p4
+  source_id: Law-b+2+4
+  source_index: 158
+  command: b+2+4
+  name: Dragon Parry
+  hit_level: t
+  damage: '34'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - heat
+  - parry
+  - throw
+  notes: '* Punches only
+
+    * Partially restores remaining Heat Time
+
+    * Does 38 damage in Heat
+
+    * Parry state 5?'
+- id: ffp3p4
+  source_id: Law-f,F+3+4
+  source_index: 159
+  command: f,F+3+4
+  name: Knee Lift
+  hit_level: t
+  damage: '10'
+  startup: i14
+  recovery: ''
+  block: '-3'
+  hit: +55a (+28)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 1+2
+- id: fp2p3
+  source_id: Law-f+2+3
+  source_index: 160
+  command: f+2+3
+  name: Run Up > Drop
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-2'
+  hit: +6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 1
+- id: ufp1p2
+  source_id: Law-uf+1+2
+  source_index: 161
+  command: uf+1+2
+  name: Headlock Punch
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: +3d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: Throw break 1+2
+- id: ufp1p2_1_2_1p2
+  source_id: Law-uf+1+2,1,2,1+2
+  source_index: 162
+  command: uf+1+2,1,2,1+2
+  name: Headlock Drop
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: -6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Throw break 1+2
+
+    * Floor Break'

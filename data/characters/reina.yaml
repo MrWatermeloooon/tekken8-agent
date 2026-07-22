@@ -1,0 +1,3440 @@
+character_id: reina
+display_name: Reina
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/reina/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 8c377d5983655fd6fc2f4186faba876af86111e387afabb6ffa7121246615ec9
+data_status: available
+stances:
+- H
+- ws
+- SS
+- SSH
+- FC
+- BT
+- SEN
+- UNS
+- WDS
+- WGS
+- WRA
+moves:
+- id: 2p3
+  source_id: Reina-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_wra_dp3p4
+  source_id: Reina-H.WRA.d+3+4
+  source_index: 2
+  command: H.WRA.d+3+4
+  name: Divine Wrath of Annihilation
+  hit_level: l,m,m,m
+  damage: 12,8,3,12
+  startup: i18~19
+  recovery: r44
+  block: '-17'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - fbr
+  - throw
+  - heat
+  - floor_break
+  - stance_transition
+  - low
+  - mid
+  notes: '* Spike
+
+    * Floor Break
+
+    * Alternate input: H.WRA.R1
+
+    * Jails if any hit is blocked
+
+    * Transitions to attack throw on 1st hit for a total of 35 dmg
+
+    * +4a (-5) if any hit after the 1st connects
+
+    * Consumes 300F of remaining Heat time'
+- id: h_dp1p2
+  source_id: Reina-H.WRA
+  source_index: 3
+  command: H.d+1+2
+  name: Charging Hard
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - parry
+  notes: '* Automatically parries limb-based, non-airborne mids and highs
+
+    * Deals 40 damage on successful parry
+
+    * +1d on successful parry
+
+    * Throws received are unbreakable
+
+    * Parry state 20~60'
+- id: h_2p3
+  source_id: Reina-H.2+3
+  source_index: 4
+  command: H.2+3
+  name: Divine Dominance of Annihilation
+  hit_level: m,m
+  damage: 20,25
+  startup: i21
+  recovery: r80 WRA
+  block: '+8'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - throw
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate inputs: H.R1, H.WRA.2+3, H.WRA.R1
+
+    * Jails from 1st block
+
+    * Transitions to attack throw on 1st hit for a total of 50 dmg
+
+    * Transitions to r53 WRA on 2nd block, whiff or hit
+
+    * +19d WRA if only second hit connects (25 dmg)
+
+    * 7 chip damage on block'
+- id: r_dfp1p2
+  source_id: Reina-R.df+1+2
+  source_index: 5
+  command: R.df+1+2
+  name: Sacred Dismantle Spark
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Reina-1
+  source_index: 6
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Reina-1,1
+  source_index: 7
+  command: 1,1
+  name: ''
+  hit_level: h, h
+  damage: 5, 6
+  startup: i10, i15
+  recovery: r19
+  block: '-1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Jail from 1st attack with 2f delay
+- id: '1_1_2'
+  source_id: Reina-1,1,2
+  source_index: 8
+  command: 1,1,2
+  name: Flash Punch Combo
+  hit_level: h, h, m
+  damage: 5, 6, 12
+  startup: i10, ,i13
+  recovery: r38
+  block: '-17'
+  hit: '+11'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - stance_transition
+  - mid
+  - high
+  notes: '* Wall Crush +23g on hit, +14g without transition
+
+    * Combo from 1st hit with 11f delay
+
+    * Transition to SEN r29 on hit only
+
+    * Cancel to r38 on hit with B (+2)
+
+
+
+    * +16a (+7) / +7a (-2) on BT hit'
+- id: '1_2'
+  source_id: Reina-1,2
+  source_index: 9
+  command: 1,2
+  name: One Two Strike
+  hit_level: h, h
+  damage: 5, 6
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay'
+- id: '1_2_2'
+  source_id: Reina-1,2,2
+  source_index: 10
+  command: 1,2,2
+  name: Back Fist Combo
+  hit_level: h, h, h
+  damage: 5, 6, 14
+  startup: i10, ,i17
+  recovery: r33
+  block: '-14'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Jail from 2nd block with 2F delay
+
+    * Combo from 2nd hit with 2F delay
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move can be delayed by 1F
+
+    * Input can be delayed by 3F
+
+    * Transition to UNS r26 with u_d (-7/+7)'
+- id: '1_2_3'
+  source_id: Reina-1,2,3
+  source_index: 11
+  command: 1,2,3
+  name: ''
+  hit_level: h, h, m
+  damage: 5, 6, 10
+  startup: i10, ,i21~22
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Combo from 2nd CH with 3f delay
+
+    * Input can be delayed 3f
+
+    * Move can be delayed 2f'
+- id: '1_2_3_4'
+  source_id: Reina-1,2,3,4
+  source_index: 12
+  command: 1,2,3,4
+  name: Sting the Works
+  hit_level: h, h, m, h
+  damage: 5, 6, 10, 21
+  startup: i10, ,i22~23
+  recovery: r28
+  block: '-4'
+  hit: +21a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * CH-confirmable from 2nd CH
+
+    * Combo from 3rd hit with 5f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 8f
+
+    * Interrupt with i5 from 3rd block'
+- id: '2'
+  source_id: Reina-2
+  source_index: 13
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '5'
+  startup: i12
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_2'
+  source_id: Reina-2,2
+  source_index: 14
+  command: 2,2
+  name: ''
+  hit_level: h, h
+  damage: 5, 5
+  startup: i12, i14~15
+  recovery: r29
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st block with 1f delay
+
+    * Combo from 1st hit with 1f delay'
+- id: '2_2_1'
+  source_id: Reina-2,2,1
+  source_index: 15
+  command: 2,2,1
+  name: Ganzan Basara
+  hit_level: h, h, m
+  damage: 5, 5, 20
+  startup: i12, ,i22~23
+  recovery: r37
+  block: '-14'
+  hit: +12a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - hed
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Head
+
+    * Hit-confirmable from 1st hit
+
+    * Combo from 1st hit with 5f delay
+
+    * Input can be delayed 10f
+
+    * Move can be delayed 9f'
+- id: '2_2_2'
+  source_id: Reina-2,2,2
+  source_index: 16
+  command: 2,2,2
+  name: ''
+  hit_level: h, h, m
+  damage: 5, 5, 21
+  startup: i12, ,i29
+  recovery: r30
+  block: '-6'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: "* Transition to WRA r30 with D (-6/+6)\n* Transition to WRA is safe (can\
+    \ be cancelled early enough with crouch dash)  \n* Combo from 2nd hit only if\
+    \ the 2nd hit connects on i15, otherwise no combo\n* Input can be delayed 10f\n\
+    * Move can be delayed 9f\n* Interrupt with i11 from 2nd block"
+- id: '2_2_2_1'
+  source_id: Reina-2,2,2,1
+  source_index: 17
+  command: 2,2,2,1
+  name: Bishamon Massacre
+  hit_level: h, h, m, m
+  damage: 5, 5, 21, 20
+  startup: i12, ,i35~37
+  recovery: r32
+  block: -15~13
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 3rd hit with 1f delay
+
+    * Input can be delayed 4f
+
+    * Move can be delayed 3f
+
+    * Evasive, can go under jabs
+
+    * Low crush 37~57
+
+    * Floating state 58~60'
+- id: '2_2_2_2'
+  source_id: Reina-2,2,2,2
+  source_index: 18
+  command: 2,2,2,2
+  name: Raging Bishamon
+  hit_level: h, h, m, m
+  damage: 5, 5, 21, 25
+  startup: i12, ,i31
+  recovery: r38
+  block: '-14'
+  hit: +21a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 3rd hit with 4f delay
+
+    * Move can be delayed 3f
+
+    * Blue spark with input qcf+2 for 5 more damage'
+- id: '2_1'
+  source_id: Reina-2~1
+  source_index: 19
+  command: 2~1
+  name: Ondeko
+  hit_level: m,m
+  damage: 4,18
+  startup: i11(~14)
+  recovery: r33
+  block: '-14'
+  hit: +31d (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Just frame if 2 is held for exactly one frame and then 1 on the next frame.
+    Hits for 26 damage.
+
+    * 5f input window
+
+    * tracks to the left'
+- id: '3'
+  source_id: Reina-3
+  source_index: 20
+  command: '3'
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i18~19
+  recovery: r29
+  block: '-11'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - high
+  notes: 'Homing
+
+    * High crush 8~17'
+- id: '3_2'
+  source_id: Reina-3,2
+  source_index: 21
+  command: 3,2
+  name: Senjo-zuki
+  hit_level: h, h
+  damage: 12, 16
+  startup: i18~19, i20
+  recovery: r32
+  block: '-9'
+  hit: '+8'
+  counter_hit: +66a (+50)
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st hit'
+- id: '3_4'
+  source_id: Reina-3,4
+  source_index: 22
+  command: 3,4
+  name: Senjo-manji
+  hit_level: h, m
+  damage: 12, 20
+  startup: i18~19, i20
+  recovery: r36
+  block: '-14'
+  hit: +50 (+19)
+  counter_hit: +54a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: h_3_4_4
+  source_id: Reina-3,4,H.4
+  source_index: 23
+  command: H.3,4,4
+  name: Senjomanji Lethal Fury
+  hit_level: h, m, m
+  damage: 12, 20, 28
+  startup: i18~19, ,i27
+  recovery: r42
+  block: '-8'
+  hit: +23a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit'
+- id: '4'
+  source_id: Reina-4
+  source_index: 24
+  command: '4'
+  name: Nobility Hunter
+  hit_level: h
+  damage: '20'
+  startup: i13~14
+  recovery: r31
+  block: '-8'
+  hit: +11g
+  counter_hit: +35a
+  tier: core
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Opponent is FUFA on CH'
+- id: 1p2
+  source_id: Reina-1+2
+  source_index: 25
+  command: 1+2
+  name: Demon Breath
+  hit_level: m
+  damage: '25'
+  startup: i12~13
+  recovery: r31
+  block: -10~-9
+  hit: +24a (+14)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: 1p4
+  source_id: Reina-1+4
+  source_index: 26
+  command: 1+4
+  name: Fukuteki
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30 FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to WGS with DF after 14 frames
+
+    * Execute EWGF or EWGK by inputting 2 or 3 respectively exactly one frame after
+    DF
+
+    * High crush 1~30'
+- id: 2p3p4
+  source_id: Reina-2+3+4
+  source_index: 27
+  command: 2+3+4
+  name: Taunt
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: Input d+2+3+4 to get Heihachi's secret taunt
+- id: 3p4
+  source_id: Reina-3+4
+  source_index: 28
+  command: 3+4
+  name: ''
+  hit_level: m,m
+  damage: 5,10
+  startup: i18 i26
+  recovery: r27 FC
+  block: '-8'
+  hit: +3c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - mid
+  notes: 'Spike
+
+    * Low crush 9~26'
+- id: 3p4_4
+  source_id: Reina-3+4,4
+  source_index: 29
+  command: 3+4,4
+  name: Aerial Manji-geri
+  hit_level: m,m, m
+  damage: 5,10, 20
+  startup: i18 i26, i16
+  recovery: r36
+  block: '-14'
+  hit: +50 (+19)
+  counter_hit: +54a
+  tier: specialist
+  tags:
+  - mid
+  notes: Combo from 1st hit with 4f delay
+- id: h_3p4_4_4
+  source_id: Reina-3+4,4,H.4
+  source_index: 30
+  command: H.3+4,4,4
+  name: Aerial Manji Lethal Fury
+  hit_level: m,m, m, m
+  damage: 5,10, 20, 28
+  startup: i18 i26, ,i27
+  recovery: r42
+  block: '-8'
+  hit: +23a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit'
+- id: fp2
+  source_id: Reina-f+2
+  source_index: 31
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '8'
+  startup: i13
+  recovery: r28
+  block: '-9'
+  hit: '-3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to r16 UNS (+0/+6) with u_d'
+- id: fp2_3
+  source_id: Reina-f+2,3
+  source_index: 32
+  command: f+2,3
+  name: Sousoku Rengeki
+  hit_level: h, m
+  damage: 8, 16
+  startup: i13, i18~19
+  recovery: r30
+  block: '-9'
+  hit: '+2'
+  counter_hit: '+6'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jails from 1st hit without delay
+
+    * Combo from 1st hit with 6F delay
+
+    * Transition to SEN (-2/+9/+13) with input F
+
+    * Cannot block up to i12 on empty transition on block
+
+    * Can be delayed'
+- id: fp3
+  source_id: Reina-f+3
+  source_index: 33
+  command: f+3
+  name: Sentai
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r14 SEN
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: fp4
+  source_id: Reina-f+4
+  source_index: 34
+  command: f+4
+  name: Kamadhatu Splits Kick
+  hit_level: m
+  damage: '20'
+  startup: i19~20
+  recovery: r24
+  block: +2c
+  hit: +5c
+  counter_hit: +29d
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* +13c on crouching hit
+
+    * Opponent is FDFA on CH
+
+    * Spike'
+- id: fp1p2
+  source_id: Reina-f+1+2
+  source_index: 35
+  command: f+1+2
+  name: Senshin-zuki
+  hit_level: m
+  damage: '22'
+  startup: i32
+  recovery: r33
+  block: '-11'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - cs
+  - high_crush
+  - stance_transition
+  - mid
+  notes: '* Wall Crush +19g on hit
+
+
+
+    * Transition to SSH r20 with 3_uf_uf+3_uf+4
+
+    * High crush 6~17'
+- id: fp3p4
+  source_id: Reina-f+3+4
+  source_index: 36
+  command: f+3+4
+  name: Ouhen Manji-geri
+  hit_level: m
+  damage: '25'
+  startup: i43
+  recovery: r36
+  block: '-14'
+  hit: +50 (+19)
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* Cancel to r24 FC at earliest with input DB/D/DF
+
+    * High crush 6~33'
+- id: fp3p4
+  source_id: Reina-f+3+4*
+  source_index: 37
+  command: f+3+4*
+  name: Ouhen Fubi Manji-geri
+  hit_level: m
+  damage: '30'
+  startup: i67
+  recovery: r38
+  block: '+10'
+  hit: +52a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - heat
+  - high_crush
+  - chip
+  - mid
+  notes: '* Guard Break
+
+    * Cancel to r24 FC at earliest with input DB/D/DF
+
+    * 9 chip damage in heat
+
+    * High crush 6~57'
+- id: h_fp3p4_4
+  source_id: Reina-f+3+4*,H.4
+  source_index: 38
+  command: H.f+3+4*,4
+  name: ''
+  hit_level: m, m
+  damage: 30, 28
+  startup: i67, i27
+  recovery: r42
+  block: '-8'
+  hit: +23a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: "* Balcony Break\n* Combo from 1st block \n* does 19 damage if 1st connect\
+    \ on block or hit"
+- id: h_fp3p4_4
+  source_id: Reina-f+3+4,H.4
+  source_index: 39
+  command: H.f+3+4,4
+  name: Ouhen Manji Lethal Fury
+  hit_level: m, m
+  damage: 25, 28
+  startup: i43, i27
+  recovery: r42
+  block: '-8'
+  hit: +23a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: dfp1
+  source_id: Reina-df+1
+  source_index: 40
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i13~14
+  recovery: r20
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to SEN r18 with F (-3/+4)
+
+    * Cannot block up to i15 on empty transition on block'
+- id: dfp1_1
+  source_id: Reina-df+1,1
+  source_index: 41
+  command: df+1,1
+  name: Muso Tensho
+  hit_level: m, h
+  damage: 8, 10
+  startup: i13~14, i20
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 4F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F'
+- id: dfp1_2
+  source_id: Reina-df+1,2
+  source_index: 42
+  command: df+1,2
+  name: Muso Basara
+  hit_level: m, m
+  damage: 8, 20
+  startup: i13~14, i22~23
+  recovery: r37
+  block: '-14'
+  hit: +12a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - hed
+  - heat
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Head
+
+    * Combo from 1st hit with 2F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F'
+- id: dfp2
+  source_id: Reina-df+2
+  source_index: 43
+  command: df+2
+  name: Queen Bee Stinger
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: r29
+  block: '-12'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* +2 on hit on crouching opp.
+
+    * +30a (+20) on CH on crouching opp.'
+- id: dfp3
+  source_id: Reina-df+3
+  source_index: 44
+  command: df+3
+  name: Wind God Step
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r20
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  notes: '* Transition to SEN with f+3'
+- id: dfp4
+  source_id: Reina-df+4
+  source_index: 45
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15
+  recovery: r23
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_2
+  source_id: Reina-df+4,2
+  source_index: 46
+  command: df+4,2
+  name: ''
+  hit_level: m, m
+  damage: 14, 10
+  startup: i15, i18
+  recovery: r30
+  block: '-8'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to WRA r28 with D (-6/+8)
+
+    * Combo from 1st hit'
+- id: dfp4_2_3
+  source_id: Reina-df+4,2,3
+  source_index: 47
+  command: df+4,2,3
+  name: Gekirosatsu
+  hit_level: m, m, h
+  damage: 14, 10, 20
+  startup: i15, ,i27
+  recovery: r33
+  block: '-8'
+  hit: +35a
+  counter_hit: +71a (+55)
+  tier: specialist
+  tags:
+  - trn
+  - cs
+  - high_crush
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * High crush 7~15'
+- id: dfp3p4
+  source_id: Reina-df+3+4
+  source_index: 48
+  command: df+3+4
+  name: ''
+  hit_level: m,h
+  damage: 5,10
+  startup: i16,i5~9
+  recovery: r29
+  block: '-15'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - throw
+  - high_crush
+  - stance_transition
+  - mid
+  - high
+  notes: 'Transition to attack throw on CH
+
+    * High crush 9~14'
+- id: dfp3p4_4
+  source_id: Reina-df+3+4,4
+  source_index: 49
+  command: df+3+4,4
+  name: Kasho Maki-manji
+  hit_level: m,h, m
+  damage: 5,10, 20
+  startup: i16,i5~9, i20
+  recovery: r36
+  block: '-14'
+  hit: +50 (+19)
+  counter_hit: +54a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: dp1
+  source_id: Reina-d+1
+  source_index: 50
+  command: d+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dp2
+  source_id: Reina-d+2
+  source_index: 51
+  command: d+2
+  name: Tecchuu-ate
+  hit_level: m
+  damage: '17'
+  startup: i15
+  recovery: r27
+  block: +0c
+  hit: +3c
+  counter_hit: +33d
+  tier: specialist
+  tags:
+  - spk
+  - elb
+  - mid
+  notes: '* Spike
+
+    * Elbow
+
+    * Does not knockdown on counter hit after inputting d+2,H.1+2'
+- id: h_dp2_1p2
+  source_id: Reina-d+2,H.1+2
+  source_index: 52
+  command: H.d+2,1+2
+  name: Demon's Lethal Fury
+  hit_level: m, m
+  damage: 17, 28
+  startup: i15, i12~13
+  recovery: r31
+  block: +5 UNS
+  hit: +33a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to r20 +7 UNS on block
+
+    * 5 chip damage on block
+
+    * Consumes 300?F of remaining Heat time'
+- id: dp3
+  source_id: Reina-d+3
+  source_index: 53
+  command: d+3
+  name: Unsoku Kou
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r18 UNS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Transition to UNS (Kou, d)
+
+    * Transition to UNS (Gou) r20 with b+3
+
+    * Transition to UNS (Kou) r18 with u+3
+
+    * Transition to SEN r14 with f+3
+
+    * Transition to WGS r1 with DF
+
+    ** Execute EWGF or EWGK by inputting 2 or 3 respectively exactly one frame after
+    DF
+
+    * Punch parry, transitions to WGS on successful parry with +13
+
+    * Parry state 5~12'
+- id: dp4
+  source_id: Reina-d+4
+  source_index: 54
+  command: d+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: dp1p2
+  source_id: Reina-d+1+2
+  source_index: 55
+  command: d+1+2
+  name: Heaven's Wrath
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r30
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to r14 SEN with f+3
+
+    * Transition to r2 WGS with DF'
+- id: dbp2
+  source_id: Reina-db+2
+  source_index: 56
+  command: db+2
+  name: Eisaimon
+  hit_level: l,l
+  damage: 10,12
+  startup: i20~21,i9~10
+  recovery: ''
+  block: '-16'
+  hit: '-3'
+  counter_hit: +3c
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dbp4
+  source_id: Reina-db+4
+  source_index: 57
+  command: db+4
+  name: ''
+  hit_level: L
+  damage: '7'
+  startup: i16
+  recovery: ''
+  block: '-13'
+  hit: '-2'
+  counter_hit: '+2'
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dbp4_1p2
+  source_id: Reina-db+4,1+2
+  source_index: 58
+  command: db+4,1+2
+  name: Un Oshi-kuzushi
+  hit_level: L, m
+  damage: 7, 20
+  startup: i16, i15
+  recovery: r34
+  block: '-12'
+  hit: +39d (-19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st CH even with delay
+
+    * Can be delayed
+
+    * CH-confirmable from 1st CH'
+- id: bp1
+  source_id: Reina-b+1
+  source_index: 59
+  command: b+1
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i18
+  recovery: r23
+  block: '-4'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: bp1_1
+  source_id: Reina-b+1,1
+  source_index: 60
+  command: b+1,1
+  name: ''
+  hit_level: h, m
+  damage: 14, 15
+  startup: i18, i22
+  recovery: r28
+  block: '-10'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit without delay
+
+    * Can be delayed'
+- id: bp1_1_3
+  source_id: Reina-b+1,1,3
+  source_index: 61
+  command: b+1,1,3
+  name: ''
+  hit_level: h, m, m
+  damage: 14, 15, 13
+  startup: i18, ,i15~17
+  recovery: r28
+  block: '-10'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to SEN r18 with F (+0/+13)
+
+    * Cannot block up to i14 on empty transition on block
+
+    * Combo from 2nd CH
+
+    * Jails from 2nd block'
+- id: bp1_1_3_3
+  source_id: Reina-b+1,1,3,3
+  source_index: 62
+  command: b+1,1,3,3
+  name: Hen-in 4 Hit Combo
+  hit_level: h, m, m, m
+  damage: 14, 15, 13, 20
+  startup: i18, ,i32
+  recovery: r37
+  block: '-16'
+  hit: +48 (+17)
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: bp1p3
+  source_id: Reina-b+1+3
+  source_index: 63
+  command: b+1+3
+  name: Tatenashi
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Parry mids and highs
+
+    * Converts incoming damage to recoverable health
+
+    * Transitions to WRA on successful parry with +(recv - 17) where recv is the recovery
+    of the parried move
+
+    * Parry state 3~8'
+- id: bp2
+  source_id: Reina-b+2
+  source_index: 64
+  command: b+2
+  name: Sin Smiter
+  hit_level: m
+  damage: '14'
+  startup: i16~17
+  recovery: r29
+  block: '-9'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: Homing
+- id: bp3
+  source_id: Reina-b+3
+  source_index: 65
+  command: b+3
+  name: Unsoku Gen
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 UNS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to UNS (Gen)
+
+    * Transition to UNS (Kou) r18 with u+3_d+3
+
+    * Transition to SEN r14 with f+3
+
+    * Transition to WGS r1 with DF
+
+    ** Execute EWGF or EWGK by inputting 2 or 3 respectively exactly one frame after
+    DF
+
+    * See also Unsoku Cancel'
+- id: bp4
+  source_id: Reina-b+4
+  source_index: 66
+  command: b+4
+  name: Ebi-geri
+  hit_level: h
+  damage: '20'
+  startup: i18
+  recovery: r32
+  block: '-8'
+  hit: +35a
+  counter_hit: +71a (+55)
+  tier: core
+  tags:
+  - trn
+  - cs
+  - high_crush
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * High crush 6~17'
+- id: bp1p2
+  source_id: Reina-b+1+2
+  source_index: 67
+  command: b+1+2
+  name: Kugai Dachi
+  hit_level: m
+  damage: '20'
+  startup: i18
+  recovery: r35
+  block: '-13'
+  hit: +14g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * -8 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~17'
+- id: bp1p4
+  source_id: Reina-b+1+4
+  source_index: 68
+  command: b+1+4
+  name: Clairvoyant Fatal Violet
+  hit_level: ub(m)
+  damage: '50'
+  startup: i64
+  recovery: ''
+  block: ''
+  hit: +20d (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Can cancel with input b,b'
+- id: ubp4
+  source_id: Reina-ub+4
+  source_index: 69
+  command: ub+4
+  name: Silver Gleam
+  hit_level: m
+  damage: '13'
+  startup: i17~18
+  recovery: r32
+  block: '-13'
+  hit: +16a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Low crush 9~'
+- id: ubp1p2
+  source_id: Reina-ub+1+2
+  source_index: 70
+  command: ub+1+2
+  name: Fading Shadow
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Transition to WGS r50 with DF
+
+    ** Execute EWGF or EWGK by inputting 2 or 3 respectively exactly one frame after
+    transition
+
+    * Low crush 10~24
+
+    * Floating state 25~27'
+- id: up3
+  source_id: Reina-u+3
+  source_index: 71
+  command: u+3
+  name: Unsoku Kou
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r18 UNS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Transition to UNS (Kou, u)
+
+    * Transition to UNS (Gou) r20 with b+3
+
+    * Transition to UNS (Kou) r18 with d+3
+
+    * Transition to SEN r14 with f+3
+
+    * Transition to WGS r1 with DF
+
+    ** Execute EWGF or EWGK by inputting 2 or 3 respectively exactly one frame after
+    DF
+
+    * Punch parry, transitions to WGS on successful parry with +13
+
+    * Parry state 5~12'
+- id: up1p2
+  source_id: Reina-u+1+2
+  source_index: 72
+  command: u+1+2
+  name: Swift Shadow
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Transition to Wind God Step r36 with input DF
+
+    ** Execute EWGF or EWGK by inputting 2/3 exactly one frame after transition
+
+    * Low crush 10~24
+
+    * Floating state 25~27'
+- id: ufp1
+  source_id: Reina-uf+1
+  source_index: 73
+  command: uf+1
+  name: Seigan Ugachi
+  hit_level: h
+  damage: '15'
+  startup: i13
+  recovery: r33
+  block: '-9'
+  hit: '+8'
+  counter_hit: '+17'
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transitions to WRA (-/+8/+17) on hit'
+- id: ufp2
+  source_id: Reina-uf+2
+  source_index: 74
+  command: uf+2
+  name: ''
+  hit_level: h
+  damage: '17'
+  startup: i15-i16
+  recovery: r29
+  block: '-12'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: "* Normal hit offsets opponent slightly to the left of the axis and rotates\
+    \ them. \n* Counter hit pushes the opponent on axis like most moves and does not\
+    \ rotate the opponent."
+- id: ufp3
+  source_id: Reina-uf+3
+  source_index: 75
+  command: uf+3
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i21~22
+  recovery: r27
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - high
+  notes: '* Low crush 11~'
+- id: ufp3_1
+  source_id: Reina-uf+3,1
+  source_index: 76
+  command: uf+3,1
+  name: Tobisenzuki
+  hit_level: h, m
+  damage: 10, 15
+  startup: i21~22, i16
+  recovery: r26
+  block: '-5'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* +13c on crouching hit
+
+    * Jails on 1st block
+
+    * Combo from 1st hit'
+- id: ufp4
+  source_id: Reina-uf+4
+  source_index: 77
+  command: uf+4
+  name: Silver Gleam
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r32
+  block: '-13'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Low crush 9~'
+- id: ufp3p4
+  source_id: Reina-uf+3+4
+  source_index: 78
+  command: uf+3+4
+  name: ''
+  hit_level: mm
+  damage: 10,10
+  startup: i20,i4
+  recovery: ''
+  block: '-10'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: ufp3p4_1p2
+  source_id: Reina-uf+3+4,1+2
+  source_index: 79
+  command: uf+3+4,1+2
+  name: Un Hiensatsu
+  hit_level: mm, m
+  damage: 10,10, 20
+  startup: i20,i4, i17
+  recovery: r35
+  block: '-14'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit'
+- id: 1p2p3p4
+  source_id: Reina-1+2+3+4
+  source_index: 80
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_b_ub
+  source_id: Reina-b,b,UB
+  source_index: 81
+  command: b,b,UB
+  name: Wall Jump
+  hit_level: m
+  damage: '21'
+  startup: i39-41
+  recovery: r25
+  block: +4c
+  hit: +22a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: 'Requires back close to wall to execute
+
+    * Low crush'
+- id: ffp2
+  source_id: Reina-f,F+2
+  source_index: 82
+  command: f,F+2
+  name: Raiden
+  hit_level: m
+  damage: '14'
+  startup: i12
+  recovery: r33
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - mid
+  notes: "* Transition to SEN r22 with F (+2/+13) \n* Cannot block up to i12 on empty\
+    \ transition on block"
+- id: ffp3
+  source_id: Reina-f,F+3
+  source_index: 83
+  command: f,F+3
+  name: Trailokya Splits Kick
+  hit_level: m
+  damage: '20'
+  startup: i20~22
+  recovery: r28
+  block: '-3'
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - spk
+  - heat
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Spike'
+- id: ffp3p4
+  source_id: Reina-f,F+3+4
+  source_index: 84
+  command: f,F+3+4
+  name: Un Hien-geri
+  hit_level: h
+  damage: '22'
+  startup: i16~19
+  recovery: r22
+  block: '-2'
+  hit: +23c
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit
+
+    * Low crush 8~27
+
+    * Floating state 28~30'
+- id: f_n
+  source_id: Reina-f,n
+  source_index: 85
+  command: f,n
+  name: Wind Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r2
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  - stance_transition
+  notes: '* Can transition to WGS with input DF
+
+    * Punch parry, transitions to WGS on successful parry with +10
+
+    * Stance moves are unbufferable
+
+    * Parry state 2~8'
+- id: f_n_d_df_2
+  source_id: Reina-f,n,d,df${justFrame}2
+  source_index: 86
+  command: f,n,d,df:2
+  name: Electric Wind God Fist
+  hit_level: h
+  damage: '23'
+  startup: i11~12 (~i13)
+  recovery: r24
+  block: '+5'
+  hit: +35a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - high
+  notes: '* 4 chip damage on block'
+- id: f_n_d_df_3
+  source_id: Reina-f,n,d,df${justFrame}3
+  source_index: 87
+  command: f,n,d,df:3
+  name: Electric War God Kick
+  hit_level: M
+  damage: '23'
+  startup: i15~17
+  recovery: r39 FC
+  block: '-9'
+  hit: +13a (-4)
+  counter_hit: +23a (+17)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 4 chip damage on block'
+- id: f_ffp3
+  source_id: Reina-f,f,F+3
+  source_index: 88
+  command: f,f,F+3
+  name: Ten Chuten-geri
+  hit_level: m
+  damage: '22'
+  startup: i24~27
+  recovery: r29
+  block: '+6'
+  hit: +32a (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 6 chip damage on block
+
+    * Low crush 3~34
+
+    * Floating state 35~37'
+- id: f_ffp4
+  source_id: Reina-f,f,F+4
+  source_index: 89
+  command: f,f,F+4
+  name: Un Tobi Kaijo-geri
+  hit_level: h
+  damage: '23'
+  startup: i26~27
+  recovery: r33
+  block: '+4'
+  hit: +31a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Homing
+
+    * Transition to WRA r29 with D (+8/+35a (+9))
+
+    * 4 chip damage on block
+
+    * Low crush 17~26
+
+    * Floating state 27~29'
+- id: ws1
+  source_id: Reina-ws1
+  source_index: 90
+  command: ws1
+  name: Jewel Snatcher
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r36
+  block: '-13'
+  hit: +13 SEN
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: Transition to SEN r39 on hit
+- id: ws2
+  source_id: Reina-ws2
+  source_index: 91
+  command: ws2
+  name: Benten Thrust
+  hit_level: m
+  damage: '20'
+  startup: i18
+  recovery: r34
+  block: '-8'
+  hit: '+9'
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * High crush 1~6'
+- id: ws3
+  source_id: Reina-ws3
+  source_index: 92
+  command: ws3
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i15~16
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws3_4
+  source_id: Reina-ws3,4
+  source_index: 93
+  command: ws3,4
+  name: Twin Stingers
+  hit_level: m, h
+  damage: 14, 19
+  startup: i15~16, i22~23
+  recovery: r28
+  block: '-4'
+  hit: +21a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit with 8F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: ws4
+  source_id: Reina-ws4
+  source_index: 94
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4_4
+  source_id: Reina-ws4,4
+  source_index: 95
+  command: ws4,4
+  name: Seven Seas Splits Kick
+  hit_level: m, m
+  damage: 10, 15
+  startup: i11~12, i17~18
+  recovery: r36
+  block: '-17'
+  hit: -1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Jails from 1st block with 2F delay
+
+    * Transition to WRA r29 with D (-10/+6)
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F'
+- id: ws3p4
+  source_id: Reina-ws3+4
+  source_index: 96
+  command: ws3+4
+  name: Hen Gyakujo-geri
+  hit_level: m
+  damage: '14'
+  startup: i14~15
+  recovery: r29
+  block: '-8'
+  hit: '+14'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* High crush 1~13'
+- id: ss_4
+  source_id: Reina-SS.4
+  source_index: 97
+  command: SS.4
+  name: Jirin Sweep
+  hit_level: l
+  damage: '17'
+  startup: i18~19
+  recovery: ''
+  block: '-13'
+  hit: '+0'
+  counter_hit: +13g
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: ssh_3
+  source_id: Reina-SSH.3
+  source_index: 98
+  command: SSH.3
+  name: Senshin Karami-ate
+  hit_level: L
+  damage: '26'
+  startup: i22
+  recovery: r44
+  block: '-26'
+  hit: -4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* i42 effective startup'
+- id: ssh_ch_3
+  source_id: Reina-SSH.CH.3
+  source_index: 99
+  command: SSH.CH.3
+  name: Nen Ashigarami
+  hit_level: L
+  damage: 33,18
+  startup: i22
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - low
+  notes: '* Floor Break'
+- id: ssh_uf
+  source_id: Reina-SSH.uf
+  source_index: 100
+  command: SSH.uf
+  name: Senshin Hiei
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  notes: '* Floating state 1~13
+
+    * Low crush 14~30
+
+    * Floating state 31~33'
+- id: ssh_ufp3
+  source_id: Reina-SSH.uf+3
+  source_index: 101
+  command: SSH.uf+3
+  name: Senshin Chuten-geri
+  hit_level: m
+  damage: '22'
+  startup: i30~33
+  recovery: r29
+  block: '+6'
+  hit: +32a (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * i50~53 effective startup
+
+    * 6 chip damage on block
+
+    * Floating state 1~13
+
+    * Low crush 12~37
+
+    * Floating state 38~40'
+- id: ssh_ufp4
+  source_id: Reina-SSH.uf+4
+  source_index: 102
+  command: SSH.uf+4
+  name: Senshin Tobi Kaijo-geri
+  hit_level: h
+  damage: '28'
+  startup: i32~33
+  recovery: r33
+  block: '+4'
+  hit: +31a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - fs
+  - js
+  - homing
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * i52~53 effective startup
+
+    * 5 chip damage on block
+
+    * Transition to WRA r29 with D (+8/+35a (+9))
+
+    * Floating state 1~22
+
+    * Low crush 23~32
+
+    * Floating state 33~35'
+- id: fc_dfp3
+  source_id: Reina-FC.df+3
+  source_index: 103
+  command: FC.df+3
+  name: Nen Hangetsu-ate
+  hit_level: m
+  damage: '25'
+  startup: i20
+  recovery: r39
+  block: '-17'
+  hit: +54a (+34)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - fs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Can evade some mids
+
+    * High crush 1~
+
+    * Floating state 18~19'
+- id: fc_dfp4
+  source_id: Reina-FC.df+4
+  source_index: 104
+  command: FC.df+4
+  name: Manji-geri
+  hit_level: m
+  damage: '20'
+  startup: i15
+  recovery: r35
+  block: '-14'
+  hit: +54a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: fc_dp3
+  source_id: Reina-FC.d+3
+  source_index: 105
+  command: FC.d+3
+  name: ''
+  hit_level: l
+  damage: '10'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: bt_4
+  source_id: Reina-BT.4
+  source_index: 106
+  command: BT.4
+  name: Rear Manji-geri
+  hit_level: m
+  damage: '20'
+  startup: i17
+  recovery: r35
+  block: '-14'
+  hit: +54a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Strong Aerial Tailspin
+- id: ch_dfp3p4
+  source_id: Reina-CH.df+3+4
+  source_index: 107
+  command: CH.df+3+4
+  name: Nen Dougarami
+  hit_level: m,t
+  damage: 6,35
+  startup: i16
+  recovery: ''
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  - throw
+  notes: Spike
+- id: otg_dp4
+  source_id: Reina-OTG.d+4
+  source_index: 108
+  command: OTG.d+4
+  name: ''
+  hit_level: L
+  damage: 14 (11)
+  startup: i19
+  recovery: ''
+  block: '-19'
+  hit: -8 / -8a (-16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: 22 (17) dmg if done with input OTG.d+4 alone
+- id: otg_dp4_1
+  source_id: Reina-OTG.d+4,1
+  source_index: 109
+  command: OTG.d+4,1
+  name: Totetsu Jyurin
+  hit_level: L, L
+  damage: 14 (11), 17 (20)
+  startup: i19, i20~21
+  recovery: ''
+  block: '-26'
+  hit: -10 / -15a (-23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* Blue spark with input OTG.d+4:1 on frames 15-18 for 20 (16) dmg
+
+    * Jails from 1st block
+
+    * Combo from 1st hit'
+- id: sen_1
+  source_id: Reina-SEN.1
+  source_index: 110
+  command: SEN.1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i16
+  recovery: r36
+  block: '-14'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - pc
+  - power_crush
+  - chip
+  - mid
+  notes: '-9 and 2 chip damage on block after absorbing an attack in power crush state
+
+    * Power crush 6~15'
+- id: sen_1_2
+  source_id: Reina-SEN.1,2
+  source_index: 111
+  command: SEN.1,2
+  name: Furin Kazan
+  hit_level: m, m
+  damage: 12, 25
+  startup: i16, i26
+  recovery: r39
+  block: '-16'
+  hit: +21a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Blue spark with input qcf+2 for 5 extra damage
+
+    * Hit-confirmable from 1st hit or if attack was absorbed
+
+    * Combo from 1st hit even with 9?F delay
+
+    * Can be delayed by 10?F
+
+    -9 and 7 chip damage on block after absorbing an attack in power crush state'
+- id: sen_2
+  source_id: Reina-SEN.2
+  source_index: 112
+  command: SEN.2
+  name: Rashomon
+  hit_level: m
+  damage: '20'
+  startup: i13
+  recovery: r31
+  block: '-6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transition to WRA (-6/+8) with D
+
+    * Transition to WRA is safe (can cancel WRA with crouch dash early enough)'
+- id: sen_3
+  source_id: Reina-SEN.3
+  source_index: 113
+  command: SEN.3
+  name: Sen Kaijo-geri
+  hit_level: h
+  damage: '22'
+  startup: i12~13
+  recovery: r26
+  block: '+1'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - he
+  - heat
+  - homing
+  - chip
+  - high
+  notes: '* Homing
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Deals chip damage on block'
+- id: sen_4
+  source_id: Reina-SEN.4
+  source_index: 114
+  command: SEN.4
+  name: Kandachi-geri
+  hit_level: M
+  damage: '24'
+  startup: i26~27
+  recovery: r26
+  block: '+4'
+  hit: +12d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  notes: '* Deals chip damage on block
+
+    * Spike
+
+    * Low crush 8~16
+
+    * Floating state 17~19'
+- id: sen_1p2
+  source_id: Reina-SEN.1+2
+  source_index: 115
+  command: SEN.1+2
+  name: Inverse Deva Laser
+  hit_level: m,m
+  damage: 13,17
+  startup: i14~15,i12~13
+  recovery: r32? WRA
+  block: -6 WRA
+  hit: +31a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transitions to r32? WRA after recovery'
+- id: sen_3p4
+  source_id: Reina-SEN.3+4
+  source_index: 116
+  command: SEN.3+4
+  name: Yaksha Sweep
+  hit_level: L,h
+  damage: 10,12
+  startup: i20~21, i35~36
+  recovery: ''
+  block: -29/-11
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - low
+  - high
+  notes: '* Homing
+
+    * -29 stagger block on 1st block
+
+    * -11 on 2nd block
+
+    * High crush 10~34'
+- id: uns_2
+  source_id: Reina-UNS.2
+  source_index: 117
+  command: UNS.2
+  name: Stone Cutter
+  hit_level: h
+  damage: '15'
+  startup: i13
+  recovery: ''
+  block: '-3'
+  hit: '+8'
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - high
+  notes: '* Homing'
+- id: uns_4
+  source_id: Reina-UNS.4
+  source_index: 118
+  command: UNS.4
+  name: Unpu Tobi-Manji
+  hit_level: m
+  damage: '23'
+  startup: i18~19
+  recovery: r29
+  block: '-8'
+  hit: +43a (-15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - cs
+  - heat
+  - high_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * 6 chip damage on block
+
+    * Can be cancelled into crouch with DB/D/DF
+
+    * High crush 6~16'
+- id: uns_dp4
+  source_id: Reina-UNS.d+4
+  source_index: 119
+  command: UNS.d+4
+  name: Santei Gedan-Geri
+  hit_level: L
+  damage: '14'
+  startup: i20
+  recovery: r33
+  block: '-12'
+  hit: +3 SEN
+  counter_hit: +13 SEN
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to SEN on hit only
+
+    * Transition to standing (+0/+10) on hit with B
+
+    * WDS.4: Unbufferable. i22 effective startup
+
+    * High crush 6~35'
+- id: wds_3
+  source_id: Reina-WDS.3
+  source_index: 120
+  command: WDS.3
+  name: Fusenkyaku
+  hit_level: m
+  damage: '17'
+  startup: i16~17
+  recovery: r31
+  block: '-6'
+  hit: '+4'
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - mid
+  notes: '- WDS.3: Unbufferable. i18 effective startup'
+- id: wgs_1
+  source_id: Reina-WGS.1
+  source_index: 121
+  command: WGS.1
+  name: Thunder God Fist
+  hit_level: m
+  damage: 24/26
+  startup: i19~21
+  recovery: r38
+  block: '-22'
+  hit: +24a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* 26 dmg if manual CD
+
+    * Low crush 19~40
+
+    * Floating state 41~43'
+- id: wgs_1_3
+  source_id: Reina-WGS.1,3
+  source_index: 122
+  command: WGS.1,3
+  name: Lightning Splits Kick
+  hit_level: m, m
+  damage: 24/26, 22 (15)
+  startup: i19~21, i26~30
+  recovery: r33
+  block: '-12'
+  hit: +14a / +18d (-17)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Airborne combo from 1st hit (+18d (-17))
+
+    * Interrupt with i9 from 1st block
+
+    * 6 chip damage on block
+
+    * Low crush 1~31'
+- id: wgs_1_4
+  source_id: Reina-WGS.1,4
+  source_index: 123
+  command: WGS.1,4
+  name: Lightning Wheel
+  hit_level: m, h
+  damage: 24/26, 26 (18)
+  startup: i19~21, i23~27
+  recovery: r48
+  block: '-7'
+  hit: +13a (-13) / +1a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wc
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Wall Crush +0c on block
+
+
+
+    * Airborne combo from 1st hit (+1a (+0))
+
+    * Interrupt with i2 from 1st block
+
+    * 10 chip damage on block
+
+    * Low crush 1~30
+
+    * Floating state 31~33'
+- id: wgs_2
+  source_id: Reina-WGS.2
+  source_index: 124
+  command: WGS.2
+  name: Wind God Fist
+  hit_level: h
+  damage: 15/20
+  startup: i11~12
+  recovery: r28
+  block: '-10'
+  hit: +35a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - high
+  notes: '* Becomes Electric Wind God Fist during Heat (partially uses remaining Heat
+    Time)
+
+    ** 4 chip damage on block
+
+    * 20dmg if manual CD'
+- id: wgs_dfp4
+  source_id: Reina-WGS.DF+4
+  source_index: 125
+  command: WGS.DF+4
+  name: ''
+  hit_level: L
+  damage: 6/8
+  startup: i16
+  recovery: r39 FC
+  block: '-23'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* 8 dmg if manual CD
+
+    * High crush 15~55'
+- id: wgs_dfp4_2
+  source_id: Reina-WGS.DF+4,2
+  source_index: 126
+  command: WGS.DF+4,2
+  name: Ruthless Demon
+  hit_level: L, h
+  damage: 6/8, 20
+  startup: i16, i24
+  recovery: r41
+  block: '-22'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Transition to WRA with D (-15/+6)
+
+    * Combo from 1st hit'
+- id: wgs_dfp4_4
+  source_id: Reina-WGS.DF+4,4
+  source_index: 127
+  command: WGS.DF+4,4
+  name: Spinning Demon
+  hit_level: L, L
+  damage: 6/8, 16
+  startup: i16, i17~18
+  recovery: r37 FC
+  block: '-23'
+  hit: '+2'
+  counter_hit: +23a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Combo from 1st hit
+
+    * High crush 10~55'
+- id: wgs_dfp3
+  source_id: Reina-WGS.DF+3
+  source_index: 128
+  command: WGS.df+3
+  name: War God Kick
+  hit_level: M
+  damage: 17/21
+  startup: i15~17
+  recovery: r39 FC
+  block: '-13'
+  hit: +13a (-4)
+  counter_hit: +23a (+17)
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - mid
+  notes: '* Becomes 22dmg Electric War God Kick during Heat (partially uses remaining
+    Heat Time)
+
+    ** 4 chip damage on block
+
+    * 21dmg when performing f,n,d,DF+3/f,n,DF+3 without Heat'
+- id: wra_1
+  source_id: Reina-WRA.1
+  source_index: 129
+  command: WRA.1
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i12
+  recovery: r28
+  block: '-4'
+  hit: '+8'
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - stance_transition
+  - high
+  notes: '* Homing
+
+    * Transition to SEN with F (+0/+12/+18c)
+
+    * Cannot block up to i13 on empty transition on block
+
+    * Transition to UNS with u_d (+0/+12/+18c)'
+- id: wra_1_4
+  source_id: Reina-WRA.1,4
+  source_index: 130
+  command: WRA.1,4
+  name: Funkei Goma
+  hit_level: h, M
+  damage: 12, 22
+  startup: i12, i25~26
+  recovery: r40
+  block: -9c
+  hit: +9d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 1st hit with 6F delay
+
+    * Interrupt with i6 from 1st block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F
+
+    * 6 chip damage on block'
+- id: wra_2
+  source_id: Reina-WRA.2
+  source_index: 131
+  command: WRA.2
+  name: Iron Hand
+  hit_level: m
+  damage: '30'
+  startup: i15~16
+  recovery: r32
+  block: '-9'
+  hit: +11a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * 9 chip damage on block'
+- id: wra_3
+  source_id: Reina-WRA.3
+  source_index: 132
+  command: WRA.3
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i28
+  recovery: r28
+  block: '-6'
+  hit: +22a (+12)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 3 chip damage on block
+
+    * Low crush 9~36
+
+    * Floating state 37~39'
+- id: wra_3_4
+  source_id: Reina-WRA.3,4
+  source_index: 133
+  command: WRA.3,4
+  name: Hell Axle
+  hit_level: m, m
+  damage: 17, 20
+  startup: i28, i18~19
+  recovery: r31
+  block: '+6'
+  hit: +17a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: "* Balcony Break\n* Jails from 1st block with 1F delay\n* Combo from 1st\
+    \ hit with 1F delay\n* 8 chip damage on block (11 total)\n* Transition to WRA\
+    \ with D (+8/+19a (+18))\n* gives wallsplat at specific distances from the wall\n\
+    * can hard wall break if 1st hit connect close to the wall \n* Available only\
+    \ on 1st hit or block\n* Move cannot be delayed\n* Input can be delayed by 1F\n\
+    * Low crush 1~26\n* Floating state 27~29"
+- id: wra_4
+  source_id: Reina-WRA.4
+  source_index: 134
+  command: WRA.4
+  name: ''
+  hit_level: M,M
+  damage: 6,8
+  startup: i17~18,i13
+  recovery: r29
+  block: '-10'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    ** on 2nd hit
+
+    * Combo from 1st CH
+
+    * Both hits jail on block'
+- id: wra_4_2
+  source_id: Reina-WRA.4,2
+  source_index: 135
+  command: WRA.4,2
+  name: ''
+  hit_level: M,M, m
+  damage: 6,8, 8
+  startup: i17~18,i13, i15
+  recovery: r37
+  block: '-18'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Jails from 2nd block with 4F delay
+
+    * Combo from 1st CH or 2nd hit with 14F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 14F'
+- id: wra_4_2_2
+  source_id: Reina-WRA.4,2,2
+  source_index: 136
+  command: WRA.4,2,2
+  name: ''
+  hit_level: M,M, m, h
+  damage: 6,8, 8, 4
+  startup: i17~18,i13, ,i15
+  recovery: r37
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Jails from 1st block with 4F delay
+
+    * Combo from 1st CH or 2nd hit with 10F delay'
+- id: wra_4_2_2_1p2
+  source_id: Reina-WRA.4,2,2,1+2
+  source_index: 137
+  command: WRA.4,2,2,1+2
+  name: Kongo Gekimetsujin
+  hit_level: M,M, m, h, m
+  damage: 6,8, 8, 4, 22
+  startup: i17~18,i13, ,i24~25
+  recovery: r45
+  block: '-20'
+  hit: +24a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Blue spark with input qcf+1+2 for 6 extra damage
+
+    * Jail from 1st block with 1F delay
+
+    * Combo from 1st CH or 2nd hit with 1F delay
+
+    * Move can be delayed by 15F'
+- id: wra_1p2
+  source_id: Reina-WRA.1+2
+  source_index: 138
+  command: WRA.1+2
+  name: Demon Bolt
+  hit_level: m
+  damage: '30'
+  startup: i15~16
+  recovery: r33
+  block: -13~-12
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Opponent recovers crouching on hit
+
+    * -1 frame advantage and 12 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 6~14'
+- id: wra_3p4
+  source_id: Reina-WRA.3+4
+  source_index: 139
+  command: WRA.3+4
+  name: Goma-sai
+  hit_level: M
+  damage: '26'
+  startup: i18~19
+  recovery: r34
+  block: +0c~+1c
+  hit: +5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - chip
+  - mid
+  notes: '* Spike
+
+    * 7 chip damage on block
+
+    * Opponent is FDFA on normal hit'
+- id: wra_dp4
+  source_id: Reina-WRA.d+4
+  source_index: 140
+  command: WRA.d+4
+  name: ''
+  hit_level: L
+  damage: '9'
+  startup: i16~17
+  recovery: r33 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: '+2'
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~50'
+- id: wra_dp4_3
+  source_id: Reina-WRA.d+4,3
+  source_index: 141
+  command: WRA.d+4,3
+  name: Harai Kuzushi-manji
+  hit_level: L, m
+  damage: 9, 20
+  startup: i16~17, i21~22
+  recovery: r37
+  block: '-16'
+  hit: +48 (+17)
+  counter_hit: +53a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  - mid
+  notes: '* Combo from 1st CH with 15F delay
+
+    * Input can be delayed 16F
+
+    * Move can be delayed 13F
+
+    * High crush 1~9'
+- id: 1p3
+  source_id: Reina-1+3
+  source_index: 142
+  command: 1+3
+  name: Gekka Hyojin
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - throw
+  - homing
+  - floor_break
+  - high
+  notes: '* Floor Break
+
+    * Homing
+
+    * Throw break 1 or 2
+
+    * Opponent recovery on hit: FUFA off-axis to the left'
+- id: 2p4
+  source_id: Reina-2+4
+  source_index: 143
+  command: 2+4
+  name: Saijin Ikkoku
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - high
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: FUFA
+
+    * Side switch on Hit or Throw break'
+- id: back_throw
+  source_id: Reina-Back throw
+  source_index: 144
+  command: Back throw
+  name: Trailokyavijaya
+  hit_level: th(h)
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Break: none
+
+    * Opponent recovery on hit: FDFA'
+- id: left_throw
+  source_id: Reina-Left throw
+  source_index: 145
+  command: Left throw
+  name: Gekka Hyojin
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Throw break: 1
+
+    * Opponent recovery on hit: FUFA off-axis to the left'
+- id: right_throw
+  source_id: Reina-Right throw
+  source_index: 146
+  command: Right throw
+  name: Saijin Ikkoku
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Throw break 2
+
+    * Opponent recovery on hit: FUFA'
+- id: sen_1p3
+  source_id: Reina-SEN.1+3
+  source_index: 147
+  command: SEN.1+3
+  name: Haburi-kaze
+  hit_level: th(h)
+  damage: '12'
+  startup: i16
+  recovery: ''
+  block: ''
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Throw break: none
+
+    * Opponent recovery on hit: FUFA'
+- id: wra_1p3
+  source_id: Reina-WRA.1+3
+  source_index: 148
+  command: WRA.1+3
+  name: Heaven's Roar
+  hit_level: t(h)
+  damage: '20'
+  startup: i16
+  recovery: r28
+  block: ''
+  hit: +10d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  - throw
+  notes: '* Unbreakable
+
+    * Opponent recovery on hit: FUFT
+
+    * Does 35 damage on wall hit
+
+    * +22d (-17?) on wall hit'
+- id: d_db_b_fp2
+  source_id: Reina-qcb,f+2
+  source_index: 149
+  command: d,db,b,f+2
+  name: Raidou Hitsumetsu
+  hit_level: th(h)
+  damage: '40'
+  startup: i12
+  recovery: ''
+  block: '-3'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Throw break: 2
+
+    * Opponent recovery on hit: FUFT'
+- id: ufp1p2
+  source_id: Reina-uf+1+2
+  source_index: 150
+  command: uf+1+2
+  name: Stonehead
+  hit_level: th(h)
+  damage: '35'
+  startup: i12
+  recovery: ''
+  block: '-6'
+  hit: +25 (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Throw break: 1+2
+
+    * Side switch on Throw break'

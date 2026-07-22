@@ -1,0 +1,2822 @@
+character_id: victor
+display_name: Victor Chevalier
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/victor/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 2d7a3257d4ceeef478f95335dec789452d2e852c9dfc6692fddc7e03e7e1d4cc
+data_status: available
+stances:
+- H
+- ws
+- SS
+- IAI
+- PRF
+- hFC
+moves:
+- id: 2p3
+  source_id: Victor-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_iai_dp2
+  source_id: Victor-H.IAI.d+2
+  source_index: 2
+  command: H.IAI.d+2
+  name: Longinus
+  hit_level: M,M,M,SM,SM
+  damage: '45'
+  startup: i23~24, i6, i4, i3, i4
+  recovery: IAI
+  block: '+5'
+  hit: +20 (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * 10 chip damage on block
+
+    * Consumes 210F of remaining Heat time'
+- id: h_dbp1p2
+  source_id: Victor-H.db+1+2
+  source_index: 3
+  command: H.db+1+2
+  name: Monsieur Samurai
+  hit_level: m
+  damage: '30'
+  startup: i28~29
+  recovery: r49 IAI
+  block: '+6'
+  hit: +6a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Transitions to IAI
+
+    * Consumes 270F of remaining Heat time'
+- id: h_up1p2
+  source_id: Victor-H.u+1+2
+  source_index: 4
+  command: H.u+1+2
+  name: Excalibur
+  hit_level: m
+  damage: '46'
+  startup: i31~32
+  recovery: ''
+  block: '-4'
+  hit: +0a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - is
+  - js
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * 15 chip damage on block
+
+    * Consumes 450F of remaining Heat time
+
+    * is10~?
+
+    * Low crush ?~'
+- id: h_2p3
+  source_id: Victor-H.2+3
+  source_index: 5
+  command: H.2+3
+  name: "\xC9limination Samoura\xEF"
+  hit_level: l,m
+  damage: '39'
+  startup: i20
+  recovery: ''
+  block: '-14'
+  hit: th
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - low
+  - mid
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Alternate input: H.R1
+
+    * 8 chip damage on block'
+- id: r_dfp1p2
+  source_id: Victor-R.df+1+2
+  source_index: 6
+  command: R.df+1+2
+  name: Coup de Chevalier
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Victor-1
+  source_index: 7
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Victor-1,1
+  source_index: 8
+  command: 1,1
+  name: ''
+  hit_level: h, h
+  damage: 5, 5
+  startup: i10, i16
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_1_2'
+  source_id: Victor-1,1,2
+  source_index: 9
+  command: 1,1,2
+  name: Double Cabochon Cut
+  hit_level: h, h, h,h
+  damage: 5, 5, 5,7
+  startup: i10, ,i17~18,i9~10
+  recovery: r32?
+  block: '-12'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Transition to r27 PRF with F (-8/+7)'
+- id: '1_2'
+  source_id: Victor-1,2
+  source_index: 10
+  command: 1,2
+  name: Basic Etiquette
+  hit_level: h, h
+  damage: 5, 12
+  startup: i10, i10
+  recovery: r32
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_2_1'
+  source_id: Victor-1,2,1
+  source_index: 11
+  command: 1,2,1
+  name: Briolette Cut
+  hit_level: h, h, m
+  damage: 5, 12, 20
+  startup: i10, ,i26~27
+  recovery: ''
+  block: '-12'
+  hit: +18a (+1)
+  counter_hit: +72a (+56a)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - tornado
+  - balcony_break
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 4F delay
+
+    * Move can be delayed by 12F'
+- id: '1_3'
+  source_id: Victor-1,3
+  source_index: 12
+  command: 1,3
+  name: Basic Manners
+  hit_level: h, L
+  damage: 5, 11
+  startup: i10, i21~22
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st hit with 2F delay
+
+    * -1c on crouching hit'
+- id: '2'
+  source_id: Victor-2
+  source_index: 13
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '10'
+  startup: i12~13
+  recovery: '32'
+  block: '-12'
+  hit: '-2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon'
+- id: '2_1'
+  source_id: Victor-2,1
+  source_index: 14
+  command: 2,1
+  name: Cutlery Etiquette
+  hit_level: h, h
+  damage: 10, 12
+  startup: i12~13, i16
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Transition to PRF with F (-4/+7)
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F'
+- id: '2_2'
+  source_id: Victor-2,2
+  source_index: 15
+  command: 2,2
+  name: ''
+  hit_level: h, m,m
+  damage: 10, 5,5
+  startup: i12~13, i17~18,i7
+  recovery: ''
+  block: '-10'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit with 6F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F
+
+    * -10 if last hit whiffs'
+- id: '2_2_2'
+  source_id: Victor-2,2,2
+  source_index: 16
+  command: 2,2,2
+  name: Crybaby Sophia
+  hit_level: h, m,m, h
+  damage: 10, 5,5, 12
+  startup: i12~13, ,i22
+  recovery: IAI
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - wpn
+  - parry
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Combo from 2nd hit with 8F delay
+
+    * Transitions to IAI on hit or block
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F
+
+    * 4 chip damage on block'
+- id: '3'
+  source_id: Victor-3
+  source_index: 17
+  command: '3'
+  name: ''
+  hit_level: h
+  damage: '11'
+  startup: i12~13
+  recovery: '28'
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: 3_1p2
+  source_id: Victor-3,1+2
+  source_index: 18
+  command: 3,1+2
+  name: Good Communication
+  hit_level: h, h,h
+  damage: 11, 9,10
+  startup: i12~13, i19~20,i8~9
+  recovery: ''
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 6F delay'
+- id: '4'
+  source_id: Victor-4
+  source_index: 19
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i13~14
+  recovery: '29'
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_3'
+  source_id: Victor-4,3
+  source_index: 20
+  command: 4,3
+  name: ''
+  hit_level: h, m
+  damage: 15, 17
+  startup: i13~14, i23~24
+  recovery: ''
+  block: '-10'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 8F'
+- id: '4_3_2'
+  source_id: Victor-4,3,2
+  source_index: 21
+  command: 4,3,2
+  name: Asterism of Benevolence
+  hit_level: h, m, m
+  damage: 15, 17, 25
+  startup: i13~14, ,i25~26
+  recovery: ''
+  block: '-13'
+  hit: +34d (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH with 10F delay
+
+    * 7 chip damage on block
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: 1p2
+  source_id: Victor-1+2
+  source_index: 22
+  command: 1+2
+  name: Eden
+  hit_level: m
+  damage: '17'
+  startup: i15
+  recovery: '31'
+  block: '-9'
+  hit: '+4'
+  counter_hit: +46a
+  tier: core
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: 2p3p4
+  source_id: Victor-2+3+4
+  source_index: 23
+  command: 2+3+4
+  name: Taunt
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: 3p4
+  source_id: Victor-3+4
+  source_index: 24
+  command: 3+4
+  name: Iai Stance
+  hit_level: sp
+  damage: ''
+  startup: i30
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Cancel stance with db'
+- id: 3p4
+  source_id: Victor-3+4
+  source_index: 25
+  command: 3+4
+  name: Iai Stance
+  hit_level: sp
+  damage: ''
+  startup: i30
+  recovery: '11'
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: '* Cancel to FC r20 with db
+
+    ** i11 stand guard'
+- id: fp2
+  source_id: Victor-f+2
+  source_index: 26
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i13~14
+  recovery: '30'
+  block: '-11'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: fp2_2
+  source_id: Victor-f+2,2
+  source_index: 27
+  command: f+2,2
+  name: ''
+  hit_level: h, h
+  damage: 10, 10
+  startup: i13~14, i11
+  recovery: ''
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: fp2_2_1
+  source_id: Victor-f+2,2,1
+  source_index: 28
+  command: f+2,2,1
+  name: ''
+  hit_level: h, h, m
+  damage: 10, 10, 12
+  startup: i13~14, ,i13~14
+  recovery: ''
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd CH'
+- id: fp2_2_1_1
+  source_id: Victor-f+2,2,1,1
+  source_index: 29
+  command: f+2,2,1,1
+  name: Gorlagon
+  hit_level: h, h, m, m
+  damage: 10, 10, 12, 25
+  startup: i13~14, ,i20~21
+  recovery: ''
+  block: '-15'
+  hit: +20 (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Hit confirmable if (f22)1 is ch'
+- id: fp2_2_2
+  source_id: Victor-f+2,2,2
+  source_index: 30
+  command: f+2,2,2
+  name: Radiant Cut
+  hit_level: h, h, h,m,m
+  damage: 10, 10, 7,5,20
+  startup: i13~14, ,i14,i12~13,i7~8
+  recovery: ''
+  block: '-13'
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+- id: fp3
+  source_id: Victor-f+3
+  source_index: 31
+  command: f+3
+  name: Perfumer
+  hit_level: sp
+  damage: ''
+  startup: i20
+  recovery: r20 PRF
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - heat
+  - parry
+  notes: '* Cancel to r20 cs5~ FC with df
+
+    * Punch parry only
+
+    * +15~+20 PRF on successful parry
+
+    * Can perform Heat Burst and Heat Smash from stance
+
+    * Parry state 5-10'
+- id: fp4
+  source_id: Victor-f+4
+  source_index: 32
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i14
+  recovery: '30'
+  block: '-10'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp4_1
+  source_id: Victor-f+4,1
+  source_index: 33
+  command: f+4,1
+  name: Carving Cameo
+  hit_level: m, h
+  damage: 15, 21
+  startup: i14, i23~24
+  recovery: ''
+  block: '-4'
+  hit: +18a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - wpn
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Weapon
+
+    * Combo from 1st hit'
+- id: fp4_2
+  source_id: Victor-f+4,2
+  source_index: 34
+  command: f+4,2
+  name: Carving Intaglio
+  hit_level: m, m
+  damage: 15, 20
+  startup: i14, i26~27
+  recovery: ''
+  block: '-12'
+  hit: +5c
+  counter_hit: +7d
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * CH on last hit or wallhit causes FDFA knockdown
+
+    * Transition to IAI (-12/+5c/+7a) with D or 3+4'
+- id: fp1p2
+  source_id: Victor-f+1+2
+  source_index: 35
+  command: f+1+2
+  name: Durandal
+  hit_level: m
+  damage: '30'
+  startup: i24~25
+  recovery: '51'
+  block: '+3'
+  hit: +1a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Weapon
+
+    * 9 chip damage on block'
+- id: dfp1
+  source_id: Victor-df+1
+  source_index: 36
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: '21'
+  block: '-2'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_1
+  source_id: Victor-df+1,1
+  source_index: 37
+  command: df+1,1
+  name: Trilliant Cut
+  hit_level: m, h,h
+  damage: 10, 7,7
+  startup: i13~14, i20
+  recovery: ''
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st hit'
+- id: dfp2
+  source_id: Victor-df+2
+  source_index: 38
+  command: df+2
+  name: Arcadia
+  hit_level: m
+  damage: '14'
+  startup: i15~16
+  recovery: r35
+  block: '-14'
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: core
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: dfp3
+  source_id: Victor-df+3
+  source_index: 39
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i16
+  recovery: '28'
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp3_4
+  source_id: Victor-df+3,4
+  source_index: 40
+  command: df+3,4
+  name: ''
+  hit_level: m, m
+  damage: 10, 14
+  startup: i16, i21
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st CH'
+- id: dfp3_4_2
+  source_id: Victor-df+3,4,2
+  source_index: 41
+  command: df+3,4,2
+  name: Iridescence of Loyalty
+  hit_level: m, m, sm
+  damage: 10, 14, 23
+  startup: i16, ,i32~34
+  recovery: ''
+  block: '-9'
+  hit: +17a (+10)
+  counter_hit: +35a
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile
+
+    * Deals 6 chip damage on block'
+- id: dfp4
+  source_id: Victor-df+4
+  source_index: 42
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i13~14
+  recovery: '30'
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: '* Knee'
+- id: dfp4_2
+  source_id: Victor-df+4,2
+  source_index: 43
+  command: df+4,2
+  name: Selfish Miranda
+  hit_level: m, h
+  damage: 15, 16
+  startup: i13~14, i22
+  recovery: IAI
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - wpn
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * Deals 6 chip damage on blocked gunshot
+
+    * Transitions to IAI (cannot cancel)'
+- id: dfp3p4
+  source_id: Victor-df+3+4
+  source_index: 44
+  command: df+3+4
+  name: Llamrei
+  hit_level: m
+  damage: '28'
+  startup: i14~15
+  recovery: '39'
+  block: '-17'
+  hit: +16 (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - shd
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Shoulder'
+- id: dp1
+  source_id: Victor-d+1
+  source_index: 45
+  command: d+1
+  name: ''
+  hit_level: L
+  damage: '7'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - low
+  notes: '* Weapon
+
+    * Cannot be parried (weapon low)
+
+    * High crush 6~52'
+- id: dp1_1
+  source_id: Victor-d+1,1
+  source_index: 46
+  command: d+1,1
+  name: Concave Cut
+  hit_level: L, h
+  damage: 7, 15
+  startup: i16, i18
+  recovery: r26
+  block: '-7'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - low
+  - high
+  notes: '* Weapon
+
+    * Combo from 1st CH
+
+    * Jail on 1st hit
+
+    * -26 on 1st block'
+- id: dp2
+  source_id: Victor-d+2
+  source_index: 47
+  command: d+2
+  name: Llawfrodedd
+  hit_level: m
+  damage: '21'
+  startup: i18
+  recovery: r34
+  block: '+0'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Weapon
+
+    * 6 chip damage on block'
+- id: dp3
+  source_id: Victor-d+3
+  source_index: 48
+  command: d+3
+  name: Good Manners
+  hit_level: L
+  damage: '11'
+  startup: i18~19
+  recovery: r31
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: dp4
+  source_id: Victor-d+4
+  source_index: 49
+  command: d+4
+  name: Fine Salute
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r32
+  block: '-13'
+  hit: '-2'
+  counter_hit: +0d
+  tier: core
+  tags:
+  - low
+  notes: '* Perform Guilty Mariko on counter hit'
+- id: dp1p2
+  source_id: Victor-d+1+2
+  source_index: 50
+  command: d+1+2
+  name: Iridescence of Prowess
+  hit_level: SM
+  damage: '21'
+  startup: i19~21
+  recovery: r31
+  block: '-9'
+  hit: +17a (+10)
+  counter_hit: +35a
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile
+
+    * 6 chip damage on block'
+- id: dbp1
+  source_id: Victor-db+1
+  source_index: 51
+  command: db+1
+  name: ''
+  hit_level: m
+  damage: '9'
+  startup: i14~15
+  recovery: r31
+  block: '-9'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: dbp1_1
+  source_id: Victor-db+1,1
+  source_index: 52
+  command: db+1,1
+  name: Emerald Cut
+  hit_level: m, m
+  damage: 9, 9
+  startup: i14~15, i21~22
+  recovery: ''
+  block: '-7'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Transition to PRF with F (-5/+4)
+
+    * Combo from 1st hit'
+- id: dbp2
+  source_id: Victor-db+2
+  source_index: 53
+  command: db+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: '23'
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4'
+- id: dbp3
+  source_id: Victor-db+3
+  source_index: 54
+  command: db+3
+  name: Polite Greetings
+  hit_level: h
+  damage: '20'
+  startup: i19~20
+  recovery: '33'
+  block: '-11'
+  hit: +67a (+51a)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - bbr
+  - cs
+  - high_crush
+  - tornado
+  - balcony_break
+  - high
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * High crush 6'
+- id: dbp4
+  source_id: Victor-db+4
+  source_index: 55
+  command: db+4
+  name: Welcome Sweep
+  hit_level: l
+  damage: '17'
+  startup: i20~21
+  recovery: 32 FC
+  block: '-26'
+  hit: +4c
+  counter_hit: +49a
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6'
+- id: bp1
+  source_id: Victor-b+1
+  source_index: 56
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i14
+  recovery: r33
+  block: '-13'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Transition to PRF r25 with F (-5/+5) with 9F delay'
+- id: bp1_2
+  source_id: Victor-b+1,2
+  source_index: 57
+  command: b+1,2
+  name: Vanity Love
+  hit_level: m, h,th
+  damage: 11, 16(15)
+  startup: i14, i20
+  recovery: r29
+  block: '-8'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - mid
+  - high
+  notes: '* Combo from 1st CH with 10F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * Side switch after attack throw connects'
+- id: bp2
+  source_id: Victor-b+2
+  source_index: 58
+  command: b+2
+  name: Strobing Memories
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r27
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+14'
+  tier: core
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Deals recoverable damage only; cannot cause a K.O.'
+- id: bp3
+  source_id: Victor-b+3
+  source_index: 59
+  command: b+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17
+  recovery: r31
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp3_1
+  source_id: Victor-b+3,1
+  source_index: 60
+  command: b+3,1
+  name: Caval
+  hit_level: m, m
+  damage: 15, 25
+  startup: i17, i25~26
+  recovery: r33
+  block: '-13'
+  hit: +21a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 7F delay'
+- id: bp4
+  source_id: Victor-b+4
+  source_index: 61
+  command: b+4
+  name: Cordial Circuit
+  hit_level: h
+  damage: '20'
+  startup: i18~19
+  recovery: r29
+  block: '-2'
+  hit: '+14'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 6 chip damage on block'
+- id: bp1p2
+  source_id: Victor-b+1+2
+  source_index: 62
+  command: b+1+2
+  name: Failnaught
+  hit_level: h
+  damage: '25'
+  startup: i19~20
+  recovery: r31
+  block: '-9'
+  hit: +16cg
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Forces tech back roll on hit
+
+    * 7 chip damage on block
+
+    * +0 and 10 chip damage on block after attack absorption
+
+    * Power crush 7~18'
+- id: bp1p4
+  source_id: Victor-b+1+4
+  source_index: 63
+  command: b+1+4
+  name: Dun Stallion
+  hit_level: m
+  damage: '24'
+  startup: i26~27
+  recovery: r48
+  block: '-21'
+  hit: +37a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * ~i5-6 backsway'
+- id: ubp2
+  source_id: Victor-ub+2
+  source_index: 64
+  command: ub+2
+  name: Fancy Cut
+  hit_level: m
+  damage: '17'
+  startup: i17~18
+  recovery: ''
+  block: '-5'
+  hit: '+8'
+  counter_hit: +32a
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Can be charged
+
+    * Transition to PRF -4 +9 with F'
+- id: ubp2
+  source_id: Victor-ub+2*
+  source_index: 65
+  command: ub+2*
+  name: Fancy Cut (charged)
+  hit_level: m
+  damage: '22'
+  startup: i28~29
+  recovery: ''
+  block: '+3'
+  hit: +32a
+  counter_hit: +66a (+50)
+  tier: specialist
+  tags:
+  - wpn
+  - bbr
+  - tornado
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Balcony Break
+
+    * Tornado on CH
+
+    * Transition to PRF +4 +33a with F'
+- id: up1p2
+  source_id: Victor-u+1+2
+  source_index: 66
+  command: u+1+2
+  name: Caliburnus
+  hit_level: m
+  damage: '32'
+  startup: i31~32
+  recovery: '49'
+  block: -20c
+  hit: +1a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - is
+  - js
+  - throw
+  - low_crush
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Deals 11 chip damage on block
+
+    * Victor teleports overhead on frame 10 and descends downward for the rest of
+    the startup; evades some highs and mids but vulnerable on descent (lows, throws,
+    etc. hit)
+
+    * is10~?
+
+    * Low crush ?~'
+- id: ufp1
+  source_id: Victor-uf+1
+  source_index: 67
+  command: uf+1
+  name: ''
+  hit_level: m
+  damage: '9'
+  startup: i13
+  recovery: '31'
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: ufp1_1
+  source_id: Victor-uf+1,1
+  source_index: 68
+  command: uf+1,1
+  name: Gringolet
+  hit_level: m, m
+  damage: 9, 21
+  startup: i13, i25~26
+  recovery: ''
+  block: '-14'
+  hit: +15gc
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - tornado
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 8F delay
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF (-10/+19gc) with F
+
+    * Cancel to IAI (-9/+4) with D or 3+4'
+- id: ufp2
+  source_id: Victor-uf+2
+  source_index: 69
+  command: uf+2
+  name: Marquise Cut
+  hit_level: m
+  damage: '15'
+  startup: i19~20
+  recovery: '33'
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - wpn
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Weapon'
+- id: ufp3
+  source_id: Victor-uf+3
+  source_index: 70
+  command: uf+3
+  name: Peaceful Shoes
+  hit_level: m
+  damage: '17'
+  startup: i18~19
+  recovery: '32'
+  block: '-9'
+  hit: '+3'
+  counter_hit: +36d
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 7-15'
+- id: ufp4
+  source_id: Victor-uf+4
+  source_index: 71
+  command: uf+4
+  name: Chatoyant Courage
+  hit_level: m,sm
+  damage: 12,16
+  startup: i15~17, i28~30
+  recovery: '40'
+  block: '-19'
+  hit: +73a (+57a)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Followup available only on 1st hit
+
+    * Low crush 9'
+- id: 1p2p3p4
+  source_id: Victor-1+2+3+4
+  source_index: 72
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_bp2p3
+  source_id: Victor-b,B+2+3
+  source_index: 73
+  command: b,B+2+3
+  name: Montjoie Takemikazuchi
+  hit_level: ub(m)
+  damage: '50'
+  startup: i65~66
+  recovery: ''
+  block: ''
+  hit: +2a (-8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: ffp2
+  source_id: Victor-f,F+2
+  source_index: 74
+  command: f,F+2
+  name: Carnwennan
+  hit_level: m
+  damage: '24'
+  startup: i18~20
+  recovery: r35
+  block: '-16'
+  hit: +33a (+23a)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Jab evasion from frame 6 to 17?'
+- id: qcfp2
+  source_id: Victor-qcf+2
+  source_index: 75
+  command: qcf+2
+  name: Amour Shaft
+  hit_level: h
+  damage: '16'
+  startup: i22
+  recovery: r36 IAI
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - wpn
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Wall Crush +12g on hit
+
+
+
+    * Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * Deals 6 chip damage on block'
+- id: ub_b
+  source_id: Victor-ub,b
+  source_index: 76
+  command: ub,b
+  name: Le Blanc
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: f_ffp2
+  source_id: Victor-f,f,F+2
+  source_index: 77
+  command: f,f,F+2
+  name: Asterism of Virtue
+  hit_level: m
+  damage: '21'
+  startup: i18~19
+  recovery: r39
+  block: '+2'
+  hit: +8cg
+  counter_hit: +61a (+45a)
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Transition to IAI r36 with d or 3+4 (+5/+11cg/+64a (+48a))
+
+    * Forces tech back roll on hit
+
+    * 6 chip damage on block'
+- id: f_ffp1p2
+  source_id: Victor-f,f,F+1+2
+  source_index: 78
+  command: f,f,F+1+2
+  name: Tear Drop Cut
+  hit_level: L,L
+  damage: 10,14
+  startup: i18, i14~15
+  recovery: r32
+  block: '-14'
+  hit: +4 IAI
+  counter_hit: +15g IAI
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - parry
+  - stance_transition
+  - low
+  notes: '* Weapon
+
+    * Transition to IAI r29 on hit (+4/+15g)
+
+    * Unparryable (weapon low)
+
+    * High crush 15~50'
+- id: ws1
+  source_id: Victor-ws1
+  source_index: 79
+  command: ws1
+  name: Oval Cut
+  hit_level: m
+  damage: '20'
+  startup: i15~16
+  recovery: '36'
+  block: '-16'
+  hit: +53a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: ws2
+  source_id: Victor-ws2
+  source_index: 80
+  command: ws2
+  name: Baguette Cut
+  hit_level: m
+  damage: '15'
+  startup: i14~15
+  recovery: '29'
+  block: '-8'
+  hit: '+6'
+  counter_hit: +35a (+25)
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: ws3
+  source_id: Victor-ws3
+  source_index: 81
+  command: ws3
+  name: ''
+  hit_level: h
+  damage: '16'
+  startup: i14~15
+  recovery: '35'
+  block: '-14'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: ws3_2
+  source_id: Victor-ws3,2
+  source_index: 82
+  command: ws3,2
+  name: Iridescence of Faith
+  hit_level: h, sm
+  damage: 16, 23
+  startup: i14~15, i30~32
+  recovery: ''
+  block: '-9'
+  hit: +17a (+10a)
+  counter_hit: +35a
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - chip
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block'
+- id: ws4
+  source_id: Victor-ws4
+  source_index: 83
+  command: ws4
+  name: Praise Smash
+  hit_level: m
+  damage: '16'
+  startup: i11~12
+  recovery: '25'
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1p2
+  source_id: Victor-ws1+2
+  source_index: 84
+  command: ws1+2
+  name: Pearly Gates
+  hit_level: m,m
+  damage: 10,12
+  startup: i13~14,i9~10
+  recovery: '37'
+  block: '-8'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Transition to PRF (-8/+8) with F'
+- id: ss_1p2
+  source_id: Victor-SS.1+2
+  source_index: 85
+  command: SS.1+2
+  name: Dandy Blow
+  hit_level: m
+  damage: '25'
+  startup: i18~19
+  recovery: '40'
+  block: '-9'
+  hit: +15 (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: ch_dbp4
+  source_id: Victor-CH.db+4
+  source_index: 86
+  command: CH.db+4
+  name: Musk-Scented Natasha
+  hit_level: l,th
+  damage: 20,4
+  startup: i20~21
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: +49a
+  tier: specialist
+  tags:
+  - low
+  - high
+  - throw
+  notes: ''
+- id: ch_dp4
+  source_id: Victor-CH.d+4
+  source_index: 87
+  command: CH.d+4
+  name: Guilty Mariko
+  hit_level: L,t
+  damage: 12,18
+  startup: i16
+  recovery: r122
+  block: ''
+  hit: ''
+  counter_hit: +0d
+  tier: specialist
+  tags:
+  - low
+  - throw
+  notes: ''
+- id: iai_1
+  source_id: Victor-IAI.1
+  source_index: 88
+  command: IAI.1
+  name: ''
+  hit_level: m
+  damage: '9'
+  startup: i13~14
+  recovery: r34 IAI
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: iai_1_1
+  source_id: Victor-IAI.1,1
+  source_index: 89
+  command: IAI.1,1
+  name: Spumador
+  hit_level: m, m
+  damage: 9, 21
+  startup: i13~14, i25~26
+  recovery: ''
+  block: '-14'
+  hit: +15g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - wpn
+  - tornado
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit with 9F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F
+
+    * Opponent recovers crouching on hit
+
+    * Transition to PRF with F (-10/+19gc)
+
+    * Cancel to IAI with D or 3+4 (-9/+4)'
+- id: iai_1_2
+  source_id: Victor-IAI.1,2
+  source_index: 90
+  command: IAI.1,2
+  name: ''
+  hit_level: m, m
+  damage: 9, 15
+  startup: i13~14, i22~24
+  recovery: ''
+  block: '-19'
+  hit: +25a (+10)
+  counter_hit: +25a (+10)
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Hit Confirmable 11F
+
+    * 6 chip damage on block
+
+    * Low crush'
+- id: iai_1_2_2
+  source_id: Victor-IAI.1,2,2
+  source_index: 91
+  command: IAI.1,2,2
+  name: Clarent
+  hit_level: m, m, m
+  damage: 9, 15, 16
+  startup: i13~14, ,i23~24
+  recovery: ''
+  block: -18c
+  hit: +8a (-27)
+  counter_hit: +8a (-27)
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - is
+  - js
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 9 chip damage on block
+
+    * is?
+
+    * Low crush ?'
+- id: iai_1_1p2
+  source_id: Victor-IAI.1,1+2
+  source_index: 92
+  command: IAI.1,1+2
+  name: Chastiefol
+  hit_level: m, h
+  damage: 9, 23
+  startup: i13~14, i20~21
+  recovery: ''
+  block: '+3'
+  hit: +20a (-6)
+  counter_hit: +21a
+  tier: specialist
+  tags:
+  - hom
+  - wpn
+  - js
+  - homing
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Homing
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * Deals 9 chip damage on block
+
+    * Hit confirmable 11F
+
+    * Opponent is FUFA on CH
+
+    * Low crush'
+- id: iai_2
+  source_id: Victor-IAI.2
+  source_index: 93
+  command: IAI.2
+  name: Almace
+  hit_level: m
+  damage: '23'
+  startup: i16~17
+  recovery: r52
+  block: '-9'
+  hit: +15 (+5)
+  counter_hit: +26a
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - wpn
+  - tornado
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Weapon
+
+    * 9 chip damage on block
+
+    * FUFA knockdown on CH'
+- id: iai_3
+  source_id: Victor-IAI.3
+  source_index: 94
+  command: IAI.3
+  name: Sequence
+  hit_level: m,th(m)
+  damage: 13 (25)
+  startup: i17
+  recovery: r34
+  block: '-13'
+  hit: +25 (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - pc
+  - power_crush
+  - mid
+  - high
+  - throw
+  notes: '* Knee
+
+    * Power crush 8~16'
+- id: iai_4
+  source_id: Victor-IAI.4
+  source_index: 95
+  command: IAI.4
+  name: ''
+  hit_level: L
+  damage: '17'
+  startup: i18~19
+  recovery: r32 IAI
+  block: '-12'
+  hit: '+4'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: iai_4_2
+  source_id: Victor-IAI.4,2
+  source_index: 96
+  command: IAI.4,2
+  name: Murgleys
+  hit_level: L, h
+  damage: 17, 20
+  startup: i18~19, i26~27
+  recovery: ''
+  block: '-5'
+  hit: +26 (+0)
+  counter_hit: +55a (+35a)
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - chip
+  - low
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st CH
+
+    * 8 chip damage on block'
+- id: iai_1p2
+  source_id: Victor-IAI.1+2
+  source_index: 97
+  command: IAI.1+2
+  name: Hauteclaire
+  hit_level: h
+  damage: '30'
+  startup: i20~21
+  recovery: '66'
+  block: '+3'
+  hit: +20 (-6)
+  counter_hit: +21a
+  tier: specialist
+  tags:
+  - hom
+  - wpn
+  - js
+  - homing
+  - low_crush
+  - chip
+  - high
+  notes: '* Homing
+
+    * Weapon
+
+    * 12 chip damage on block
+
+    * Opponent is FUFA on CH
+
+    * Low crush 10'
+- id: iai_p_f
+  source_id: Victor-IAI.P.f
+  source_index: 98
+  command: IAI.P.f
+  name: Gwen
+  hit_level: m
+  damage: '21'
+  startup: i16~17
+  recovery: ''
+  block: ''
+  hit: +60a (+44)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Tornado'
+- id: iai_b
+  source_id: Victor-IAI.b
+  source_index: 99
+  command: IAI.b
+  name: Move Backward
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: IAI
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: iai_d
+  source_id: Victor-IAI.d
+  source_index: 100
+  command: IAI.d
+  name: Take a Bow
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: IAI
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* High crush 1~30'
+- id: iai_dp1
+  source_id: Victor-IAI.d+1
+  source_index: 101
+  command: IAI.d+1
+  name: Passelande
+  hit_level: M
+  damage: '25'
+  startup: i18
+  recovery: r40
+  block: '0'
+  hit: +24a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * 7 chip damage on block'
+- id: iai_dp2
+  source_id: Victor-IAI.d+2
+  source_index: 102
+  command: IAI.d+2
+  name: Rhongomyniad
+  hit_level: M,M,SM
+  damage: '31'
+  startup: i23~24, i6, i7
+  recovery: r68 IAI
+  block: '+4'
+  hit: +0 (-7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Projectile
+
+    * Transition to IAI
+
+    * Deals 6 chip damage on block'
+- id: iai_dp1p2
+  source_id: Victor-IAI.d+1+2
+  source_index: 103
+  command: IAI.d+1+2
+  name: Espee Aventureuse
+  hit_level: l,l
+  damage: 10,20
+  startup: i20~21,i14~15
+  recovery: '58'
+  block: '-29'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - parry
+  - low
+  notes: '* Weapon
+
+    * Unparryable (weapon low,low)'
+- id: iai_f
+  source_id: Victor-IAI.f
+  source_index: 104
+  command: IAI.f
+  name: Move Forward
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: IAI
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - cs
+  - high_crush
+  - parry
+  notes: '* Parries low attacks
+
+    * Parry state 3?~11?
+
+    * High crush 4~17'
+- id: iai_u
+  source_id: Victor-IAI.u
+  source_index: 105
+  command: IAI.u
+  name: Prydwen
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: '25'
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - is
+  notes: '* is1-4'
+- id: prf_1
+  source_id: Victor-PRF.1
+  source_index: 106
+  command: PRF.1
+  name: Maceration
+  hit_level: L
+  damage: '15'
+  startup: i19~20
+  recovery: r30 FC
+  block: '-12'
+  hit: +4c
+  counter_hit: +14g
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - high_crush
+  - parry
+  - low
+  notes: '* Weapon
+
+    * Unparryable (weapon low)
+
+    * High crush 6~50'
+- id: prf_2
+  source_id: Victor-PRF.2
+  source_index: 107
+  command: PRF.2
+  name: ''
+  hit_level: m
+  damage: '9'
+  startup: i12~13
+  recovery: '29'
+  block: '-8'
+  hit: '+1'
+  counter_hit: '+1'
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon'
+- id: prf_2_2
+  source_id: Victor-PRF.2,2
+  source_index: 108
+  command: PRF.2,2
+  name: ''
+  hit_level: m, m
+  damage: 9, 13
+  startup: i12~13, i13~14
+  recovery: IAI
+  block: -4 IAI
+  hit: +5 IAI
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - stance_transition
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * Transition to IAI (Cannot cancel)'
+- id: prf_2_2_1
+  source_id: Victor-PRF.2,2,1
+  source_index: 109
+  command: PRF.2,2,1
+  name: Top Note
+  hit_level: m, m, h
+  damage: 9, 13, 20
+  startup: i12~13, ,i12~13
+  recovery: ''
+  block: '-1'
+  hit: '+12'
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 2nd CH'
+- id: prf_2_2_1p2
+  source_id: Victor-PRF.2,2,1+2
+  source_index: 110
+  command: PRF.2,2,1+2
+  name: Last Note
+  hit_level: m, m, m
+  damage: 9, 13, 31
+  startup: i12~13, ,i12
+  recovery: ''
+  block: '-13'
+  hit: +7d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - mid
+  notes: '* Weapon
+
+    * Combo from 2nd CH'
+- id: prf_3
+  source_id: Victor-PRF.3
+  source_index: 111
+  command: PRF.3
+  name: Flying Gentleman
+  hit_level: m
+  damage: '21'
+  startup: i15~17
+  recovery: r31
+  block: '-8'
+  hit: +15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - kne
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Knee
+
+    * Forces tech backroll on hit
+
+    * Low crush 11~23
+
+    * Floating state 24~25'
+- id: prf_4
+  source_id: Victor-PRF.4
+  source_index: 112
+  command: PRF.4
+  name: Cordial Circuit
+  hit_level: h
+  damage: '20'
+  startup: i18~19
+  recovery: r29
+  block: '-2'
+  hit: '+14'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 6 chip damage on block'
+- id: prf_1p2
+  source_id: Victor-PRF.1+2
+  source_index: 113
+  command: PRF.1+2
+  name: Hengroen
+  hit_level: m
+  damage: '25'
+  startup: i25~27
+  recovery: r34
+  block: '+6'
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * Transition to IAI (+6/+14a) on hit or block with D'
+- id: prf_3p4
+  source_id: Victor-PRF.3+4
+  source_index: 114
+  command: PRF.3+4
+  name: Iai Stance
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r18? IAI
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* 10?f of intangibility on transition'
+- id: prf_bp2
+  source_id: Victor-PRF.b+2
+  source_index: 115
+  command: PRF.b+2
+  name: Strobing Memories
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r27
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Deals recoverable damage only; cannot cause a K.O.'
+- id: prf_df
+  source_id: Victor-PRF.df
+  source_index: 116
+  command: PRF.df
+  name: Sillage
+  hit_level: sp
+  damage: ''
+  startup: i21
+  recovery: FC
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* Recovers crouched
+
+    * High crush 5~20'
+- id: hfc_1p2
+  source_id: Victor-hFC.1+2
+  source_index: 117
+  command: hFC.1+2
+  name: Shangri-La
+  hit_level: l,h
+  damage: 10,10
+  startup: i16,i10~11
+  recovery: '42'
+  block: -23, -13
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - parry
+  - stance_transition
+  - low
+  - high
+  notes: '* Weapon
+
+    * Not parryable (weapon low and weapon high)
+
+    * Can be done from Crouch Level 1
+
+    * Transition to PRF (-17 / +6) with F'
+- id: 1p3
+  source_id: Victor-1+3
+  source_index: 118
+  command: 1+3
+  name: One Night Miracle
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: FDFT'
+- id: 2p4
+  source_id: Victor-2+4
+  source_index: 119
+  command: 2+4
+  name: Je Te Veux
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: opp. side FDFT off-axis to the right'
+- id: back_throw
+  source_id: Victor-Back throw
+  source_index: 120
+  command: Back throw
+  name: Farewell in Taj Mahal
+  hit_level: t
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: none
+
+    * Opponent recovery on hit: FUFA'
+- id: left_throw
+  source_id: Victor-Left throw
+  source_index: 121
+  command: Left throw
+  name: One Night Miracle
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1
+
+    * Opponent recovery on hit: FDFT'
+- id: right_throw
+  source_id: Victor-Right throw
+  source_index: 122
+  command: Right throw
+  name: Je Te Veux
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 2
+
+    * Opponent recovery on hit: opp. side FDFT off-axis to the right'
+- id: ufp1p2
+  source_id: Victor-uf+1+2
+  source_index: 123
+  command: uf+1+2
+  name: Romancing Chaser
+  hit_level: t
+  damage: '40'
+  startup: i12~14
+  recovery: '27'
+  block: '-3'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break: 1+2
+
+    * Opponent recovery on hit: FUFA'

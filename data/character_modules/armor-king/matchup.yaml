@@ -1,0 +1,2141 @@
+schema_version: 1
+character_id: 38
+character: armor-king
+display_name: Armor King
+groups:
+- grappler
+- fundamentals
+specialty: strike_throw_wrestling
+sidestep_tendency: right
+signature_mechanics:
+- dark_upper
+- giant_swing
+- shadow_step
+frame_data_status: available
+frame_data_source: https://tekkendocs.com/api/t8/armor-king/framedata
+important_punishable_moves:
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i22~24
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~51'
+- id: fuft_bp3p4
+  command: FUFT.b+3+4
+  hit_level: m
+  startup: i16~28
+  block: '-25'
+  notes: 'Balcony Break
+
+    * Faster than normal spring kick and knocks down.'
+- id: 2_steps_or_more_wr4
+  command: (2 steps or more) wr4
+  hit_level: l
+  startup: i20~24
+  block: '-21'
+  notes: '* Low crush'
+- id: fp1p4
+  command: f+1+4
+  hit_level: m
+  startup: i13~15
+  block: '-19'
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Opponent recovers FUFT'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 3p4_2
+  command: 3+4,2
+  hit_level: M, M
+  startup: i25~32, i17~i34
+  block: -18d
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Opponent recovers FDFA
+
+    * AK recovers standing on hit
+
+    * Low crush 9~37?'
+- id: bad_dbp1p2
+  command: BAD.db+1+2
+  hit_level: m,t
+  startup: i14~17
+  block: -18c
+  notes: '* Transition into hit grab on grounded, airborne, and backturn hit
+
+    * AK is left FDFA on whiff/block
+
+    * Opponent is left FUFT on hit
+
+    * Low crush 14~34'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i29~31
+  block: -17d
+  notes: '* Opponent recovers FDFA
+
+    * Armor King recovers in crouch on hit and FDFT on block
+
+    * High crush 6~14
+
+    * Low crush 16~'
+- id: otg_dp4_4_3p4
+  command: OTG.d+4,4,3+4
+  hit_level: L, L, SM
+  startup: i19~21, ,i30~32
+  block: '-17'
+  notes: '* Combos from 1st hit on grounded opponent
+
+    * +5 on hit when opponent is standing
+
+    * Low crush 13~32'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l
+  startup: i17
+  block: '-16'
+  notes: '* Can be done from Crouch Level 1
+
+    * Recovers 3F faster on hit (r32 t49)
+
+    * High crush 6~52'
+- id: fc_3
+  command: FC.3
+  hit_level: l
+  startup: i18
+  block: '-16'
+  notes: '* High crush'
+- id: otg_dp4
+  command: OTG.d+4
+  hit_level: L
+  startup: i19~21
+  block: '-16'
+  notes: '* -5 on hit when opponent is standing'
+- id: otg_dp4_4
+  command: OTG.d+4,4
+  hit_level: L, L
+  startup: i19~21, i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: otg_dp4_4_4
+  command: OTG.d+4,4,4
+  hit_level: L, L, L
+  startup: i19~21, ,i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i14
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~48'
+- id: dp3p4_3
+  command: d+3+4,3
+  hit_level: l, m
+  startup: i17, i23~24
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 1st CH
+
+    * Opponent recovers FDFA'
+- id: fc_4
+  command: FC.4
+  hit_level: sl
+  startup: i14
+  block: '-15'
+  notes: '* High crush'
+- id: dp2_4
+  command: d+2,4
+  hit_level: m, m
+  startup: i17~18, i22~23
+  block: '-14'
+  notes: '* Interrupt with i1
+
+    * Move is delayed 2F
+
+    * Move cannot be delayed'
+- id: ubp1p2
+  command: ub+1+2
+  hit_level: m
+  startup: i30~31
+  block: '-14'
+  notes: '* Balcony Break'
+- id: bt_3
+  command: BT.3
+  hit_level: m
+  startup: i13~14
+  block: '-14'
+  notes: '* Tornado
+
+    * Unparryable by traditional kick parries (bug?)'
+- id: '3_4_1'
+  command: 3,4,1
+  hit_level: h, m, m
+  startup: i15~16, ,i21~22
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 2nd CH with 14F delay
+
+    * Move can be delayed by 13F
+
+    * Input can be delayed by 16F
+
+    * i17 r17 cancel with B (-14/-2)'
+- id: 1p2_4
+  command: 1+2,4
+  hit_level: m, m
+  startup: i17~19, i19~20
+  block: '-13'
+  notes: '* Combo from 1st hit'
+- id: fp3_2_1
+  command: f+3,2,1
+  hit_level: m, m, m
+  startup: i15~16, ,i24~26
+  block: '-13'
+  notes: '* Tornado
+
+    * Combo from 2nd CH
+
+    * Opponent recovers crouching on hit
+
+    * Recovers 1F faster on hit (t98 r32)'
+- id: ufp2_1
+  command: uf+2,1
+  hit_level: m, m
+  startup: i15~16, i26~26
+  block: '-13'
+  notes: '* Floor Break
+
+    * Elbow
+
+    * Combos from 1st hit'
+- id: ufp4
+  command: uf+4
+  hit_level: m
+  startup: i15~17
+  block: '-13'
+  notes: '* Low crush'
+- id: f_f_n_2
+  command: f,f,n,2
+  hit_level: L
+  startup: i19
+  block: '-13'
+  notes: '* Transition to BAD on hit with F (+8/+13)
+
+    * High crush 8~37'
+- id: uf_n_4
+  command: uf,n,4
+  hit_level: m
+  startup: i23~25
+  block: '-13'
+  notes: '* Low crush'
+- id: ws3_1
+  command: ws3,1
+  hit_level: m, m
+  startup: i13~14, i24~25
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 5F delay'
+- id: bad_3
+  command: BAD.3
+  hit_level: m
+  startup: i20~21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Has good right sidestep tracking
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 8 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~19'
+- id: bad_4
+  command: BAD.4
+  hit_level: L
+  startup: i17~18
+  block: '-13'
+  notes: ''
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i22~23
+  block: '-12'
+  notes: '* Strong Aerial Tailspin
+
+    * Transition to BAD on hit only with F (+26g)
+
+    * -6 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~21'
+- id: dfp2
+  command: df+2
+  hit_level: m
+  startup: i15~16
+  block: '-12'
+  notes: ''
+common_strings_and_gaps:
+- id: h_f_n_d_dfp1p2
+  command: H.f,n,d,df+1+2
+  hit_level: h!
+  startup: i25~28
+  block: ''
+  notes: '* On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    * Consumes 600F of remaining Heat time
+
+    * Only deals recoverable damage
+
+    * Cannot K.O'
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i24~25
+  block: '-5'
+  notes: '* Combo from 2nd CH with 3F delay
+
+    * Interrupt with i4 from 2nd block
+
+    * Move can be delayed by 10F
+
+    * Transition to r25 BAD with F (-19/-11)'
+- id: '2_1'
+  command: 2,1
+  hit_level: h, m
+  startup: i10, i23
+  block: '-3'
+  notes: '* Combo from 1st hit
+
+    * Interrupt with i3 from 1st block
+
+    * t43 r19? on hit'
+- id: '3_4'
+  command: 3,4
+  hit_level: h, m
+  startup: i15~16, i27~29
+  block: '-9'
+  notes: '* Combo from 1st hit with 6F delay
+
+    * Move can be delayed by 7F
+
+    * Input can be delayed by 9F'
+- id: '3_4_1'
+  command: 3,4,1
+  hit_level: h, m, m
+  startup: i15~16, ,i21~22
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Combo from 2nd CH with 14F delay
+
+    * Move can be delayed by 13F
+
+    * Input can be delayed by 16F
+
+    * i17 r17 cancel with B (-14/-2)'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, h
+  startup: i13, i25~26
+  block: '+0'
+  notes: '* Balcony Break on 2nd CH
+
+    * Combo from 1st hit with 5F delay
+
+    * Combo from 1st CH with 5F delay (+23a (+16))
+
+    * i18 r17 cancel with B (-16/-5)
+
+    * Move can be delayed by 6F'
+- id: 1p2_2
+  command: 1+2,2
+  hit_level: m, h
+  startup: i17~19, i18
+  block: '-3'
+  notes: '* Combo from 1st hit with 13F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 13F'
+- id: 1p2_4
+  command: 1+2,4
+  hit_level: m, m
+  startup: i17~19, i19~20
+  block: '-13'
+  notes: '* Combo from 1st hit'
+- id: 3p4_1
+  command: 3+4,1
+  hit_level: M, h
+  startup: i25~32, i14~15
+  block: '-8'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (-8/+8)'
+- id: 3p4_2
+  command: 3+4,2
+  hit_level: M, M
+  startup: i25~32, i17~i34
+  block: -18d
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Opponent recovers FDFA
+
+    * AK recovers standing on hit
+
+    * Low crush 9~37?'
+- id: 3p4_1p2
+  command: 3+4,1+2
+  hit_level: M, M,t
+  startup: i25~32, i24~34
+  block: +0c
+  notes: '* Transition to attack throw on close range front hit
+
+    * +2c~+12c on mid hit
+
+    * Opponent left FUFA
+
+    * Armor King recovers FUFL on hit, and FDFL on block
+
+    * Low crush 9~34'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, h
+  startup: i15~16, i18~19
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Combo from 1st CH with 12F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F
+
+    * Opponent recovers in FDFA'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, m
+  startup: i15~16, i20~21
+  block: '-11'
+  notes: '* Combo from 1st hit
+
+    * Transition to CD with DF (+15, -1)'
+- id: fp3_2_1
+  command: f+3,2,1
+  hit_level: m, m, m
+  startup: i15~16, ,i24~26
+  block: '-13'
+  notes: '* Tornado
+
+    * Combo from 2nd CH
+
+    * Opponent recovers crouching on hit
+
+    * Recovers 1F faster on hit (t98 r32)'
+- id: fp3p4_p
+  command: f+3+4,P
+  hit_level: h!
+  startup: i25~34
+  block: ''
+  notes: '* On successful parry, gives a special stun that makes throws unbreakable
+    for the stun duration
+
+    * Cannot K.O'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13~14, i18~19
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo on 1st CH'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15~16, i15~16
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (+8, +0)'
+- id: dp1_4
+  command: d+1,4
+  hit_level: sl, m
+  startup: i10, i15
+  block: '-10'
+  notes: '* Knee
+
+    * Jail from 1st block
+
+    * Combo from 1st CH'
+- id: dp2_4
+  command: d+2,4
+  hit_level: m, m
+  startup: i17~18, i22~23
+  block: '-14'
+  notes: '* Interrupt with i1
+
+    * Move is delayed 2F
+
+    * Move cannot be delayed'
+- id: dp2_4_3
+  command: d+2,4,3
+  hit_level: m, m, m
+  startup: i17~18, ,i35~40
+  block: -11c
+  notes: '* Combo from 2nd hit
+
+    * Interrupt with i10
+
+    * Opponent recovers FUFT
+
+    * Low crush 26~37
+
+    * Floating state 38~40'
+- id: dp3p4_1
+  command: d+3+4,1
+  hit_level: l, h
+  startup: i17, i20~21
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i8
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F'
+- id: dp3p4_3
+  command: d+3+4,3
+  hit_level: l, m
+  startup: i17, i23~24
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 1st CH
+
+    * Opponent recovers FDFA'
+- id: dbp2_3
+  command: db+2,3
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: dbp2_4
+  command: db+2,4
+  hit_level: m, h
+  startup: i14, i20~21
+  block: '-5'
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 1st hit'
+- id: dbp2_4_2
+  command: db+2,4,2
+  hit_level: m, h, m
+  startup: i14, ,i30~31
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 5F delay
+
+    * Move can be delayed by 4F
+
+    * Input can be delayed by 5F'
+- id: h_dbp2_1
+  command: H.db+2,1
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '+3'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i5 from 1st block
+
+    * Consumes 240F of remaining Heat time'
+- id: bp1_2
+  command: b+1,2
+  hit_level: h, m
+  startup: i12~13, i20~21
+  block: '-12'
+  notes: '* Combo from 1st hit with 12F delay
+
+    * Transition to r30 BAD with F (-12/+8/+11)
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: bp1p3_2
+  command: b+1+3,2
+  hit_level: m
+  startup: i17
+  block: '-9'
+  notes: '* On CH transition to True Dark Smash'
+- id: bp2_1
+  command: b+2,1
+  hit_level: m, m
+  startup: i13, i18
+  block: '-12'
+  notes: '* Combo from 1st hit'
+- id: bp2_1_2
+  command: b+2,1,2
+  hit_level: m, m, h
+  startup: i13, ,i25~26
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd CH with 5F delay
+
+    * Move can be delayed by 20F'
+- id: bp4_1p2
+  command: b+4,1+2
+  hit_level: m, t
+  startup: 'i15~18, '
+  block: ''
+  notes: '* Throw only comes out on front hit
+
+    * Input 1+2 during frames 2-18 of b+4'
+duckable_highs:
+- id: '1_2'
+  command: 1,2
+  hit_level: h, h
+  startup: i10, i10
+  block: '-3'
+  notes: '* Combo from 1st hit with 2F delay
+
+    * Jail from 1st block with 2F delay'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i24~25
+  block: '-5'
+  notes: '* Combo from 2nd CH with 3F delay
+
+    * Interrupt with i4 from 2nd block
+
+    * Move can be delayed by 10F
+
+    * Transition to r25 BAD with F (-19/-11)'
+- id: '4_3'
+  command: 4,3
+  hit_level: h, h
+  startup: i13, i25~26
+  block: '+0'
+  notes: '* Balcony Break on 2nd CH
+
+    * Combo from 1st hit with 5F delay
+
+    * Combo from 1st CH with 5F delay (+23a (+16))
+
+    * i18 r17 cancel with B (-16/-5)
+
+    * Move can be delayed by 6F'
+- id: 1p2_2
+  command: 1+2,2
+  hit_level: m, h
+  startup: i17~19, i18
+  block: '-3'
+  notes: '* Combo from 1st hit with 13F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 13F'
+- id: 3p4_1
+  command: 3+4,1
+  hit_level: M, h
+  startup: i25~32, i14~15
+  block: '-8'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (-8/+8)'
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, h
+  startup: i15~16, i18~19
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Combo from 1st CH with 12F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F
+
+    * Opponent recovers in FDFA'
+- id: dfp1_2
+  command: df+1,2
+  hit_level: m, h
+  startup: i13~14, i18~19
+  block: '-6'
+  notes: '* Tornado
+
+    * Combo on 1st CH'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15~16, i15~16
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (+8, +0)'
+- id: dp3p4_1
+  command: d+3+4,1
+  hit_level: l, h
+  startup: i17, i20~21
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i8
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F'
+- id: dbp2_4
+  command: db+2,4
+  hit_level: m, h
+  startup: i14, i20~21
+  block: '-5'
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 1st hit'
+- id: dbp2_4_2
+  command: db+2,4,2
+  hit_level: m, h, m
+  startup: i14, ,i30~31
+  block: '-12'
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 5F delay
+
+    * Move can be delayed by 4F
+
+    * Input can be delayed by 5F'
+- id: bp2_1_2
+  command: b+2,1,2
+  hit_level: m, m, h
+  startup: i13, ,i25~26
+  block: '-7'
+  notes: '* Balcony Break
+
+    * Combo from 1st or 2nd CH with 5F delay
+
+    * Move can be delayed by 20F'
+- id: bad_1_4
+  command: BAD.1,4
+  hit_level: h, h
+  startup: i11, i22~23
+  block: +4~+5
+  notes: '* Combo from 1st hit with 6F delay
+
+    * Interrupt from 1st block with i3
+
+    * Input can be delayed by 6F
+
+    * Move can be delayed by 1F
+
+    * Recovers in BT'
+- id: bad_2_3
+  command: BAD.2,3
+  hit_level: m, h
+  startup: i15~16, i22~23
+  block: '-7'
+  notes: "* Balcony Break\n* Tornado \n* Combo from 1st hit with 8F delay\n* Interrupt\
+    \ with i6 from 1st block\n* Input can be delayed by 9F\n* Move can be delayed\
+    \ by 5F\n* Forces crouching on hit"
+stance_transitions:
+- id: h_f_n_d_dfp1p2
+  command: H.f,n,d,df+1+2
+  hit_level: h!
+  startup: i25~28
+  block: ''
+  notes: '* On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    * Consumes 600F of remaining Heat time
+
+    * Only deals recoverable damage
+
+    * Cannot K.O'
+- id: h_ubp1
+  command: H.ub+1
+  hit_level: h
+  startup: i24~25
+  block: '+5'
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Instant Tornado
+
+    * Transition to r26 BAD with F (+5/+75a(+59))
+
+    ** Cancel 2nd active frame
+
+    * Consumes 150F of remaining Heat time
+
+    * 7 chip damage on block'
+- id: h_ubp1p2
+  command: H.ub+1+2*
+  hit_level: M
+  startup: i50~52
+  block: '+8'
+  notes: '* Tornado
+
+    * Can also be done during BAD
+
+    * Consumes 240F of remaining Heat time
+
+    * 8 chip damage on block'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t
+  startup: i17, i42~43
+  block: '+9'
+  notes: "* Heat Smash\n* Balcony Break\n* Can also be done during BAD\n* Transition\
+    \ to attack throw on hit\n* 2nd hit 16dmg and +13a (-4) on hit after 1st whiff\
+    \ \n* Opponent left FUFT after attack throw\n* 5 chip damage on block"
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: '1_2_1'
+  command: 1,2,1
+  hit_level: h, h, m
+  startup: i10, ,i24~25
+  block: '-5'
+  notes: '* Combo from 2nd CH with 3F delay
+
+    * Interrupt with i4 from 2nd block
+
+    * Move can be delayed by 10F
+
+    * Transition to r25 BAD with F (-19/-11)'
+- id: 1p2
+  command: 1+2
+  hit_level: m
+  startup: i17~19
+  block: '-10'
+  notes: '* Elbow
+
+    * Transition to r15 BT with B (-10/+0)'
+- id: 3p4
+  command: 3+4*
+  hit_level: M, h,t
+  startup: i25~32, i35
+  block: ''
+  notes: '* Floor Break
+
+    * Transitions to throw on front grounded hit
+
+    * Cannot throw break
+
+    * Opponent is left FUFL'
+- id: 3p4_1
+  command: 3+4,1
+  hit_level: M, h
+  startup: i25~32, i14~15
+  block: '-8'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (-8/+8)'
+- id: 3p4_1p2
+  command: 3+4,1+2
+  hit_level: M, M,t
+  startup: i25~32, i24~34
+  block: +0c
+  notes: '* Transition to attack throw on close range front hit
+
+    * +2c~+12c on mid hit
+
+    * Opponent left FUFA
+
+    * Armor King recovers FUFL on hit, and FDFL on block
+
+    * Low crush 9~34'
+- id: fp3_2
+  command: f+3,2
+  hit_level: m, m
+  startup: i15~16, i20~21
+  block: '-11'
+  notes: '* Combo from 1st hit
+
+    * Transition to CD with DF (+15, -1)'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i22~23
+  block: '-12'
+  notes: '* Strong Aerial Tailspin
+
+    * Transition to BAD on hit only with F (+26g)
+
+    * -6 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~21'
+- id: fp3p4
+  command: f+3+4
+  hit_level: sp
+  startup: ''
+  block: ''
+  notes: '* Parries mid and high punches
+
+    * Cannot block in stance
+
+    * Transition to BAD
+
+    * Parry state 5-12?'
+- id: dfp2_1
+  command: df+2,1
+  hit_level: m, h
+  startup: i15~16, i15~16
+  block: '+0'
+  notes: '* Combo from 1st hit
+
+    * Transition to BAD with F (+8, +0)'
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~34'
+- id: h_dbp2_1
+  command: H.db+2,1
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '+3'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i5 from 1st block
+
+    * Consumes 240F of remaining Heat time'
+- id: bp1_2
+  command: b+1,2
+  hit_level: h, m
+  startup: i12~13, i20~21
+  block: '-12'
+  notes: '* Combo from 1st hit with 12F delay
+
+    * Transition to r30 BAD with F (-12/+8/+11)
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F'
+- id: bp1p3_2
+  command: b+1+3,2
+  hit_level: m
+  startup: i17
+  block: '-9'
+  notes: '* On CH transition to True Dark Smash'
+- id: f_f_n_2
+  command: f,f,n,2
+  hit_level: L
+  startup: i19
+  block: '-13'
+  notes: '* Transition to BAD on hit with F (+8/+13)
+
+    * High crush 8~37'
+- id: ws2
+  command: ws2
+  hit_level: m
+  startup: i12
+  block: '-9'
+  notes: '* On CH transition to True Dark Smash'
+- id: ss_2
+  command: SS.2
+  hit_level: l
+  startup: i19~20
+  block: '-12'
+  notes: '* High crush'
+- id: ss_4
+  command: SS.4
+  hit_level: m
+  startup: i19~20
+  block: '-8'
+  notes: ''
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* High crush 4~'
+- id: fc_2
+  command: FC.2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* High crush'
+throw_options:
+- id: h_f_n_d_dfp1p2
+  command: H.f,n,d,df+1+2
+  hit_level: h!
+  startup: i25~28
+  block: ''
+  notes: '* On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    * Consumes 600F of remaining Heat time
+
+    * Only deals recoverable damage
+
+    * Cannot K.O'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t
+  startup: i17, i42~43
+  block: '+9'
+  notes: "* Heat Smash\n* Balcony Break\n* Can also be done during BAD\n* Transition\
+    \ to attack throw on hit\n* 2nd hit 16dmg and +13a (-4) on hit after 1st whiff\
+    \ \n* Opponent left FUFT after attack throw\n* 5 chip damage on block"
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 3p4
+  command: 3+4*
+  hit_level: M, h,t
+  startup: i25~32, i35
+  block: ''
+  notes: '* Floor Break
+
+    * Transitions to throw on front grounded hit
+
+    * Cannot throw break
+
+    * Opponent is left FUFL'
+- id: 3p4_1p2
+  command: 3+4,1+2
+  hit_level: M, M,t
+  startup: i25~32, i24~34
+  block: +0c
+  notes: '* Transition to attack throw on close range front hit
+
+    * +2c~+12c on mid hit
+
+    * Opponent left FUFA
+
+    * Armor King recovers FUFL on hit, and FDFL on block
+
+    * Low crush 9~34'
+- id: fp3p4_p
+  command: f+3+4,P
+  hit_level: h!
+  startup: i25~34
+  block: ''
+  notes: '* On successful parry, gives a special stun that makes throws unbreakable
+    for the stun duration
+
+    * Cannot K.O'
+- id: dfp3p4
+  command: df+3+4
+  hit_level: SM,t
+  startup: i28~35
+  block: -12~-18?
+  notes: '* Throw only when opponent standing close.
+
+    * Cannot throw break.
+
+    * Recovers in BT/FUFT on throw success/failed.
+
+    * Low crush 13~'
+- id: bp4_1p2
+  command: b+4,1+2
+  hit_level: m, t
+  startup: 'i15~18, '
+  block: ''
+  notes: '* Throw only comes out on front hit
+
+    * Input 1+2 during frames 2-18 of b+4'
+- id: f_n_d_dfp1p2
+  command: f,n,d,df+1+2
+  hit_level: h!
+  startup: i35~38
+  block: ''
+  notes: '*On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    *Comes out faster in heat
+
+    *Cannot K.O'
+- id: back_to_wall_b_b_ub
+  command: (Back to wall).b,b,UB
+  hit_level: h!,t
+  startup: i40~45
+  block: ''
+  notes: '* Floor Break
+
+    * Transition to attack throw on hit
+
+    * Opponent recovers FUFR?
+
+    * is9?~24?
+
+    * Floating state 25?~34?
+
+    * Low crush 35?~39?
+
+    * Floating state 40?~47?'
+- id: bad_2_4
+  command: BAD.2,4
+  hit_level: m, m,t
+  startup: i15~16, i18~19
+  block: '-12'
+  notes: "* Combo from 1st hit with 9F delay\n* Interrupt with i2 from 1st block\n\
+    * Input can be delayed by 9F\n* Move can be delayed by 5F\n* Transitions to attack\
+    \ throw on front hit only \n* Opponent left FUFT"
+- id: bad_dbp1p2
+  command: BAD.db+1+2
+  hit_level: m,t
+  startup: i14~17
+  block: -18c
+  notes: '* Transition into hit grab on grounded, airborne, and backturn hit
+
+    * AK is left FDFA on whiff/block
+
+    * Opponent is left FUFT on hit
+
+    * Low crush 14~34'
+- id: back_throw
+  command: (Back Throw)
+  hit_level: th(h)
+  startup: i12~14
+  block: '!'
+  notes: '* Unbreakable throw
+
+    * Opponent left FUFA'
+- id: left_side_throw
+  command: (Left Side Throw)
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Balcony Break
+
+    * Throw break 1
+
+    * Opponent left FDFA'
+- id: right_side_throw
+  command: (Right Side Throw)
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Throw break 2
+
+    * Opponent left FDFA'
+- id: 1p3
+  command: 1+3
+  hit_level: th(h)
+  startup: i12~14
+  block: '-6'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Opponent left FUFA'
+- id: 2p4
+  command: 2+4
+  hit_level: th(h)
+  startup: i12~14
+  block: '-3'
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Opponent left FUFA'
+- id: 2p4_dp1p2
+  command: 2+4,d+1+2
+  hit_level: th(h)
+  startup: 'i12~14, '
+  block: ''
+  notes: '* Floor Break
+
+    * Unbreakable throw extension
+
+    * Opponent left FUFA'
+- id: air_bad_2p4
+  command: AIR.BAD.2+4
+  hit_level: t(a)
+  startup: i14
+  block: '!'
+  notes: '* Cannot throw break
+
+    * Opponent recovers in FDFA.'
+- id: air_f_ffp2p4
+  command: AIR.f,f,F+2+4
+  hit_level: t(a)
+  startup: i10
+  block: '!'
+  notes: '* Floor Break
+
+    * Cannot throw break.
+
+    * Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute "blue
+    spark" (+5 damage).
+
+    * Opponent recovers in FUFT.'
+- id: air_f_hcfp1
+  command: AIR.f,hcf+1
+  hit_level: t(a)
+  startup: i10
+  block: '!'
+  notes: '* Floor Break
+
+    * Cannot throw break.
+
+    * Input all 6 directions of throw, press df for 1-3F, at most 1F of f followed
+    by f+1 for blue spark (+5 damage).
+
+    * AIR.BAD1+3: i14 startup. Cannot execute blue spark variant
+
+    * Opponent recovers in FDFA.
+
+    '
+- id: bm_2_1_2_1
+  command: BM.2,1,2,1
+  hit_level: t
+  startup: ''
+  block: '+0'
+  notes: '* Could be any 1/2 combination (e.g. 1,1,1,1 / 1,2,2,1)
+
+    * Throw break the 1st/4th hit by input the opposite to King''s 1st/4th button.
+
+    * Opponent recovers FDFT'
+- id: dmd_1
+  command: DMD.1
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: "* 1 break\n* Power up with input 2+4,1+2 \n* 40/45 total damage\n* Opponent\
+    \ recovers FDFA\n* Side switch on hit or break"
+- id: dmd_2
+  command: DMD.2
+  hit_level: t
+  startup: ''
+  block: '-3'
+  notes: "* 2 break\n* Power up with input 3+4,1+2 \n* 30/35 total damage\n* Opponent\
+    \ recovers FDFR?\n* Side switch on break"
+key_lows:
+- id: dp1
+  command: d+1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~34'
+- id: dp1_4
+  command: d+1,4
+  hit_level: sl, m
+  startup: i10, i15
+  block: '-10'
+  notes: '* Knee
+
+    * Jail from 1st block
+
+    * Combo from 1st CH'
+- id: dp3
+  command: d+3
+  hit_level: L
+  startup: i17
+  block: '-12'
+  notes: ''
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i14
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~48'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l
+  startup: i17
+  block: '-16'
+  notes: '* Can be done from Crouch Level 1
+
+    * Recovers 3F faster on hit (r32 t49)
+
+    * High crush 6~52'
+- id: dp3p4_1
+  command: d+3+4,1
+  hit_level: l, h
+  startup: i17, i20~21
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 8F delay
+
+    * Interrupt with i8
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 8F'
+- id: dp3p4_3
+  command: d+3+4,3
+  hit_level: l, m
+  startup: i17, i23~24
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 1st CH
+
+    * Opponent recovers FDFA'
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i22~24
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~51'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i29~31
+  block: -17d
+  notes: '* Opponent recovers FDFA
+
+    * Armor King recovers in crouch on hit and FDFT on block
+
+    * High crush 6~14
+
+    * Low crush 16~'
+- id: 2_steps_or_more_wr4
+  command: (2 steps or more) wr4
+  hit_level: l
+  startup: i20~24
+  block: '-21'
+  notes: '* Low crush'
+- id: f_f_n_2
+  command: f,f,n,2
+  hit_level: L
+  startup: i19
+  block: '-13'
+  notes: '* Transition to BAD on hit with F (+8/+13)
+
+    * High crush 8~37'
+- id: ss_2
+  command: SS.2
+  hit_level: l
+  startup: i19~20
+  block: '-12'
+  notes: '* High crush'
+- id: fc_1
+  command: FC.1
+  hit_level: sl
+  startup: i10
+  block: '-5'
+  notes: '* High crush 4~'
+- id: fc_2
+  command: FC.2
+  hit_level: sl
+  startup: i11
+  block: '-4'
+  notes: '* High crush'
+- id: fc_3
+  command: FC.3
+  hit_level: l
+  startup: i18
+  block: '-16'
+  notes: '* High crush'
+- id: fc_4
+  command: FC.4
+  hit_level: sl
+  startup: i14
+  block: '-15'
+  notes: '* High crush'
+- id: bad_4
+  command: BAD.4
+  hit_level: L
+  startup: i17~18
+  block: '-13'
+  notes: ''
+- id: otg_dp4
+  command: OTG.d+4
+  hit_level: L
+  startup: i19~21
+  block: '-16'
+  notes: '* -5 on hit when opponent is standing'
+- id: otg_dp4_4
+  command: OTG.d+4,4
+  hit_level: L, L
+  startup: i19~21, i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: otg_dp4_4_4
+  command: OTG.d+4,4,4
+  hit_level: L, L, L
+  startup: i19~21, ,i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: otg_dp4_4_3p4
+  command: OTG.d+4,4,3+4
+  hit_level: L, L, SM
+  startup: i19~21, ,i30~32
+  block: '-17'
+  notes: '* Combos from 1st hit on grounded opponent
+
+    * +5 on hit when opponent is standing
+
+    * Low crush 13~32'
+power_crushes:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: fp1p2
+  command: f+1+2
+  hit_level: m
+  startup: i22~23
+  block: '-12'
+  notes: '* Strong Aerial Tailspin
+
+    * Transition to BAD on hit only with F (+26g)
+
+    * -6 frame advantage and 8 chip damage on block after absorbing an attack in power
+    crush state
+
+    * Power crush 7~21'
+- id: bad_3
+  command: BAD.3
+  hit_level: m
+  startup: i20~21
+  block: '-13'
+  notes: '* Balcony Break
+
+    * Has good right sidestep tracking
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 8 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~19'
+- id: h_bad_3_2
+  command: H.BAD.3,2
+  hit_level: m,M
+  startup: i34~36
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Opponent left FDFA
+
+    * Consumes 240F of remaining Heat time
+
+    * 11 chip damage on block after absorbing an attack in power crush state'
+heat_threats:
+- id: 2p3
+  command: 2+3
+  hit_level: m
+  startup: i16
+  block: '+1'
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_f_n_d_dfp1p2
+  command: H.f,n,d,df+1+2
+  hit_level: h!
+  startup: i25~28
+  block: ''
+  notes: '* On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    * Consumes 600F of remaining Heat time
+
+    * Only deals recoverable damage
+
+    * Cannot K.O'
+- id: h_ubp1
+  command: H.ub+1
+  hit_level: h
+  startup: i24~25
+  block: '+5'
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Instant Tornado
+
+    * Transition to r26 BAD with F (+5/+75a(+59))
+
+    ** Cancel 2nd active frame
+
+    * Consumes 150F of remaining Heat time
+
+    * 7 chip damage on block'
+- id: h_ubp1p2
+  command: H.ub+1+2*
+  hit_level: M
+  startup: i50~52
+  block: '+8'
+  notes: '* Tornado
+
+    * Can also be done during BAD
+
+    * Consumes 240F of remaining Heat time
+
+    * 8 chip damage on block'
+- id: h_2p3
+  command: H.2+3
+  hit_level: m,t
+  startup: i17, i42~43
+  block: '+9'
+  notes: "* Heat Smash\n* Balcony Break\n* Can also be done during BAD\n* Transition\
+    \ to attack throw on hit\n* 2nd hit 16dmg and +13a (-4) on hit after 1st whiff\
+    \ \n* Opponent left FUFT after attack throw\n* 5 chip damage on block"
+- id: fp2_1
+  command: f+2,1
+  hit_level: m, h
+  startup: i15~16, i18~19
+  block: '-9'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Combo from 1st CH with 12F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F
+
+    * Opponent recovers in FDFA'
+- id: h_dbp2_1
+  command: H.db+2,1
+  hit_level: m, m
+  startup: i14, i26~27
+  block: '+3'
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Interrupt with i5 from 1st block
+
+    * Consumes 240F of remaining Heat time'
+- id: ubp1
+  command: ub+1
+  hit_level: h
+  startup: i24~25
+  block: '+5'
+  notes: '* Balcony Break
+
+    * Homing
+
+    * 5 chip damage on block
+
+    * Powered up in during Heat'
+- id: ubp1p2
+  command: ub+1+2*
+  hit_level: m
+  startup: i50~52
+  block: '+0'
+  notes: '* Tornado
+
+    * 7 chip damage on block
+
+    * Opponent recovers FUFA
+
+    * Powered up during Heat'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i14
+  block: '-8'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +36a (+26)
+
+
+    * Balcony Break
+
+    * Forces tech backroll wakeup on hit
+
+    ** Opponent recovers crouching'
+- id: f_n_d_df
+  command: f,n,d,df
+  hit_level: ''
+  startup: ''
+  block: ''
+  notes: '* Cannot be buffered
+
+    * Stance moves can be buffered out of heat dash
+
+    * Recovers in FC at frame 20
+
+    * Cancel to SS with u
+
+    * Cancel to standing block with b'
+- id: f_n_d_dfp1p2
+  command: f,n,d,df+1+2
+  hit_level: h!
+  startup: i35~38
+  block: ''
+  notes: '*On hit, gives a special stun that makes throws unbreakable for the stun
+    duration
+
+    *Comes out faster in heat
+
+    *Cannot K.O'
+- id: ws3_1
+  command: ws3,1
+  hit_level: m, m
+  startup: i13~14, i24~25
+  block: '-13'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 5F delay'
+- id: bad_1_2
+  command: BAD.1,2
+  hit_level: h, m
+  startup: i11, i24~25
+  block: '-12'
+  notes: "* Heat Engager\n\n* Heat Dash +5, +43d (+35)\n\n* Balcony Break \n* Combo\
+    \ from 1st hit with 6F delay\n* Interrupt from 1st block with i5\n* Input can\
+    \ be delayed by 6F\n* Move can be delayed by 1F"
+- id: h_bad_3_2
+  command: H.BAD.3,2
+  hit_level: m,M
+  startup: i34~36
+  block: '-9'
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Opponent left FDFA
+
+    * Consumes 240F of remaining Heat time
+
+    * 11 chip damage on block after absorbing an attack in power crush state'
+- id: dp2p4
+  command: d+2+4
+  hit_level: th(m)
+  startup: i12~13
+  block: '!'
+  notes: '* Heat Engager
+
+
+    * Unable to Heat Dash
+
+    * Unbreakable
+
+    * Opponent recovers FUFA'
+- id: f_ffp2p4
+  command: f,f,F+2+4
+  hit_level: th(h)
+  startup: i10
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Throw break 1+2
+
+    * Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute "blue
+    spark" (+5 damage).
+
+    * i13 startup for Bluespark throw with buffered input
+
+    * Opponent left FUFT
+
+    * Armor King recovers FUFT
+
+    * beco'
+- id: qcbp1p2
+  command: qcb+1+2
+  hit_level: th(h)
+  startup: i11
+  block: '-3'
+  notes: '* Balcony Break
+
+    * Opponent takes 5 additional damage when they hit the ground
+
+    * Opponent takes 4 additional damage when they hit a wall
+
+    * Throw break 1+2
+
+    * Opponent left FUFA
+
+    * becomes Homing in heat'
+long_range_attacks:
+- id: ffp2
+  command: f,F+2
+  hit_level: m
+  startup: i16~17
+  block: '-6'
+  notes: ''
+- id: ffp3
+  command: f,F+3
+  hit_level: h
+  startup: i17~19
+  block: '+2'
+  notes: '* Balcony Break
+
+    * Homing
+
+    * 6 chip damage on block'
+- id: ffp4
+  command: f,F+4
+  hit_level: m
+  startup: i14
+  block: '-8'
+  notes: '* Heat Engager
+
+
+    * Heat Dash +36a (+26)
+
+
+    * Balcony Break
+
+    * Forces tech backroll wakeup on hit
+
+    ** Opponent recovers crouching'
+- id: ffp3p4
+  command: f,F+3+4
+  hit_level: h
+  startup: i23~24
+  block: '-10'
+  notes: '* Balcony Break
+
+    * Forces tech backroll wakeup on hit
+
+    ** Opponent recovers crouching
+
+    * 10 chip damage on block
+
+    * Low crush 14~'
+- id: f_ffp3
+  command: f,f,F+3
+  hit_level: m
+  startup: i23~25
+  block: '+6'
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Low crush'
+- id: f_ffp3p4
+  command: f,f,F+3+4
+  hit_level: m
+  startup: i28~34
+  block: +17g
+  notes: '* Balcony Break
+
+    * Forces tech backroll on hit
+
+    * Low crush'
+- id: air_f_ffp2p4
+  command: AIR.f,f,F+2+4
+  hit_level: t(a)
+  startup: i10
+  block: '!'
+  notes: '* Floor Break
+
+    * Cannot throw break.
+
+    * Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute "blue
+    spark" (+5 damage).
+
+    * Opponent recovers in FUFT.'
+- id: f_ffp2p4
+  command: f,f,F+2+4
+  hit_level: th(h)
+  startup: i10
+  block: '-5'
+  notes: '* Balcony Break
+
+    * Throw break 1+2
+
+    * Input n,f,F+2+4 within 6 frames after dash startup (f,n,f) to execute "blue
+    spark" (+5 damage).
+
+    * i13 startup for Bluespark throw with buffered input
+
+    * Opponent left FUFT
+
+    * Armor King recovers FUFT
+
+    * beco'
+launch_punish_opportunities:
+- id: dbp3
+  command: db+3
+  hit_level: L
+  startup: i22~24
+  block: '-26'
+  notes: '* Homing
+
+    * High crush 6~51'
+- id: fuft_bp3p4
+  command: FUFT.b+3+4
+  hit_level: m
+  startup: i16~28
+  block: '-25'
+  notes: 'Balcony Break
+
+    * Faster than normal spring kick and knocks down.'
+- id: 2_steps_or_more_wr4
+  command: (2 steps or more) wr4
+  hit_level: l
+  startup: i20~24
+  block: '-21'
+  notes: '* Low crush'
+- id: fp1p4
+  command: f+1+4
+  hit_level: m
+  startup: i13~15
+  block: '-19'
+  notes: '* Balcony Break
+
+    * Shoulder
+
+    * Opponent recovers FUFT'
+- id: r_dfp1p2
+  command: R.df+1+2
+  hit_level: m,t
+  startup: i20
+  block: '-18'
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rag'
+- id: 3p4_2
+  command: 3+4,2
+  hit_level: M, M
+  startup: i25~32, i17~i34
+  block: -18d
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Combo from 1st hit
+
+    * Opponent recovers FDFA
+
+    * AK recovers standing on hit
+
+    * Low crush 9~37?'
+- id: bad_dbp1p2
+  command: BAD.db+1+2
+  hit_level: m,t
+  startup: i14~17
+  block: -18c
+  notes: '* Transition into hit grab on grounded, airborne, and backturn hit
+
+    * AK is left FDFA on whiff/block
+
+    * Opponent is left FUFT on hit
+
+    * Low crush 14~34'
+- id: dbp4
+  command: db+4
+  hit_level: L
+  startup: i29~31
+  block: -17d
+  notes: '* Opponent recovers FDFA
+
+    * Armor King recovers in crouch on hit and FDFT on block
+
+    * High crush 6~14
+
+    * Low crush 16~'
+- id: otg_dp4_4_3p4
+  command: OTG.d+4,4,3+4
+  hit_level: L, L, SM
+  startup: i19~21, ,i30~32
+  block: '-17'
+  notes: '* Combos from 1st hit on grounded opponent
+
+    * +5 on hit when opponent is standing
+
+    * Low crush 13~32'
+- id: dp3p4
+  command: d+3+4
+  hit_level: l
+  startup: i17
+  block: '-16'
+  notes: '* Can be done from Crouch Level 1
+
+    * Recovers 3F faster on hit (r32 t49)
+
+    * High crush 6~52'
+- id: fc_3
+  command: FC.3
+  hit_level: l
+  startup: i18
+  block: '-16'
+  notes: '* High crush'
+- id: otg_dp4
+  command: OTG.d+4
+  hit_level: L
+  startup: i19~21
+  block: '-16'
+  notes: '* -5 on hit when opponent is standing'
+- id: otg_dp4_4
+  command: OTG.d+4,4
+  hit_level: L, L
+  startup: i19~21, i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: otg_dp4_4_4
+  command: OTG.d+4,4,4
+  hit_level: L, L, L
+  startup: i19~21, ,i18~21
+  block: '-16'
+  notes: '* Floor Break
+
+    * Combos from 1st hit on grounded opponent
+
+    * -5 on hit when opponent is standing'
+- id: dp4
+  command: d+4
+  hit_level: l
+  startup: i14
+  block: '-15'
+  notes: '* -4c on crouching hit
+
+    * High crush 4~48'
+- id: dp3p4_3
+  command: d+3+4,3
+  hit_level: l, m
+  startup: i17, i23~24
+  block: '-15'
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 1st CH
+
+    * Opponent recovers FDFA'
+- id: fc_4
+  command: FC.4
+  hit_level: sl
+  startup: i14
+  block: '-15'
+  notes: '* High crush'
+jun_response_options:
+  block_minus_10_to_12: jab punish
+  block_minus_13_to_14: df1 or character-calibrated punish
+  block_minus_15_or_worse: hopkick launch punish
+  low: block low or low parry using timing history
+  throw: select 1, 2, or 1+2 break from throw history
+  sidestep: right

@@ -1,0 +1,4633 @@
+character_id: alisa
+display_name: Alisa Bosconovitch
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/alisa/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: af608d5792a922d03a6a996b0837f8adc0b31b871894410f4e9eefaf687ddd37
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- BKP
+- BT
+- CLK(Two
+- CLK
+- DBT
+- DES
+- FUFT
+- SBT
+- hFC
+moves:
+- id: 2p3
+  source_id: Alisa-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_dp1p2
+  source_id: Alisa-H.d+1+2
+  source_index: 2
+  command: H.d+1+2
+  name: Emergency Destructive Form
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r42? DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - pc
+  - heat
+  - power_crush
+  notes: '* Cancel to r30 with db
+
+    * Consumes 60F of remaining Heat time
+
+    * 75% damage reduction when absorbing attacks
+
+    * Damage absorbed is recoverable
+
+    * No hitstop during attack absorption
+
+    * Automatic standing guard from frames 1 to 5
+
+    * Can standing or crouching guard starting at frame 31
+
+    * Power crush 6~30?'
+- id: h_fp1p4
+  source_id: Alisa-H.f+1+4
+  source_index: 3
+  command: H.f+1+4
+  name: Emergency Dual Boot
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r17 DBT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - heat
+  - low_crush
+  notes: '* Consumes 150F of remaining Heat time
+
+    * Low crush 18~40
+
+    * Floating state 41~43'
+- id: h_2p3
+  source_id: Alisa-H.2+3
+  source_index: 4
+  command: H.2+3
+  name: Quick-fix Protocol
+  hit_level: m
+  damage: 50 (28)
+  startup: i20~21
+  recovery: r45
+  block: '+8'
+  hit: -15d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Smash
+
+    * Transition to DES with 1+2 (+8)
+
+    * Transition to SBT with 3_4 (+10)
+
+    * Transition to DBT with f+3_f+4 (+10)
+
+    * 8 chip damage on block'
+- id: r_dfp1p2
+  source_id: Alisa-R.df+1+2
+  source_index: 5
+  command: R.df+1+2
+  name: Radiant Pegasus Bomb
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Alisa-1
+  source_index: 6
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Alisa-1,1
+  source_index: 7
+  command: 1,1
+  name: Stop Bit
+  hit_level: h, h
+  damage: 5, 18
+  startup: i10, i21
+  recovery: r26
+  block: '-3'
+  hit: '+5'
+  counter_hit: +14d
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 4f delay
+
+    * Input can be delayed 8f
+
+    * Enter DES with 1+2'
+- id: '1_2'
+  source_id: Alisa-1,2
+  source_index: 8
+  command: 1,2
+  name: Typing Combo
+  hit_level: h, h
+  damage: 5, 10
+  startup: i10, i12
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Jail from 1st attack with 4f delay
+- id: '1_2_2'
+  source_id: Alisa-1,2,2
+  source_index: 9
+  command: 1,2,2
+  name: Liftoff Combo
+  hit_level: h, h, h
+  damage: 5, 10, 20
+  startup: i10, ,i20~35
+  recovery: r29
+  block: -9~+6
+  hit: +21a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Balcony Break (airborne)
+
+    * Weapon
+
+    * Combo from 2nd CH with 1f delay
+
+    * 6 chip damage on block'
+- id: 1_2_dp2
+  source_id: Alisa-1,2,d+2
+  source_index: 10
+  command: 1,2,d+2
+  name: Coil Punch Combo
+  hit_level: h, h, l
+  damage: 5, 10, 17
+  startup: i10, ,i27~28
+  recovery: r29
+  block: '-11'
+  hit: '+2'
+  counter_hit: +33a
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 2nd CH
+
+    * Input can be delayed 8f
+
+    * Move can be delayed 7f'
+- id: 1_2_dp2
+  source_id: Alisa-1,2,d+2*
+  source_index: 11
+  command: 1,2,d+2*
+  name: Coil Punch Combo (Hold)
+  hit_level: h, h, l
+  damage: 5, 10, 22
+  startup: i10, ,i36~37
+  recovery: r28
+  block: '-10'
+  hit: +34a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Input can be delayed 8f
+
+    * Move can be delayed 7f'
+- id: '2'
+  source_id: Alisa-2
+  source_index: 12
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_2'
+  source_id: Alisa-2,2
+  source_index: 13
+  command: 2,2
+  name: Troubleshooting
+  hit_level: h, h
+  damage: 10, 22
+  startup: i12, i18~33
+  recovery: r25
+  block: -13~+2
+  hit: +15a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * 2nd hit available on hit or block only'
+- id: '2_3'
+  source_id: Alisa-2,3
+  source_index: 14
+  command: 2,3
+  name: ''
+  hit_level: h, m
+  damage: 10, 8
+  startup: i12, i22~23
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Combo from 1st CH with 2f delay'
+- id: '2_3_3'
+  source_id: Alisa-2,3,3
+  source_index: 15
+  command: 2,3,3
+  name: Down Time
+  hit_level: h, m, m
+  damage: 10, 8, 25
+  startup: i12, ,i20~22
+  recovery: r32
+  block: '-11'
+  hit: +16a (-7)
+  counter_hit: +61a (+41)
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 2nd hit with 9f delay
+
+    * Input can be delayed 12f
+
+    * Move can be delayed 11f
+
+    * Low crush 13~41
+
+    * Floating state 42~44'
+- id: '2_3_4'
+  source_id: Alisa-2,3,4
+  source_index: 16
+  command: 2,3,4
+  name: Down Link
+  hit_level: h, m, L
+  damage: 10, 8, 20
+  startup: i12, ,i42~45
+  recovery: r32
+  block: '-13'
+  hit: +13d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - low
+  - mid
+  - high
+  notes: '* Low crush 24~39
+
+    * Floating state 40~42'
+- id: '3'
+  source_id: Alisa-3
+  source_index: 17
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r30
+  block: -12~-11
+  hit: -1~+0
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_2'
+  source_id: Alisa-3,2
+  source_index: 18
+  command: 3,2
+  name: Quick Trim
+  hit_level: m, h
+  damage: 10, 20
+  startup: i13~14, i26~27
+  recovery: r29 DES
+  block: '-2'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - hom
+  - bbr
+  - wpn
+  - heat
+  - homing
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Homing
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block
+
+    * 10 chip damage on block in Heat
+
+    * Does not transition to DES when using Heat Dash'
+- id: 3_fp2
+  source_id: Alisa-3,f+2
+  source_index: 19
+  command: 3,f+2
+  name: Quick Access
+  hit_level: m, m
+  damage: 10, 20
+  startup: i13~14, i24~28 i1~4 i1~4 i1~4 i1
+  recovery: r31 DES
+  block: '-12'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit
+
+    * 2 chip damage on block
+
+    * 6 chip damage on block in Heat'
+- id: '4'
+  source_id: Alisa-4
+  source_index: 20
+  command: '4'
+  name: Accelerator
+  hit_level: h
+  damage: '24'
+  startup: i13~14
+  recovery: r28
+  block: '-5'
+  hit: +14g
+  counter_hit: +38a
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Enter DES with 1+2
+
+    * Hit vs BT +21a (+12)'
+- id: 1p2
+  source_id: Alisa-1+2
+  source_index: 21
+  command: 1+2
+  name: Uninstall
+  hit_level: m
+  damage: '22'
+  startup: i19~20
+  recovery: r34
+  block: '-4'
+  hit: +15d
+  counter_hit: ''
+  tier: core
+  tags:
+  - he
+  - bbr
+  - spk
+  - hed
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +67a (+50)
+
+
+    * Balcony Break
+
+    * Spike
+
+    * Head
+
+    * 6 chip damage on block
+
+    * Hit vs BT +10d'
+- id: 1p2p3
+  source_id: Alisa-1+2+3
+  source_index: 22
+  command: 1+2+3
+  name: Taunt 1
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r60
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: Can transition to DES with held input 1+2
+- id: 1p2p4
+  source_id: Alisa-1+2+4
+  source_index: 23
+  command: 1+2+4
+  name: Taunt 2
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r80
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: fp2
+  source_id: Alisa-f+2
+  source_index: 24
+  command: f+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i17~18
+  recovery: r22
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Enter DES with 1+2'
+- id: fp2_1
+  source_id: Alisa-f+2,1
+  source_index: 25
+  command: f+2,1
+  name: Dual Session
+  hit_level: m, m
+  damage: 12, 20
+  startup: i17~18, i24~25
+  recovery: r36 DES
+  block: '-12'
+  hit: +14g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block
+
+    * 10 chip damage on block in heat
+
+    * Opponent recovers crouching on hit
+
+    * Does not transition to DES when using Heat Dash'
+- id: fp2_3
+  source_id: Alisa-f+2,3
+  source_index: 26
+  command: f+2,3
+  name: ''
+  hit_level: m, h
+  damage: 12, 8
+  startup: i17~18, i22
+  recovery: r36
+  block: '-8'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st CH with 1f delay
+
+    * Move cannot be delayed
+
+    * Transition to r40 DES with 1+2
+
+    * Low crush 17~38
+
+    * Floating state 39~41'
+- id: fp2_3_3
+  source_id: Alisa-f+2,3,3
+  source_index: 27
+  command: f+2,3,3
+  name: Triple Session
+  hit_level: m, h, m
+  damage: 12, 8, 22
+  startup: i17~18, ,i35~36
+  recovery: r31
+  block: '-10'
+  hit: +12a (-3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit'
+- id: fp3
+  source_id: Alisa-f+3
+  source_index: 28
+  command: f+3
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i14~15
+  recovery: r32
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: fp3_2
+  source_id: Alisa-f+3,2
+  source_index: 29
+  command: f+3,2
+  name: Lost Access
+  hit_level: h, h
+  damage: 10, 20
+  startup: i14~15, i24~26
+  recovery: r25 DES
+  block: '-4'
+  hit: +39d (+31)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 6 chip damage on block
+
+    * 10 chip damage on block in Heat'
+- id: fp3_1p2
+  source_id: Alisa-f+3,1+2
+  source_index: 30
+  command: f+3,1+2
+  name: Automatic Transmission
+  hit_level: h, m
+  damage: 10, 25
+  startup: i14~15, i24~25
+  recovery: r34 DES
+  block: '-13'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 7 chip damage on block
+
+    * 12 chip damage on block in heat
+
+    * Hit vs BT +15a (+6)'
+- id: fp4
+  source_id: Alisa-f+4
+  source_index: 31
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i16
+  recovery: r31
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Enter DES with 1+2'
+- id: fp4_1
+  source_id: Alisa-f+4,1
+  source_index: 32
+  command: f+4,1
+  name: ''
+  hit_level: m, h
+  damage: 14, 14
+  startup: i16, i25~26
+  recovery: r49
+  block: '-9'
+  hit: +15d (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hed
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Head
+
+    * Combo from 1st hit'
+- id: fp4_1_4
+  source_id: Alisa-f+4,1,4
+  source_index: 33
+  command: f+4,1,4
+  name: Logic Bomb
+  hit_level: m, h, m
+  damage: 14, 14, 24 (19)
+  startup: i16, ,i27~65
+  recovery: r1
+  block: -12~+26g
+  hit: +1a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: "* Aerial combo from 2nd hit\n* i25-26 bounce, i25-26 travel, \n(---)/i35(27-65)\
+    \ travel then explosion , \n-3(-11) and -1(-9) for explosion then hit, respectively"
+- id: fp1p2
+  source_id: Alisa-f+1+2
+  source_index: 34
+  command: f+1+2
+  name: Overflow
+  hit_level: m
+  damage: '25'
+  startup: i14~15
+  recovery: r35
+  block: '-12'
+  hit: +14g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Enter SBT -16 +10g r25 with 3_4
+
+    * Enter DBT -16 +10g r25 with f+3_f+4
+
+    * Opponent recovers crouching'
+- id: fp3p4
+  source_id: Alisa-f+3+4
+  source_index: 35
+  command: f+3+4
+  name: Boot
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 SBT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 26~54
+
+    * Floating state 55~57'
+- id: dfp1
+  source_id: Alisa-df+1
+  source_index: 36
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+8'
+  tier: core
+  tags:
+  - mid
+  notes: '* +5c on hit against crouching opponent'
+- id: dfp1_1
+  source_id: Alisa-df+1,1
+  source_index: 37
+  command: df+1,1
+  name: ''
+  hit_level: m, h
+  damage: 10, 20
+  startup: i13, i30~31
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Combo from 1st CH with 2f delay
+
+    * Move cannot be delayed'
+- id: dfp1_1_2
+  source_id: Alisa-df+1,1,2
+  source_index: 38
+  command: df+1,1,2
+  name: Cyclone Mixer
+  hit_level: m, h, h
+  damage: 10, 20, 28
+  startup: i13, ,i22~25
+  recovery: r22 DES
+  block: '+6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 2nd hit
+
+    * 2 chip damage on block
+
+    * 8 chip damage on block in heat'
+- id: dfp1_4
+  source_id: Alisa-df+1,4
+  source_index: 39
+  command: df+1,4
+  name: Cyclone Hacker
+  hit_level: m, m
+  damage: 10, 17
+  startup: i13, i26~27
+  recovery: r30
+  block: '-11'
+  hit: +3c
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st CH
+
+    * Transition to DES with 1+2'
+- id: dfp2
+  source_id: Alisa-df+2
+  source_index: 40
+  command: df+2
+  name: Pickup
+  hit_level: m
+  damage: '16'
+  startup: i16~17
+  recovery: r27
+  block: '-9'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* +7 on hit against crouching opponent
+
+    * Does not launch crouching opponent except on CH'
+- id: dfp3
+  source_id: Alisa-df+3
+  source_index: 41
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '14'
+  startup: i16
+  recovery: r31
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp3_3
+  source_id: Alisa-df+3,3
+  source_index: 42
+  command: df+3,3
+  name: Double Socket
+  hit_level: m, L
+  damage: 14, 17
+  startup: i16, i23~24
+  recovery: r30
+  block: '-12'
+  hit: '+1'
+  counter_hit: +14d
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - low
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 9f delay
+
+    * Input can be delayed 16f
+
+    * Move can be delayed 12f'
+- id: dfp4
+  source_id: Alisa-df+4
+  source_index: 43
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i12
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: +4c on hit against crouching opponent
+- id: dp2
+  source_id: Alisa-d+2
+  source_index: 44
+  command: d+2
+  name: ''
+  hit_level: M
+  damage: '8'
+  startup: i24~26
+  recovery: r31
+  block: '-14'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: Floor Break
+- id: dp2_4
+  source_id: Alisa-d+2,4
+  source_index: 45
+  command: d+2,4
+  name: Deadlock
+  hit_level: M, M
+  damage: 8, 20
+  startup: i24~26, i18~21
+  recovery: r34
+  block: '-9'
+  hit: +28a (+13a)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Enter DES with 1+2
+
+    * Low crush 21~43
+
+    * Floating state 44~46'
+- id: dp3
+  source_id: Alisa-d+3
+  source_index: 46
+  command: d+3
+  name: Quick Slider
+  hit_level: L
+  damage: '17'
+  startup: i23~32
+  recovery: r21 BKP
+  block: -10~-1
+  hit: +8c~+17c
+  counter_hit: +32a
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  - low
+  notes: 'FC recovery transition is -19~-10/-1c~+8c
+
+    * Low crush 9~23
+
+    * Floating state 24~26'
+- id: dp4
+  source_id: Alisa-d+4
+  source_index: 47
+  command: d+4
+  name: ''
+  hit_level: L
+  damage: '12'
+  startup: i17~18
+  recovery: r30
+  block: '-12'
+  hit: '-1'
+  counter_hit: +8g
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp4_1p2
+  source_id: Alisa-d+4,1+2
+  source_index: 48
+  command: d+4,1+2
+  name: Optimizer
+  hit_level: L, h
+  damage: 12, 20
+  startup: i17~18, i20~21
+  recovery: r38
+  block: '+0'
+  hit: +11a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hed
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Head
+
+    * Jail from 1st attack
+
+    * Combo from 1st CH'
+- id: dp1p2
+  source_id: Alisa-d+1+2
+  source_index: 49
+  command: d+1+2
+  name: Destructive Form
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r47 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to r30 with db or d+1+2
+
+    * Transition to DBT with DES.f+3_f+4'
+- id: dp3p4
+  source_id: Alisa-d+3+4
+  source_index: 50
+  command: d+3+4
+  name: Harpoon Sweep
+  hit_level: L
+  damage: '20'
+  startup: i27~i28
+  recovery: r36
+  block: '-37'
+  hit: +67a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - fs
+  - homing
+  - high_crush
+  - tornado
+  - low
+  notes: '* Homing
+
+    * Instant Tornado
+
+    * Stagger on block
+
+    * Enter DES with 1+2
+
+    * High crush 20~40
+
+    * Floating state 5~55'
+- id: dbp1
+  source_id: Alisa-db+1
+  source_index: 51
+  command: db+1
+  name: Backup
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r15 BKP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to FC with D
+
+    * Can perform WS moves after 24 frames
+
+    * High crush 4~15'
+- id: dbp1
+  source_id: Alisa-db+1
+  source_index: 52
+  command: db+1
+  name: Backup
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r15 BKP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to r9? FC with D or after d+3 BKP transition
+
+    * Can perform WS moves after 24 frames
+
+    * High crush 4~15'
+- id: dbp2
+  source_id: Alisa-db+2
+  source_index: 53
+  command: db+2
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i18~19
+  recovery: r36
+  block: '-18'
+  hit: '-5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: dbp2_2
+  source_id: Alisa-db+2,2
+  source_index: 54
+  command: db+2,2
+  name: Daisy Chain
+  hit_level: m, m
+  damage: 10, 10
+  startup: i18~19, i19~20
+  recovery: r36
+  block: '-9'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 12f delay
+
+    * Input can be delayed 15f
+
+    * Move can be delayed 14f
+
+    * Enter DES with 1+2'
+- id: dbp3
+  source_id: Alisa-db+3
+  source_index: 55
+  command: db+3
+  name: Deep Link
+  hit_level: L
+  damage: '11'
+  startup: i16
+  recovery: r32 FC
+  block: '-13'
+  hit: '-2'
+  counter_hit: '+3'
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~'
+- id: dbp4
+  source_id: Alisa-db+4
+  source_index: 56
+  command: db+4
+  name: Deep Web
+  hit_level: L
+  damage: '17'
+  startup: i20~21
+  recovery: r32 FC
+  block: '-14'
+  hit: +2c
+  counter_hit: +12g
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~'
+- id: bp1
+  source_id: Alisa-b+1
+  source_index: 57
+  command: b+1
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i15~16
+  recovery: r28 FC
+  block: '-5'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: '* High crush 12~'
+- id: bp1_1p2
+  source_id: Alisa-b+1,1+2
+  source_index: 58
+  command: b+1,1+2
+  name: Gadget Found
+  hit_level: m, SL,m
+  damage: 15, 1,30
+  startup: i15~16, i25~40 i26~28
+  recovery: r42
+  block: '-16'
+  hit: +71a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - hed
+  - tornado
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Head
+
+    * Input can be delayed 13f
+
+    * 2nd hit combos into 3rd on CH only'
+- id: bp1p3
+  source_id: Alisa-b+1+3
+  source_index: 59
+  command: b+1+3
+  name: Model Change
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r45
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries all highs
+
+    * Parry state 3~15'
+- id: bp1p3_p
+  source_id: Alisa-b+1+3,P
+  source_index: 60
+  command: b+1+3,P
+  name: ''
+  hit_level: m!
+  damage: '25'
+  startup: i20~21
+  recovery: r49
+  block: ''
+  hit: -5a (-14)
+  counter_hit: +27a (-20)
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - parry
+  - mid
+  notes: '* Balcony Break
+
+    * Interrupt with i2 or i19 mid extension after parry
+
+    * High crush 1~39'
+- id: bp2
+  source_id: Alisa-b+2
+  source_index: 61
+  command: b+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i18
+  recovery: r31
+  block: '-9'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp2_1
+  source_id: Alisa-b+2,1
+  source_index: 62
+  command: b+2,1
+  name: Trance Hammer
+  hit_level: m, m
+  damage: 12, 17
+  startup: i18, i25~26
+  recovery: r31
+  block: '-13'
+  hit: +3c
+  counter_hit: +17a
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 7f delay
+
+    * Move can be delayed 12f'
+- id: bp2_3
+  source_id: Alisa-b+2,3
+  source_index: 63
+  command: b+2,3
+  name: Trance Generator
+  hit_level: m, m
+  damage: 12, 22
+  startup: i18, i23~24
+  recovery: r40
+  block: '-15'
+  hit: +9a (-8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Combo from 1st hit with 9f delay
+
+    * Move can be delayed 12f
+
+    * Low crush 21~60
+
+    * Floating state 61~63'
+- id: bp2_4
+  source_id: Alisa-b+2,4
+  source_index: 64
+  command: b+2,4
+  name: Trance Accelerator Kick
+  hit_level: m, h
+  damage: 12, 20
+  startup: i18, i16~17
+  recovery: r30
+  block: '-7'
+  hit: +12g
+  counter_hit: +36a
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Enter DES with 1+2
+
+    * Combo from 1st hit with 12f delay'
+- id: bp3
+  source_id: Alisa-b+3
+  source_index: 65
+  command: b+3
+  name: Spinning Top
+  hit_level: m
+  damage: '22'
+  startup: i20~22
+  recovery: r38
+  block: '-8'
+  hit: +5a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break'
+- id: bp4
+  source_id: Alisa-b+4
+  source_index: 66
+  command: b+4
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i15~16
+  recovery: r35
+  block: '-13'
+  hit: '-4'
+  counter_hit: +54a
+  tier: core
+  tags:
+  - kne
+  - mid
+  notes: Knee
+- id: bp4_3
+  source_id: Alisa-b+4,3
+  source_index: 67
+  command: b+4,3
+  name: Double Threading
+  hit_level: m, m
+  damage: 17, 20
+  startup: i15~16, i29~30
+  recovery: r29
+  block: '-11'
+  hit: +6c
+  counter_hit: +10a
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit
+
+    * Enter DES with 1+2
+
+    * Low crush 17~24
+
+    * Floating state 25~27'
+- id: bp4_4
+  source_id: Alisa-b+4,4
+  source_index: 68
+  command: b+4,4
+  name: Double Override
+  hit_level: m, M
+  damage: 17, 17
+  startup: i15~16, i25~27
+  recovery: r63
+  block: '-37'
+  hit: +9a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    * Transition to SBT -19 +27a (+17) with input 3_4
+
+    * Transition to DBT -19 +27a (+17) with input f+3_f+4
+
+    * Low crush 25~62
+
+    * Floating state 63~65'
+- id: bp1p2
+  source_id: Alisa-b+1+2
+  source_index: 69
+  command: b+1+2
+  name: Transmission
+  hit_level: m
+  damage: '25'
+  startup: i19~20
+  recovery: r34 DES
+  block: '-13'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - pc
+  - heat
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * 12 chip damage on block in Heat
+
+    * 10 chip damage and -9 block advantage on attack absorption
+
+    ** 12 chip damage in Heat
+
+    * Power crush 7~18'
+- id: bp3p4
+  source_id: Alisa-b+3+4
+  source_index: 70
+  command: b+3+4
+  name: ''
+  hit_level: m
+  damage: '22'
+  startup: i18~19
+  recovery: r41
+  block: '-17'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Low crush 5~34
+
+    * Floating state 35~52'
+- id: bp3p4_3p4
+  source_id: Alisa-b+3+4,3+4
+  source_index: 71
+  command: b+3+4,3+4
+  name: Dynamic Range
+  hit_level: m, M
+  damage: 22, 37 (25)
+  startup: i18~19, i56~61
+  recovery: r23
+  block: +5c~+10c
+  hit: +59a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Aerial combo from 1st hit
+
+    * Low crush 1~58
+
+    * Floating state 59~61'
+- id: ubp1
+  source_id: Alisa-ub+1
+  source_index: 72
+  command: ub+1
+  name: Shortcut
+  hit_level: m,M
+  damage: 9,9
+  startup: i19 i1~2
+  recovery: r26 DES
+  block: '-7'
+  hit: +8c
+  counter_hit: +33d
+  tier: specialist
+  tags:
+  - fbr
+  - wpn
+  - floor_break
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * Weapon
+
+    * 2 chip damage on block'
+- id: ubp2
+  source_id: Alisa-ub+2
+  source_index: 73
+  command: ub+2
+  name: Overload
+  hit_level: h
+  damage: '23'
+  startup: i16~20
+  recovery: r32
+  block: '-9'
+  hit: +12c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - fs
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 9 chip damage on block, +0 block advantage on attack absorption
+
+    * Forces tech backroll on hit
+
+    * Power crush 7~15
+
+    * Floating state 20~30'
+- id: ubp4
+  source_id: Alisa-ub+4
+  source_index: 74
+  command: ub+4
+  name: 1st Hit
+  hit_level: m
+  damage: '10'
+  startup: i18
+  recovery: r27
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~31
+
+    * Floating state 32~34'
+- id: ubp4_1
+  source_id: Alisa-ub+4,1
+  source_index: 75
+  command: ub+4,1
+  name: 2nd Hit
+  hit_level: m, m
+  damage: 10, 12
+  startup: i18, i25~27
+  recovery: r38 FC
+  block: '-21'
+  hit: '-8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - mid
+  notes: 'Combo from 1st CH
+
+    * High crush 24~'
+- id: ubp4_1_1
+  source_id: Alisa-ub+4,1,1
+  source_index: 76
+  command: ub+4,1,1
+  name: 3rd Hit
+  hit_level: m, m, m
+  damage: 10, 12, 9
+  startup: i18, ,i21
+  recovery: r39
+  block: '-20'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Combo from 2nd hit
+
+    * Combo from 1st CH'
+- id: ubp4_1_1_2
+  source_id: Alisa-ub+4,1,1,2
+  source_index: 77
+  command: ub+4,1,1,2
+  name: 4th Hit
+  hit_level: m, m, m, h
+  damage: 10, 12, 9, 5
+  startup: i18, ,i24~25
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 3rd hit
+
+    * Combo from 1st CH'
+- id: ubp4_1_1_2_1
+  source_id: Alisa-ub+4,1,1,2,1
+  source_index: 78
+  command: ub+4,1,1,2,1
+  name: 5th Hit
+  hit_level: m, m, m, h, h
+  damage: 10, 12, 9, 5, 5
+  startup: i18, ,i35~36
+  recovery: r27
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break (airborne)'
+- id: ubp4_1_1_2_1_1
+  source_id: Alisa-ub+4,1,1,2,1,1
+  source_index: 79
+  command: ub+4,1,1,2,1,1
+  name: 6th Hit
+  hit_level: m, m, m, h, h, m,M,M
+  damage: 10, 12, 9, 5, 5, 3,3,3
+  startup: i18, ,i32~33 i1~2 i1~2
+  recovery: r32 DES
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 5th hit
+
+    * 1 chip damage on block
+
+    * 3 chip damage on block in heat'
+- id: ubp4_1_1_2_1_1_3p4
+  source_id: Alisa-ub+4,1,1,2,1,1,3+4
+  source_index: 80
+  command: ub+4,1,1,2,1,1,3+4
+  name: 7th Hit
+  hit_level: m, m, m, h, h, m,M,M, L
+  damage: 10, 12, 9, 5, 5, 3,3,3, 7
+  startup: i18, ,i27~28
+  recovery: r47
+  block: '-29'
+  hit: +15a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - low
+  - mid
+  - high
+  notes: '*
+
+    * Floating state 5~50'
+- id: ubp4_1_1_2_1_1_3p4_3
+  source_id: Alisa-ub+4,1,1,2,1,1,3+4,3
+  source_index: 81
+  command: ub+4,1,1,2,1,1,3+4,3
+  name: 8th Hit
+  hit_level: m, m, m, h, h, m,M,M, L, m
+  damage: 10, 12, 9, 5, 5, 3,3,3, 7, 15
+  startup: i18, ,i20~21
+  recovery: r42
+  block: '-65'
+  hit: '-40'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  - high
+  notes: '* Combo from 7th hit
+
+    * Low crush 9~'
+- id: ubp4_1_1_2_1_1_3p4_3_2
+  source_id: Alisa-ub+4,1,1,2,1,1,3+4,3,2
+  source_index: 82
+  command: ub+4,1,1,2,1,1,3+4,3,2
+  name: 9th Hit
+  hit_level: m, m, m, h, h, m,M,M, L, m, M
+  damage: 10, 12, 9, 5, 5, 3,3,3, 7, 15, 20
+  startup: i18, ,i17~22
+  recovery: r44
+  block: '-30'
+  hit: -38a (-45)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  - mid
+  - high
+  notes: '* Combo from 8th hit
+
+    * Available only as combo from previous hit
+
+    * Low crush 1~'
+- id: ubp4_1_1_2_1_1_3p4_3_2_2
+  source_id: Alisa-ub+4,1,1,2,1,1,3+4,3,2,2
+  source_index: 83
+  command: ub+4,1,1,2,1,1,3+4,3,2,2
+  name: 10 Hit Combo
+  hit_level: m, m, m, h, h, m,M,M, L, m, M, M,M,h,h
+  damage: 10, 12, 9, 5, 5, 3,3,3, 7, 15, 20, 2,2,2,20
+  startup: i18, ,i13~16 1~5 i1~6 i1~8
+  recovery: r50 DES
+  block: '-23'
+  hit: +3a (-15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - heat
+  - low_crush
+  - chip
+  - low
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Combo from 9th hit
+
+    * Last chainsaw hit rarely connects because of its high hitbox, -17 if blocked
+
+    * 1 chip damage on block
+
+    * 3 chip damage on block in heat
+
+    * Low crush 16~'
+- id: ubp3p4
+  source_id: Alisa-ub+3+4
+  source_index: 84
+  command: ub+3+4
+  name: ''
+  hit_level: M
+  damage: '25'
+  startup: i37~39
+  recovery: r23
+  block: +2c~+4c
+  hit: +25a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - mid
+  notes: 'Spike
+
+    * Low crush 5~39'
+- id: ubp3p4_1p2
+  source_id: Alisa-ub+3+4,1+2
+  source_index: 85
+  command: ub+3+4,1+2
+  name: Docking Bay
+  hit_level: M, m
+  damage: 25, 20
+  startup: i37~39, i26~27
+  recovery: r37
+  block: '-14'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hed
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Head
+
+    * Low crush 48~67
+
+    * Floating state 68~70'
+- id: up1p2
+  source_id: Alisa-u+1+2
+  source_index: 86
+  command: u+1+2
+  name: Gigabyte Hammer
+  hit_level: m
+  damage: '21'
+  startup: i33~34
+  recovery: r29
+  block: '-5'
+  hit: +56a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Low crush 7~33
+
+    * Floating state 34~36'
+- id: ufp1
+  source_id: Alisa-uf+1
+  source_index: 87
+  command: uf+1
+  name: Brute Force Attack
+  hit_level: m,m,m
+  damage: 19,19,20
+  startup: i19~20 i25 i17
+  recovery: r37
+  block: '-13'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transition to SBT on hit with 3_4
+
+    * Transition to DBT on hit with f+3_f+4
+
+    * 2nd and 3rd hit available only as combo from 1st hit
+
+    * Low crush 20~40
+
+    * Floating state 41~43'
+- id: ufp2
+  source_id: Alisa-uf+2
+  source_index: 88
+  command: uf+2
+  name: Image Cutter
+  hit_level: h
+  damage: '22'
+  startup: i16~17
+  recovery: r29 DES
+  block: '-2'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - hom
+  - bbr
+  - wpn
+  - heat
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Homing
+
+    * Balcony Break
+
+    * Weapon
+
+    * 6 chip damage on block
+
+    * 11 chip damage on block in heat'
+- id: ufp3
+  source_id: Alisa-uf+3
+  source_index: 89
+  command: uf+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i17~18
+  recovery: r32
+  block: '-52'
+  hit: '-25'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - 'on'
+  - 'whiff:'
+  - js
+  - fs
+  - oh
+  - 'hit/block:'
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Transition to SBT with input 3_4
+
+    * Transition to DBT with input f+3_f+4
+
+    * on
+
+    * whiff:
+
+    * Low crush 9~31
+
+    * Floating state 32~34
+
+    * oh
+
+    * hit/block:
+
+    * Low crush 9~61
+
+    * Floating state 62~64'
+- id: ufp3_2
+  source_id: Alisa-uf+3,2
+  source_index: 90
+  command: uf+3,2
+  name: Cradle Star
+  hit_level: m, m
+  damage: 15, 30
+  startup: i17~18, i17~22
+  recovery: r37
+  block: '-14'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - fs
+  - cs
+  - low_crush
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Combo from 1st hit
+
+    * Available only as a combo from 1st hit
+
+    * Forces tech backroll on hit
+
+    * Low crush 9~58
+
+    * Floating state 59~75
+
+    * High crush 76~85'
+- id: ufp4
+  source_id: Alisa-uf+4
+  source_index: 91
+  command: uf+4
+  name: ''
+  hit_level: m
+  damage: '8'
+  startup: i15~16
+  recovery: r33
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 9~37
+
+    * Floating state 38~40'
+- id: ufp4_4
+  source_id: Alisa-uf+4,4
+  source_index: 92
+  command: uf+4,4
+  name: Inbound Kick
+  hit_level: m, M
+  damage: 8, 8
+  startup: i15~16, i24~26
+  recovery: r34
+  block: '-13'
+  hit: +45a (+37)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 2f delay
+
+    * Low crush 9~41
+
+    * Floating state 42~44'
+- id: ufp3p4
+  source_id: Alisa-uf+3+4
+  source_index: 93
+  command: uf+3+4
+  name: Downstream
+  hit_level: M
+  damage: '20'
+  startup: i38~40
+  recovery: r33
+  block: +0~+3
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - low_crush
+  - mid
+  notes: 'Spike
+
+    * Low crush 9~41'
+- id: 1p2p3p4
+  source_id: Alisa-1+2+3+4
+  source_index: 94
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r60
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Cannot block for 5 seconds
+
+    * CH state for 5 seconds
+
+    * Transition to DES with 1+2
+
+    * Low crush 11~49
+
+    * Floating state 50~52'
+- id: b_bp1p4
+  source_id: Alisa-b,B+1+4
+  source_index: 95
+  command: b,B+1+4
+  name: Double Rocket Punch
+  hit_level: h!
+  damage: '50'
+  startup: i63~84
+  recovery: r16
+  block: ''
+  hit: +37a (-18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Low crush 12~79
+
+    * Floating state 80~82'
+- id: b_bp2p3
+  source_id: Alisa-b,B+2+3
+  source_index: 96
+  command: b,B+2+3
+  name: Hang-Up
+  hit_level: m!
+  damage: '50'
+  startup: i75~76
+  recovery: r102
+  block: ''
+  hit: '+44'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hed
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Head'
+- id: ffp2
+  source_id: Alisa-f,F+2
+  source_index: 97
+  command: f,F+2
+  name: ''
+  hit_level: m
+  damage: '18'
+  startup: i16~17
+  recovery: r39
+  block: '-18'
+  hit: +5a
+  counter_hit: ''
+  tier: core
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break'
+- id: ffp2_3
+  source_id: Alisa-f,F+2,3
+  source_index: 98
+  command: f,F+2,3
+  name: Jumper Switch
+  hit_level: m, m
+  damage: 18, 25
+  startup: i16~17, i22~24
+  recovery: r36
+  block: '-13'
+  hit: +28a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with ~7~8?F delay (character-dependent)
+
+    * Input can be delayed 14F
+
+    * Move can be delayed 8F'
+- id: ffp3
+  source_id: Alisa-f,F+3
+  source_index: 99
+  command: f,F+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i18~19
+  recovery: r35
+  block: '-14'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 15~41
+
+    * Floating state 42~44'
+- id: ffp3_4
+  source_id: Alisa-f,F+3,4
+  source_index: 100
+  command: f,F+3,4
+  name: ''
+  hit_level: m, h
+  damage: 12, 15
+  startup: i18~19, i19~20
+  recovery: r29
+  block: '-10'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Enter DES with 1+2
+
+    * Low crush 15~48
+
+    * Floating state 49~51'
+- id: ffp3_4_4
+  source_id: Alisa-f,F+3,4,4
+  source_index: 101
+  command: f,F+3,4,4
+  name: Cutover
+  hit_level: m, h, m
+  damage: 12, 15, 25
+  startup: i18~19, ,i27~29
+  recovery: r31
+  block: '-10'
+  hit: +20a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd hit
+
+    * Enter DES with 1+2'
+- id: ffp4
+  source_id: Alisa-f,F+4
+  source_index: 102
+  command: f,F+4
+  name: Sandbox
+  hit_level: m,m
+  damage: 14,22
+  startup: i22~29 i34~39
+  recovery: r30
+  block: -9~-2
+  hit: +9a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - kne
+  - throw
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Knee
+
+    * Transition to attack throw on front hit only
+
+    * +8a (-1) on BT hit
+
+    * Just frame input: Input 1 during frames 16-19? to add 5 more dmg'
+- id: ffp1p2
+  source_id: Alisa-f,F+1+2
+  source_index: 103
+  command: f,F+1+2
+  name: Worm Virus
+  hit_level: m,m
+  damage: 5,10
+  startup: i17~18 i12~13
+  recovery: r27
+  block: '-9'
+  hit: '+4'
+  counter_hit: '+13'
+  tier: specialist
+  tags:
+  - mid
+  notes: 13 extra damage on CH, 28 in total
+- id: f_ffp2
+  source_id: Alisa-f,f,F+2
+  source_index: 104
+  command: f,f,F+2
+  name: Linear Punch
+  hit_level: h
+  damage: '30'
+  startup: i13~15
+  recovery: r34
+  block: +5~+7
+  hit: +28a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Enter DES with 1+2
+
+    * Low crush 3~27
+
+    * Floating state 28~30'
+- id: f_ffp3
+  source_id: Alisa-f,f,F+3
+  source_index: 105
+  command: f,f,F+3
+  name: ''
+  hit_level: m
+  damage: '15'
+  startup: i18~19
+  recovery: r33
+  block: '-4'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break (airborne)
+
+    * Low crush 3~30
+
+    * Floating state 31~33'
+- id: f_ffp3_4
+  source_id: Alisa-f,f,F+3,4
+  source_index: 106
+  command: f,f,F+3,4
+  name: Linear Dropkick
+  hit_level: m, m
+  damage: 15, 20
+  startup: i18~19, i20~22
+  recovery: r33
+  block: '-7'
+  hit: +31a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st hit
+
+    * Jail from 1st block
+
+    * Low crush 3~50
+
+    * Floating state 51~53'
+- id: f_ffp1p2
+  source_id: Alisa-f,f,F+1+2
+  source_index: 107
+  command: f,f,F+1+2
+  name: Thruster Double Punch
+  hit_level: M
+  damage: '24'
+  startup: i18~36
+  recovery: r44
+  block: '-3'
+  hit: -17a (-26)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Punishable with toekick on hit
+
+    * Low crush 5~36
+
+    * Floating state 37~67'
+- id: ws1
+  source_id: Alisa-ws1
+  source_index: 108
+  command: ws1
+  name: ''
+  hit_level: M
+  damage: '12'
+  startup: i13~14
+  recovery: r30
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow'
+- id: ws1_2
+  source_id: Alisa-ws1,2
+  source_index: 109
+  command: ws1,2
+  name: ''
+  hit_level: M, h
+  damage: 12, 12
+  startup: i13~14, i24~25
+  recovery: r23
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Enter DES with 1+2'
+- id: ws1_2_3
+  source_id: Alisa-ws1,2,3
+  source_index: 110
+  command: ws1,2,3
+  name: Spear Fishing
+  hit_level: M, h, m
+  damage: 12, 12, 23
+  startup: i13~14, ,i25~26
+  recovery: r31
+  block: '-10'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd CH with 5f delay
+
+    * Input can be delayed 10f
+
+    * Enter DES with 1+2'
+- id: ws2
+  source_id: Alisa-ws2
+  source_index: 111
+  command: ws2
+  name: Digital Lift
+  hit_level: m
+  damage: '24'
+  startup: i17~18
+  recovery: r40
+  block: '-13'
+  hit: +33a (+23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - stance_transition
+  - mid
+  notes: '* Tornado
+
+    * Transition to SBT 3_4
+
+    * Transition to DBT f+3_f+4'
+- id: ws3
+  source_id: Alisa-ws3
+  source_index: 112
+  command: ws3
+  name: Clockwork (CLK)
+  hit_level: m
+  damage: '18'
+  startup: i19~20
+  recovery: r35 FC
+  block: '+4'
+  hit: '+15'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Cancel with B
+
+    * Actionable after 15 frames'
+- id: ws4
+  source_id: Alisa-ws4
+  source_index: 113
+  command: ws4
+  name: Key Smash
+  hit_level: m
+  damage: '15'
+  startup: i11~12
+  recovery: r23
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1p2
+  source_id: Alisa-ws1+2
+  source_index: 114
+  command: ws1+2
+  name: Cute But Deadly
+  hit_level: m
+  damage: '20'
+  startup: i20~21
+  recovery: r31 FC
+  block: '-8'
+  hit: '+21'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Hold input to power up'
+- id: ws1p2
+  source_id: Alisa-ws1+2*
+  source_index: 115
+  command: ws1+2*
+  name: ''
+  hit_level: m
+  damage: '24'
+  startup: i28~29
+  recovery: r31 FC
+  block: '-4'
+  hit: '+21'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing
+
+    * Hold input to power up'
+- id: ws1p2
+  source_id: Alisa-ws1+2**
+  source_index: 116
+  command: ws1+2**
+  name: Cute But Deadly (Hold)
+  hit_level: m
+  damage: '28'
+  startup: i39~40
+  recovery: r27 FC
+  block: '+0'
+  hit: +33a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - chip
+  - mid
+  notes: '* Homing
+
+    * 11 chip damage on block'
+- id: ss_4
+  source_id: Alisa-SS.4
+  source_index: 117
+  command: SS.4
+  name: ''
+  hit_level: L
+  damage: '16'
+  startup: i24~25
+  recovery: r30
+  block: '-12'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~35'
+- id: ss_4_1p2
+  source_id: Alisa-SS.4,1+2
+  source_index: 118
+  command: SS.4,1+2
+  name: Happy Propeller
+  hit_level: L, h,h,h,m
+  damage: 16, 5,5,5,5
+  startup: i24~25, i18~19 i3~5 i5~7 i4~5
+  recovery: r28
+  block: '-10'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - low
+  - mid
+  - high
+  notes: '* Spike
+
+    * Combo from 1st CH
+
+    * Low crush 15~34
+
+    * Floating state 35~37'
+- id: fc_dp1
+  source_id: Alisa-FC.d+1
+  source_index: 119
+  command: FC.d+1
+  name: ''
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: 'Transition to standing with f
+
+    * High crush 1~'
+- id: fc_dp2
+  source_id: Alisa-FC.d+2
+  source_index: 120
+  command: FC.d+2
+  name: ''
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp3
+  source_id: Alisa-FC.d+3
+  source_index: 121
+  command: FC.d+3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: fc_dp4
+  source_id: Alisa-FC.d+4
+  source_index: 122
+  command: FC.d+4
+  name: ''
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 1~'
+- id: back_to_wall_b_b_ub
+  source_id: Alisa-(Back to wall).b,b,UB
+  source_index: 123
+  command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r75
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - is
+  - js
+  - fs
+  - low_crush
+  notes: '* is8~13
+
+    * Low crush 14~57
+
+    * Floating state 58~60'
+- id: bkp_1
+  source_id: Alisa-BKP.1
+  source_index: 124
+  command: BKP.1
+  name: Recovery Hook
+  hit_level: h
+  damage: '21'
+  startup: i11~13
+  recovery: r37
+  block: +4~+6
+  hit: +27a (+1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * 9 chip damage on block
+
+    * Transition to SBT at +6/+29 (+3) with 3 or 4
+
+    * Transition to DBT at +6/+29 (+3) with f+3 or f+4'
+- id: bkp_2
+  source_id: Alisa-BKP.2
+  source_index: 125
+  command: BKP.2
+  name: Rapid Rocket Punch
+  hit_level: h
+  damage: '34'
+  startup: i11~33
+  recovery: r22
+  block: -9~+13
+  hit: +21a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - chip
+  - high
+  notes: '* Tornado
+
+    * 6 chip damage on block'
+- id: bkp_3
+  source_id: Alisa-BKP.3
+  source_index: 126
+  command: BKP.3
+  name: Meteor Kick
+  hit_level: m
+  damage: '30'
+  startup: i24~27
+  recovery: r34
+  block: '-9'
+  hit: +72a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: 'Balcony Break
+
+    * Low crush 15~40
+
+    * Floating state 41~43'
+- id: bkp_4
+  source_id: Alisa-BKP.4
+  source_index: 127
+  command: BKP.4
+  name: Uplink Knee
+  hit_level: m
+  damage: '30'
+  startup: i18~23
+  recovery: r54
+  block: -9~-4
+  hit: +31a (+21)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - kne
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Knee
+
+    * Low crush 17~52
+
+    * Floating state 53~55'
+- id: bkp_1p2
+  source_id: Alisa-BKP.1+2
+  source_index: 128
+  command: BKP.1+2
+  name: Rocket Punch
+  hit_level: h!
+  damage: 20,3
+  startup: i34~71
+  recovery: r20
+  block: ''
+  hit: +58a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon'
+- id: bt_4
+  source_id: Alisa-BT.4
+  source_index: 129
+  command: BT.4
+  name: Goody Two Shoes
+  hit_level: m
+  damage: '20'
+  startup: i16~17
+  recovery: ''
+  block: '-3'
+  hit: +19a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * High crush 5~12'
+- id: clk_two_spins_3
+  source_id: Alisa-CLK(Two spins).3
+  source_index: 130
+  command: CLK(Two spins).3
+  name: ''
+  hit_level: m
+  damage: '22'
+  startup: i13~14
+  recovery: r31
+  block: '+0'
+  hit: +63a (+43)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Effective startup time is i32~33?
+
+    * 8 chip damage on block'
+- id: clk_3
+  source_id: Alisa-CLK.3
+  source_index: 131
+  command: CLK.3
+  name: Clockwork Spring Middle
+  hit_level: m
+  damage: '20'
+  startup: i13~14
+  recovery: r30
+  block: '-9'
+  hit: +12g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Combo from 1st hit
+
+    * Power up after 2 or more spins (i19?)
+
+    * Interrupt with i8 from 1st block'
+- id: clk_b
+  source_id: Alisa-ws3,B
+  source_index: 132
+  command: CLK.B
+  name: Clockwork Cancel
+  hit_level: m
+  damage: '18'
+  startup: i19~20
+  recovery: r35
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Cancel with B'
+- id: clk_dp3
+  source_id: Alisa-CLK.d+3
+  source_index: 133
+  command: CLK.d+3
+  name: Clockwork Spring Low
+  hit_level: L
+  damage: '20'
+  startup: i30~31
+  recovery: r30 FC
+  block: '-12'
+  hit: +73a (+57)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - chip
+  - low
+  notes: '* 8 chip damage on block
+
+    * High crush 9~'
+- id: dbt_1
+  source_id: Alisa-DBT.1
+  source_index: 134
+  command: DBT.1
+  name: Thruster Left
+  hit_level: h,h,h,h,h,h
+  damage: '30'
+  startup: i24~28 i1~6 i1~6 i1~6 i1~6 i1~2
+  recovery: r18 DES
+  block: '+9'
+  hit: +11g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - chip
+  - high
+  notes: '* Weapon
+
+    * Jail from 1st attack
+
+    * 3 chip damage on block
+
+    * 12 chip damage on block in heat
+
+    * Low crush 17~34
+
+    * Floating state 35~37'
+- id: dbt_2
+  source_id: Alisa-DBT.2
+  source_index: 135
+  command: DBT.2
+  name: Thruster Right
+  hit_level: M,M,h,h,h
+  damage: '25'
+  startup: i16~18 i1~5 i1~5 i1~5 i1~1
+  recovery: r44 DES
+  block: '-14'
+  hit: +32a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * Jail from 1st attack
+
+    * 2 chip damage on block
+
+    * 4 chip damage on block in heat
+
+    * Low crush 17~66
+
+    * Floating state 67~69'
+- id: dbt_2_1
+  source_id: Alisa-DBT.2,1
+  source_index: 136
+  command: DBT.2,1
+  name: Thruster Right - Burst
+  hit_level: M,M,h,h,h, h
+  damage: 25, 45
+  startup: i16~18 i1~5 i1~5 i1~5 i1~1, i26~28
+  recovery: r35 DES
+  block: -11c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '-28 on whiff.
+
+    * Balcony Break
+
+    * Spike
+
+    * 13 chip damage on block
+
+    * 18 chip damage on block in heat
+
+    * Low crush 17~100
+
+    * Floating state 101~103'
+- id: dbt_3
+  source_id: Alisa-DBT.3
+  source_index: 137
+  command: DBT.3
+  name: Eject Slider
+  hit_level: L
+  damage: '17'
+  startup: i16~20, i1~5
+  recovery: r25 FC
+  block: '-14'
+  hit: +4c~+8c
+  counter_hit: +28a
+  tier: specialist
+  tags:
+  - js
+  - cs
+  - fs
+  - low_crush
+  - high_crush
+  - low
+  notes: '* Frame advantage +8c~+12c on shallow hit, +32 on CH
+
+    * fs9~20 on hit
+
+    * Low crush 1~8
+
+    * High crush 9~30
+
+    * Floating state 9~40'
+- id: dbt_4
+  source_id: Alisa-DBT.4
+  source_index: 138
+  command: DBT.4
+  name: Upstream
+  hit_level: M
+  damage: 22,5
+  startup: i17~19
+  recovery: r50
+  block: '-27'
+  hit: +68a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Steel pedal
+
+    * Low crush 17~62
+
+    * Floating state 63~65'
+- id: dbt_1p2
+  source_id: Alisa-DBT.1+2
+  source_index: 139
+  command: DBT.1+2
+  name: Thruster Drill
+  hit_level: m,m,M,M
+  damage: 5,5,5,20
+  startup: i12~15 i1~4 i1~5 i1~6
+  recovery: r45 DES
+  block: '+0'
+  hit: +21a (+0)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Weapon
+
+    * Jail from 1st attack
+
+    * 6 chip damage on block
+
+    * 9 chip damage on block in heat
+
+    * Low crush 17~66
+
+    * Floating state 67~69'
+- id: dbt_fp1
+  source_id: Alisa-DBT.f+1
+  source_index: 140
+  command: DBT.f+1
+  name: Heartbeat Disabler
+  hit_level: M,t
+  damage: '49'
+  startup: i19~21
+  recovery: r31
+  block: '-9'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - throw
+  - heat
+  - low_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Transition to attack throw on front standing or airborne hit
+
+    * 14 damage +3c vs BT opponent
+
+    * 4 chip damage on block
+
+    * 7 chip damage on block in heat
+
+    * Low crush 17~32
+
+    * Floating state 33~35'
+- id: dbt_fp2
+  source_id: Alisa-DBT.f+2
+  source_index: 141
+  command: DBT.f+2
+  name: Boot Up
+  hit_level: L
+  damage: '13'
+  startup: i19~20
+  recovery: r30 DES
+  block: '-12'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - low
+  notes: '* Weapon
+
+    * 3 chip damage on block
+
+    * 5 chip damage on block in heat'
+- id: dbt_fp2_2
+  source_id: Alisa-DBT.f+2,2
+  source_index: 142
+  command: DBT.f+2,2
+  name: Shut Down
+  hit_level: L, m
+  damage: 13, 25 (17)
+  startup: i19~20, i35~37
+  recovery: r53
+  block: '-33'
+  hit: -6a (-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - low
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 7 chip damage on block
+
+    * 10 chip damage on block in heat
+
+    * Low crush 35~67
+
+    * Floating state 68~70'
+- id: dbt_fp1p2
+  source_id: Alisa-DBT.f+1+2
+  source_index: 143
+  command: DBT.f+1+2
+  name: Hello World
+  hit_level: m,m,m,m,m
+  damage: '28'
+  startup: i17-18, i8~9, i8~9, i8~9, i8~9
+  recovery: DES
+  block: '+4'
+  hit: +25a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 8 chip damage on block
+
+    * Low crush 1'
+- id: des_1
+  source_id: Alisa-DES.1
+  source_index: 144
+  command: DES.1
+  name: Shredder
+  hit_level: m,m,h,h,h,m
+  damage: '35'
+  startup: i13~18 i1~5 i1~7 i1~5 i1~4 i16~17
+  recovery: r32 DES
+  block: '-9'
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* Weapon
+
+    * 3 chip damage on block
+
+    * 7 chip damage on block in heat
+
+    * Final hit available only on hit'
+- id: des_2
+  source_id: Alisa-DES.2
+  source_index: 145
+  command: DES.2
+  name: Shredding Uppercut
+  hit_level: M,M,m
+  damage: 5,5,5
+  startup: i20~21 i1~2 i1~2
+  recovery: r32 DES
+  block: '-8'
+  hit: +37a (+27)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Jab evasion
+
+    * 2 chip damage on block
+
+    * 8 chip damage on block in heat'
+- id: des_2_1
+  source_id: Alisa-DES.2,1
+  source_index: 146
+  command: DES.2,1
+  name: Shredding Sky Punch
+  hit_level: M,M,m, h!
+  damage: 5,5,5, 20
+  startup: i20~21 i1~2 i1~2, i28~56
+  recovery: r6
+  block: ''
+  hit: +85a (+69)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Weapon
+
+    * Available only as a combo from 1st hit'
+- id: des_3
+  source_id: Alisa-DES.3
+  source_index: 147
+  command: DES.3
+  name: Idling
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: des_1p2
+  source_id: Alisa-DES.1+2
+  source_index: 148
+  command: DES.1+2
+  name: Death Marionette
+  hit_level: h,h,h
+  damage: 7,7,20
+  startup: i16~18 i5~7 i9~11
+  recovery: r26 DES
+  block: '+4'
+  hit: +15g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - wpn
+  - heat
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Weapon
+
+    * 6 chip damage on block
+
+    * 12 chip damage on block in heat
+
+    * Jails'
+- id: des_bt_1
+  source_id: Alisa-DES.BT.1
+  source_index: 149
+  command: DES.BT.1
+  name: Hertz Blade - Flare
+  hit_level: m,m,m,m,m,m
+  damage: 4,4,4,4,4,4
+  startup: i19~22 i1~3 i1~3 i1~3 i1~3 i1~3
+  recovery: r29 DES
+  block: '-9'
+  hit: +25a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from any hit
+
+    * 1 chip damage on block
+
+    * 11 chip damage on block in heat'
+- id: des_b_b
+  source_id: Alisa-DES.b,b
+  source_index: 150
+  command: DES.b,b
+  name: Move Back
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: des_bp2
+  source_id: Alisa-DES.b+2
+  source_index: 151
+  command: DES.b+2
+  name: ''
+  hit_level: m
+  damage: '17'
+  startup: i18~20
+  recovery: r35
+  block: '-12'
+  hit: '+0'
+  counter_hit: +18a
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * 5 chip damage on block
+
+    * 6 chip damage on block in heat'
+- id: des_bp2_1
+  source_id: Alisa-DES.b+2,1
+  source_index: 152
+  command: DES.b+2,1
+  name: Hertz Blade - Tomahawk
+  hit_level: m, m,SL,SL,SL,SL
+  damage: 17, 8,5,5,5,5
+  startup: i18~20, i20~21 i1~6 i1~5 i1~5 i1~3
+  recovery: r20 DES
+  block: -3c
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - heat
+  - chip
+  - low
+  - mid
+  notes: '* Spike
+
+    * Weapon
+
+    * Combo from 1st hit with 17F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 23F
+
+    * 3 chip damage on block
+
+    * 7 chip damage on block in heat'
+- id: des_bp3
+  source_id: Alisa-DES.b+3
+  source_index: 153
+  command: DES.b+3
+  name: Retro Rockets
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r41 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 7~33
+
+    * Floating state 34~36'
+- id: des_dp1
+  source_id: Alisa-DES.d+1
+  source_index: 154
+  command: DES.d+1
+  name: Hertz Blade - Scud
+  hit_level: L,L,L,L,L
+  damage: '17'
+  startup: i20~24 i1~5 i1~5 i1~5 i1~3
+  recovery: r32 DES
+  block: '-13'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - cs
+  - heat
+  - high_crush
+  - chip
+  - low
+  notes: '* Weapon
+
+    * Combo from any hit
+
+    * 1 chip damage on block
+
+    * 6 chip damage on block in heat
+
+    * High crush 4~48'
+- id: des_dp2
+  source_id: Alisa-DES.d+2
+  source_index: 155
+  command: DES.d+2
+  name: Clock Boosting
+  hit_level: L,L,L
+  damage: 3,3,17
+  startup: i22~23
+  recovery: r32
+  block: '-14'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - wpn
+  - cs
+  - heat
+  - homing
+  - high_crush
+  - stance_transition
+  - chip
+  - low
+  notes: '* Homing
+
+    * Weapon
+
+    * Combo from any hit
+
+    * Transition to DBT (-22/+4) with 3_4
+
+    * 5 chip damage on block
+
+    * 7 chip damage on block in heat
+
+    * High crush 22~91'
+- id: des_dp3
+  source_id: Alisa-DES.d+3
+  source_index: 156
+  command: DES.d+3
+  name: Evasive Action
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r25 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* DES.d+3_4 goes to foreground, DES.u+3_4 goes to background
+
+    * Transition to r20 DBT with 3_4
+
+    * Low crush 5~22
+
+    * Floating state 23~25'
+- id: des_dp3_1
+  source_id: Alisa-DES.d+3,1
+  source_index: 157
+  command: DES.d+3,1
+  name: Evasive Slash
+  hit_level: m
+  damage: '25'
+  startup: ',i20~21'
+  recovery: r35 DES
+  block: -13~-12
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * 7 chip damage on block
+
+    * 12 chip damage on block in heat'
+- id: des_f_f
+  source_id: Alisa-DES.f,f
+  source_index: 158
+  command: DES.f,f
+  name: Move Forward
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 DES
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: des_fp1
+  source_id: Alisa-DES.f+1
+  source_index: 159
+  command: DES.f+1
+  name: Hertz Blade
+  hit_level: h
+  damage: '21'
+  startup: i11~13 i1~3 i1~3 i1~3 i1~3 i1~3 i1~1
+  recovery: r21 DES
+  block: '+3'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - high
+  notes: '* Weapon
+
+    * 1 chip damage on block
+
+    * 7 chip damage on block in heat'
+- id: des_fp2
+  source_id: Alisa-DES.f+2
+  source_index: 160
+  command: DES.f+2
+  name: ''
+  hit_level: m,m
+  damage: '9'
+  startup: i15 i1~1
+  recovery: r30 DES
+  block: '-9'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Timestop on hit?
+
+    * 2 chip damage on block
+
+    * 3 chip damage on block in heat'
+- id: des_fp2_1
+  source_id: Alisa-DES.f+2,1
+  source_index: 161
+  command: DES.f+2,1
+  name: ''
+  hit_level: m,m, m,m
+  damage: 9, 9
+  startup: i15 i1~1, i23 i1~1
+  recovery: r33 DES
+  block: '-12'
+  hit: -3c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from 1st hit with 1?F delay
+
+    * Move cannot be delayed
+
+    * Timestop on hit?
+
+    * 2 chip damage on block
+
+    * 3 chip damage on block in heat
+
+    * During heat: Transition to r20 DBT at -6/+3 with 3_4; partially uses remaining
+    heat time'
+- id: des_fp2_1_2
+  source_id: Alisa-DES.f+2,1,2
+  source_index: 162
+  command: DES.f+2,1,2
+  name: Gigahertz Storm
+  hit_level: m,m, m,m, m,m
+  damage: 9, 9, 23
+  startup: i15 i1~1, ,i23~24 i4~5
+  recovery: r42
+  block: '-13'
+  hit: +30a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Weapon
+
+    * Combo from 1st or 2nd CH with 3?F delay
+
+    * Move cannot be delayed
+
+    * 6 chip damage on block
+
+    * 7 chip damage on block in heat'
+- id: des_fp3
+  source_id: Alisa-DES.f+3
+  source_index: 163
+  command: DES.f+3
+  name: Dual Boot
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r17 DBT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Cancel to r33 with DBT.b
+
+    * Transition to r50 SS with DBT.u_d
+
+    * Low crush 18~40
+
+    * Floating state 41~43'
+- id: des_fp3
+  source_id: Alisa-DES.f+3
+  source_index: 164
+  command: DES.f+3
+  name: Dual Boot
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r17 DBT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - stance_transition
+  notes: '* Cancel to r33 standing block with DBT.B
+
+    * Transition to Evasive Action with input DBT.U_D
+
+    * Low crush 18~40
+
+    * Floating state 41~43'
+- id: des_fp1p2
+  source_id: Alisa-DES.f+1+2
+  source_index: 165
+  command: DES.f+1+2
+  name: ''
+  hit_level: m,m,m,m,m,m,m,m
+  damage: '29'
+  startup: i23~27 i1~5 i1~4 i1~4 i1~5 i1~5 i1~4 i1~1
+  recovery: r20 DES
+  block: '+1'
+  hit: +33a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Combo from any hit
+
+    * Transition to DBT (+4/+36a) with 3_4
+
+    * 5 chip damage on block
+
+    * 8 chip damage on block in heat'
+- id: des_fp1p2_1p2
+  source_id: Alisa-DES.f+1+2,1+2
+  source_index: 166
+  command: DES.f+1+2,1+2
+  name: Hertz Blade - Diablo
+  hit_level: m,m,m,m,m,m,m,m, m
+  damage: 29, 20
+  startup: i23~27 i1~5 i1~4 i1~4 i1~5 i1~5 i1~4 i1~1, i20~26
+  recovery: r68 DES
+  block: '-53'
+  hit: +41a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - heat
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * 6 chip damage on block
+
+    * 10 chip damage on block in heat'
+- id: des_ufp2
+  source_id: Alisa-DES.uf+2
+  source_index: 167
+  command: DES.uf+2
+  name: Hertz Blade - Aegis
+  hit_level: h,h,h,h,h
+  damage: 5,5,5,5,5
+  startup: i10~14 i1~5 i1~5 i1~5 i1~1
+  recovery: r16 DES
+  block: ''
+  hit: +35a (+28)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - high
+  notes: '* Weapon
+
+    * Only hits airborne opponents'
+- id: des_ufp1p2
+  source_id: Alisa-DES.uf+1+2
+  source_index: 168
+  command: DES.uf+1+2
+  name: Spindle Slash
+  hit_level: m,M,M
+  damage: '27'
+  startup: i29~31 i1~3 i1~2
+  recovery: r39 DES
+  block: -9c
+  hit: +23a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Weapon
+
+    * 2 chip damage on block
+
+    * 6 chip damage on block in heat
+
+    * Cancel to standing with DES.1+2
+
+    * Low crush 5~25
+
+    * Floating state 26~28'
+- id: fuft_1p2
+  source_id: Alisa-FUFT.1+2
+  source_index: 169
+  command: FUFT.1+2
+  name: Reboot
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - js
+  - low_crush
+  notes: '* Floating state 1~5
+
+    * Low crush 6~40
+
+    * Floating state 41~43'
+- id: fuft_1p2_3
+  source_id: Alisa-FUFT.1+2,3
+  source_index: 170
+  command: FUFT.1+2,3
+  name: Reboot Meteor Kick
+  hit_level: m
+  damage: '35'
+  startup: i22~23
+  recovery: r47
+  block: '-10'
+  hit: +60a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - fs
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Floating state 1~5
+
+    * Low crush 6~54
+
+    * Floating state 55~57'
+- id: otg_dbp1p2
+  source_id: Alisa-OTG.db+1+2
+  source_index: 171
+  command: OTG.db+1+2
+  name: Ground Rocket Punch
+  hit_level: L
+  damage: '25'
+  startup: i25~27
+  recovery: r34
+  block: '-14'
+  hit: +4a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - wpn
+  - low
+  notes: '* Spike
+
+    * Weapon'
+- id: sbt_1
+  source_id: Alisa-SBT.1
+  source_index: 172
+  command: SBT.1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13~14
+  recovery: r36
+  block: '-15'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 26~46
+
+    * Floating state 47~49'
+- id: sbt_1_2
+  source_id: Alisa-SBT.1,2
+  source_index: 173
+  command: SBT.1,2
+  name: ''
+  hit_level: m, m
+  damage: 12, 13
+  startup: i13~14, i18~19
+  recovery: '27'
+  block: '-9'
+  hit: '+2'
+  counter_hit: +7c
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 1f delay
+
+    * Rest of the string is natural on CH
+
+    * Low crush 26~64
+
+    * Floating state 65~67'
+- id: sbt_1_2_1
+  source_id: Alisa-SBT.1,2,1
+  source_index: 174
+  command: SBT.1,2,1
+  name: ''
+  hit_level: m, m, m
+  damage: 12, 13, 7
+  startup: i13~14, ,i20~21
+  recovery: r41
+  block: '-12'
+  hit: '-20'
+  counter_hit: '-12'
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Combo from 2nd CH
+
+    * Less safe on hit than on block without CH
+
+    * Low crush 26~102
+
+    * Floating state 103~105'
+- id: sbt_1_2_1_3p4
+  source_id: Alisa-SBT.1,2,1,3+4
+  source_index: 175
+  command: SBT.1,2,1,3+4
+  name: Hard Reset
+  hit_level: m, m, m, m,m
+  damage: 12, 13, 7, 33
+  startup: i13~14, ,i18
+  recovery: r43
+  block: '-18'
+  hit: +4a (-13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 3rd hit
+
+    * Combo from 2nd CH
+
+    * Transition to DES with input SBT.1,2,1,3+4,1+2
+
+    * Low crush 26~150
+
+    * Floating state 151~153'
+- id: sbt_2
+  source_id: Alisa-SBT.2
+  source_index: 176
+  command: SBT.2
+  name: Linear Elbow
+  hit_level: m
+  damage: '25'
+  startup: i16~27
+  recovery: r38
+  block: '-8'
+  hit: +6a (-4)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - elb
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Elbow
+
+    * Transition to DES with SBT.1+2
+
+    * Hitstop 20f on hit
+
+    * Low crush 26~63
+
+    * Floating state 64~66'
+- id: sbt_3
+  source_id: Alisa-SBT.3
+  source_index: 177
+  command: SBT.3
+  name: Eject Slider
+  hit_level: L
+  damage: '17'
+  startup: i16~20, i1~5
+  recovery: r25 FC
+  block: '-14'
+  hit: +4c~+8c
+  counter_hit: +28a
+  tier: specialist
+  tags:
+  - js
+  - cs
+  - fs
+  - low_crush
+  - high_crush
+  - low
+  notes: '* Frame advantage +8c~+12c on shallow hit, +32 on CH
+
+    * fs9~20 on hit
+
+    * Low crush 1~8
+
+    * High crush 9~30
+
+    * Floating state 9~40'
+- id: sbt_4
+  source_id: Alisa-SBT.4
+  source_index: 178
+  command: SBT.4
+  name: Upstream
+  hit_level: M
+  damage: 22,5
+  startup: i17~19
+  recovery: r50
+  block: '-27'
+  hit: +68a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: 'Steel pedal
+
+    * Low crush 26~71
+
+    * Floating state 72~74'
+- id: sbt_1p2
+  source_id: Alisa-SBT.1+2
+  source_index: 179
+  command: SBT.1+2
+  name: Wire Clipper
+  hit_level: h!
+  damage: '20'
+  startup: i27~28
+  recovery: r34 DES
+  block: ''
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Low crush 26~53'
+- id: sbt_d
+  source_id: Alisa-SBT.D
+  source_index: 180
+  command: SBT.D
+  name: Abort
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r21 BKP
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  notes: '* Transition to r32 BKP with B (Backswing)
+
+    * High crush 34~'
+- id: h_ffp2_1p2
+  source_id: Alisa-f,F+2,H.1+2
+  source_index: 181
+  command: H.f,F+2,1+2
+  name: Emergency Hello World
+  hit_level: m, m,m,m,m,m
+  damage: 18, 28
+  startup: i16~17, i22-23
+  recovery: DES
+  block: '+3'
+  hit: +25a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - wpn
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Weapon
+
+    * Combo from 1st hit
+
+    * 7 chip damage on block
+
+    * Consumes 210F of remaining Heat time
+
+    * Low crush 15~'
+- id: hfc_1p2
+  source_id: Alisa-hFC.1+2
+  source_index: 182
+  command: hFC.1+2
+  name: Sad Hound
+  hit_level: L,L
+  damage: 10,16
+  startup: i21~23, i6~8
+  recovery: r28
+  block: -11c
+  hit: +5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Enter DES with n,1+2
+
+    * Can be done from Crouch Level 1
+
+    * High crush 1~55'
+- id: 1p3
+  source_id: Alisa-1+3
+  source_index: 183
+  command: 1+3
+  name: Trigger Shuffle
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-7'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: FDFT
+
+    * Side switch on break'
+- id: 2p4
+  source_id: Alisa-2+4
+  source_index: 184
+  command: 2+4
+  name: Back Door
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-5'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - fbr
+  - throw
+  - homing
+  - floor_break
+  - stance_transition
+  notes: '* Homing
+
+    * Floor Break
+
+    * Throw break: 1 or 2
+
+    * Opponent recovery on hit: FDFT
+
+    * Side switch
+
+    * Transition to DES with 1+2'
+- id: back_throw
+  source_id: Alisa-Back throw
+  source_index: 185
+  command: Back throw
+  name: Random Typing
+  hit_level: t
+  damage: '55'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break: none
+
+    * Opponent recovery on hit: FDFA
+
+    * Side switch'
+- id: fc_dbp1p2
+  source_id: Alisa-FC.db+1+2
+  source_index: 186
+  command: FC.db+1+2
+  name: Double Bull Shoot
+  hit_level: t
+  damage: '45'
+  startup: i11
+  recovery: r28
+  block: '-4'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1+2
+
+    * Opponent recovery on hit: FUFA
+
+    * Side switch'
+- id: left_throw
+  source_id: Alisa-Left throw
+  source_index: 187
+  command: Left throw
+  name: Compression
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1
+
+    * Opponent recovery on hit: FDFA
+
+    * Can side switch on hit'
+- id: right_throw
+  source_id: Alisa-Right throw
+  source_index: 188
+  command: Right throw
+  name: Hat Trick
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break: 2
+
+    * Opponent recovery on hit: FUFA perpendicular to Alisa'
+- id: ufp1p2
+  source_id: Alisa-uf+1+2
+  source_index: 189
+  command: uf+1+2
+  name: Spam Bomb
+  hit_level: t
+  damage: '40'
+  startup: i12~13
+  recovery: r37
+  block: '-4'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break: 1+2
+
+    * Opponent recovery on hit: FUFT'

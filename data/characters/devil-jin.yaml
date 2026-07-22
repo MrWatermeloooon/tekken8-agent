@@ -1,0 +1,3530 @@
+character_id: devil-jin
+display_name: Devil Jin
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/devil-jin/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 569349a5dbcc9b28f32babdb9dd496ca4d352df5d90ccb9979cf5a45d7e20b28
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FLY
+- FUFT
+- MCR
+moves:
+- id: 2p3
+  source_id: Devil Jin-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_mcr_1p2
+  source_id: Devil Jin-H.MCR.1+2
+  source_index: 2
+  command: H.MCR.1+2
+  name: Inner Purgatory
+  hit_level: h!,t
+  damage: 12,27
+  startup: i20
+  recovery: r35
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - throw
+  - heat
+  - low_crush
+  - stance_transition
+  - high
+  notes: '* Transition to attack throw on standing or airborne hit
+
+    * Consumes 600F of the heat timer
+
+    * Low crush 1~12'
+- id: h_2p3
+  source_id: Devil Jin-H.2+3
+  source_index: 3
+  command: H.2+3
+  name: Vindictive Helix
+  hit_level: m,h,t
+  damage: 20,22,10
+  startup: i18~28
+  recovery: r37
+  block: +11 MCR
+  hit: +5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - js
+  - fs
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Jail from 1st attack
+
+    * Transition to attack throw on hit
+
+    * Transition to MCR on block only
+
+    ** -14 on an empty MCR transition
+
+    * Can cancel transition to MCR on block with B at +2~+12
+
+    * 5 chip damage on block
+
+    * +48? (+8?) on wall hit
+
+    * Low crush 15~52
+
+    * Floating state 53~55'
+- id: r_dfp1p2
+  source_id: Devil Jin-R.df+1+2
+  source_index: 4
+  command: R.df+1+2
+  name: 'Devil Dimension: Tainted Chains'
+  hit_level: m,t
+  damage: 10-15,3-5,42-60
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - js
+  - throw
+  - rage
+  - power_crush
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Opponent recovers FDFA on hit
+
+    * Power crush 8~20
+
+    * Low crush 8~17'
+- id: '1'
+  source_id: Devil Jin-1
+  source_index: 5
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Devil Jin-1,1
+  source_index: 6
+  command: 1,1
+  name: Double Jab
+  hit_level: h, h
+  damage: 5, 6
+  startup: i10, i15
+  recovery: r19
+  block: '-1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 3F delay
+
+    * Combo from 1st hit with 3F delay'
+- id: '1_1_2'
+  source_id: Devil Jin-1,1,2
+  source_index: 7
+  command: 1,1,2
+  name: Flash Claw Combo
+  hit_level: h, h, m
+  damage: 5, 6, 14
+  startup: i10, ,i13~14
+  recovery: r37
+  block: '-17'
+  hit: +18a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break on airborne hit
+
+    * Combo from 2nd hit with 11F delay
+
+    * +41? (+3?) on wall hit'
+- id: '1_2'
+  source_id: Devil Jin-1,2
+  source_index: 8
+  command: 1,2
+  name: One Two Strike
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: '* Jail from 1st hit with 4F delay
+
+    * Combo from 1st hit with 4F delay'
+- id: '1_2_2'
+  source_id: Devil Jin-1,2,2
+  source_index: 9
+  command: 1,2,2
+  name: Back Fist Combo
+  hit_level: h, h, h
+  damage: 5, 8, 12
+  startup: i10, ,i17
+  recovery: r31
+  block: '-12'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Combo from 1st hit with 11F delay
+
+    * Jail from 2nd hit with 2F delay
+
+    * Move can be delayed 9F'
+- id: '1_2_3'
+  source_id: Devil Jin-1,2,3
+  source_index: 10
+  command: 1,2,3
+  name: ''
+  hit_level: h, h, m
+  damage: 5, 8, 25
+  startup: i10, ,i29~31
+  recovery: r24
+  block: '+4'
+  hit: +24a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Input can be delayed 1f
+
+    * Move cannot be delayed
+
+    * Interrupt with i10 from 2nd block'
+- id: '1_2_3_4'
+  source_id: Devil Jin-1,2,3,4
+  source_index: 11
+  command: 1,2,3,4
+  name: Shoot the Works
+  hit_level: h, h, m, m
+  damage: 5, 8, 25, 30
+  startup: i10, ,i36~38
+  recovery: r17
+  block: +0~+2
+  hit: +11c~+13c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  - high
+  notes: '* Floor Break
+
+    * Interrupt with i7 from 3rd block'
+- id: '1_2_4'
+  source_id: Devil Jin-1,2,4
+  source_index: 12
+  command: 1,2,4
+  name: One Two Knee
+  hit_level: h, h, m
+  damage: 5, 8, 10
+  startup: i10, ,i11
+  recovery: r26
+  block: '-10'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  - high
+  notes: '* Knee
+
+    * Jail from 1st hit
+
+    * Combo from 1st hit'
+- id: '2'
+  source_id: Devil Jin-2
+  source_index: 13
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '9'
+  startup: i10
+  recovery: r19
+  block: '+0'
+  hit: '+9'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_2'
+  source_id: Devil Jin-2,2
+  source_index: 14
+  command: 2,2
+  name: Demon Backhand Spin
+  hit_level: h, h
+  damage: 9, 20
+  startup: i10, i17
+  recovery: r32
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st attack with 2f delay
+
+    * Move cannot be delayed'
+- id: '3'
+  source_id: Devil Jin-3
+  source_index: 15
+  command: '3'
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i17~19
+  recovery: r34
+  block: '-12'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: '3_1'
+  source_id: Devil Jin-3,1
+  source_index: 16
+  command: 3,1
+  name: ''
+  hit_level: m, h
+  damage: 16, 11
+  startup: i17~19, i29~30
+  recovery: r21
+  block: '+2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: '3_1_2'
+  source_id: Devil Jin-3,1,2
+  source_index: 17
+  command: 3,1,2
+  name: Hell Cyclone
+  hit_level: m, h, M
+  damage: 16, 11, 20
+  startup: i17~19, ,i25~28
+  recovery: r29
+  block: '-11'
+  hit: +72a (+56)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Input can be delayed 12F
+
+    * Move can be delayed 4F
+
+    * Interrupt with i9 from 2nd block'
+- id: '3_1_4'
+  source_id: Devil Jin-3,1,4
+  source_index: 18
+  command: 3,1,4
+  name: Hell Spiral
+  hit_level: m, h, m
+  damage: 16, 11, 20
+  startup: i17~19, ,i23~24
+  recovery: r29
+  block: '-9'
+  hit: +15a (+6)
+  counter_hit: +59a
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break on normal hit
+
+    * Input can be delayed 12F
+
+    * Move can be delayed 4F
+
+    * Interrupt with i7 from 2nd block'
+- id: 3_1_ff
+  source_id: Devil Jin-3,1,f,F
+  source_index: 19
+  command: 3,1,f,F
+  name: Demon March
+  hit_level: m, h
+  damage: 16, 11
+  startup: i17~19, ,
+  recovery: r24
+  block: '-2'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: ''
+- id: '4'
+  source_id: Devil Jin-4
+  source_index: 20
+  command: '4'
+  name: Last Rites
+  hit_level: h
+  damage: '24'
+  startup: i17~18
+  recovery: r32
+  block: '-5'
+  hit: +10g
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 7 chip damage on block'
+- id: '4_3'
+  source_id: Devil Jin-4~3
+  source_index: 21
+  command: 4~3
+  name: Wheel of Pain
+  hit_level: M
+  damage: '21'
+  startup: i29-32
+  recovery: r33
+  block: -7c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - parry
+  - mid
+  notes: '* Floor Break
+
+    * Parryable by traditional kick parries
+
+    * Low crush 14~23
+
+    * Floating state 24~26'
+- id: h_4_3_1p2
+  source_id: Devil Jin-4~3,1+2
+  source_index: 22
+  command: H.4~3,1+2
+  name: Wheel of Pain > Annihilation Beam
+  hit_level: M, SM
+  damage: 21, 15
+  startup: i29-32, i24~35
+  recovery: r33
+  block: +2~+13
+  hit: +4c~+15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - bbr
+  - heat
+  - tornado
+  - balcony_break
+  - parry
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Balcony Break
+
+    * Projectile (unparryable)
+
+    * Forces backroll on hit
+
+    * +58a (+42) from previous hit
+
+    * Jail from 1st block
+
+    * 3 chip damage on block
+
+    * Consumes 210F of remaining heat time'
+- id: 1p2
+  source_id: Devil Jin-1+2
+  source_index: 23
+  command: 1+2
+  name: Tsujikaze
+  hit_level: m,m
+  damage: 12,25
+  startup: i17 i25~26
+  recovery: r35
+  block: '-12'
+  hit: '+7'
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * Interrupt with i1 from 1st block
+
+    * 1st forces crouching against crouching opponents (opponents recover standing
+    after 2nd hit)'
+- id: 1p4
+  source_id: Devil Jin-1+4
+  source_index: 24
+  command: 1+4
+  name: ''
+  hit_level: SL,h
+  damage: 5,5
+  startup: i16~17,i14
+  recovery: r21
+  block: '-3'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: Jails on block
+- id: 1p4_2
+  source_id: Devil Jin-1+4,2
+  source_index: 25
+  command: 1+4,2
+  name: Three Ring Alaya
+  hit_level: SL,h, m
+  damage: 5,5, 20
+  startup: i16~17,i14, i24~25
+  recovery: r31
+  block: '-12'
+  hit: +72a (+56)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - chip
+  - low
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 2nd CH
+
+    * 6 chip damage on block'
+- id: 3p4
+  source_id: Devil Jin-3+4
+  source_index: 26
+  command: 3+4
+  name: Fly (FLY)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r40 FLY
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 20~58
+
+    * Floating state 59~61'
+- id: fp2
+  source_id: Devil Jin-f+2
+  source_index: 27
+  command: f+2
+  name: 893P
+  hit_level: m
+  damage: '14'
+  startup: i17~18
+  recovery: r29
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: core
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: Floor Break
+- id: fp2_4
+  source_id: Devil Jin-f+2,4
+  source_index: 28
+  command: f+2,4
+  name: 893P > Knee Kick
+  hit_level: m, m
+  damage: 14, 17
+  startup: i17~18, i15
+  recovery: r30
+  block: '-11'
+  hit: '+0'
+  counter_hit: +29a (+23)
+  tier: specialist
+  tags:
+  - kne
+  - mid
+  notes: '* Knee
+
+    * Combo from 1st hit with 15F delay
+
+    * Move can be delayed 13F
+
+    * Input can be delayed by 15F'
+- id: fp3
+  source_id: Devil Jin-f+3
+  source_index: 29
+  command: f+3
+  name: Mourning Crow (MCR)
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r20 MCR
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Stance moves can be delayed by 10f
+
+    * Low crush 18~32
+
+    * Floating state 33~35'
+- id: fp4
+  source_id: Devil Jin-f+4
+  source_index: 30
+  command: f+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i15~16
+  recovery: r30
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: fp4_3
+  source_id: Devil Jin-f+4,3
+  source_index: 31
+  command: f+4,3
+  name: Twisted Samsara
+  hit_level: m, m
+  damage: 10, 15
+  startup: i15~16, i26~27
+  recovery: r51
+  block: '-22'
+  hit: +18a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo on 1st CH with 4F delay
+
+    * Move can be delayed by 15F
+
+    * Input can be delayed 16F
+
+    * Enter FLY +36a (+26) with ub_u_uf on hit
+
+    * Low crush 27~51
+
+    * Floating state 52~54'
+- id: dfp1
+  source_id: Devil Jin-df+1
+  source_index: 32
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i13
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+9'
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp1_2
+  source_id: Devil Jin-df+1,2
+  source_index: 33
+  command: df+1,2
+  name: Dark Twin Lancer
+  hit_level: m, h
+  damage: 11, 20
+  startup: i13, i17
+  recovery: r30
+  block: '-9'
+  hit: +26a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo on 1st hit with 7F delay
+
+    * Combo on 1st CH with 10F delay
+
+    * Move can be delayed by 4F
+
+    * Input can be delayed by 10F'
+- id: dfp1_4
+  source_id: Devil Jin-df+1,4
+  source_index: 34
+  command: df+1,4
+  name: Dark Twin Apparition
+  hit_level: m, m
+  damage: 11, 23
+  startup: i13, i20~21
+  recovery: r33
+  block: '-13'
+  hit: +16g
+  counter_hit: +31d (+23d)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: "* Balcony Break\n* Opponent recovers crouching on normal hit\n* Transition\
+    \ to MCR with F on hit or CH (+16g/+31d (+23d)) \n** -9 on an empty MCR transition\
+    \ on hit\n* Combo on 1st CH with 10f delay\n* Move can be delayed by 5F\n* Input\
+    \ can be delayed by 10F"
+- id: dfp2
+  source_id: Devil Jin-df+2
+  source_index: 35
+  command: df+2
+  name: Bloody Glaive
+  hit_level: m
+  damage: '17'
+  startup: i15
+  recovery: r26
+  block: '-9'
+  hit: '+6'
+  counter_hit: '+9'
+  tier: core
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to MCR with F on hit or CH (+14/+17)
+
+    ** -11/-8 on an empty MCR transition
+
+    * Has good right sidestep tracking'
+- id: dfp3
+  source_id: Devil Jin-df+3
+  source_index: 36
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i16~17
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: +2c on hit against crouching opponents
+- id: dfp3_2
+  source_id: Devil Jin-df+3,2
+  source_index: 37
+  command: df+3,2
+  name: ''
+  hit_level: m, m
+  damage: 12, 10
+  startup: i16~17, i19
+  recovery: r37
+  block: '-13'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: Combo from 1st hit
+- id: dfp3_2_4
+  source_id: Devil Jin-df+3,2,4
+  source_index: 38
+  command: df+3,2,4
+  name: Rengoku
+  hit_level: m, m, m
+  damage: 12, 10, 20
+  startup: i16~17, ,i26-27
+  recovery: r51
+  block: '-22'
+  hit: +18a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Combo from 2nd CH with 4f delay
+
+    * Input can be delayed 16f
+
+    * Jails for 3?F from 2nd hit
+
+    * Enter FLY +36a (+26) with ub_u_uf on hit
+
+    * Low crush 27~50
+
+    * Floating state 51~53'
+- id: dfp4
+  source_id: Devil Jin-df+4
+  source_index: 39
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r27
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_4
+  source_id: Devil Jin-df+4,4
+  source_index: 40
+  command: df+4,4
+  name: Tsunami Kick
+  hit_level: m, m
+  damage: 10, 16
+  startup: i13~14, i13~14
+  recovery: r33
+  block: '-15'
+  hit: -4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Combo from 1st hit with 11F delay
+
+    * Move can be delayed 10F'
+- id: dp1
+  source_id: Devil Jin-d+1
+  source_index: 41
+  command: d+1
+  name: Corpse Thrust
+  hit_level: m
+  damage: '25'
+  startup: i18~19
+  recovery: r35
+  block: '-14'
+  hit: +20a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Damage taken during power crush state is recoverable.
+
+    * Reversal Break and -9 on block if an attack is absorbed
+
+    * 10 chip damage on block after absorbing an attack in power crush state
+
+    * Power crush 7~17'
+- id: dp2
+  source_id: Devil Jin-d+2
+  source_index: 42
+  command: d+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* +7c on crouching hit
+
+    * High crush 4~'
+- id: dp3
+  source_id: Devil Jin-d+3
+  source_index: 43
+  command: d+3
+  name: Broken Plate
+  hit_level: L
+  damage: '12'
+  startup: i18~19
+  recovery: r30
+  block: '-12'
+  hit: '-1'
+  counter_hit: +7c
+  tier: specialist
+  tags:
+  - homing
+  - low
+  notes: '* Pseudo homing'
+- id: dp4
+  source_id: Devil Jin-d+4
+  source_index: 44
+  command: d+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: dp3p4
+  source_id: Devil Jin-d+3+4
+  source_index: 45
+  command: d+3+4
+  name: Double Lift Kicks
+  hit_level: m,m
+  damage: 5,20
+  startup: i15-16 i15-16
+  recovery: r33
+  block: '-15'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 16~30'
+- id: dbp1
+  source_id: Devil Jin-db+1
+  source_index: 46
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dbp2
+  source_id: Devil Jin-db+2
+  source_index: 47
+  command: db+2
+  name: Malicious Mace
+  hit_level: L
+  damage: '15'
+  startup: i21~22
+  recovery: r31 FC
+  block: '-13'
+  hit: +3c
+  counter_hit: +26a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - chip
+  - low
+  notes: '* 4 chip damage on block
+
+    * High crush 6~'
+- id: dbp3
+  source_id: Devil Jin-db+3
+  source_index: 48
+  command: db+3
+  name: Crouch Spin Kick
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -6c on crouching hit
+
+    * High crush 4~'
+- id: dbp1p2
+  source_id: Devil Jin-db+1+2
+  source_index: 49
+  command: db+1+2
+  name: Demon's Spear
+  hit_level: m
+  damage: '15'
+  startup: i23~38
+  recovery: r31
+  block: '-9'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: '* Cancel to r27 MCR with F (js27~)
+
+    * Balcony Break on air hit'
+- id: dbp1p2
+  source_id: Devil Jin-db+1+2*
+  source_index: 50
+  command: db+1+2*
+  name: Demon's Spear (Slight Hold)
+  hit_level: m
+  damage: '25'
+  startup: i39~60
+  recovery: r26
+  block: +5g
+  hit: '+7'
+  counter_hit: +37d (+29)
+  tier: specialist
+  tags:
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break on CH or air hit
+
+    * Cancel to r27 MCR with F (js27~)
+
+    * 10 chip damage on block'
+- id: dbp1p2
+  source_id: Devil Jin-db+1+2**
+  source_index: 51
+  command: db+1+2**
+  name: Demon's Lance (Max Hold)
+  hit_level: m
+  damage: '42'
+  startup: i61~63
+  recovery: r31
+  block: '+10'
+  hit: +37d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Guard Break
+
+    * Cancel to r27 MCR with F (js27~)
+
+    * 16 chip damage on block'
+- id: dbp1p4
+  source_id: Devil Jin-db+1+4
+  source_index: 52
+  command: db+1+4
+  name: Hellfire Blast
+  hit_level: h!
+  damage: '40'
+  startup: i32~63
+  recovery: r47
+  block: ''
+  hit: -30c~+1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - rage
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * -22c~-19c on average
+
+    * Forces backroll on hit'
+- id: bp1
+  source_id: Devil Jin-b+1
+  source_index: 53
+  command: b+1
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Tracks SSR/SWR completely
+- id: bp1_2
+  source_id: Devil Jin-b+1,2
+  source_index: 54
+  command: b+1,2
+  name: Brimstone Strike
+  hit_level: h, m
+  damage: 10, 20
+  startup: i12, i23
+  recovery: r33
+  block: '-14'
+  hit: +23a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 7f delay
+
+    * Input can be delayed by 15f
+
+    * Move can be delayed by 10f
+
+    * Cancel to r15 -18 -7 with B'
+- id: bp1p3
+  source_id: Devil Jin-b+1+3
+  source_index: 55
+  command: b+1+3
+  name: Imperial Wrath
+  hit_level: m
+  damage: '30'
+  startup: i15
+  recovery: r49
+  block: '-8'
+  hit: +16a (+6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 50% damage reduction when absorbing attacks
+
+    * Devil Jin automatically retaliates on successful power crush
+
+    * Reversal Break, -8 on block and 12 chip damage on block after attack absorption
+
+    * r34 on hit
+
+    * Power crush 4~14'
+- id: bp2
+  source_id: Devil Jin-b+2
+  source_index: 56
+  command: b+2
+  name: ''
+  hit_level: h
+  damage: '11'
+  startup: i14~16
+  recovery: r30
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: bp2_1
+  source_id: Devil Jin-b+2,1
+  source_index: 57
+  command: b+2,1
+  name: Rakshasa's Rampage
+  hit_level: h, m
+  damage: 11, 21
+  startup: i14~16, i30-31
+  recovery: r34
+  block: '-16'
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Interrupt with i13 from 1st block
+
+    * Can evade some jabs
+
+    * Low crush 30~51
+
+    * Floating state 52~54'
+- id: bp2_3
+  source_id: Devil Jin-b+2,3
+  source_index: 58
+  command: b+2,3
+  name: Rakshasa's Fury
+  hit_level: h, m
+  damage: 11, 23
+  startup: i14~16, i25~27
+  recovery: r35
+  block: '-14'
+  hit: +8a (-1)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * 6 chip damage on heat dash
+
+    * Combo from 1st hit with 5f delay
+
+    * Move can be delayed 3f
+
+    * Low crush 25~47
+
+    * Floating state 48~50'
+- id: bp3
+  source_id: Devil Jin-b+3
+  source_index: 59
+  command: b+3
+  name: Wicked Jambu Spear
+  hit_level: M
+  damage: '24'
+  startup: i29~32
+  recovery: r37
+  block: -18~-15
+  hit: +10a~+13a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * 6 chip damage on heat dash
+
+    * Backsway
+
+    * Max distance from opponent when performed at tip range: ~3.82-3.83 (frames 16-19?)
+
+    * Low crush 8~33
+
+    * Floating state 34~36'
+- id: bp4
+  source_id: Devil Jin-b+4
+  source_index: 60
+  command: b+4
+  name: Demon Steel Pedal
+  hit_level: M
+  damage: '20'
+  startup: i17~18
+  recovery: r28
+  block: '-8'
+  hit: '+6'
+  counter_hit: +30a (+24)
+  tier: core
+  tags:
+  - mid
+  notes: Opponent recovers FDFA on grounded hit
+- id: bp1p2
+  source_id: Devil Jin-b+1+2
+  source_index: 61
+  command: b+1+2
+  name: Aratama Strike
+  hit_level: m
+  damage: '21'
+  startup: i20~21
+  recovery: r29
+  block: +3c
+  hit: +7c
+  counter_hit: +24d
+  tier: specialist
+  tags:
+  - spk
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Opponent recovers FDFA on CH
+
+    * 4 chip damage on block'
+- id: bp1p4
+  source_id: Devil Jin-b+1+4
+  source_index: 62
+  command: b+1+4
+  name: Lightning Screw Uppercut
+  hit_level: m!
+  damage: '60'
+  startup: i63~64
+  recovery: r42
+  block: ''
+  hit: +20a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Floating state 64~85'
+- id: up4
+  source_id: Devil Jin-u+4
+  source_index: 63
+  command: u+4
+  name: Samsara
+  hit_level: m
+  damage: '22'
+  startup: i20~21
+  recovery: r54
+  block: '-25'
+  hit: +15a (+5)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * May evade some highs during frames 5-9
+
+    * Might evade some mids during frames 7-9
+
+    * Increased evasion when performed from crouching state
+
+    * Enter FLY +35a (+25) with ub_u_uf on hit
+
+    * Low crush 9~44
+
+    * Floating state 45~47'
+- id: up1p2
+  source_id: Devil Jin-u+1+2
+  source_index: 64
+  command: u+1+2
+  name: Hellfire Cannon
+  hit_level: h
+  damage: '27'
+  startup: i18-35
+  recovery: r8
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: Hits airborne opponents only
+- id: ufp1
+  source_id: Devil Jin-uf+1
+  source_index: 65
+  command: uf+1
+  name: Infernal Shackle
+  hit_level: h
+  damage: '10'
+  startup: i21~23
+  recovery: r42
+  block: +11~+13 MCR
+  hit: +16~+18 MCR
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - parry
+  - stance_transition
+  - chip
+  - high
+  notes: "* Strong Aerial Tailspin\n* Weapon\n* Balcony Break on airborne hit\n* Projectile\
+    \ (unparryable)\n* Transition to r20 MCR on hit or block only\n** -14/-9 on an\
+    \ \"empty\" transition\n* r47 opponent hitstun \n* 2 chip damage on block"
+- id: ufp2
+  source_id: Devil Jin-uf+2
+  source_index: 66
+  command: uf+2
+  name: Decapitating Sword
+  hit_level: h
+  damage: '25'
+  startup: i20~23
+  recovery: r25
+  block: '-4'
+  hit: +25a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Homing
+
+    * Balcony break on airborne hit'
+- id: ufp3
+  source_id: Devil Jin-uf+3
+  source_index: 67
+  command: uf+3
+  name: Reaper's Scythe
+  hit_level: m
+  damage: '21'
+  startup: i28~29
+  recovery: r29
+  block: +3c
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Low crush 9~25
+
+    * Floating state 26~28'
+- id: ufp4
+  source_id: Devil Jin-uf+4
+  source_index: 68
+  command: uf+4
+  name: Wraith Kick
+  hit_level: m
+  damage: '21'
+  startup: i18
+  recovery: r32
+  block: '-8'
+  hit: '+11'
+  counter_hit: ''
+  tier: core
+  tags:
+  - he
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +62a (+42)
+
+
+    * Balcony Break
+
+    * 6 chip damage on heat dash
+
+    * Low crush 8~18'
+- id: ufp3p4
+  source_id: Devil Jin-uf+3+4
+  source_index: 69
+  command: uf+3+4
+  name: Hisou
+  hit_level: m,m
+  damage: 8,20
+  startup: i16~17 i13~14
+  recovery: r40
+  block: '-16'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - homing
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Forces backroll on hit
+
+    ** Opponent recovers in FC
+
+    * Pseudo homing to SSL/SWL side
+
+    * Low crush 10~47
+
+    * Floating state 48~50'
+- id: h_ufp3p4_1p2
+  source_id: Devil Jin-uf+3+4,1+2
+  source_index: 70
+  command: H.uf+3+4,1+2
+  name: Hisou > Annihilation Beam
+  hit_level: m,m, t
+  damage: 8,20, 20
+  startup: i16~17 i13~14, i25~50
+  recovery: r36
+  block: '-15'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - throw
+  - heat
+  - low_crush
+  - parry
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Projectile (unparryable)
+
+    * 4 chip damage on block
+
+    * Available only on hit or block
+
+    * Unavailable on whiff
+
+    * Jail from 1st block
+
+    * Shift to r96 attack throw on front-facing hit
+
+    * Combo from 1st hit with 13F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 13F
+
+    * Consumes 240F of remaining heat time
+
+    * Low crush 0~67
+
+    * Floating state 68~70'
+- id: 1p2p3p4
+  source_id: Devil Jin-1+2+3+4
+  source_index: 71
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r55
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* CH state for 5 seconds
+
+    * Can''t block for 5 seconds
+
+    * Low crush 6~47
+
+    * Floating state 48~50'
+- id: b_fp2
+  source_id: Devil Jin-b,f+2
+  source_index: 72
+  command: b,f+2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~17
+  recovery: r29
+  block: '-9'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - homing
+  - mid
+  notes: '* Input bufferable
+
+    * -1c on hit against crouching opponents
+
+    * Pseudo-homing'
+- id: b_fp2_1
+  source_id: Devil Jin-b,f+2,1
+  source_index: 73
+  command: b,f+2,1
+  name: ''
+  hit_level: m, m
+  damage: 12, 12
+  startup: i15~17, i14~15
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - elb
+  - mid
+  notes: '* Elbow
+
+    * Combo from 1st hit with 13f delay
+
+    * Jail from 1st attack with 6f delay
+
+    * Move can be delayed by 7f
+
+    * Input can be delayed by 13f'
+- id: b_fp2_1_2
+  source_id: Devil Jin-b,f+2,1,2
+  source_index: 74
+  command: b,f+2,1,2
+  name: Laser Cannon
+  hit_level: m, m, m
+  damage: 12, 12, 24
+  startup: i15~17, ,i22~23
+  recovery: r29
+  block: '-8'
+  hit: +15a (+6)
+  counter_hit: +45a (+0)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Combo on 2nd CH with 7f delay
+
+    * Interrupt with i8 from 1st block
+
+    * Input can be delayed 20f
+
+    * Move can be delayed 15f
+
+    * 7 chip damage on block'
+- id: b_fp2_1_4
+  source_id: Devil Jin-b,f+2,1,4
+  source_index: 75
+  command: b,f+2,1,4
+  name: Laser Crush
+  hit_level: m, m, M
+  damage: 12, 12, 21
+  startup: i15~17, ,i26~29
+  recovery: r34
+  block: -8c
+  hit: +14a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - low_crush
+  - floor_break
+  - mid
+  notes: '* Floor Break
+
+    * Interrupt with i13 from 1st block
+
+    * Move can be delayed by 14f
+
+    * Input can be delayed by 20f
+
+    * Low crush 12~20
+
+    * Floating state 21~23'
+- id: b_fp2_1_dfp2
+  source_id: Devil Jin-b,f+2,1,df+2
+  source_index: 76
+  command: b,f+2,1,df+2
+  name: Laser Scraper
+  hit_level: m, m, m
+  damage: 12, 12, 20
+  startup: i15~17, ,i18~19
+  recovery: r31
+  block: '-13'
+  hit: +25a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break on grounded hit only
+
+    * Combo on 2nd CH with 11f delay
+
+    * Interrupt with i5 from 1st block
+
+    * Input can be delayed 20f
+
+    * Move can be delayed 14f
+
+    * Opponent recovers FDFA on hit'
+- id: b_fp2_3
+  source_id: Devil Jin-b,f+2,3
+  source_index: 77
+  command: b,f+2,3
+  name: Laser Slice
+  hit_level: m, h
+  damage: 12, 21
+  startup: i15~17, i19~20
+  recovery: r33
+  block: '-5'
+  hit: +16g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 6F delay
+
+    * Interrupt with i4 from 1st block
+
+    * Opponent recovers crouching on hit
+
+    * Transition to MCR r35 with F on hit (+14)
+
+    ** -11 on an empty MCR transition
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 6F'
+- id: b_fp1p2
+  source_id: Devil Jin-b,f+1+2
+  source_index: 78
+  command: b,f+1+2
+  name: ''
+  hit_level: m
+  damage: 6,6,6,6,6,6
+  startup: i25 i6 i6 i6 i6 i6
+  recovery: r44
+  block: '-17'
+  hit: +31a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - js
+  - fs
+  - low_crush
+  - parry
+  - chip
+  - mid
+  notes: '* Weapon
+
+    * Projectile (unparryable)
+
+    * 17 damage on hit with scaling
+
+    * 6 chip damage on block
+
+    * Low crush 24~80
+
+    * Floating state 81~83'
+- id: b_fp1p2_2
+  source_id: Devil Jin-b,f+1+2,2
+  source_index: 79
+  command: b,f+1+2,2
+  name: Gates of Hades
+  hit_level: m, M
+  damage: 6,6,6,6,6,6, 30 (9)
+  startup: i25 i6 i6 i6 i6 i6, i28~31
+  recovery: r56
+  block: '-31'
+  hit: -14a (-23)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony break on standing hit only
+
+    * Combo from 1st hit with 7F delay
+
+    * 9 damage with scaling from 1st
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 7F
+
+    * Low crush 28~69
+
+    * Floating state 70~72'
+- id: ffp2
+  source_id: Devil Jin-f,F+2
+  source_index: 80
+  command: f,F+2
+  name: Demon's Paw
+  hit_level: m
+  damage: '24'
+  startup: i15~16
+  recovery: r29
+  block: '-8'
+  hit: +15a (+6)
+  counter_hit: ''
+  tier: core
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * i18 startup when unbuffered, and i16 startup when buffered
+
+    * 7 chip damage on block
+
+    * Active frame 1 range: 2.73'
+- id: ffp4
+  source_id: Devil Jin-f,F+4
+  source_index: 81
+  command: f,F+4
+  name: Demon's Shaft
+  hit_level: m
+  damage: '22'
+  startup: i20~21
+  recovery: r33
+  block: '-6'
+  hit: +16g
+  counter_hit: +55a
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break on normal hit
+
+    * i23 startup when unbuffered, and i21 startup when buffered
+
+    * Opponent recovers crouching on hit
+
+    * Active frame 1 range: 3.70
+
+    * Low crush 10~30
+
+    * Floating state 31~33'
+- id: f_n_d_dfp3
+  source_id: Devil Jin-f,n,d,DF+3
+  source_index: 82
+  command: f,n,d,DF+3
+  name: Demon's Tail
+  hit_level: L
+  damage: '24'
+  startup: i33~34
+  recovery: r41
+  block: '-23'
+  hit: -2a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - low
+  notes: '* Opponent recovers FDFA on hit
+
+    * Active frame 1 range: 3.89
+
+    * Hold df for at least 13F after inputting f,n,d,df+3
+
+    * Low crush 5~28'
+- id: f_n_d_dfp4
+  source_id: Devil Jin-f,n,d,DF+4
+  source_index: 83
+  command: f,n,d,DF+4
+  name: ''
+  hit_level: L
+  damage: '7'
+  startup: i16
+  recovery: r43
+  block: -23c
+  hit: -5c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: f_n_d_dfp4_4
+  source_id: Devil Jin-f,n,d,DF+4,4
+  source_index: 84
+  command: f,n,d,DF+4,4
+  name: Spinning Demon Scythe
+  hit_level: L, m
+  damage: 7, 28
+  startup: i16, i25~26
+  recovery: r34
+  block: '-16'
+  hit: +7c
+  counter_hit: +14a
+  tier: specialist
+  tags:
+  - spk
+  - low
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit'
+- id: f_n_d_dfp4_1p2
+  source_id: Devil Jin-f,n,d,DF+4,1+2
+  source_index: 85
+  command: f,n,d,DF+4,1+2
+  name: Spinning Demon Hellfire Beam
+  hit_level: L, SM
+  damage: 7, 14 (9)
+  startup: i16, i29~40
+  recovery: r29
+  block: ''
+  hit: +58a (+42)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Available only on hit
+
+    * Opponent recovers FUFA on hit
+
+    * 9 damage with scaling from previous hit'
+- id: f_n_d_df
+  source_id: Devil Jin-f,n,d,df
+  source_index: 86
+  command: f,n,d,df
+  name: Wind God Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r1 CD
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: '* Cannot be buffered
+
+    * Stance moves can be buffered out of heat engager or heat dash
+
+    * Recovers in FC at frame 20
+
+    * Cancel to sidestep with u
+
+    * Cancel to block with b from frames 1 to 6
+
+    * Cancel to t1~t3 hFC with b from frames 7 to 9'
+- id: f_n_d_df_uf
+  source_id: Devil Jin-f,n,d,df,UF
+  source_index: 87
+  command: f,n,d,df,UF
+  name: Demon Hop
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r26
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Can access wr3 by inputting 3 on frames 1~2
+
+    * Unable to act from frames 3~26
+
+    * Low crush 1~20
+
+    * Floating state 21~23'
+- id: f_n_d_df_2
+  source_id: Devil Jin-f,n,d,df${justFrame}2
+  source_index: 88
+  command: f,n,d,df:2
+  name: Electric Wind God Fist
+  hit_level: h
+  damage: '23'
+  startup: i11~12 (i14+)
+  recovery: r24
+  block: '+5'
+  hit: +39a (+29)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - high
+  notes: '* 4 chip damage on block
+
+    * Can also be performed with f,n,df#2 (i13+)'
+- id: f_n_d_dfp1
+  source_id: Devil Jin-f,n,d,df+1
+  source_index: 89
+  command: f,n,d,df+1
+  name: Thunder God Fist
+  hit_level: m
+  damage: '30'
+  startup: i22~24
+  recovery: r33
+  block: -16~-14
+  hit: +29a (+19)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Active frame 1 range: 2.36
+
+    * Active frame 2 range: 2.52
+
+    * Low crush 22~43
+
+    * Floating state 44~46'
+- id: f_n_d_dfp1_uf
+  source_id: Devil Jin-f,n,d,df+1,UF
+  source_index: 90
+  command: f,n,d,df+1,UF
+  name: Heaven's Door
+  hit_level: m, t
+  damage: 30, 10
+  startup: 'i22~24, '
+  recovery: ''
+  block: ''
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Transition to attack throw on hit
+
+    * Available only on hit
+
+    * Opponent recovers FDFA on hit'
+- id: f_n_d_dfp2
+  source_id: Devil Jin-f,n,d,df+2
+  source_index: 91
+  command: f,n,d,df+2
+  name: Wind God Fist
+  hit_level: h
+  damage: '20'
+  startup: i11~12 (i15+)
+  recovery: r28
+  block: '-10'
+  hit: +39a (+29)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - high
+  notes: '* Turns into EWGF (f,n,d,df#2) while in heat
+
+    * Consumes 70F of remaining heat time while in heat
+
+    * 4 chip damage on block while in heat'
+- id: f_n_d_dfp3
+  source_id: Devil Jin-f,n,d,df+3
+  source_index: 92
+  command: f,n,d,df+3
+  name: Demon's Hoof
+  hit_level: M
+  damage: '25'
+  startup: i26~28
+  recovery: r32
+  block: -8c
+  hit: +16a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - low_crush
+  - floor_break
+  - chip
+  - mid
+  notes: '* Floor Break
+
+    * 7 chip damage on block
+
+    * Active frame 1 range: 3.62
+
+    * Active frame 2 range: 3.63?
+
+    * Low crush 5~28'
+- id: f_n_d_dfp1p2
+  source_id: Devil Jin-f,n,d,df+1+2
+  source_index: 93
+  command: f,n,d,df+1+2
+  name: Spiral of Madness
+  hit_level: m
+  damage: '25'
+  startup: i26~27
+  recovery: r32
+  block: '-5'
+  hit: +32d (+24d)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - homing
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Homing
+
+    * Balcony Break
+
+    * 7 chip damage on block
+
+    * Opponent recovers FUFA on CH'
+- id: f_ffp3
+  source_id: Devil Jin-f,f,F+3
+  source_index: 94
+  command: f,f,F+3
+  name: Leaping Side Kick
+  hit_level: m
+  damage: '30'
+  startup: i22~25
+  recovery: r34
+  block: +6~+9
+  hit: +13a (+3)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Active frame 1 range: 2.90
+
+    * Active frame 2 range: 3.53
+
+    * Active frame 3 range: 3.62
+
+    * Low crush 3~25
+
+    * Floating state 26~28'
+- id: ws1
+  source_id: Devil Jin-ws1
+  source_index: 95
+  command: ws1
+  name: Solo Piston
+  hit_level: m
+  damage: '12'
+  startup: i13~14
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_1
+  source_id: Devil Jin-ws1,1
+  source_index: 96
+  command: ws1,1
+  name: Solo Piston > Infernal Shackle
+  hit_level: m, h
+  damage: 12, 10
+  startup: i13~14, i30~32
+  recovery: r41
+  block: +11 MCR
+  hit: +16 MCR
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - parry
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break On air hit
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Combo from 1st CH with 2F delay
+
+    * Interrupt with i12 from 1st block
+
+    * Transition to MCR on block or hit only
+
+    ** -14/-9 on an empty MCR transition
+
+    * 2 chip damage on block
+
+    * Input delayable by 2F
+
+    * Move undelayable'
+- id: ws1_2
+  source_id: Devil Jin-ws1,2
+  source_index: 97
+  command: ws1,2
+  name: Solo Piston > Bloody Glaive
+  hit_level: m, m
+  damage: 12, 15
+  startup: i13~14, i22
+  recovery: r26
+  block: '-11'
+  hit: '+6'
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to MCR with F on hit or CH (+14/+17)
+
+    ** -11/-8 on an empty MCR transition
+
+    * Combos from 1st hit with 8F delay
+
+    * Combos from 1st CH with 11F delay
+
+    * Interrupt with i4 from 1st block
+
+    * Input can be delayed 11F
+
+    * Move can be delayed 9F'
+- id: ws1_4
+  source_id: Devil Jin-ws1,4
+  source_index: 98
+  command: ws1,4
+  name: Twin Revival
+  hit_level: m, h
+  damage: 12, 21
+  startup: i13~14, i24~25
+  recovery: r32
+  block: '-5'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit with 4f delay
+
+    * Interrupt with i6 from 1st block
+
+    * Input can be delayed 4f
+
+    * Move can be delayed 3f'
+- id: ws2
+  source_id: Devil Jin-ws2
+  source_index: 99
+  command: ws2
+  name: Alaya
+  hit_level: m
+  damage: '20'
+  startup: i14~15
+  recovery: r31
+  block: -12~-11
+  hit: +72a (+56)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * First active frame range: 2.50
+
+    * 6 chip damage on block
+
+    * Slight jab evasion properties'
+- id: ws3
+  source_id: Devil Jin-ws3
+  source_index: 100
+  command: ws3
+  name: Organ Wrecker
+  hit_level: m
+  damage: '16'
+  startup: i14
+  recovery: r26
+  block: '-11'
+  hit: '+9'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - kne
+  - stance_transition
+  - mid
+  notes: '* Knee
+
+    * Transition to MCR with F on hit or CH (+14/+23)
+
+    ** -12/-3 on an empty MCR transition
+
+    * Can be performed by holding 3 then inputtting f,n,d,df+4 or f,n,d,df+3+4'
+- id: ws4
+  source_id: Devil Jin-ws4
+  source_index: 101
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i11~12
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4_4
+  source_id: Devil Jin-ws4,4
+  source_index: 102
+  command: ws4,4
+  name: Wretched Heel
+  hit_level: m, M
+  damage: 10, 20
+  startup: i11~12, i27~28
+  recovery: r34
+  block: '-16'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combo from 1st hit with 1F delay
+
+    * Interrupt with i8 from 1st block
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed'
+- id: ss_2
+  source_id: Devil Jin-SS.2
+  source_index: 103
+  command: SS.2
+  name: Devil Twister
+  hit_level: m
+  damage: '25'
+  startup: i17~18
+  recovery: r42
+  block: '-22'
+  hit: +72a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to Hell''s Gate on hit with U
+
+    * Sidestep adds 9f, effective move startup: i26'
+- id: ss_2_u
+  source_id: Devil Jin-SS.2,U
+  source_index: 104
+  command: SS.2,U
+  name: Hell's Gate
+  hit_level: m, m!,M!
+  damage: 25, 35 (24), 40 (20)
+  startup: i17~18, i37~38 i22~60
+  recovery: ''
+  block: ''
+  hit: -5a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Only available as combo from 1st hit
+
+    * 44 damage with scaling'
+- id: back_to_wall_b_b_ub
+  source_id: Devil Jin-(back to wall).b,b,ub
+  source_index: 105
+  command: (back to wall).b,b,ub
+  name: '[[Wall_jump_attack|Wall Jump Attack]]'
+  hit_level: m
+  damage: '21'
+  startup: i36~38
+  recovery: r30
+  block: +0c
+  hit: +8d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 14~45'
+- id: fly_1
+  source_id: Devil Jin-FLY.1
+  source_index: 106
+  command: FLY.1
+  name: Near Death
+  hit_level: h
+  damage: '20'
+  startup: i18~19
+  recovery: r27
+  block: '-3'
+  hit: +67a (+47)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Low crush 1~12
+
+    * Floating state 13~15'
+- id: fly_2
+  source_id: Devil Jin-FLY.2
+  source_index: 107
+  command: FLY.2
+  name: Infernal Annihilation
+  hit_level: h!,t
+  damage: 20,20
+  startup: i36
+  recovery: r44
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - fs
+  - throw
+  - low_crush
+  - floor_break
+  - stance_transition
+  - high
+  notes: '* Floor Break
+
+    * Transition to attack throw on front standing or airborne hit
+
+    * +1a (-8) on BT hit
+
+    * Low crush 1~60
+
+    * Floating state 61~63'
+- id: fly_3
+  source_id: Devil Jin-FLY.3
+  source_index: 108
+  command: FLY.3
+  name: Amara
+  hit_level: M
+  damage: '30'
+  startup: i15~22
+  recovery: r33
+  block: -15~-8
+  hit: +8c~+15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - spk
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Spike
+
+    * Forces backroll on hit
+
+    ** Opponent recovers in FC?'
+- id: fly_4
+  source_id: Devil Jin-FLY.4
+  source_index: 109
+  command: FLY.4
+  name: ''
+  hit_level: M
+  damage: '10'
+  startup: i20~21
+  recovery: r49
+  block: '-29'
+  hit: -20s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 1~50
+
+    * Floating state 51~53'
+- id: fly_4_1
+  source_id: Devil Jin-FLY.4,1
+  source_index: 110
+  command: FLY.4,1
+  name: Forsaken Soul
+  hit_level: M, h
+  damage: 10, 20
+  startup: i20~21, i40~41
+  recovery: r23
+  block: '+1'
+  hit: +71a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Interrupt with i19 from 1st block
+
+    * +40a (+33) on neutral guard hit from 1st hit
+
+    * Low crush 1~'
+- id: fly_4_2
+  source_id: Devil Jin-FLY.4,2
+  source_index: 111
+  command: FLY.4,2
+  name: ''
+  hit_level: M, m
+  damage: 10, 20 (14)
+  startup: i20~21, i22~23
+  recovery: r47
+  block: '-27'
+  hit: +15a (+5)/ +52a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Airborne combo from 1st hit (+52a (+7))
+
+    * Interrupt with i1 from 1st block'
+- id: fly_4_2_1
+  source_id: Devil Jin-FLY.4,2,1
+  source_index: 112
+  command: FLY.4,2,1
+  name: ''
+  hit_level: M, m, m
+  damage: 10, 20 (14), 20 (14/10)
+  startup: i20~21, ,i22~24
+  recovery: r33
+  block: '-16'
+  hit: +29a (+19a) / +16a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Airborne combo from 1st hit with 24F delay (+16a (+9))
+
+    * Interrupt with i24 from 2nd block
+
+    * Move cannot be delayed
+
+    * Input is delayed by 24F
+
+    * Effective startup i45~47
+
+    * Low crush 22~43
+
+    * Floating state 44~46'
+- id: fly_4_2_1_uf
+  source_id: Devil Jin-FLY.4,2,1,UF
+  source_index: 113
+  command: FLY.4,2,1,UF
+  name: Cursed Starstorm
+  hit_level: M, m, m, t
+  damage: 10, 20 (14), 20 (14/10), 14 (10/7/6)
+  startup: i20~21, ,
+  recovery: ''
+  block: ''
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - throw
+  - low_crush
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Airborne combo from 1st hit
+
+    * Transition to attack throw on hit
+
+    * Available only on hit
+
+    * Opponent recovers FDFA on hit
+
+    * Low crush 1~'
+- id: fly_4_2_1p2
+  source_id: Devil Jin-FLY.4,2,1+2
+  source_index: 114
+  command: FLY.4,2,1+2
+  name: Devil Starstorm
+  hit_level: M, m, m!,M!
+  damage: 10, 20 (14), 14 (10/7), 20 (10/8)
+  startup: i20~21, ,i27~28 i22~60
+  recovery: r54
+  block: ''
+  hit: -6a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Available only as airborne combo from 2nd hit
+
+    * Low crush 1~'
+- id: fly_1p2
+  source_id: Devil Jin-FLY.1+2
+  source_index: 115
+  command: FLY.1+2
+  name: Infernal Destruction
+  hit_level: M!
+  damage: '30'
+  startup: i50~100
+  recovery: r70
+  block: ''
+  hit: -72c~-22c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - rage
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * -72c~-56c on average
+
+    * Forces backroll on hit
+
+    * Low crush 1~111
+
+    * Floating state 112~114'
+- id: fly_fp1p2
+  source_id: Devil Jin-FLY.f+1+2
+  source_index: 116
+  command: FLY.f+1+2
+  name: Cross Infernal Destruction
+  hit_level: M!
+  damage: '30'
+  startup: i32~75
+  recovery: r70
+  block: ''
+  hit: -65c~-22c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - rage
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * -52c~-50c on average?
+
+    * Forces backroll on hit
+
+    * Recovers front-facing when done from BT FLY
+
+    * Low crush 1~'
+- id: fuft_up3p4
+  source_id: Devil Jin-FUFT.u+3+4
+  source_index: 117
+  command: FUFT.u+3+4
+  name: Yomigaeri
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r35 FLY
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: FUFA shift to Fly leaves attacker in backturn
+- id: mcr_1
+  source_id: Devil Jin-MCR.1
+  source_index: 118
+  command: MCR.1
+  name: Tiger Thrush
+  hit_level: m
+  damage: '20'
+  startup: i22
+  recovery: r34
+  block: '+8'
+  hit: +20d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - spk
+  - js
+  - fs
+  - low_crush
+  - chip
+  - mid
+  notes: '* Spike
+
+    * Opponent recovers FDFA on hit
+
+    * 6 chip damage on block
+
+    * Low crush 1~38
+
+    * Floating state 39~41'
+- id: mcr_2
+  source_id: Devil Jin-MCR.2
+  source_index: 119
+  command: MCR.2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r30
+  block: '-9'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - js
+  - fs
+  - homing
+  - low_crush
+  - mid
+  notes: 'Homing
+
+    * Low crush 1~37
+
+    * Floating state 38~40'
+- id: mcr_2_2
+  source_id: Devil Jin-MCR.2,2
+  source_index: 120
+  command: MCR.2,2
+  name: Dark Arachnid Twister
+  hit_level: m, M
+  damage: 12, 20
+  startup: i15~16, i24-26
+  recovery: r36
+  block: -14c
+  hit: +2a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - fbr
+  - js
+  - fs
+  - heat
+  - low_crush
+  - floor_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Floor Break
+
+    * 6 chip damage on blocked Heat Dash
+
+    * Combo from 1st hit with 2F delay
+
+    * Opponent recovers FDFA on hit
+
+    * Input can be delayed by 2F
+
+    * Move cannot be delayed
+
+    * Low crush 1~17
+
+    * Floating state 18~20'
+- id: mcr_3
+  source_id: Devil Jin-MCR.3
+  source_index: 121
+  command: MCR.3
+  name: Venomous Torment
+  hit_level: SM
+  damage: '26'
+  startup: i23
+  recovery: r34
+  block: '-7'
+  hit: +70a (+54)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - low_crush
+  - tornado
+  - parry
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * 7 chip damage on block
+
+    * Projectile (unparryable)
+
+    * Low crush 1~19
+
+    * Floating state 20~22'
+- id: mcr_4
+  source_id: Devil Jin-MCR.4
+  source_index: 122
+  command: MCR.4
+  name: ''
+  hit_level: M
+  damage: '10'
+  startup: i20~21
+  recovery: r49
+  block: '-29'
+  hit: -20s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Low crush 1~50
+
+    * Floating state 51~53'
+- id: mcr_4_1
+  source_id: Devil Jin-MCR.4,1
+  source_index: 123
+  command: MCR.4,1
+  name: Forsaken Soul
+  hit_level: M, h
+  damage: 10, 20
+  startup: i20~21, i40~41
+  recovery: r23
+  block: '+1'
+  hit: +71a (+51)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Interrupt with i19 from 1st block
+
+    * +40a (+33) on neutral guard hit from 1st hit
+
+    * Low crush 1~'
+- id: mcr_4_2
+  source_id: Devil Jin-MCR.4,2
+  source_index: 124
+  command: MCR.4,2
+  name: ''
+  hit_level: M, m
+  damage: 10, 20 (14)
+  startup: i20~21, i22~23
+  recovery: r47
+  block: '-27'
+  hit: +15a (+5)/ +52a (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Airborne combo from 1st hit (+52a (+7))
+
+    * Interrupt with i1 from 1st block'
+- id: mcr_4_2_1
+  source_id: Devil Jin-MCR.4,2,1
+  source_index: 125
+  command: MCR.4,2,1
+  name: ''
+  hit_level: M, m, m
+  damage: 10, 20 (14), 20 (14/10)
+  startup: i20~21, ,i22~24
+  recovery: r33
+  block: '-16'
+  hit: +29a (+19a) / +16a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - mid
+  notes: '* Airborne combo from 1st hit with 24F delay (+16a (+9))
+
+    * Interrupt with i24 from 2nd block
+
+    * Move cannot be delayed
+
+    * Input is delayed by 24F
+
+    * Effective startup i45~47
+
+    * Low crush 22~43
+
+    * Floating state 44~46'
+- id: mcr_4_2_1_uf
+  source_id: Devil Jin-MCR.4,2,1,UF
+  source_index: 126
+  command: MCR.4,2,1,UF
+  name: Cursed Starstorm
+  hit_level: M, m, m, t
+  damage: 10, 20 (14), 20 (14/10), 14 (10/7/6)
+  startup: i20~21, ,
+  recovery: ''
+  block: ''
+  hit: -4d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - js
+  - throw
+  - low_crush
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Airborne combo from 1st hit
+
+    * Transition to attack throw on hit
+
+    * Available only on hit
+
+    * Opponent recovers FDFA on hit
+
+    * Low crush 1~'
+- id: mcr_4_2_1p2
+  source_id: Devil Jin-MCR.4,2,1+2
+  source_index: 127
+  command: MCR.4,2,1+2
+  name: Devil Starstorm
+  hit_level: M, m, m!,M!
+  damage: 10, 20 (14), 14 (10/7), 20 (10/8)
+  startup: i20~21, ,i27~28 i22~60
+  recovery: r54
+  block: ''
+  hit: -6a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Available only as airborne combo from 2nd hit
+
+    * Low crush 1~'
+- id: mcr_1p2
+  source_id: Devil Jin-MCR.1+2
+  source_index: 128
+  command: MCR.1+2
+  name: Inner Turmoil
+  hit_level: h!
+  damage: '12'
+  startup: i20
+  recovery: r35
+  block: ''
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break (airborne)
+
+    * Low crush 1~12
+
+    * Floating state 13~15'
+- id: otg_dp1p2
+  source_id: Devil Jin-OTG.d+1+2
+  source_index: 129
+  command: OTG.d+1+2
+  name: Hellfire Incinerator
+  hit_level: L
+  damage: '25'
+  startup: i23~31
+  recovery: r27
+  block: -16~-8
+  hit: +5a~+13a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wpn
+  - balcony_break
+  - parry
+  - low
+  notes: '* Weapon
+
+    * Projectile (unparryable)
+
+    * Balcony break on CH
+
+    * Typically connects grounded on frames i25~26 of startup at -14~-13/+12a~+13a(+0a~+1a)
+
+    * Can be done from Crouch Level 1'
+- id: h_b_fp2_1_4_1p2
+  source_id: Devil Jin-b,f+2,1,4,1+2
+  source_index: 130
+  command: H.b,f+2,1,4,1+2
+  name: Laser Crush > Annihilation Beam
+  hit_level: m, m, M, SM
+  damage: 12, 12, 21, 15
+  startup: i15~17, ,i24~35
+  recovery: r33
+  block: +2~+13
+  hit: +4c~+15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - wpn
+  - heat
+  - tornado
+  - balcony_break
+  - parry
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Forces backroll on hit
+
+    * +59a(+43) from previous hit
+
+    * Jail from 3rd block
+
+    * 3 chip damage on block
+
+    * Consumes 210F of remaining heat time'
+- id: h_f_n_d_dfp4_3
+  source_id: Devil Jin-f,n,d,DF+4,H.3
+  source_index: 131
+  command: H.f,n,d,DF+4,3
+  name: Spinning Demon Leviathan
+  hit_level: L, SM
+  damage: 7, 26 (18)
+  startup: i16, i31
+  recovery: r34
+  block: ''
+  hit: +72a (+56a)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - fs
+  - heat
+  - low_crush
+  - tornado
+  - low
+  - mid
+  notes: '* Tornado
+
+    * Available only on hit
+
+    * 18 damage with combo scaling from 1st
+
+    * Consumes 600F of remaining Heat timer on hit or block or whiff
+
+    * Low crush 15~27
+
+    * Floating state 28~30'
+- id: h_f_n_d_dfp1p2_1p2
+  source_id: Devil Jin-f,n,d,df+1+2,1+2
+  source_index: 132
+  command: H.f,n,d,df+1+2,1+2
+  name: Spiral of Madness > Annihilation Beam
+  hit_level: m, SM
+  damage: 25, 20
+  startup: i26~27, i25~36
+  recovery: r33
+  block: +2~+13
+  hit: +4c~+15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - wpn
+  - heat
+  - tornado
+  - parry
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Weapon
+
+    * Projectile (unparryable)
+
+    * Forces backroll on hit
+
+    * +60a(+44) from previous hit
+
+    * 4 chip damage on block
+
+    * Consumes 600F of remaining heat time
+
+    * No pushback on 1st CH'
+- id: 1p3
+  source_id: Devil Jin-1+3
+  source_index: 133
+  command: 1+3
+  name: Double High Sweep
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '+0'
+  hit: +2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - stance_transition
+  notes: '* Homing
+
+    * Throw break: 1 or 2
+
+    * Can be done from FC
+
+    * Transition to BT on break'
+- id: 2p4
+  source_id: Devil Jin-2+4
+  source_index: 134
+  command: 2+4
+  name: Judgment
+  hit_level: t
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  notes: '* Homing
+
+    * Throw break 1 or 2
+
+    * Side switch on hit
+
+    * Opponent recovers FUFA on hit
+
+    * Can be done from FC'
+- id: back_throw
+  source_id: Devil Jin-Back Throw
+  source_index: 135
+  command: Back Throw
+  name: Pivoting Hip Throw
+  hit_level: t
+  damage: '50'
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Unbreakable
+
+    * Side switch on hit'
+- id: left_throw
+  source_id: Devil Jin-Left Throw
+  source_index: 136
+  command: Left Throw
+  name: Shoulder Flip
+  hit_level: t
+  damage: '43'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * Opponent recovers FUFA on hit'
+- id: right_throw
+  source_id: Devil Jin-Right Throw
+  source_index: 137
+  command: Right Throw
+  name: Over the Limit
+  hit_level: t
+  damage: '40'
+  startup: ''
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 2
+
+    * Side switch on hit
+
+    * Opponent recovers FDFA on hit'
+- id: dfp2p3
+  source_id: Devil Jin-df+2+3
+  source_index: 138
+  command: df+2+3
+  name: White Mountain
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-2'
+  hit: -6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  notes: '* Floor Break
+
+    * Throw break 2
+
+    * Can be done from FC'
+- id: f_hcfp1p2
+  source_id: Devil Jin-f,hcf+1+2
+  source_index: 139
+  command: f,hcf+1+2
+  name: Obliteration
+  hit_level: t
+  damage: '45'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1+2
+
+    * Side switch on hit when done on opponent''s front and left sides from P1 side
+
+    * Sideswap on hit when done on opponent''s left side from P2 side
+
+    * Can be done from FC'
+- id: qcbp1p3
+  source_id: Devil Jin-qcb+1+3
+  source_index: 140
+  command: qcb+1+3
+  name: Complicated Wire
+  hit_level: t
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-2'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  notes: '* Throw break 1
+
+    * Opponent recovers FUFA on hit
+
+    * Can be done from FC'
+- id: ufp1p2
+  source_id: Devil Jin-uf+1+2
+  source_index: 141
+  command: uf+1+2
+  name: Stonehead
+  hit_level: t
+  damage: '35'
+  startup: i12
+  recovery: r27
+  block: '+0'
+  hit: +25d (+7)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - throw
+  - balcony_break
+  notes: '* Balcony Break
+
+    * Throw break 1+2
+
+    * Side switch on throw break
+
+    * Can be done from FC'

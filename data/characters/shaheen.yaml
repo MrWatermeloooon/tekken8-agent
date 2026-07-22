@@ -1,0 +1,1991 @@
+character_id: shaheen
+display_name: Shaheen
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/shaheen/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: 7bf2334552414df391586ba78d7e0e3c247d1e41f6de34e007302f06fd8383b5
+data_status: available
+stances:
+- H
+- ws
+- SS
+- FC
+- BT
+- SNK
+moves:
+- id: 2p3
+  source_id: Shaheen-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_d_up2
+  source_id: Shaheen-H.D*,u+2
+  source_index: 2
+  command: H.D*,u+2
+  name: Al-Ghul Master
+  hit_level: h
+  damage: '35'
+  startup: i17~18
+  recovery: ''
+  block: '+13'
+  hit: +63a (+47)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - js
+  - heat
+  - low_crush
+  - tornado
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Guard break
+
+    * Consumes 450F of remaining Heat Time
+
+    * Read more
+
+    * Low crush'
+- id: h_fp1p2
+  source_id: Shaheen-H.f+1+2
+  source_index: 3
+  command: H.f+1+2
+  name: Rumh al-Dawla
+  hit_level: m
+  damage: 15,25 (17)
+  startup: i16~17
+  recovery: ''
+  block: +4c SNK
+  hit: +27d (-8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - spk
+  - js
+  - heat
+  - low_crush
+  - floor_break
+  - stance_transition
+  - mid
+  notes: '* Floor Break
+
+    * Spike
+
+    * 32 damage with scaling from 1st hit
+
+    * Transition to SNK on hit or block
+
+    * Consumes 450F of remaining Heat time
+
+    * Low crush 28~'
+- id: h_2p3
+  source_id: Shaheen-H.2+3
+  source_index: 4
+  command: H.2+3
+  name: Rumh al-Muzaffar
+  hit_level: L,t
+  damage: '40'
+  startup: i20~21
+  recovery: ''
+  block: '-14'
+  hit: +24a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hs
+  - throw
+  - heat
+  - balcony_break
+  - stance_transition
+  - chip
+  - low
+  notes: '* Balcony Break
+
+    * Heat Smash
+
+    * Transition to attack throw on 1st hit
+
+    * 8 chip damage on block'
+- id: r_dfp1p2
+  source_id: Shaheen-R.df+1+2
+  source_index: 5
+  command: R.df+1+2
+  name: Najm Alshamal
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Shaheen-1
+  source_index: 6
+  command: '1'
+  name: ''
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: ''
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '1_2'
+  source_id: Shaheen-1,2
+  source_index: 7
+  command: 1,2
+  name: Spica
+  hit_level: h, h
+  damage: 5, 9
+  startup: i10, i12
+  recovery: ''
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '1_2_2'
+  source_id: Shaheen-1,2,2
+  source_index: 8
+  command: 1,2,2
+  name: Spica Gut Punch
+  hit_level: h, h, m
+  damage: 5, 9, 17
+  startup: i10, ,i20~21
+  recovery: ''
+  block: '-11'
+  hit: '+3'
+  counter_hit: +58a
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st CH with 10F delay
+
+    * Combo from 2nd CH with 10F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 12F
+
+    * Cancel to SNK (-13/-2) with DF'
+- id: '1_2_3'
+  source_id: Shaheen-1,2,3
+  source_index: 9
+  command: 1,2,3
+  name: Spica Blinding Sands
+  hit_level: h, h, h
+  damage: 5, 9, 18
+  startup: i10, ,i20
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to -1, +10 SNK with DF
+
+    * Combo from 1st CH with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F'
+- id: '1_2_4'
+  source_id: Shaheen-1,2,4
+  source_index: 10
+  command: 1,2,4
+  name: Spica Wheel Spin
+  hit_level: h, h, m
+  damage: 5, 9, 20
+  startup: i10, ,i24~26
+  recovery: ''
+  block: '-13'
+  hit: +33a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd CH with 2F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 2F'
+- id: '2'
+  source_id: Shaheen-2
+  source_index: 11
+  command: '2'
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: ''
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '2_1'
+  source_id: Shaheen-2,1
+  source_index: 12
+  command: 2,1
+  name: Cut In
+  hit_level: h, m
+  damage: 10, 7
+  startup: i10, i17~18
+  recovery: ''
+  block: '-4'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit'
+- id: '2_3'
+  source_id: Shaheen-2,3
+  source_index: 13
+  command: 2,3
+  name: Porrima Blinding Sands
+  hit_level: h, h
+  damage: 10, 13
+  startup: i10, i20
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to -1, +10 SNK with DF
+
+    * Combo from 1st hit with 2F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 2F'
+- id: '3'
+  source_id: Shaheen-3
+  source_index: 14
+  command: '3'
+  name: Blinding Sands
+  hit_level: h
+  damage: '18'
+  startup: i14
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to -1, +10 SNK with DF'
+- id: '4'
+  source_id: Shaheen-4
+  source_index: 15
+  command: '4'
+  name: Hallux Kick
+  hit_level: h
+  damage: '16'
+  startup: i13
+  recovery: ''
+  block: '-10'
+  hit: '+1'
+  counter_hit: +1s
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_1'
+  source_id: Shaheen-4,1
+  source_index: 16
+  command: 4,1
+  name: Hallux Kick > Algenib
+  hit_level: h, h
+  damage: 16, 14
+  startup: i13, i18
+  recovery: ''
+  block: '-5'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* +31a (+24) from 1st CH
+
+    * Combo from 1st hit'
+- id: '4_3'
+  source_id: Shaheen-4,3
+  source_index: 17
+  command: 4,3
+  name: Hallux Kick > High Slashing Kick
+  hit_level: h, h
+  damage: 16, 21
+  startup: i13, i31
+  recovery: ''
+  block: '-1'
+  hit: +26a (+17)
+  counter_hit: +71a (51)
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break'
+- id: '4_4'
+  source_id: Shaheen-4,4
+  source_index: 18
+  command: 4,4
+  name: Hallux Kick > Ra'd
+  hit_level: h, m
+  damage: 16, 25
+  startup: i13, i24~25
+  recovery: ''
+  block: '-13'
+  hit: +20d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - mid
+  - high
+  notes: "* Aerial combo from 1st CH\n* When combo from 1st CH: \nFloor Break"
+- id: 3p4
+  source_id: Shaheen-3+4
+  source_index: 19
+  command: 3+4
+  name: Wheel Spin
+  hit_level: m
+  damage: '20'
+  startup: i18~20
+  recovery: ''
+  block: '-9'
+  hit: +19a (+2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break'
+- id: fp2
+  source_id: Shaheen-f+2
+  source_index: 20
+  command: f+2
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: ''
+  block: '-8'
+  hit: '-2'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: fp2_3
+  source_id: Shaheen-f+2,3
+  source_index: 21
+  command: f+2,3
+  name: Silent Sting
+  hit_level: h, h
+  damage: 10, 23
+  startup: i12, i18
+  recovery: ''
+  block: '-12'
+  hit: +21a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F'
+- id: fp2_4
+  source_id: Shaheen-f+2,4
+  source_index: 22
+  command: f+2,4
+  name: ''
+  hit_level: h, L
+  damage: 10, 16
+  startup: i12, i22~23
+  recovery: ''
+  block: '-13'
+  hit: '+2'
+  counter_hit: +29a
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Combo from 1st hit with 3F delay
+
+    * Transition to -11, +4, +31a SNK with DF
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F'
+- id: fp2_4_4
+  source_id: Shaheen-f+2,4,4
+  source_index: 23
+  command: f+2,4,4
+  name: Silent Flow
+  hit_level: h, L, h
+  damage: 10, 16, 21
+  startup: i12, ,i26~27
+  recovery: ''
+  block: '-7'
+  hit: +10g
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break
+
+    * Aerial combo from 2nd CH'
+- id: fp3
+  source_id: Shaheen-f+3
+  source_index: 24
+  command: f+3
+  name: Crescent Moon
+  hit_level: m
+  damage: '17'
+  startup: i20
+  recovery: r29
+  block: '-5'
+  hit: '+6'
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Good right sidestep tracking
+
+    * Transition to SNK (-3/+8/+15c) with DF
+
+    * Low crush 13~'
+- id: fp4
+  source_id: Shaheen-f+4
+  source_index: 25
+  command: f+4
+  name: Piercing Talon
+  hit_level: h
+  damage: '24'
+  startup: i15~16
+  recovery: ''
+  block: '+0'
+  hit: +13g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - homing
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * 7 chip damage on block'
+- id: fp3p4
+  source_id: Shaheen-f+3+4
+  source_index: 26
+  command: f+3+4
+  name: Skyline
+  hit_level: M,M
+  damage: '20'
+  startup: i22~23
+  recovery: SNK
+  block: +3c
+  hit: +11c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* 6 chip damage on block
+
+    * Transitions to SNK
+
+    * Floor Break'
+- id: dfp1
+  source_id: Shaheen-df+1
+  source_index: 27
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i13~14
+  recovery: r19
+  block: '-1'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: Tracks SSR/SWR completely
+- id: dfp2
+  source_id: Shaheen-df+2
+  source_index: 28
+  command: df+2
+  name: Rising Falcon
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: r25
+  block: '-7'
+  hit: +34a (+24)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: "* Only launches standing opponents \n* +4s on hit against crouching opponents\n\
+    * Launches crouching on CH"
+- id: dfp3
+  source_id: Shaheen-df+3
+  source_index: 29
+  command: df+3
+  name: Whirlwind Kick
+  hit_level: m
+  damage: '20'
+  startup: i17
+  recovery: r34
+  block: '-13'
+  hit: +21d
+  counter_hit: ''
+  tier: core
+  tags:
+  - hom
+  - homing
+  - mid
+  notes: '* Homing'
+- id: dfp4
+  source_id: Shaheen-df+4
+  source_index: 30
+  command: df+4
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i14
+  recovery: ''
+  block: '-7'
+  hit: '+0'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: dfp4_1
+  source_id: Shaheen-df+4,1
+  source_index: 31
+  command: df+4,1
+  name: ''
+  hit_level: m, m
+  damage: 13, 10
+  startup: i14, i22~23
+  recovery: ''
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to -2, +9 SNK with DF
+
+    * Combo from 1st hit'
+- id: dfp4_1_3
+  source_id: Shaheen-df+4,1,3
+  source_index: 32
+  command: df+4,1,3
+  name: Al-Faras
+  hit_level: m, m, m
+  damage: 13, 10, 28
+  startup: i14, ,i27~28
+  recovery: ''
+  block: '-13'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move can be delayed by 10F
+
+    * Input can be delayed by 11F
+
+    * Low crush'
+- id: dfp4_3
+  source_id: Shaheen-df+4,3
+  source_index: 33
+  command: df+4,3
+  name: Al-Fard al-Shuja
+  hit_level: m, h
+  damage: 13, 23
+  startup: i14, i23~24
+  recovery: ''
+  block: '-4'
+  hit: +23a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st hit'
+- id: dfp3p4
+  source_id: Shaheen-df+3+4
+  source_index: 34
+  command: df+3+4
+  name: Stealth Step
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r15 SNK
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transitions to SNK
+
+    * Transition to r1? FC with SNK.DB'
+- id: dp1
+  source_id: Shaheen-d+1
+  source_index: 35
+  command: d+1
+  name: Hermit Needle
+  hit_level: L
+  damage: '16'
+  startup: i20~21
+  recovery: r31 FC
+  block: '-13'
+  hit: '+4'
+  counter_hit: +28g
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 6~52'
+- id: dp2
+  source_id: Shaheen-d+2
+  source_index: 36
+  command: d+2
+  name: Gut Impact
+  hit_level: m
+  damage: '15'
+  startup: i18~19
+  recovery: ''
+  block: '-6'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Jab evasion'
+- id: dp3
+  source_id: Shaheen-d+3
+  source_index: 37
+  command: d+3
+  name: Silent Rigel
+  hit_level: L
+  damage: '12'
+  startup: i16~17
+  recovery: FC
+  block: '-14'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to -10, +4 SNK with DF
+
+    * High crush 6~48'
+- id: dp4
+  source_id: Shaheen-d+4
+  source_index: 38
+  command: d+4
+  name: Vicious Stomp
+  hit_level: L
+  damage: '10'
+  startup: i19
+  recovery: ''
+  block: '-12'
+  hit: '+1'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dp3p4
+  source_id: Shaheen-d+3+4
+  source_index: 39
+  command: d+3+4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -4c on crouching hit
+
+    * High crush 4~'
+- id: dbp1
+  source_id: Shaheen-db+1
+  source_index: 40
+  command: db+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dbp2
+  source_id: Shaheen-db+2
+  source_index: 41
+  command: db+2
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i14
+  recovery: ''
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to SNK with input db+2,DF (-3/+8/+8)'
+- id: dbp2_1
+  source_id: Shaheen-db+2,1
+  source_index: 42
+  command: db+2,1
+  name: Rapid Strikes
+  hit_level: m, h
+  damage: 11, 24
+  startup: i14, i20
+  recovery: ''
+  block: '-11'
+  hit: +15c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - heat
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +43d (+35)
+
+
+    * Combo from 1st hit with 10?F delay
+
+    * Move can be delayed by 8F
+
+    * Input can be delayed by 10F
+
+    * Forces tech backroll on hit'
+- id: dbp3
+  source_id: Shaheen-db+3
+  source_index: 43
+  command: db+3
+  name: Snake's Bite
+  hit_level: L
+  damage: '12'
+  startup: i20~21
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - low
+  notes: ''
+- id: dbp3_4
+  source_id: Shaheen-db+3,4
+  source_index: 44
+  command: db+3,4
+  name: Snake's Bite > Rising Scimitar
+  hit_level: L, h
+  damage: 12, 20
+  startup: i20~21, i18
+  recovery: ''
+  block: '-13'
+  hit: +68a (+52)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - cs
+  - high_crush
+  - tornado
+  - low
+  - high
+  notes: '* Tornado
+
+    *Counter hit combo from 1st hit
+
+    * High crush'
+- id: dbp4
+  source_id: Shaheen-db+4
+  source_index: 45
+  command: db+4
+  name: Rising Scimitar
+  hit_level: h
+  damage: '23'
+  startup: i20
+  recovery: ''
+  block: '-13'
+  hit: +28 (+18)
+  counter_hit: ''
+  tier: core
+  tags:
+  - trn
+  - cs
+  - high_crush
+  - tornado
+  - high
+  notes: '* Tornado
+
+    * High crush 6'
+- id: dbp1p2
+  source_id: Shaheen-db+1+2
+  source_index: 46
+  command: db+1+2
+  name: Shaula
+  hit_level: ub!(m)
+  damage: '40'
+  startup: i64~65
+  recovery: ''
+  block: ''
+  hit: +42 (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bp1
+  source_id: Shaheen-b+1
+  source_index: 47
+  command: b+1
+  name: Achernar
+  hit_level: m
+  damage: '20'
+  startup: i19~20
+  recovery: ''
+  block: +0c
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - stance_transition
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +67a (+50)
+
+
+    * Transition to +0c, +6c FC with D'
+- id: bp1p3
+  source_id: Shaheen-b+1+3
+  source_index: 48
+  command: b+1+3
+  name: Silent Death Trap
+  hit_level: sp
+  damage: 15 (15)
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - throw
+  - parry
+  notes: '* Removes Recoverable Health
+
+    * Alternate input: b+2+4
+
+    * Punch parry
+
+    * Hit throw on successful parry
+
+    * Side switch on parry
+
+    * Parry state 5~12'
+- id: bp2
+  source_id: Shaheen-b+2
+  source_index: 49
+  command: b+2
+  name: Dust Storm
+  hit_level: m(th)
+  damage: 12,16
+  startup: i14~15
+  recovery: ''
+  block: '-9'
+  hit: -2d
+  counter_hit: ''
+  tier: core
+  tags:
+  - throw
+  - stance_transition
+  - mid
+  - high
+  notes: '* Removes Recoverable Health
+
+    * Transition to attack throw on standing front hit'
+- id: bp3
+  source_id: Shaheen-b+3
+  source_index: 50
+  command: b+3
+  name: Heel Strike
+  hit_level: m
+  damage: '17'
+  startup: i19
+  recovery: ''
+  block: +1c
+  hit: +3c
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* 5 chip damage on block'
+- id: bp4
+  source_id: Shaheen-b+4
+  source_index: 51
+  command: b+4
+  name: Broken Mirage
+  hit_level: M
+  damage: '23'
+  startup: i17
+  recovery: ''
+  block: '-15'
+  hit: '+4'
+  counter_hit: +29a (+23)
+  tier: core
+  tags:
+  - mid
+  notes: ''
+- id: bp3p4
+  source_id: Shaheen-b+3+4
+  source_index: 52
+  command: b+3+4
+  name: Elnath
+  hit_level: h
+  damage: '25'
+  startup: i16
+  recovery: ''
+  block: '-9'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - pc
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * +0 frame advantage and 10 chip damage on block after absorbing an attack in
+    power crush state
+
+    * Power crush 7~15'
+- id: ufp1
+  source_id: Shaheen-uf+1
+  source_index: 53
+  command: uf+1
+  name: Vega
+  hit_level: m
+  damage: '25'
+  startup: i24~25
+  recovery: ''
+  block: '+1'
+  hit: +20d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +67a (+50)
+
+
+    * 10 chip damage on block
+
+    * Cancel to FC with input uf+1,D
+
+    * Low crush 9'
+- id: ufp3
+  source_id: Shaheen-uf+3
+  source_index: 54
+  command: uf+3
+  name: Crescent Cleaver
+  hit_level: m
+  damage: '22'
+  startup: i25~26
+  recovery: ''
+  block: '-7'
+  hit: '+24'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Alternate input: ub+3 or u+3
+
+    * Low crush 9'
+- id: ufp4
+  source_id: Shaheen-uf+4
+  source_index: 55
+  command: uf+4
+  name: Altair
+  hit_level: m
+  damage: '13'
+  startup: i15~17
+  recovery: ''
+  block: '-13'
+  hit: +33 (+23)
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Alternate input: ub+4 or u+4
+
+    * Low crush 9'
+- id: 1p2p3p4
+  source_id: Shaheen-1+2+3+4
+  source_index: 56
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: d_up2
+  source_id: Shaheen-D*,u+2
+  source_index: 57
+  command: D*,u+2
+  name: Al-Ghul
+  hit_level: h
+  damage: '35'
+  startup: i17~18
+  recovery: ''
+  block: '+6'
+  hit: +30d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - js
+  - heat
+  - low_crush
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Alternate input: SNK.D*,u+2
+
+    * 12 chip damage on block
+
+    * FUFA knockdown on hit
+
+    * Powered up during Heat
+
+    * Read more
+
+    * Low crush 18~'
+- id: ffp3
+  source_id: Shaheen-f,F+3
+  source_index: 58
+  command: f,F+3
+  name: Hunting Falcon Dive
+  hit_level: m
+  damage: '23'
+  startup: i17
+  recovery: ''
+  block: '-12'
+  hit: +63 (+48)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - throw
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Alternate input: f,f,F+3
+
+    * Hit throw which side switches
+
+    * Low crush 13'
+- id: f_bp2
+  source_id: Shaheen-f,b+2
+  source_index: 59
+  command: f,b+2
+  name: Hornet
+  hit_level: h
+  damage: '42'
+  startup: i14
+  recovery: ''
+  block: '-4'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - throw
+  - heat
+  - tornado
+  - stance_transition
+  - high
+  notes: '* Tornado
+
+    * Removes Recoverable Health
+
+    * Transition to attack throw on standing front hit
+
+    * Quick input properties during Heat
+
+    * See also: f:b+2'
+- id: f_bp2
+  source_id: Shaheen-f:b+2
+  source_index: 60
+  command: f:b+2
+  name: Hornet
+  hit_level: h
+  damage: '42'
+  startup: i13
+  recovery: ''
+  block: '-4'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - throw
+  - heat
+  - tornado
+  - stance_transition
+  - high
+  notes: "* Tornado\n* Removes Recoverable Health\n* Transition to attack throw on\
+    \ standing front hit\n* Quick input properties during Heat\n* input must be less\
+    \ or equal to 6 frames \n* (example : 2 frames of f, 3 frames of neutral, 1 frame\
+    \ of b, then b+2)"
+- id: uf_n_4
+  source_id: Shaheen-uf,n,4
+  source_index: 61
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: ''
+  block: '-13'
+  hit: +32 (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush'
+- id: f_ffp2
+  source_id: Shaheen-f,f,F+2
+  source_index: 62
+  command: f,f,F+2
+  name: Antares
+  hit_level: m
+  damage: '30'
+  startup: i17~18
+  recovery: ''
+  block: '+5'
+  hit: +13c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - chp
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * chip damage on block
+
+    * Forces tech backroll on hit
+
+    * Jab evasion'
+- id: ws1
+  source_id: Shaheen-ws1
+  source_index: 63
+  command: ws1
+  name: Albireo
+  hit_level: m
+  damage: '17'
+  startup: i14
+  recovery: ''
+  block: '-2'
+  hit: '+4'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws2
+  source_id: Shaheen-ws2
+  source_index: 64
+  command: ws2
+  name: Hawk Edge
+  hit_level: m
+  damage: '21'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '+57'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws3
+  source_id: Shaheen-ws3
+  source_index: 65
+  command: ws3
+  name: ''
+  hit_level: m
+  damage: '9'
+  startup: i13
+  recovery: ''
+  block: '-11'
+  hit: '0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to -7, +4 SNK with DF'
+- id: ws3_3
+  source_id: Shaheen-ws3,3
+  source_index: 66
+  command: ws3,3
+  name: Double Scorpion
+  hit_level: m, m
+  damage: 9, 25
+  startup: i13, i17
+  recovery: ''
+  block: '-13'
+  hit: +11a (+2)
+  counter_hit: +43a (-4)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break'
+- id: ws4
+  source_id: Shaheen-ws4
+  source_index: 67
+  command: ws4
+  name: Jaw Smash
+  hit_level: m
+  damage: '16'
+  startup: i11~12
+  recovery: ''
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_2
+  source_id: Shaheen-SS.2
+  source_index: 68
+  command: SS.2
+  name: Nisif Kamar
+  hit_level: L
+  damage: '14'
+  startup: i20
+  recovery: FC
+  block: '-12'
+  hit: +1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Sidestep takes 9f; effective startup i29
+
+    * High crush 15~'
+- id: ss_1p2
+  source_id: Shaheen-SS.1+2
+  source_index: 69
+  command: SS.1+2
+  name: Haboob
+  hit_level: m
+  damage: '23'
+  startup: i19~20
+  recovery: ''
+  block: '+3'
+  hit: +22g
+  counter_hit: +35a
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* Sidestep takes 9f; effective startup i28
+
+    * 6 chip damage on block'
+- id: fc_df_d_df
+  source_id: Shaheen-FC.df,d,DF
+  source_index: 70
+  command: FC.df,d,DF
+  name: Slide Step
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  notes: '* High crush'
+- id: fc_df_d_dfp3
+  source_id: Shaheen-FC.df,d,DF+3
+  source_index: 71
+  command: FC.df,d,DF+3
+  name: Sand Storm
+  hit_level: L
+  damage: '17'
+  startup: i16~20
+  recovery: FUFT
+  block: -23a
+  hit: +7a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - low
+  notes: '* Transitions to SNK on hit
+
+    * Low crush'
+- id: fc_dfp2
+  source_id: Shaheen-FC.df+2
+  source_index: 72
+  command: FC.df+2
+  name: Janbiya
+  hit_level: m
+  damage: '21'
+  startup: i18~19
+  recovery: ''
+  block: '-9'
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Strong Aerial Tailspin
+
+    * Balcony Break'
+- id: fc_dfp4
+  source_id: Shaheen-FC.df+4
+  source_index: 73
+  command: FC.df+4
+  name: ''
+  hit_level: L
+  damage: '16'
+  startup: i16~17
+  recovery: ''
+  block: '-14'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to -11, +4 SNK with DF'
+- id: fc_dfp4_1
+  source_id: Shaheen-FC.df+4,1
+  source_index: 74
+  command: FC.df+4,1
+  name: Serpens
+  hit_level: L, h
+  damage: 16, 20
+  startup: i16~17, i26
+  recovery: ''
+  block: '-2'
+  hit: +24a (+15)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH'
+- id: back_to_wall_b_b_ub
+  source_id: Shaheen-(back to wall).b,b,UB
+  source_index: 75
+  command: (back to wall).b,b,UB
+  name: Wall Jump Backflip
+  hit_level: m
+  damage: '21'
+  startup: i35~38
+  recovery: r17 BT
+  block: '+1'
+  hit: +34d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - is
+  - js
+  - low_crush
+  - mid
+  notes: '* Floating state 5~7
+
+    * is8~24
+
+    * Floating state 25~33
+
+    * Low crush 34~37
+
+    * Floating state 38~40'
+- id: bt_2
+  source_id: Shaheen-BT.2
+  source_index: 76
+  command: BT.2
+  name: Reverse Edge
+  hit_level: m
+  damage: '20'
+  startup: i14~15
+  recovery: ''
+  block: '-3'
+  hit: +42a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: snk_1
+  source_id: Shaheen-SNK.1
+  source_index: 77
+  command: SNK.1
+  name: Blinding Snake
+  hit_level: h
+  damage: '10'
+  startup: i12
+  recovery: ''
+  block: '-1'
+  hit: '+5'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: snk_2
+  source_id: Shaheen-SNK.2
+  source_index: 78
+  command: SNK.2
+  name: Crimson Tempest
+  hit_level: M
+  damage: '17'
+  startup: i15~16
+  recovery: ''
+  block: '-9'
+  hit: '+8'
+  counter_hit: +23a (+6)
+  tier: specialist
+  tags:
+  - balcony_break
+  - mid
+  notes: Balcony BreakOn counterhit
+- id: snk_3
+  source_id: Shaheen-SNK.3
+  source_index: 79
+  command: SNK.3
+  name: Hunting Falcon Dive
+  hit_level: m
+  damage: '23'
+  startup: i20
+  recovery: ''
+  block: '-12'
+  hit: +63 (+48)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - throw
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Hit throw which side switches
+
+    * Low crush 13'
+- id: snk_4
+  source_id: Shaheen-SNK.4
+  source_index: 80
+  command: SNK.4
+  name: Sliding Shave
+  hit_level: L
+  damage: '20'
+  startup: i20~22
+  recovery: ''
+  block: '-14'
+  hit: +3c
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - low
+  notes: ''
+- id: snk_1p2
+  source_id: Shaheen-SNK.1+2
+  source_index: 81
+  command: SNK.1+2
+  name: Al-Sayf
+  hit_level: m
+  damage: '21'
+  startup: i19
+  recovery: FC
+  block: +4c
+  hit: +8c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - fbr
+  - heat
+  - floor_break
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +67a (+50)
+
+
+    * Floor Break
+
+    * 6 chip damage on block'
+- id: snk_dfp1
+  source_id: Shaheen-SNK.df+1
+  source_index: 82
+  command: SNK.df+1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: ''
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Good left sidestep tracking'
+- id: snk_dfp1_2
+  source_id: Shaheen-SNK.df+1,2
+  source_index: 83
+  command: SNK.df+1,2
+  name: Flash Hornet
+  hit_level: m, h
+  damage: 12, 40
+  startup: i15~16, i20
+  recovery: ''
+  block: '-4'
+  hit: '0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - throw
+  - tornado
+  - stance_transition
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Removes Recoverable Health
+
+    * Combo from 1st hit with 10F delay
+
+    * Move can be delayed by 9F
+
+    * Input can be delayed by 10F
+
+    * Transition to attack throw on standing front hit'
+- id: snk_dfp1_3
+  source_id: Shaheen-SNK.df+1,3
+  source_index: 84
+  command: SNK.df+1,3
+  name: Flash Deneb
+  hit_level: m, m
+  damage: 12, 28
+  startup: i15~16, i27~28
+  recovery: ''
+  block: '-13'
+  hit: +19a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash  +43d (+35)
+
+
+    * Balcony Break
+
+    * Combo from 1st hit with 1F delay
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 7F
+
+    * Low crush'
+- id: 1p3
+  source_id: Shaheen-1+3
+  source_index: 85
+  command: 1+3
+  name: Desert Fang
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - throw
+  - homing
+  - high
+  notes: '* Homing
+
+    * Throw escape: 1 or 2
+
+    * Opponent status on hit: FUFA'
+- id: 2p4
+  source_id: Shaheen-2+4
+  source_index: 86
+  command: 2+4
+  name: Aldebaran
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: ''
+  block: '-6'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - fbr
+  - throw
+  - homing
+  - floor_break
+  - high
+  notes: '* Homing
+
+    * Floor Break
+
+    * Throw escape: 1 or 2
+
+    * Opponent status on hit: FUFA
+
+    * Side switch on hit'
+- id: back_throw
+  source_id: Shaheen-Back throw
+  source_index: 87
+  command: Back throw
+  name: Silent Death
+  hit_level: th(h)
+  damage: '50'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Removes Recoverable Health
+
+    * Throw escape: none
+
+    * Opponent status on hit: FUFA
+
+    * Side switch on hit'
+- id: left_throw
+  source_id: Shaheen-Left throw
+  source_index: 88
+  command: Left throw
+  name: Chasm Drop
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Throw escape: 1
+
+    * Opponent status on hit: FUFT
+
+    * Side switch on hit'
+- id: right_throw
+  source_id: Shaheen-Right throw
+  source_index: 89
+  command: Right throw
+  name: Axel Spinner
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: 'Removes Recoverable Health
+
+    * Throw escape: 2
+
+    * Opponent status on hit: FUFA'
+- id: ufp1p2
+  source_id: Shaheen-uf+1+2
+  source_index: 90
+  command: uf+1+2
+  name: Wezen
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - throw
+  - floor_break
+  - high
+  notes: '* Floor Break
+
+    * Throw escape: 1+2
+
+    * Opponent status on hit: FUFA
+
+    * Side switch on hit'

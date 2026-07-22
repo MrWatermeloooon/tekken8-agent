@@ -12,6 +12,8 @@
 8. Full training-loop benchmark, portable CUDA architecture configuration, allocation cleanup,
    consistent warnings, and Compute Sanitizer workflow.
 9. Multi-seed Phase 0 launcher and automatic per-side/per-style statistical report.
+10. Full 42-character roster catalog, 2,100 probabilistic profiles, character-specific CUDA moves,
+    temporal matchup conditioning, four-stage curriculum, weakness scheduler, and matchup matrix.
 
 ## Promotion gates
 
@@ -38,10 +40,14 @@ correct no-go.
 Enter only after a Phase 1 candidate exists. Tune learning rate, entropy, rollout/minibatch sizes,
 and conservative reward coefficients. Select on held-out outcomes, never optimized shaped return.
 
-### Phase 3 - historical league/self-play
+### Phase 3 - historical league/self-play (infrastructure complete, promotion gated)
 
 Enter only after Phase 2. Maintain current, historical, exploitative, and scripted opponents;
 promote snapshots through fixed held-out gates and retain history to detect forgetting.
+
+The V2 scheduler already represents historical checkpoints, exploit policies, and human-failure
+profiles as typed league entries and mixes them with all scripted profiles in stage four. This is
+infrastructure availability, not evidence that a checkpoint has passed the Phase 2 promotion gate.
 
 ## Signal separation
 
@@ -56,5 +62,6 @@ promote snapshots through fixed held-out gates and retain history to detect forg
 - No production loop over environments on CPU.
 - No observation, mask, action, reward, done, or rollout tensor crosses PCIe in the PPO hot loop.
 - Aggregate evaluation crosses once per batch; full state downloads are checkpoint/debug only.
-- The deployable policy uses the 13-feature visual contract; privileged policies are labeled.
+- Deployable policies use either the legacy 13-feature visual contract or the 95-feature
+  visual-matchup contract; privileged 19/101-feature policies are labeled.
 - Benchmark the complete rollout-plus-update loop on the exact final build and target GPU.

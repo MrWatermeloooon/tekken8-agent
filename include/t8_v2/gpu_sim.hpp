@@ -1,5 +1,6 @@
 #pragma once
 
+#include "t8_v2/roster.hpp"
 #include "t8_v2/sim.hpp"
 
 #include <array>
@@ -72,6 +73,24 @@ public:
     void reset_done(void* stream = nullptr);
     void reset_seeded(std::uint64_t seed, void* stream = nullptr);
     void reset_done_seeded(std::uint64_t seed, void* stream = nullptr);
+
+    // Installs the complete 42 x 6 roster move table in CUDA constant memory.
+    // Combat kernels then select moves from the character assigned to each
+    // fighter lane instead of using the legacy shared compatibility table.
+    void set_character_move_specs(
+        std::span<const CharacterMoveParameters> moves,
+        void* stream = nullptr);
+
+    // Assigns Jun to the learner and the selected profile's character to the
+    // opponent without copying the profile table or assignments back to the
+    // host. learner_player is 0 for the eight-lane mirrored training router,
+    // or 1/2 for fixed-side evaluation.
+    void set_opponent_characters_device(
+        const OpponentProfileParameters* device_profiles,
+        std::size_t profile_count,
+        const std::uint32_t* device_profile_assignments,
+        int learner_player = 0,
+        void* stream = nullptr);
 
     // Fast training path: action tensors already live in VRAM. Each tensor is
     // uint8 and has environment_count elements.

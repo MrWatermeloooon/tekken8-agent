@@ -1,0 +1,4701 @@
+character_id: hwoarang
+display_name: Hwoarang
+game: tekken_8
+source_url: https://tekkendocs.com/api/t8/hwoarang/framedata
+source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
+  per its public repository license note.
+retrieved_at: '2026-07-21'
+source_sha256: e62e92332438ba86844c5a395e4e4f53149afe7448f8f15076a447b8389afac5
+data_status: available
+stances:
+- H
+- ws
+- SS
+- BT
+- CD
+- LFS
+- RFF
+- RFS
+- hFC
+moves:
+- id: 2p3
+  source_id: Hwoarang-2+3
+  source_index: 1
+  command: 2+3
+  name: Heat Burst
+  hit_level: m
+  damage: '[12;12]'
+  startup: i16
+  recovery: r30
+  block: '+1'
+  hit: +2c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hb
+  - pc
+  - heat
+  - power_crush
+  - chip
+  - mid
+  notes: '* Heat Burst
+
+    * Cancel to r45 with b,b on frame 42
+
+    * 2 chip damage on block
+
+    * 12 chip damage on hit
+
+    * Only deals recoverable damage
+
+    * Cannot cause a K.O.
+
+    * Power crush 7~16'
+- id: h_rfs_dp4
+  source_id: Hwoarang-H.RFS.d+4
+  source_index: 2
+  command: H.RFS.d+4
+  name: ''
+  hit_level: L
+  damage: '15'
+  startup: i20~21
+  recovery: r32 RFF
+  block: '-23'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - stance_transition
+  - chip
+  - low
+  notes: '* Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    ** RFS.d+4,3,4 airborne combo guaranteed on normal hit
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: h_rfs_dp4_3
+  source_id: Hwoarang-H.RFS.d+4,3
+  source_index: 3
+  command: H.RFS.d+4,3
+  name: ''
+  hit_level: L, h
+  damage: 15, 12 (8)
+  startup: i20~21, i25
+  recovery: r31
+  block: '-9'
+  hit: -1 / +20a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - low
+  - high
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st hit in heat\n** 8 dmg, +20a\
+    \ (+13) on hit \n** 23 total dmg from 1st hit\n* Increased chip damage scaling\
+    \ on block during heat\n** 3 chip damage on block in heat"
+- id: h_rfs_dp4_3_4
+  source_id: Hwoarang-H.RFS.d+4,3,4
+  source_index: 4
+  command: H.RFS.d+4,3,4
+  name: Predator Bardiche
+  hit_level: L, h, h
+  damage: 15, 12 (8), 30 (15)
+  startup: i20~21, ,i27~28
+  recovery: r36
+  block: '-9'
+  hit: +28a (+2) / +10a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - low
+  - high
+  notes: "* Balcony Break\n* Combo from 2nd hit\n* Airborne combo from 1st hit\n**\
+    \ +10a (+9) on hit\n** 15 dmg, 38 total dmg from 1st hit \n* Increased chip damage\
+    \ scaling on block during heat\n** 9 chip damage on block in heat\n* Low crush\
+    \ 22~"
+- id: h_rfs_fp4
+  source_id: Hwoarang-H.RFS.f+4
+  source_index: 5
+  command: H.RFS.f+4
+  name: ''
+  hit_level: h,h
+  damage: 8,10
+  startup: i8, i10
+  recovery: r19? RFS
+  block: '+0'
+  hit: '+5'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - high
+  notes: '* Jail from 1st block
+
+    * Remains in RFS
+
+    * 2 chip damage on block'
+- id: h_rfs_fp4_4
+  source_id: Hwoarang-H.RFS.f+4,4
+  source_index: 6
+  command: H.RFS.f+4,4
+  name: Right Viper Combo > Right Sword
+  hit_level: h,h, h
+  damage: 8,10, 9
+  startup: i8, i10, i23
+  recovery: r29? RFF
+  block: '-6'
+  hit: +75a (+59)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - heat
+  - tornado
+  - stance_transition
+  - chip
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd hit
+
+    * Transition to RFF
+
+    * Partially uses remaining Heat time
+
+    * Increased chip damage scaling on block during heat
+
+    ** 2 chip damage on block'
+- id: h_2p3
+  source_id: Hwoarang-H.2+3
+  source_index: 7
+  command: H.2+3
+  name: Trinity Claymore
+  hit_level: m,(t),m,h
+  damage: 13,(14,24), 12,25
+  startup: i17~18, i18~19, i29
+  recovery: r35? RFS
+  block: '+11'
+  hit: +13d / +35d (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hs
+  - bbr
+  - js
+  - throw
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Heat Smash
+
+    * Balcony Break
+
+    * Jails
+
+    * Transition to +13d attack throw on hit
+
+    * 5 chip damage on block
+
+    * Also possible during RFF and LFS
+
+    * Transition to RFS
+
+    * Low crush 55'
+- id: r_dfp1p2
+  source_id: Hwoarang-R.df+1+2
+  source_index: 8
+  command: R.df+1+2
+  name: Sky Burial
+  hit_level: m,t
+  damage: 55+
+  startup: i20
+  recovery: r39
+  block: '-18'
+  hit: +0d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ra
+  - rbr
+  - pc
+  - throw
+  - rage
+  - power_crush
+  - stance_transition
+  - mid
+  notes: '* Rage Art
+
+    * Removes Recoverable Health
+
+    * Reversal Break
+
+    * Damage increases with lower health, maximum 82
+
+    * Freezes match timer on activation and on hit
+
+    * Restores recoverable health on hit
+
+    * Transition to attack throw on hit
+
+    * Consumes Rage
+
+    * Possible during RFF, LFS and RFS
+
+    * Power crush 8~'
+- id: '1'
+  source_id: Hwoarang-1
+  source_index: 9
+  command: '1'
+  name: Jab
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: Recovers 2f faster on hit or block (t27 r17)
+- id: '1_1'
+  source_id: Hwoarang-1,1
+  source_index: 10
+  command: 1,1
+  name: ''
+  hit_level: h, h
+  damage: 5, 8
+  startup: i10, i12
+  recovery: r22
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit'
+- id: '1_1_3'
+  source_id: Hwoarang-1,1,3
+  source_index: 11
+  command: 1,1,3
+  name: ''
+  hit_level: h, h, L
+  damage: 5, 8, 10
+  startup: i10, ,i21
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 2nd CH'
+- id: '1_1_3_3'
+  source_id: Hwoarang-1,1,3,3
+  source_index: 12
+  command: 1,1,3,3
+  name: Home Surgery
+  hit_level: h, h, L, h
+  damage: 5, 8, 10, 14
+  startup: i10, ,i20
+  recovery: r33
+  block: '-14'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 3rd hit with 1F delay
+
+    * Move can be delayed by 10F'
+- id: '1_2'
+  source_id: Hwoarang-1,2
+  source_index: 13
+  command: 1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 10
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - high
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay
+
+    * Transition to LFS with 3 (+3/+12g?/+12)
+
+    * Transition to RFS with 4 (+3/+12g?/+12)'
+- id: 1_2_fp3
+  source_id: Hwoarang-1,2,f+3
+  source_index: 14
+  command: 1,2,f+3
+  name: Rejector
+  hit_level: h, h, m
+  damage: 5, 10, 14
+  startup: i10, ,i21
+  recovery: ''
+  block: '-8'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - mid
+  - high
+  notes: '* Wall Crush +21g on hit
+
+
+
+    * Combo from 2nd CH with 4F delay'
+- id: 1_2_fp4
+  source_id: Hwoarang-1,2,f+4
+  source_index: 15
+  command: 1,2,f+4
+  name: Rejection
+  hit_level: h, h, h
+  damage: 5, 10, 20
+  startup: i10, ,i24~25
+  recovery: r29
+  block: '-2'
+  hit: +35d (+27)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 3F delay
+
+    * Move can be delayed by 4F
+
+    * Low crush 14~'
+- id: '2'
+  source_id: Hwoarang-2
+  source_index: 16
+  command: '2'
+  name: Right Jab
+  hit_level: h
+  damage: '9'
+  startup: i10
+  recovery: r19
+  block: '+0'
+  hit: '+8'
+  counter_hit: '+9'
+  tier: core
+  tags:
+  - stance_transition
+  - high
+  notes: "* Transition to LFS with 3 (+3/+11g/+12)\n* Transition to RFS with 4 (+3/+11g/+12)\n\
+    * +19, +27, +28 in framedata display (bug?) \n* 70% scaling on next hit"
+- id: 2_fp3
+  source_id: Hwoarang-2,f+3
+  source_index: 17
+  command: 2,f+3
+  name: Right Jab Side Kick
+  hit_level: h, m
+  damage: 9, 14
+  startup: i10, i21
+  recovery: ''
+  block: '-8'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - wc
+  - mid
+  - high
+  notes: '* Wall Crush +21g on hit
+
+
+
+    * Combo from 1st hit with 1F delay
+
+    * Combo from 1st CH with 4F delay'
+- id: 2_fp4
+  source_id: Hwoarang-2,f+4
+  source_index: 18
+  command: 2,f+4
+  name: Right Jab > Spinning Back Kick
+  hit_level: h, h
+  damage: 9, 20
+  startup: i10, i24~25
+  recovery: r29
+  block: '-2'
+  hit: +35d (+27)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 3F delay
+
+    * Low crush 14~'
+- id: '3'
+  source_id: Hwoarang-3
+  source_index: 19
+  command: '3'
+  name: ''
+  hit_level: h
+  damage: '15'
+  startup: i14
+  recovery: r26
+  block: '-7'
+  hit: '+4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: '3_3'
+  source_id: Hwoarang-3,3
+  source_index: 20
+  command: 3,3
+  name: ''
+  hit_level: h, m
+  damage: 15, 12
+  startup: i14, i18
+  recovery: r32
+  block: '-13'
+  hit: '-7'
+  counter_hit: '-2'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jail from 1st block
+
+    * Combo from 1st CH
+
+    * -7c on crouching hit
+
+    * Transition to r17 LFS with F (+2/+8/+13)'
+- id: '3_3_2'
+  source_id: Hwoarang-3,3,2
+  source_index: 21
+  command: 3,3,2
+  name: Siege Mortar Combo
+  hit_level: h, m, M
+  damage: 15, 12, 20
+  startup: i14, ,i21~22
+  recovery: ''
+  block: '-11'
+  hit: +1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '3_3_3'
+  source_id: Hwoarang-3,3,3
+  source_index: 22
+  command: 3,3,3
+  name: Left Kicks
+  hit_level: h, m, m
+  damage: 15, 12, 15
+  startup: i14, ,i21
+  recovery: ''
+  block: '-14'
+  hit: +32d (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: '3_3_4'
+  source_id: Hwoarang-3,3,4
+  source_index: 23
+  command: 3,3,4
+  name: Left Kicks > Right Hook Kick
+  hit_level: h, m, h
+  damage: 15, 12, 15
+  startup: i14, ,i21~23
+  recovery: r9? RFS
+  block: '+8'
+  hit: +19g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to RFS
+
+    * Combo from 2nd CH with 8F delay
+
+    * Move can be delayed by 10F'
+- id: 3_3_fp4
+  source_id: Hwoarang-3,3,f+4
+  source_index: 24
+  command: 3,3,f+4
+  name: Left Kicks > Backlash
+  hit_level: h, m, h
+  damage: 15, 12, 20
+  startup: i14, ,i21~27
+  recovery: r23
+  block: '-1'
+  hit: +40a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - rage
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * -1 on block on average. Frame advantage may range from -4~+2 on block
+
+    * Combo from 2nd CH with 5F delay
+
+    * Move can be delayed by 10F'
+- id: '3_4'
+  source_id: Hwoarang-3~4
+  source_index: 25
+  command: 3~4
+  name: Flying Eagle
+  hit_level: m,m
+  damage: 11,21
+  startup: i22,i7
+  recovery: ''
+  block: '-3'
+  hit: +26a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Input 4 the following frame after 3 to power up
+
+    ** 37dmg, +1 oB, +42a (+16) oH
+
+    * Low crush 16~'
+- id: '4'
+  source_id: Hwoarang-4
+  source_index: 26
+  command: '4'
+  name: ''
+  hit_level: h
+  damage: '14'
+  startup: i11~12
+  recovery: r24
+  block: '-6'
+  hit: '+5'
+  counter_hit: ''
+  tier: core
+  tags:
+  - high
+  notes: ''
+- id: '4_3'
+  source_id: Hwoarang-4,3
+  source_index: 27
+  command: 4,3
+  name: Right Left Kick Combo
+  hit_level: h, m
+  damage: 14, 16
+  startup: i11~12, i22
+  recovery: r25
+  block: '-6'
+  hit: '+5'
+  counter_hit: +20a (+11)
+  tier: specialist
+  tags:
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Balcony Break on CH
+
+    * Combo from 1st hit
+
+    * +5c on crouching hit
+
+    * Cancel the second hit and transition to r8 LFS with F (-6/+5)'
+- id: '4_4'
+  source_id: Hwoarang-4,4
+  source_index: 28
+  command: 4,4
+  name: ''
+  hit_level: h, h
+  damage: 14, 13
+  startup: i11~12, i16
+  recovery: r20? RFS
+  block: '-1'
+  hit: +10g
+  counter_hit: '+10'
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to RFS'
+- id: '4_4_3'
+  source_id: Hwoarang-4,4,3
+  source_index: 29
+  command: 4,4,3
+  name: Right Kicks > Chainsaw Heel
+  hit_level: h, h, M
+  damage: 14, 13, 20
+  startup: i11~12, ,i25~31
+  recovery: RFF
+  block: -14c
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH'
+- id: '4_4_4'
+  source_id: Hwoarang-4,4,4
+  source_index: 30
+  command: 4,4,4
+  name: ''
+  hit_level: h, h, h
+  damage: 14, 13, 17
+  startup: i11~12, ,i25~26
+  recovery: r27? RFF
+  block: '-2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - high
+  notes: '* Transition to RFF
+
+    * Combo from 2nd CH with 1F delay
+
+    * Cancel and transition to r15 RFS with F (-17/-6)
+
+    * Input can be delayed by 1F
+
+    * Move cannot be delayed
+
+    * Low crush 19~'
+- id: '4_4_4_4'
+  source_id: Hwoarang-4,4,4,4
+  source_index: 31
+  command: 4,4,4,4
+  name: Right Kicks > Raptor Combo
+  hit_level: h, h, h, h
+  damage: 14, 13, 17, 20
+  startup: i11~12, ,i31~32
+  recovery: r37
+  block: '+0'
+  hit: +10c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Combo from 3rd hit with 4F delay
+
+    * Input can be delayed by 4F
+
+    * Move cannot be delayed
+
+    * 6 chip damage on block
+
+    * Forces backroll on hit (opponent recovers crouching)
+
+    * Alternate input:(RFS.u+4),4
+
+    * Low crush 20~'
+- id: 1p2
+  source_id: Hwoarang-1+2
+  source_index: 32
+  command: 1+2
+  name: Disrespect
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r7 BT
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  notes: '* Transition to BT'
+- id: 3p4
+  source_id: Hwoarang-3+4
+  source_index: 33
+  command: 3+4
+  name: Motion Switch
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r10 RFF
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to RFF
+
+    * Transition to r13? standing block with B'
+- id: fp2
+  source_id: Hwoarang-f+2
+  source_index: 34
+  command: f+2
+  name: Rusty Knife
+  hit_level: m
+  damage: '15'
+  startup: i16
+  recovery: r21? RFF
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: core
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RFF'
+- id: fp3
+  source_id: Hwoarang-f+3
+  source_index: 35
+  command: f+3
+  name: Left Flamingo Feint
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r13 LFS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to LFS
+
+    * Sidesteps to the right
+
+    * Can move forwards and backwards with F and B
+
+    * Can sidestep with U and D
+
+    * Cannot block or crouch in stance'
+- id: fp3_3
+  source_id: Hwoarang-f+3~3
+  source_index: 36
+  command: f+3~3
+  name: Cheap Shot Snap Kick
+  hit_level: m
+  damage: '25'
+  startup: i20
+  recovery: ''
+  block: '-16'
+  hit: +7a (-2)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Sidesteps to the right'
+- id: fp4
+  source_id: Hwoarang-f+4
+  source_index: 37
+  command: f+4
+  name: Right Hook Kick
+  hit_level: h
+  damage: '21'
+  startup: i17~23
+  recovery: r9? RFS
+  block: +7~+13
+  hit: +18g~+24g
+  counter_hit: +18~+24
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* +10~+16 guaranteed on CH depending on frame advantage
+
+    * Transition to RFS'
+- id: fp1p2
+  source_id: Hwoarang-f+1+2
+  source_index: 38
+  command: f+1+2
+  name: Push Hands
+  hit_level: m
+  damage: '17'
+  startup: i15
+  recovery: r28
+  block: '-9'
+  hit: '+2'
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Also possible during RFF'
+- id: dfp1
+  source_id: Hwoarang-df+1
+  source_index: 39
+  command: df+1
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i13~14
+  recovery: r19
+  block: '-1'
+  hit: '+6'
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* Also possible during RFF'
+- id: dfp1_3
+  source_id: Hwoarang-df+1,3
+  source_index: 40
+  command: df+1,3
+  name: Left Uppercut & Middle Kick
+  hit_level: m, m
+  damage: 10, 15
+  startup: i13~14, i22~23
+  recovery: r20? LFS
+  block: '-2'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: "* Combo from 1st hit \n* Transition to LFS"
+- id: dfp2
+  source_id: Hwoarang-df+2
+  source_index: 41
+  command: df+2
+  name: Right Uppercut
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: r25
+  block: '-7'
+  hit: +34a (+24)
+  counter_hit: ''
+  tier: core
+  tags:
+  - mid
+  notes: '* +4s on crouching normal hit
+
+    * Also possible during RFF'
+- id: dfp3
+  source_id: Hwoarang-df+3
+  source_index: 42
+  command: df+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i22~23
+  recovery: r35
+  block: -14~-13
+  hit: -4~-3
+  counter_hit: ''
+  tier: core
+  tags:
+  - rbr
+  - pc
+  - power_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: dfp3_4
+  source_id: Hwoarang-df+3,4
+  source_index: 43
+  command: df+3,4
+  name: Double Claymore
+  hit_level: m, m
+  damage: 12, 20
+  startup: i22~23, i24~25
+  recovery: r35
+  block: '-14'
+  hit: +4a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F
+
+    * Power up if an attack is absorbed by previous hit
+
+    ** Reversal Break?
+
+    ** 4 chip damage on block
+
+    ** -9 on block'
+- id: dfp4
+  source_id: Hwoarang-df+4
+  source_index: 44
+  command: df+4
+  name: Middle Claymore
+  hit_level: m
+  damage: '20'
+  startup: i16~17
+  recovery: r26 RFF
+  block: -8~-7
+  hit: +8~+9
+  counter_hit: +18a (+9)
+  tier: core
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Homing
+
+    * Balcony Break on CH
+
+    * Transition to RFF
+
+    * Wall splats'
+- id: dfp3p4
+  source_id: Hwoarang-df+3+4
+  source_index: 45
+  command: df+3+4
+  name: Ignition Barrage
+  hit_level: m,h,m
+  damage: 7,4,17
+  startup: i13,i14,i24~25
+  recovery: r35
+  block: '-14'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - chip
+  - mid
+  - high
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Jails
+
+    * 5 chip damage on block
+
+    * Also possible during RFF'
+- id: dp1
+  source_id: Hwoarang-d+1
+  source_index: 46
+  command: d+1
+  name: Crouch Jab
+  hit_level: sl
+  damage: '5'
+  startup: i10
+  recovery: r24 FC
+  block: '-5'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Transition to r24 with f
+
+    * +6c on crouching hit
+
+    * High crush 4~'
+- id: dp2
+  source_id: Hwoarang-d+2
+  source_index: 47
+  command: d+2
+  name: Crouch Straight
+  hit_level: sl
+  damage: '8'
+  startup: i11
+  recovery: r23 FC
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* +7c on crouching hit
+
+    * High crush 4~'
+- id: dp3
+  source_id: Hwoarang-d+3
+  source_index: 48
+  command: d+3
+  name: ''
+  hit_level: l
+  damage: '7'
+  startup: i17
+  recovery: ''
+  block: '-13'
+  hit: '-2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: -2c on crouching hit
+- id: dp3_4
+  source_id: Hwoarang-d+3,4
+  source_index: 49
+  command: d+3,4
+  name: Smash Low Right
+  hit_level: l, h
+  damage: 7, 13
+  startup: i17, i21~23
+  recovery: r9? RFS
+  block: +8g~+10g
+  hit: +14g~+16g
+  counter_hit: +19~+21
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Transition to RFS
+
+    * Combo from 1st hit'
+- id: dp4
+  source_id: Hwoarang-d+4
+  source_index: 50
+  command: d+4
+  name: ''
+  hit_level: l
+  damage: '7'
+  startup: i19
+  recovery: FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: +4s
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Also possible during RFF
+
+    * High crush 6~55'
+- id: dp4_4
+  source_id: Hwoarang-d+4,4
+  source_index: 51
+  command: d+4,4
+  name: Firecracker
+  hit_level: l, h
+  damage: 7, 22
+  startup: i19, i20
+  recovery: r35
+  block: '-13'
+  hit: +69a (+53)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - low
+  - high
+  notes: '* Tornado
+
+    * Jail from 1st normal hit
+
+    * Combo from 1st CH
+
+    * Also possible during RFF'
+- id: dp3p4
+  source_id: Hwoarang-d+3+4
+  source_index: 52
+  command: d+3+4
+  name: Dark Halberd
+  hit_level: L
+  damage: '18'
+  startup: i21~22
+  recovery: r32 FC
+  block: '-14'
+  hit: +6 LFS
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - cs
+  - homing
+  - high_crush
+  - stance_transition
+  - low
+  notes: '* Homing
+
+    * Transition to LFS on hit
+
+    * High crush 6~54'
+- id: dbp3
+  source_id: Hwoarang-db+3
+  source_index: 53
+  command: db+3
+  name: Sweep Kick
+  hit_level: L
+  damage: '12'
+  startup: i19
+  recovery: r32 FC
+  block: '-13'
+  hit: '-1'
+  counter_hit: +17g
+  tier: core
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* Also possible during RFF
+
+    * High crush 6~51'
+- id: dbp4
+  source_id: Hwoarang-db+4
+  source_index: 54
+  command: db+4
+  name: ''
+  hit_level: L
+  damage: '14'
+  startup: i16
+  recovery: r31
+  block: '-12'
+  hit: '-8'
+  counter_hit: '-1'
+  tier: core
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to r20 RFS with F (-1/+3/+10)
+
+    * Also possible during RFF'
+- id: dbp4_4
+  source_id: Hwoarang-db+4,4
+  source_index: 55
+  command: db+4,4
+  name: Ankle Biter > Crescent Kick
+  hit_level: L, h
+  damage: 14, 21
+  startup: i16, i17~19
+  recovery: r27
+  block: -1~+1
+  hit: +24a~+26a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: '* Combo from 1st CH'
+- id: bp1
+  source_id: Hwoarang-b+1
+  source_index: 56
+  command: b+1
+  name: Stealth Needle
+  hit_level: m
+  damage: '15'
+  startup: i15
+  recovery: r36
+  block: '-15'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Sidesteps to the right'
+- id: bp1p3
+  source_id: Hwoarang-b+1+3
+  source_index: 57
+  command: b+1+3
+  name: Parry
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - ps
+  - parry
+  notes: '* Parries high and mid punches. Pressing 4 on successful parry gives Shotgun
+    Shuffle
+
+    * Parry state 5~12?'
+- id: bp1p3_p_4
+  source_id: Hwoarang-b+1+3,P.4
+  source_index: 58
+  command: b+1+3,P.4
+  name: Shotgun Shuffle
+  hit_level: m,h,h
+  damage: 10,8,10
+  startup: i15,i8,i9
+  recovery: ''
+  block: ''
+  hit: +17a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - parry
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Pressing 4 after successful parry'
+- id: bp2
+  source_id: Hwoarang-b+2
+  source_index: 59
+  command: b+2
+  name: Right Back Elbow
+  hit_level: h
+  damage: '18'
+  startup: i14
+  recovery: r33
+  block: '-4'
+  hit: '+6'
+  counter_hit: +14c
+  tier: core
+  tags:
+  - elb
+  - high
+  notes: '* Elbow
+
+    * Good right sidestep tracking'
+- id: bp3
+  source_id: Hwoarang-b+3
+  source_index: 60
+  command: b+3
+  name: Left Plasma Blade
+  hit_level: M
+  damage: '17'
+  startup: i16~17
+  recovery: r34
+  block: '-19'
+  hit: +35a (+25)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado'
+- id: bp4
+  source_id: Hwoarang-b+4
+  source_index: 61
+  command: b+4
+  name: Nose Bleeder
+  hit_level: h
+  damage: '17'
+  startup: i13~14
+  recovery: r28 RFF
+  block: '-10'
+  hit: '+1'
+  counter_hit: +50a
+  tier: core
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to RFF'
+- id: ubp4
+  source_id: Hwoarang-ub+4
+  source_index: 62
+  command: ub+4
+  name: Fade-Away Kick
+  hit_level: m
+  damage: '18'
+  startup: i17~20
+  recovery: ''
+  block: '-8'
+  hit: '+10'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Opponent recovers non-guarding on hit (situational guaranteed follow-up)
+
+    * Also possible during RFF
+
+    * Low crush 5~17'
+- id: up2
+  source_id: Hwoarang-u+2
+  source_index: 63
+  command: u+2
+  name: Knife Hand Strike
+  hit_level: h
+  damage: '18'
+  startup: i13~15
+  recovery: r26
+  block: '-9'
+  hit: '+15'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - hom
+  - homing
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Homing
+
+    * Also possible during RFF
+
+    * Sidesteps to the left
+
+    * Wall splats'
+- id: up3
+  source_id: Hwoarang-u+3
+  source_index: 64
+  command: u+3
+  name: Jump Kick
+  hit_level: h
+  damage: '25'
+  startup: i20
+  recovery: r16? LFS
+  block: '+5'
+  hit: +44a (+38)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - high
+  notes: '* Also possible during RFF
+
+    * Transition to LFS
+
+    * Low crush 9~'
+- id: up4
+  source_id: Hwoarang-u+4
+  source_index: 65
+  command: u+4
+  name: Scorpion Side Kick
+  hit_level: m
+  damage: '18'
+  startup: i16~18
+  recovery: r17? RFS
+  block: '+3'
+  hit: +11g
+  counter_hit: '+11'
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  notes: '* Also possible during RFF
+
+    * Transition to RFS
+
+    * Low crush 9~'
+- id: up3p4
+  source_id: Hwoarang-u+3+4
+  source_index: 66
+  command: u+3+4
+  name: Bloody Guillotine
+  hit_level: m
+  damage: '20'
+  startup: i25~26
+  recovery: r25
+  block: '-7'
+  hit: +24a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Also possible during RFF
+
+    * Low crush 8~'
+- id: ufp2
+  source_id: Hwoarang-uf+2
+  source_index: 67
+  command: uf+2
+  name: Bone Stinger
+  hit_level: m
+  damage: '22'
+  startup: i26
+  recovery: r26
+  block: +5c
+  hit: +6c
+  counter_hit: +28d
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Also possible during RFF
+
+    * Low crush 13~'
+- id: ufp3
+  source_id: Hwoarang-uf+3
+  source_index: 68
+  command: uf+3
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i28~29
+  recovery: r36
+  block: '-6'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Also possible during RFF
+
+    * Low crush 9~'
+- id: ufp3_4
+  source_id: Hwoarang-uf+3,4
+  source_index: 69
+  command: uf+3,4
+  name: ''
+  hit_level: m, m
+  damage: 11, 12
+  startup: i28~29, i20~21
+  recovery: r17 RFS
+  block: '+2'
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Available on hit or block only
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Floating state 1~'
+- id: ufp3_4_3
+  source_id: Hwoarang-uf+3,4,3
+  source_index: 70
+  command: uf+3,4,3
+  name: Hunting Hawk
+  hit_level: m, m, m
+  damage: 11, 12, 20
+  startup: i28~29, ,i27~28
+  recovery: r33
+  block: '-14'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Floating state 1~'
+- id: ufp4
+  source_id: Hwoarang-uf+4
+  source_index: 71
+  command: uf+4
+  name: ''
+  hit_level: h
+  damage: '12'
+  startup: i22~23
+  recovery: RFS
+  block: '-2'
+  hit: '+4'
+  counter_hit: ''
+  tier: core
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - high
+  notes: '* Also possible during RFF
+
+    * Transition to RFS
+
+    * Low crush 10~'
+- id: ufp4_4
+  source_id: Hwoarang-uf+4,4
+  source_index: 72
+  command: uf+4,4
+  name: ''
+  hit_level: h, m
+  damage: 12, 12
+  startup: i22~23, i11~12
+  recovery: RFS
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Low crush 2?~'
+- id: ufp4_4_4
+  source_id: Hwoarang-uf+4,4,4
+  source_index: 73
+  command: uf+4,4,4
+  name: Air Raid
+  hit_level: h, m, L
+  damage: 12, 12, 12
+  startup: i22~23, ,i9~10
+  recovery: RFS
+  block: '+1'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - parry
+  - stance_transition
+  - low
+  - mid
+  - high
+  notes: '* Combo from 2nd CH
+
+    * Also possible during RFF
+
+    * Transition to RFS
+
+    * Third hit is not low parryable if the first two hits connect. Parryable if the
+    first two hits whiff.'
+- id: ufp3p4
+  source_id: Hwoarang-uf+3+4
+  source_index: 74
+  command: uf+3+4
+  name: ''
+  hit_level: m,h
+  damage: 10,8
+  startup: i14,i9
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jail from 1st block
+
+    * Also possible during RFF
+
+    * Transition to LFS with F (-2/+9)
+
+    * Low crush 9~'
+- id: ufp3p4_4
+  source_id: Hwoarang-uf+3+4,4
+  source_index: 75
+  command: uf+3+4,4
+  name: Flashing Trident
+  hit_level: m,h, m
+  damage: 10,8, 13
+  startup: i14,i9, i14~15
+  recovery: RFF
+  block: '-10'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Also possible during RFF
+
+    * Transition to RFF
+
+    * Low crush 1~'
+- id: 1p2p3p4
+  source_id: Hwoarang-1+2+3+4
+  source_index: 76
+  command: 1+2+3+4
+  name: Ki Charge
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags: []
+  notes: ''
+- id: b_bp2p3
+  source_id: Hwoarang-b,B+2+3
+  source_index: 77
+  command: b,B+2+3
+  name: Dynamite Heel
+  hit_level: m!
+  damage: '40'
+  startup: i61~62
+  recovery: ''
+  block: ''
+  hit: +17a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Also possible during RFF
+
+    * Cancel and transition to r24? LFS at frame 25? with b,b'
+- id: ffp3
+  source_id: Hwoarang-f,F+3
+  source_index: 78
+  command: f,F+3
+  name: Spinning Axe Kick
+  hit_level: M
+  damage: '24'
+  startup: i20~24
+  recovery: r22 RFF
+  block: '+6'
+  hit: +6c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RFF'
+- id: ffp4
+  source_id: Hwoarang-f,F+4
+  source_index: 79
+  command: f,F+4
+  name: Peacekeeper
+  hit_level: m
+  damage: '22'
+  startup: i17~18
+  recovery: r28 RFF
+  block: '-7'
+  hit: +19a (+10)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - bbr
+  - heat
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Balcony Break
+
+    * Also possible during RFF
+
+    * Transition to RFF (does not transition on Heat activation or when using Heat
+    Dash)'
+- id: f_n_4
+  source_id: Hwoarang-f,n,4
+  source_index: 80
+  command: f,n,4
+  name: Right Flamingo Feint
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r15 RFS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to RFS
+
+    * Sidesteps to the left
+
+    * Can move forwards and backwards with F and B
+
+    * Can sidestep with U and D
+
+    * Cannot block or crouch in stance'
+- id: f_n_d_df
+  source_id: Hwoarang-f,n,d,df
+  source_index: 81
+  command: f,n,d,df
+  name: Shark Step
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r3?
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  notes: '* Cannot be buffered
+
+    * Stance moves can be buffered out of heat dash
+
+    * Recovers in FC at frame 20
+
+    * Cancel to sidestep with u
+
+    * Cancel to block with b'
+- id: f_n_df_4
+  source_id: Hwoarang-f,n,df${justFrame}4
+  source_index: 82
+  command: f,n,df:4
+  name: Lethal Sky Rocket
+  hit_level: m
+  damage: '18'
+  startup: i16
+  recovery: r31
+  block: '-8'
+  hit: +59a (+49)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - chip
+  - mid
+  notes: "* Tornado\n* 3 chip damage on block\n* Also possible during RFF. \n* The\
+    \ 4 input can be delayed up to 10 frames after df input during RFF."
+- id: uf_n_4
+  source_id: Hwoarang-uf,n,4
+  source_index: 83
+  command: uf,n,4
+  name: Delayed Rising Toe Kick
+  hit_level: m
+  damage: '20'
+  startup: i23~25
+  recovery: ''
+  block: '-13'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Also possible during RFF
+
+    * Low crush'
+- id: f_ffp3
+  source_id: Hwoarang-f,f,F+3
+  source_index: 84
+  command: f,f,F+3
+  name: Flying Nerichagi
+  hit_level: m
+  damage: '30'
+  startup: i22~24
+  recovery: r25
+  block: '+6'
+  hit: +23a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * 9 chip damage on block
+
+    * Also possible during RFF
+
+    * Low crush 3~'
+- id: f_ffp4
+  source_id: Hwoarang-f,f,F+4
+  source_index: 85
+  command: f,f,F+4
+  name: Torpedo Kick
+  hit_level: h
+  damage: '28'
+  startup: i18~19
+  recovery: r31? BT
+  block: '+5'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - chip
+  - high
+  notes: '* 11 chip damage on block
+
+    * Also possible during RFF
+
+    * Sideswaps and leaves opponent backturned on hit
+
+    * Transition to BT on block
+
+    * Low crush 15~'
+- id: ws1
+  source_id: Hwoarang-ws1
+  source_index: 86
+  command: ws1
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i12~13
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws1_4
+  source_id: Hwoarang-ws1,4
+  source_index: 87
+  command: ws1,4
+  name: Twin Mustang
+  hit_level: m, m
+  damage: 12, 18
+  startup: i12~13, i22~23
+  recovery: r18? RFS
+  block: '+0'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Combo from 1st hit
+
+    * Transition to RFS'
+- id: ws2
+  source_id: Hwoarang-ws2
+  source_index: 88
+  command: ws2
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i15~16
+  recovery: r25
+  block: '-7'
+  hit: +4s
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws2_3
+  source_id: Hwoarang-ws2,3
+  source_index: 89
+  command: ws2,3
+  name: Chonsan Spin
+  hit_level: m, h
+  damage: 12, 10 (15)
+  startup: i15~16, i23~25
+  recovery: r23? LFS
+  block: '+3'
+  hit: +72a (+56) / +10
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - stance_transition
+  - mid
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st hit
+
+    ** +72a (+56) from 1st hit
+
+    ** Balcony Break from 1st hit
+
+    * Transition to LFS
+
+    * Low crush 17~'
+- id: ws3
+  source_id: Hwoarang-ws3
+  source_index: 90
+  command: ws3
+  name: Iron Heel
+  hit_level: m
+  damage: '22'
+  startup: i14~16
+  recovery: r30
+  block: '-12'
+  hit: +14c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4
+  source_id: Hwoarang-ws4
+  source_index: 91
+  command: ws4
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i11~12
+  recovery: r21
+  block: '-3'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ws4_4
+  source_id: Hwoarang-ws4,4
+  source_index: 92
+  command: ws4,4
+  name: Tsunami Kick
+  hit_level: m, M
+  damage: 12, 13
+  startup: i11~12, i15~19
+  recovery: r24 RFF
+  block: '-9'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Recovers 3 frames faster on hit (r21 t52)
+
+    * Transition to RFF'
+- id: ws3p4
+  source_id: Hwoarang-ws3+4
+  source_index: 93
+  command: ws3+4
+  name: ''
+  hit_level: m
+  damage: '16'
+  startup: i20~21
+  recovery: BT
+  block: '-9'
+  hit: '+2'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Alternate input: f,n,d,df+3+4 (CD.3+4)
+
+    * Transition to BT'
+- id: ws3p4_3
+  source_id: Hwoarang-ws3+4,3
+  source_index: 94
+  command: ws3+4,3
+  name: Spinning Scythe > Axe Heel
+  hit_level: m, M
+  damage: 16, 20
+  startup: i20~21, i21~26
+  recovery: ''
+  block: '-6'
+  hit: +5c~+10c
+  counter_hit: +29d
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Input can be delayed by 7F
+
+    * Move cannot be delayed'
+- id: ss_3
+  source_id: Hwoarang-SS.3
+  source_index: 95
+  command: SS.3
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i18~19
+  recovery: ''
+  block: '-12'
+  hit: '-1'
+  counter_hit: +5s
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: ss_3_3
+  source_id: Hwoarang-SS.3,3
+  source_index: 96
+  command: SS.3,3
+  name: Eruption
+  hit_level: m, h
+  damage: 13, 16
+  startup: i18~19, i9~10
+  recovery: LFS
+  block: '+3'
+  hit: +14g
+  counter_hit: '+14'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jail from 1st block
+
+    * Combo from 1st hit
+
+    * +34a (+27) on 1st CH
+
+    * Transition to LFS'
+- id: ss_4
+  source_id: Hwoarang-SS.4
+  source_index: 97
+  command: SS.4
+  name: Spinning Trip Kick
+  hit_level: l
+  damage: '18'
+  startup: i19~20
+  recovery: RFF
+  block: '-13'
+  hit: +5c
+  counter_hit: +31a
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to RFF'
+- id: back_to_wall_b_b_ub
+  source_id: Hwoarang-(Back to wall).b,b,UB
+  source_index: 98
+  command: (Back to wall).b,b,UB
+  name: '[[Wall Jump Attack]]'
+  hit_level: m
+  damage: '21'
+  startup: i36~38
+  recovery: r30?
+  block: +0c
+  hit: +8a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 14?~32?'
+- id: bt_3
+  source_id: Hwoarang-BT.3
+  source_index: 99
+  command: BT.3
+  name: Left Plasma Blade
+  hit_level: M
+  damage: '20'
+  startup: i14~16
+  recovery: r46
+  block: '-13'
+  hit: +38a (+28)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: bt_4
+  source_id: Hwoarang-BT.4
+  source_index: 100
+  command: BT.4
+  name: Plasma Blade
+  hit_level: M
+  damage: '20'
+  startup: i14~16
+  recovery: r44 RFF
+  block: '-13'
+  hit: +40a (+30)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RFF'
+- id: bt_dp3
+  source_id: Hwoarang-BT.d+3
+  source_index: 101
+  command: BT.d+3
+  name: Spinning Low Kick
+  hit_level: L
+  damage: '20'
+  startup: i18~19
+  recovery: FC
+  block: '-13'
+  hit: '-2'
+  counter_hit: +31a
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* High crush 4~50'
+- id: cd_3
+  source_id: Hwoarang-CD.3
+  source_index: 102
+  command: CD.3
+  name: Phalanx
+  hit_level: m
+  damage: '27'
+  startup: i18~19
+  recovery: r18? LFS
+  block: '+4'
+  hit: +25a (+16)
+  counter_hit: +57a (+10)
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - tornado
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * 8 chip damage on block
+
+    * Also possible during RFF
+
+    * Transition to LFS'
+- id: cd_4
+  source_id: Hwoarang-CD.4
+  source_index: 103
+  command: CD.4
+  name: Sky Rocket
+  hit_level: m
+  damage: '18'
+  startup: i16
+  recovery: r37
+  block: '-18'
+  hit: +53a (+43)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Also possible during RFF'
+- id: lfs_1
+  source_id: Hwoarang-LFS.1
+  source_index: 104
+  command: LFS.1
+  name: Left Flamingo > Back Hand
+  hit_level: h
+  damage: '6'
+  startup: i13
+  recovery: r14?
+  block: '+5'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: lfs_2
+  source_id: Hwoarang-LFS.2
+  source_index: 105
+  command: LFS.2
+  name: Right Backhand
+  hit_level: m
+  damage: '15'
+  startup: i16
+  recovery: r21? RFF
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RFF
+
+    * Links to 10-hit string'
+- id: lfs_2_2
+  source_id: Hwoarang-LFS.2,2
+  source_index: 106
+  command: LFS.2,2
+  name: 2nd Hit
+  hit_level: m, h
+  damage: 15, 7
+  startup: i16, i20
+  recovery: r19 RFF
+  block: '+0'
+  hit: '+4'
+  counter_hit: '+9'
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: Combo from 1st hit
+- id: lfs_2_2_3
+  source_id: Hwoarang-LFS.2,2,3
+  source_index: 107
+  command: LFS.2,2,3
+  name: 3rd Hit
+  hit_level: m, h, h
+  damage: 15, 7, 10
+  startup: i16, ,i14~17
+  recovery: r32 BT
+  block: -6~-3
+  hit: -3~+0
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd hit (1st active frame only)
+
+    * Combo from 2nd CH
+
+    * Interrupt from 2nd block with i3'
+- id: lfs_2_2_3_4
+  source_id: Hwoarang-LFS.2,2,3,4
+  source_index: 108
+  command: LFS.2,2,3,4
+  name: 4th Hit
+  hit_level: m, h, h, L
+  damage: 15, 7, 10, 7
+  startup: i16, ,i22
+  recovery: ''
+  block: '-14'
+  hit: '-3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: ''
+- id: lfs_2_2_3_4_3
+  source_id: Hwoarang-LFS.2,2,3,4,3
+  source_index: 109
+  command: LFS.2,2,3,4,3
+  name: 5th Hit
+  hit_level: m, h, h, L, m
+  damage: 15, 7, 10, 7, 7
+  startup: i16, ,i31
+  recovery: ''
+  block: '-9'
+  hit: '-9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Interrupt from 4th block with i13'
+- id: lfs_2_2_3_4_3_4
+  source_id: Hwoarang-LFS.2,2,3,4,3,4
+  source_index: 110
+  command: LFS.2,2,3,4,3,4
+  name: 6th Hit
+  hit_level: m, h, h, L, m, m
+  damage: 15, 7, 10, 7, 7, 8
+  startup: i16, ,i22~24
+  recovery: ''
+  block: '-21'
+  hit: '-10'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Combo from 5th hit'
+- id: lfs_2_2_3_4_3_4_4
+  source_id: Hwoarang-LFS.2,2,3,4,3,4,4
+  source_index: 111
+  command: LFS.2,2,3,4,3,4,4
+  name: 7th Hit
+  hit_level: m, h, h, L, m, m, l
+  damage: 15, 7, 10, 7, 7, 8, 7
+  startup: i16, ,i19
+  recovery: FC
+  block: '-27'
+  hit: '-16'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Interrupt from 6th block with i18
+
+    * Can be sidestepped'
+- id: lfs_2_2_3_4_3_4_4_4
+  source_id: Hwoarang-LFS.2,2,3,4,3,4,4,4
+  source_index: 112
+  command: LFS.2,2,3,4,3,4,4,4
+  name: 8th Hit
+  hit_level: m, h, h, L, m, m, l, h
+  damage: 15, 7, 10, 7, 7, 8, 7, 10
+  startup: i16, ,i23
+  recovery: r47?
+  block: '-28'
+  hit: +23a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Interrupt from 7th block with i3'
+- id: lfs_2_2_3_4_3_4_4_4_4
+  source_id: Hwoarang-LFS.2,2,3,4,3,4,4,4,4
+  source_index: 113
+  command: LFS.2,2,3,4,3,4,4,4,4
+  name: 9th Hit
+  hit_level: m, h, h, L, m, m, l, h, m
+  damage: 15, 7, 10, 7, 7, 8, 7, 10, 21 (14)
+  startup: i16, ,i22
+  recovery: ''
+  block: '-18'
+  hit: '-16'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - mid
+  - high
+  notes: '* Airborne combo from 8th hit
+
+    * Interrupt from 8th block with i33
+
+    * Can be sidestepped'
+- id: lfs_2_2_3_4_3_4_4_4_4_3
+  source_id: Hwoarang-LFS.2,2,3,4,3,4,4,4,4,3
+  source_index: 114
+  command: LFS.2,2,3,4,3,4,4,4,4,3
+  name: 10th Hit
+  hit_level: m, h, h, L, m, m, l, h, m, h
+  damage: 15, 7, 10, 7, 7, 8, 7, 10, 21 (14), 42 (21)
+  startup: i16, ,i16~19
+  recovery: r43? RFF
+  block: '+3'
+  hit: +4a (-6)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - low
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Airborne combo from 8th hit
+
+    * Combo from 9th hit
+
+    * Jail from 9th block
+
+    * Low crush 5~'
+- id: lfs_3
+  source_id: Hwoarang-LFS.3
+  source_index: 115
+  command: LFS.3
+  name: ''
+  hit_level: m
+  damage: '10'
+  startup: i14
+  recovery: ''
+  block: '-13'
+  hit: '-7'
+  counter_hit: '-2'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to r17 LFS with F (+2/+8/+13)
+
+    * -7c on crouching hit'
+- id: lfs_3_2
+  source_id: Hwoarang-LFS.3,2
+  source_index: 116
+  command: LFS.3,2
+  name: Flamingo Siege Combo
+  hit_level: m, M
+  damage: 10, 20
+  startup: i14, i21~22
+  recovery: ''
+  block: '-11'
+  hit: +1c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Combo from 1st CH with 9?F delay
+
+    * Move can be delayed by 10F'
+- id: lfs_3_3
+  source_id: Hwoarang-LFS.3,3
+  source_index: 117
+  command: LFS.3,3
+  name: Flamingo Kick Combo Middle
+  hit_level: m, m
+  damage: 10, 15
+  startup: i14, i21
+  recovery: ''
+  block: '-14'
+  hit: +32d (+24)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - mid
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 9?F delay
+
+    * Move can be delayed by 10F'
+- id: lfs_3_4
+  source_id: Hwoarang-LFS.3,4
+  source_index: 118
+  command: LFS.3,4
+  name: Flamingo Side Kick > Right Hook Kick
+  hit_level: m, h
+  damage: 10, 15
+  startup: i14, i21~23
+  recovery: r9? RFS
+  block: '+8'
+  hit: +19g
+  counter_hit: '+19'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Transition to RFS
+
+    * Combo from 1st CH with 9?F delay
+
+    * Move can be delayed by 10F'
+- id: lfs_3_fp4
+  source_id: Hwoarang-LFS.3,f+4
+  source_index: 119
+  command: LFS.3,f+4
+  name: Flamingo Side Kick > Backlash
+  hit_level: m, h
+  damage: 10, 20
+  startup: i14, i21~27
+  recovery: r23?
+  block: '-1'
+  hit: +40a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - rage
+  - balcony_break
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 6?F delay
+
+    * -1 on block on average. Frame advantage may range from -4~+2 on block'
+- id: lfs_4
+  source_id: Hwoarang-LFS.4
+  source_index: 120
+  command: LFS.4
+  name: Right Step Kick
+  hit_level: h
+  damage: '24'
+  startup: i14~16
+  recovery: r21? RFS
+  block: '+4'
+  hit: +27a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - fs
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - high
+  notes: '* Balcony Break
+
+    * Transition to RFS
+
+    * Low crush 8~27
+
+    * Floating state 28~30'
+- id: lfs_4_3
+  source_id: Hwoarang-LFS.4~3
+  source_index: 121
+  command: LFS.4~3
+  name: Lightning Halberd
+  hit_level: h,h
+  damage: 17,26
+  startup: i15~16, i8~9
+  recovery: r30?
+  block: '+6'
+  hit: +24a (+14)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * 7 chip damage on block
+
+    * Jail from 1st block
+
+    * Input 4 the following frame after 3 to power up
+
+    ** 45dmg on hit, 8 chip damage on block
+
+    * Low crush 12~'
+- id: lfs_1p2
+  source_id: Hwoarang-LFS.1+2
+  source_index: 122
+  command: LFS.1+2
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i15~16
+  recovery: ''
+  block: '-10'
+  hit: +4c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '*'
+- id: lfs_1p2_4
+  source_id: Hwoarang-LFS.1+2,4
+  source_index: 123
+  command: LFS.1+2,4
+  name: Spinning Axe Combo
+  hit_level: m, m
+  damage: 13, 16
+  startup: i15~16, i23~27
+  recovery: ''
+  block: '-13'
+  hit: +5c
+  counter_hit: +28d
+  tier: specialist
+  tags:
+  - spk
+  - mid
+  notes: '* Spike
+
+    * Combos from 1st hit'
+- id: lfs_1p4
+  source_id: Hwoarang-LFS.1+4
+  source_index: 124
+  command: LFS.1+4
+  name: Power Blast
+  hit_level: m!
+  damage: '80'
+  startup: i66~69
+  recovery: r38
+  block: ''
+  hit: -2a~+1a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Cancel with b,b
+
+    * Low crush 55~'
+- id: lfs_3p4
+  source_id: Hwoarang-LFS.3+4
+  source_index: 125
+  command: LFS.3+4
+  name: Flamingo Switch > Right Flamingo
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r15 RFS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to RFS'
+- id: lfs_bp1
+  source_id: Hwoarang-LFS.b+1
+  source_index: 126
+  command: LFS.b+1
+  name: Stealth Needle
+  hit_level: m
+  damage: '15'
+  startup: i15
+  recovery: r36
+  block: '-15'
+  hit: '-1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Sidesteps to the right'
+- id: lfs_bp3
+  source_id: Hwoarang-LFS.b+3
+  source_index: 127
+  command: LFS.b+3
+  name: Left Thunderbolt
+  hit_level: m
+  damage: '23'
+  startup: i20~22
+  recovery: r27 RFF
+  block: '-12'
+  hit: '+14'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - rbr
+  - pc
+  - power_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 9 chip damage on block
+
+    ** -8 on block
+
+    * Transition to RFF
+
+    * Power crush 8~19'
+- id: lfs_bp4
+  source_id: Hwoarang-LFS.b+4
+  source_index: 128
+  command: LFS.b+4
+  name: Combat Middle
+  hit_level: m
+  damage: '15'
+  startup: i16~17
+  recovery: RFF
+  block: '-8'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Transition to RFF'
+- id: lfs_bp4_3
+  source_id: Hwoarang-LFS.b+4,3
+  source_index: 129
+  command: LFS.b+4,3
+  name: Flamingo Screw Kick
+  hit_level: m, h
+  damage: 15, 20
+  startup: i16~17, i16~19
+  recovery: r27 RFF
+  block: '+0'
+  hit: +20a (+11)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH
+
+    * Jail from 1st block
+
+    * 6 chip damage on block
+
+    * Transition to RFF
+
+    * Low crush 5~'
+- id: lfs_dfp3
+  source_id: Hwoarang-LFS.df+3
+  source_index: 130
+  command: LFS.df+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i22~23
+  recovery: r35?
+  block: '-14'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - rbr
+  - pc
+  - power_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Power crush 7~21'
+- id: lfs_dfp3_4
+  source_id: Hwoarang-LFS.df+3,4
+  source_index: 131
+  command: LFS.df+3,4
+  name: Flamingo Double Claymore
+  hit_level: m, m
+  damage: 12, 20
+  startup: i22~23, i24~25
+  recovery: r35?
+  block: '-14'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* Combo from 1st hit with 7F delay
+
+    * Move can be delayed by 5F
+
+    * Input can be delayed by 7F
+
+    * Power up if an attack is absorbed by previous hit
+
+    ** Reversal Break?
+
+    ** 4 chip damage on block
+
+    ** -9 on block'
+- id: lfs_dp3
+  source_id: Hwoarang-LFS.d+3
+  source_index: 132
+  command: LFS.d+3
+  name: ''
+  hit_level: L
+  damage: '7'
+  startup: i16
+  recovery: ''
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  notes: '* -6c on crouching hit'
+- id: lfs_dp3_4
+  source_id: Hwoarang-LFS.d+3,4
+  source_index: 133
+  command: LFS.d+3,4
+  name: Flamingo Low Right
+  hit_level: L, h
+  damage: 7, 13
+  startup: i16, i21~23
+  recovery: r9? RFS
+  block: +8g~+10g
+  hit: +14g~+16g
+  counter_hit: +19~+21
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Combo from 1st hit with 1F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 1F
+
+    * Transition to RFS'
+- id: lfs_dp4
+  source_id: Hwoarang-LFS.d+4
+  source_index: 134
+  command: LFS.d+4
+  name: Combat Low
+  hit_level: L
+  damage: '17'
+  startup: i20~21
+  recovery: r30 RFF
+  block: '-12'
+  hit: '+4'
+  counter_hit: +14d
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to RFF'
+- id: lfs_fp3
+  source_id: Hwoarang-LFS.f+3
+  source_index: 135
+  command: LFS.f+3
+  name: Flamingo Rocket
+  hit_level: m
+  damage: '23'
+  startup: i19~20
+  recovery: r18? LFS
+  block: '+4'
+  hit: +26a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - he
+  - heat
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Balcony Break
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +36a (+26)
+
+
+    * Remains in LFS (does not transition on Heat activation or when using Heat Dash)'
+- id: lfs_fp4
+  source_id: Hwoarang-LFS.f+4
+  source_index: 136
+  command: LFS.f+4
+  name: Spinning Hook Kick
+  hit_level: m
+  damage: '18'
+  startup: i17~18
+  recovery: r28
+  block: '-10'
+  hit: '+6'
+  counter_hit: +16a (+7)
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - balcony_break
+  - mid
+  notes: '* Homing
+
+    * Balcony Break on CH'
+- id: lfs_ufp3
+  source_id: Hwoarang-LFS.uf+3
+  source_index: 137
+  command: LFS.uf+3
+  name: ''
+  hit_level: m
+  damage: '11'
+  startup: i28~29
+  recovery: r36
+  block: '-6'
+  hit: '-7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 9~'
+- id: lfs_ufp3_4
+  source_id: Hwoarang-LFS.uf+3,4
+  source_index: 138
+  command: LFS.uf+3,4
+  name: ''
+  hit_level: m, m
+  damage: 11, 12
+  startup: i28~29, i20~21
+  recovery: r17 RFS
+  block: '+2'
+  hit: '+13'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - stance_transition
+  - mid
+  notes: '* Available on hit or block only
+
+    * Jail from 1st block
+
+    * Combo from 1st hit
+
+    * Transition to RFS
+
+    * Floating state 1~'
+- id: lfs_ufp3_4_3
+  source_id: Hwoarang-LFS.uf+3,4,3
+  source_index: 139
+  command: LFS.uf+3,4,3
+  name: Flamingo Hunting Hawk
+  hit_level: m, m, m
+  damage: 11, 12, 20
+  startup: i28~29, ,i27~28
+  recovery: r33
+  block: '-14'
+  hit: +0c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fs
+  - mid
+  notes: 'Combo from 1st hit
+
+    * Floating state 1~'
+- id: lfs_ufp4
+  source_id: Hwoarang-LFS.uf+4
+  source_index: 140
+  command: LFS.uf+4
+  name: Switch Plasma Blade
+  hit_level: M
+  damage: '20'
+  startup: i19~20
+  recovery: r37
+  block: '-14'
+  hit: +32a (+22)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Low crush 6~18'
+- id: lfs_ufp3p4
+  source_id: Hwoarang-LFS.uf+3+4
+  source_index: 141
+  command: LFS.uf+3+4
+  name: ''
+  hit_level: m,h
+  damage: 10,8
+  startup: i14, i9
+  recovery: r29
+  block: '-10'
+  hit: '+1'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  - high
+  notes: '* Jails from 1st block
+
+    * Transition to LFS with F (-2/+9)
+
+    * Low crush 9~'
+- id: lfs_ufp3p4_4
+  source_id: Hwoarang-LFS.uf+3+4,4
+  source_index: 142
+  command: LFS.uf+3+4,4
+  name: Flamingo Flashing Trident
+  hit_level: m,h, m
+  damage: 10,8, 13
+  startup: i14, i9, i14~15
+  recovery: RFF
+  block: '-10'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Transition to RFF
+
+    * Low crush 1~'
+- id: rff_1
+  source_id: Hwoarang-RFF.1
+  source_index: 143
+  command: RFF.1
+  name: ''
+  hit_level: h
+  damage: '10'
+  startup: i10
+  recovery: r19? RFF
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Remains in RFF'
+- id: rff_1_1
+  source_id: Hwoarang-RFF.1,1
+  source_index: 144
+  command: RFF.1,1
+  name: Migraine
+  hit_level: h, m
+  damage: 10, 12
+  startup: i10, i19
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 4F delay
+
+    * Input can be delayed by 4F
+
+    * Move can be delayed by 3F'
+- id: rff_2
+  source_id: Hwoarang-RFF.2
+  source_index: 145
+  command: RFF.2
+  name: ''
+  hit_level: h
+  damage: '6'
+  startup: i10
+  recovery: r17? RFF
+  block: '+2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Remains in RFF'
+- id: rff_2_1
+  source_id: Hwoarang-RFF.2,1
+  source_index: 146
+  command: RFF.2,1
+  name: ''
+  hit_level: h, h
+  damage: 6, 10
+  startup: i10, i10
+  recovery: r19 RFF
+  block: '+0'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st block with 2F delay
+
+    * Combo from 1st hit with 2F delay
+
+    * Remains in RFF'
+- id: rff_2_1_1
+  source_id: Hwoarang-RFF.2,1,1
+  source_index: 147
+  command: RFF.2,1,1
+  name: Big Fists
+  hit_level: h, h, m
+  damage: 6, 10, 12
+  startup: i10, ,i19
+  recovery: ''
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 1st hit with 4F delay
+
+    * Input can be delayed by 4F
+
+    * Move can be delayed by 3F'
+- id: rff_2_3
+  source_id: Hwoarang-RFF.2,3
+  source_index: 148
+  command: RFF.2,3
+  name: Hawk Strike
+  hit_level: h, h
+  damage: 6, 24
+  startup: i10, i19~20
+  recovery: r29
+  block: '-9'
+  hit: +20g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - trn
+  - js
+  - low_crush
+  - tornado
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Tornado
+
+    * Forces crouch on hit
+
+    * Combo from 1st hit with 2F delay
+
+    * Input can be delayed by 2F
+
+    * Move cannot be delayed
+
+    * Low crush 13~'
+- id: rff_2_4
+  source_id: Hwoarang-RFF.2,4
+  source_index: 149
+  command: RFF.2,4
+  name: ''
+  hit_level: h, h
+  damage: 6, 9
+  startup: i10, i12
+  recovery: r27 RFF
+  block: '-8'
+  hit: +3g
+  counter_hit: '+3'
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Jail from 1st block with 2F delay
+
+    * Combo from 1st hit with 2F delay
+
+    * Input can be delayed by 2F
+
+    * Move cannot be delayed
+
+    * Remains in RFF
+
+    * Transition to RFS with F_B_D_U (+4/+16g/+16)
+
+    ** i14 RFS? guaranteed on CH'
+- id: rff_2_4_3
+  source_id: Hwoarang-RFF.2,4,3
+  source_index: 150
+  command: RFF.2,4,3
+  name: Chainsaw Kick Combo
+  hit_level: h, h, M
+  damage: 6, 9, 20
+  startup: i10, ,i25~31
+  recovery: RFF
+  block: -14c
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Combo from 2nd CH with 2F delay
+
+    * Move can be delayed by 10F
+
+    * Remains in RFF'
+- id: rff_2_4_4
+  source_id: Hwoarang-RFF.2,4,4
+  source_index: 151
+  command: RFF.2,4,4
+  name: Right Reverse Kick Combo
+  hit_level: h, h, h
+  damage: 6, 9, 23
+  startup: i10, ,i18~19
+  recovery: r25
+  block: '-5'
+  hit: +41a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Jail from 2nd block with no delay
+
+    ** Does not jail from 2nd hit
+
+    * Combo from 2nd CH with 9F delay
+
+    * Move can be delayed by 10F'
+- id: rff_3
+  source_id: Hwoarang-RFF.3
+  source_index: 152
+  command: RFF.3
+  name: ''
+  hit_level: m
+  damage: '13'
+  startup: i16
+  recovery: ''
+  block: '-4'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: ''
+- id: rff_3_4
+  source_id: Hwoarang-RFF.3,4
+  source_index: 153
+  command: RFF.3,4
+  name: Volcannon
+  hit_level: m, h
+  damage: 13, 16
+  startup: i16, i27~28
+  recovery: r9? RFS
+  block: +10g~+11g
+  hit: +21g~+22g
+  counter_hit: +11~+12
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  - high
+  notes: '* Combo from 1st hit
+
+    * Transition to RFS
+
+    * Cancel and transition to r8? RFS with F (-12/-1)'
+- id: rff_3_4
+  source_id: Hwoarang-RFF.3~4
+  source_index: 154
+  command: RFF.3~4
+  name: Backlash
+  hit_level: h
+  damage: '27'
+  startup: i27~30
+  recovery: r18
+  block: +4~+7
+  hit: +46a~+49
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - bbr
+  - pc
+  - homing
+  - power_crush
+  - balcony_break
+  - chip
+  - high
+  notes: '* Strong Aerial Tailspin
+
+    * Homing
+
+    * Balcony Break
+
+    * Clean hit, 35dmg
+
+    * 10 chip damage on block
+
+    * Power crush 8~26'
+- id: rff_4
+  source_id: Hwoarang-RFF.4
+  source_index: 155
+  command: RFF.4
+  name: ''
+  hit_level: h
+  damage: '9'
+  startup: i12
+  recovery: r27 RFF
+  block: '-8'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Remains in RFF
+
+    * Transition to RFS with F_B_D_U (+4/+16g/+16)
+
+    ** i13 RFS followups guaranteed on CH?'
+- id: rff_4_3
+  source_id: Hwoarang-RFF.4,3
+  source_index: 156
+  command: RFF.4,3
+  name: Chainsaw Kick
+  hit_level: h, M
+  damage: 9, 20
+  startup: i12, i25~31
+  recovery: RFF
+  block: -14c
+  hit: +14d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  notes: '* Remains in RFF
+
+    * Combo from 1st CH with 2F delay
+
+    * Move can be delayed by 10F'
+- id: rff_4_4
+  source_id: Hwoarang-RFF.4,4
+  source_index: 157
+  command: RFF.4,4
+  name: Right Reverse Kick
+  hit_level: h, h
+  damage: 9, 23
+  startup: i12, i18~19
+  recovery: r25
+  block: '-5'
+  hit: +41a
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * Jail from 1st block with no delay
+
+    * Combo from 1st CH with 9F delay
+
+    * Move can be delayed by 10F'
+- id: rff_3p4
+  source_id: Hwoarang-RFF.3+4
+  source_index: 158
+  command: RFF.3+4
+  name: Motion Switch > Left Foot Forward
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: ''
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to LFF'
+- id: rff_bp1
+  source_id: Hwoarang-RFF.b+1
+  source_index: 159
+  command: RFF.b+1
+  name: Left Back Elbow
+  hit_level: h
+  damage: '18'
+  startup: i14
+  recovery: r33 RFF
+  block: '-4'
+  hit: '+6'
+  counter_hit: +14c
+  tier: specialist
+  tags:
+  - elb
+  - high
+  notes: '* Elbow
+
+    * Has good left sidestep tracking'
+- id: rff_bp2
+  source_id: Hwoarang-RFF.b+2
+  source_index: 160
+  command: RFF.b+2
+  name: Blast Fist
+  hit_level: m
+  damage: '17'
+  startup: i16~17
+  recovery: RFF
+  block: +4~+5
+  hit: +6c~+7c
+  counter_hit: +25d~+26d
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: '* 5 chip damage on block
+
+    * Remains in RFF'
+- id: rff_bp3
+  source_id: Hwoarang-RFF.b+3
+  source_index: 161
+  command: RFF.b+3
+  name: Nose Bleeder
+  hit_level: h
+  damage: '17'
+  startup: i13~14
+  recovery: r28
+  block: '-10'
+  hit: '+1'
+  counter_hit: +50a
+  tier: specialist
+  tags:
+  - high
+  notes: '* Sidesteps to the right'
+- id: rff_bp4
+  source_id: Hwoarang-RFF.b+4
+  source_index: 162
+  command: RFF.b+4
+  name: Spin Kick
+  hit_level: h
+  damage: '21'
+  startup: i18~19
+  recovery: r30
+  block: '-9'
+  hit: +12g
+  counter_hit: +13c
+  tier: specialist
+  tags:
+  - bbr
+  - cs
+  - high_crush
+  - balcony_break
+  - high
+  notes: '* Balcony Break
+
+    * High crush 6~17'
+- id: rff_dfp3
+  source_id: Hwoarang-RFF.df+3
+  source_index: 163
+  command: RFF.df+3
+  name: Black Kite
+  hit_level: m
+  damage: '21'
+  startup: i22~24
+  recovery: r35? RFF
+  block: '+1'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - he
+  - bbr
+  - js
+  - heat
+  - homing
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - mid
+  notes: '* Homing
+
+    * Heat Engager
+
+
+    * Heat Dash +5, +43d (+35)
+
+
+    * Balcony Break
+
+    * Remains in RFF (transitions to LFF on Heat activation or when using Heat Dash)
+
+    * Low crush 9~'
+- id: rff_dfp4
+  source_id: Hwoarang-RFF.df+4
+  source_index: 164
+  command: RFF.df+4
+  name: Right Sidekick
+  hit_level: m
+  damage: '12'
+  startup: i13
+  recovery: r26? RFF
+  block: '-7'
+  hit: +1g
+  counter_hit: '+1'
+  tier: specialist
+  tags:
+  - stance_transition
+  - mid
+  notes: '* Remains in RFF
+
+    * Transition to RFS with F_B_D_U (+4/+13g/+13)'
+- id: rff_dfp2p3
+  source_id: Hwoarang-RFF.df+2+3
+  source_index: 165
+  command: RFF.df+2+3
+  name: ''
+  hit_level: m
+  damage: '12'
+  startup: i22~23
+  recovery: r35?
+  block: '-14'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - rbr
+  - pc
+  - power_crush
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 2 chip damage on block
+
+    ** -9 on block
+
+    * Cancel and transition to r1 LFS with F_U_D at frame 20 of move startup
+
+    * Power crush 7~'
+- id: rff_dfp2p3_4
+  source_id: Hwoarang-RFF.df+2+3,4
+  source_index: 166
+  command: RFF.df+2+3,4
+  name: Double Claymore
+  hit_level: m, m
+  damage: 12, 20
+  startup: i22~23, i24~25
+  recovery: r35?
+  block: '-14'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - chip
+  - mid
+  notes: "* Power up if an attack is absorbed by previous hit\n** Reversal Break?\n\
+    ** 4 chip damage on block\n** -9 on block\n* Combo from 1st hit with 7F delay\
+    \ \n* Move can be delayed by 5F\n* Input can be delayed by 7F"
+- id: rff_dp3
+  source_id: Hwoarang-RFF.d+3
+  source_index: 167
+  command: RFF.d+3
+  name: ''
+  hit_level: L
+  damage: '10'
+  startup: i18
+  recovery: BT
+  block: '-11'
+  hit: '+0'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to BT
+
+    * +0c on crouching hit'
+- id: rff_dp3_4
+  source_id: Hwoarang-RFF.d+3,4
+  source_index: 168
+  command: RFF.d+3,4
+  name: Triumph Low Right
+  hit_level: L, h
+  damage: 10, 13
+  startup: i18, i21~23
+  recovery: r9? RFS
+  block: +8g~+10g
+  hit: +14g~+16g
+  counter_hit: +19~+21
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  - high
+  notes: '* Combo from 1st hit
+
+    * Transition to RFS'
+- id: rff_dp3p4
+  source_id: Hwoarang-RFF.d+3+4
+  source_index: 169
+  command: RFF.d+3+4
+  name: Heel Screw
+  hit_level: L
+  damage: '19'
+  startup: i19
+  recovery: RFF
+  block: '-11'
+  hit: '+5'
+  counter_hit: +15g
+  tier: specialist
+  tags:
+  - low
+  notes: '* Remains in RFF'
+- id: rff_ffp3
+  source_id: Hwoarang-RFF.f,F+3
+  source_index: 170
+  command: RFF.f,F+3
+  name: Hunting Heel
+  hit_level: M
+  damage: '22'
+  startup: i22~25
+  recovery: ''
+  block: '-7'
+  hit: +19d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - low_crush
+  - mid
+  notes: '* Low crush 3~'
+- id: rff_fp1
+  source_id: Hwoarang-RFF.f+1
+  source_index: 171
+  command: RFF.f+1
+  name: ''
+  hit_level: h
+  damage: '5'
+  startup: i10
+  recovery: r19
+  block: '+1'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: ''
+- id: rff_fp1_2
+  source_id: Hwoarang-RFF.f+1,2
+  source_index: 172
+  command: RFF.f+1,2
+  name: Left Right Combo
+  hit_level: h, h
+  damage: 5, 10
+  startup: i10, i10
+  recovery: r22
+  block: '-3'
+  hit: '+6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  notes: '* Jail from 1st block with 4F delay
+
+    * Combo from 1st hit with 4F delay'
+- id: rff_fp3
+  source_id: Hwoarang-RFF.f+3
+  source_index: 173
+  command: RFF.f+3
+  name: Cheap Shot
+  hit_level: h
+  damage: '21'
+  startup: i14~17
+  recovery: r4? LFS
+  block: +12~+15
+  hit: +23~+26
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to LFS
+
+    * Transition to r44? BT with B (-11~-8/+0~+3)'
+- id: rff_fp4
+  source_id: Hwoarang-RFF.f+4
+  source_index: 174
+  command: RFF.f+4
+  name: Right Flamingo Feint
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r18 RFS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to RFS'
+- id: rff_fp4_4
+  source_id: Hwoarang-RFF.f+4~4
+  source_index: 175
+  command: RFF.f+4~4
+  name: Plasma Blade
+  hit_level: M
+  damage: '20'
+  startup: i18~20
+  recovery: RFF
+  block: '-13'
+  hit: +41a (+31)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - mid
+  notes: '* Tornado
+
+    * Remains in RFF'
+- id: rfs_1
+  source_id: Hwoarang-RFS.1
+  source_index: 176
+  command: RFS.1
+  name: Left Punch
+  hit_level: m
+  damage: '15'
+  startup: i16
+  recovery: r21?
+  block: '-2'
+  hit: '+9'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  notes: '* Links to 10-hit string'
+- id: rfs_2
+  source_id: Hwoarang-RFS.2
+  source_index: 177
+  command: RFS.2
+  name: Right Flamingo > Back Hand
+  hit_level: h
+  damage: '6'
+  startup: i13
+  recovery: r14? RFF
+  block: '+5'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - high
+  notes: '* Transition to RFF
+
+    * Links to RFF.2 extensions'
+- id: rfs_3
+  source_id: Hwoarang-RFS.3
+  source_index: 178
+  command: RFS.3
+  name: Left Step Kick
+  hit_level: h
+  damage: '24'
+  startup: i14~16
+  recovery: r21? LFS
+  block: '+4'
+  hit: +27a (+18)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - stance_transition
+  - chip
+  - high
+  notes: '* Balcony Break
+
+    * Transition to LFS
+
+    * Sidesteps to the left
+
+    * Increased chip damage scaling on block during heat
+
+    ** 7 chip damage on block in heat
+
+    * Low crush 8~'
+- id: rfs_3_4
+  source_id: Hwoarang-RFS.3~4
+  source_index: 179
+  command: RFS.3~4
+  name: Flying Eagle
+  hit_level: m,m
+  damage: 11,21
+  startup: i16,i7
+  recovery: ''
+  block: '-3'
+  hit: +26 (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Jail from 1st block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 9 chip damage on block in heat
+
+    * Input 4 the following frame after 3 to power up
+
+    ** 37dmg on hit, +1 on block
+
+    ** 14 chip damage on block in heat
+
+    * Low crush 16~'
+- id: rfs_4
+  source_id: Hwoarang-RFS.4
+  source_index: 180
+  command: RFS.4
+  name: Right Kick
+  hit_level: m
+  damage: '17'
+  startup: i14
+  recovery: RFF
+  block: '-9'
+  hit: '+3'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - heat
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Transition to RFF
+
+    * Increased chip damage scaling on block during heat
+
+    ** 5 chip damage on block in heat'
+- id: rfs_4_3
+  source_id: Hwoarang-RFS.4,3
+  source_index: 181
+  command: RFS.4,3
+  name: Double Phalanx
+  hit_level: m, m
+  damage: 17, 21
+  startup: i14, i23~24
+  recovery: r18? LFS
+  block: '+4'
+  hit: +25a (+16)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - bbr
+  - heat
+  - tornado
+  - balcony_break
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Balcony Break
+
+    * Transition to LFS
+
+    * Combo from 1st CH
+
+    * Combo from 1st hit during heat
+
+    * Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_3p4
+  source_id: Hwoarang-RFS.3+4
+  source_index: 182
+  command: RFS.3+4
+  name: Flamingo Switch > Left Flamingo
+  hit_level: ''
+  damage: ''
+  startup: ''
+  recovery: r15 LFS
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  notes: '* Transition to LFS'
+- id: rfs_bp3
+  source_id: Hwoarang-RFS.b+3
+  source_index: 183
+  command: RFS.b+3
+  name: Left Heel Lance
+  hit_level: m
+  damage: '21'
+  startup: i16~17
+  recovery: r31
+  block: '-9'
+  hit: '+7'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - he
+  - heat
+  - chip
+  - mid
+  notes: '* Heat Engager
+
+
+    * Heat Dash +5, +42a (+27)
+
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat'
+- id: rfs_bp4
+  source_id: Hwoarang-RFS.b+4
+  source_index: 184
+  command: RFS.b+4
+  name: Right Thunderbolt
+  hit_level: m
+  damage: '23'
+  startup: i20~22
+  recovery: r27
+  block: '-12'
+  hit: +14g
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - rbr
+  - pc
+  - heat
+  - power_crush
+  - balcony_break
+  - chip
+  - mid
+  notes: '* Balcony Break
+
+    * Power up if an attack is absorbed
+
+    ** Reversal Break
+
+    ** 9 chip damage on block
+
+    ** -8 on block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    ** 9 chip damage on block after absorbing an attack
+
+    * Power crush 8~19'
+- id: rfs_dfp4
+  source_id: Hwoarang-RFS.df+4
+  source_index: 185
+  command: RFS.df+4
+  name: Snap Kick
+  hit_level: m
+  damage: '17'
+  startup: i17~19
+  recovery: r22?
+  block: '+1'
+  hit: +8c
+  counter_hit: +26a
+  tier: specialist
+  tags:
+  - heat
+  - chip
+  - mid
+  notes: '* Increased chip damage scaling on block during heat
+
+    ** 4 chip damage on block in heat'
+- id: rfs_dp3
+  source_id: Hwoarang-RFS.d+3
+  source_index: 186
+  command: RFS.d+3
+  name: ''
+  hit_level: L
+  damage: '13'
+  startup: i15
+  recovery: r32? RFF
+  block: '-13'
+  hit: '-5'
+  counter_hit: '+2'
+  tier: specialist
+  tags:
+  - cs
+  - heat
+  - high_crush
+  - stance_transition
+  - chip
+  - low
+  notes: '* Transition to RFF
+
+    * Increased chip damage scaling on block during heat
+
+    ** 3 chip damage on block in heat
+
+    * cs10~19 crush state when canceled into followup
+
+    * High crush 10~25'
+- id: rfs_dp3_3
+  source_id: Hwoarang-RFS.d+3,3
+  source_index: 187
+  command: RFS.d+3,3
+  name: Teaser
+  hit_level: L, h
+  damage: 13, 28
+  startup: i15, i25~27
+  recovery: r30
+  block: '-2'
+  hit: +34a (+8)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - heat
+  - balcony_break
+  - chip
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Combo from 1st CH with 4F delay
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 4F
+
+    * 11 chip damage on block
+
+    * Increased chip damage scaling on block during heat
+
+    ** 14 chip damage on block in heat'
+- id: rfs_dp4
+  source_id: Hwoarang-RFS.d+4
+  source_index: 188
+  command: RFS.d+4
+  name: ''
+  hit_level: L
+  damage: '15'
+  startup: i20~21
+  recovery: r32 RFF
+  block: '-23'
+  hit: +7c
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - stance_transition
+  - low
+  notes: '* Transition to RFF'
+- id: rfs_dp4_3
+  source_id: Hwoarang-RFS.d+4,3
+  source_index: 189
+  command: RFS.d+4,3
+  name: ''
+  hit_level: L, h
+  damage: 15, 12 (8)
+  startup: i20~21, i25
+  recovery: r31
+  block: '-9'
+  hit: -1 / +20a (+13)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - low
+  - high
+  notes: "* Combo from 1st hit\n* Airborne combo from 1st CH\n** 8 dmg, +20a (+13)\
+    \ on hit \n** 26 total dmg from 1st CH"
+- id: rfs_dp4_3_4
+  source_id: Hwoarang-RFS.d+4,3,4
+  source_index: 190
+  command: RFS.d+4,3,4
+  name: Predator Bardiche
+  hit_level: L, h, h
+  damage: 15, 12 (8), 20 (10)
+  startup: i20~21, ,i27~28
+  recovery: r36
+  block: '-9'
+  hit: +28a (+2) / +10a (+9)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - bbr
+  - js
+  - heat
+  - low_crush
+  - balcony_break
+  - chip
+  - low
+  - high
+  notes: '* Balcony Break
+
+    * Power up in Heat: 30dmg and increased chip damage on block
+
+    * Combo from 2nd CH
+
+    * Airborne combo from 1st CH
+
+    ** +10a (+9) on hit
+
+    ** 10 dmg, 36 total dmg from 1st CH
+
+    * Low crush 22~'
+- id: rfs_fp3
+  source_id: Hwoarang-RFS.f+3
+  source_index: 191
+  command: RFS.f+3
+  name: Screw Kick
+  hit_level: m
+  damage: '18'
+  startup: i20~21
+  recovery: ''
+  block: '-10'
+  hit: '+5'
+  counter_hit: +15a (+6)
+  tier: specialist
+  tags:
+  - hom
+  - heat
+  - homing
+  - chip
+  - mid
+  notes: '* Homing
+
+    * Increased chip damage scaling on block during heat
+
+    ** 5 chip damage on block in heat'
+- id: rfs_fp4
+  source_id: Hwoarang-RFS.f+4
+  source_index: 192
+  command: RFS.f+4
+  name: ''
+  hit_level: h,h
+  damage: 8,8
+  startup: i8, i10
+  recovery: r19? RFS
+  block: '+0'
+  hit: '+2'
+  counter_hit: '+5'
+  tier: specialist
+  tags:
+  - heat
+  - high
+  notes: '* Jail from 1st block
+
+    * +6 on 2nd CH
+
+    * Remains in RFS
+
+    * Power up during Heat'
+- id: rfs_fp4_4
+  source_id: Hwoarang-RFS.f+4,4
+  source_index: 193
+  command: RFS.f+4,4
+  name: Right Viper Combo > Right Sword
+  hit_level: h,h, h
+  damage: 8,8, 9
+  startup: i8, i10, i23
+  recovery: r29? RFF
+  block: '-6'
+  hit: +75a (+59)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - tornado
+  - stance_transition
+  - high
+  notes: '* Tornado
+
+    * Combo from 1st or 2nd CH
+
+    * Transition to RFF'
+- id: rfs_ufp3
+  source_id: Hwoarang-RFS.uf+3
+  source_index: 194
+  command: RFS.uf+3
+  name: Flamingo Hunting Heel
+  hit_level: M
+  damage: '22'
+  startup: i24~27
+  recovery: r32
+  block: '-7'
+  hit: +19d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - heat
+  - low_crush
+  - chip
+  - mid
+  notes: '* Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    * Low crush 9~'
+- id: rfs_ufp4
+  source_id: Hwoarang-RFS.uf+4
+  source_index: 195
+  command: RFS.uf+4
+  name: Air Blade
+  hit_level: m
+  damage: '20'
+  startup: i17~18
+  recovery: RFF r33?
+  block: '-13'
+  hit: +30a (+20)
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - trn
+  - js
+  - heat
+  - low_crush
+  - tornado
+  - stance_transition
+  - chip
+  - mid
+  notes: '* Tornado
+
+    * Transition to RFF
+
+    * Increased chip damage scaling on block during heat
+
+    ** 6 chip damage on block in heat
+
+    * Low crush 11~33'
+- id: rfs_up4
+  source_id: Hwoarang-RFS.u+4
+  source_index: 196
+  command: RFS.u+4
+  name: Raptor Claw
+  hit_level: h
+  damage: '17'
+  startup: i25~26
+  recovery: r27 RFF
+  block: '-2'
+  hit: '+8'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - js
+  - heat
+  - homing
+  - low_crush
+  - stance_transition
+  - chip
+  - high
+  notes: '* Homing
+
+    * Transition to RFF
+
+    * Link to LFF.(4,4,4),4 extension
+
+    ** Combo from 1st hit with 4F input delay
+
+    ** Extension cannot be delayed
+
+    * Increased chip damage scaling on block during heat
+
+    ** 5 chip damage on block in heat
+
+    * Low crush 19~'
+- id: hfc_3
+  source_id: Hwoarang-hFC.3
+  source_index: 197
+  command: hFC.3
+  name: Crouch Spin Kick
+  hit_level: L
+  damage: '10'
+  startup: i16
+  recovery: r36 FC
+  block: '-17'
+  hit: '-6'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -6c on crouching hit
+
+    * High crush 1~'
+- id: hfc_4
+  source_id: Hwoarang-hFC.4
+  source_index: 198
+  command: hFC.4
+  name: Crouch Shin Kick
+  hit_level: l
+  damage: '6'
+  startup: i12
+  recovery: r34 FC
+  block: '-15'
+  hit: '-4'
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - cs
+  - high_crush
+  - low
+  notes: '* -4c on crouching hit
+
+    * High crush 1~'
+- id: 1p3
+  source_id: Hwoarang-1+3
+  source_index: 199
+  command: 1+3
+  name: Pickpocket
+  hit_level: th(h)
+  damage: '35'
+  startup: i12~14
+  recovery: r31
+  block: '-3'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - high
+  - throw
+  notes: '* Homing
+
+    * Break: 1 or 2
+
+    * Opponent recovery on hit: FDFT
+
+    * Sideswap on break'
+- id: 2p4
+  source_id: Hwoarang-2+4
+  source_index: 200
+  command: 2+4
+  name: Falcon Dice Kick
+  hit_level: th(h)
+  damage: '25'
+  startup: i12~14
+  recovery: r31
+  block: '-6'
+  hit: -2d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - hom
+  - homing
+  - floor_break
+  - high
+  - throw
+  notes: '* Floor Break
+
+    * Homing
+
+    * Break: 1 or 2
+
+    * Opponent recovery on hit: FDFT off-axis to the left, sideswap'
+- id: 2p4_b
+  source_id: Hwoarang-2+4,B
+  source_index: 201
+  command: 2+4,B
+  name: Roll and Choke
+  hit_level: th(h)
+  damage: '40'
+  startup: i12~14
+  recovery: r31
+  block: '-2'
+  hit: -6d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - hom
+  - homing
+  - stance_transition
+  - high
+  - throw
+  notes: '* Homing
+
+    * Break: 2
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Transition to BT on hit'
+- id: air_ubp3p4
+  source_id: Hwoarang-AIR.ub+3+4
+  source_index: 202
+  command: AIR.ub+3+4
+  name: Overhead Kick
+  hit_level: th(m)
+  damage: '26'
+  startup: i15~16
+  recovery: ''
+  block: ''
+  hit: +10d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - mid
+  - high
+  - throw
+  notes: '* Break: none
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Also possible during RFF'
+- id: back_throw
+  source_id: Hwoarang-Back throw
+  source_index: 203
+  command: Back throw
+  name: Slaughterhouse
+  hit_level: th(h)
+  damage: '60'
+  startup: i12~14
+  recovery: ''
+  block: ''
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Break: none
+
+    * Opponent recovery on hit: FUFA
+
+    * Also possible during RFF'
+- id: left_throw
+  source_id: Hwoarang-Left throw
+  source_index: 204
+  command: Left throw
+  name: Bring It On
+  hit_level: th(h)
+  damage: '45'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: -1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Break: 1
+
+    * Opponent recovery on hit: FUFT off-axis to the left
+
+    * Also possible during RFF'
+- id: rff_1p3
+  source_id: Hwoarang-RFF.1+3
+  source_index: 205
+  command: RFF.1+3
+  name: Jackknife
+  hit_level: th(h)
+  damage: '45'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  - throw
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA, sideswap'
+- id: right_throw
+  source_id: Hwoarang-Right throw
+  source_index: 206
+  command: Right throw
+  name: Dead-End
+  hit_level: th(h)
+  damage: '44'
+  startup: i12~14
+  recovery: ''
+  block: '-3'
+  hit: +8d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - throw
+  - high
+  notes: '* Break: 2
+
+    * Opponent recovery on hit: FDFT off-axis to the right
+
+    * Also possible during RFF'
+- id: fp2p3
+  source_id: Hwoarang-f+2+3
+  source_index: 207
+  command: f+2+3
+  name: Human Cannonball
+  hit_level: th(h)
+  damage: '35'
+  startup: i12
+  recovery: r27
+  block: '+0'
+  hit: +1d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  - throw
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA, sideswap
+
+    * Sideswap on break
+
+    * Possible in RFF, LFS and RFS'
+- id: qcbp3
+  source_id: Hwoarang-qcb+3
+  source_index: 208
+  command: qcb+3
+  name: Door Mat
+  hit_level: th(h)
+  damage: '45'
+  startup: i11
+  recovery: r28
+  block: '-2'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - fbr
+  - floor_break
+  - high
+  - throw
+  notes: '* Floor Break
+
+    * Break: 1
+
+    * Opponent recovery on hit: FUFA, sideswap'
+- id: ufp1p2
+  source_id: Hwoarang-uf+1+2
+  source_index: 209
+  command: uf+1+2
+  name: Leg Hook Throw
+  hit_level: th(h)
+  damage: '40'
+  startup: i12
+  recovery: r27
+  block: '-6'
+  hit: -5d
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - high
+  - throw
+  notes: '* Break: 1+2
+
+    * Opponent recovery on hit: FUFA
+
+    * Also possible during RFF'
