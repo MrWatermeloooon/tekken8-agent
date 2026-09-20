@@ -54,6 +54,16 @@ public:
         const std::int64_t* previous_opponent_actions,
         std::size_t count,
         void* stream = nullptr);
+    // Builds the next observation without advancing history. This is used to
+    // bootstrap time-limit truncations before the lane is reset.
+    [[nodiscard]] const float* preview(
+        const float* base_observations,
+        const OpponentProfileParameters* profiles,
+        std::size_t profile_count,
+        const std::uint32_t* profile_assignments,
+        const std::int64_t* previous_opponent_actions,
+        std::size_t count,
+        void* stream = nullptr);
     void synchronize(void* stream = nullptr) const;
     [[nodiscard]] TemporalEncoderState download_state(void* stream = nullptr) const;
     void upload_state(const TemporalEncoderState& state, void* stream = nullptr);

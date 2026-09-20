@@ -28,9 +28,12 @@ The `v2` branch is the default branch and contains all current work; there are n
 - Eight-decision opponent history covering action/move identity, animation phase, stance, hit level,
   delay, outcome, distance, and lateral movement.
 - Four-stage curriculum with uncertainty, weakness, regression, and exploit-severity scheduling.
+- Native checkpoint self-play using the latest policy for 80% of matches and the strongest older
+  held-out checkpoint for 20%.
 - Per-character/archetype evaluation, draw-aware scores, matchup Elo, behavior metrics, and
   catastrophic-forgetting detection.
 - Checksummed atomic policy checkpoints and byte-exact trainer resume state.
+- A checkpoint-following Tkinter visualizer backed by an independent native CUDA simulator feed.
 - Torch CPU/CUDA live inference for legacy 13-feature and roster-temporal 95-feature checkpoints.
 - CPU/CUDA parity, PPO numerical tests, exact-resume tests, smoke training, and sanitizer workflows.
 
@@ -67,6 +70,8 @@ rollout collection.
 | `src/opponents.cu` | GPU scripted/profiled opponent population |
 | `src/temporal.cu` | GPU character, archetype, and temporal observation encoder |
 | `src/train.cpp` | Native PPO training, evaluation, checkpointing, and resume |
+| `src/visualizer_feed.cpp` | Independent CUDA fight feed for the V2 visualizer |
+| `scripts/visualize_v2.py` | Tkinter viewer with checkpoint-follow mode |
 | `src/t8_agent/roster/` | Python catalog, scheduler, temporal encoder, and evaluation exports |
 | `src/t8_agent/live/` | Native checkpoint loader and live Torch inference |
 | `data/characters/` | Imported character frame-data snapshots with provenance |
@@ -83,6 +88,9 @@ rollout collection.
 - Visual Studio 2022 with Desktop development with C++
 - CMake 3.24+
 - Python 3.10+
+
+Live screen/controller deployment additionally requires DXcam, OpenCV, `vgamepad`, and the signed
+ViGEmBus driver. These are not required for simulator training.
 
 The default CMake configuration emits native images for Turing, Ampere, Ada, and Blackwell, with
 PTX in the newest image. For the validated RTX 5070 Ti build, use CUDA architecture `120`.
@@ -141,11 +149,24 @@ build\Release\t8_v2_train.exe --smoke `
 
 ### Full run
 
+Use the guarded launcher to start the documented configuration and automatically follow new
+checkpoints in the CUDA visualizer:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File scripts\start_full_training.ps1 `
+  -RunDir runs\roster_visual_shaped_2027 `
+  -Seed 2027
+```
+
+The equivalent native trainer command is:
+
 ```powershell
 build\Release\t8_v2_train.exe `
   --envs 4096 `
   --horizon 128 `
   --updates 100 `
+  --curriculum-updates 100 `
   --epochs 4 `
   --minibatch 4096 `
   --opponents roster `
@@ -166,6 +187,7 @@ build\Release\t8_v2_train.exe `
   --envs 4096 `
   --horizon 128 `
   --updates 100 `
+  --curriculum-updates 100 `
   --epochs 4 `
   --minibatch 4096 `
   --opponents roster `
@@ -194,10 +216,17 @@ overwrite.
 1. Jun fundamentals
 2. Character groups
 3. Full roster
-4. Adversarial/weakness-focused league
+4. Checkpoint self-play and adversarial/weakness-focused league
 
 Use `--curriculum-stage auto` for the four-stage schedule or pin a stage with `1`, `2`, `3`, or
-`4` for a controlled experiment.
+`4` for a controlled experiment. `--curriculum-updates` fixes the automatic stage boundaries, so
+raising the final `--updates` target or resuming a longer run cannot move training backward. In the
+self-play stage, opponents are frozen checkpoints: 80% of lanes use the latest checkpoint and 20%
+use the strongest older checkpoint according to fixed held-out evaluation results.
+
+Held-out evaluation uses a deterministic profile set that is separate from training matchmaking.
+Its results can rank older self-play checkpoints, but evaluation never mutates the training roster
+scheduler.
 
 ### Run artifacts
 
@@ -208,28 +237,62 @@ Each run directory contains:
 - `checkpoints/update_N.t8ppo` — integrity-protected policy and optimizer state
 - `checkpoints/update_N.t8state` — exact simulator, opponent, scheduler, temporal, and RNG state
 
+## CUDA simulator visualizer
+
+Watch a scripted learner immediately:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\visualize_v2.py `
+  --opponent-character reina `
+  --opponent-archetype rushdown
+```
+
+Follow a training run and automatically reload each new atomic checkpoint:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\visualize_v2.py `
+  --follow-dir runs\roster_visual_shaped_2027\checkpoints `
+  --observation-mode visual `
+  --opponent-character reina `
+  --opponent-archetype rushdown
+```
+
+The viewer runs a separate 16-lane CUDA evaluation process. It never adds rendering or host copies
+to the 4,096-environment PPO hot path. See the [visualizer guide](docs/visualizer.md).
+
 ## Live screen inference
 
-Install the CUDA-enabled Torch build explicitly before installing the live dependencies. This
-prevents pip from silently selecting a CPU-only wheel.
+Install the CUDA-enabled Torch build explicitly, then create the project environment with access to
+that validated installation.
 
 ```powershell
 python -m pip uninstall -y torch
 python -m pip install --no-cache-dir torch==2.13.0 `
   --index-url https://download.pytorch.org/whl/cu130
-python -m pip install -e ".[live]"
-python -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"
+python -m venv --system-site-packages .venv
+.\.venv\Scripts\python.exe -m pip install -e ".[live]"
+.\.venv\Scripts\python.exe -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"
 
-Copy-Item config\live_screen.example.yaml config\live_screen.yaml
-python scripts\live_vision_play.py --dry-run --agent v2 `
+.\.venv\Scripts\python.exe scripts\calibrate_live_screen.py --automatic
+.\.venv\Scripts\python.exe scripts\check_live_setup.py
+.\.venv\Scripts\python.exe scripts\live_vision_play.py --dry-run --agent v2 `
   --ppo-checkpoint runs\roster_visual_shaped_2027\checkpoints\update_100.t8ppo `
   --opponent-character reina `
   --opponent-archetype movement_specialist
 ```
 
 A 95-feature checkpoint requires the current opponent character and archetype. A legacy 13-feature
-checkpoint does not. Start with `--dry-run`; controller output is paused by default. Confirm screen
-capture, player side, and facing before enabling controller output.
+checkpoint does not. Before enabling output, run the interactive calibration with Tekken 8 visible:
+
+```powershell
+.\.venv\Scripts\python.exe scripts\calibrate_live_screen.py
+```
+
+Start with `--dry-run`; controller output is paused by default. F8 enables/pauses output. F7 flips
+controller direction and screen-motion identity together after a side switch. `vgamepad` requires
+the signed final [ViGEmBus release](https://github.com/nefarius/ViGEmBus/releases/tag/v1.22.0),
+which is retired and should be installed only after reviewing that machine-level dependency. See
+the [live runtime guide](docs/live_runtime.md).
 
 ## Should this project use DIAMBRA?
 
@@ -270,6 +333,8 @@ hardware used for an experiment.
 
 - [Full-roster curriculum](docs/roster_curriculum.md)
 - [Training and evaluation](docs/training.md)
+- [CUDA simulator visualizer](docs/visualizer.md)
+- [Live screen/controller runtime](docs/live_runtime.md)
 - [Roadmap and promotion gates](docs/roadmap.md)
 - [Frame-data provenance](data/README.md)
 - [Held-out Phase 0 report](docs/phase0_heldout_v2_visual_report.md)

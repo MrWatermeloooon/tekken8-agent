@@ -881,9 +881,9 @@ __global__ void step_kernel(
         state.winner = 0;
     }
 
-    const bool was_truncated = state.frame >= config.max_frames && !state.round_over;
     const bool timed_out = state.round_over && state.frame >= config.max_frames &&
         state.p1.health > 0.0F && state.p2.health > 0.0F;
+    const bool was_truncated = timed_out;
     const bool stalemate = state.round_over && state.winner == 0;
     const bool no_action_timeout = state.round_over &&
         state.no_action_frames >= config.no_action_timeout_frames;
@@ -1020,6 +1020,7 @@ __global__ void assign_character_ids_kernel(
     std::size_t profile_count,
     const std::uint32_t* assignments,
     int learner_player,
+    const std::uint8_t* lane_mask,
     float* obs_p1,
     float* obs_p2,
     float* visual_obs_p1,
@@ -1027,7 +1028,7 @@ __global__ void assign_character_ids_kernel(
     std::uint8_t* masks_p1,
     std::uint8_t* masks_p2) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
-    if (lane >= n) return;
+    if (lane >= n || (lane_mask != nullptr && lane_mask[lane] == 0)) return;
     const std::uint32_t profile_index = assignments[lane];
     std::uint32_t opponent_character = kJunCharacterId;
     if (profile_index < profile_count &&
@@ -1332,6 +1333,7 @@ void GpuSimulatorBatch::set_opponent_characters_device(
     std::size_t profile_count,
     const std::uint32_t* device_profile_assignments,
     int learner_player,
+    const std::uint8_t* device_lane_mask,
     void* stream) {
     if (device_profiles == nullptr || device_profile_assignments == nullptr || profile_count == 0) {
         throw std::invalid_argument("profile table and assignments must be non-null and non-empty");
@@ -1343,6 +1345,7 @@ void GpuSimulatorBatch::set_opponent_characters_device(
     assign_character_ids_kernel<<<blocks_for(impl_->count), kThreads, 0, cuda_stream>>>(
         impl_->state_i, impl_->state_f, impl_->count, impl_->device_config,
         device_profiles, profile_count, device_profile_assignments, learner_player,
+        device_lane_mask,
         impl_->observations_p1, impl_->observations_p2,
         impl_->visual_observations_p1, impl_->visual_observations_p2,
         impl_->masks_p1, impl_->masks_p2);
@@ -1517,6 +1520,10 @@ std::vector<float> GpuSimulatorBatch::download_sparse_rewards(int player, void* 
 
 std::vector<std::uint8_t> GpuSimulatorBatch::download_terminated(void* stream) const {
     return download_buffer(impl_->terminated, impl_->count, stream, "download terminated flags");
+}
+
+std::vector<std::uint8_t> GpuSimulatorBatch::download_truncated(void* stream) const {
+    return download_buffer(impl_->truncated, impl_->count, stream, "download truncated flags");
 }
 
 std::vector<std::int32_t> GpuSimulatorBatch::download_winners(void* stream) const {

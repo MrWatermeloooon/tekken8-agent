@@ -67,6 +67,10 @@ target_compile_options(t8_v2_opponents PRIVATE
     $<$<COMPILE_LANGUAGE:CUDA>:--use_fast_math;-lineinfo>
 )
 
+add_executable(t8_v2_visualizer_feed src/visualizer_feed.cpp)
+target_link_libraries(t8_v2_visualizer_feed PRIVATE
+    t8_v2_ppo t8_v2_gpu t8_v2_opponents t8_v2_roster)
+
 if(T8_V2_BUILD_TESTS)
     enable_testing()
 
@@ -95,6 +99,20 @@ if(T8_V2_BUILD_TESTS)
     add_test(NAME t8_v2_roster_catalog COMMAND t8_v2_roster_tests
              ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/opponent_profiles.csv
              ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/character_move_specs.csv)
+
+    add_executable(t8_v2_roster_scheduler_tests tests/roster_scheduler_tests.cpp)
+    target_link_libraries(t8_v2_roster_scheduler_tests PRIVATE t8_v2_roster)
+    add_test(NAME t8_v2_roster_scheduler COMMAND t8_v2_roster_scheduler_tests)
+
+    add_test(
+        NAME t8_v2_visualizer_feed
+        COMMAND $<TARGET_FILE:t8_v2_visualizer_feed>
+                --steps 8
+                --interval-ms 0
+                --profile-index 0
+                --opponent-catalog ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/opponent_profiles.csv
+                --character-moves ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/character_move_specs.csv
+    )
 endif()
 
 if(T8_V2_BUILD_BENCHMARKS)
@@ -132,6 +150,14 @@ if(T8_V2_BUILD_TESTS)
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_vision.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_roster_system.py
         )
+        add_test(
+            NAME t8_v2_visualizer_headless
+            COMMAND ${Python3_EXECUTABLE}
+                    ${CMAKE_CURRENT_SOURCE_DIR}/scripts/visualize_v2.py
+                    --feed $<TARGET_FILE:t8_v2_visualizer_feed>
+                    --headless-steps 8
+                    --opponent-character reina
+        )
     endif()
 endif()
 
@@ -153,7 +179,8 @@ function(t8_v2_enable_warnings target)
 endfunction()
 
 set(T8_V2_WARNING_TARGETS
-    t8_v2_cpu_oracle t8_v2_roster t8_v2_gpu t8_v2_ppo t8_v2_opponents t8_v2_train)
+    t8_v2_cpu_oracle t8_v2_roster t8_v2_gpu t8_v2_ppo t8_v2_opponents
+    t8_v2_train t8_v2_visualizer_feed)
 if(T8_V2_BUILD_TESTS)
     list(APPEND T8_V2_WARNING_TARGETS
         t8_v2_parity_tests t8_v2_gpu_parity_tests t8_v2_policy_tests

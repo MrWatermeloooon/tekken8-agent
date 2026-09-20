@@ -35,6 +35,13 @@ std::size_t checked_product(std::size_t left, std::size_t right, const char* des
     return left * right;
 }
 
+std::size_t checked_rollout_samples(std::size_t environments, std::size_t horizon) {
+    if (environments == 0 || horizon == 0) {
+        throw std::invalid_argument("rollout dimensions must be greater than zero");
+    }
+    return checked_product(environments, horizon, "rollout sample count");
+}
+
 void validate_allocation(
     std::size_t rows,
     std::size_t columns,
@@ -204,11 +211,9 @@ __global__ void gather_minibatch_kernel(
     const float* source_old_values,
     const float* source_advantages,
     const float* source_returns,
-    std::size_t sample_count,
+    const std::size_t* permutation,
     std::size_t batch_offset,
     std::size_t batch_size,
-    std::size_t permutation_stride,
-    std::size_t permutation_offset,
     int observation_size,
     int action_count,
     float* observations,
@@ -220,8 +225,7 @@ __global__ void gather_minibatch_kernel(
     float* returns) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= batch_size) return;
-    const std::size_t source = (permutation_offset +
-        (batch_offset + lane) * permutation_stride) % sample_count;
+    const std::size_t source = permutation[batch_offset + lane];
     for (int feature = 0; feature < observation_size; ++feature) {
         observations[lane * observation_size + feature] =
             source_observations[source * observation_size + feature];
@@ -234,6 +238,36 @@ __global__ void gather_minibatch_kernel(
     old_values[lane] = source_old_values[source];
     advantages[lane] = source_advantages[source];
     returns[lane] = source_returns[source];
+}
+
+__global__ void validate_rollout_kernel(
+    const float* observations,
+    const std::uint8_t* masks,
+    const std::int64_t* actions,
+    const float* old_log_probabilities,
+    const float* old_values,
+    const float* advantages,
+    const float* returns,
+    std::size_t sample_count,
+    int observation_size,
+    int action_count,
+    int* invalid) {
+    const std::size_t sample = blockIdx.x * blockDim.x + threadIdx.x;
+    if (sample >= sample_count) return;
+    bool finite = isfinite(old_log_probabilities[sample]) && isfinite(old_values[sample]) &&
+        isfinite(advantages[sample]) && isfinite(returns[sample]);
+    for (int feature = 0; feature < observation_size && finite; ++feature) {
+        finite = isfinite(observations[sample * observation_size + feature]);
+    }
+    bool any_legal = false;
+    for (int action = 0; action < action_count; ++action) {
+        any_legal = any_legal || masks[sample * action_count + action] != 0;
+    }
+    const std::int64_t selected = actions[sample];
+    const bool valid_action = selected >= 0 && selected < action_count &&
+        ((any_legal && masks[sample * action_count + selected] != 0) ||
+         (!any_legal && selected == 0));
+    if (!finite || !valid_action) atomicExch(invalid, 1);
 }
 
 __global__ void ppo_output_gradient_kernel(
@@ -257,19 +291,25 @@ __global__ void ppo_output_gradient_kernel(
     const int width = action_count + 1;
     const std::size_t base = lane * width;
     const std::size_t mask_base = lane * action_count;
+    bool any_legal = false;
     float maximum = -3.402823466e38F;
     for (int action = 0; action < action_count; ++action) {
-        if (masks[mask_base + action]) maximum = fmaxf(maximum, actor_critic_output[base + action]);
+        if (masks[mask_base + action]) {
+            any_legal = true;
+            maximum = fmaxf(maximum, actor_critic_output[base + action]);
+        }
     }
+    if (!any_legal) maximum = actor_critic_output[base];
     float probability_sum = 0.0F;
     for (int action = 0; action < action_count; ++action) {
-        if (masks[mask_base + action]) {
+        if ((any_legal && masks[mask_base + action]) || (!any_legal && action == 0)) {
             probability_sum += expf(actor_critic_output[base + action] - maximum);
         }
     }
     probability_sum = fmaxf(probability_sum, 1e-20F);
     const float log_sum = logf(probability_sum) + maximum;
-    const int selected = static_cast<int>(actions[lane]);
+    const int recorded = static_cast<int>(actions[lane]);
+    const int selected = any_legal ? recorded : 0;
     const float new_log_probability = actor_critic_output[base + selected] - log_sum;
     const float log_ratio = new_log_probability - old_log_probabilities[lane];
     const float ratio = expf(log_ratio);
@@ -283,7 +323,8 @@ __global__ void ppo_output_gradient_kernel(
 
     float entropy = 0.0F;
     for (int action = 0; action < action_count; ++action) {
-        if (!masks[mask_base + action]) {
+        const bool legal = (any_legal && masks[mask_base + action]) || (!any_legal && action == 0);
+        if (!legal) {
             output_gradients[base + action] = 0.0F;
             continue;
         }
@@ -296,7 +337,7 @@ __global__ void ppo_output_gradient_kernel(
             static_cast<float>(batch_size);
     }
     for (int action = 0; action < action_count; ++action) {
-        if (masks[mask_base + action]) {
+        if ((any_legal && masks[mask_base + action]) || (!any_legal && action == 0)) {
             const float log_probability = actor_critic_output[base + action] - log_sum;
             const float probability = expf(log_probability);
             output_gradients[base + action] += entropy_coefficient * probability *
@@ -413,6 +454,7 @@ __global__ void adam_kernel(
     const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
     if (index >= count) return;
     const float norm = sqrtf(gradient_square_sum[0]);
+    if (!isfinite(norm)) return;
     const float scale = norm > max_gradient_norm ? max_gradient_norm / fmaxf(norm, 1e-12F) : 1.0F;
     const float gradient = gradients[index] * scale;
     const float m = beta1 * first_moment[index] + (1.0F - beta1) * gradient;
@@ -448,9 +490,14 @@ std::vector<float> debug_ppo_objective_gradient(
     float return_value,
     const PpoUpdateConfig& config) {
     validate_ppo_coefficients(config);
+    const bool any_legal = std::any_of(
+        action_mask.begin(), action_mask.end(), [](std::uint8_t value) { return value != 0; });
+    const bool valid_selected_action = action >= 0 &&
+        static_cast<std::size_t>(action) < action_mask.size() &&
+        ((any_legal && action_mask[static_cast<std::size_t>(action)] != 0) ||
+         (!any_legal && action == 0));
     if (logits_and_value.size() < 3 || action_mask.size() + 1 != logits_and_value.size() ||
-        action < 0 || static_cast<std::size_t>(action) >= action_mask.size() ||
-        !action_mask[static_cast<std::size_t>(action)] ||
+        !valid_selected_action ||
         !std::all_of(logits_and_value.begin(), logits_and_value.end(),
                      [](float value) { return std::isfinite(value); }) ||
         !std::isfinite(old_log_probability) || !std::isfinite(old_value) ||
@@ -553,6 +600,7 @@ struct GpuActorCritic::Impl {
     float* moment2_bias_out = nullptr;
     float* gradient_square_sum = nullptr;
     float* metric_sums = nullptr;
+    int* invalid_rollout = nullptr;
     std::uint64_t optimizer_step = 0;
 
     Impl(std::size_t requested_capacity, ActorCriticConfig network_config, std::uint64_t seed)
@@ -614,6 +662,7 @@ struct GpuActorCritic::Impl {
         allocate_optimizer_tensor(bias_out, gradient_bias_out, moment1_bias_out, moment2_bias_out, output_size);
         check_cuda(cudaMalloc(&gradient_square_sum, sizeof(float)), "allocate gradient norm accumulator");
         check_cuda(cudaMalloc(&metric_sums, sizeof(float) * 6), "allocate PPO metric sums");
+        check_cuda(cudaMalloc(&invalid_rollout, sizeof(int)), "allocate PPO finite guard");
 
         std::mt19937_64 random(seed);
         initialize_matrix(weights_1, config.hidden_size, config.observation_size, random);
@@ -659,6 +708,7 @@ struct GpuActorCritic::Impl {
     }
 
     void release() noexcept {
+        cudaFree(invalid_rollout);
         cudaFree(metric_sums);
         cudaFree(gradient_square_sum);
         cudaFree(moment2_bias_out);
@@ -845,6 +895,21 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     validate_ppo_coefficients(update_config);
     const auto cuda_stream = as_stream(stream);
     check_cublas(cublasSetStream(impl_->cublas, cuda_stream), "set PPO CUDA stream");
+    check_cuda(cudaMemsetAsync(impl_->invalid_rollout, 0, sizeof(int), cuda_stream),
+               "clear PPO finite guard");
+    validate_rollout_kernel<<<blocks_for(rollout.sample_count), kThreads, 0, cuda_stream>>>(
+        rollout.observations, rollout.action_masks, rollout.actions,
+        rollout.old_log_probabilities, rollout.old_values, rollout.advantages, rollout.returns,
+        rollout.sample_count, impl_->config.observation_size, impl_->config.action_count,
+        impl_->invalid_rollout);
+    int invalid_rollout = 0;
+    check_cuda(cudaMemcpyAsync(&invalid_rollout, impl_->invalid_rollout, sizeof(int),
+                               cudaMemcpyDeviceToHost, cuda_stream),
+               "download PPO finite guard");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize PPO finite guard");
+    if (invalid_rollout != 0) {
+        throw std::runtime_error("PPO rollout contains a non-finite value or invalid action");
+    }
     check_cuda(cudaMemsetAsync(impl_->metric_sums, 0, sizeof(float) * 6, cuda_stream),
                "clear PPO metric sums");
     const int hidden = impl_->config.hidden_size;
@@ -855,21 +920,17 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     std::size_t minibatches = 0;
     int epochs_completed = 0;
     bool early_stopped = false;
-
-    const auto host_mix = [](std::uint64_t value) {
-        value += 0x9e3779b97f4a7c15ULL;
-        value = (value ^ (value >> 30U)) * 0xbf58476d1ce4e5b9ULL;
-        value = (value ^ (value >> 27U)) * 0x94d049bb133111ebULL;
-        return value ^ (value >> 31U);
-    };
+    ScopedDeviceBuffer<std::size_t> device_permutation(rollout.sample_count);
+    std::vector<std::size_t> host_permutation(rollout.sample_count);
+    std::iota(host_permutation.begin(), host_permutation.end(), std::size_t{0});
+    std::mt19937_64 shuffle_random(shuffle_seed);
+    float previous_kl_sum = 0.0F;
     for (int epoch = 0; epoch < update_config.epochs; ++epoch) {
-        std::size_t stride = static_cast<std::size_t>(host_mix(shuffle_seed + epoch) % rollout.sample_count);
-        if (stride == 0) stride = 1;
-        while (std::gcd(stride, rollout.sample_count) != 1) {
-            stride = stride + 1 == rollout.sample_count ? 1 : stride + 1;
-        }
-        const std::size_t permutation_offset =
-            static_cast<std::size_t>(host_mix(shuffle_seed ^ (0xD1B54A32D192ED03ULL + epoch)) % rollout.sample_count);
+        std::shuffle(host_permutation.begin(), host_permutation.end(), shuffle_random);
+        check_cuda(cudaMemcpyAsync(device_permutation.pointer, host_permutation.data(),
+                                   sizeof(std::size_t) * host_permutation.size(),
+                                   cudaMemcpyHostToDevice, cuda_stream),
+                   "upload PPO Fisher-Yates permutation");
 
         for (std::size_t batch_offset = 0; batch_offset < rollout.sample_count;
              batch_offset += update_config.minibatch_size) {
@@ -881,7 +942,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
                 rollout.observations, rollout.action_masks, rollout.actions,
                 rollout.old_log_probabilities, rollout.old_values,
                 rollout.advantages, rollout.returns,
-                rollout.sample_count, batch_offset, batch_size, stride, permutation_offset,
+                device_permutation.pointer, batch_offset, batch_size,
                 impl_->config.observation_size, impl_->config.action_count,
                 impl_->train_observations, impl_->train_masks, impl_->train_actions,
                 impl_->train_old_log_probabilities, impl_->train_old_values,
@@ -963,8 +1024,12 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
                                        cudaMemcpyDeviceToHost, cuda_stream),
                        "download PPO KL for early stopping");
             check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize PPO KL early stopping");
-            const float mean_kl = cumulative_kl /
-                static_cast<float>(rollout.sample_count * static_cast<std::size_t>(epochs_completed));
+            const float mean_kl = (cumulative_kl - previous_kl_sum) /
+                static_cast<float>(rollout.sample_count);
+            previous_kl_sum = cumulative_kl;
+            if (!std::isfinite(mean_kl)) {
+                throw std::runtime_error("PPO KL became non-finite; optimizer update aborted");
+            }
             if (mean_kl > update_config.target_kl) {
                 early_stopped = true;
                 break;
@@ -976,6 +1041,10 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     check_cuda(cudaMemcpyAsync(metrics.data(), impl_->metric_sums, sizeof(float) * metrics.size(),
                                cudaMemcpyDeviceToHost, cuda_stream), "download PPO metrics");
     check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize PPO update");
+    if (!std::all_of(metrics.begin(), metrics.end(),
+                     [](float value) { return std::isfinite(value); })) {
+        throw std::runtime_error("PPO metrics became non-finite; checkpoint was not written");
+    }
     const float sample_visits = static_cast<float>(
         rollout.sample_count * static_cast<std::size_t>(epochs_completed));
     return {metrics[0] / sample_visits, metrics[1] / sample_visits,
@@ -1044,6 +1113,10 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
     append_tensor(impl_->moment2_weights_1, w1); append_tensor(impl_->moment2_bias_1, c.hidden_size);
     append_tensor(impl_->moment2_weights_2, w2); append_tensor(impl_->moment2_bias_2, c.hidden_size);
     append_tensor(impl_->moment2_weights_out, wo); append_tensor(impl_->moment2_bias_out, bo);
+    if (!std::all_of(payload.begin(), payload.end(),
+                     [](float value) { return std::isfinite(value); })) {
+        throw std::runtime_error("refusing to save checkpoint with non-finite tensors: " + path.string());
+    }
 
     CheckpointHeader header{kCheckpointMagic, 2,
                             static_cast<std::uint32_t>(c.observation_size),
@@ -1109,6 +1182,10 @@ void GpuActorCritic::load_checkpoint(
     if (!input) throw std::runtime_error("checkpoint tensor is truncated: " + path.string());
     if (header.version == 2 && checkpoint_checksum(payload) != integrity.payload_checksum) {
         throw std::runtime_error("checkpoint checksum mismatch: " + path.string());
+    }
+    if (!std::all_of(payload.begin(), payload.end(),
+                     [](float value) { return std::isfinite(value); })) {
+        throw std::runtime_error("checkpoint contains non-finite tensors: " + path.string());
     }
 
     const auto cuda_stream = as_stream(stream);
@@ -1187,7 +1264,8 @@ __global__ void gae_kernel(
     const float* rewards,
     const float* values,
     const std::uint8_t* terminated,
-    const float* bootstrap_values,
+    const std::uint8_t* truncated,
+    const float* next_values,
     std::size_t environments,
     std::size_t horizon,
     float gamma,
@@ -1200,12 +1278,11 @@ __global__ void gae_kernel(
     for (std::size_t reverse = 0; reverse < horizon; ++reverse) {
         const std::size_t step = horizon - 1 - reverse;
         const std::size_t index = step * environments + environment;
-        const float next_value = step + 1 == horizon
-            ? bootstrap_values[environment]
-            : values[(step + 1) * environments + environment];
-        const float non_terminal = terminated[index] ? 0.0F : 1.0F;
-        const float delta = rewards[index] + gamma * next_value * non_terminal - values[index];
-        next_advantage = delta + gamma * gae_lambda * non_terminal * next_advantage;
+        const bool time_limit = truncated[index] != 0;
+        const float bootstrap_mask = terminated[index] && !time_limit ? 0.0F : 1.0F;
+        const float trace_mask = terminated[index] || time_limit ? 0.0F : 1.0F;
+        const float delta = rewards[index] + gamma * next_values[index] * bootstrap_mask - values[index];
+        next_advantage = delta + gamma * gae_lambda * trace_mask * next_advantage;
         advantages[index] = next_advantage;
         returns[index] = next_advantage + values[index];
     }
@@ -1214,16 +1291,16 @@ __global__ void gae_kernel(
 __global__ void advantage_stats_kernel(
     const float* advantages,
     std::size_t count,
-    float* block_sums,
-    float* block_square_sums) {
-    __shared__ float shared_sum[kThreads];
-    __shared__ float shared_square_sum[kThreads];
-    float local_sum = 0.0F;
-    float local_square_sum = 0.0F;
+    double* block_sums,
+    double* block_square_sums) {
+    __shared__ double shared_sum[kThreads];
+    __shared__ double shared_square_sum[kThreads];
+    double local_sum = 0.0;
+    double local_square_sum = 0.0;
     for (std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
          index < count;
          index += static_cast<std::size_t>(gridDim.x) * blockDim.x) {
-        const float value = advantages[index];
+        const double value = static_cast<double>(advantages[index]);
         local_sum += value;
         local_square_sum += value * value;
     }
@@ -1244,13 +1321,13 @@ __global__ void advantage_stats_kernel(
 }
 
 __global__ void finalize_advantage_stats_kernel(
-    const float* block_sums,
-    const float* block_square_sums,
+    const double* block_sums,
+    const double* block_square_sums,
     int block_count,
-    float* statistics) {
+    double* statistics) {
     if (blockIdx.x != 0 || threadIdx.x != 0) return;
-    float sum = 0.0F;
-    float square_sum = 0.0F;
+    double sum = 0.0;
+    double square_sum = 0.0;
     for (int block = 0; block < block_count; ++block) {
         sum += block_sums[block];
         square_sum += block_square_sums[block];
@@ -1262,13 +1339,34 @@ __global__ void finalize_advantage_stats_kernel(
 __global__ void normalize_advantages_kernel(
     float* advantages,
     std::size_t count,
-    const float* statistics) {
+    const double* statistics) {
     const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
     if (index >= count) return;
-    const float mean = statistics[0] / static_cast<float>(count);
-    const float second_moment = statistics[1] / static_cast<float>(count);
-    const float inverse_standard_deviation = rsqrtf(fmaxf(second_moment - mean * mean, 1e-8F));
-    advantages[index] = (advantages[index] - mean) * inverse_standard_deviation;
+    const double mean = statistics[0] / static_cast<double>(count);
+    const double second_moment = statistics[1] / static_cast<double>(count);
+    const double inverse_standard_deviation =
+        1.0 / sqrt(fmax(second_moment - mean * mean, 1e-12));
+    advantages[index] = static_cast<float>((static_cast<double>(advantages[index]) - mean) *
+                                           inverse_standard_deviation);
+}
+
+__global__ void record_outcome_kernel(
+    float* destination_rewards,
+    std::uint8_t* destination_terminated,
+    std::uint8_t* destination_truncated,
+    float* destination_next_values,
+    const float* rewards,
+    const std::uint8_t* terminated,
+    const std::uint8_t* truncated,
+    const float* next_values,
+    float reward_scale,
+    std::size_t count) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= count) return;
+    destination_rewards[lane] = rewards[lane] * reward_scale;
+    destination_terminated[lane] = terminated[lane];
+    destination_truncated[lane] = truncated[lane];
+    destination_next_values[lane] = next_values[lane];
 }
 
 }  // namespace
@@ -1285,21 +1383,20 @@ struct GpuRolloutBuffer::Impl {
     float* old_values = nullptr;
     float* rewards = nullptr;
     std::uint8_t* terminated = nullptr;
+    std::uint8_t* truncated = nullptr;
+    float* next_values = nullptr;
     float* advantages = nullptr;
     float* returns = nullptr;
-    float* advantage_statistics = nullptr;
-    float* advantage_block_sums = nullptr;
-    float* advantage_block_square_sums = nullptr;
+    double* advantage_statistics = nullptr;
+    double* advantage_block_sums = nullptr;
+    double* advantage_block_square_sums = nullptr;
     int advantage_reduction_blocks = 0;
 
     Impl(std::size_t environment_count, std::size_t horizon, ActorCriticConfig network_config)
         : environments(environment_count), rollout_horizon(horizon),
-          samples(checked_product(environment_count, horizon, "rollout sample count")),
+          samples(checked_rollout_samples(environment_count, horizon)),
           config(network_config),
           advantage_reduction_blocks(std::min(blocks_for(samples), 1024)) {
-        if (environments == 0 || rollout_horizon == 0) {
-            throw std::invalid_argument("rollout dimensions must be greater than zero");
-        }
         validate_actor_config(config);
         validate_allocation(samples, static_cast<std::size_t>(config.observation_size),
                             sizeof(float), "rollout observations");
@@ -1316,12 +1413,14 @@ struct GpuRolloutBuffer::Impl {
         check_cuda(cudaMalloc(&old_values, sizeof(float) * samples), "allocate rollout values");
         check_cuda(cudaMalloc(&rewards, sizeof(float) * samples), "allocate rollout rewards");
         check_cuda(cudaMalloc(&terminated, sizeof(std::uint8_t) * samples), "allocate rollout terminal flags");
+        check_cuda(cudaMalloc(&truncated, sizeof(std::uint8_t) * samples), "allocate rollout truncation flags");
+        check_cuda(cudaMalloc(&next_values, sizeof(float) * samples), "allocate rollout next values");
         check_cuda(cudaMalloc(&advantages, sizeof(float) * samples), "allocate rollout advantages");
         check_cuda(cudaMalloc(&returns, sizeof(float) * samples), "allocate rollout returns");
-        check_cuda(cudaMalloc(&advantage_statistics, sizeof(float) * 2), "allocate advantage statistics");
-        check_cuda(cudaMalloc(&advantage_block_sums, sizeof(float) * advantage_reduction_blocks),
+        check_cuda(cudaMalloc(&advantage_statistics, sizeof(double) * 2), "allocate advantage statistics");
+        check_cuda(cudaMalloc(&advantage_block_sums, sizeof(double) * advantage_reduction_blocks),
                    "allocate advantage block sums");
-        check_cuda(cudaMalloc(&advantage_block_square_sums, sizeof(float) * advantage_reduction_blocks),
+        check_cuda(cudaMalloc(&advantage_block_square_sums, sizeof(double) * advantage_reduction_blocks),
                    "allocate advantage block square sums");
         } catch (...) {
             release();
@@ -1335,6 +1434,8 @@ struct GpuRolloutBuffer::Impl {
         cudaFree(advantage_statistics);
         cudaFree(returns);
         cudaFree(advantages);
+        cudaFree(next_values);
+        cudaFree(truncated);
         cudaFree(terminated);
         cudaFree(rewards);
         cudaFree(old_values);
@@ -1364,7 +1465,8 @@ std::size_t GpuRolloutBuffer::sample_count() const noexcept { return impl_->samp
 GpuRolloutView GpuRolloutBuffer::device_view() const noexcept {
     return {impl_->observations, impl_->action_masks, impl_->actions,
             impl_->old_log_probabilities, impl_->old_values, impl_->rewards,
-            impl_->terminated, impl_->advantages, impl_->returns,
+            impl_->terminated, impl_->truncated, impl_->next_values,
+            impl_->advantages, impl_->returns,
             impl_->environments, impl_->rollout_horizon, impl_->samples};
 }
 
@@ -1405,33 +1507,38 @@ void GpuRolloutBuffer::record_outcome_device(
     std::size_t step,
     const float* rewards,
     const std::uint8_t* terminated,
+    const std::uint8_t* truncated,
+    const float* next_values,
+    float reward_scale,
     void* stream) {
     if (step >= impl_->rollout_horizon) throw std::out_of_range("rollout step exceeds horizon");
-    if (!rewards || !terminated) throw std::invalid_argument("outcome device pointers cannot be null");
+    if (!rewards || !terminated || !truncated || !next_values) {
+        throw std::invalid_argument("outcome device pointers cannot be null");
+    }
+    if (!std::isfinite(reward_scale) || reward_scale <= 0.0F) {
+        throw std::invalid_argument("reward scale must be finite and positive");
+    }
     const auto cuda_stream = as_stream(stream);
     const std::size_t sample_offset = step * impl_->environments;
-    check_cuda(cudaMemcpyAsync(impl_->rewards + sample_offset, rewards,
-                               sizeof(float) * impl_->environments,
-                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout rewards");
-    check_cuda(cudaMemcpyAsync(impl_->terminated + sample_offset, terminated,
-                               sizeof(std::uint8_t) * impl_->environments,
-                               cudaMemcpyDeviceToDevice, cuda_stream), "record rollout terminal flags");
+    record_outcome_kernel<<<blocks_for(impl_->environments), kThreads, 0, cuda_stream>>>(
+        impl_->rewards + sample_offset, impl_->terminated + sample_offset,
+        impl_->truncated + sample_offset, impl_->next_values + sample_offset,
+        rewards, terminated, truncated, next_values, reward_scale, impl_->environments);
+    check_cuda(cudaGetLastError(), "launch rollout outcome recording kernel");
 }
 
 void GpuRolloutBuffer::compute_gae(
-    const float* bootstrap_values,
     float gamma,
     float gae_lambda,
     bool normalize,
     void* stream) {
-    if (!bootstrap_values) throw std::invalid_argument("bootstrap values cannot be null");
     if (!std::isfinite(gamma) || !std::isfinite(gae_lambda) ||
         !(gamma >= 0.0F && gamma <= 1.0F && gae_lambda >= 0.0F && gae_lambda <= 1.0F)) {
         throw std::invalid_argument("gamma and gae_lambda must be in [0, 1]");
     }
     const auto cuda_stream = as_stream(stream);
     gae_kernel<<<blocks_for(impl_->environments), kThreads, 0, cuda_stream>>>(
-        impl_->rewards, impl_->old_values, impl_->terminated, bootstrap_values,
+        impl_->rewards, impl_->old_values, impl_->terminated, impl_->truncated, impl_->next_values,
         impl_->environments, impl_->rollout_horizon, gamma, gae_lambda,
         impl_->advantages, impl_->returns);
     if (normalize) {
@@ -1469,6 +1576,14 @@ std::vector<float> GpuRolloutBuffer::download_values(void* stream) const {
 
 std::vector<std::uint8_t> GpuRolloutBuffer::download_terminated(void* stream) const {
     return download(impl_->terminated, impl_->samples, as_stream(stream), "download rollout terminal flags");
+}
+
+std::vector<std::uint8_t> GpuRolloutBuffer::download_truncated(void* stream) const {
+    return download(impl_->truncated, impl_->samples, as_stream(stream), "download rollout truncation flags");
+}
+
+std::vector<float> GpuRolloutBuffer::download_next_values(void* stream) const {
+    return download(impl_->next_values, impl_->samples, as_stream(stream), "download rollout next values");
 }
 
 }  // namespace t8::v2

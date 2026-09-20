@@ -1,5 +1,6 @@
 param(
     [int]$Updates = 100,
+    [int]$AnnealUpdates = 100,
     [int]$Envs = 4096,
     [int]$Horizon = 128,
     [int]$Epochs = 4,
@@ -52,6 +53,7 @@ foreach ($seed in $seedValues) {
         }
         $trainerArgs = @(
             '--envs', $Envs, '--horizon', $Horizon, '--updates', $Updates,
+            '--anneal-updates', $AnnealUpdates,
             '--epochs', $Epochs, '--minibatch', $Minibatch, '--seed', $seed,
             '--eval-interval', $EvalInterval, '--eval-episodes', $EvalEpisodes,
             '--observation-mode', $ObservationMode, '--reward', $reward,

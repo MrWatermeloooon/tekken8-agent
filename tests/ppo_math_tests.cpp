@@ -112,6 +112,13 @@ void test_cuda_gradient_matches_finite_difference() {
     }
     check(cuda_gradient[2] == 0.0F, "masked action has exactly zero gradient");
 
+    const std::vector<std::uint8_t> all_masked(actions, 0);
+    const auto fallback_gradient = t8::v2::debug_ppo_objective_gradient(
+        output, all_masked, 0, 0.0F, old_value, advantage, return_value, config);
+    check(std::all_of(fallback_gradient.begin(), fallback_gradient.end(),
+                      [](float value) { return std::isfinite(value); }),
+          "all-masked PPO fallback matches sampler behavior and remains finite");
+
     config.learning_rate = std::numeric_limits<float>::quiet_NaN();
     bool rejected_non_finite = false;
     try {

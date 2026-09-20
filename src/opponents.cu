@@ -132,7 +132,8 @@ __global__ void scripted_actions_kernel(
         actions[lane] = static_cast<std::int64_t>(Action::Neutral);
         return;
     }
-    if (profiles != nullptr && profile_assignments != nullptr) {
+    if (opponent_set != ScriptedOpponentSet::HeldOutV2 &&
+        profiles != nullptr && profile_assignments != nullptr) {
         const std::uint32_t profile_index = profile_assignments[lane];
         if (profile_index >= profile_count) {
             actions[lane] = static_cast<std::int64_t>(Action::Neutral);
@@ -245,6 +246,15 @@ __global__ void scripted_actions_kernel(
     actions[lane] = static_cast<std::int64_t>(selected);
 }
 
+__global__ void replace_done_assignments_kernel(
+    std::uint32_t* assignments,
+    const std::uint32_t* candidates,
+    const std::uint8_t* done,
+    std::size_t count) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane < count && done[lane] != 0) assignments[lane] = candidates[lane];
+}
+
 }  // namespace
 
 struct GpuScriptedOpponent::Impl {
@@ -252,6 +262,7 @@ struct GpuScriptedOpponent::Impl {
     std::int64_t* actions = nullptr;
     OpponentProfileParameters* profiles = nullptr;
     std::uint32_t* profile_assignments = nullptr;
+    std::uint32_t* candidate_assignments = nullptr;
     std::size_t profile_count = 0;
     explicit Impl(std::size_t requested) : capacity(requested) {
         if (capacity == 0) throw std::invalid_argument("opponent capacity must be positive");
@@ -261,9 +272,12 @@ struct GpuScriptedOpponent::Impl {
                        "initialize scripted actions");
             check_cuda(cudaMalloc(&profile_assignments, sizeof(std::uint32_t) * capacity),
                        "allocate profile assignments");
+            check_cuda(cudaMalloc(&candidate_assignments, sizeof(std::uint32_t) * capacity),
+                       "allocate candidate profile assignments");
             check_cuda(cudaMemset(profile_assignments, 0, sizeof(std::uint32_t) * capacity),
                        "initialize profile assignments");
         } catch (...) {
+            cudaFree(candidate_assignments);
             cudaFree(profile_assignments);
             cudaFree(actions);
             throw;
@@ -271,6 +285,7 @@ struct GpuScriptedOpponent::Impl {
     }
     ~Impl() {
         cudaFree(profiles);
+        cudaFree(candidate_assignments);
         cudaFree(profile_assignments);
         cudaFree(actions);
     }
@@ -322,6 +337,27 @@ void GpuScriptedOpponent::set_profile_assignments(
     check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize profile assignment upload");
 }
 
+void GpuScriptedOpponent::set_profile_assignments_for_done(
+    std::span<const std::uint32_t> assignments,
+    const std::uint8_t* device_done,
+    void* stream) {
+    if (impl_->profiles == nullptr) throw std::logic_error("set profiles before profile assignments");
+    if (device_done == nullptr || assignments.size() != impl_->capacity) {
+        throw std::invalid_argument("done mask and candidate assignments must match opponent capacity");
+    }
+    for (const auto index : assignments) {
+        if (index >= impl_->profile_count) throw std::out_of_range("profile assignment is out of range");
+    }
+    const auto cuda_stream = as_stream(stream);
+    check_cuda(cudaMemcpyAsync(
+        impl_->candidate_assignments, assignments.data(),
+        sizeof(std::uint32_t) * assignments.size(), cudaMemcpyHostToDevice, cuda_stream),
+        "upload candidate profile assignments");
+    replace_done_assignments_kernel<<<blocks_for(impl_->capacity), kThreads, 0, cuda_stream>>>(
+        impl_->profile_assignments, impl_->candidate_assignments, device_done, impl_->capacity);
+    check_cuda(cudaGetLastError(), "launch done-lane profile assignment kernel");
+}
+
 void GpuScriptedOpponent::set_action_history(
     std::span<const std::int64_t> actions,
     void* stream) {
@@ -333,6 +369,18 @@ void GpuScriptedOpponent::set_action_history(
                                cudaMemcpyHostToDevice, as_stream(stream)),
                "upload opponent action history");
     check_cuda(cudaStreamSynchronize(as_stream(stream)), "synchronize opponent action history upload");
+}
+
+void GpuScriptedOpponent::set_action_history_device(
+    const std::int64_t* device_actions,
+    std::size_t environment_count,
+    void* stream) {
+    if (device_actions == nullptr || environment_count == 0 || environment_count > impl_->capacity) {
+        throw std::invalid_argument("invalid device action history");
+    }
+    check_cuda(cudaMemcpyAsync(
+        impl_->actions, device_actions, sizeof(std::int64_t) * environment_count,
+        cudaMemcpyDeviceToDevice, as_stream(stream)), "copy opponent action history");
 }
 
 bool GpuScriptedOpponent::uses_profiles() const noexcept { return impl_->profiles != nullptr; }

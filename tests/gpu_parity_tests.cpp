@@ -140,7 +140,49 @@ void test_uploaded_timeout_fixture() {
     near(gpu.download_rewards(2).front(), expected.reward_p2, "timeout P2 reward", 2e-3);
     near(gpu.download_sparse_rewards(1).front(), 1.0, "timeout sparse P1 win reward");
     near(gpu.download_sparse_rewards(2).front(), -1.0, "timeout sparse P2 loss reward");
+    check(gpu.download_truncated().front() != 0,
+          "production GPU max-frame timeout is marked as a truncation");
     check(gpu.download_winners().front() == 1, "GPU winner tensor exposes timeout winner");
+}
+
+void test_stall_and_no_action_timeouts_are_not_truncations() {
+    t8::v2::Config config{};
+    {
+        GpuSimulatorBatch gpu(1, config);
+        State state{};
+        state.p1.health = 180.0;
+        state.p2.health = 180.0;
+        state.p1.x = -2.0;
+        state.p2.x = 2.0;
+        state.stall_frames = config.max_stall_frames - 1;
+        state.frame = 10;
+        gpu.upload_states(std::span<const State>(&state, 1));
+        const std::vector<std::uint8_t> neutral(1, 0);
+        gpu.step_host(neutral, neutral);
+        const auto after = gpu.download_states().front();
+        check(after.round_over && after.winner == 0,
+              "stall timeout still ends the round as a no-winner draw");
+        check(gpu.download_truncated().front() == 0,
+              "the anti-stalling timeout is a terminal, not a GAE truncation");
+    }
+    {
+        GpuSimulatorBatch gpu(1, config);
+        State state{};
+        state.p1.health = 180.0;
+        state.p2.health = 180.0;
+        state.p1.x = 0.0;
+        state.p2.x = 0.3;
+        state.no_action_frames = config.no_action_timeout_frames - config.decision_frames;
+        state.frame = 10;
+        gpu.upload_states(std::span<const State>(&state, 1));
+        const std::vector<std::uint8_t> neutral(1, 0);
+        gpu.step_host(neutral, neutral);
+        const auto after = gpu.download_states().front();
+        check(after.round_over && after.winner == 0,
+              "no-action timeout still ends the round as a no-winner draw");
+        check(gpu.download_truncated().front() == 0,
+              "the no-action timeout is a terminal, not a GAE truncation");
+    }
 }
 
 void test_upload_refreshes_derived_outputs() {
@@ -282,6 +324,7 @@ int main() {
         test_upload_refreshes_derived_outputs();
         test_fair_timeout_draw_is_absorbing_and_summarized();
         test_seeded_randomized_resets();
+        test_stall_and_no_action_timeouts_are_not_truncations();
     }
     if (failures != 0) {
         std::cerr << failures << " GPU parity assertion(s) failed\n";

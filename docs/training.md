@@ -1,5 +1,50 @@
 # GPU PPO training
 
+## Guarded full-run launcher
+
+The one-command launcher uses the documented full-roster visual configuration, refuses to
+overwrite existing artifacts, and opens the independent checkpoint-following CUDA visualizer:
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass `
+  -File scripts\start_full_training.ps1 `
+  -RunDir runs\roster_visual_shaped_seed2027 `
+  -Seed 2027
+```
+
+Add `-NoVisualizer` for maximum isolated throughput. Use the native resume command below after an
+interruption; the launcher intentionally never guesses which checkpoint should be resumed.
+
+For an effectively open-ended overnight run with periodic checkpoints and Windows sleep
+prevention, start the supervisor in a background PowerShell process:
+
+```powershell
+$run = "runs\overnight_roster_visual_shaped_$(Get-Date -Format yyyyMMdd_HHmmss)"
+Start-Process powershell.exe -WindowStyle Hidden -ArgumentList @(
+  '-NoProfile', '-ExecutionPolicy', 'Bypass',
+  '-File', 'scripts\run_overnight_training.ps1',
+  '-RunDir', $run
+)
+```
+
+The default target is one million PPO updates, so the job keeps running until it is stopped or
+completes. It uses 4096 CUDA environments, the visual temporal observation, the full roster,
+automatic curriculum, and shaped reward. Check and stop it cleanly with:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\training_status.ps1 -RunDir $run
+powershell -ExecutionPolicy Bypass -File scripts\stop_training.ps1 -RunDir $run
+```
+
+To continue the same run after an interruption, first make sure `metrics.jsonl` ends at the chosen
+checkpoint update, then pass both the original run directory and checkpoint:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\run_overnight_training.ps1 `
+  -RunDir $run `
+  -ResumeCheckpoint "$run\checkpoints\update_100.t8ppo"
+```
+
 ## Observation and reward modes
 
 Roster training is the default (`--opponents roster`). `--observation-mode visual` starts with the
@@ -10,18 +55,26 @@ old 13/19 contracts for controlled comparisons.
 
 `--reward shaped` consumes dense combat rewards. `--reward sparse` consumes only terminal
 win/loss/draw outcomes. Evaluation always uses sparse outcomes regardless of training reward.
+Shaped rewards are scaled by `0.01` only when they enter PPO, keeping critic targets near unit
+scale without changing simulator rewards or behavior metrics. Sparse rewards remain unscaled.
 The clipped policy/value objective follows the core algorithm described in the
 [PPO paper](https://arxiv.org/abs/1707.06347), with target-KL stopping and gradient clipping.
+Max-frame boundaries bootstrap the post-step value as truncations; knockout, stalemate, and
+no-action boundaries remain hard terminals.
 
 Training is balanced in blocks of 16 lanes: eight matched profiles with the Jun learner as P1 and
 the same profiles with Jun as P2. Starts are deterministically randomized by seed. Profile tables,
 assignments, temporal history, character IDs, character move lookup, and actions remain in VRAM.
-Evaluation uses equal P1/P2 episodes, fair timeout draws, and a fixed seed sequence.
+New profiles are applied only when their lane resets, so an unfinished round never changes
+character. Evaluation uses equal P1/P2 episodes, fair timeout draws, a fixed seed sequence, fixed
+catalog coverage, and the separate `HeldOutV2` behavior set. Evaluation does not alter training
+opponent priorities.
 
-The automatic curriculum divides a run into four stages: Jun fundamentals, rotating character
-groups, the full roster, and adversarial/weakness-focused profiles. Use
-`--curriculum-stage 1|2|3|4` to pin a stage. Scheduling weight combines low score, uncertainty,
-regression from the best score, exploit severity, and easier variations for extremely weak cells.
+The automatic curriculum divides `--curriculum-updates` (default 100) into four stages: Jun
+fundamentals, rotating character groups, the full roster, and checkpoint self-play. Extending
+`--updates` therefore cannot move a resumed run backward. In the fourth stage, parallel lanes use
+the frozen latest checkpoint for 80% of matches and the highest held-out win-rate older checkpoint
+for 20%. Use `--curriculum-stage 1|2|3|4` to pin a stage.
 
 ## Example
 
@@ -30,19 +83,27 @@ build\Release\t8_v2_train.exe `
   --opponents roster --observation-mode visual --reward shaped --seed 2027 `
   --envs 4096 --horizon 128 --updates 100 `
   --epochs 4 --minibatch 4096 `
+  --learning-rate 0.0003 --final-learning-rate 0.00003 --anneal-updates 100 `
+  --entropy-coefficient 0.01 --final-entropy-coefficient 0.001 `
   --run-dir runs\visual_shaped_seed2027
 ```
 
 The environment and evaluation counts must be multiples of 16. `--smoke` selects a two-update
 plumbing check and is not evidence of learning quality.
 
+The trainer also exposes `--reward-scale`, `--gamma`, `--gae-lambda`, `--clip-range`,
+`--value-clip-range`, `--target-kl`, `--value-coefficient`, and `--max-gradient-norm`.
+`--anneal-updates` is independent of `--updates`, so extending and resuming a run does not alter
+the optimizer schedule of updates that already happened. `--curriculum-updates` provides the same
+stability for curriculum stages.
+
 ## Checkpoints and exact resume
 
 Every checkpoint interval writes two atomic artifacts:
 
 - `update_N.t8ppo`: architecture, weights, Adam moments, optimizer step, payload size, and checksum.
-- `update_N.t8state`: completed update, step/time counters, all run-defining options, and every GPU
-  simulator state serialized field-by-field.
+- `update_N.t8state`: completed update, step/time counters, all run-defining options, every GPU
+  simulator state, profile assignment, executed-action history, and both self-play temporal states.
 
 The simulator refreshes derived observations and masks after state upload. PPO reductions use a
 fixed order, so a resumed two-update run is regression-tested against an uninterrupted run by
@@ -73,7 +134,11 @@ bound so one heavily instrumented kernel family does not hide results from other
 temporary-file replacement so an interrupted write leaves a complete previous or new version.
 Optimization fields include policy/value loss, entropy, approximate KL, clip fraction, gradient
 norm, minibatches, completed epochs, and target-KL early-stop status. Evaluation rows include total,
-P1, P2, and per-style outcomes plus timeouts, stalemates, frames, and damage dealt/taken. Roster runs
+P1, P2, and per-style outcomes plus timeouts, stalemates, frames, and damage dealt/taken.
+`evaluation` is masked argmax and `evaluation_stochastic` samples the trained categorical policy.
+`training_opponent`, `latest_checkpoint_update`, and `best_older_checkpoint_update` identify the
+self-play pool used for each rollout.
+Roster runs
 also update `matchup_matrix.json` with every character/archetype cell, draw-aware score, matchup Elo,
 and forgetting flags. The Python `MatchupEvaluation` exporter adds punishment, throw-break,
 low-defense, string-interruption, sidestep, Heat-defense, and wall-escape rates in JSON/CSV.

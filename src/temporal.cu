@@ -88,7 +88,8 @@ __global__ void encode_kernel(
     float* previous_distance,
     std::uint8_t* valid,
     float* output,
-    std::size_t count) {
+    std::size_t count,
+    bool advance_history) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= count) return;
     const auto profile_index = assignments[lane];
@@ -112,14 +113,8 @@ __global__ void encode_kernel(
     }
 
     const std::size_t history_base = lane * kTemporalHistoryLength * kTemporalFeaturesPerStep;
-    for (std::size_t step = 0; step + 1 < kTemporalHistoryLength; ++step) {
-        for (std::size_t feature = 0; feature < kTemporalFeaturesPerStep; ++feature) {
-            history[history_base + step * kTemporalFeaturesPerStep + feature] =
-                history[history_base + (step + 1) * kTemporalFeaturesPerStep + feature];
-        }
-    }
     const std::int64_t action = valid[lane] != 0 ? opponent_actions[lane] : 0;
-    repeated_action_frames[lane] = valid[lane] != 0 && previous_actions[lane] == action
+    const std::int32_t next_repeated_action_frames = valid[lane] != 0 && previous_actions[lane] == action
         ? min(60, repeated_action_frames[lane] + 4) : 0;
     const float own_health = base[input_base + 0];
     const float opponent_health = base[input_base + 1];
@@ -137,23 +132,41 @@ __global__ void encode_kernel(
     const bool stance_action = action == 8 || action == 9 || action == 10 || action == 11 || action == 19;
     const float stance = stance_action && profile.stance_entry_frequency >= 0.5F
         ? static_cast<float>(profile.archetype_id + 1U) / 31.0F : 0.0F;
-    const std::size_t newest = history_base + (kTemporalHistoryLength - 1) * kTemporalFeaturesPerStep;
-    history[newest + 0] = fminf(1.0F, fmaxf(0.0F, static_cast<float>(action) / 23.0F));
-    history[newest + 1] = animation_phase;
-    history[newest + 2] = stance;
-    history[newest + 3] = hit_level_for_action(action);
-    history[newest + 4] = static_cast<float>(repeated_action_frames[lane]) / 60.0F;
-    history[newest + 5] = outcome;
-    history[newest + 6] = fminf(1.0F, fmaxf(0.0F, distance));
-    history[newest + 7] = side_movement;
-    for (std::size_t index = 0; index < kTemporalHistoryLength * kTemporalFeaturesPerStep; ++index) {
-        output[cursor + index] = history[history_base + index];
+    for (std::size_t step = 0; step + 1 < kTemporalHistoryLength; ++step) {
+        for (std::size_t feature = 0; feature < kTemporalFeaturesPerStep; ++feature) {
+            const float value = history[
+                history_base + (step + 1) * kTemporalFeaturesPerStep + feature];
+            output[cursor + step * kTemporalFeaturesPerStep + feature] = value;
+            if (advance_history) {
+                history[history_base + step * kTemporalFeaturesPerStep + feature] = value;
+            }
+        }
     }
-    previous_actions[lane] = action;
-    previous_own_health[lane] = own_health;
-    previous_opponent_health[lane] = opponent_health;
-    previous_distance[lane] = distance;
-    valid[lane] = 1;
+    const std::size_t newest_feature = (kTemporalHistoryLength - 1) * kTemporalFeaturesPerStep;
+    const float newest[kTemporalFeaturesPerStep] = {
+        fminf(1.0F, fmaxf(0.0F, static_cast<float>(action) / 23.0F)),
+        animation_phase,
+        stance,
+        hit_level_for_action(action),
+        static_cast<float>(next_repeated_action_frames) / 60.0F,
+        outcome,
+        fminf(1.0F, fmaxf(0.0F, distance)),
+        side_movement,
+    };
+    for (std::size_t feature = 0; feature < kTemporalFeaturesPerStep; ++feature) {
+        output[cursor + newest_feature + feature] = newest[feature];
+        if (advance_history) {
+            history[history_base + newest_feature + feature] = newest[feature];
+        }
+    }
+    if (advance_history) {
+        repeated_action_frames[lane] = next_repeated_action_frames;
+        previous_actions[lane] = action;
+        previous_own_health[lane] = own_health;
+        previous_opponent_health[lane] = opponent_health;
+        previous_distance[lane] = distance;
+        valid[lane] = 1;
+    }
 }
 
 }  // namespace
@@ -241,8 +254,25 @@ const float* GpuTemporalMatchupEncoder::encode(
         base, impl_->base_size, profiles, profile_count, assignments, actions,
         impl_->history, impl_->previous_actions, impl_->repeated_action_frames,
         impl_->previous_own_health, impl_->previous_opponent_health, impl_->previous_distance,
-        impl_->valid, impl_->output, count);
+        impl_->valid, impl_->output, count, true);
     check_cuda(cudaGetLastError(), "launch temporal encode kernel");
+    return impl_->output;
+}
+
+const float* GpuTemporalMatchupEncoder::preview(
+    const float* base, const OpponentProfileParameters* profiles, std::size_t profile_count,
+    const std::uint32_t* assignments, const std::int64_t* actions,
+    std::size_t count, void* stream) {
+    if (!base || !profiles || profile_count == 0 || !assignments || !actions ||
+        count == 0 || count > impl_->capacity) {
+        throw std::invalid_argument("invalid temporal encoder preview input");
+    }
+    encode_kernel<<<blocks_for(count), kThreads, 0, as_stream(stream)>>>(
+        base, impl_->base_size, profiles, profile_count, assignments, actions,
+        impl_->history, impl_->previous_actions, impl_->repeated_action_frames,
+        impl_->previous_own_health, impl_->previous_opponent_health, impl_->previous_distance,
+        impl_->valid, impl_->output, count, false);
+    check_cuda(cudaGetLastError(), "launch temporal preview kernel");
     return impl_->output;
 }
 

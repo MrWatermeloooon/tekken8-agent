@@ -140,6 +140,8 @@ struct GpuRolloutView {
     const float* old_values = nullptr;
     const float* rewards = nullptr;
     const std::uint8_t* terminated = nullptr;
+    const std::uint8_t* truncated = nullptr;
+    const float* next_values = nullptr;
     const float* advantages = nullptr;
     const float* returns = nullptr;
     std::size_t environment_count = 0;
@@ -178,11 +180,13 @@ public:
         std::size_t step,
         const float* rewards,
         const std::uint8_t* terminated,
+        const std::uint8_t* truncated,
+        const float* next_values,
+        float reward_scale = 1.0F,
         void* stream = nullptr);
 
     void compute_gae(
-        const float* bootstrap_values,
-        float gamma = 0.99F,
+        float gamma = 0.997F,
         float gae_lambda = 0.95F,
         bool normalize_advantages = true,
         void* stream = nullptr);
@@ -193,6 +197,8 @@ public:
     [[nodiscard]] std::vector<float> download_rewards(void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_values(void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::uint8_t> download_terminated(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<std::uint8_t> download_truncated(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<float> download_next_values(void* stream = nullptr) const;
 
 private:
     struct Impl;

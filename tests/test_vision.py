@@ -48,6 +48,22 @@ def test_temporal_estimator_rejects_shared_camera_motion_as_attack() -> None:
     assert estimate.p2_attack_likelihood < 0.2
 
 
+def test_temporal_estimator_swaps_motion_identity_after_side_switch() -> None:
+    estimator = TemporalScreenEstimator(motion_threshold=0.015)
+    first = np.zeros((180, 320, 3), dtype=np.uint8)
+    second = first.copy()
+    second[40:140, 20:140] = 120
+
+    estimator.update(_state(), first)
+    left_estimate = estimator.update(_state(), second)
+    estimator.set_p1_on_left(False)
+    estimator.update(_state(), first)
+    right_estimate = estimator.update(_state(), second)
+
+    assert left_estimate.p1_motion > left_estimate.p2_motion
+    assert right_estimate.p2_motion > right_estimate.p1_motion
+
+
 def test_vision_agent_approaches_at_long_range() -> None:
     estimate = VisualEstimate(1.0, 1.0, -2.0, 2.0, 4.0, 0.0, 0.0, 0.0, 0.0, False, False, 0.0, 0.0)
 

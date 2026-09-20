@@ -178,3 +178,25 @@ def test_screen_backend_applies_two_point_distance_calibration(tmp_path) -> None
     assert state.raw is not None
     assert state.raw["position_distance_calibrated"] is True
     assert 0.44 <= state.distance <= 7.2
+
+
+def test_screen_backend_swaps_player_positions_after_side_switch(tmp_path) -> None:
+    frame = np.zeros((40, 80, 3), dtype=np.uint8)
+    frame[25:35, 12:18] = [40, 180, 40]
+    frame[25:35, 60:66] = [40, 40, 180]
+    config = tmp_path / "screen.yaml"
+    config.write_text(
+        "p1_body_region: [0, 20, 40, 40]\n"
+        "p2_body_region: [40, 20, 80, 40]\n",
+        encoding="utf-8",
+    )
+    backend = DxcamScreenStateBackend(config_path=config, camera=FakeCamera(frame))
+
+    left_state = backend.read()
+    backend.set_p1_on_left(False)
+    right_state = backend.read()
+
+    assert left_state.p1.position_x < left_state.p2.position_x
+    assert right_state.p1.position_x > right_state.p2.position_x
+    assert right_state.p1.facing == -1
+    assert right_state.raw is not None and right_state.raw["p1_on_left"] is False

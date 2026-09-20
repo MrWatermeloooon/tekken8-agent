@@ -24,6 +24,7 @@
 #include <stdexcept>
 #include <string>
 #include <string_view>
+#include <thread>
 #include <type_traits>
 #include <utility>
 #include <vector>
@@ -43,8 +44,19 @@ struct Options {
     int epochs = 4;
     std::size_t minibatch_size = 4096;
     float learning_rate = 3e-4F;
-    float gamma = 0.99F;
+    float final_learning_rate = 3e-5F;
+    std::size_t anneal_updates = 100;
+    float gamma = 0.997F;
     float gae_lambda = 0.95F;
+    float reward_scale = 0.01F;
+    float clip_range = 0.2F;
+    float value_clip_range = 0.2F;
+    float target_kl = 0.02F;
+    float value_coefficient = 0.5F;
+    float entropy_coefficient = 0.01F;
+    float final_entropy_coefficient = 0.001F;
+    float max_gradient_norm = 0.5F;
+    std::size_t curriculum_updates = 100;
     std::uint64_t seed = 2027;
     std::size_t checkpoint_interval = 1;
     std::size_t evaluation_interval = 10;
@@ -58,6 +70,7 @@ struct Options {
     std::filesystem::path run_directory;
     std::filesystem::path resume_checkpoint;
     bool run_directory_explicit = false;
+    bool reward_scale_explicit = false;
 };
 
 std::size_t parse_size(const char* text, std::string_view option) {
@@ -86,8 +99,26 @@ Options parse_options(int argc, char** argv) {
         }
         else if (argument == "--minibatch") options.minibatch_size = parse_size(next(), argument);
         else if (argument == "--learning-rate") options.learning_rate = std::stof(next());
+        else if (argument == "--final-learning-rate") options.final_learning_rate = std::stof(next());
+        else if (argument == "--anneal-updates") options.anneal_updates = parse_size(next(), argument);
         else if (argument == "--gamma") options.gamma = std::stof(next());
         else if (argument == "--gae-lambda") options.gae_lambda = std::stof(next());
+        else if (argument == "--reward-scale") {
+            options.reward_scale = std::stof(next());
+            options.reward_scale_explicit = true;
+        }
+        else if (argument == "--clip-range") options.clip_range = std::stof(next());
+        else if (argument == "--value-clip-range") options.value_clip_range = std::stof(next());
+        else if (argument == "--target-kl") options.target_kl = std::stof(next());
+        else if (argument == "--value-coefficient") options.value_coefficient = std::stof(next());
+        else if (argument == "--entropy-coefficient") options.entropy_coefficient = std::stof(next());
+        else if (argument == "--final-entropy-coefficient") {
+            options.final_entropy_coefficient = std::stof(next());
+        }
+        else if (argument == "--max-gradient-norm") options.max_gradient_norm = std::stof(next());
+        else if (argument == "--curriculum-updates") {
+            options.curriculum_updates = parse_size(next(), argument);
+        }
         else if (argument == "--seed") options.seed = std::stoull(next());
         else if (argument == "--checkpoint-interval") options.checkpoint_interval = parse_size(next(), argument);
         else if (argument == "--eval-interval") options.evaluation_interval = parse_size(next(), argument);
@@ -146,11 +177,24 @@ Options parse_options(int argc, char** argv) {
     if (!std::isfinite(options.learning_rate) || options.learning_rate <= 0.0F) {
         throw std::invalid_argument("--learning-rate must be finite and positive");
     }
+    if (!std::isfinite(options.final_learning_rate) || options.final_learning_rate <= 0.0F) {
+        throw std::invalid_argument("--final-learning-rate must be finite and positive");
+    }
     if (!std::isfinite(options.gamma) || options.gamma < 0.0F || options.gamma > 1.0F ||
         !std::isfinite(options.gae_lambda) || options.gae_lambda < 0.0F ||
         options.gae_lambda > 1.0F) {
         throw std::invalid_argument("--gamma and --gae-lambda must be finite and in [0, 1]");
     }
+    if (options.sparse_reward && !options.reward_scale_explicit) options.reward_scale = 1.0F;
+    const bool invalid_ppo = !std::isfinite(options.reward_scale) || options.reward_scale <= 0.0F ||
+        !std::isfinite(options.clip_range) || options.clip_range < 0.0F ||
+        !std::isfinite(options.value_clip_range) || options.value_clip_range < 0.0F ||
+        !std::isfinite(options.target_kl) || options.target_kl < 0.0F ||
+        !std::isfinite(options.value_coefficient) || options.value_coefficient < 0.0F ||
+        !std::isfinite(options.entropy_coefficient) || options.entropy_coefficient < 0.0F ||
+        !std::isfinite(options.final_entropy_coefficient) || options.final_entropy_coefficient < 0.0F ||
+        !std::isfinite(options.max_gradient_norm) || options.max_gradient_norm <= 0.0F;
+    if (invalid_ppo) throw std::invalid_argument("PPO and reward coefficients are invalid or non-finite");
     if (options.environments > std::numeric_limits<std::size_t>::max() / options.horizon) {
         throw std::invalid_argument("rollout sample count overflows size_t");
     }
@@ -192,7 +236,7 @@ std::pair<t8::v2::CurriculumStage, std::uint32_t> curriculum_for_update(
                                          t8::v2::Evasive | t8::v2::Specialist)
             : 0U};
     }
-    const std::size_t stage_span = std::max<std::size_t>(1, (options.updates + 3) / 4);
+    const std::size_t stage_span = std::max<std::size_t>(1, (options.curriculum_updates + 3) / 4);
     if (update <= stage_span) return {t8::v2::CurriculumStage::JunFundamentals, 0U};
     if (update <= 2 * stage_span) {
         constexpr std::array<std::uint32_t, 7> groups = {
@@ -204,6 +248,101 @@ std::pair<t8::v2::CurriculumStage, std::uint32_t> curriculum_for_update(
     }
     if (update <= 3 * stage_span) return {t8::v2::CurriculumStage::FullRoster, 0U};
     return {t8::v2::CurriculumStage::AdversarialLeague, 0U};
+}
+
+struct SelfPlaySelection {
+    std::filesystem::path latest_checkpoint;
+    std::filesystem::path best_older_checkpoint;
+    std::size_t latest_update = 0;
+    std::size_t best_older_update = 0;
+};
+
+std::vector<std::pair<std::size_t, double>> evaluation_scores(
+    const std::filesystem::path& metrics_path) {
+    std::vector<std::pair<std::size_t, double>> result;
+    std::ifstream input(metrics_path);
+    std::string line;
+    while (std::getline(input, line)) {
+        const auto update_marker = line.find("\"update\":");
+        const auto evaluation_marker = line.find("\"evaluation\":{\"total\":");
+        if (update_marker == std::string::npos || evaluation_marker == std::string::npos) continue;
+        const auto update_begin = update_marker + 9;
+        const auto update_end = line.find(',', update_begin);
+        const auto win_marker = line.find("\"win_rate\":", evaluation_marker);
+        if (update_end == std::string::npos || win_marker == std::string::npos) continue;
+        const auto win_begin = win_marker + 11;
+        const auto win_end = line.find_first_of(",}", win_begin);
+        if (win_end == std::string::npos) continue;
+        result.emplace_back(
+            static_cast<std::size_t>(std::stoull(line.substr(update_begin, update_end - update_begin))),
+            std::stod(line.substr(win_begin, win_end - win_begin)));
+    }
+    return result;
+}
+
+std::optional<SelfPlaySelection> select_self_play_checkpoint(
+    const std::filesystem::path& checkpoint_directory,
+    const std::filesystem::path& metrics_path,
+    std::size_t current_update) {
+    struct Candidate {
+        std::filesystem::path checkpoint;
+        std::size_t update = 0;
+    };
+    std::vector<Candidate> candidates;
+    if (!std::filesystem::exists(checkpoint_directory)) return std::nullopt;
+    for (const auto& entry : std::filesystem::directory_iterator(checkpoint_directory)) {
+        if (!entry.is_regular_file() || entry.path().extension() != ".t8ppo") continue;
+        const std::string stem = entry.path().stem().string();
+        constexpr std::string_view prefix = "update_";
+        if (!stem.starts_with(prefix)) continue;
+        const std::string digits = stem.substr(prefix.size());
+        if (digits.empty() || !std::all_of(digits.begin(), digits.end(), [](unsigned char value) {
+                return std::isdigit(value) != 0;
+            })) continue;
+        const auto update = static_cast<std::size_t>(std::stoull(digits));
+        if (update < current_update) candidates.push_back({entry.path(), update});
+    }
+    if (candidates.empty()) return std::nullopt;
+    std::sort(candidates.begin(), candidates.end(), [](const auto& left, const auto& right) {
+        return left.update < right.update;
+    });
+    const Candidate latest = candidates.back();
+    Candidate best = latest;
+    if (candidates.size() == 1) {
+        return SelfPlaySelection{
+            latest.checkpoint, latest.checkpoint, latest.update, latest.update};
+    }
+
+    const auto scores = evaluation_scores(metrics_path);
+    best = candidates.front();
+    double best_score = -std::numeric_limits<double>::infinity();
+    bool found_scored = false;
+    for (const auto& candidate : candidates) {
+        if (candidate.update == latest.update) continue;
+        const auto score = std::find_if(scores.begin(), scores.end(), [&](const auto& value) {
+            return value.first == candidate.update;
+        });
+        if (score != scores.end() &&
+            (!found_scored || score->second > best_score ||
+             (score->second == best_score && candidate.update > best.update))) {
+            best = candidate;
+            best_score = score->second;
+            found_scored = true;
+        }
+    }
+    if (!found_scored && candidates.size() > 1) best = candidates[candidates.size() - 2];
+    return SelfPlaySelection{
+        latest.checkpoint, best.checkpoint, latest.update, best.update};
+}
+
+std::uint32_t jun_profile_index(
+    std::span<const t8::v2::OpponentProfileParameters> profiles) {
+    const auto found = std::find_if(profiles.begin(), profiles.end(), [](const auto& profile) {
+        return profile.character_id == t8::v2::kJunCharacterId &&
+            (profile.group_mask & t8::v2::Fundamentals) != 0;
+    });
+    if (found == profiles.end()) throw std::runtime_error("opponent catalog has no Jun profile");
+    return static_cast<std::uint32_t>(std::distance(profiles.begin(), found));
 }
 
 std::filesystem::path resolve_generated_catalog(
@@ -256,7 +395,7 @@ t8::v2::GpuEpisodeSummary evaluate_side(
     bool full_roster,
     std::span<const t8::v2::OpponentProfileParameters> profiles,
     std::span<const t8::v2::CharacterMoveParameters> character_moves,
-    t8::v2::MatchupScheduler* scheduler) {
+    bool deterministic) {
     t8::v2::GpuEpisodeSummary aggregate{};
     std::size_t completed = 0;
     while (completed < requested_episodes) {
@@ -271,13 +410,18 @@ t8::v2::GpuEpisodeSummary evaluate_side(
         std::vector<std::uint32_t> assignments;
         std::unique_ptr<t8::v2::GpuTemporalMatchupEncoder> temporal;
         if (full_roster) {
-            if (profiles.empty() || character_moves.empty() || scheduler == nullptr) {
+            if (profiles.empty() || character_moves.empty()) {
                 throw std::logic_error(
-                    "full-roster evaluation requires profiles, character moves, and a scheduler");
+                    "full-roster evaluation requires profiles and character moves");
             }
             simulator.set_character_move_specs(character_moves);
             opponent.set_profiles(profiles);
-            assignments = scheduler->sample_profile_indices(environments, false);
+            assignments.resize(environments);
+            for (std::size_t lane = 0; lane < environments; ++lane) {
+                const std::size_t global_lane = completed + lane;
+                assignments[lane] = static_cast<std::uint32_t>(
+                    (global_lane * profiles.size()) / requested_episodes);
+            }
             opponent.set_profile_assignments(assignments);
             simulator.set_opponent_characters_device(
                 opponent.profiles_device(), opponent.profile_count(),
@@ -303,17 +447,13 @@ t8::v2::GpuEpisodeSummary evaluate_side(
                 }
                 const auto p1 = learner.forward(
                     policy_observations, before.action_masks_p1,
-                    environments, seed, decision, true);
+                    environments, seed, decision, deterministic);
                 const auto* p2 = opponent.actions_device(
                     before.observations_p2, before.action_masks_p2,
                     environments, seed + 1, decision,
                     t8::v2::ScriptedOpponentSet::HeldOutV2);
                 simulator.step_device_i64(p1.actions, p2);
             } else {
-                const auto* p1 = opponent.actions_device(
-                    before.observations_p1, before.action_masks_p1,
-                    environments, seed + 1, decision,
-                    t8::v2::ScriptedOpponentSet::HeldOutV2);
                 const float* policy_observations = learner_p2_observations;
                 if (temporal) {
                     policy_observations = temporal->encode(
@@ -322,7 +462,11 @@ t8::v2::GpuEpisodeSummary evaluate_side(
                 }
                 const auto p2 = learner.forward(
                     policy_observations, before.action_masks_p2,
-                    environments, seed, decision, true);
+                    environments, seed, decision, deterministic);
+                const auto* p1 = opponent.actions_device(
+                    before.observations_p1, before.action_masks_p1,
+                    environments, seed + 1, decision,
+                    t8::v2::ScriptedOpponentSet::HeldOutV2);
                 simulator.step_device_i64(p1, p2.actions);
             }
         }
@@ -331,15 +475,6 @@ t8::v2::GpuEpisodeSummary evaluate_side(
             throw std::runtime_error("held-out evaluation did not terminate every GPU lane");
         }
         merge_summary(aggregate, summary);
-        if (full_roster) {
-            const auto winners = simulator.download_winners();
-            for (std::size_t lane = 0; lane < environments; ++lane) {
-                const bool win = winners[lane] == learner_player;
-                const bool draw = winners[lane] == 0;
-                scheduler->record(assignments[lane], win ? 1U : 0U,
-                                  !win && !draw ? 1U : 0U, draw ? 1U : 0U);
-            }
-        }
         completed += environments;
         seed += 0x9e3779b97f4a7c15ULL;
     }
@@ -354,23 +489,14 @@ Evaluation evaluate(
     bool full_roster,
     std::span<const t8::v2::OpponentProfileParameters> profiles,
     std::span<const t8::v2::CharacterMoveParameters> character_moves,
-    t8::v2::MatchupScheduler* scheduler) {
+    bool deterministic) {
     Evaluation result{};
-    t8::v2::CurriculumStage previous_stage = t8::v2::CurriculumStage::FullRoster;
-    std::uint32_t previous_groups = 0;
-    if (full_roster) {
-        if (scheduler == nullptr) throw std::logic_error("full-roster evaluation requires a scheduler");
-        previous_stage = scheduler->stage();
-        previous_groups = scheduler->active_group_mask();
-        scheduler->set_stage(t8::v2::CurriculumStage::FullRoster);
-    }
     const std::size_t p1_episodes = requested_episodes / 2;
     const std::size_t p2_episodes = requested_episodes - p1_episodes;
     result.as_p1 = evaluate_side(learner, p1_episodes, seed, 1, visual_observations,
-                                 full_roster, profiles, character_moves, scheduler);
+                                 full_roster, profiles, character_moves, deterministic);
     result.as_p2 = evaluate_side(learner, p2_episodes, seed + 100'000, 2, visual_observations,
-                                 full_roster, profiles, character_moves, scheduler);
-    if (full_roster) scheduler->set_stage(previous_stage, previous_groups);
+                                 full_roster, profiles, character_moves, deterministic);
     merge_summary(result.total, result.as_p1);
     merge_summary(result.total, result.as_p2);
     result.win_rate = result.total.episodes == 0 ? 0.0 :
@@ -418,7 +544,9 @@ void append_metrics(
     std::string_view observation_mode,
     const t8::v2::PpoUpdateMetrics& metrics,
     double elapsed_seconds,
-    const std::optional<Evaluation>& evaluation) {
+    const std::optional<Evaluation>& deterministic_evaluation,
+    const std::optional<Evaluation>& stochastic_evaluation,
+    const std::optional<SelfPlaySelection>& self_play_selection) {
     std::ostringstream row;
     row << std::setprecision(9)
            << "{\"update\":" << update
@@ -435,14 +563,30 @@ void append_metrics(
            << ",\"gradient_norm\":" << metrics.gradient_norm
            << ",\"minibatches\":" << metrics.minibatches
            << ",\"epochs_completed\":" << metrics.epochs_completed
-           << ",\"kl_early_stop\":" << (metrics.early_stopped ? "true" : "false");
-    if (evaluation) {
+           << ",\"kl_early_stop\":" << (metrics.early_stopped ? "true" : "false")
+           << ",\"training_opponent\":\""
+           << (self_play_selection ? "self_play_80_latest_20_best" : "scripted")
+           << '"';
+    if (self_play_selection) {
+        row << ",\"latest_checkpoint_update\":" << self_play_selection->latest_update
+            << ",\"best_older_checkpoint_update\":" << self_play_selection->best_older_update;
+    }
+    if (deterministic_evaluation) {
         row << ",\"evaluation\":{";
-        append_summary_json(row, "total", evaluation->total);
+        append_summary_json(row, "total", deterministic_evaluation->total);
         row << ',';
-        append_summary_json(row, "as_p1", evaluation->as_p1);
+        append_summary_json(row, "as_p1", deterministic_evaluation->as_p1);
         row << ',';
-        append_summary_json(row, "as_p2", evaluation->as_p2);
+        append_summary_json(row, "as_p2", deterministic_evaluation->as_p2);
+        row << '}';
+    }
+    if (stochastic_evaluation) {
+        row << ",\"evaluation_stochastic\":{";
+        append_summary_json(row, "total", stochastic_evaluation->total);
+        row << ',';
+        append_summary_json(row, "as_p1", stochastic_evaluation->as_p1);
+        row << ',';
+        append_summary_json(row, "as_p2", stochastic_evaluation->as_p2);
         row << '}';
     }
     row << "}\n";
@@ -468,10 +612,30 @@ void append_metrics(
     if (!output) throw std::runtime_error("metrics write failed: " + temporary.string());
     output.close();
 #ifdef _WIN32
-    if (!MoveFileExW(
-            temporary.c_str(), path.c_str(),
-            MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) {
-        throw std::runtime_error("could not atomically replace metrics: " + path.string());
+    // Antivirus, indexers, sync clients, and monitoring readers can briefly open
+    // the current ledger without delete sharing. Keep the completed temporary
+    // ledger and retry the atomic replacement instead of ending a long run.
+    constexpr int kReplaceAttempts = 600;
+    DWORD replace_error = ERROR_SUCCESS;
+    bool replaced = false;
+    for (int attempt = 0; attempt < kReplaceAttempts; ++attempt) {
+        if (MoveFileExW(
+                temporary.c_str(), path.c_str(),
+                MOVEFILE_REPLACE_EXISTING | MOVEFILE_WRITE_THROUGH)) {
+            replaced = true;
+            break;
+        }
+        replace_error = GetLastError();
+        const bool transient = replace_error == ERROR_ACCESS_DENIED ||
+            replace_error == ERROR_SHARING_VIOLATION ||
+            replace_error == ERROR_LOCK_VIOLATION;
+        if (!transient) break;
+        std::this_thread::sleep_for(std::chrono::milliseconds(50));
+    }
+    if (!replaced) {
+        throw std::runtime_error(
+            "could not atomically replace metrics (Windows error " +
+            std::to_string(replace_error) + "): " + path.string());
     }
 #else
     std::filesystem::rename(temporary, path);
@@ -488,6 +652,9 @@ struct ResumeState {
     std::vector<t8::v2::MatchupStats> scheduler_stats;
     std::uint64_t scheduler_random_state = 0;
     std::optional<t8::v2::TemporalEncoderState> temporal_state;
+    std::vector<std::int64_t> learner_actions;
+    bool self_play_active = false;
+    std::optional<t8::v2::TemporalEncoderState> self_play_temporal_state;
 };
 
 template <typename T>
@@ -578,7 +745,10 @@ void save_trainer_state(
     std::span<const std::int64_t> opponent_actions = {},
     std::span<const t8::v2::MatchupStats> scheduler_stats = {},
     std::uint64_t scheduler_random_state = 0,
-    const t8::v2::TemporalEncoderState* temporal_state = nullptr) {
+    const t8::v2::TemporalEncoderState* temporal_state = nullptr,
+    std::span<const std::int64_t> learner_actions = {},
+    bool self_play_active = false,
+    const t8::v2::TemporalEncoderState* self_play_temporal_state = nullptr) {
     if (std::filesystem::exists(path)) {
         throw std::runtime_error("refusing to overwrite trainer state: " + path.string());
     }
@@ -590,7 +760,7 @@ void save_trainer_state(
     if (!output) throw std::runtime_error("could not write trainer state: " + temporary.string());
     constexpr std::array<char, 8> magic = {'T', '8', 'R', 'U', 'N', 'V', '2', '\0'};
     output.write(magic.data(), static_cast<std::streamsize>(magic.size()));
-    write_value(output, std::uint32_t{3});
+    write_value(output, std::uint32_t{5});
     write_value(output, static_cast<std::uint64_t>(completed_update));
     write_value(output, environment_steps);
     write_value(output, elapsed_seconds);
@@ -602,6 +772,17 @@ void save_trainer_state(
     write_value(output, options.learning_rate);
     write_value(output, options.gamma);
     write_value(output, options.gae_lambda);
+    write_value(output, options.final_learning_rate);
+    write_value(output, static_cast<std::uint64_t>(options.anneal_updates));
+    write_value(output, options.reward_scale);
+    write_value(output, options.clip_range);
+    write_value(output, options.value_clip_range);
+    write_value(output, options.target_kl);
+    write_value(output, options.value_coefficient);
+    write_value(output, options.entropy_coefficient);
+    write_value(output, options.final_entropy_coefficient);
+    write_value(output, options.max_gradient_norm);
+    write_value(output, static_cast<std::uint64_t>(options.curriculum_updates));
     write_value(output, static_cast<std::uint64_t>(options.checkpoint_interval));
     write_value(output, static_cast<std::uint64_t>(options.evaluation_interval));
     write_value(output, static_cast<std::uint64_t>(options.evaluation_episodes));
@@ -622,7 +803,9 @@ void save_trainer_state(
     if (options.full_roster) {
         if (profile_assignments.size() != options.environments ||
             opponent_actions.size() != options.environments ||
-            scheduler_stats.size() != t8::v2::kOpponentProfileCount || temporal_state == nullptr) {
+            learner_actions.size() != options.environments ||
+            scheduler_stats.size() != t8::v2::kOpponentProfileCount || temporal_state == nullptr ||
+            (self_play_active && self_play_temporal_state == nullptr)) {
             throw std::invalid_argument("full-roster trainer state is incomplete");
         }
         write_vector(output, profile_assignments);
@@ -642,6 +825,17 @@ void save_trainer_state(
         write_vector(output, std::span<const float>(temporal_state->previous_opponent_health));
         write_vector(output, std::span<const float>(temporal_state->previous_distance));
         write_vector(output, std::span<const std::uint8_t>(temporal_state->valid));
+        write_value(output, static_cast<std::uint8_t>(self_play_active));
+        write_vector(output, learner_actions);
+        if (self_play_active) {
+            write_vector(output, std::span<const float>(self_play_temporal_state->history));
+            write_vector(output, std::span<const std::int64_t>(self_play_temporal_state->previous_actions));
+            write_vector(output, std::span<const std::int32_t>(self_play_temporal_state->repeated_action_frames));
+            write_vector(output, std::span<const float>(self_play_temporal_state->previous_own_health));
+            write_vector(output, std::span<const float>(self_play_temporal_state->previous_opponent_health));
+            write_vector(output, std::span<const float>(self_play_temporal_state->previous_distance));
+            write_vector(output, std::span<const std::uint8_t>(self_play_temporal_state->valid));
+        }
     }
     output.flush();
     if (!output) throw std::runtime_error("trainer-state write failed: " + temporary.string());
@@ -656,7 +850,7 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     input.read(magic.data(), static_cast<std::streamsize>(magic.size()));
     constexpr std::array<char, 8> expected_magic = {'T', '8', 'R', 'U', 'N', 'V', '2', '\0'};
     const auto version = read_value<std::uint32_t>(input, path);
-    if (!input || magic != expected_magic || (version < 1 || version > 3)) {
+    if (!input || magic != expected_magic || (version < 1 || version > 5)) {
         throw std::runtime_error("unsupported trainer state: " + path.string());
     }
     ResumeState result{};
@@ -671,6 +865,21 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     const auto learning_rate = read_value<float>(input, path);
     const auto gamma = read_value<float>(input, path);
     const auto gae_lambda = read_value<float>(input, path);
+    const float final_learning_rate = version >= 4
+        ? read_value<float>(input, path) : learning_rate;
+    const std::uint64_t anneal_updates = version >= 4
+        ? read_value<std::uint64_t>(input, path) : 1;
+    const float reward_scale = version >= 4 ? read_value<float>(input, path) : 1.0F;
+    const float clip_range = version >= 4 ? read_value<float>(input, path) : 0.2F;
+    const float value_clip_range = version >= 4 ? read_value<float>(input, path) : 0.2F;
+    const float target_kl = version >= 4 ? read_value<float>(input, path) : 0.02F;
+    const float value_coefficient = version >= 4 ? read_value<float>(input, path) : 0.5F;
+    const float entropy_coefficient = version >= 4 ? read_value<float>(input, path) : 0.01F;
+    const float final_entropy_coefficient = version >= 4
+        ? read_value<float>(input, path) : entropy_coefficient;
+    const float max_gradient_norm = version >= 4 ? read_value<float>(input, path) : 0.5F;
+    const std::uint64_t curriculum_updates = version >= 5
+        ? read_value<std::uint64_t>(input, path) : 100;
     const auto checkpoint_interval = read_value<std::uint64_t>(input, path);
     const auto evaluation_interval = read_value<std::uint64_t>(input, path);
     const auto evaluation_episodes = read_value<std::uint64_t>(input, path);
@@ -682,10 +891,28 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     const int curriculum_stage = version >= 3
         ? read_value<std::int32_t>(input, path) : 0;
     const auto state_count = read_value<std::uint64_t>(input, path);
+    const bool extended_ppo_mismatch = version >= 4 &&
+        (final_learning_rate != options.final_learning_rate ||
+         anneal_updates != options.anneal_updates ||
+         reward_scale != options.reward_scale || clip_range != options.clip_range ||
+         value_clip_range != options.value_clip_range || target_kl != options.target_kl ||
+         value_coefficient != options.value_coefficient ||
+         entropy_coefficient != options.entropy_coefficient ||
+         final_entropy_coefficient != options.final_entropy_coefficient ||
+         max_gradient_norm != options.max_gradient_norm ||
+         curriculum_updates != options.curriculum_updates);
+    const bool legacy_ppo_mismatch = version < 4 &&
+        (options.final_learning_rate != options.learning_rate ||
+         options.reward_scale != 1.0F || options.clip_range != 0.2F ||
+         options.value_clip_range != 0.2F || options.target_kl != 0.02F ||
+         options.value_coefficient != 0.5F || options.entropy_coefficient != 0.01F ||
+         options.final_entropy_coefficient != options.entropy_coefficient ||
+         options.max_gradient_norm != 0.5F);
     if (seed != options.seed || environments != options.environments || horizon != options.horizon ||
         epochs != options.epochs || minibatch != options.minibatch_size ||
         learning_rate != options.learning_rate || gamma != options.gamma ||
-        gae_lambda != options.gae_lambda || checkpoint_interval != options.checkpoint_interval ||
+        gae_lambda != options.gae_lambda || extended_ppo_mismatch || legacy_ppo_mismatch ||
+        checkpoint_interval != options.checkpoint_interval ||
         evaluation_interval != options.evaluation_interval ||
         evaluation_episodes != options.evaluation_episodes || sparse_reward != options.sparse_reward ||
         visual_observations != options.visual_observations ||
@@ -730,8 +957,26 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
         temporal.previous_distance = read_vector<float>(input, path);
         temporal.valid = read_vector<std::uint8_t>(input, path);
         result.temporal_state = std::move(temporal);
+        if (version >= 5) {
+            result.self_play_active = read_value<std::uint8_t>(input, path) != 0;
+            result.learner_actions = read_vector<std::int64_t>(input, path);
+            if (result.self_play_active) {
+                t8::v2::TemporalEncoderState self_play_temporal{};
+                self_play_temporal.history = read_vector<float>(input, path);
+                self_play_temporal.previous_actions = read_vector<std::int64_t>(input, path);
+                self_play_temporal.repeated_action_frames = read_vector<std::int32_t>(input, path);
+                self_play_temporal.previous_own_health = read_vector<float>(input, path);
+                self_play_temporal.previous_opponent_health = read_vector<float>(input, path);
+                self_play_temporal.previous_distance = read_vector<float>(input, path);
+                self_play_temporal.valid = read_vector<std::uint8_t>(input, path);
+                result.self_play_temporal_state = std::move(self_play_temporal);
+            }
+        } else {
+            result.learner_actions.assign(options.environments, 0);
+        }
         if (result.profile_assignments.size() != options.environments ||
-            result.opponent_actions.size() != options.environments) {
+            result.opponent_actions.size() != options.environments ||
+            result.learner_actions.size() != options.environments) {
             throw std::runtime_error("trainer-state roster lane count mismatch: " + path.string());
         }
     }
@@ -838,17 +1083,29 @@ int main(int argc, char** argv) {
         training_config.randomize_initial_positions = true;
         t8::v2::GpuSimulatorBatch simulator(options.environments, training_config);
         t8::v2::GpuActorCritic learner(policy_capacity, actor_config, options.seed);
+        std::unique_ptr<t8::v2::GpuActorCritic> latest_self_play_opponent;
+        std::unique_ptr<t8::v2::GpuActorCritic> best_self_play_opponent;
         t8::v2::GpuScriptedOpponent opponent(options.environments);
+        t8::v2::GpuScriptedOpponent learner_action_history(options.environments);
         t8::v2::GpuLearnerSideRouter side_router(options.environments);
         t8::v2::GpuRolloutBuffer rollout(options.environments, options.horizon, actor_config);
         std::unique_ptr<t8::v2::GpuTemporalMatchupEncoder> temporal;
+        std::unique_ptr<t8::v2::GpuTemporalMatchupEncoder> self_play_temporal;
         if (options.full_roster) {
             simulator.set_character_move_specs(roster_character_moves);
             opponent.set_profiles(roster_profiles);
             temporal = std::make_unique<t8::v2::GpuTemporalMatchupEncoder>(
                 options.environments,
                 options.visual_observations ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
+            self_play_temporal = std::make_unique<t8::v2::GpuTemporalMatchupEncoder>(
+                options.environments,
+                options.visual_observations ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
+            latest_self_play_opponent = std::make_unique<t8::v2::GpuActorCritic>(
+                policy_capacity, actor_config, options.seed + 900'000);
+            best_self_play_opponent = std::make_unique<t8::v2::GpuActorCritic>(
+                policy_capacity, actor_config, options.seed + 900'001);
         }
+        bool self_play_active = false;
         if (resume_state) {
             learner.load_checkpoint(options.resume_checkpoint);
             simulator.upload_states(resume_state->simulator_states);
@@ -858,16 +1115,38 @@ int main(int argc, char** argv) {
                     opponent.profiles_device(), opponent.profile_count(),
                     opponent.profile_assignments_device(), 0);
                 opponent.set_action_history(resume_state->opponent_actions);
+                learner_action_history.set_action_history(resume_state->learner_actions);
                 matchup_scheduler->restore_state(
                     resume_state->scheduler_stats, resume_state->scheduler_random_state);
                 temporal->upload_state(*resume_state->temporal_state);
+                self_play_active = resume_state->self_play_active;
+                if (self_play_active) {
+                    if (!resume_state->self_play_temporal_state) {
+                        throw std::runtime_error("self-play resume is missing opponent temporal state");
+                    }
+                    self_play_temporal->upload_state(*resume_state->self_play_temporal_state);
+                }
             }
+        } else if (options.full_roster) {
+            const auto [initial_stage, initial_groups] = curriculum_for_update(options, 1);
+            matchup_scheduler->set_stage(initial_stage, initial_groups);
+            opponent.set_profile_assignments(
+                matchup_scheduler->sample_profile_indices(options.environments, true));
+            simulator.set_opponent_characters_device(
+                opponent.profiles_device(), opponent.profile_count(),
+                opponent.profile_assignments_device(), 0);
         }
 
         t8::v2::PpoUpdateConfig update_config{};
         update_config.epochs = options.epochs;
         update_config.minibatch_size = options.minibatch_size;
         update_config.learning_rate = options.learning_rate;
+        update_config.clip_range = options.clip_range;
+        update_config.value_clip_range = options.value_clip_range;
+        update_config.target_kl = options.target_kl;
+        update_config.value_coefficient = options.value_coefficient;
+        update_config.entropy_coefficient = options.entropy_coefficient;
+        update_config.max_gradient_norm = options.max_gradient_norm;
         const auto started = std::chrono::steady_clock::now();
         const double elapsed_before_resume = resume_state ? resume_state->elapsed_seconds : 0.0;
         const std::string reward_mode = options.sparse_reward ? "sparse" : "shaped";
@@ -877,36 +1156,99 @@ int main(int argc, char** argv) {
         const std::size_t first_update = resume_state ? resume_state->completed_update + 1 : 1;
 
         for (std::size_t update = first_update; update <= options.updates; ++update) {
+            std::vector<std::uint32_t> pending_profile_assignments;
+            std::optional<SelfPlaySelection> self_play_selection;
+            bool use_self_play = false;
             if (options.full_roster) {
                 const auto [stage, group_mask] = curriculum_for_update(options, update);
                 matchup_scheduler->set_stage(stage, group_mask);
-                opponent.set_profile_assignments(
-                    matchup_scheduler->sample_profile_indices(options.environments, true));
-                simulator.set_opponent_characters_device(
-                    opponent.profiles_device(), opponent.profile_count(),
-                    opponent.profile_assignments_device(), 0);
+                if (stage == t8::v2::CurriculumStage::AdversarialLeague) {
+                    self_play_selection = select_self_play_checkpoint(
+                        options.run_directory / "checkpoints", metrics_path, update);
+                    use_self_play = self_play_selection.has_value();
+                }
+                if (use_self_play) {
+                    if (!self_play_active) {
+                        simulator.reset_seeded(options.seed + update * options.horizon);
+                        temporal->reset();
+                        self_play_temporal->reset();
+                        const std::vector<std::uint32_t> jun_assignments(
+                            options.environments, jun_profile_index(roster_profiles));
+                        opponent.set_profile_assignments(jun_assignments);
+                        simulator.set_opponent_characters_device(
+                            opponent.profiles_device(), opponent.profile_count(),
+                            opponent.profile_assignments_device(), 0);
+                        opponent.set_action_history(
+                            std::vector<std::int64_t>(options.environments, 0));
+                    }
+                    latest_self_play_opponent->load_checkpoint(
+                        self_play_selection->latest_checkpoint, false);
+                    best_self_play_opponent->load_checkpoint(
+                        self_play_selection->best_older_checkpoint, false);
+                } else {
+                    pending_profile_assignments =
+                        matchup_scheduler->sample_profile_indices(options.environments, true);
+                    if (self_play_active) {
+                        simulator.reset_seeded(options.seed + update * options.horizon);
+                        temporal->reset();
+                        self_play_temporal->reset();
+                        opponent.set_profile_assignments(pending_profile_assignments);
+                        simulator.set_opponent_characters_device(
+                            opponent.profiles_device(), opponent.profile_count(),
+                            opponent.profile_assignments_device(), 0);
+                    }
+                }
+                self_play_active = use_self_play;
             }
             for (std::size_t step = 0; step < options.horizon; ++step) {
                 const auto before = simulator.device_view();
                 const auto routed_inputs = options.visual_observations
-                    ? side_router.select_visual_observations(before, options.environments)
+                    ? (use_self_play
+                        ? side_router.select_self_play_visual_observations(before, options.environments)
+                        : side_router.select_visual_observations(before, options.environments))
                     : side_router.select_observations(before, options.environments);
                 const float* policy_observations = routed_inputs.learner_observations;
+                const float* opponent_policy_observations = routed_inputs.opponent_observations;
                 if (temporal) {
                     policy_observations = temporal->encode(
                         policy_observations, opponent.profiles_device(), opponent.profile_count(),
                         opponent.profile_assignments_device(), opponent.actions_buffer_device(),
                         options.environments);
+                    if (use_self_play) {
+                        opponent_policy_observations = self_play_temporal->encode(
+                            opponent_policy_observations,
+                            opponent.profiles_device(), opponent.profile_count(),
+                            opponent.profile_assignments_device(),
+                            learner_action_history.actions_buffer_device(),
+                            options.environments);
+                    }
                 }
                 const auto learner_output = learner.forward(
                     policy_observations, routed_inputs.learner_action_masks,
                     options.environments, options.seed + 1,
                     update * options.horizon + step, false);
-                const auto* opponent_actions = opponent.actions_device(
-                    routed_inputs.opponent_observations, routed_inputs.opponent_action_masks,
-                    options.environments, options.seed + 2,
-                    update * options.horizon + step,
-                    t8::v2::ScriptedOpponentSet::TrainingV1);
+                learner_action_history.set_action_history_device(
+                    learner_output.actions, options.environments);
+                const std::int64_t* opponent_actions = nullptr;
+                if (use_self_play) {
+                    const auto latest_output = latest_self_play_opponent->forward(
+                        opponent_policy_observations, routed_inputs.opponent_action_masks,
+                        options.environments, options.seed + 2,
+                        update * options.horizon + step, false);
+                    const auto best_output = best_self_play_opponent->forward(
+                        opponent_policy_observations, routed_inputs.opponent_action_masks,
+                        options.environments, options.seed + 4,
+                        update * options.horizon + step, false);
+                    opponent_actions = side_router.mix_self_play_actions(
+                        latest_output.actions, best_output.actions, options.environments);
+                    opponent.set_action_history_device(opponent_actions, options.environments);
+                } else {
+                    opponent_actions = opponent.actions_device(
+                        routed_inputs.opponent_observations, routed_inputs.opponent_action_masks,
+                        options.environments, options.seed + 2,
+                        update * options.horizon + step,
+                        t8::v2::ScriptedOpponentSet::TrainingV1);
+                }
                 const auto routed_actions = side_router.route_actions(
                     learner_output.actions, opponent_actions, options.environments);
                 rollout.record_policy_device(
@@ -918,37 +1260,62 @@ int main(int argc, char** argv) {
                     options.sparse_reward ? after.sparse_rewards_p1 : after.rewards_p1,
                     options.sparse_reward ? after.sparse_rewards_p2 : after.rewards_p2,
                     options.environments);
-                rollout.record_outcome_device(step, rewards, after.terminated);
-                if (temporal) temporal->reset_done(after.terminated, options.environments);
+                const auto routed_next = options.visual_observations
+                    ? side_router.select_visual_observations(after, options.environments)
+                    : side_router.select_observations(after, options.environments);
+                const float* next_policy_observations = routed_next.learner_observations;
+                if (temporal) {
+                    next_policy_observations = temporal->preview(
+                        next_policy_observations, opponent.profiles_device(), opponent.profile_count(),
+                        opponent.profile_assignments_device(), opponent.actions_buffer_device(),
+                        options.environments);
+                }
+                const auto next_output = learner.forward(
+                    next_policy_observations, routed_next.learner_action_masks,
+                    options.environments, options.seed + 3,
+                    update * options.horizon + step, true);
+                rollout.record_outcome_device(
+                    step, rewards, after.terminated, after.truncated,
+                    next_output.values, options.reward_scale);
+                if (temporal) {
+                    temporal->reset_done(after.terminated, options.environments);
+                    if (use_self_play) {
+                        self_play_temporal->reset_done(after.terminated, options.environments);
+                    } else {
+                        opponent.set_profile_assignments_for_done(
+                            pending_profile_assignments, after.terminated);
+                        simulator.set_opponent_characters_device(
+                            opponent.profiles_device(), opponent.profile_count(),
+                            opponent.profile_assignments_device(), 0, after.terminated);
+                    }
+                }
                 simulator.reset_done_seeded(
                     options.seed + update * options.horizon + step);
             }
-            const auto final_state = simulator.device_view();
-            const auto routed_final = options.visual_observations
-                ? side_router.select_visual_observations(final_state, options.environments)
-                : side_router.select_observations(final_state, options.environments);
-            const float* final_policy_observations = routed_final.learner_observations;
-            if (temporal) {
-                final_policy_observations = temporal->encode(
-                    final_policy_observations, opponent.profiles_device(), opponent.profile_count(),
-                    opponent.profile_assignments_device(), opponent.actions_buffer_device(),
-                    options.environments);
-            }
-            const auto bootstrap = learner.forward(
-                final_policy_observations, routed_final.learner_action_masks,
-                options.environments, options.seed, update * options.horizon + options.horizon, true);
-            rollout.compute_gae(bootstrap.values, options.gamma, options.gae_lambda, true);
+            rollout.compute_gae(options.gamma, options.gae_lambda, true);
+            const float schedule_progress = options.anneal_updates <= 1 ? 1.0F :
+                std::min(1.0F, static_cast<float>(update - 1) /
+                                   static_cast<float>(options.anneal_updates - 1));
+            update_config.learning_rate = options.learning_rate +
+                (options.final_learning_rate - options.learning_rate) * schedule_progress;
+            update_config.entropy_coefficient = options.entropy_coefficient +
+                (options.final_entropy_coefficient - options.entropy_coefficient) * schedule_progress;
             const auto metrics = learner.update_ppo(
                 rollout.device_view(), update_config, options.seed + update * 10'000);
 
-            std::optional<Evaluation> evaluation;
+            std::optional<Evaluation> deterministic_evaluation;
+            std::optional<Evaluation> stochastic_evaluation;
             if (update % options.evaluation_interval == 0 || update == options.updates) {
                 // Frozen benchmark weights and stochastic sequence for every
                 // update, shared by shaped/sparse runs with the same seed.
-                evaluation = evaluate(
+                deterministic_evaluation = evaluate(
                     learner, options.evaluation_episodes, options.seed + 500'000,
                     options.visual_observations, options.full_roster,
-                    roster_profiles, roster_character_moves, matchup_scheduler.get());
+                    roster_profiles, roster_character_moves, true);
+                stochastic_evaluation = evaluate(
+                    learner, options.evaluation_episodes, options.seed + 500'000,
+                    options.visual_observations, options.full_roster,
+                    roster_profiles, roster_character_moves, false);
                 if (options.full_roster) {
                     t8::v2::write_matchup_matrix_json(
                         options.run_directory / "matchup_matrix.json",
@@ -961,7 +1328,8 @@ int main(int argc, char** argv) {
                 static_cast<std::uint64_t>(options.environments) *
                 static_cast<std::uint64_t>(options.horizon);
             append_metrics(metrics_path, update, environment_steps, reward_mode, observation_mode,
-                           metrics, elapsed, evaluation);
+                           metrics, elapsed, deterministic_evaluation, stochastic_evaluation,
+                           self_play_selection);
             if (update % options.checkpoint_interval == 0 || update == options.updates) {
                 const auto checkpoint = options.run_directory / "checkpoints" /
                     ("update_" + std::to_string(update) + ".t8ppo");
@@ -969,12 +1337,19 @@ int main(int argc, char** argv) {
                 if (options.full_roster) {
                     const auto assignments = opponent.download_profile_assignments(options.environments);
                     const auto actions = opponent.download_actions(options.environments);
+                    const auto learner_actions =
+                        learner_action_history.download_actions(options.environments);
                     const auto temporal_state = temporal->download_state();
+                    std::optional<t8::v2::TemporalEncoderState> opponent_temporal_state;
+                    if (self_play_active) {
+                        opponent_temporal_state = self_play_temporal->download_state();
+                    }
                     save_trainer_state(
                         trainer_state_path(checkpoint), options, update, environment_steps,
                         elapsed, simulator.download_states(), assignments, actions,
                         matchup_scheduler->all_stats(), matchup_scheduler->random_state(),
-                        &temporal_state);
+                        &temporal_state, learner_actions, self_play_active,
+                        opponent_temporal_state ? &*opponent_temporal_state : nullptr);
                 } else {
                     save_trainer_state(
                         trainer_state_path(checkpoint), options, update, environment_steps,
@@ -989,7 +1364,14 @@ int main(int argc, char** argv) {
                       << " policy_loss=" << metrics.policy_loss
                       << " value_loss=" << metrics.value_loss
                       << " entropy=" << metrics.entropy;
-            if (evaluation) std::cout << " eval_win_rate=" << evaluation->win_rate;
+            if (self_play_selection) {
+                std::cout << " self_play=80%latest:" << self_play_selection->latest_update
+                          << "/20%best:" << self_play_selection->best_older_update;
+            }
+            if (deterministic_evaluation) {
+                std::cout << " eval_win_rate=" << deterministic_evaluation->win_rate
+                          << " stochastic_eval_win_rate=" << stochastic_evaluation->win_rate;
+            }
             std::cout << '\n';
         }
         return EXIT_SUCCESS;

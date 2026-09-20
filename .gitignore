@@ -1,10 +1,19 @@
 # Generated V2 files
 build*/
 runs/
+.venv/
 .pytest_cache/
+.env
+.env.*
+!.env.example
+config/live_screen.yaml
+artifacts/live_capture/
 __pycache__/
 *.egg-info/
 *.pyc
+*.log
+*.pem
+*.key
 *.obj
 *.pdb
 *.ilk
