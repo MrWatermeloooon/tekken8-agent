@@ -1,7 +1,7 @@
 param(
     [string]$RunDir = "runs/overnight_roster_visual_shaped_seed20260722",
     [string]$OutputDir = "docs/images",
-    [int]$MaxUpdate = 28800
+    [int]$MaxUpdate = 34600
 )
 
 $ErrorActionPreference = "Stop"
@@ -109,7 +109,7 @@ $g.DrawString("PPO update", (New-Font 18), $muted, 650, 707)
 $g.DrawString("Deterministic", (New-Font 18 Bold), $latestBrush, 925, 727)
 $pinkBrush = New-Brush "#ed7fb2"
 $g.DrawString("Stochastic", (New-Font 18 Bold), $pinkBrush, 1090, 727)
-$g.DrawString("The recent regression and side imbalance are release blockers, not hidden successes.", (New-Font 17), $muted, 74, 752)
+$g.DrawString("Historical oscillation remains a release blocker despite the strong recent window.", (New-Font 17), $muted, 74, 752)
 Save-Canvas $chart "v3-training-curve.png"
 
 $benchmark = New-Canvas
