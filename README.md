@@ -372,7 +372,7 @@ build\Release\t8_v2_training_benchmark.exe `
 ```
 
 Measured on 2026-09-20 with an NVIDIA GeForce RTX 5070 Ti 16 GB, an Intel Core i5-12600K,
-32 GB system memory, Windows 10 build 26200, NVIDIA driver 616.64, and CUDA 13.1. Each result is
+32 GB system memory, Windows 11 build 26200, NVIDIA driver 616.64, and CUDA 13.1. Each result is
 the median of three runs from the Release build. The overnight trainer and visualizer remained
 active, so these are concurrent-load measurements rather than isolated peak claims.
 

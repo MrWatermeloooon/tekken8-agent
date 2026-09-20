@@ -138,7 +138,7 @@ foreach ($card in $cards) {
     $borderPen.Dispose()
     $accent.Dispose()
 }
-$g.DrawString("Windows 10 | CUDA 13.1 | NVIDIA 616.64 | Intel Core i5-12600K | 32 GB RAM", (New-Font 18), $muted, 75, 704)
+$g.DrawString("Windows 11 | CUDA 13.1 | NVIDIA 616.64 | Intel Core i5-12600K | 32 GB RAM", (New-Font 18), $muted, 75, 704)
 $g.DrawString("Concurrent-load measurements, not isolated peak claims.", (New-Font 17), $muted, 75, 745)
 Save-Canvas $benchmark "v3-benchmarks.png"
 
