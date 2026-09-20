@@ -21,6 +21,10 @@ add_library(t8_v2_cpu_oracle STATIC src/sim.cpp)
 target_include_directories(t8_v2_cpu_oracle PUBLIC include)
 target_compile_features(t8_v2_cpu_oracle PUBLIC cxx_std_20)
 
+add_library(t8_v2_full_combat STATIC src/full_combat.cpp)
+target_include_directories(t8_v2_full_combat PUBLIC include)
+target_compile_features(t8_v2_full_combat PUBLIC cxx_std_20)
+
 add_library(t8_v2_roster STATIC src/roster.cpp)
 target_include_directories(t8_v2_roster PUBLIC include)
 target_compile_features(t8_v2_roster PUBLIC cxx_std_20)
@@ -82,6 +86,10 @@ if(T8_V2_BUILD_TESTS)
     target_link_libraries(t8_v2_gpu_parity_tests PRIVATE t8_v2_gpu t8_v2_cpu_oracle)
     add_test(NAME t8_v2_gpu_parity COMMAND t8_v2_gpu_parity_tests)
 
+    add_executable(t8_v2_full_combat_tests tests/full_combat_tests.cpp)
+    target_link_libraries(t8_v2_full_combat_tests PRIVATE t8_v2_full_combat)
+    add_test(NAME t8_v2_full_combat_oracle COMMAND t8_v2_full_combat_tests)
+
     add_executable(t8_v2_policy_tests tests/policy_tests.cpp)
     target_link_libraries(t8_v2_policy_tests PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents)
     add_test(NAME t8_v2_gpu_policy COMMAND t8_v2_policy_tests)
@@ -99,6 +107,11 @@ if(T8_V2_BUILD_TESTS)
     add_test(NAME t8_v2_roster_catalog COMMAND t8_v2_roster_tests
              ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/opponent_profiles.csv
              ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/character_move_specs.csv)
+
+    add_executable(t8_v2_full_move_catalog_tests tests/full_move_catalog_tests.cpp)
+    target_link_libraries(t8_v2_full_move_catalog_tests PRIVATE t8_v2_roster)
+    add_test(NAME t8_v2_full_move_catalog COMMAND t8_v2_full_move_catalog_tests
+             ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/full_move_catalog.csv)
 
     add_executable(t8_v2_roster_scheduler_tests tests/roster_scheduler_tests.cpp)
     target_link_libraries(t8_v2_roster_scheduler_tests PRIVATE t8_v2_roster)
@@ -137,6 +150,9 @@ if(T8_V2_BUILD_TESTS AND WIN32)
 endif()
 
 if(T8_V2_BUILD_TESTS)
+    if(WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.venv/Scripts/python.exe")
+        set(Python3_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/.venv/Scripts/python.exe")
+    endif()
     find_package(Python3 COMPONENTS Interpreter)
     if(Python3_Interpreter_FOUND)
         add_test(
@@ -144,11 +160,13 @@ if(T8_V2_BUILD_TESTS)
             COMMAND ${CMAKE_COMMAND} -E env
                     PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}/src
                     ${Python3_EXECUTABLE} -m pytest -q
-                    -p no:cacheprovider --basetemp=${CMAKE_CURRENT_BINARY_DIR}/pytest-tmp
+                    -p no:cacheprovider --basetemp=${CMAKE_CURRENT_BINARY_DIR}/pytest-tmp-venv
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v2_live_policy.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_live_backends.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_live_runtime.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_vision.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_roster_system.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_full_move_catalog.py
         )
         add_test(
             NAME t8_v2_visualizer_headless
@@ -179,13 +197,14 @@ function(t8_v2_enable_warnings target)
 endfunction()
 
 set(T8_V2_WARNING_TARGETS
-    t8_v2_cpu_oracle t8_v2_roster t8_v2_gpu t8_v2_ppo t8_v2_opponents
+    t8_v2_cpu_oracle t8_v2_full_combat t8_v2_roster t8_v2_gpu t8_v2_ppo t8_v2_opponents
     t8_v2_train t8_v2_visualizer_feed)
 if(T8_V2_BUILD_TESTS)
     list(APPEND T8_V2_WARNING_TARGETS
         t8_v2_parity_tests t8_v2_gpu_parity_tests t8_v2_policy_tests
-        t8_v2_rollout_tests t8_v2_ppo_math_tests)
+        t8_v2_rollout_tests t8_v2_ppo_math_tests t8_v2_full_combat_tests)
     list(APPEND T8_V2_WARNING_TARGETS t8_v2_roster_tests)
+    list(APPEND T8_V2_WARNING_TARGETS t8_v2_full_move_catalog_tests)
 endif()
 if(T8_V2_BUILD_BENCHMARKS)
     list(APPEND T8_V2_WARNING_TARGETS

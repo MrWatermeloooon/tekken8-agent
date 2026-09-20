@@ -91,6 +91,54 @@ void test_determinism_and_busy_mask() {
     }
 }
 
+void test_parametric_move_scorer_masks_variable_candidates() {
+    constexpr std::size_t environments = 32;
+    t8::v2::ActorCriticConfig config{};
+    config.observation_size = 5;
+    config.action_count = 4;
+    config.hidden_size = 16;
+    config.action_feature_size = 2;
+    config.universal_action_count = 2;
+    config.action_contract = "parametric-test-v3";
+    t8::v2::GpuActorCritic policy(environments, config, 31337);
+    check(policy.parameter_count() == 419, "parametric head size depends on feature width, not candidates");
+
+    std::vector<float> observations(environments * 5, 0.25F);
+    std::vector<std::uint8_t> masks(environments * 4, 0);
+    for (std::size_t lane = 0; lane < environments; ++lane) masks[lane * 4 + 2] = 1;
+    const std::vector<float> features = {
+        1.0F, 0.0F, -1.0F, 0.0F, 0.0F, 1.0F, 0.0F, -1.0F};
+    float* device_observations = nullptr;
+    std::uint8_t* device_masks = nullptr;
+    cuda_check(cudaMalloc(&device_observations, sizeof(float) * observations.size()),
+               "allocate parametric observations");
+    cuda_check(cudaMalloc(&device_masks, sizeof(std::uint8_t) * masks.size()),
+               "allocate parametric masks");
+    cuda_check(cudaMemcpy(device_observations, observations.data(), sizeof(float) * observations.size(),
+                          cudaMemcpyHostToDevice), "upload parametric observations");
+    cuda_check(cudaMemcpy(device_masks, masks.data(), sizeof(std::uint8_t) * masks.size(),
+                          cudaMemcpyHostToDevice), "upload parametric masks");
+    bool rejected_missing_features = false;
+    try {
+        static_cast<void>(policy.forward(
+            device_observations, device_masks, environments, 1, 0, true));
+    } catch (const std::logic_error&) {
+        rejected_missing_features = true;
+    }
+    check(rejected_missing_features, "parametric policy requires an installed move table");
+    policy.set_action_features(features);
+    static_cast<void>(policy.forward(
+        device_observations, device_masks, environments, 1, 0, true));
+    for (const auto action : policy.download_actions(environments)) {
+        check(action == 2, "parametric scorer samples only legal candidates");
+    }
+    for (const auto value : policy.download_values(environments)) {
+        check(std::isfinite(value), "parametric state-only value is finite");
+    }
+    cudaFree(device_masks);
+    cudaFree(device_observations);
+}
+
 void test_zero_copy_policy_to_simulator_chain() {
     constexpr std::size_t environments = 16384;
     t8::v2::GpuSimulatorBatch simulator(environments);
@@ -806,6 +854,14 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
         std::uint64_t payload_bytes = 0;
         std::uint64_t payload_checksum = 0;
     };
+    struct ContractLayout {
+        std::array<char, 64> catalog_sha256{};
+        std::array<char, 24> roster_version{};
+        std::array<char, 32> observation_contract{};
+        std::array<char, 32> action_contract{};
+        std::uint32_t action_feature_size = 0;
+        std::uint32_t universal_action_count = 0;
+    };
     std::ifstream input(checkpoint, std::ios::binary);
     const std::vector<char> raw(
         (std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
@@ -813,11 +869,12 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
     HeaderLayout header{};
     IntegrityLayout integrity{};
     std::memcpy(&header, raw.data(), sizeof(header));
-    std::memcpy(&integrity, raw.data() + sizeof(header), sizeof(integrity));
-    check(header.version == 2, "checkpoint format under test is the checksum-bearing version");
+    constexpr std::size_t integrity_offset = sizeof(HeaderLayout) + sizeof(ContractLayout);
+    std::memcpy(&integrity, raw.data() + integrity_offset, sizeof(integrity));
+    check(header.version == 3, "checkpoint format under test is contract-bound version 3");
 
     std::vector<char> mutated = raw;
-    auto* payload = reinterpret_cast<float*>(mutated.data() + sizeof(header) + sizeof(integrity));
+    auto* payload = reinterpret_cast<float*>(mutated.data() + integrity_offset + sizeof(integrity));
     payload[0] = std::numeric_limits<float>::quiet_NaN();
     const auto* payload_bytes = reinterpret_cast<const unsigned char*>(payload);
     constexpr std::uint64_t offset_basis = 14695981039346656037ULL;
@@ -828,7 +885,7 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
         checksum *= prime;
     }
     const IntegrityLayout patched_integrity{integrity.payload_bytes, checksum};
-    std::memcpy(mutated.data() + sizeof(header), &patched_integrity, sizeof(patched_integrity));
+    std::memcpy(mutated.data() + integrity_offset, &patched_integrity, sizeof(patched_integrity));
 
     const auto nonfinite_checkpoint =
         std::filesystem::temp_directory_path() / "t8_v2_policy_nonfinite.t8ppo";
@@ -855,6 +912,7 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
 int main() {
     test_policy_shapes_and_sampling();
     test_determinism_and_busy_mask();
+    test_parametric_move_scorer_masks_variable_candidates();
     test_zero_copy_policy_to_simulator_chain();
     test_checkpoint_round_trip();
     test_scripted_opponent_mixture();

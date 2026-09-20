@@ -91,7 +91,8 @@ public:
         const std::uint32_t* device_profile_assignments,
         int learner_player = 0,
         const std::uint8_t* device_lane_mask = nullptr,
-        void* stream = nullptr);
+        void* stream = nullptr,
+        std::uint32_t learner_character_id = kJunCharacterId);
 
     // Fast training path: action tensors already live in VRAM. Each tensor is
     // uint8 and has environment_count elements.

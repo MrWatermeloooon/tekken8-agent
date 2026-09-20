@@ -67,6 +67,8 @@ struct Options {
     int curriculum_stage = 0;
     std::filesystem::path opponent_catalog = "data/generated/opponent_profiles.csv";
     std::filesystem::path character_move_catalog = "data/generated/character_move_specs.csv";
+    std::filesystem::path full_move_catalog = "data/generated/full_move_catalog.csv";
+    std::string learner_character = "jun";
     std::filesystem::path run_directory;
     std::filesystem::path resume_checkpoint;
     bool run_directory_explicit = false;
@@ -132,6 +134,8 @@ Options parse_options(int argc, char** argv) {
         }
         else if (argument == "--opponent-catalog") options.opponent_catalog = next();
         else if (argument == "--character-moves") options.character_move_catalog = next();
+        else if (argument == "--full-move-catalog") options.full_move_catalog = next();
+        else if (argument == "--learner-character") options.learner_character = next();
         else if (argument == "--curriculum-stage") {
             const std::string_view stage = next();
             if (stage == "auto") options.curriculum_stage = 0;
@@ -395,6 +399,7 @@ t8::v2::GpuEpisodeSummary evaluate_side(
     bool full_roster,
     std::span<const t8::v2::OpponentProfileParameters> profiles,
     std::span<const t8::v2::CharacterMoveParameters> character_moves,
+    std::uint32_t learner_character_id,
     bool deterministic) {
     t8::v2::GpuEpisodeSummary aggregate{};
     std::size_t completed = 0;
@@ -425,7 +430,8 @@ t8::v2::GpuEpisodeSummary evaluate_side(
             opponent.set_profile_assignments(assignments);
             simulator.set_opponent_characters_device(
                 opponent.profiles_device(), opponent.profile_count(),
-                opponent.profile_assignments_device(), learner_player);
+                opponent.profile_assignments_device(), learner_player, nullptr, nullptr,
+                learner_character_id);
             temporal = std::make_unique<t8::v2::GpuTemporalMatchupEncoder>(
                 environments, visual_observations ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
         }
@@ -489,14 +495,17 @@ Evaluation evaluate(
     bool full_roster,
     std::span<const t8::v2::OpponentProfileParameters> profiles,
     std::span<const t8::v2::CharacterMoveParameters> character_moves,
+    std::uint32_t learner_character_id,
     bool deterministic) {
     Evaluation result{};
     const std::size_t p1_episodes = requested_episodes / 2;
     const std::size_t p2_episodes = requested_episodes - p1_episodes;
     result.as_p1 = evaluate_side(learner, p1_episodes, seed, 1, visual_observations,
-                                 full_roster, profiles, character_moves, deterministic);
+                                 full_roster, profiles, character_moves,
+                                 learner_character_id, deterministic);
     result.as_p2 = evaluate_side(learner, p2_episodes, seed + 100'000, 2, visual_observations,
-                                 full_roster, profiles, character_moves, deterministic);
+                                 full_roster, profiles, character_moves,
+                                 learner_character_id, deterministic);
     merge_summary(result.total, result.as_p1);
     merge_summary(result.total, result.as_p2);
     result.win_rate = result.total.episodes == 0 ? 0.0 :
@@ -694,6 +703,15 @@ std::vector<T> read_vector(std::istream& input, const std::filesystem::path& pat
     return result;
 }
 
+void write_string(std::ostream& output, std::string_view value) {
+    write_vector(output, std::span<const char>(value.data(), value.size()));
+}
+
+std::string read_string(std::istream& input, const std::filesystem::path& path) {
+    const auto bytes = read_vector<char>(input, path);
+    return std::string(bytes.begin(), bytes.end());
+}
+
 void write_fighter(std::ostream& output, const t8::v2::FighterRuntime& fighter) {
     write_value(output, fighter.health);
     write_value(output, fighter.x);
@@ -760,7 +778,7 @@ void save_trainer_state(
     if (!output) throw std::runtime_error("could not write trainer state: " + temporary.string());
     constexpr std::array<char, 8> magic = {'T', '8', 'R', 'U', 'N', 'V', '2', '\0'};
     output.write(magic.data(), static_cast<std::streamsize>(magic.size()));
-    write_value(output, std::uint32_t{5});
+    write_value(output, std::uint32_t{6});
     write_value(output, static_cast<std::uint64_t>(completed_update));
     write_value(output, environment_steps);
     write_value(output, elapsed_seconds);
@@ -790,6 +808,15 @@ void save_trainer_state(
     write_value(output, static_cast<std::uint8_t>(options.visual_observations));
     write_value(output, static_cast<std::uint8_t>(options.full_roster));
     write_value(output, static_cast<std::int32_t>(options.curriculum_stage));
+    if (options.full_roster) {
+        const auto catalog = t8::v2::load_full_move_catalog_csv(options.full_move_catalog);
+        write_string(output, catalog.catalog_sha256);
+        write_string(output, catalog.roster_version);
+    } else {
+        write_string(output, std::string(64, '0'));
+        write_string(output, "compatibility");
+    }
+    write_string(output, options.learner_character);
     write_value(output, static_cast<std::uint64_t>(states.size()));
     for (const auto& state : states) {
         write_fighter(output, state.p1);
@@ -850,7 +877,12 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     input.read(magic.data(), static_cast<std::streamsize>(magic.size()));
     constexpr std::array<char, 8> expected_magic = {'T', '8', 'R', 'U', 'N', 'V', '2', '\0'};
     const auto version = read_value<std::uint32_t>(input, path);
-    if (!input || magic != expected_magic || (version < 1 || version > 5)) {
+    if (input && magic == expected_magic && version < 6) {
+        throw std::runtime_error(
+            "legacy trainer state is incompatible with the full-roster move contract: " +
+            path.string());
+    }
+    if (!input || magic != expected_magic || version != 6) {
         throw std::runtime_error("unsupported trainer state: " + path.string());
     }
     ResumeState result{};
@@ -890,7 +922,13 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
         ? read_value<std::uint8_t>(input, path) != 0 : false;
     const int curriculum_stage = version >= 3
         ? read_value<std::int32_t>(input, path) : 0;
+    const auto catalog_sha256 = read_string(input, path);
+    const auto roster_version = read_string(input, path);
+    const auto learner_character = read_string(input, path);
     const auto state_count = read_value<std::uint64_t>(input, path);
+    const auto current_catalog = options.full_roster
+        ? t8::v2::load_full_move_catalog_csv(options.full_move_catalog)
+        : t8::v2::FullMoveCatalog{0, std::string(64, '0'), "compatibility"};
     const bool extended_ppo_mismatch = version >= 4 &&
         (final_learning_rate != options.final_learning_rate ||
          anneal_updates != options.anneal_updates ||
@@ -917,6 +955,9 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
         evaluation_episodes != options.evaluation_episodes || sparse_reward != options.sparse_reward ||
         visual_observations != options.visual_observations ||
         full_roster != options.full_roster || curriculum_stage != options.curriculum_stage ||
+        catalog_sha256 != current_catalog.catalog_sha256 ||
+        roster_version != current_catalog.roster_version ||
+        learner_character != options.learner_character ||
         state_count != options.environments) {
         throw std::runtime_error("resume options do not match saved trainer state: " + path.string());
     }
@@ -1040,7 +1081,13 @@ int main(int argc, char** argv) {
                 options.opponent_catalog, "data/generated/opponent_profiles.csv", argv[0]);
             options.character_move_catalog = resolve_generated_catalog(
                 options.character_move_catalog, "data/generated/character_move_specs.csv", argv[0]);
+            options.full_move_catalog = resolve_generated_catalog(
+                options.full_move_catalog, "data/generated/full_move_catalog.csv", argv[0]);
         }
+        const bool sample_all_learner_characters = options.learner_character == "all";
+        const std::uint32_t learner_character_id = sample_all_learner_characters
+            ? t8::v2::kJunCharacterId
+            : t8::v2::character_id_from_slug(options.learner_character);
         const auto metrics_path = options.run_directory / "metrics.jsonl";
         std::optional<ResumeState> resume_state;
         if (!options.resume_checkpoint.empty()) {
@@ -1062,11 +1109,23 @@ int main(int argc, char** argv) {
         std::filesystem::create_directories(options.run_directory / "checkpoints");
         std::vector<t8::v2::OpponentProfileParameters> roster_profiles;
         std::vector<t8::v2::CharacterMoveParameters> roster_character_moves;
+        std::optional<t8::v2::FullMoveCatalog> full_move_catalog;
         std::unique_ptr<t8::v2::MatchupScheduler> matchup_scheduler;
         if (options.full_roster) {
             roster_profiles = t8::v2::load_opponent_profiles_csv(options.opponent_catalog);
             roster_character_moves =
                 t8::v2::load_character_move_specs_csv(options.character_move_catalog);
+            full_move_catalog = t8::v2::load_full_move_catalog_csv(options.full_move_catalog);
+            if (sample_all_learner_characters) {
+                throw std::runtime_error(
+                    "--learner-character all is gated until at least one full-move character "
+                    "passes measured CPU/CUDA parity and Practice validation");
+            }
+            if (!sample_all_learner_characters &&
+                full_move_catalog->moves_for_character(learner_character_id).empty()) {
+                throw std::runtime_error(
+                    "learner character has no compiled move data: " + options.learner_character);
+            }
             matchup_scheduler = std::make_unique<t8::v2::MatchupScheduler>(roster_profiles, options.seed + 700'000);
         }
         const std::size_t policy_capacity = std::max(options.environments, options.minibatch_size);
@@ -1074,9 +1133,16 @@ int main(int argc, char** argv) {
         if (options.full_roster) {
             actor_config.observation_size = static_cast<int>(options.visual_observations
                 ? t8::v2::kMatchupVisualObservationSize : t8::v2::kMatchupPrivilegedObservationSize);
+            actor_config.catalog_sha256 = full_move_catalog->catalog_sha256;
+            actor_config.roster_version = full_move_catalog->roster_version;
+            actor_config.observation_contract = options.visual_observations
+                ? "visual-matchup-95-v2" : "privileged-matchup-101-v2";
+            actor_config.action_contract = "compatibility-six-v3";
         } else {
             actor_config.observation_size = static_cast<int>(options.visual_observations
                 ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
+            actor_config.observation_contract = options.visual_observations
+                ? "visual-13-v2" : "privileged-19-v2";
         }
         t8::v2::Config training_config{};
         training_config.timeout_ties_are_draws = true;
@@ -1113,7 +1179,8 @@ int main(int argc, char** argv) {
                 opponent.set_profile_assignments(resume_state->profile_assignments);
                 simulator.set_opponent_characters_device(
                     opponent.profiles_device(), opponent.profile_count(),
-                    opponent.profile_assignments_device(), 0);
+                    opponent.profile_assignments_device(), 0, nullptr, nullptr,
+                    learner_character_id);
                 opponent.set_action_history(resume_state->opponent_actions);
                 learner_action_history.set_action_history(resume_state->learner_actions);
                 matchup_scheduler->restore_state(
@@ -1134,7 +1201,8 @@ int main(int argc, char** argv) {
                 matchup_scheduler->sample_profile_indices(options.environments, true));
             simulator.set_opponent_characters_device(
                 opponent.profiles_device(), opponent.profile_count(),
-                opponent.profile_assignments_device(), 0);
+                opponent.profile_assignments_device(), 0, nullptr, nullptr,
+                learner_character_id);
         }
 
         t8::v2::PpoUpdateConfig update_config{};
@@ -1177,7 +1245,8 @@ int main(int argc, char** argv) {
                         opponent.set_profile_assignments(jun_assignments);
                         simulator.set_opponent_characters_device(
                             opponent.profiles_device(), opponent.profile_count(),
-                            opponent.profile_assignments_device(), 0);
+                            opponent.profile_assignments_device(), 0, nullptr, nullptr,
+                            learner_character_id);
                         opponent.set_action_history(
                             std::vector<std::int64_t>(options.environments, 0));
                     }
@@ -1195,7 +1264,8 @@ int main(int argc, char** argv) {
                         opponent.set_profile_assignments(pending_profile_assignments);
                         simulator.set_opponent_characters_device(
                             opponent.profiles_device(), opponent.profile_count(),
-                            opponent.profile_assignments_device(), 0);
+                            opponent.profile_assignments_device(), 0, nullptr, nullptr,
+                            learner_character_id);
                     }
                 }
                 self_play_active = use_self_play;
@@ -1286,7 +1356,8 @@ int main(int argc, char** argv) {
                             pending_profile_assignments, after.terminated);
                         simulator.set_opponent_characters_device(
                             opponent.profiles_device(), opponent.profile_count(),
-                            opponent.profile_assignments_device(), 0, after.terminated);
+                            opponent.profile_assignments_device(), 0, after.terminated, nullptr,
+                            learner_character_id);
                     }
                 }
                 simulator.reset_done_seeded(
@@ -1311,11 +1382,11 @@ int main(int argc, char** argv) {
                 deterministic_evaluation = evaluate(
                     learner, options.evaluation_episodes, options.seed + 500'000,
                     options.visual_observations, options.full_roster,
-                    roster_profiles, roster_character_moves, true);
+                    roster_profiles, roster_character_moves, learner_character_id, true);
                 stochastic_evaluation = evaluate(
                     learner, options.evaluation_episodes, options.seed + 500'000,
                     options.visual_observations, options.full_roster,
-                    roster_profiles, roster_character_moves, false);
+                    roster_profiles, roster_character_moves, learner_character_id, false);
                 if (options.full_roster) {
                     t8::v2::write_matchup_matrix_json(
                         options.run_directory / "matchup_matrix.json",

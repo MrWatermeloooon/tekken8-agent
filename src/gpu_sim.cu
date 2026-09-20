@@ -1020,6 +1020,7 @@ __global__ void assign_character_ids_kernel(
     std::size_t profile_count,
     const std::uint32_t* assignments,
     int learner_player,
+    std::uint32_t learner_character_id,
     const std::uint8_t* lane_mask,
     float* obs_p1,
     float* obs_p2,
@@ -1038,7 +1039,7 @@ __global__ void assign_character_ids_kernel(
     const bool learner_is_p1 = learner_player == 1 ||
         (learner_player == 0 && ((lane / kEvaluationStyleCount) & 1ULL) == 0ULL);
     state_i[(learner_is_p1 ? CharacterId : kFighterIntFields + CharacterId) * n + lane] =
-        static_cast<int>(kJunCharacterId);
+        static_cast<int>(learner_character_id);
     state_i[(learner_is_p1 ? kFighterIntFields + CharacterId : CharacterId) * n + lane] =
         static_cast<int>(opponent_character);
     const StateD state = load_state(state_f, state_i, n, lane);
@@ -1334,17 +1335,22 @@ void GpuSimulatorBatch::set_opponent_characters_device(
     const std::uint32_t* device_profile_assignments,
     int learner_player,
     const std::uint8_t* device_lane_mask,
-    void* stream) {
+    void* stream,
+    std::uint32_t learner_character_id) {
     if (device_profiles == nullptr || device_profile_assignments == nullptr || profile_count == 0) {
         throw std::invalid_argument("profile table and assignments must be non-null and non-empty");
     }
     if (learner_player < 0 || learner_player > 2) {
         throw std::invalid_argument("learner_player must be 0 (mirrored), 1, or 2");
     }
+    if (learner_character_id >= kRosterCharacterCount) {
+        throw std::invalid_argument("learner character is outside the released roster");
+    }
     const cudaStream_t cuda_stream = as_stream(stream);
     assign_character_ids_kernel<<<blocks_for(impl_->count), kThreads, 0, cuda_stream>>>(
         impl_->state_i, impl_->state_f, impl_->count, impl_->device_config,
         device_profiles, profile_count, device_profile_assignments, learner_player,
+        learner_character_id,
         device_lane_mask,
         impl_->observations_p1, impl_->observations_p2,
         impl_->visual_observations_p1, impl_->visual_observations_p2,

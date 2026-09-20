@@ -3,6 +3,7 @@
 
 #include <cuda_runtime.h>
 
+#include <array>
 #include <cmath>
 #include <cstdlib>
 #include <iostream>
@@ -182,6 +183,75 @@ void test_device_rollout_and_gae() {
     check(rejected_zero_environments, "zero-sized rollout reports the dimension error");
 }
 
+void test_parametric_policy_ppo_update() {
+    constexpr std::size_t environments = 32;
+    constexpr std::size_t horizon = 4;
+    constexpr std::size_t samples = environments * horizon;
+    t8::v2::ActorCriticConfig config{};
+    config.observation_size = 5;
+    config.action_count = 4;
+    config.hidden_size = 16;
+    config.action_feature_size = 3;
+    config.universal_action_count = 2;
+    config.action_contract = "parametric-update-test-v3";
+    t8::v2::GpuActorCritic policy(samples, config, 8080);
+    const std::array<float, 12> action_features = {
+        1.0F, 0.0F, 0.0F,
+        0.0F, 1.0F, 0.0F,
+        0.0F, 0.0F, 1.0F,
+        -1.0F, -1.0F, -1.0F,
+    };
+    policy.set_action_features(action_features);
+    t8::v2::GpuRolloutBuffer rollout(environments, horizon, config);
+    std::vector<float> observations(environments * 5, 0.2F);
+    std::vector<std::uint8_t> masks(environments * 4, 1);
+    std::vector<float> rewards(environments, 0.1F);
+    std::vector<std::uint8_t> flags(environments, 0);
+    float* device_observations = nullptr;
+    std::uint8_t* device_masks = nullptr;
+    float* device_rewards = nullptr;
+    std::uint8_t* device_flags = nullptr;
+    cuda_check(cudaMalloc(&device_observations, sizeof(float) * observations.size()),
+               "allocate parametric rollout observations");
+    cuda_check(cudaMalloc(&device_masks, sizeof(std::uint8_t) * masks.size()),
+               "allocate parametric rollout masks");
+    cuda_check(cudaMalloc(&device_rewards, sizeof(float) * rewards.size()),
+               "allocate parametric rollout rewards");
+    cuda_check(cudaMalloc(&device_flags, sizeof(std::uint8_t) * flags.size()),
+               "allocate parametric rollout flags");
+    cuda_check(cudaMemcpy(device_observations, observations.data(), sizeof(float) * observations.size(),
+                          cudaMemcpyHostToDevice), "upload parametric rollout observations");
+    cuda_check(cudaMemcpy(device_masks, masks.data(), sizeof(std::uint8_t) * masks.size(),
+                          cudaMemcpyHostToDevice), "upload parametric rollout masks");
+    cuda_check(cudaMemcpy(device_rewards, rewards.data(), sizeof(float) * rewards.size(),
+                          cudaMemcpyHostToDevice), "upload parametric rollout rewards");
+    cuda_check(cudaMemcpy(device_flags, flags.data(), sizeof(std::uint8_t) * flags.size(),
+                          cudaMemcpyHostToDevice), "upload parametric rollout flags");
+    for (std::size_t step = 0; step < horizon; ++step) {
+        const auto output = policy.forward(
+            device_observations, device_masks, environments, 77, step, false);
+        rollout.record_policy_device(step, device_observations, device_masks, output.actions,
+                                     output.log_probabilities, output.values);
+        rollout.record_outcome_device(step, device_rewards, device_flags, device_flags, output.values);
+    }
+    rollout.compute_gae(0.99F, 0.95F, true);
+    t8::v2::PpoUpdateConfig update{};
+    update.epochs = 2;
+    update.minibatch_size = environments;
+    update.target_kl = 0.0F;
+    const auto metrics = policy.update_ppo(rollout.device_view(), update, 9090);
+    check(std::isfinite(metrics.policy_loss) && std::isfinite(metrics.value_loss),
+          "parametric PPO losses are finite");
+    check(std::isfinite(metrics.gradient_norm) && metrics.gradient_norm > 0.0F,
+          "parametric scorer gradients reach the shared encoder");
+    check(metrics.minibatches == 8 && metrics.epochs_completed == 2,
+          "parametric PPO visits each rollout sample");
+    cudaFree(device_flags);
+    cudaFree(device_rewards);
+    cudaFree(device_masks);
+    cudaFree(device_observations);
+}
+
 void test_time_limit_bootstrap_and_reward_scaling() {
     constexpr std::size_t environments = 64;
     t8::v2::Config config{};
@@ -349,6 +419,7 @@ void test_update_ppo_rejects_non_finite_rollout_and_illegal_action() {
 
 int main() {
     test_device_rollout_and_gae();
+    test_parametric_policy_ppo_update();
     test_time_limit_bootstrap_and_reward_scaling();
     test_record_outcome_rejects_invalid_reward_scale();
     test_update_ppo_rejects_non_finite_rollout_and_illegal_action();

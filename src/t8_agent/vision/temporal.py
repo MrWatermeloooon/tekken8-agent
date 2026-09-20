@@ -111,6 +111,9 @@ class TemporalScreenEstimator:
     def set_p1_on_left(self, p1_on_left: bool) -> None:
         """Swap physical screen halves while preserving P1/P2 temporal identity."""
         self.p1_on_left = bool(p1_on_left)
+        self.reset_episode()
+
+    def reset_episode(self) -> None:
         self.previous_gray = None
         self.previous_state = None
 

@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
-from time import perf_counter, sleep
+from time import perf_counter
 from typing import Any
 
 import numpy as np
@@ -57,6 +57,8 @@ class DxcamScreenStateBackend(StateBackend):
         self.position_distance_scale = max(0.05, min(4.0, float(self.config.get("position_distance_scale", 1.0))))
         self.position_distance_calibration = _load_distance_calibration(self.config)
         self.last_frame: np.ndarray | None = None
+        self.last_capture_at: float | None = None
+        self.frame_id = 0
         if camera is None:
             try:
                 import dxcam
@@ -67,13 +69,17 @@ class DxcamScreenStateBackend(StateBackend):
                 ) from exc
             camera = dxcam.create(output_idx=output_idx)
         self.camera = camera
-        self.streaming = hasattr(camera, "start") and hasattr(camera, "get_latest_frame")
-        if self.streaming:
-            self.camera.start(target_fps=self.capture_fps, video_mode=True)
+        # grab() is nonblocking and returns None when no new frame is available.
+        # A video-mode stream can duplicate frames or block while capture stalls.
+        self.streaming = False
 
     def read(self) -> GameState:
         read_started = perf_counter()
         frame = self._capture_frame()
+        fresh = frame is not None
+        if fresh:
+            self.last_capture_at = perf_counter()
+            self.frame_id += 1
         if frame is None:
             frame = self.last_frame
         if frame is None:
@@ -100,6 +106,9 @@ class DxcamScreenStateBackend(StateBackend):
                     "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
                     "p1_on_left": self.p1_on_left,
                     "capture_valid": False,
+                    "capture_fresh": False,
+                    "frame_age_seconds": float("inf"),
+                    "frame_id": self.frame_id,
                 },
             )
         self.last_frame = frame
@@ -150,21 +159,18 @@ class DxcamScreenStateBackend(StateBackend):
                 "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                 "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
                 "p1_on_left": self.p1_on_left,
-                "capture_valid": True,
+                "capture_valid": fresh,
+                "capture_fresh": fresh,
+                "frame_age_seconds": perf_counter() - self.last_capture_at,
+                "frame_id": self.frame_id,
                 "capture_processing_ms": float(processing_ms),
                 "capture_fps_target": self.capture_fps,
             },
         )
 
     def _capture_frame(self) -> np.ndarray | None:
-        if self.streaming:
-            return self.camera.get_latest_frame(copy=False)
-        for _attempt in range(2):
-            frame = self.camera.grab()
-            if frame is not None:
-                return frame
-            sleep(0.005)
-        return None
+        frame = self.camera.grab()
+        return None if frame is None else frame.copy()
 
     def close(self) -> None:
         if hasattr(self.camera, "stop"):

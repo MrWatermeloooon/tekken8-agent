@@ -27,9 +27,18 @@ def write_checkpoint(path: Path, observations: int = 13) -> None:
     ]
     model = b"".join(tensor.tobytes() for tensor in tensors)
     payload = model + bytes(len(model) * 2)
-    header = struct.pack("<8sIIIIQQ", b"T8V2PPO\0", 2, observations, actions, hidden, 17, model_count)
+    header = struct.pack("<8sIIIIQQ", b"T8V2PPO\0", 3, observations, actions, hidden, 17, model_count)
+    contract = struct.pack(
+        "<64s24s32s32sII",
+        b"0" * 64,
+        b"compatibility",
+        b"visual-13-v2" if observations == 13 else b"visual-matchup-95-v2",
+        b"fixed-24-compatibility",
+        0,
+        18,
+    )
     integrity = struct.pack("<QQ", len(payload), _fnv1a(payload))
-    path.write_bytes(header + integrity + payload)
+    path.write_bytes(header + contract + integrity + payload)
 
 
 def estimate() -> VisualEstimate:
@@ -103,3 +112,43 @@ def test_native_checkpoint_rejects_corruption(tmp_path: Path) -> None:
     checkpoint_path.write_bytes(raw)
     with pytest.raises(ValueError, match="integrity"):
         V2Checkpoint.load(checkpoint_path)
+
+
+def test_native_checkpoint_rejects_legacy_fixed_action_version(tmp_path: Path) -> None:
+    checkpoint_path = tmp_path / "legacy.t8ppo"
+    write_checkpoint(checkpoint_path)
+    raw = bytearray(checkpoint_path.read_bytes())
+    struct.pack_into("<I", raw, 8, 2)
+    checkpoint_path.write_bytes(raw)
+    with pytest.raises(ValueError, match="legacy fixed-action checkpoint"):
+        V2Checkpoint.load(checkpoint_path)
+
+
+def test_live_policy_masks_logits_before_argmax_and_sampling(tmp_path: Path) -> None:
+    pytest.importorskip("torch")
+    path = tmp_path / "masked.t8ppo"
+    write_checkpoint(path)
+    agent = LiveV2GpuAgent(path, device="cpu")
+    mask = np.zeros(len(ACTION_SPACE), dtype=bool)
+    mask[12] = True
+    for deterministic in (True, False):
+        agent.deterministic = deterministic
+        assert agent.act(estimate(), action_mask=mask) == ACTION_SPACE[12]
+    with pytest.raises(ValueError, match="action mask"):
+        agent.act(estimate(), action_mask=np.zeros(len(ACTION_SPACE), dtype=bool))
+
+
+def test_unidentified_motion_does_not_claim_jab_or_high_hit(tmp_path: Path) -> None:
+    pytest.importorskip("torch")
+    from dataclasses import replace
+
+    path = tmp_path / "unknown.t8ppo"
+    write_checkpoint(path, observations=95)
+    agent = LiveV2GpuAgent(path, device="cpu", opponent_character="reina", opponent_archetype="rushdown")
+    observation = agent.observation(replace(estimate(), p2_attack_likelihood=0.9))
+    assert observation[-8:-3].tolist() == [-1.0] * 5
+    agent.observation(replace(estimate(), p2_health_ratio=0.5))
+    agent.reset_episode()
+    reset = agent.observation(estimate())
+    assert not reset[31:-8].any()
+    assert reset[-3] == 0.0

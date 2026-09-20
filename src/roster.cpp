@@ -82,7 +82,99 @@ float parse_finite_float(const std::string& value, std::string_view field, std::
     return parsed;
 }
 
+std::int32_t parse_optional_integer(
+    const std::string& value,
+    std::string_view field,
+    std::size_t row,
+    std::int32_t missing = -1) {
+    if (value.empty()) return missing;
+    std::size_t consumed = 0;
+    long parsed = 0;
+    try {
+        parsed = std::stol(value, &consumed);
+    } catch (const std::exception&) {
+        throw std::runtime_error("invalid integer " + std::string(field) + " at row " + std::to_string(row));
+    }
+    if (consumed != value.size() || parsed < std::numeric_limits<std::int32_t>::min() ||
+        parsed > std::numeric_limits<std::int32_t>::max()) {
+        throw std::runtime_error("out-of-range integer " + std::string(field) + " at row " + std::to_string(row));
+    }
+    return static_cast<std::int32_t>(parsed);
+}
+
+std::uint32_t parse_mechanic_flags(const std::string& value, std::size_t row) {
+    static const std::unordered_map<std::string, std::uint32_t> known = {
+        {"launcher", MoveLauncher}, {"tornado", MoveTornado}, {"homing", MoveHoming},
+        {"power_crush", MovePowerCrush}, {"high_crush", MoveHighCrush},
+        {"low_crush", MoveLowCrush}, {"parry", MoveParry},
+        {"heat_engager", MoveHeatEngager}, {"heat_smash", MoveHeatSmash},
+        {"rage_art", MoveRageArt}, {"chip", MoveChip}, {"wall_break", MoveWallBreak},
+        {"floor_break", MoveFloorBreak}, {"balcony_break", MoveBalconyBreak},
+        {"requires_heat", MoveRequiresHeat}, {"requires_rage", MoveRequiresRage},
+        {"counter_hit_launcher", MoveCounterHitLauncher},
+    };
+    std::uint32_t result = 0;
+    std::size_t start = 0;
+    while (start < value.size()) {
+        const auto end = value.find('|', start);
+        const auto token = value.substr(start, end == std::string::npos ? std::string::npos : end - start);
+        if (!token.empty()) {
+            const auto found = known.find(token);
+            if (found == known.end()) {
+                throw std::runtime_error("unknown full-move mechanic '" + token + "' at row " + std::to_string(row));
+            }
+            result |= found->second;
+        }
+        if (end == std::string::npos) break;
+        start = end + 1;
+    }
+    return result;
+}
+
 }  // namespace
+
+std::span<const FullMoveParameters> FullMoveCatalog::moves_for_character(
+    std::uint32_t character_id) const {
+    if (character_id >= kRosterCharacterCount) {
+        throw std::out_of_range("character ID is outside the released roster");
+    }
+    return std::span<const FullMoveParameters>(moves).subspan(
+        character_offsets[character_id], character_counts[character_id]);
+}
+
+std::size_t FullMoveCatalog::candidate_count(std::uint32_t character_id) const {
+    return kUniversalActionCount + moves_for_character(character_id).size();
+}
+
+std::vector<float> FullMoveCatalog::action_features_for_character(
+    std::uint32_t character_id) const {
+    const auto character_moves = moves_for_character(character_id);
+    std::vector<float> result(candidate_count(character_id) * kMoveActionFeatureSize, 0.0F);
+    // The last six feature dimensions are stable identity features. Universal
+    // actions have no attack properties, but still need distinct embeddings.
+    for (std::size_t action = 0; action < kUniversalActionCount; ++action) {
+        for (std::size_t feature = 26; feature < kMoveActionFeatureSize; ++feature) {
+            const auto mixed = ((action + 1) * 131U + (feature + 1) * 67U) % 257U;
+            result[action * kMoveActionFeatureSize + feature] =
+                static_cast<float>(mixed) / 128.0F - 1.0F;
+        }
+    }
+    for (std::size_t move = 0; move < character_moves.size(); ++move) {
+        std::copy(character_moves[move].action_features.begin(),
+                  character_moves[move].action_features.end(),
+                  result.begin() + static_cast<std::ptrdiff_t>(
+                      (kUniversalActionCount + move) * kMoveActionFeatureSize));
+    }
+    return result;
+}
+
+std::uint32_t character_id_from_slug(std::string_view slug) {
+    const auto found = std::find(kRosterCharacterSlugs.begin(), kRosterCharacterSlugs.end(), slug);
+    if (found == kRosterCharacterSlugs.end()) {
+        throw std::invalid_argument("unknown released character slug: " + std::string(slug));
+    }
+    return static_cast<std::uint32_t>(std::distance(kRosterCharacterSlugs.begin(), found));
+}
 
 double MatchupStats::win_rate() const noexcept {
     return episodes == 0 ? 0.5 :
@@ -235,6 +327,126 @@ std::vector<CharacterMoveParameters> load_character_move_specs_csv(const std::fi
             std::to_string(kRosterCharacterCount * kCharacterMoveSlotCount) + " rows");
     }
     return moves;
+}
+
+FullMoveCatalog load_full_move_catalog_csv(const std::filesystem::path& path) {
+    std::ifstream input(path);
+    if (!input) throw std::runtime_error("could not open full move catalog: " + path.string());
+    std::string line;
+    if (!std::getline(input, line)) throw std::runtime_error("empty full move catalog: " + path.string());
+    if (!line.empty() && line.back() == '\r') line.pop_back();
+    const auto header = split_csv_row(line);
+    std::unordered_map<std::string, std::size_t> columns;
+    for (std::size_t index = 0; index < header.size(); ++index) columns.emplace(header[index], index);
+    const auto column = [&](std::string_view name) {
+        const auto found = columns.find(std::string(name));
+        if (found == columns.end()) {
+            throw std::runtime_error("full move catalog is missing column: " + std::string(name));
+        }
+        return found->second;
+    };
+    const std::array required = {
+        "schema_version", "catalog_sha256", "roster_version", "character_id", "local_id",
+        "source_index", "stable_id", "name", "command", "parser_status", "hit_level",
+        "damage", "startup_min", "startup_max", "recovery_min", "recovery_max",
+        "block_min", "block_max", "source_consistency", "validation_issues", "mechanic_flags"};
+    for (const auto* name : required) static_cast<void>(column(name));
+    std::array<std::size_t, kMoveActionFeatureSize> feature_columns{};
+    for (std::size_t feature = 0; feature < kMoveActionFeatureSize; ++feature) {
+        feature_columns[feature] = column("feature_" + std::to_string(feature));
+    }
+
+    FullMoveCatalog catalog{};
+    catalog.character_offsets.fill(0);
+    catalog.character_counts.fill(0);
+    std::array<bool, kRosterCharacterCount> seen_character{};
+    std::unordered_map<std::string, bool> stable_ids;
+    std::uint32_t previous_character = 0;
+    std::size_t row = 1;
+    while (std::getline(input, line)) {
+        ++row;
+        if (!line.empty() && line.back() == '\r') line.pop_back();
+        if (line.empty()) continue;
+        const auto fields = split_csv_row(line);
+        if (fields.size() != header.size()) {
+            throw std::runtime_error("full move catalog row has the wrong field count at row " + std::to_string(row));
+        }
+        const auto get = [&](std::string_view name) -> const std::string& { return fields[column(name)]; };
+        const auto schema = parse_integer<std::uint32_t>(get("schema_version"), "schema_version", row);
+        if (schema != kFullMoveCatalogSchemaVersion) {
+            throw std::runtime_error("unsupported full move catalog schema at row " + std::to_string(row));
+        }
+        if (catalog.moves.empty()) {
+            catalog.schema_version = schema;
+            catalog.catalog_sha256 = get("catalog_sha256");
+            catalog.roster_version = get("roster_version");
+        } else if (catalog.catalog_sha256 != get("catalog_sha256") ||
+                   catalog.roster_version != get("roster_version")) {
+            throw std::runtime_error("mixed full move catalog metadata at row " + std::to_string(row));
+        }
+
+        FullMoveParameters move{};
+        move.character_id = parse_integer<std::uint32_t>(get("character_id"), "character_id", row);
+        move.local_id = parse_integer<std::uint32_t>(get("local_id"), "local_id", row);
+        move.source_index = parse_integer<std::uint32_t>(get("source_index"), "source_index", row);
+        move.stable_id = get("stable_id");
+        move.name = get("name");
+        move.command = get("command");
+        move.parser_status = get("parser_status");
+        move.hit_level = get("hit_level");
+        move.damage = parse_finite_float(get("damage"), "damage", row);
+        move.startup_min = parse_optional_integer(get("startup_min"), "startup_min", row);
+        move.startup_max = parse_optional_integer(get("startup_max"), "startup_max", row);
+        move.recovery_min = parse_optional_integer(get("recovery_min"), "recovery_min", row);
+        move.recovery_max = parse_optional_integer(get("recovery_max"), "recovery_max", row);
+        move.block_min = parse_optional_integer(get("block_min"), "block_min", row, 0);
+        move.block_max = parse_optional_integer(get("block_max"), "block_max", row, 0);
+        move.source_consistency = get("source_consistency");
+        move.validation_issues = get("validation_issues");
+        move.mechanic_flags = parse_mechanic_flags(get("mechanic_flags"), row);
+        for (std::size_t feature = 0; feature < kMoveActionFeatureSize; ++feature) {
+            move.action_features[feature] = parse_finite_float(
+                fields[feature_columns[feature]], "action feature", row);
+        }
+
+        const bool known_parser_status = move.parser_status == "parsed" ||
+            move.parser_status == "needs_review" || move.parser_status == "invalid";
+        if (move.character_id >= kRosterCharacterCount ||
+            (!catalog.moves.empty() && move.character_id < previous_character) ||
+            !known_parser_status ||
+            move.stable_id.empty() || move.command.empty() || move.damage < 0.0F ||
+            (move.source_consistency != "valid" && move.source_consistency != "blocked")) {
+            throw std::runtime_error("invalid full move catalog row " + std::to_string(row));
+        }
+        if (!stable_ids.emplace(move.stable_id, true).second) {
+            throw std::runtime_error("duplicate stable move ID at row " + std::to_string(row));
+        }
+        if (!seen_character[move.character_id]) {
+            seen_character[move.character_id] = true;
+            catalog.character_offsets[move.character_id] = catalog.moves.size();
+        }
+        const auto expected_local = catalog.character_counts[move.character_id];
+        if (move.local_id != expected_local) {
+            throw std::runtime_error("non-contiguous character-local move ID at row " + std::to_string(row));
+        }
+        ++catalog.character_counts[move.character_id];
+        if (catalog.character_counts[move.character_id] > kMaxCharacterMoveCount) {
+            throw std::runtime_error("character exceeds the full move candidate bound at row " + std::to_string(row));
+        }
+        catalog.moves.push_back(std::move(move));
+        previous_character = catalog.moves.back().character_id;
+    }
+    if (input.bad()) throw std::runtime_error("failed reading full move catalog: " + path.string());
+    if (catalog.moves.empty() || catalog.catalog_sha256.size() != 64) {
+        throw std::runtime_error("full move catalog has no moves or invalid integrity metadata");
+    }
+    for (std::size_t character = 1; character < kRosterCharacterCount; ++character) {
+        if (catalog.character_counts[character] == 0) {
+            catalog.character_offsets[character] =
+                catalog.character_offsets[character - 1] + catalog.character_counts[character - 1];
+        }
+    }
+    return catalog;
 }
 
 MatchupScheduler::MatchupScheduler(

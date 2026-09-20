@@ -85,6 +85,39 @@ Remove `--dry-run` only in Practice/offline play. Output begins paused. Press F8
 the controller. Press F7 whenever the fighters switch sides; V2 now flips controller directions,
 fighter positions, and temporal motion identity together.
 
+F6 resets perception and policy history after a manual Practice reset. Health-bar restoration is
+also detected automatically after three consistent fresh frames; KO frames pause action dispatch.
+These are HUD heuristics, so use F6 if a round or Practice reset is missed.
+
+Walking, crouching, and guard remain held until the next action changes them. Attacks run through
+an independent cancellable input sequencer. Sidesteps use short taps, sidewalks use tap/release/hold,
+and jumps use a longer hold. F7 reverses character-relative sidestep directions as well as forward
+and back. Validate these sequences on both sides with the in-game input history; timing defaults
+have automated coverage but are not a measurement of the current game build.
+
+The default decision period is four frames at 60 Hz (`--interval 0.066667`). Input pulses no longer
+add sleep to that period. Capture uses nonblocking DXcam `grab()` and does not request video-mode
+duplicates; see the [DXcam API](https://github.com/ra1nty/DXcam#readme). Reused frames are marked
+invalid and never advance policy history. After `--capture-timeout` seconds (default 0.25) without
+fresh feedback, the controller releases all inputs and stays paused until F8 is pressed. An
+independent controller watchdog also releases holds if inference or capture stops returning.
+
+Live action masks suppress repeat attacks during estimated recovery, while retaining guard and
+throw breaks. Observed motion settling or an incoming hit clears the previous move estimate; a
+bounded timeout handles missed visual feedback. These masks estimate execution availability and
+cannot reproduce the simulator's exact hitstun/recovery knowledge.
+
+## Opponent observation compatibility
+
+Motion-only perception cannot identify jab versus low/mid/throw, stance, or recovery progress.
+Unrecognized temporal fields now use an explicit `-1` unknown value instead of claiming every
+attack is a high jab. Trusted recognizers can supply a complete `TemporalFrame` to the policy.
+The 13/95 feature counts and checkpoint loader are unchanged; **the feature semantics changed**
+for estimated opponent context. Existing 95-feature checkpoints trained on exact action labels
+have not learned these unknown values. Loading successfully is not evidence of transfer: validate
+or retrain with matching observations before judging live performance. This change does not add
+a trained move recognizer or change the native training observation contract.
+
 Never use controller automation where it violates game rules or service terms.
 
 For an explicit offline input-map check, the calibration tool requires a safety acknowledgment:

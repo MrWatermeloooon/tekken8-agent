@@ -7,6 +7,7 @@
 #include <filesystem>
 #include <memory>
 #include <span>
+#include <string>
 #include <vector>
 
 namespace t8::v2 {
@@ -15,6 +16,12 @@ struct ActorCriticConfig {
     int observation_size = static_cast<int>(kObservationSize);
     int action_count = static_cast<int>(kActionCount);
     int hidden_size = 256;
+    int action_feature_size = 0;
+    int universal_action_count = 18;
+    std::string catalog_sha256 = std::string(64, '0');
+    std::string roster_version = "compatibility";
+    std::string observation_contract = "v2-observation";
+    std::string action_contract = "fixed-24-compatibility";
 };
 
 struct GpuPolicyOutputView {
@@ -87,6 +94,11 @@ public:
     [[nodiscard]] std::size_t capacity() const noexcept;
     [[nodiscard]] std::size_t parameter_count() const noexcept;
     [[nodiscard]] const ActorCriticConfig& config() const noexcept;
+
+    // Enables the character-conditioned head. Features are row-major
+    // [action_count, action_feature_size] and remain fixed while PPO learns the
+    // state query that scores them.
+    void set_action_features(std::span<const float> action_features, void* stream = nullptr);
 
     // observations: row-major [environment_count, observation_size]
     // action_masks: row-major [environment_count, action_count], nonzero=legal

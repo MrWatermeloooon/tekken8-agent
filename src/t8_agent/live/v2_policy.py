@@ -14,6 +14,7 @@ from t8_agent.vision.temporal import VisualEstimate
 
 
 _HEADER = struct.Struct("<8sIIIIQQ")
+_CONTRACT = struct.Struct("<64s24s32s32sII")
 _INTEGRITY = struct.Struct("<QQ")
 _MAGIC = b"T8V2PPO\0"
 _FNV_OFFSET = 14_695_981_039_346_656_037
@@ -34,6 +35,12 @@ class V2Checkpoint:
     action_count: int
     hidden_size: int
     optimizer_step: int
+    catalog_sha256: str
+    roster_version: str
+    observation_contract: str
+    action_contract: str
+    action_feature_size: int
+    universal_action_count: int
     weights_1: np.ndarray
     bias_1: np.ndarray
     weights_2: np.ndarray
@@ -45,19 +52,29 @@ class V2Checkpoint:
     def load(cls, path: str | Path) -> "V2Checkpoint":
         checkpoint_path = Path(path)
         raw = checkpoint_path.read_bytes()
-        if len(raw) < _HEADER.size + _INTEGRITY.size:
+        if len(raw) < _HEADER.size + _CONTRACT.size + _INTEGRITY.size:
             raise ValueError(f"truncated V2 checkpoint: {checkpoint_path}")
         magic, version, observations, actions, hidden, optimizer_step, parameter_count = (
             _HEADER.unpack_from(raw)
         )
-        if magic != _MAGIC or version != 2:
-            raise ValueError(f"live inference requires an integrity-protected V2 checkpoint: {checkpoint_path}")
-        payload_bytes, expected_checksum = _INTEGRITY.unpack_from(raw, _HEADER.size)
-        payload = raw[_HEADER.size + _INTEGRITY.size :]
+        if magic == _MAGIC and version < 3:
+            raise ValueError(
+                f"legacy fixed-action checkpoint is incompatible with the full-roster contract: "
+                f"{checkpoint_path}"
+            )
+        if magic != _MAGIC or version != 3:
+            raise ValueError(f"live inference requires a contract-bound V3 checkpoint: {checkpoint_path}")
+        contract = _CONTRACT.unpack_from(raw, _HEADER.size)
+        decode = lambda value: value.split(b"\0", 1)[0].decode("ascii")
+        catalog_sha256, roster_version, observation_contract, action_contract = map(decode, contract[:4])
+        action_feature_size, universal_action_count = contract[4:]
+        integrity_offset = _HEADER.size + _CONTRACT.size
+        payload_bytes, expected_checksum = _INTEGRITY.unpack_from(raw, integrity_offset)
+        payload = raw[integrity_offset + _INTEGRITY.size :]
         if len(payload) != payload_bytes or _fnv1a(payload) != expected_checksum:
             raise ValueError(f"V2 checkpoint integrity check failed: {checkpoint_path}")
 
-        output_size = actions + 1
+        output_size = (action_feature_size if action_feature_size > 0 else actions) + 1
         w1_count = hidden * observations
         w2_count = hidden * hidden
         out_count = output_size * hidden
@@ -84,6 +101,12 @@ class V2Checkpoint:
             actions,
             hidden,
             optimizer_step,
+            catalog_sha256,
+            roster_version,
+            observation_contract,
+            action_contract,
+            action_feature_size,
+            universal_action_count,
             weights_1,
             bias_1,
             weights_2,
@@ -158,6 +181,8 @@ class LiveV2GpuAgent:
                 f"V2 live observation must have shape ({self.observation_size},), "
                 f"got {tuple(vector.shape)}"
             )
+        if not np.isfinite(observation).all():
+            raise ValueError("V2 live observation contains non-finite values")
         with torch.inference_mode():
             hidden_1 = torch.tanh(torch.mv(self.weights_1, vector) + self.bias_1)
             hidden_2 = torch.tanh(torch.mv(self.weights_2, hidden_1) + self.bias_2)
@@ -167,9 +192,17 @@ class LiveV2GpuAgent:
     def logits(self, observation: np.ndarray) -> np.ndarray:
         return self._logits_tensor(observation).cpu().numpy()
 
-    def act(self, estimate: VisualEstimate, *, temporal_frame: TemporalFrame | None = None) -> SimAction:
+    def act(self, estimate: VisualEstimate, *, temporal_frame: TemporalFrame | None = None,
+            action_mask: np.ndarray | None = None) -> SimAction:
         torch = self._torch
         logits = self._logits_tensor(self.observation(estimate, temporal_frame=temporal_frame))
+        if not torch.isfinite(logits).all():
+            raise ValueError("policy produced invalid logits")
+        if action_mask is not None:
+            mask = np.asarray(action_mask, dtype=bool)
+            if mask.shape != (action_count(),) or not mask.any():
+                raise ValueError("action mask must have one entry per action and a legal action")
+            logits = logits.masked_fill(~torch.as_tensor(mask, device=self.device), -torch.inf)
         if self.deterministic:
             index = int(torch.argmax(logits).item())
         else:
@@ -208,21 +241,15 @@ class LiveV2GpuAgent:
 
     def _estimated_temporal_frame(self, estimate: VisualEstimate) -> TemporalFrame:
         if self.player == 1:
-            attack = estimate.p2_attack_likelihood
             opponent_velocity = estimate.p2_velocity
             own_health = estimate.p1_health_ratio
             opponent_health = estimate.p2_health_ratio
         else:
-            attack = estimate.p1_attack_likelihood
             opponent_velocity = estimate.p1_velocity
             own_health = estimate.p2_health_ratio
             opponent_health = estimate.p1_health_ratio
-        move_id = 18 if attack >= 0.35 else 0
-        self._repeated_move_frames = (
-            min(60, self._repeated_move_frames + 4)
-            if move_id == self._previous_estimated_move else 0
-        )
-        self._previous_estimated_move = move_id
+        # Motion alone cannot identify a move, its hit level, or recovery phase.
+        # Negative values explicitly mean unknown, rather than inventing a jab.
         outcome = 0.0
         if self._previous_own_health is not None and self._previous_opponent_health is not None:
             outcome = float(np.clip(
@@ -234,10 +261,11 @@ class LiveV2GpuAgent:
         self._previous_own_health = own_health
         self._previous_opponent_health = opponent_health
         return TemporalFrame(
-            move_id=move_id,
-            animation_phase=float(np.clip(attack, 0.0, 1.0)),
-            hit_level=1 if move_id else 0,
-            delay_frames=self._repeated_move_frames,
+            move_id=-1,
+            animation_phase=-1.0,
+            stance_id=-1,
+            hit_level=-1,
+            delay_frames=-1,
             outcome=outcome,
             distance=estimate.distance,
             side_movement=float(np.clip(opponent_velocity, -1.0, 1.0)),

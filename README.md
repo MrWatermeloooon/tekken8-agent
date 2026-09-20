@@ -1,165 +1,214 @@
-# Tekken 8 Agent V2
+# Tekken 8 Agent V3
 
-GPU-first reinforcement learning for training one Jun policy against a full-roster,
-character-conditioned Tekken 8 simulation.
-
-V2 contains a custom CUDA environment, scripted opponent population, temporal matchup encoder,
-PPO trainer, evaluation system, exact checkpoint/resume support, and a screen-based live inference
-runtime. The rollout and optimization hot path stays in GPU memory.
+A CUDA-first reinforcement-learning project for training character-aware fighting-game policies,
+validating them in a deterministic simulator, and testing them against Tekken 8 through screen
+capture and virtual-controller output.
 
 > [!IMPORTANT]
-> This repository does **not** emulate Tekken 8 or provide direct access to its internal game state.
-> Training happens in a purpose-built, deterministic Tekken-like simulator. The live runtime reads
-> screen-derived features and sends controller inputs. Policies still require real-game validation.
+> This project does not read Tekken 8 memory, modify the game, or reproduce the complete game
+> engine. Training uses an independent Tekken-like simulator. Live play uses only screen-derived
+> observations and controller inputs, and must be tested in offline modes where automation is
+> permitted.
 
-V1 is preserved on the [`v1` branch](https://github.com/MrWatermeloooon/tekken8-agent/tree/v1).
-The `v2` branch is the default branch and contains all current work; there are no duplicated
-`v1/` or `v2/` source directories.
+## Project status
 
-## Current capabilities
+V3 introduces the data and policy architecture needed to move beyond a fixed six-attack action
+space:
 
-- Jun learner versus all 42 fighters in the 2026-07-21 playable-roster snapshot.
-- 50 probabilistic profiles per character: 10 archetypes x 5 variations, or 2,100 total.
-- Character-specific six-move CUDA combat tables distilled from public frame data.
-- Device-resident simulation, observations, profile assignments, actions, rewards, rollouts,
-  generalized advantage estimation, and PPO optimization.
-- Side-balanced training with the same matchup represented as learner P1 and learner P2.
-- 95-feature deployable visual-matchup observations and 101-feature privileged observations.
-- Eight-decision opponent history covering action/move identity, animation phase, stance, hit level,
-  delay, outcome, distance, and lateral movement.
-- Four-stage curriculum with uncertainty, weakness, regression, and exploit-severity scheduling.
-- Native checkpoint self-play using the latest policy for 80% of matches and the strongest older
-  held-out checkpoint for 20%.
-- Per-character/archetype evaluation, draw-aware scores, matchup Elo, behavior metrics, and
-  catastrophic-forgetting detection.
-- Checksummed atomic policy checkpoints and byte-exact trainer resume state.
-- A checkpoint-following Tkinter visualizer backed by an independent native CUDA simulator feed.
-- Torch CPU/CUDA live inference for legacy 13-feature and roster-temporal 95-feature checkpoints.
-- CPU/CUDA parity, PPO numerical tests, exact-resume tests, smoke training, and sanitizer workflows.
+- 6,393 documented move rows compiled across 41 sourced fighters;
+- stable character-specific move IDs and a versioned move-catalog contract;
+- 18 universal movement and defense actions plus variable per-character move candidates;
+- a CUDA parametric PPO policy that scores legal move-property vectors;
+- legal-action masks for recovery, posture, stance, Heat, Rage, and character resources;
+- a scalar combat oracle for launches, combos, scaling, tornado, walls, armor, crushes, parries,
+  throws, recoverable health, Heat, and Rage;
+- deterministic command execution for motions, chords, holds, releases, strings, stance inputs,
+  just-frame separators, and facing conversion;
+- strict per-character validation reports and offline Practice-mode command checks;
+- screen-based live inference with capture freshness checks, persistent guard/movement holds,
+  cancellable action sequences, and round-history reset.
+
+The full-move path is deliberately gated. Imported frame data does not contain every measurement
+needed to model collision, tracking, active frames, transitions, or character mechanics exactly.
+A fighter is not enabled for full-move training until its data, CPU scenarios, CUDA parity,
+representative combo routes, and offline Practice validation all pass.
+
+The current native trainer still provides a compatibility rollout path using six combat slots per
+character. It is useful for PPO, self-play, scheduling, evaluation, and throughput work, but it is
+not presented as complete full-moveset Tekken training.
 
 ## Architecture
 
 ```text
-roster + frame data + archetypes
-              |
-              v
-      2,100 opponent profiles
-              |
-              v
-CUDA simulator -> temporal matchup encoder -> CUDA actor/critic
-      |                                         |
-      +------------ rewards + masks ------------+
-                                                |
-                                                v
-                                     rollout -> GAE -> PPO/Adam
-                                                |
-                          checkpoints + metrics + matchup matrix
-                                                |
-                                                v
-                                  screen-based live inference
+documented move data              screen capture
+          |                             |
+          v                             v
+ versioned move compiler        observable-state estimator
+          |                             |
+          v                             |
+character move candidates              |
+          |                             |
+          +----------+------------------+
+                     v
+          shared state encoder
+                     |
+          parametric move scorer
+                     |
+                     v
+             legal move/action
+                     |
+          +----------+-----------+
+          |                      |
+          v                      v
+   CUDA simulation      controller command executor
+          |                      |
+          v                      v
+ PPO + self-play             Tekken 8 offline
 ```
 
-The scalar C++ simulator is a deterministic correctness oracle. It is not used for production
-rollout collection.
+The value function is state-only. The policy builds a state query, compares it with each legal
+candidate's encoded properties, and samples only from the current fighter's valid candidates.
+Checkpoint metadata binds a policy to its roster version, move-catalog hash, observation contract,
+action contract, and feature dimensions.
 
-## Repository layout
+## Repository map
 
 | Path | Purpose |
 |---|---|
-| `src/gpu_sim.cu` | Massively batched character-aware CUDA simulator |
-| `src/opponents.cu` | GPU scripted/profiled opponent population |
-| `src/temporal.cu` | GPU character, archetype, and temporal observation encoder |
-| `src/train.cpp` | Native PPO training, evaluation, checkpointing, and resume |
-| `src/visualizer_feed.cpp` | Independent CUDA fight feed for the V2 visualizer |
-| `scripts/visualize_v2.py` | Tkinter viewer with checkpoint-follow mode |
-| `src/t8_agent/roster/` | Python catalog, scheduler, temporal encoder, and evaluation exports |
-| `src/t8_agent/live/` | Native checkpoint loader and live Torch inference |
-| `data/characters/` | Imported character frame-data snapshots with provenance |
-| `data/character_modules/` | Generated matchup knowledge for every character |
-| `data/generated/` | Runtime profile/move catalogs and SHA-256 manifest |
-| `tests/` | CPU, CUDA, PPO, resume, roster, and live-runtime tests |
-| `tools/` | Reproducible roster import and catalog-generation utilities |
+| `src/train.cpp` | Native PPO training, evaluation, self-play, checkpointing, and exact resume |
+| `src/ppo.cu` | CUDA actor-critic, parametric move scoring, GAE, PPO, and Adam |
+| `src/gpu_sim.cu` | Batched compatibility simulator used for rollout collection |
+| `src/full_combat.cpp` | Scalar full-combat correctness oracle |
+| `src/opponents.cu` | Scripted profiles and checkpoint-opponent routing |
+| `src/temporal.cu` | Character and temporal observation encoding |
+| `src/t8_agent/moves/` | Move compiler, notation parser, masks, and validation gates |
+| `src/t8_agent/live/` | Checkpoint loading and screen-observable live policy runtime |
+| `src/t8_agent/io/` | Screen capture and virtual-controller backends |
+| `data/characters/` | Saved character move sources and provenance |
+| `data/generated/` | Compiled catalogs, reports, profiles, and hashes |
+| `scripts/` | Training, visualization, calibration, validation, and live-play entry points |
+| `tests/` | CPU, CUDA, PPO, resume, catalog, controller, vision, and runtime tests |
 
 ## Requirements
 
-- Windows 10/11
+Core native training:
+
+- Windows 10 or 11
 - NVIDIA GPU
 - CUDA Toolkit 13.1 or a compatible toolkit
 - Visual Studio 2022 with Desktop development with C++
-- CMake 3.24+
-- Python 3.10+
+- CMake 3.24 or newer
+- Python 3.10 or newer
 
-Live screen/controller deployment additionally requires DXcam, OpenCV, `vgamepad`, and the signed
-ViGEmBus driver. These are not required for simulator training.
+Live testing additionally requires DXcam, OpenCV, `keyboard`, `vgamepad`, and a functioning
+ViGEmBus installation. Live dependencies are not required for simulator training.
 
-The default CMake configuration emits native images for Turing, Ampere, Ada, and Blackwell, with
-PTX in the newest image. For the validated RTX 5070 Ti build, use CUDA architecture `120`.
+## Build
 
-## Build and test
+For an RTX 5070 Ti or another Blackwell GPU using architecture 120:
 
 ```powershell
-git switch v2
 cmake -S . -B build -A x64 -DCMAKE_CUDA_ARCHITECTURES=120
 cmake --build build --config Release --parallel
-ctest --test-dir build -C Release --output-on-failure
+```
 
+For another GPU, omit `-DCMAKE_CUDA_ARCHITECTURES=120` to use the repository defaults or provide
+the architecture matching that device.
+
+Install the Python development environment:
+
+```powershell
 python -m pip install -e ".[dev]"
+```
+
+## Test
+
+```powershell
+ctest --test-dir build -C Release --output-on-failure
 python -m pytest tests -q
 ```
 
-For another GPU, omit `-DCMAKE_CUDA_ARCHITECTURES=120` to use the repository defaults or pass the
-architecture appropriate for that device.
+The native suite covers scalar behavior, CUDA parity, policy inference, PPO updates, exact resume,
+catalog loading, full-combat mechanics, and headless visualization. The Python suite covers move
+compilation, legality rules, live checkpoint loading, screen freshness, controller cancellation,
+runtime state, roster scheduling, and optional vision components.
 
-## Rebuild the roster data
+## Move catalog
 
-The playable roster comes from the
-[official Tekken fighter list](https://tekken.com/fighters). Frame data is imported from the public
-[TekkenDocs API](https://tekkendocs.com/api/t8/characters) with attribution, retrieval dates, and
-source hashes. The source API currently has no Bob frame-data entry, so Bob is explicitly marked
-unavailable and receives documented abstract values only for the six simulator move slots.
+Rebuild the saved roster and compiled catalogs:
 
 ```powershell
 python tools\import_roster_frame_data.py --allow-missing
 python tools\generate_opponent_catalog.py --data-root data
+python tools\compile_full_move_catalog.py
 ```
 
-Generation must produce:
+Expected generated totals:
 
-- 42 characters
-- 50 profiles per character
-- 2,100 total profiles
-- 252 character-move rows
+| Item | Count |
+|---|---:|
+| Roster records | 42 |
+| Fighters with sourced move data | 41 |
+| Documented move rows | 6,393 |
+| Opponent profiles | 2,100 |
+| Universal actions | 18 |
 
-The exact counts and hashes are stored in `data/generated/manifest.json`.
+Bob remains explicitly unavailable because the saved source snapshot has no move endpoint. No
+generic substitute is generated. Roger Jr. is not treated as a playable fighter until released,
+documented data is available, and the same validation gates pass.
+
+Inspect a fighter's gate status:
+
+```powershell
+python tools\check_character_gate.py jun
+python scripts\validate_move_commands.py jun --dry-run
+```
+
+Missing or contradictory fields remain visible and block promotion. They are never silently
+replaced with generic attack properties.
+
+## Offline move validation
+
+With Tekken 8 open in Practice mode and its input-history display visible:
+
+```powershell
+python scripts\validate_move_commands.py jun --confirm-offline
+```
+
+The validator walks through compiled commands and records results under `data/validation/`:
+
+- `F8`: pass
+- `F9`: fail
+- `F10`: skip
+- `Esc`: stop safely
+
+Validation records are written atomically. A parsed command is not automatically considered a
+correct in-game command.
 
 ## Training
 
-### Fast smoke test
-
-Use a new run directory each time; V2 intentionally refuses to overwrite training artifacts.
+Run a short compatibility smoke test:
 
 ```powershell
 build\Release\t8_v2_train.exe --smoke `
   --opponents roster `
+  --learner-character jun `
   --observation-mode visual `
   --reward shaped `
   --seed 2027 `
-  --run-dir runs\smoke_roster_visual_2027
+  --run-dir runs\smoke_jun_2027
 ```
 
-### Full run
-
-Use the guarded launcher to start the documented configuration and automatically follow new
-checkpoints in the CUDA visualizer:
+Start a larger run and launch the checkpoint-following visualizer:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
   -File scripts\start_full_training.ps1 `
-  -RunDir runs\roster_visual_shaped_2027 `
+  -RunDir runs\jun_visual_2027 `
   -Seed 2027
 ```
 
-The equivalent native trainer command is:
+Equivalent native command:
 
 ```powershell
 build\Release\t8_v2_train.exe `
@@ -170,76 +219,60 @@ build\Release\t8_v2_train.exe `
   --epochs 4 `
   --minibatch 4096 `
   --opponents roster `
+  --learner-character jun `
+  --full-move-catalog data\generated\full_move_catalog.csv `
   --curriculum-stage auto `
   --observation-mode visual `
   --reward shaped `
   --seed 2027 `
-  --run-dir runs\roster_visual_shaped_2027
+  --run-dir runs\jun_visual_2027
 ```
 
-### Resume exactly
+`--learner-character all` remains blocked until at least one complete full-move character passes
+measured CPU/CUDA parity and Practice validation. This prevents a compatibility run from being
+mistaken for full-roster move training.
 
-Use the same run-defining options. `--updates` is the final target update, not the number of
-additional updates.
+### Self-play and evaluation
+
+The final curriculum stage uses frozen policy checkpoints as opponents:
+
+- 80% latest-self checkpoint;
+- 20% strongest older checkpoint selected by held-out evaluation.
+
+Training balances the learner across P1 and P2. Held-out profiles are separate from training
+matchmaking and do not change the training scheduler. Metrics include reward, win/draw/loss rates,
+matchup results, behavior statistics, Elo, and forgetting checks.
+
+### Resume
+
+Use the same run-defining options and pass both the existing run directory and checkpoint:
 
 ```powershell
 build\Release\t8_v2_train.exe `
   --envs 4096 `
   --horizon 128 `
-  --updates 100 `
+  --updates 200 `
   --curriculum-updates 100 `
   --epochs 4 `
   --minibatch 4096 `
   --opponents roster `
+  --learner-character jun `
+  --full-move-catalog data\generated\full_move_catalog.csv `
   --curriculum-stage auto `
   --observation-mode visual `
   --reward shaped `
   --seed 2027 `
-  --run-dir runs\roster_visual_shaped_2027 `
-  --resume runs\roster_visual_shaped_2027\checkpoints\update_40.t8ppo
+  --run-dir runs\jun_visual_2027 `
+  --resume runs\jun_visual_2027\checkpoints\update_100.t8ppo
 ```
 
-V2 rejects option drift, corrupted checkpoints, incomplete metric rows, and accidental artifact
-overwrite.
+Checkpoint format v3 rejects policies from the previous fixed-action contract with an explicit
+incompatibility error. Exact resume also validates trainer options, catalog identity, roster
+version, learner character, scheduler state, simulation state, and random-number state.
 
-### Observation modes
+## Visualizer
 
-| Opponents | Mode | Features | Intended use |
-|---|---:|---:|---|
-| `roster` | `visual` | 95 | Deployable roster-temporal policy |
-| `roster` | `privileged` | 101 | Simulator teacher/oracle |
-| `legacy` | `visual` | 13 | Controlled legacy comparison |
-| `legacy` | `privileged` | 19 | Controlled legacy oracle comparison |
-
-### Curriculum stages
-
-1. Jun fundamentals
-2. Character groups
-3. Full roster
-4. Checkpoint self-play and adversarial/weakness-focused league
-
-Use `--curriculum-stage auto` for the four-stage schedule or pin a stage with `1`, `2`, `3`, or
-`4` for a controlled experiment. `--curriculum-updates` fixes the automatic stage boundaries, so
-raising the final `--updates` target or resuming a longer run cannot move training backward. In the
-self-play stage, opponents are frozen checkpoints: 80% of lanes use the latest checkpoint and 20%
-use the strongest older checkpoint according to fixed held-out evaluation results.
-
-Held-out evaluation uses a deterministic profile set that is separate from training matchmaking.
-Its results can rank older self-play checkpoints, but evaluation never mutates the training roster
-scheduler.
-
-### Run artifacts
-
-Each run directory contains:
-
-- `metrics.jsonl` — ordered PPO and evaluation metrics
-- `matchup_matrix.json` — all character/archetype outcomes, scores, Elo, and forgetting flags
-- `checkpoints/update_N.t8ppo` — integrity-protected policy and optimizer state
-- `checkpoints/update_N.t8state` — exact simulator, opponent, scheduler, temporal, and RNG state
-
-## CUDA simulator visualizer
-
-Watch a scripted learner immediately:
+Watch a standalone CUDA matchup:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\visualize_v2.py `
@@ -247,74 +280,48 @@ Watch a scripted learner immediately:
   --opponent-archetype rushdown
 ```
 
-Follow a training run and automatically reload each new atomic checkpoint:
+Follow the newest checkpoint from a training run:
 
 ```powershell
 .\.venv\Scripts\python.exe scripts\visualize_v2.py `
-  --follow-dir runs\roster_visual_shaped_2027\checkpoints `
+  --follow-dir runs\jun_visual_2027\checkpoints `
   --observation-mode visual `
   --opponent-character reina `
   --opponent-archetype rushdown
 ```
 
-The viewer runs a separate 16-lane CUDA evaluation process. It never adds rendering or host copies
-to the 4,096-environment PPO hot path. See the [visualizer guide](docs/visualizer.md).
+The visualizer runs a separate CUDA evaluation feed and does not slow the trainer's rollout path.
 
-## Live screen inference
+## Live offline testing
 
-Install the CUDA-enabled Torch build explicitly, then create the project environment with access to
-that validated installation.
+Install the optional live dependencies and verify the environment:
 
 ```powershell
-python -m pip uninstall -y torch
-python -m pip install --no-cache-dir torch==2.13.0 `
-  --index-url https://download.pytorch.org/whl/cu130
-python -m venv --system-site-packages .venv
-.\.venv\Scripts\python.exe -m pip install -e ".[live]"
-.\.venv\Scripts\python.exe -c "import torch; print(torch.__version__, torch.version.cuda, torch.cuda.get_device_name(0))"
+python -m pip install -e ".[live]"
+python scripts\calibrate_live_screen.py --automatic
+python scripts\check_live_setup.py
+```
 
-.\.venv\Scripts\python.exe scripts\calibrate_live_screen.py --automatic
-.\.venv\Scripts\python.exe scripts\check_live_setup.py
-.\.venv\Scripts\python.exe scripts\live_vision_play.py --dry-run --agent v2 `
-  --ppo-checkpoint runs\roster_visual_shaped_2027\checkpoints\update_100.t8ppo `
+Begin with controller output disabled:
+
+```powershell
+python scripts\live_vision_play.py --dry-run --agent v2 `
+  --ppo-checkpoint runs\jun_visual_2027\checkpoints\update_100.t8ppo `
+  --player 1 `
   --opponent-character reina `
   --opponent-archetype movement_specialist
 ```
 
-A 95-feature checkpoint requires the current opponent character and archetype. A legacy 13-feature
-checkpoint does not. Before enabling output, run the interactive calibration with Tekken 8 visible:
+Controls:
 
-```powershell
-.\.venv\Scripts\python.exe scripts\calibrate_live_screen.py
-```
+- `F8`: enable or pause controller output
+- `F7`: reverse facing after a side switch
+- `F6`: manually reset policy and perception history
 
-Start with `--dry-run`; controller output is paused by default. F8 enables/pauses output. F7 flips
-controller direction and screen-motion identity together after a side switch. `vgamepad` requires
-the signed final [ViGEmBus release](https://github.com/nefarius/ViGEmBus/releases/tag/v1.22.0),
-which is retired and should be installed only after reviewing that machine-level dependency. See
-the [live runtime guide](docs/live_runtime.md).
-
-## Should this project use DIAMBRA?
-
-**Not as the primary Tekken 8 training environment.** DIAMBRA Arena provides a polished
-Gymnasium-compatible API, pixels plus RAM observations, one/two-player modes, and self-play-friendly
-retro fighting-game environments. However, its official game list includes
-[Tekken Tag Tournament](https://docs.diambra.ai/envs/games/tektagt/), not Tekken 8. It also runs
-emulated games through a Docker-oriented environment stack rather than this project's
-massively-batched CUDA simulator.
-
-DIAMBRA could still be useful as an **optional, isolated research benchmark** for:
-
-- validating generic fighting-game representations;
-- testing Gymnasium-compatible wrappers;
-- comparing league/self-play scheduling on a real emulated game;
-- pretraining visual encoders before Tekken 8-specific fine-tuning.
-
-It should not become a core dependency or replace the current simulator. Tekken Tag Tournament has
-a different roster, tag mechanics, observation contract, and action space, so direct policy or
-matchup-knowledge transfer would be unreliable. See the
-[DIAMBRA overview](https://docs.diambra.ai/) and
-[official supported-game list](https://docs.diambra.ai/envs/games/) for current details.
+The live runtime pauses output when fresh capture frames stop arriving. Movement and guard are held
+persistently between decisions, attack sequences are cancellable, and new rounds reset temporal
+history. Start in Practice mode, verify the capture regions and facing, and keep the emergency pause
+hotkey reachable.
 
 ## Benchmarks
 
@@ -323,26 +330,23 @@ build\Release\t8_v2_gpu_benchmark.exe --envs 262144 --steps 2000
 build\Release\t8_v2_training_benchmark.exe --envs 4096 --horizon 128 --updates 5
 ```
 
-The earlier 13-feature visual build measured a five-run median of 1.95 million environment
-decisions/s and 9.08 million PPO sample-visits/s on an RTX 5070 Ti. The simulator-only median was
-425.64 million decisions/s (1.70 billion simulated frames/s). These are historical local results,
-not guarantees for the current roster-temporal configuration. Rebenchmark the exact commit and
-hardware used for an experiment.
+Performance depends on the GPU, CUDA build, observation contract, opponent mix, and PPO settings.
+Record the exact commit and command alongside benchmark results.
 
 ## Documentation
 
-- [Full-roster curriculum](docs/roster_curriculum.md)
+- [Full-roster architecture](docs/full_roster_move_architecture.md)
+- [Roster curriculum](docs/roster_curriculum.md)
 - [Training and evaluation](docs/training.md)
-- [CUDA simulator visualizer](docs/visualizer.md)
-- [Live screen/controller runtime](docs/live_runtime.md)
-- [Roadmap and promotion gates](docs/roadmap.md)
+- [CUDA visualizer](docs/visualizer.md)
+- [Live runtime](docs/live_runtime.md)
+- [Roadmap](docs/roadmap.md)
 - [Frame-data provenance](data/README.md)
-- [Held-out Phase 0 report](docs/phase0_heldout_v2_visual_report.md)
 
-## Safety and scope
+## Scope and safety
 
-- Use live input only where automation is allowed.
-- Keep the live controller paused until capture and directional facing are verified.
-- Treat simulator performance as a hypothesis to test in the real game, not proof of mastery.
-- Tekken and its characters are property of their respective owners; this repository is an
-  independent research project.
+- Use controller automation only in offline modes or where it is explicitly allowed.
+- Do not treat simulator win rate as proof of real-game strength.
+- Keep unmeasured mechanics marked unknown until verified against the current game patch.
+- Tekken and its characters are property of their respective owners. This is an independent
+  research project and is not affiliated with Bandai Namco Entertainment.

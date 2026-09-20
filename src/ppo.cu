@@ -26,6 +26,13 @@ void validate_actor_config(const ActorCriticConfig& config) {
         config.action_count == std::numeric_limits<int>::max()) {
         throw std::invalid_argument("actor-critic dimensions must be positive and representable");
     }
+    if (config.action_feature_size < 0 || config.universal_action_count < 0 ||
+        config.universal_action_count > config.action_count || config.catalog_sha256.size() != 64 ||
+        config.roster_version.empty() || config.roster_version.size() >= 24 ||
+        config.observation_contract.empty() || config.observation_contract.size() >= 32 ||
+        config.action_contract.empty() || config.action_contract.size() >= 32) {
+        throw std::invalid_argument("actor-critic policy contract metadata is invalid");
+    }
 }
 
 std::size_t checked_product(std::size_t left, std::size_t right, const char* description) {
@@ -201,6 +208,56 @@ __global__ void masked_sample_kernel(
     log_probabilities[lane] = actor_critic_output[output_base + selected] - log_sum;
     values[lane] = actor_critic_output[output_base + action_count];
     entropies[lane] = entropy;
+}
+
+__global__ void parametric_policy_output_kernel(
+    const float* query_and_value,
+    const float* action_features,
+    std::size_t batch_size,
+    int action_count,
+    int feature_size,
+    float* policy_output) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= batch_size) return;
+    const float scale = rsqrtf(static_cast<float>(feature_size));
+    const std::size_t query_base = lane * static_cast<std::size_t>(feature_size + 1);
+    const std::size_t output_base = lane * static_cast<std::size_t>(action_count + 1);
+    for (int action = 0; action < action_count; ++action) {
+        float score = 0.0F;
+        const std::size_t feature_base = static_cast<std::size_t>(action) * feature_size;
+        for (int feature = 0; feature < feature_size; ++feature) {
+            score += query_and_value[query_base + feature] *
+                action_features[feature_base + feature];
+        }
+        policy_output[output_base + action] = score * scale;
+    }
+    policy_output[output_base + action_count] = query_and_value[query_base + feature_size];
+}
+
+__global__ void parametric_policy_gradient_kernel(
+    const float* policy_gradients,
+    const float* action_features,
+    std::size_t batch_size,
+    int action_count,
+    int feature_size,
+    float* query_gradients) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    const std::size_t query_width = static_cast<std::size_t>(feature_size + 1);
+    if (index >= batch_size * query_width) return;
+    const std::size_t lane = index / query_width;
+    const int feature = static_cast<int>(index % query_width);
+    const std::size_t policy_base = lane * static_cast<std::size_t>(action_count + 1);
+    if (feature == feature_size) {
+        query_gradients[index] = policy_gradients[policy_base + action_count];
+        return;
+    }
+    const float scale = rsqrtf(static_cast<float>(feature_size));
+    float gradient = 0.0F;
+    for (int action = 0; action < action_count; ++action) {
+        gradient += policy_gradients[policy_base + action] *
+            action_features[static_cast<std::size_t>(action) * feature_size + feature];
+    }
+    query_gradients[index] = gradient * scale;
 }
 
 __global__ void gather_minibatch_kernel(
@@ -395,11 +452,23 @@ __global__ void bias_gradient_kernel(
     float* bias_gradient,
     std::size_t batch_size,
     int width) {
-    const int feature = blockIdx.x * blockDim.x + threadIdx.x;
+    // One block per output feature: threads cooperatively reduce over the
+    // batch dimension instead of a single thread scanning the whole batch,
+    // which collapsed to `width`-way parallelism regardless of batch size.
+    __shared__ float shared[kThreads];
+    const int feature = blockIdx.x;
     if (feature >= width) return;
-    float sum = 0.0F;
-    for (std::size_t lane = 0; lane < batch_size; ++lane) sum += output_gradient[lane * width + feature];
-    bias_gradient[feature] = sum;
+    float local = 0.0F;
+    for (std::size_t lane = threadIdx.x; lane < batch_size; lane += blockDim.x) {
+        local += output_gradient[lane * width + feature];
+    }
+    shared[threadIdx.x] = local;
+    __syncthreads();
+    for (int stride = kThreads / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) shared[threadIdx.x] += shared[threadIdx.x + stride];
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) bias_gradient[feature] = shared[0];
 }
 
 __global__ void gradient_square_sum_kernel(
@@ -561,6 +630,10 @@ struct GpuActorCritic::Impl {
     float* hidden_1 = nullptr;
     float* hidden_2 = nullptr;
     float* actor_critic_output = nullptr;
+    float* parametric_policy_output = nullptr;
+    float* parametric_policy_gradients = nullptr;
+    float* action_features = nullptr;
+    bool action_features_initialized = false;
     float* logits = nullptr;
     std::int64_t* actions = nullptr;
     float* log_probabilities = nullptr;
@@ -603,6 +676,11 @@ struct GpuActorCritic::Impl {
     int* invalid_rollout = nullptr;
     std::uint64_t optimizer_step = 0;
 
+    [[nodiscard]] bool parametric() const noexcept { return config.action_feature_size > 0; }
+    [[nodiscard]] int network_output_size() const noexcept {
+        return (parametric() ? config.action_feature_size : config.action_count) + 1;
+    }
+
     Impl(std::size_t requested_capacity, ActorCriticConfig network_config, std::uint64_t seed)
         : capacity(requested_capacity), config(network_config) {
         if (capacity == 0 || capacity > static_cast<std::size_t>(std::numeric_limits<int>::max())) {
@@ -612,7 +690,7 @@ struct GpuActorCritic::Impl {
         const auto observations = static_cast<std::size_t>(config.observation_size);
         const auto actions_count = static_cast<std::size_t>(config.action_count);
         const auto hidden_count = static_cast<std::size_t>(config.hidden_size);
-        const auto output_count = actions_count + 1;
+        const auto output_count = static_cast<std::size_t>(network_output_size());
         validate_allocation(hidden_count, observations, sizeof(float), "layer-1 weights");
         validate_allocation(hidden_count, hidden_count, sizeof(float), "layer-2 weights");
         validate_allocation(output_count, hidden_count, sizeof(float), "output weights");
@@ -621,7 +699,7 @@ struct GpuActorCritic::Impl {
         validate_allocation(capacity, hidden_count, sizeof(float), "policy hidden activations");
         validate_allocation(capacity, output_count, sizeof(float), "actor-critic output");
         try {
-        const int output_size = config.action_count + 1;
+        const int output_size = network_output_size();
         check_cublas(cublasCreate(&cublas), "create cuBLAS handle");
         check_cuda(cudaMalloc(&weights_1, sizeof(float) * config.hidden_size * config.observation_size), "allocate layer-1 weights");
         check_cuda(cudaMalloc(&bias_1, sizeof(float) * config.hidden_size), "allocate layer-1 bias");
@@ -632,6 +710,17 @@ struct GpuActorCritic::Impl {
         check_cuda(cudaMalloc(&hidden_1, sizeof(float) * capacity * config.hidden_size), "allocate first activations");
         check_cuda(cudaMalloc(&hidden_2, sizeof(float) * capacity * config.hidden_size), "allocate second activations");
         check_cuda(cudaMalloc(&actor_critic_output, sizeof(float) * capacity * output_size), "allocate actor-critic output");
+        if (parametric()) {
+            check_cuda(cudaMalloc(&parametric_policy_output,
+                                  sizeof(float) * capacity * (config.action_count + 1)),
+                       "allocate parametric policy output");
+            check_cuda(cudaMalloc(&parametric_policy_gradients,
+                                  sizeof(float) * capacity * (config.action_count + 1)),
+                       "allocate parametric policy gradients");
+            check_cuda(cudaMalloc(&action_features,
+                                  sizeof(float) * config.action_count * config.action_feature_size),
+                       "allocate parametric action features");
+        }
         check_cuda(cudaMalloc(&logits, sizeof(float) * capacity * config.action_count), "allocate policy logits");
         check_cuda(cudaMalloc(&actions, sizeof(std::int64_t) * capacity), "allocate sampled actions");
         check_cuda(cudaMalloc(&log_probabilities, sizeof(float) * capacity), "allocate log probabilities");
@@ -747,6 +836,9 @@ struct GpuActorCritic::Impl {
         cudaFree(actions);
         cudaFree(logits);
         cudaFree(actor_critic_output);
+        cudaFree(parametric_policy_output);
+        cudaFree(parametric_policy_gradients);
+        cudaFree(action_features);
         cudaFree(hidden_2);
         cudaFree(hidden_1);
         cudaFree(bias_out);
@@ -780,7 +872,7 @@ struct GpuActorCritic::Impl {
     void forward_network(const float* input, int batch, cudaStream_t stream) {
         check_cublas(cublasSetStream(cublas, stream), "set actor-critic CUDA stream");
         const int hidden = config.hidden_size;
-        const int output_size = config.action_count + 1;
+        const int output_size = network_output_size();
         linear(input, weights_1, hidden_1, batch, config.observation_size, hidden);
         const std::size_t hidden_elements = static_cast<std::size_t>(batch) * hidden;
         bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, stream>>>(
@@ -792,6 +884,18 @@ struct GpuActorCritic::Impl {
         const std::size_t output_elements = static_cast<std::size_t>(batch) * output_size;
         bias_kernel<<<blocks_for(output_elements), kThreads, 0, stream>>>(
             actor_critic_output, bias_out, output_elements, output_size);
+    }
+
+    float* materialize_policy_output(int batch, cudaStream_t stream) {
+        if (!parametric()) return actor_critic_output;
+        if (!action_features_initialized) {
+            throw std::logic_error("parametric policy action features have not been installed");
+        }
+        parametric_policy_output_kernel<<<blocks_for(static_cast<std::size_t>(batch)),
+                                          kThreads, 0, stream>>>(
+            actor_critic_output, action_features, static_cast<std::size_t>(batch),
+            config.action_count, config.action_feature_size, parametric_policy_output);
+        return parametric_policy_output;
     }
 
     void weight_gradient(
@@ -843,13 +947,31 @@ std::size_t GpuActorCritic::capacity() const noexcept { return impl_->capacity; 
 
 std::size_t GpuActorCritic::parameter_count() const noexcept {
     const auto& c = impl_->config;
-    const int output_size = c.action_count + 1;
+    const int output_size = impl_->network_output_size();
     return static_cast<std::size_t>(c.hidden_size) * c.observation_size + c.hidden_size +
            static_cast<std::size_t>(c.hidden_size) * c.hidden_size + c.hidden_size +
            static_cast<std::size_t>(output_size) * c.hidden_size + output_size;
 }
 
 const ActorCriticConfig& GpuActorCritic::config() const noexcept { return impl_->config; }
+
+void GpuActorCritic::set_action_features(
+    std::span<const float> features,
+    void* stream) {
+    if (!impl_->parametric()) {
+        throw std::logic_error("action features require a parametric actor-critic config");
+    }
+    const std::size_t expected = static_cast<std::size_t>(impl_->config.action_count) *
+        impl_->config.action_feature_size;
+    if (features.size() != expected ||
+        !std::all_of(features.begin(), features.end(), [](float value) { return std::isfinite(value); })) {
+        throw std::invalid_argument("parametric action feature tensor has the wrong shape or non-finite values");
+    }
+    check_cuda(cudaMemcpyAsync(impl_->action_features, features.data(), sizeof(float) * features.size(),
+                               cudaMemcpyHostToDevice, as_stream(stream)),
+               "upload parametric action features");
+    impl_->action_features_initialized = true;
+}
 
 GpuPolicyOutputView GpuActorCritic::forward(
     const float* device_observations,
@@ -868,8 +990,9 @@ GpuPolicyOutputView GpuActorCritic::forward(
     const auto cuda_stream = as_stream(stream);
     const int batch = static_cast<int>(environment_count);
     impl_->forward_network(device_observations, batch, cuda_stream);
+    const float* policy_output = impl_->materialize_policy_output(batch, cuda_stream);
     masked_sample_kernel<<<blocks_for(environment_count), kThreads, 0, cuda_stream>>>(
-        impl_->actor_critic_output, device_action_masks, environment_count,
+        policy_output, device_action_masks, environment_count,
         impl_->config.action_count, sampling_seed, sampling_step, deterministic,
         impl_->logits, impl_->actions, impl_->log_probabilities,
         impl_->values, impl_->entropies);
@@ -913,7 +1036,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     check_cuda(cudaMemsetAsync(impl_->metric_sums, 0, sizeof(float) * 6, cuda_stream),
                "clear PPO metric sums");
     const int hidden = impl_->config.hidden_size;
-    const int output_size = impl_->config.action_count + 1;
+    const int output_size = impl_->network_output_size();
     const std::size_t weights_1_count = static_cast<std::size_t>(hidden) * impl_->config.observation_size;
     const std::size_t weights_2_count = static_cast<std::size_t>(hidden) * hidden;
     const std::size_t weights_out_count = static_cast<std::size_t>(output_size) * hidden;
@@ -948,19 +1071,29 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
                 impl_->train_old_log_probabilities, impl_->train_old_values,
                 impl_->train_advantages, impl_->train_returns);
             impl_->forward_network(impl_->train_observations, batch, cuda_stream);
+            float* policy_output = impl_->materialize_policy_output(batch, cuda_stream);
+            float* policy_gradients = impl_->parametric()
+                ? impl_->parametric_policy_gradients : impl_->output_gradients;
             ppo_output_gradient_kernel<<<blocks_for(batch_size), kThreads, 0, cuda_stream>>>(
-                impl_->actor_critic_output, impl_->train_masks, impl_->train_actions,
+                policy_output, impl_->train_masks, impl_->train_actions,
                 impl_->train_old_log_probabilities, impl_->train_old_values,
                 impl_->train_advantages, impl_->train_returns,
                 batch_size, impl_->config.action_count, update_config.clip_range,
                 update_config.value_clip_range,
                 update_config.value_coefficient, update_config.entropy_coefficient,
-                impl_->output_gradients, impl_->metric_sums);
+                policy_gradients, impl_->metric_sums);
+            if (impl_->parametric()) {
+                const std::size_t query_elements = batch_size * output_size;
+                parametric_policy_gradient_kernel<<<blocks_for(query_elements), kThreads, 0, cuda_stream>>>(
+                    impl_->parametric_policy_gradients, impl_->action_features, batch_size,
+                    impl_->config.action_count, impl_->config.action_feature_size,
+                    impl_->output_gradients);
+            }
 
             const std::size_t hidden_elements = batch_size * hidden;
             impl_->weight_gradient(impl_->hidden_2, impl_->output_gradients,
                                    impl_->gradient_weights_out, batch, hidden, output_size);
-            bias_gradient_kernel<<<blocks_for(output_size), kThreads, 0, cuda_stream>>>(
+            bias_gradient_kernel<<<output_size, kThreads, 0, cuda_stream>>>(
                 impl_->output_gradients, impl_->gradient_bias_out, batch_size, output_size);
             impl_->input_gradient(impl_->weights_out, impl_->output_gradients,
                                   impl_->hidden_2_upstream, batch, hidden, output_size);
@@ -969,7 +1102,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
 
             impl_->weight_gradient(impl_->hidden_1, impl_->hidden_2_gradients,
                                    impl_->gradient_weights_2, batch, hidden, hidden);
-            bias_gradient_kernel<<<blocks_for(hidden), kThreads, 0, cuda_stream>>>(
+            bias_gradient_kernel<<<hidden, kThreads, 0, cuda_stream>>>(
                 impl_->hidden_2_gradients, impl_->gradient_bias_2, batch_size, hidden);
             impl_->input_gradient(impl_->weights_2, impl_->hidden_2_gradients,
                                   impl_->hidden_1_upstream, batch, hidden, hidden);
@@ -979,7 +1112,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
             impl_->weight_gradient(impl_->train_observations, impl_->hidden_1_gradients,
                                    impl_->gradient_weights_1, batch,
                                    impl_->config.observation_size, hidden);
-            bias_gradient_kernel<<<blocks_for(hidden), kThreads, 0, cuda_stream>>>(
+            bias_gradient_kernel<<<hidden, kThreads, 0, cuda_stream>>>(
                 impl_->hidden_1_gradients, impl_->gradient_bias_1, batch_size, hidden);
 
             gradient_square_sum_kernel<<<1, kThreads, 0, cuda_stream>>>(
@@ -1070,6 +1203,15 @@ struct CheckpointIntegrity {
     std::uint64_t payload_checksum = 0;
 };
 
+struct CheckpointContract {
+    std::array<char, 64> catalog_sha256{};
+    std::array<char, 24> roster_version{};
+    std::array<char, 32> observation_contract{};
+    std::array<char, 32> action_contract{};
+    std::uint32_t action_feature_size = 0;
+    std::uint32_t universal_action_count = 0;
+};
+
 constexpr std::array<char, 8> kCheckpointMagic = {'T', '8', 'V', '2', 'P', 'P', 'O', '\0'};
 
 std::uint64_t checkpoint_checksum(const std::vector<float>& payload) {
@@ -1085,6 +1227,20 @@ std::uint64_t checkpoint_checksum(const std::vector<float>& payload) {
     return checksum;
 }
 
+template <std::size_t Size>
+std::array<char, Size> checkpoint_text(std::string_view value) {
+    if (value.size() > Size) throw std::invalid_argument("checkpoint contract text is too long");
+    std::array<char, Size> result{};
+    std::copy(value.begin(), value.end(), result.begin());
+    return result;
+}
+
+template <std::size_t Size>
+std::string checkpoint_text(const std::array<char, Size>& value) {
+    const auto end = std::find(value.begin(), value.end(), '\0');
+    return std::string(value.begin(), end);
+}
+
 }  // namespace
 
 void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* stream) const {
@@ -1093,8 +1249,8 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
     const auto& c = impl_->config;
     const std::size_t w1 = static_cast<std::size_t>(c.hidden_size) * c.observation_size;
     const std::size_t w2 = static_cast<std::size_t>(c.hidden_size) * c.hidden_size;
-    const std::size_t wo = static_cast<std::size_t>(c.action_count + 1) * c.hidden_size;
-    const std::size_t bo = static_cast<std::size_t>(c.action_count + 1);
+    const std::size_t wo = static_cast<std::size_t>(impl_->network_output_size()) * c.hidden_size;
+    const std::size_t bo = static_cast<std::size_t>(impl_->network_output_size());
     const std::size_t model_parameter_count = w1 + c.hidden_size + w2 + c.hidden_size + wo + bo;
     std::vector<float> payload;
     payload.reserve(model_parameter_count * 3);
@@ -1118,11 +1274,16 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
         throw std::runtime_error("refusing to save checkpoint with non-finite tensors: " + path.string());
     }
 
-    CheckpointHeader header{kCheckpointMagic, 2,
+    CheckpointHeader header{kCheckpointMagic, 3,
                             static_cast<std::uint32_t>(c.observation_size),
                             static_cast<std::uint32_t>(c.action_count),
                             static_cast<std::uint32_t>(c.hidden_size),
                             impl_->optimizer_step, parameter_count()};
+    const CheckpointContract contract{
+        checkpoint_text<64>(c.catalog_sha256), checkpoint_text<24>(c.roster_version),
+        checkpoint_text<32>(c.observation_contract), checkpoint_text<32>(c.action_contract),
+        static_cast<std::uint32_t>(c.action_feature_size),
+        static_cast<std::uint32_t>(c.universal_action_count)};
     const CheckpointIntegrity integrity{
         static_cast<std::uint64_t>(payload.size() * sizeof(float)),
         checkpoint_checksum(payload)};
@@ -1138,6 +1299,7 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
         std::ofstream output(temporary, std::ios::binary | std::ios::trunc);
         if (!output) throw std::runtime_error("could not open checkpoint for writing: " + temporary.string());
         output.write(reinterpret_cast<const char*>(&header), sizeof(header));
+        output.write(reinterpret_cast<const char*>(&contract), sizeof(contract));
         output.write(reinterpret_cast<const char*>(&integrity), sizeof(integrity));
         output.write(reinterpret_cast<const char*>(payload.data()),
                      static_cast<std::streamsize>(payload.size() * sizeof(float)));
@@ -1156,31 +1318,44 @@ void GpuActorCritic::load_checkpoint(
     CheckpointHeader header{};
     input.read(reinterpret_cast<char*>(&header), sizeof(header));
     const auto& c = impl_->config;
-    if (!input || header.magic != kCheckpointMagic || (header.version != 1 && header.version != 2) ||
+    if (input && header.magic == kCheckpointMagic && header.version < 3) {
+        throw std::runtime_error(
+            "legacy fixed-action checkpoint is incompatible with the full-roster policy contract: " +
+            path.string());
+    }
+    if (!input || header.magic != kCheckpointMagic || header.version != 3 ||
         header.observation_size != static_cast<std::uint32_t>(c.observation_size) ||
         header.action_count != static_cast<std::uint32_t>(c.action_count) ||
         header.hidden_size != static_cast<std::uint32_t>(c.hidden_size) ||
         header.parameter_count != parameter_count()) {
         throw std::runtime_error("checkpoint architecture/version mismatch: " + path.string());
     }
+    CheckpointContract contract{};
+    input.read(reinterpret_cast<char*>(&contract), sizeof(contract));
+    if (!input || checkpoint_text(contract.catalog_sha256) != c.catalog_sha256 ||
+        checkpoint_text(contract.roster_version) != c.roster_version ||
+        checkpoint_text(contract.observation_contract) != c.observation_contract ||
+        checkpoint_text(contract.action_contract) != c.action_contract ||
+        contract.action_feature_size != static_cast<std::uint32_t>(c.action_feature_size) ||
+        contract.universal_action_count != static_cast<std::uint32_t>(c.universal_action_count)) {
+        throw std::runtime_error("checkpoint catalog/roster/action contract mismatch: " + path.string());
+    }
     const std::size_t w1 = static_cast<std::size_t>(c.hidden_size) * c.observation_size;
     const std::size_t w2 = static_cast<std::size_t>(c.hidden_size) * c.hidden_size;
-    const std::size_t wo = static_cast<std::size_t>(c.action_count + 1) * c.hidden_size;
-    const std::size_t bo = static_cast<std::size_t>(c.action_count + 1);
+    const std::size_t wo = static_cast<std::size_t>(impl_->network_output_size()) * c.hidden_size;
+    const std::size_t bo = static_cast<std::size_t>(impl_->network_output_size());
     const std::size_t model_parameter_count = w1 + c.hidden_size + w2 + c.hidden_size + wo + bo;
     const std::size_t payload_count = model_parameter_count * 3;
     CheckpointIntegrity integrity{};
-    if (header.version == 2) {
-        input.read(reinterpret_cast<char*>(&integrity), sizeof(integrity));
-        if (!input || integrity.payload_bytes != payload_count * sizeof(float)) {
-            throw std::runtime_error("checkpoint payload size mismatch: " + path.string());
-        }
+    input.read(reinterpret_cast<char*>(&integrity), sizeof(integrity));
+    if (!input || integrity.payload_bytes != payload_count * sizeof(float)) {
+        throw std::runtime_error("checkpoint payload size mismatch: " + path.string());
     }
     std::vector<float> payload(payload_count);
     input.read(reinterpret_cast<char*>(payload.data()),
                static_cast<std::streamsize>(payload.size() * sizeof(float)));
     if (!input) throw std::runtime_error("checkpoint tensor is truncated: " + path.string());
-    if (header.version == 2 && checkpoint_checksum(payload) != integrity.payload_checksum) {
+    if (checkpoint_checksum(payload) != integrity.payload_checksum) {
         throw std::runtime_error("checkpoint checksum mismatch: " + path.string());
     }
     if (!std::all_of(payload.begin(), payload.end(),

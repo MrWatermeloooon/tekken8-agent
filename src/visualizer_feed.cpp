@@ -5,6 +5,7 @@
 #include "t8_v2/sim.hpp"
 #include "t8_v2/temporal.hpp"
 
+#include <algorithm>
 #include <chrono>
 #include <cmath>
 #include <cstddef>
@@ -24,6 +25,7 @@ namespace {
 
 struct Options {
     std::filesystem::path checkpoint;
+    std::filesystem::path opponent_checkpoint;
     std::filesystem::path opponent_catalog = "data/generated/opponent_profiles.csv";
     std::filesystem::path character_moves = "data/generated/character_move_specs.csv";
     std::size_t profile_index = 0;
@@ -38,6 +40,9 @@ struct Options {
         << "V2 CUDA simulator state feed for scripts/visualize_v2.py\n\n"
         << "Options:\n"
         << "  --checkpoint PATH          Optional native .t8ppo learner checkpoint\n"
+        << "  --opponent-checkpoint PATH Optional native .t8ppo checkpoint for a self-play\n"
+        << "                             opponent. Replaces the scripted P2 behavior with a\n"
+        << "                             second real policy fighting as Jun.\n"
         << "  --observation-mode MODE    visual (default) or privileged\n"
         << "  --profile-index N          Opponent profile row, 0 through 2099\n"
         << "  --opponent-catalog PATH    Generated opponent profile CSV\n"
@@ -66,6 +71,7 @@ Options parse_options(int argc, char** argv) {
         };
         if (argument == "--help" || argument == "-h") print_help_and_exit();
         if (argument == "--checkpoint") options.checkpoint = next();
+        else if (argument == "--opponent-checkpoint") options.opponent_checkpoint = next();
         else if (argument == "--opponent-catalog") options.opponent_catalog = next();
         else if (argument == "--character-moves") options.character_moves = next();
         else if (argument == "--profile-index") options.profile_index = parse_size(next(), argument);
@@ -86,6 +92,14 @@ Options parse_options(int argc, char** argv) {
         }
     }
     return options;
+}
+
+std::uint32_t jun_profile_index(const std::vector<t8::v2::OpponentProfileParameters>& profiles) {
+    const auto found = std::find_if(profiles.begin(), profiles.end(), [](const auto& profile) {
+        return profile.character_id == t8::v2::kJunCharacterId;
+    });
+    if (found == profiles.end()) throw std::runtime_error("opponent catalog has no Jun profile");
+    return static_cast<std::uint32_t>(std::distance(profiles.begin(), found));
 }
 
 std::string_view action_name(std::int64_t action) {
@@ -200,6 +214,32 @@ int main(int argc, char** argv) {
                 options.visual_observations ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
         }
 
+        // Self-play visualization: P2 is a second real policy (e.g. an older
+        // checkpoint of the same learner) rather than the scripted behavior
+        // generator. From P2's point of view it is fighting Jun, so it gets
+        // its own temporal encoder keyed on a Jun profile row and its own
+        // view of "what did my opponent just do", fed from a dedicated
+        // action-history buffer rather than the scripted opponent's.
+        std::unique_ptr<t8::v2::GpuActorCritic> opponent_learner;
+        std::unique_ptr<t8::v2::GpuTemporalMatchupEncoder> opponent_temporal;
+        std::unique_ptr<t8::v2::GpuScriptedOpponent> jun_marker;
+        t8::v2::GpuScriptedOpponent learner_action_history(kEnvironmentCount);
+        const std::size_t jun_index = jun_profile_index(profiles);
+        if (!options.opponent_checkpoint.empty()) {
+            t8::v2::ActorCriticConfig actor_config{};
+            actor_config.observation_size = observation_size;
+            opponent_learner =
+                std::make_unique<t8::v2::GpuActorCritic>(kEnvironmentCount, actor_config, options.seed);
+            opponent_learner->load_checkpoint(options.opponent_checkpoint, false);
+            opponent_temporal = std::make_unique<t8::v2::GpuTemporalMatchupEncoder>(
+                kEnvironmentCount,
+                options.visual_observations ? t8::v2::kVisualObservationSize : t8::v2::kObservationSize);
+            jun_marker = std::make_unique<t8::v2::GpuScriptedOpponent>(kEnvironmentCount);
+            jun_marker->set_profiles(profiles);
+            jun_marker->set_profile_assignments(
+                std::vector<std::uint32_t>(kEnvironmentCount, static_cast<std::uint32_t>(jun_index)));
+        }
+
         std::size_t episode = 1;
         for (std::size_t step = 0; options.steps == 0 || step < options.steps; ++step) {
             const auto before = simulator.device_view();
@@ -219,9 +259,29 @@ int main(int argc, char** argv) {
                     before.observations_p1, before.action_masks_p1, kEnvironmentCount,
                     options.seed + 1, step, t8::v2::ScriptedOpponentSet::TrainingV1);
             }
-            const auto* p2_actions = opponent.actions_device(
-                before.observations_p2, before.action_masks_p2, kEnvironmentCount,
-                options.seed + 2, step, t8::v2::ScriptedOpponentSet::TrainingV1);
+
+            const std::int64_t* p2_actions = nullptr;
+            std::vector<std::int64_t> opponent_actions;
+            if (opponent_learner) {
+                learner_action_history.set_action_history_device(p1_actions, kEnvironmentCount);
+                const float* opponent_policy_observations = options.visual_observations
+                    ? before.visual_observations_p2 : before.observations_p2;
+                opponent_policy_observations = opponent_temporal->encode(
+                    opponent_policy_observations, jun_marker->profiles_device(), jun_marker->profile_count(),
+                    jun_marker->profile_assignments_device(), learner_action_history.actions_buffer_device(),
+                    kEnvironmentCount);
+                // Matches how train.cpp actually runs self-play: both sides
+                // sample stochastically. A deterministic (argmax) opponent
+                // here would always take its single most-likely action and
+                // look far more passive/predictable than it really is.
+                p2_actions = opponent_learner->forward(
+                    opponent_policy_observations, before.action_masks_p2, kEnvironmentCount,
+                    options.seed + 2, step, false).actions;
+            } else {
+                p2_actions = opponent.actions_device(
+                    before.observations_p2, before.action_masks_p2, kEnvironmentCount,
+                    options.seed + 2, step, t8::v2::ScriptedOpponentSet::TrainingV1);
+            }
 
             simulator.step_device_i64(p1_actions, p2_actions);
             const auto states = simulator.download_states();
@@ -230,14 +290,20 @@ int main(int argc, char** argv) {
             const auto learner_actions = learner
                 ? learner->download_actions(kEnvironmentCount)
                 : scripted_learner.download_actions(kEnvironmentCount);
-            const auto opponent_actions = opponent.download_actions(kEnvironmentCount);
-            write_state(step, episode, states[0], config, profiles[options.profile_index],
+            opponent_actions = opponent_learner
+                ? opponent_learner->download_actions(kEnvironmentCount)
+                : opponent.download_actions(kEnvironmentCount);
+            const auto& opponent_display_profile = opponent_learner
+                ? profiles[jun_index]
+                : profiles[options.profile_index];
+            write_state(step, episode, states[0], config, opponent_display_profile,
                         learner_actions[0], opponent_actions[0], rewards[0], terminated[0] != 0);
             // If the GUI or its launcher exits abruptly, the stdout pipe closes.
             // End this helper instead of leaving a GPU process orphaned.
             if (!std::cout.good()) break;
 
             if (temporal) temporal->reset_done(simulator.device_view().terminated, kEnvironmentCount);
+            if (opponent_temporal) opponent_temporal->reset_done(simulator.device_view().terminated, kEnvironmentCount);
             if (terminated[0] != 0) ++episode;
             simulator.reset_done_seeded(options.seed + step + 1);
             if (options.interval_ms > 0) {

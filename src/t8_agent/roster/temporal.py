@@ -31,11 +31,11 @@ class TemporalFrame:
             [
                 # The native CUDA encoder uses the 24-action simulation ID
                 # (0..23) as its compact move identity.
-                np.clip(self.move_id / 23.0, 0.0, 1.0),
-                np.clip(self.animation_phase, 0.0, 1.0),
-                np.clip(self.stance_id / 31.0, 0.0, 1.0),
-                np.clip(self.hit_level / 4.0, 0.0, 1.0),
-                np.clip(self.delay_frames / 60.0, 0.0, 1.0),
+                -1.0 if self.move_id < 0 else np.clip(self.move_id / 23.0, 0.0, 1.0),
+                -1.0 if self.animation_phase < 0 else np.clip(self.animation_phase, 0.0, 1.0),
+                -1.0 if self.stance_id < 0 else np.clip(self.stance_id / 31.0, 0.0, 1.0),
+                -1.0 if self.hit_level < 0 else np.clip(self.hit_level / 4.0, 0.0, 1.0),
+                -1.0 if self.delay_frames < 0 else np.clip(self.delay_frames / 60.0, 0.0, 1.0),
                 np.clip(self.outcome, -1.0, 1.0),
                 np.clip(self.distance / 7.2, 0.0, 1.0),
                 np.clip(self.side_movement, -1.0, 1.0),

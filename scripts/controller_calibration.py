@@ -14,6 +14,9 @@ DEFAULT_SEQUENCE = [
     SimAction.DASH_BACK,
     SimAction.SIDESTEP_LEFT,
     SimAction.SIDESTEP_RIGHT,
+    SimAction.SIDEWALK_LEFT,
+    SimAction.SIDEWALK_RIGHT,
+    SimAction.JUMP,
     SimAction.BLOCK_HIGH,
     SimAction.BLOCK_LOW,
     SimAction.LOW_PARRY,
@@ -42,6 +45,7 @@ def main() -> int:
     parser.add_argument("--tap-seconds", type=float, default=0.12)
     parser.add_argument("--dash-gap-seconds", type=float, default=0.035)
     parser.add_argument("--between-seconds", type=float, default=0.75)
+    parser.add_argument("--hold-seconds", type=float, default=0.5)
     parser.add_argument("--start-delay", type=float, default=5.0)
     parser.add_argument("--lp-button", choices=["x", "y", "a", "b"], default="x")
     parser.add_argument("--rp-button", choices=["x", "y", "a", "b"], default="y")
@@ -68,9 +72,11 @@ def main() -> int:
             action = SimAction(action_value)
             print(f"pressing={action.value}", flush=True)
             controller.send_action(action)
+            time.sleep(args.hold_seconds)
+            controller.release_all()
             time.sleep(args.between_seconds)
     finally:
-        controller.release_all()
+        controller.close()
     print("controller_calibration_ok", flush=True)
     return 0
 

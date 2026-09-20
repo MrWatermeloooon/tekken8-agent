@@ -74,6 +74,9 @@ class LearnedTemporalEstimator:
         self.model = TemporalStateNet.load(checkpoint, device=device)
         self.frames: deque[np.ndarray] = deque(maxlen=clip_length)
 
+    def reset_episode(self) -> None:
+        self.frames.clear()
+
     def update(self, frame: np.ndarray) -> VisualEstimate | None:
         resized = cv2.resize(frame, (320, 180), interpolation=cv2.INTER_AREA)
         tensor_frame = resized.transpose(2, 0, 1).astype(np.float32) / 255.0

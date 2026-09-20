@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import numpy as np
-import torch
+import pytest
+
+torch = pytest.importorskip("torch")
 
 from t8_agent.core.types import GameState, PlayerState
 from t8_agent.live.vision_agent import LiveVisionAgent
@@ -86,3 +88,16 @@ def test_learned_estimator_waits_for_complete_clip(tmp_path) -> None:
 
     assert estimator.update(frame) is None
     assert estimator.update(frame) is not None
+    estimator.reset_episode()
+    assert estimator.update(frame) is None
+
+
+def test_visual_reset_discards_previous_round_motion_and_damage() -> None:
+    estimator = TemporalScreenEstimator()
+    first = np.zeros((180, 320, 3), dtype=np.uint8)
+    estimator.update(_state(p2_health=20), first)
+    estimator.reset_episode()
+    reset = estimator.update(_state(), np.full_like(first, 255))
+    assert reset.p1_motion == reset.p2_motion == 0
+    assert reset.p1_velocity == reset.p2_velocity == 0
+    assert not reset.p1_hit_event and not reset.p2_hit_event
