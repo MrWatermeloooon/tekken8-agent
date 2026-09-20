@@ -251,35 +251,36 @@ matchup results, behavior statistics, Elo, and forgetting checks.
 
 ### Measured training snapshot
 
-The following snapshot was captured at update 7,000 on 2026-09-20 from the active compatibility run
+The following snapshot was captured at update 28,700 on 2026-09-20 from the active compatibility run
 `overnight_roster_visual_shaped_seed20260722`. It used 32,768 environments, a horizon of 128,
 four PPO epochs, a 131,072-sample minibatch, visual observations, shaped rewards, and the roster
 opponent curriculum.
 
 | Measurement | Result |
 |---|---:|
-| Completed PPO updates | 7,000 |
-| Environment decisions | 29,360,128,000 |
-| Trainer elapsed time | 4:09:55 |
-| End-to-end run throughput | 1,957,943 decisions/s |
-| Atomic policy/state checkpoint pairs | 70 |
-| Saved held-out evaluations | 70 x 256 episodes |
-| Mean deterministic held-out win rate | 63.1% |
-| Deterministic held-out range | 30.5% to 93.4% |
-| Last-10 deterministic evaluation mean | 40.2% |
-| Latest deterministic/stochastic win rate | 35.9% / 40.6% |
-| Latest P1/P2 deterministic win rate | 46.9% / 25.0% |
-| Latest approximate KL / clip fraction | 0.00061 / 0.0067 |
-| Latest value loss | 0.00056 |
+| Completed PPO updates | 28,700 |
+| Environment decisions | 120,376,524,800 |
+| Trainer elapsed time | 17:04:14 |
+| End-to-end run throughput | 1,958,777 decisions/s |
+| Atomic policy/state checkpoint pairs | 287 |
+| Saved held-out evaluations | 287 x 256 episodes |
+| Mean deterministic held-out win rate | 74.6% |
+| Deterministic held-out range | 30.5% to 97.3% |
+| Last-10 deterministic evaluation mean | 80.7% |
+| Latest deterministic/stochastic win rate | 72.7% / 74.2% |
+| Latest P1/P2 deterministic win rate | 58.6% / 86.7% |
+| Latest approximate KL / clip fraction | 0.00064 / 0.0055 |
+| Latest value loss | 0.00196 |
 | Trainer stderr | Empty |
 
 ![Held-out evaluation curve](docs/images/v3-training-curve.png)
 
 At this point the run was actively using 80% latest-self and 20% best-older checkpoint opponents.
-The process remained stable and error-free, but held-out performance regressed substantially and
-the P1/P2 split is too large. This demonstrates that the training pipeline executes at scale; it
-does **not** demonstrate that learning quality is solved. Self-play regression, side robustness,
-and checkpoint promotion are explicit release blockers below.
+The process remained stable and error-free, recovered from its update-6,100 low, and reached a
+97.3% peak at update 15,000. The latest ten evaluations still average 80.7%, but the newest results
+are declining and the 28.1-point P1/P2 gap is unacceptable. The run is productive but unstable,
+not dead and not solved. Self-play regression, side robustness, and checkpoint promotion remain
+explicit release blockers below.
 
 ### Resume
 
@@ -395,7 +396,7 @@ Regenerate both README figures from a saved run with:
 
 ```powershell
 powershell -NoProfile -ExecutionPolicy Bypass `
-  -File tools\render_readme_figures.ps1 -MaxUpdate 7000
+  -File tools\render_readme_figures.ps1 -MaxUpdate 28700
 ```
 
 ## Documentation
@@ -417,8 +418,8 @@ validation required for promotion.
 
 ### Immediate training blockers
 
-- [ ] Diagnose the held-out regression from a 93.4% peak to 35.9% at update 7,000.
-- [ ] Fix the 46.9% P1 versus 25.0% P2 evaluation gap and add a side-gap promotion threshold.
+- [ ] Diagnose repeated held-out oscillation: 97.3% peak, 30.5% trough, and 72.7% latest result.
+- [ ] Fix the latest 58.6% P1 versus 86.7% P2 gap and add a side-gap promotion threshold.
 - [ ] Audit latest-self opponent loading, frozen recurrent history, side routing, and reset state.
 - [ ] Re-evaluate why checkpoint 100 remains the best older opponent after 70 evaluations.
 - [ ] Add automatic rollback or pause when held-out score, exploitability, or side balance regresses.
