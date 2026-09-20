@@ -12,10 +12,6 @@ runtime. The rollout and optimization hot path stays in GPU memory.
 > Training happens in a purpose-built, deterministic Tekken-like simulator. The live runtime reads
 > screen-derived features and sends controller inputs. Policies still require real-game validation.
 
-V1 is preserved on the [`v1` branch](https://github.com/MrWatermeloooon/tekken8-agent/tree/v1).
-The `v2` branch is the default branch and contains all current work; there are no duplicated
-`v1/` or `v2/` source directories.
-
 ## Current capabilities
 
 - Jun learner versus all 42 fighters in the 2026-07-21 playable-roster snapshot.
