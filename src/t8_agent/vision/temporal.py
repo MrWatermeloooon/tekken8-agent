@@ -56,11 +56,13 @@ class TemporalScreenEstimator:
         p1_region: ScreenRegion | None = None,
         p2_region: ScreenRegion | None = None,
         motion_threshold: float = 0.015,
+        p1_on_left: bool = True,
     ) -> None:
         self.max_health = max_health
         self.p1_region = p1_region
         self.p2_region = p2_region
         self.motion_threshold = motion_threshold
+        self.p1_on_left = bool(p1_on_left)
         self.previous_gray: np.ndarray | None = None
         self.previous_state: GameState | None = None
 
@@ -69,8 +71,11 @@ class TemporalScreenEstimator:
         height, width = frame.shape[:2]
         p1_region = self.p1_region or ScreenRegion(0, int(height * 0.2), width // 2, height)
         p2_region = self.p2_region or ScreenRegion(width // 2, int(height * 0.2), width, height)
-        p1_motion = self._motion_for_region(gray, p1_region, width, height)
-        p2_motion = self._motion_for_region(gray, p2_region, width, height)
+        left_motion = self._motion_for_region(gray, p1_region, width, height)
+        right_motion = self._motion_for_region(gray, p2_region, width, height)
+        p1_motion, p2_motion = (
+            (left_motion, right_motion) if self.p1_on_left else (right_motion, left_motion)
+        )
         # Camera movement and hit shake affect both screen halves. Remove the
         # shared component so the agent does not treat its own move as a new
         # opponent attack and enter a repeated-attack feedback loop.
@@ -102,6 +107,12 @@ class TemporalScreenEstimator:
             p1_attack_likelihood=_attack_likelihood(p1_attack_motion, distance, self.motion_threshold),
             p2_attack_likelihood=_attack_likelihood(p2_attack_motion, distance, self.motion_threshold),
         )
+
+    def set_p1_on_left(self, p1_on_left: bool) -> None:
+        """Swap physical screen halves while preserving P1/P2 temporal identity."""
+        self.p1_on_left = bool(p1_on_left)
+        self.previous_gray = None
+        self.previous_state = None
 
     def _motion_for_region(self, gray: np.ndarray, region: ScreenRegion, width: int, height: int) -> float:
         if self.previous_gray is None:

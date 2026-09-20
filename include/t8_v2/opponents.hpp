@@ -35,7 +35,15 @@ public:
     // instead of the frozen eight-style compatibility mixture.
     void set_profiles(std::span<const OpponentProfileParameters> profiles, void* stream = nullptr);
     void set_profile_assignments(std::span<const std::uint32_t> assignments, void* stream = nullptr);
+    void set_profile_assignments_for_done(
+        std::span<const std::uint32_t> assignments,
+        const std::uint8_t* device_done,
+        void* stream = nullptr);
     void set_action_history(std::span<const std::int64_t> actions, void* stream = nullptr);
+    void set_action_history_device(
+        const std::int64_t* device_actions,
+        std::size_t environment_count,
+        void* stream = nullptr);
     [[nodiscard]] bool uses_profiles() const noexcept;
     [[nodiscard]] const std::uint32_t* profile_assignments_device() const noexcept;
     [[nodiscard]] const OpponentProfileParameters* profiles_device() const noexcept;

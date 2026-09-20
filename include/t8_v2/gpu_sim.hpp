@@ -90,6 +90,7 @@ public:
         std::size_t profile_count,
         const std::uint32_t* device_profile_assignments,
         int learner_player = 0,
+        const std::uint8_t* device_lane_mask = nullptr,
         void* stream = nullptr);
 
     // Fast training path: action tensors already live in VRAM. Each tensor is
@@ -124,6 +125,7 @@ public:
     [[nodiscard]] std::vector<float> download_rewards(int player, void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_sparse_rewards(int player, void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::uint8_t> download_terminated(void* stream = nullptr) const;
+    [[nodiscard]] std::vector<std::uint8_t> download_truncated(void* stream = nullptr) const;
     [[nodiscard]] std::vector<std::int32_t> download_winners(void* stream = nullptr) const;
     [[nodiscard]] GpuEpisodeSummary summarize_episodes(
         int learner_player,

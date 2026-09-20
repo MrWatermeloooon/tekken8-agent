@@ -46,9 +46,18 @@ public:
         const GpuBatchDeviceView& simulator,
         std::size_t environment_count,
         void* stream = nullptr);
+    [[nodiscard]] GpuRoutedObservationView select_self_play_visual_observations(
+        const GpuBatchDeviceView& simulator,
+        std::size_t environment_count,
+        void* stream = nullptr);
     [[nodiscard]] GpuRoutedActionView route_actions(
         const std::int64_t* learner_actions,
         const std::int64_t* opponent_actions,
+        std::size_t environment_count,
+        void* stream = nullptr);
+    [[nodiscard]] const std::int64_t* mix_self_play_actions(
+        const std::int64_t* latest_actions,
+        const std::int64_t* best_older_actions,
         std::size_t environment_count,
         void* stream = nullptr);
     [[nodiscard]] const float* select_rewards(

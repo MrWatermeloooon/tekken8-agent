@@ -7,12 +7,16 @@
 #include <cuda_runtime.h>
 
 #include <algorithm>
+#include <array>
 #include <cmath>
 #include <cstdint>
 #include <cstdlib>
+#include <cstring>
 #include <filesystem>
 #include <fstream>
 #include <iostream>
+#include <iterator>
+#include <limits>
 #include <stdexcept>
 #include <string_view>
 #include <vector>
@@ -384,7 +388,21 @@ void test_held_out_opponent_and_side_router() {
     const auto held_out_actions = opponent.download_actions(environments);
     check(training_actions != held_out_actions, "held-out audit suite differs from training suite");
 
+    std::vector<t8::v2::OpponentProfileParameters> profiles(1);
+    profiles[0].character_id = t8::v2::kJunCharacterId;
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(std::vector<std::uint32_t>(environments, 0));
+    static_cast<void>(opponent.actions_device(
+        routed.opponent_observations, routed.opponent_action_masks,
+        environments, 919, 0, t8::v2::ScriptedOpponentSet::HeldOutV2));
+    check(opponent.download_actions(environments) == held_out_actions,
+          "held-out actions remain fixed when roster profiles are installed");
+
     const auto routed_visual = router.select_visual_observations(simulator_view, environments);
+    const auto routed_self_play_visual =
+        router.select_self_play_visual_observations(simulator_view, environments);
+    check(routed_self_play_visual.opponent_observations != nullptr,
+          "self-play router exposes screen-compatible observations for both policies");
     t8::v2::ActorCriticConfig visual_config{};
     visual_config.observation_size = static_cast<int>(t8::v2::kVisualObservationSize);
     t8::v2::GpuActorCritic visual_policy(environments, visual_config, 8080);
@@ -418,6 +436,17 @@ void test_held_out_opponent_and_side_router() {
     cuda_check(cudaMemcpy(opponent_actions_device, opponent_actions.data(),
                           sizeof(std::int64_t) * environments, cudaMemcpyHostToDevice),
                "upload opponent action test input");
+
+    const auto* mixed_actions_device = router.mix_self_play_actions(
+        learner_actions_device, opponent_actions_device, environments);
+    std::vector<std::int64_t> mixed_actions(environments);
+    cuda_check(cudaMemcpy(mixed_actions.data(), mixed_actions_device,
+                          sizeof(std::int64_t) * environments, cudaMemcpyDeviceToHost),
+               "download mixed self-play actions");
+    for (std::size_t lane = 0; lane < environments; ++lane) {
+        check(mixed_actions[lane] == (lane % 5 == 0 ? opponent_actions[lane] : learner_actions[lane]),
+              "self-play lanes use an exact 80/20 latest-to-best mixture");
+    }
 
     const auto routed_actions =
         router.route_actions(learner_actions_device, opponent_actions_device, environments);
@@ -468,6 +497,359 @@ void test_held_out_opponent_and_side_router() {
     cudaFree(learner_actions_device);
 }
 
+void test_profile_assignments_change_only_for_done_lanes() {
+    constexpr std::size_t environments = 2;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    std::vector<t8::v2::OpponentProfileParameters> profiles(2);
+    profiles[0].id = 0;
+    profiles[1].id = 1;
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(std::vector<std::uint32_t>{0, 0});
+
+    auto states = simulator.download_states();
+    states[0].round_over = true;
+    states[0].winner = 1;
+    simulator.upload_states(states);
+    const std::vector<std::uint32_t> candidates = {1, 1};
+    opponent.set_profile_assignments_for_done(candidates, simulator.device_view().terminated);
+    opponent.synchronize();
+    const auto assignments = opponent.download_profile_assignments(environments);
+    check(assignments[0] == 1, "done lane receives its next opponent profile");
+    check(assignments[1] == 0, "active lane keeps its current opponent profile");
+}
+
+void test_opponent_character_swap_respects_lane_mask() {
+    constexpr std::size_t environments = 2;
+    t8::v2::Config config{};
+    config.decision_frames = 4;
+    config.max_frames = 4;
+    t8::v2::GpuSimulatorBatch simulator(environments, config);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+
+    std::vector<t8::v2::CharacterMoveParameters> moves(
+        t8::v2::kRosterCharacterCount * t8::v2::kCharacterMoveSlotCount);
+    for (std::uint32_t character = 0; character < t8::v2::kRosterCharacterCount; ++character) {
+        for (std::uint32_t slot = 0; slot < t8::v2::kCharacterMoveSlotCount; ++slot) {
+            auto& move = moves[character * t8::v2::kCharacterMoveSlotCount + slot];
+            move.character_id = character;
+            move.slot = slot;
+            move.hit_level = slot == 5 ? 4 : (slot == 3 ? 3 : (slot == 0 ? 1 : 2));
+            move.startup = 1;
+            move.active = 2;
+            move.recovery = 8;
+            move.damage = 10.0F;
+            move.range = 3.0F;
+            move.hitstun = 12;
+            move.blockstun = 6;
+            move.pushback = 0.1F;
+        }
+    }
+    moves[0].damage = 5.0F;
+    moves[t8::v2::kCharacterMoveSlotCount].damage = 25.0F;
+    simulator.set_character_move_specs(moves);
+
+    std::vector<t8::v2::OpponentProfileParameters> profiles(2);
+    profiles[0].id = 0;
+    profiles[0].character_id = 0;
+    profiles[1] = profiles[0];
+    profiles[1].id = 1;
+    profiles[1].character_id = 1;
+    opponent.set_profiles(profiles);
+
+    const std::vector<std::uint8_t> p1_actions(
+        environments, static_cast<std::uint8_t>(t8::v2::Action::Crouch));
+    const std::vector<std::uint8_t> p2_actions(
+        environments, static_cast<std::uint8_t>(t8::v2::Action::Jab));
+
+    opponent.set_profile_assignments(std::vector<std::uint32_t>{0, 0});
+    simulator.set_opponent_characters_device(
+        opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), 1);
+    simulator.step_host(p1_actions, p2_actions);
+    const auto baseline_states = simulator.download_states();
+    check(std::fabs(baseline_states[0].p1.health - (config.max_health - 5.0)) < 1e-5 &&
+          std::fabs(baseline_states[1].p1.health - (config.max_health - 5.0)) < 1e-5,
+          "both lanes start on the character-0 five-damage jab");
+
+    simulator.reset_done();
+    simulator.synchronize();
+
+    std::uint8_t* lane_mask_device = nullptr;
+    cuda_check(cudaMalloc(&lane_mask_device, sizeof(std::uint8_t) * environments),
+               "allocate character-swap lane mask");
+    const std::vector<std::uint8_t> lane_mask_host = {0, 1};
+    cuda_check(cudaMemcpy(lane_mask_device, lane_mask_host.data(),
+                          sizeof(std::uint8_t) * environments, cudaMemcpyHostToDevice),
+               "upload character-swap lane mask");
+    const std::vector<std::uint32_t> candidates = {1, 1};
+    opponent.set_profile_assignments_for_done(candidates, lane_mask_device);
+    opponent.synchronize();
+    simulator.set_opponent_characters_device(
+        opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), 1, lane_mask_device);
+
+    simulator.step_host(p1_actions, p2_actions);
+    const auto masked_states = simulator.download_states();
+    check(std::fabs(masked_states[0].p1.health - (config.max_health - 5.0)) < 1e-5,
+          "masked-out lane keeps its mid-catalog character instead of swapping opponents");
+    check(std::fabs(masked_states[1].p1.health - (config.max_health - 25.0)) < 1e-5,
+          "masked-in lane swaps to its newly assigned character");
+    cudaFree(lane_mask_device);
+}
+
+void test_temporal_preview_does_not_mutate_state() {
+    constexpr std::size_t environments = 16;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    std::vector<t8::v2::OpponentProfileParameters> profiles(1);
+    profiles[0].character_id = 4;
+    opponent.set_profiles(profiles);
+    opponent.set_profile_assignments(std::vector<std::uint32_t>(environments, 0));
+    t8::v2::GpuTemporalMatchupEncoder encoder(environments, t8::v2::kObservationSize);
+
+    auto view = simulator.device_view();
+    static_cast<void>(encoder.encode(
+        view.observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments));
+    const auto* first_opponent_actions = opponent.actions_device(
+        view.observations_p2, view.action_masks_p2, environments, 55, 0);
+    simulator.step_device_i64(first_opponent_actions, first_opponent_actions);
+    view = simulator.device_view();
+
+    const auto baseline_state = encoder.download_state();
+    const std::size_t width = encoder.observation_size();
+
+    const float* preview_output = encoder.preview(
+        view.observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments);
+    std::vector<float> preview_values(environments * width);
+    cuda_check(cudaMemcpy(preview_values.data(), preview_output, sizeof(float) * preview_values.size(),
+                          cudaMemcpyDeviceToHost), "download temporal preview output");
+    check(encoder.download_state().history == baseline_state.history,
+          "preview does not advance temporal history");
+    check(encoder.download_state().valid == baseline_state.valid,
+          "preview does not change validity flags");
+    check(encoder.download_state().previous_actions == baseline_state.previous_actions,
+          "preview does not commit the previewed action");
+
+    const float* preview_again = encoder.preview(
+        view.observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments);
+    std::vector<float> preview_again_values(preview_values.size());
+    cuda_check(cudaMemcpy(preview_again_values.data(), preview_again,
+                          sizeof(float) * preview_again_values.size(), cudaMemcpyDeviceToHost),
+               "download repeated temporal preview output");
+    check(preview_values == preview_again_values,
+          "repeated preview calls from the same state are idempotent");
+
+    const float* encode_output = encoder.encode(
+        view.observations_p2, opponent.profiles_device(), opponent.profile_count(),
+        opponent.profile_assignments_device(), opponent.actions_buffer_device(), environments);
+    std::vector<float> encode_values(preview_values.size());
+    cuda_check(cudaMemcpy(encode_values.data(), encode_output, sizeof(float) * encode_values.size(),
+                          cudaMemcpyDeviceToHost), "download temporal encode output");
+    check(preview_values == encode_values,
+          "preview matches the observation a real encode would produce from the same state");
+    check(encoder.download_state().history != baseline_state.history,
+          "a real encode call still advances history after preview left it untouched");
+}
+
+void test_self_play_visual_router_uses_screen_observations_for_opponent() {
+    constexpr std::size_t environments = 16;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    t8::v2::GpuLearnerSideRouter router(environments);
+    const auto view = simulator.device_view();
+    const auto routed = router.select_self_play_visual_observations(view, environments);
+
+    std::vector<float> opponent_observed(environments * t8::v2::kVisualObservationSize);
+    cuda_check(cudaMemcpy(opponent_observed.data(), routed.opponent_observations,
+                          sizeof(float) * opponent_observed.size(), cudaMemcpyDeviceToHost),
+               "download self-play opponent observations");
+    std::vector<float> visual_p1(environments * t8::v2::kVisualObservationSize);
+    std::vector<float> visual_p2(environments * t8::v2::kVisualObservationSize);
+    cuda_check(cudaMemcpy(visual_p1.data(), view.visual_observations_p1,
+                          sizeof(float) * visual_p1.size(), cudaMemcpyDeviceToHost),
+               "download raw visual P1 observations");
+    cuda_check(cudaMemcpy(visual_p2.data(), view.visual_observations_p2,
+                          sizeof(float) * visual_p2.size(), cudaMemcpyDeviceToHost),
+               "download raw visual P2 observations");
+
+    bool matches_screen_tensor = true;
+    for (std::size_t lane = 0; lane < environments; ++lane) {
+        const bool learner_p1 = ((lane / t8::v2::kEvaluationStyleCount) & 1U) == 0U;
+        const float* expected =
+            (learner_p1 ? visual_p2 : visual_p1).data() + lane * t8::v2::kVisualObservationSize;
+        const float* actual = opponent_observed.data() + lane * t8::v2::kVisualObservationSize;
+        if (!std::equal(expected, expected + t8::v2::kVisualObservationSize, actual)) {
+            matches_screen_tensor = false;
+        }
+    }
+    check(matches_screen_tensor,
+          "self-play router gives the opponent the screen-compatible tensor, not privileged state");
+}
+
+void test_action_history_device_validation() {
+    constexpr std::size_t environments = 4;
+    t8::v2::GpuScriptedOpponent opponent(environments);
+    std::int64_t* actions_device = nullptr;
+    cuda_check(cudaMalloc(&actions_device, sizeof(std::int64_t) * environments),
+               "allocate action-history test buffer");
+
+    bool rejected_null = false;
+    try {
+        opponent.set_action_history_device(nullptr, environments);
+    } catch (const std::invalid_argument&) {
+        rejected_null = true;
+    }
+    check(rejected_null, "device action history rejects a null pointer");
+
+    bool rejected_zero = false;
+    try {
+        opponent.set_action_history_device(actions_device, 0);
+    } catch (const std::invalid_argument&) {
+        rejected_zero = true;
+    }
+    check(rejected_zero, "device action history rejects a zero environment count");
+
+    bool rejected_overflow = false;
+    try {
+        opponent.set_action_history_device(actions_device, environments + 1);
+    } catch (const std::invalid_argument&) {
+        rejected_overflow = true;
+    }
+    check(rejected_overflow, "device action history rejects a count exceeding capacity");
+    cudaFree(actions_device);
+}
+
+void test_actor_critic_and_router_reject_invalid_configuration() {
+    bool rejected_zero_capacity = false;
+    try {
+        t8::v2::GpuActorCritic invalid(0);
+    } catch (const std::invalid_argument&) {
+        rejected_zero_capacity = true;
+    }
+    check(rejected_zero_capacity, "actor-critic rejects zero capacity");
+
+    t8::v2::ActorCriticConfig bad_actions{};
+    bad_actions.action_count = 1;
+    bool rejected_action_count = false;
+    try {
+        t8::v2::GpuActorCritic invalid(4, bad_actions);
+    } catch (const std::invalid_argument&) {
+        rejected_action_count = true;
+    }
+    check(rejected_action_count, "actor-critic rejects a single-action policy");
+
+    t8::v2::ActorCriticConfig bad_hidden{};
+    bad_hidden.hidden_size = 0;
+    bool rejected_hidden = false;
+    try {
+        t8::v2::GpuActorCritic invalid(4, bad_hidden);
+    } catch (const std::invalid_argument&) {
+        rejected_hidden = true;
+    }
+    check(rejected_hidden, "actor-critic rejects a zero hidden size");
+
+    bool rejected_router_capacity = false;
+    try {
+        t8::v2::GpuLearnerSideRouter invalid(0);
+    } catch (const std::invalid_argument&) {
+        rejected_router_capacity = true;
+    }
+    check(rejected_router_capacity, "side router rejects zero capacity");
+
+    t8::v2::GpuLearnerSideRouter router(4);
+    t8::v2::GpuSimulatorBatch simulator(4);
+    bool rejected_environment_overflow = false;
+    try {
+        static_cast<void>(router.select_observations(simulator.device_view(), 5));
+    } catch (const std::invalid_argument&) {
+        rejected_environment_overflow = true;
+    }
+    check(rejected_environment_overflow, "side router rejects an environment count beyond capacity");
+}
+
+void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
+    constexpr std::size_t environments = 8;
+    t8::v2::ActorCriticConfig small_config{};
+    small_config.hidden_size = 16;
+    t8::v2::GpuActorCritic small(environments, small_config, 111);
+    const auto checkpoint = std::filesystem::temp_directory_path() / "t8_v2_policy_mismatch.t8ppo";
+    std::error_code error;
+    std::filesystem::remove(checkpoint, error);
+    small.save_checkpoint(checkpoint);
+
+    t8::v2::ActorCriticConfig large_config{};
+    large_config.hidden_size = 32;
+    t8::v2::GpuActorCritic large(environments, large_config, 222);
+    bool rejected_mismatch = false;
+    try {
+        large.load_checkpoint(checkpoint);
+    } catch (const std::runtime_error&) {
+        rejected_mismatch = true;
+    }
+    check(rejected_mismatch, "checkpoint load rejects an architecture mismatch");
+
+    // Hand-craft a checksum-valid checkpoint whose payload contains a NaN, to
+    // exercise the finiteness guard independently of the checksum guard.
+    struct HeaderLayout {
+        std::array<char, 8> magic{};
+        std::uint32_t version = 0;
+        std::uint32_t observation_size = 0;
+        std::uint32_t action_count = 0;
+        std::uint32_t hidden_size = 0;
+        std::uint64_t optimizer_step = 0;
+        std::uint64_t parameter_count = 0;
+    };
+    struct IntegrityLayout {
+        std::uint64_t payload_bytes = 0;
+        std::uint64_t payload_checksum = 0;
+    };
+    std::ifstream input(checkpoint, std::ios::binary);
+    const std::vector<char> raw(
+        (std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
+    input.close();
+    HeaderLayout header{};
+    IntegrityLayout integrity{};
+    std::memcpy(&header, raw.data(), sizeof(header));
+    std::memcpy(&integrity, raw.data() + sizeof(header), sizeof(integrity));
+    check(header.version == 2, "checkpoint format under test is the checksum-bearing version");
+
+    std::vector<char> mutated = raw;
+    auto* payload = reinterpret_cast<float*>(mutated.data() + sizeof(header) + sizeof(integrity));
+    payload[0] = std::numeric_limits<float>::quiet_NaN();
+    const auto* payload_bytes = reinterpret_cast<const unsigned char*>(payload);
+    constexpr std::uint64_t offset_basis = 14695981039346656037ULL;
+    constexpr std::uint64_t prime = 1099511628211ULL;
+    std::uint64_t checksum = offset_basis;
+    for (std::uint64_t index = 0; index < integrity.payload_bytes; ++index) {
+        checksum ^= payload_bytes[index];
+        checksum *= prime;
+    }
+    const IntegrityLayout patched_integrity{integrity.payload_bytes, checksum};
+    std::memcpy(mutated.data() + sizeof(header), &patched_integrity, sizeof(patched_integrity));
+
+    const auto nonfinite_checkpoint =
+        std::filesystem::temp_directory_path() / "t8_v2_policy_nonfinite.t8ppo";
+    std::filesystem::remove(nonfinite_checkpoint, error);
+    {
+        std::ofstream output(nonfinite_checkpoint, std::ios::binary | std::ios::trunc);
+        output.write(mutated.data(), static_cast<std::streamsize>(mutated.size()));
+    }
+    t8::v2::GpuActorCritic restored(environments, small_config, 333);
+    bool rejected_nonfinite = false;
+    try {
+        restored.load_checkpoint(nonfinite_checkpoint);
+    } catch (const std::runtime_error&) {
+        rejected_nonfinite = true;
+    }
+    check(rejected_nonfinite, "checkpoint load rejects a checksum-valid but non-finite payload");
+
+    std::filesystem::remove(checkpoint, error);
+    std::filesystem::remove(nonfinite_checkpoint, error);
+}
+
 }  // namespace
 
 int main() {
@@ -480,6 +862,13 @@ int main() {
     test_gpu_temporal_matchup_encoder();
     test_held_out_opponent_and_side_router();
     test_character_specific_moves_execute_on_gpu();
+    test_profile_assignments_change_only_for_done_lanes();
+    test_opponent_character_swap_respects_lane_mask();
+    test_temporal_preview_does_not_mutate_state();
+    test_self_play_visual_router_uses_screen_observations_for_opponent();
+    test_action_history_device_validation();
+    test_actor_critic_and_router_reject_invalid_configuration();
+    test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload();
     if (failures != 0) {
         std::cerr << failures << " policy assertion(s) failed\n";
         return EXIT_FAILURE;

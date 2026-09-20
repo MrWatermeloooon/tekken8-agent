@@ -59,6 +59,11 @@ def main() -> int:
     parser.add_argument("--hotkey", default="f8", help="Global hotkey used to pause/resume controller output.")
     parser.add_argument("--side-hotkey", default="f7", help="Global hotkey used to flip left/right directional inputs.")
     parser.add_argument("--facing", type=int, choices=[-1, 1], default=1)
+    parser.add_argument(
+        "--allow-automatic-calibration",
+        action="store_true",
+        help="Allow controller mode with automatic screen regions; interactive calibration is safer.",
+    )
     start_group = parser.add_mutually_exclusive_group()
     start_group.add_argument("--start-paused", dest="start_paused", action="store_true",
                              help="Start with controller output paused (default).")
@@ -66,6 +71,10 @@ def main() -> int:
                              help="Opt in to controller output immediately on launch.")
     parser.set_defaults(start_paused=True)
     args = parser.parse_args()
+
+    def p1_is_on_left(controlled_facing: int) -> bool:
+        controlled_player_is_left = controlled_facing == 1
+        return controlled_player_is_left if args.player == 1 else not controlled_player_is_left
 
     try:
         import keyboard
@@ -75,11 +84,35 @@ def main() -> int:
             '.\\.venv\\Scripts\\python -m pip install -e ".[live]"'
         ) from exc
 
-    backend = DxcamScreenStateBackend(config_path=args.screen_config)
+    backend = DxcamScreenStateBackend(
+        config_path=args.screen_config,
+        p1_on_left=p1_is_on_left(args.facing),
+    )
+    calibration_source = str(backend.config.get("calibration_source", "unspecified"))
+    has_regions = all(
+        region is not None
+        for region in (
+            backend.p1_health_region,
+            backend.p2_health_region,
+            backend.p1_body_region,
+            backend.p2_body_region,
+        )
+    )
+    unsafe_calibration = calibration_source.startswith("automatic") or calibration_source in {
+        "unspecified",
+        "uncalibrated_template",
+    }
+    if not args.dry_run and (not has_regions or unsafe_calibration) and not args.allow_automatic_calibration:
+        backend.close()
+        parser.error(
+            "controller mode requires interactive screen calibration; run "
+            "scripts/calibrate_live_screen.py or explicitly pass --allow-automatic-calibration"
+        )
     estimator = TemporalScreenEstimator(
         p1_region=backend.p1_body_region,
         p2_region=backend.p2_body_region,
         motion_threshold=float(backend.config.get("motion_threshold", 0.015)),
+        p1_on_left=p1_is_on_left(args.facing),
     )
     learned_estimator = LearnedTemporalEstimator(args.model, device=args.device) if args.model else None
     if args.agent == "v2" and not args.ppo_checkpoint:
@@ -92,6 +125,7 @@ def main() -> int:
     controller = None if args.dry_run else VGamepadInputBackend(facing=args.facing, tap_seconds=0.035)
     commitment = ActionCommitmentFilter()
     enabled = not args.start_paused
+    current_facing = args.facing
 
     def toggle() -> None:
         nonlocal enabled
@@ -101,10 +135,14 @@ def main() -> int:
         print(f"controller={'on' if enabled else 'off'}", flush=True)
 
     def flip_side() -> None:
+        nonlocal current_facing
         if controller is None:
-            return
-        facing = controller.flip_facing()
-        print(f"facing={'right' if facing == 1 else 'left'}", flush=True)
+            current_facing *= -1
+        else:
+            current_facing = controller.flip_facing()
+        backend.set_p1_on_left(p1_is_on_left(current_facing))
+        estimator.set_p1_on_left(p1_is_on_left(current_facing))
+        print(f"facing={'right' if current_facing == 1 else 'left'}", flush=True)
 
     keyboard.add_hotkey(args.hotkey, toggle)
     keyboard.add_hotkey(args.side_hotkey, flip_side)

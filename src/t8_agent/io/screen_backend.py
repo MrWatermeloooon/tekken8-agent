@@ -41,10 +41,12 @@ class DxcamScreenStateBackend(StateBackend):
         output_idx: int = 0,
         max_health: float = 180.0,
         stage_half_width: float = 3.6,
+        p1_on_left: bool = True,
         camera: Any | None = None,
     ) -> None:
         self.max_health = max_health
         self.stage_half_width = stage_half_width
+        self.p1_on_left = bool(p1_on_left)
         self.config = _load_config(config_path)
         self.p1_health_region = ScreenRegion.from_config(self.config.get("p1_health_region"))
         self.p2_health_region = ScreenRegion.from_config(self.config.get("p2_health_region"))
@@ -76,8 +78,16 @@ class DxcamScreenStateBackend(StateBackend):
             frame = self.last_frame
         if frame is None:
             return GameState(
-                p1=PlayerState(health=self.max_health, position_x=-self.stage_half_width * 0.28, facing=1),
-                p2=PlayerState(health=self.max_health, position_x=self.stage_half_width * 0.28, facing=-1),
+                p1=PlayerState(
+                    health=self.max_health,
+                    position_x=(-1 if self.p1_on_left else 1) * self.stage_half_width * 0.28,
+                    facing=1 if self.p1_on_left else -1,
+                ),
+                p2=PlayerState(
+                    health=self.max_health,
+                    position_x=(1 if self.p1_on_left else -1) * self.stage_half_width * 0.28,
+                    facing=-1 if self.p1_on_left else 1,
+                ),
                 round_timer=60.0,
                 raw={
                     "screen_width": 0,
@@ -88,21 +98,22 @@ class DxcamScreenStateBackend(StateBackend):
                     "p2_x": float(self.stage_half_width * 0.28),
                     "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                     "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
+                    "p1_on_left": self.p1_on_left,
                     "capture_valid": False,
                 },
             )
         self.last_frame = frame
         p1_ratio = _estimate_health_ratio(frame, self.p1_health_region)
         p2_ratio = _estimate_health_ratio(frame, self.p2_health_region)
-        p1_x, p2_x = _estimate_fighter_positions(
+        left_x, right_x = _estimate_fighter_positions(
             frame,
             self.stage_half_width,
             p1_region=self.p1_body_region,
             p2_region=self.p2_body_region,
             sample_stride=self.position_sample_stride,
         )
-        center_x = (p1_x + p2_x) / 2.0
-        raw_distance = p2_x - p1_x
+        center_x = (left_x + right_x) / 2.0
+        raw_distance = right_x - left_x
         calibrated_distance = _calibrate_distance(
             raw_distance,
             self.position_distance_scale,
@@ -110,12 +121,21 @@ class DxcamScreenStateBackend(StateBackend):
             self.stage_half_width * 2.0,
         )
         half_distance = calibrated_distance / 2.0
-        p1_x = center_x - half_distance
-        p2_x = center_x + half_distance
+        left_x = center_x - half_distance
+        right_x = center_x + half_distance
+        p1_x, p2_x = (left_x, right_x) if self.p1_on_left else (right_x, left_x)
         processing_ms = (perf_counter() - read_started) * 1000.0
         return GameState(
-            p1=PlayerState(health=self.max_health * p1_ratio, position_x=p1_x, facing=1),
-            p2=PlayerState(health=self.max_health * p2_ratio, position_x=p2_x, facing=-1),
+            p1=PlayerState(
+                health=self.max_health * p1_ratio,
+                position_x=p1_x,
+                facing=1 if self.p1_on_left else -1,
+            ),
+            p2=PlayerState(
+                health=self.max_health * p2_ratio,
+                position_x=p2_x,
+                facing=-1 if self.p1_on_left else 1,
+            ),
             round_timer=60.0,
             raw={
                 "screen_width": int(frame.shape[1]),
@@ -129,6 +149,7 @@ class DxcamScreenStateBackend(StateBackend):
                 "position_distance_calibrated": self.position_distance_calibration is not None,
                 "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                 "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),
+                "p1_on_left": self.p1_on_left,
                 "capture_valid": True,
                 "capture_processing_ms": float(processing_ms),
                 "capture_fps_target": self.capture_fps,
@@ -148,6 +169,10 @@ class DxcamScreenStateBackend(StateBackend):
     def close(self) -> None:
         if hasattr(self.camera, "stop"):
             self.camera.stop()
+
+    def set_p1_on_left(self, p1_on_left: bool) -> None:
+        """Keep detected fighter identity aligned after an in-game side switch."""
+        self.p1_on_left = bool(p1_on_left)
 
 
 def _load_config(config_path: str | Path | None) -> dict[str, Any]:

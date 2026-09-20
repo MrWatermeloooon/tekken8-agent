@@ -75,6 +75,16 @@ __global__ void route_actions_kernel(
     p2_actions[lane] = learner_p1 ? opponent_actions[lane] : learner_actions[lane];
 }
 
+__global__ void mix_self_play_actions_kernel(
+    const std::int64_t* latest_actions,
+    const std::int64_t* best_older_actions,
+    std::size_t count,
+    std::int64_t* mixed_actions) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= count) return;
+    mixed_actions[lane] = lane % 5 == 0 ? best_older_actions[lane] : latest_actions[lane];
+}
+
 __global__ void select_rewards_kernel(
     const float* p1_rewards,
     const float* p2_rewards,
@@ -95,6 +105,7 @@ struct GpuLearnerSideRouter::Impl {
     std::uint8_t* opponent_masks = nullptr;
     std::int64_t* p1_actions = nullptr;
     std::int64_t* p2_actions = nullptr;
+    std::int64_t* mixed_opponent_actions = nullptr;
     float* learner_rewards = nullptr;
 
     explicit Impl(std::size_t requested_capacity) : capacity(requested_capacity) {
@@ -112,6 +123,8 @@ struct GpuLearnerSideRouter::Impl {
                    "allocate routed P1 actions");
         check_cuda(cudaMalloc(&p2_actions, sizeof(std::int64_t) * capacity),
                    "allocate routed P2 actions");
+        check_cuda(cudaMalloc(&mixed_opponent_actions, sizeof(std::int64_t) * capacity),
+                   "allocate mixed self-play actions");
         check_cuda(cudaMalloc(&learner_rewards, sizeof(float) * capacity),
                    "allocate routed learner rewards");
         } catch (...) {
@@ -122,6 +135,7 @@ struct GpuLearnerSideRouter::Impl {
 
     void release() noexcept {
         cudaFree(learner_rewards);
+        cudaFree(mixed_opponent_actions);
         cudaFree(p2_actions);
         cudaFree(p1_actions);
         cudaFree(opponent_masks);
@@ -183,6 +197,27 @@ GpuRoutedObservationView GpuLearnerSideRouter::select_visual_observations(
             impl_->opponent_observations, impl_->opponent_masks, environment_count};
 }
 
+GpuRoutedObservationView GpuLearnerSideRouter::select_self_play_visual_observations(
+    const GpuBatchDeviceView& simulator,
+    std::size_t environment_count,
+    void* stream) {
+    if (environment_count == 0 || environment_count > impl_->capacity ||
+        !simulator.visual_observations_p1 || !simulator.visual_observations_p2 ||
+        !simulator.action_masks_p1 || !simulator.action_masks_p2) {
+        throw std::invalid_argument("invalid routed self-play visual observation input");
+    }
+    select_observations_kernel<<<blocks_for(environment_count), kThreads, 0, as_stream(stream)>>>(
+        simulator.visual_observations_p1, simulator.visual_observations_p2,
+        simulator.visual_observations_p1, simulator.visual_observations_p2,
+        kVisualObservationSize, kVisualObservationSize,
+        simulator.action_masks_p1, simulator.action_masks_p2,
+        environment_count, impl_->learner_observations, impl_->opponent_observations,
+        impl_->learner_masks, impl_->opponent_masks);
+    check_cuda(cudaGetLastError(), "launch self-play visual observation router");
+    return {impl_->learner_observations, impl_->learner_masks,
+            impl_->opponent_observations, impl_->opponent_masks, environment_count};
+}
+
 GpuRoutedActionView GpuLearnerSideRouter::route_actions(
     const std::int64_t* learner_actions,
     const std::int64_t* opponent_actions,
@@ -196,6 +231,21 @@ GpuRoutedActionView GpuLearnerSideRouter::route_actions(
         learner_actions, opponent_actions, environment_count, impl_->p1_actions, impl_->p2_actions);
     check_cuda(cudaGetLastError(), "launch side-balanced action router");
     return {impl_->p1_actions, impl_->p2_actions, environment_count};
+}
+
+const std::int64_t* GpuLearnerSideRouter::mix_self_play_actions(
+    const std::int64_t* latest_actions,
+    const std::int64_t* best_older_actions,
+    std::size_t environment_count,
+    void* stream) {
+    if (!latest_actions || !best_older_actions || environment_count == 0 ||
+        environment_count > impl_->capacity) {
+        throw std::invalid_argument("invalid self-play action mixture input");
+    }
+    mix_self_play_actions_kernel<<<blocks_for(environment_count), kThreads, 0, as_stream(stream)>>>(
+        latest_actions, best_older_actions, environment_count, impl_->mixed_opponent_actions);
+    check_cuda(cudaGetLastError(), "launch self-play action mixture kernel");
+    return impl_->mixed_opponent_actions;
 }
 
 const float* GpuLearnerSideRouter::select_rewards(

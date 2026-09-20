@@ -94,17 +94,17 @@ int main(int argc, char** argv) {
                 const auto after = simulator.device_view();
                 const auto* rewards = router.select_rewards(
                     after.sparse_rewards_p1, after.sparse_rewards_p2, environments);
-                rollout.record_outcome_device(step, rewards, after.terminated);
+                const auto next_inputs = visual
+                    ? router.select_visual_observations(after, environments)
+                    : router.select_observations(after, environments);
+                const auto next_policy = learner.forward(
+                    next_inputs.learner_observations, next_inputs.learner_action_masks,
+                    environments, 7003, update * horizon + step, true);
+                rollout.record_outcome_device(
+                    step, rewards, after.terminated, after.truncated, next_policy.values);
                 simulator.reset_done_seeded(update * horizon + step + 1);
             }
-            const auto final_state = simulator.device_view();
-            const auto final_inputs = visual
-                ? router.select_visual_observations(final_state, environments)
-                : router.select_observations(final_state, environments);
-            const auto bootstrap = learner.forward(
-                final_inputs.learner_observations, final_inputs.learner_action_masks,
-                environments, 7001, update * horizon + horizon, true);
-            rollout.compute_gae(bootstrap.values, 0.99F, 0.95F, true);
+            rollout.compute_gae(0.997F, 0.95F, true);
             rollout.synchronize();
             rollout_seconds += std::chrono::duration<double>(
                 std::chrono::steady_clock::now() - rollout_start).count();
