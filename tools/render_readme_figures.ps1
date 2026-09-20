@@ -1,7 +1,7 @@
 param(
     [string]$RunDir = "runs/overnight_roster_visual_shaped_seed20260722",
     [string]$OutputDir = "docs/images",
-    [int]$MaxUpdate = 28700
+    [int]$MaxUpdate = 28800
 )
 
 $ErrorActionPreference = "Stop"
