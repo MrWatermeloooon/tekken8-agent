@@ -188,3 +188,23 @@ def test_corrections_reject_unreviewed_or_unknown_entries(tmp_path):
     write("- {source_id: X-1, fields: {name: n}, reason: r, evidence: [u], reviewer: me}")
     with pytest.raises(ValueError, match="must replace only"):
         _load_corrections(path, rows)
+
+
+def test_full_combat_binding_exporter_parses_source_text():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "export_bindings", REPO_ROOT / "tools" / "export_full_combat_bindings.py")
+    exporter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(exporter)
+    assert exporter.parse_advantage("+12a (+3)") == (12, "launch", False)
+    assert exporter.parse_advantage("+0d") == (0, "knockdown", False)
+    assert exporter.parse_advantage("+21a~+64a (-5~+38)") == (21, "launch", True)
+    assert exporter.parse_advantage("-6") == (-6, "stun", False)
+    assert exporter.parse_advantage("") == (None, "stun", False)
+    windows = exporter.parse_windows("* Floating state 5~13\n* Low crush 14~33\n* Floating state 34~36")
+    assert windows == {"airborne": "5~13|34~36", "low_crush": "14~33"}
+    assert exporter.parse_windows("* Parry state 5~")["parry"] == f"5~{exporter.OPEN_WINDOW_END}"
+    assert exporter.automatic_transitions("* Transitions to IZU on hit or block") == "Transitions to IZU on hit or block"
+    assert exporter.automatic_transitions("* Enter GEN +0 +11g r18 with F\n* Enter MIA wiith B") == ""
+    assert exporter.one_line('<div>\n\n* A\n* B\n</div>') == "<div> * A * B </div>"

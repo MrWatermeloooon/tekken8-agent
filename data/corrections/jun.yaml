@@ -12,5 +12,5 @@ corrections:
   evidence:
   - https://tekkendocs.com/api/t8/jun/framedata
   - https://wavu.wiki/t/Jun_movelist
-  reviewer: desktop-client-code (automated review; needs human confirmation)
+  reviewer: automated review (needs human confirmation)
   status: pending_practice

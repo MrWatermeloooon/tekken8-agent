@@ -178,8 +178,8 @@ def markdown(record: dict) -> str:
         f"- CPU: {record['environment']['cpu']}",
         f"- OS: {record['environment']['os']}",
         f"- Build: Release, commit {record['environment']['commit']}",
-        f"- Isolation: no trainer, visualizer, or live runtime running; other GPU clients: "
-        f"{', '.join(Path(app.split(',')[0]).name for app in record['gpu_compute_apps_before']) or 'none'}",
+        f"- Isolation: no trainer, visualizer, or live runtime running; "
+        f"{record['other_gpu_clients']} desktop applications held GPU contexts",
         f"- Idle before runs: {record['idle']['power_w']:.1f} W, {record['idle']['memory_mib']:.0f} MiB used",
         f"- {record['repeats']} repeats per benchmark; power/memory sampled every 100 ms with nvidia-smi "
         "(power averaged over samples at >=50% utilization). Runs of about one second yield only "
@@ -218,7 +218,7 @@ def main() -> int:
     record = {
         "date": dt.datetime.now().strftime("%Y-%m-%d %H:%M"),
         "environment": environment(),
-        "gpu_compute_apps_before": apps_before,
+        "other_gpu_clients": len(apps_before),
         "idle": {"power_w": statistics.median(sample["power.draw"] for sample in idle),
                  "memory_mib": statistics.median(sample["memory.used"] for sample in idle)},
         "repeats": args.repeats,

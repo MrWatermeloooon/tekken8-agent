@@ -7,23 +7,6 @@
     "os": "Windows-11-10.0.26200-SP0",
     "commit": "9efced8+uncommitted"
   },
-  "gpu_compute_apps_before": [
-    "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe, [N/A]",
-    "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe, [N/A]",
-    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]",
-    "C:\\Windows\\explorer.exe, [N/A]",
-    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]",
-    "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]",
-    "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]",
-    "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]",
-    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]",
-    "C:\\Program Files\\NZXT CAM\\NZXT CAM.exe, [N/A]",
-    "C:\\Program Files\\NZXT CAM\\NZXT CAM.exe, [N/A]",
-    "C:\\Windows\\System32\\ShellHost.exe, [N/A]",
-    "P:\\WindowsApps\\desktop-client_2.7032.0.0_x64__pzs8sxrjxfjjc\\app\\desktop-client.exe, [N/A]",
-    "P:\\WindowsApps\\desktop-client_2.7032.0.0_x64__pzs8sxrjxfjjc\\app\\desktop-client.exe, [N/A]",
-    "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe, [N/A]"
-  ],
   "idle": {
     "power_w": 39.82,
     "memory_mib": 858.5
@@ -747,5 +730,6 @@
         }
       }
     }
-  ]
+  ],
+  "other_gpu_clients": 15
 }

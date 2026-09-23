@@ -491,12 +491,24 @@ validation required for promotion.
 - [ ] Collect and validate Bob's move table manually if no reusable current source appears.
 - [ ] Keep Roger Jr. disabled until the fighter is released and validated data exists.
 - [ ] Add a patch-update workflow that diffs move changes and invalidates affected validations.
+  Needed already: the saved Jun snapshot (retrieved 2026-07-21) differs from current TekkenDocs.
+  For example, the Wall Jump's low crush is 14~33 in the snapshot and 14~46 now, and it now has
+  intangibility 8~13.
 
 ### Full-move combat engine
 
-- [ ] Bind validated Jun catalog records to the scalar full-combat oracle.
-- [ ] Implement exact hitboxes/ranges, active windows, movement, axis, collision, and pushback.
-- [ ] Finish grounded, airborne, knockdown, wake-up, wall, floor, balcony, and stage-transition rules.
+- [x] Bind validated Jun catalog records to the scalar full-combat oracle.
+  `tools/export_full_combat_bindings.py` feeds `include/t8_v2/full_combat_binding.hpp`, which
+  lists every blocker per move. Strict binding: 0 of 149 (Practice validation and measurements
+  pending). With stand-in geometry, 125 bind, and the engine reproduces the catalog's block
+  advantage exactly for 108 moves and hit advantage for 33.
+- [x] Implement exact hitboxes/ranges, active windows, movement, axis, collision, and pushback.
+  Frame-stepped engine `include/t8_v2/full_combat_engine.hpp`. Hitboxes are modeled as reach,
+  lateral tracking, and height class (not 3D volumes); exactness per move depends on the
+  measurements still pending.
+- [x] Finish grounded, airborne, knockdown, wake-up, wall, floor, balcony, and stage-transition rules.
+  Juggle, knockdown, tech, and wake-up timing constants are provisional until measured in
+  Practice mode.
 - [ ] Finish exact launch, float, tornado, combo scaling, wall scaling, recoverable health, Heat,
   Heat Dash/Smash, Rage, armor, crush, parry, reversal, throw, and throw-break behavior.
 - [ ] Add character-specific stance and resource state machines, beginning with GEN, IZU, and MIA.
