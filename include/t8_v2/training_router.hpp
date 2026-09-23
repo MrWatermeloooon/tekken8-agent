@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <vector>
 
 namespace t8::v2 {
 
@@ -64,6 +65,22 @@ public:
         const float* p1_rewards,
         const float* p2_rewards,
         std::size_t environment_count,
+        void* stream = nullptr);
+
+    // Learner win/loss/draw counts per opponent profile for lanes that finished
+    // this step, taken from the simulator's sparse outcome rewards (+1/-1/0 on
+    // termination). Counts accumulate on the device until downloaded.
+    void tally_outcomes(
+        const float* sparse_rewards_p1,
+        const float* sparse_rewards_p2,
+        const std::uint8_t* terminated,
+        const std::uint32_t* profile_assignments,
+        std::size_t profile_count,
+        std::size_t environment_count,
+        void* stream = nullptr);
+    // Returns [profile][win, loss, draw] and clears the counters.
+    [[nodiscard]] std::vector<std::uint64_t> take_outcome_tally(
+        std::size_t profile_count,
         void* stream = nullptr);
 
 private:

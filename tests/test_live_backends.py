@@ -136,7 +136,12 @@ def test_catalog_command_executor_prepares_while_standing() -> None:
 def test_catalog_command_executor_rejects_unvalidated_notation() -> None:
     backend = VGamepadInputBackend(gamepad=FakeGamepad(), tap_seconds=0.0)
     with np.testing.assert_raises_regex(ValueError, "no validated executable command"):
+        backend.send_command(parse_command("b+1+3,P.2"), move_id="bryan:example")
+    # Parsed, but gated on situations the live runtime cannot observe yet.
+    with np.testing.assert_raises_regex(ValueError, "unresolved state"):
         backend.send_command(parse_command("Back throw"), move_id="jun:140")
+    with np.testing.assert_raises_regex(ValueError, "requires observed PARRY_SUCCESS"):
+        backend.send_command(parse_command("b+1+3,P"), move_id="jun:147")
 
 
 def test_virtual_controller_can_flip_facing_after_side_switch() -> None:

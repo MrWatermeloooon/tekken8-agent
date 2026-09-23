@@ -95,6 +95,23 @@ __global__ void select_rewards_kernel(
     learner_rewards[lane] = learner_is_p1(lane) ? p1_rewards[lane] : p2_rewards[lane];
 }
 
+__global__ void tally_outcomes_kernel(
+    const float* sparse_rewards_p1,
+    const float* sparse_rewards_p2,
+    const std::uint8_t* terminated,
+    const std::uint32_t* profile_assignments,
+    std::size_t profile_count,
+    std::size_t count,
+    unsigned long long* tally) {
+    const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
+    if (lane >= count || terminated[lane] == 0) return;
+    const std::uint32_t profile = profile_assignments[lane];
+    if (profile >= profile_count) return;
+    const float outcome = learner_is_p1(lane) ? sparse_rewards_p1[lane] : sparse_rewards_p2[lane];
+    const int column = outcome > 0.0F ? 0 : (outcome < 0.0F ? 1 : 2);
+    atomicAdd(tally + static_cast<std::size_t>(profile) * 3 + column, 1ULL);
+}
+
 }  // namespace
 
 struct GpuLearnerSideRouter::Impl {
@@ -107,6 +124,20 @@ struct GpuLearnerSideRouter::Impl {
     std::int64_t* p2_actions = nullptr;
     std::int64_t* mixed_opponent_actions = nullptr;
     float* learner_rewards = nullptr;
+    unsigned long long* outcome_tally = nullptr;
+    std::size_t outcome_tally_profiles = 0;
+
+    void ensure_outcome_tally(std::size_t profile_count, cudaStream_t stream) {
+        if (profile_count == outcome_tally_profiles) return;
+        if (outcome_tally_profiles != 0) {
+            throw std::invalid_argument("outcome tally profile count changed while counting");
+        }
+        check_cuda(cudaMalloc(&outcome_tally, sizeof(unsigned long long) * profile_count * 3),
+                   "allocate matchup outcome tally");
+        check_cuda(cudaMemsetAsync(outcome_tally, 0, sizeof(unsigned long long) * profile_count * 3,
+                                   stream), "clear matchup outcome tally");
+        outcome_tally_profiles = profile_count;
+    }
 
     explicit Impl(std::size_t requested_capacity) : capacity(requested_capacity) {
         if (capacity == 0) throw std::invalid_argument("router capacity must be positive");
@@ -134,6 +165,7 @@ struct GpuLearnerSideRouter::Impl {
     }
 
     void release() noexcept {
+        cudaFree(outcome_tally);
         cudaFree(learner_rewards);
         cudaFree(mixed_opponent_actions);
         cudaFree(p2_actions);
@@ -261,6 +293,41 @@ const float* GpuLearnerSideRouter::select_rewards(
         p1_rewards, p2_rewards, environment_count, impl_->learner_rewards);
     check_cuda(cudaGetLastError(), "launch side-balanced reward router");
     return impl_->learner_rewards;
+}
+
+void GpuLearnerSideRouter::tally_outcomes(
+    const float* sparse_rewards_p1,
+    const float* sparse_rewards_p2,
+    const std::uint8_t* terminated,
+    const std::uint32_t* profile_assignments,
+    std::size_t profile_count,
+    std::size_t environment_count,
+    void* stream) {
+    if (!sparse_rewards_p1 || !sparse_rewards_p2 || !terminated || !profile_assignments ||
+        profile_count == 0 || environment_count == 0 || environment_count > impl_->capacity) {
+        throw std::invalid_argument("invalid matchup outcome tally input");
+    }
+    impl_->ensure_outcome_tally(profile_count, as_stream(stream));
+    tally_outcomes_kernel<<<blocks_for(environment_count), kThreads, 0, as_stream(stream)>>>(
+        sparse_rewards_p1, sparse_rewards_p2, terminated, profile_assignments,
+        profile_count, environment_count, impl_->outcome_tally);
+    check_cuda(cudaGetLastError(), "launch matchup outcome tally");
+}
+
+std::vector<std::uint64_t> GpuLearnerSideRouter::take_outcome_tally(
+    std::size_t profile_count,
+    void* stream) {
+    if (profile_count == 0) throw std::invalid_argument("outcome tally needs at least one profile");
+    const auto cuda_stream = as_stream(stream);
+    impl_->ensure_outcome_tally(profile_count, cuda_stream);
+    std::vector<std::uint64_t> result(profile_count * 3);
+    static_assert(sizeof(unsigned long long) == sizeof(std::uint64_t));
+    check_cuda(cudaMemcpyAsync(result.data(), impl_->outcome_tally, sizeof(std::uint64_t) * result.size(),
+                               cudaMemcpyDeviceToHost, cuda_stream), "download matchup outcome tally");
+    check_cuda(cudaMemsetAsync(impl_->outcome_tally, 0, sizeof(std::uint64_t) * result.size(), cuda_stream),
+               "clear matchup outcome tally");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize matchup outcome tally");
+    return result;
 }
 
 }  // namespace t8::v2

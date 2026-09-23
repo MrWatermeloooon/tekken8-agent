@@ -110,7 +110,10 @@ def test_character_gate_never_enables_unvalidated_data(tmp_path):
     jun = evaluate_character_gate(catalog, "jun", tmp_path)
     bob = evaluate_character_gate(catalog, "bob", tmp_path)
     assert not jun.ready and jun.move_count == 149
-    assert jun.parser_pending > 0 and jun.measurement_pending == 149
+    # Notation and source consistency are resolved (data/corrections/jun.yaml);
+    # measurement and Practice validation still block training.
+    assert jun.parser_pending == 0 and jun.source_conflicts == 0
+    assert jun.measurement_pending == 149 and jun.practice_pending == 149
     assert not bob.ready and "missing documented move source" in bob.blockers
 
 
@@ -132,3 +135,56 @@ def test_strict_mask_rejects_every_unvalidated_move():
     mask = legal_action_mask(catalog, "jun", MoveRuntimeState(), require_validated=True)
     assert mask[:len(UNIVERSAL_ACTIONS)].all()
     assert not mask[len(UNIVERSAL_ACTIONS):].any()
+
+
+def test_notation_parses_positional_throws_wall_prefix_and_parry_outcomes():
+    from t8_agent.moves.notation import parse_command
+
+    back = parse_command("Back throw")
+    assert back.parser_status == "parsed" and back.requirements == ("OPPONENT_BACK_TURNED",)
+    assert [step.buttons for step in back.steps] == [(1, 3)]
+    assert parse_command("Right Throw").requirements == ("OPPONENT_RIGHT_SIDE",)
+    wall = parse_command("(Back to wall).b,b,UB")
+    assert wall.parser_status == "parsed" and wall.requirements == ("BACK_TO_WALL",)
+    assert [(step.direction, step.hold) for step in wall.steps] == [("b", False), ("b", False), ("UB", True)]
+    parry = parse_command("b+1+3,P")
+    assert parry.parser_status == "parsed" and parry.steps[0].buttons == (1, 3)
+    assert parry.steps[1].requirement == "PARRY_SUCCESS" and parry.steps[1].buttons == ()
+    stance = parse_command("GEN.P (Low)", {"GEN"})
+    assert stance.requirements == ("GEN",) and stance.steps[0].requirement == "PARRY_SUCCESS_LOW"
+    # Unknown parenthesized situations and unhandled continuations stay unresolved.
+    assert parse_command("(During Enemy wall stun) 1+3").parser_status != "parsed"
+    assert parse_command("b+1+3,P.2").parser_status != "parsed"
+
+
+def test_corrections_are_applied_with_provenance():
+    catalog = compile_catalog(REPO_ROOT / "data")
+    izumo_3 = next(move for move in catalog.moves if move["stable_id"] == "jun:127")
+    assert izumo_3["startup"] == {"min": 15, "max": 16}
+    assert izumo_3["validation"]["source_consistency"] == "valid"
+    assert izumo_3["validation"]["source"] == "imported+corrected"
+    assert izumo_3["corrections"]["evidence"] and izumo_3["corrections"]["status"] == "pending_practice"
+    back_throw = next(move for move in catalog.moves if move["stable_id"] == "jun:140")
+    assert back_throw["legal_state"]["situations"] == ["OPPONENT_BACK_TURNED"]
+    assert back_throw["legal_state"]["stances"] == []
+
+
+def test_corrections_reject_unreviewed_or_unknown_entries(tmp_path):
+    import pytest
+    from t8_agent.moves.catalog import _load_corrections
+
+    path = tmp_path / "corrections.yaml"
+    rows = [{"source_id": "X-1"}]
+
+    def write(entry: str) -> None:
+        path.write_text("corrections:" + chr(10) + entry, encoding="utf-8")
+
+    write("- {source_id: X-1, fields: {startup: i10}}")
+    with pytest.raises(ValueError, match="reason, evidence, and reviewer"):
+        _load_corrections(path, rows)
+    write("- {source_id: X-2, fields: {startup: i10}, reason: r, evidence: [u], reviewer: me}")
+    with pytest.raises(ValueError, match="unknown source_id"):
+        _load_corrections(path, rows)
+    write("- {source_id: X-1, fields: {name: n}, reason: r, evidence: [u], reviewer: me}")
+    with pytest.raises(ValueError, match="must replace only"):
+        _load_corrections(path, rows)

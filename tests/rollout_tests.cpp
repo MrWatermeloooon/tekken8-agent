@@ -417,8 +417,93 @@ void test_update_ppo_rejects_non_finite_rollout_and_illegal_action() {
 
 }  // namespace
 
+void test_return_normalization() {
+    constexpr std::size_t environments = 32;
+    constexpr std::size_t horizon = 6;
+    constexpr float gamma = 0.5F;
+    t8::v2::GpuRolloutBuffer rollout(environments, horizon);
+    // Lane-dependent constant rewards; lane 0 terminates at step 2 so its
+    // discounted return restarts, and the carried return survives the rollout.
+    std::vector<float> host_rewards(environments);
+    for (std::size_t lane = 0; lane < environments; ++lane) host_rewards[lane] = 0.25F * (lane % 5) - 0.5F;
+    float* device_rewards = nullptr;
+    std::uint8_t* device_terminated = nullptr;
+    std::uint8_t* device_truncated = nullptr;
+    float* device_values = nullptr;
+    cuda_check(cudaMalloc(&device_rewards, sizeof(float) * environments), "allocate rewards");
+    cuda_check(cudaMalloc(&device_terminated, environments), "allocate terminated");
+    cuda_check(cudaMalloc(&device_truncated, environments), "allocate truncated");
+    cuda_check(cudaMalloc(&device_values, sizeof(float) * environments), "allocate values");
+    cuda_check(cudaMemcpy(device_rewards, host_rewards.data(), sizeof(float) * environments,
+                          cudaMemcpyHostToDevice), "upload rewards");
+    cuda_check(cudaMemset(device_truncated, 0, environments), "clear truncated");
+    cuda_check(cudaMemset(device_values, 0, sizeof(float) * environments), "clear values");
+    std::vector<double> expected_returns;
+    std::vector<double> carried(environments, 0.0);
+    for (std::size_t step = 0; step < horizon; ++step) {
+        std::vector<std::uint8_t> terminated(environments, 0);
+        if (step == 2) terminated[0] = 1;
+        cuda_check(cudaMemcpy(device_terminated, terminated.data(), environments, cudaMemcpyHostToDevice),
+                   "upload terminated");
+        rollout.record_outcome_device(step, device_rewards, device_terminated, device_truncated,
+                                      device_values, 2.0F);
+        for (std::size_t lane = 0; lane < environments; ++lane) {
+            carried[lane] = carried[lane] * gamma + host_rewards[lane] * 2.0F;
+            expected_returns.push_back(carried[lane]);
+            if (terminated[lane]) carried[lane] = 0.0;
+        }
+    }
+    double sum = 0.0;
+    for (double value : expected_returns) sum += value;
+    const double mean = sum / expected_returns.size();
+    double squares = 0.0;
+    for (double value : expected_returns) squares += (value - mean) * (value - mean);
+    const double expected_std = std::sqrt(squares / expected_returns.size() + 1e-8);
+
+    const float standard_deviation = rollout.normalize_rewards(gamma, 10.0F);
+    check(std::abs(standard_deviation - expected_std) < 1e-5 * expected_std,
+          "return normalizer uses the discounted-return standard deviation");
+    const auto normalized = rollout.download_rewards();
+    bool scaled = true;
+    for (std::size_t sample = 0; sample < normalized.size(); ++sample) {
+        const float expected = host_rewards[sample % environments] * 2.0F / standard_deviation;
+        scaled = scaled && std::abs(normalized[sample] - expected) < 1e-5F;
+    }
+    check(scaled, "rewards are divided by the running return standard deviation");
+
+    const auto state = rollout.return_normalizer_state();
+    check(state.count == environments * horizon, "return normalizer counts every sample");
+    bool carried_matches = true;
+    for (std::size_t lane = 0; lane < environments; ++lane) {
+        carried_matches = carried_matches &&
+            std::abs(state.discounted_returns[lane] - carried[lane]) < 1e-5;
+    }
+    check(carried_matches, "discounted returns carry across rollouts and reset on termination");
+
+    t8::v2::GpuRolloutBuffer restored(environments, horizon);
+    restored.restore_return_normalizer_state(state);
+    const auto round_trip = restored.return_normalizer_state();
+    check(round_trip.count == state.count && round_trip.mean == state.mean &&
+          round_trip.variance == state.variance &&
+          round_trip.discounted_returns == state.discounted_returns,
+          "return normalizer state round-trips exactly for resume");
+
+    bool rejected_clip = false;
+    try {
+        static_cast<void>(rollout.normalize_rewards(gamma, 0.0F));
+    } catch (const std::invalid_argument&) {
+        rejected_clip = true;
+    }
+    check(rejected_clip, "return normalizer rejects a non-positive clip");
+    cudaFree(device_values);
+    cudaFree(device_truncated);
+    cudaFree(device_terminated);
+    cudaFree(device_rewards);
+}
+
 int main() {
     test_device_rollout_and_gae();
+    test_return_normalization();
     test_parametric_policy_ppo_update();
     test_time_limit_bootstrap_and_reward_scaling();
     test_record_outcome_rejects_invalid_reward_scale();

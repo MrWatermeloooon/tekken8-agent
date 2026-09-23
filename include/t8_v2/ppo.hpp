@@ -22,6 +22,17 @@ struct ActorCriticConfig {
     std::string roster_version = "compatibility";
     std::string observation_contract = "v2-observation";
     std::string action_contract = "fixed-24-compatibility";
+    // Running mean/variance input normalization owned by the model. Statistics
+    // are frozen while a rollout is collected and trained on, then merged from
+    // that rollout at the end of update_ppo, so old and new log-probabilities
+    // always see identically normalized inputs. Checkpoints carry the
+    // statistics; load_checkpoint adopts the file's setting.
+    bool observation_normalization = false;
+    float observation_clip = 10.0F;
+    float observation_epsilon = 1e-8F;
+    // Orthogonal init (gain sqrt(2) hidden, 0.01 policy/query rows, 1.0 value
+    // row) per "The 37 Implementation Details of PPO"; false keeps Xavier.
+    bool orthogonal_initialization = true;
 };
 
 struct GpuPolicyOutputView {
@@ -58,6 +69,11 @@ struct PpoUpdateMetrics {
     float approximate_kl = 0.0F;
     float clip_fraction = 0.0F;
     float gradient_norm = 0.0F;
+    // `entropy` averages over every sample, including forced frames where only
+    // one action is legal (entropy 0). These separate "how often the policy has
+    // a choice" from "how random it is when it does".
+    float decision_fraction = 0.0F;
+    float decision_entropy = 0.0F;
     std::size_t minibatches = 0;
     int epochs_completed = 0;
     bool early_stopped = false;
@@ -125,6 +141,12 @@ public:
 
     void synchronize(void* stream = nullptr) const;
 
+    // Samples merged into the observation normalizer; 0 means inputs pass
+    // through unnormalized.
+    [[nodiscard]] std::uint64_t observation_count() const noexcept;
+    // Debug/test transfer: running [mean..., variance...] per feature.
+    [[nodiscard]] std::vector<float> download_observation_statistics(void* stream = nullptr) const;
+
     // Debug/test transfers only. Training consumes the device view directly.
     [[nodiscard]] std::vector<std::int64_t> download_actions(
         std::size_t environment_count,
@@ -159,6 +181,15 @@ struct GpuRolloutView {
     std::size_t environment_count = 0;
     std::size_t horizon = 0;
     std::size_t sample_count = 0;
+};
+
+// Running statistics of the per-environment discounted return, used to scale
+// rewards (SB3 VecNormalize-style). Host-exact so trainer resume is bitwise.
+struct ReturnNormalizerState {
+    std::uint64_t count = 0;
+    double mean = 0.0;
+    double variance = 1.0;
+    std::vector<float> discounted_returns;  // [environment]
 };
 
 class GpuRolloutBuffer {
@@ -202,6 +233,15 @@ public:
         float gae_lambda = 0.95F,
         bool normalize_advantages = true,
         void* stream = nullptr);
+
+    // Adaptive return normalization. Call after the last record_outcome_device
+    // and before compute_gae: advances each environment's discounted return
+    // through this rollout, merges its variance into the running estimate,
+    // then divides every stored reward by the running return standard
+    // deviation and clips to [-clip, clip]. Returns the standard deviation used.
+    float normalize_rewards(float gamma, float clip = 10.0F, void* stream = nullptr);
+    [[nodiscard]] ReturnNormalizerState return_normalizer_state(void* stream = nullptr) const;
+    void restore_return_normalizer_state(const ReturnNormalizerState& state, void* stream = nullptr);
 
     void synchronize(void* stream = nullptr) const;
     [[nodiscard]] std::vector<float> download_advantages(void* stream = nullptr) const;

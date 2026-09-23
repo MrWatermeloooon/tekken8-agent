@@ -1,0 +1,751 @@
+{
+  "date": "2026-09-23 00:34",
+  "environment": {
+    "gpu": "NVIDIA GeForce RTX 5070 Ti, 616.64, 16303 MiB, 300.00 W",
+    "cuda_driver_api": "13.4",
+    "cpu": "12th Gen Intel(R) Core(TM) i5-12600K",
+    "os": "Windows-11-10.0.26200-SP0",
+    "commit": "9efced8+uncommitted"
+  },
+  "gpu_compute_apps_before": [
+    "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe, [N/A]",
+    "C:\\Program Files\\NVIDIA Corporation\\NVIDIA App\\CEF\\NVIDIA Overlay.exe, [N/A]",
+    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\CrossDeviceResume.exe, [N/A]",
+    "C:\\Windows\\explorer.exe, [N/A]",
+    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\SearchHost.exe, [N/A]",
+    "C:\\Windows\\SystemApps\\Microsoft.Windows.StartMenuExperienceHost_cw5n1h2txyewy\\StartMenuExperienceHost.exe, [N/A]",
+    "C:\\Windows\\SystemApps\\ShellExperienceHost_cw5n1h2txyewy\\ShellExperienceHost.exe, [N/A]",
+    "C:\\Program Files (x86)\\Microsoft\\EdgeWebView\\Application\\153.0.4234.48\\msedgewebview2.exe, [N/A]",
+    "C:\\Windows\\SystemApps\\MicrosoftWindows.Client.CBS_cw5n1h2txyewy\\TextInputHost.exe, [N/A]",
+    "C:\\Program Files\\NZXT CAM\\NZXT CAM.exe, [N/A]",
+    "C:\\Program Files\\NZXT CAM\\NZXT CAM.exe, [N/A]",
+    "C:\\Windows\\System32\\ShellHost.exe, [N/A]",
+    "P:\\WindowsApps\\desktop-client_2.7032.0.0_x64__pzs8sxrjxfjjc\\app\\desktop-client.exe, [N/A]",
+    "P:\\WindowsApps\\desktop-client_2.7032.0.0_x64__pzs8sxrjxfjjc\\app\\desktop-client.exe, [N/A]",
+    "C:\\Program Files (x86)\\Steam\\bin\\cef\\cef.win64\\steamwebhelper.exe, [N/A]"
+  ],
+  "idle": {
+    "power_w": 39.82,
+    "memory_mib": 858.5
+  },
+  "repeats": 5,
+  "benchmarks": [
+    {
+      "name": "simulator",
+      "command": "t8_v2_gpu_benchmark.exe --envs 262144 --steps 2000",
+      "runs": [
+        {
+          "repeat": 1,
+          "wall_seconds": 1.4122177999997803,
+          "metrics": {
+            "gpu_environments": 262144.0,
+            "decision_batches": 2000.0,
+            "elapsed_seconds": 1.22,
+            "environment_decisions_s": 431212264.47,
+            "simulated_frames_s": 1724849057.89
+          },
+          "samples": 19,
+          "busy_samples": 10,
+          "mean_busy_power_w": 121.35,
+          "peak_power_w": 147.26,
+          "peak_memory_mib": 1169.0,
+          "peak_memory_over_idle_mib": 310.5,
+          "mean_busy_utilization_percent": 99.0,
+          "peak_temperature_c": 44.0,
+          "mean_busy_sm_clock_mhz": 2917.5
+        },
+        {
+          "repeat": 2,
+          "wall_seconds": 1.4265087000003405,
+          "metrics": {
+            "gpu_environments": 262144.0,
+            "decision_batches": 2000.0,
+            "elapsed_seconds": 1.22,
+            "environment_decisions_s": 429819739.13,
+            "simulated_frames_s": 1719278956.54
+          },
+          "samples": 19,
+          "busy_samples": 9,
+          "mean_busy_power_w": 127.46000000000001,
+          "peak_power_w": 153.71,
+          "peak_memory_mib": 1167.0,
+          "peak_memory_over_idle_mib": 308.5,
+          "mean_busy_utilization_percent": 99.0,
+          "peak_temperature_c": 45.0,
+          "mean_busy_sm_clock_mhz": 2910.0
+        },
+        {
+          "repeat": 3,
+          "wall_seconds": 1.408399300000383,
+          "metrics": {
+            "gpu_environments": 262144.0,
+            "decision_batches": 2000.0,
+            "elapsed_seconds": 1.22,
+            "environment_decisions_s": 429118804.67,
+            "simulated_frames_s": 1716475218.67
+          },
+          "samples": 19,
+          "busy_samples": 9,
+          "mean_busy_power_w": 129.20333333333332,
+          "peak_power_w": 152.03,
+          "peak_memory_mib": 1163.0,
+          "peak_memory_over_idle_mib": 304.5,
+          "mean_busy_utilization_percent": 99.0,
+          "peak_temperature_c": 46.0,
+          "mean_busy_sm_clock_mhz": 2910.0
+        },
+        {
+          "repeat": 4,
+          "wall_seconds": 1.409403999999995,
+          "metrics": {
+            "gpu_environments": 262144.0,
+            "decision_batches": 2000.0,
+            "elapsed_seconds": 1.22,
+            "environment_decisions_s": 429235025.01,
+            "simulated_frames_s": 1716940100.02
+          },
+          "samples": 19,
+          "busy_samples": 10,
+          "mean_busy_power_w": 121.47,
+          "peak_power_w": 141.1,
+          "peak_memory_mib": 1166.0,
+          "peak_memory_over_idle_mib": 307.5,
+          "mean_busy_utilization_percent": 99.0,
+          "peak_temperature_c": 46.0,
+          "mean_busy_sm_clock_mhz": 2910.0
+        },
+        {
+          "repeat": 5,
+          "wall_seconds": 1.4313953000000765,
+          "metrics": {
+            "gpu_environments": 262144.0,
+            "decision_batches": 2000.0,
+            "elapsed_seconds": 1.22,
+            "environment_decisions_s": 428910451.9,
+            "simulated_frames_s": 1715641807.61
+          },
+          "samples": 19,
+          "busy_samples": 9,
+          "mean_busy_power_w": 113.69111111111111,
+          "peak_power_w": 143.59,
+          "peak_memory_mib": 1163.0,
+          "peak_memory_over_idle_mib": 304.5,
+          "mean_busy_utilization_percent": 99.0,
+          "peak_temperature_c": 47.0,
+          "mean_busy_sm_clock_mhz": 2910.0
+        }
+      ],
+      "summary": {
+        "decision_batches": {
+          "median": 2000.0,
+          "min": 2000.0,
+          "max": 2000.0,
+          "mean": 2000.0,
+          "cv_percent": 0.0
+        },
+        "elapsed_seconds": {
+          "median": 1.22,
+          "min": 1.22,
+          "max": 1.22,
+          "mean": 1.22,
+          "cv_percent": 0.0
+        },
+        "environment_decisions_s": {
+          "median": 429235025.01,
+          "min": 428910451.9,
+          "max": 431212264.47,
+          "mean": 429659257.03599995,
+          "cv_percent": 0.21678684577724822
+        },
+        "gpu_environments": {
+          "median": 262144.0,
+          "min": 262144.0,
+          "max": 262144.0,
+          "mean": 262144.0,
+          "cv_percent": 0.0
+        },
+        "simulated_frames_s": {
+          "median": 1716940100.02,
+          "min": 1715641807.61,
+          "max": 1724849057.89,
+          "mean": 1718637028.146,
+          "cv_percent": 0.2167868461696209
+        },
+        "wall_seconds": {
+          "median": 1.4122177999997803,
+          "min": 1.408399300000383,
+          "max": 1.4313953000000765,
+          "mean": 1.417585020000115,
+          "cv_percent": 0.7486064756552429
+        },
+        "mean_busy_power_w": {
+          "median": 121.47,
+          "min": 113.69111111111111,
+          "max": 129.20333333333332,
+          "mean": 122.6348888888889,
+          "cv_percent": 4.983883974526587
+        },
+        "peak_power_w": {
+          "median": 147.26,
+          "min": 141.1,
+          "max": 153.71,
+          "mean": 147.538,
+          "cv_percent": 3.640306314706647
+        },
+        "peak_memory_mib": {
+          "median": 1166.0,
+          "min": 1163.0,
+          "max": 1169.0,
+          "mean": 1165.6,
+          "cv_percent": 0.22372005508588363
+        },
+        "peak_memory_over_idle_mib": {
+          "median": 307.5,
+          "min": 304.5,
+          "max": 310.5,
+          "mean": 307.1,
+          "cv_percent": 0.8491308896388992
+        },
+        "mean_busy_utilization_percent": {
+          "median": 99.0,
+          "min": 99.0,
+          "max": 99.0,
+          "mean": 99.0,
+          "cv_percent": 0.0
+        },
+        "peak_temperature_c": {
+          "median": 46.0,
+          "min": 44.0,
+          "max": 47.0,
+          "mean": 45.6,
+          "cv_percent": 2.5003847041647767
+        },
+        "mean_busy_sm_clock_mhz": {
+          "median": 2910.0,
+          "min": 2910.0,
+          "max": 2917.5,
+          "mean": 2911.5,
+          "cv_percent": 0.1152018535548578
+        }
+      }
+    },
+    {
+      "name": "training_readme",
+      "command": "t8_v2_training_benchmark.exe --envs 4096 --horizon 128 --updates 5 --minibatch 4096 --epochs 4 --visual",
+      "runs": [
+        {
+          "repeat": 1,
+          "wall_seconds": 1.4782477999997354,
+          "metrics": {
+            "gpu_environments": 4096.0,
+            "horizon": 128.0,
+            "updates": 5.0,
+            "rollout_seconds": 0.22,
+            "ppo_seconds": 1.03,
+            "total_seconds": 1.25,
+            "environment_decisions_s": 2103672.88,
+            "ppo_sample_visits_s": 10216659.32,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 19,
+          "busy_samples": 9,
+          "mean_busy_power_w": 108.86444444444444,
+          "peak_power_w": 160.29,
+          "peak_memory_mib": 1199.0,
+          "peak_memory_over_idle_mib": 340.5,
+          "mean_busy_utilization_percent": 81.66666666666667,
+          "peak_temperature_c": 49.0,
+          "mean_busy_sm_clock_mhz": 2905.5555555555557
+        },
+        {
+          "repeat": 2,
+          "wall_seconds": 1.4621081000004779,
+          "metrics": {
+            "gpu_environments": 4096.0,
+            "horizon": 128.0,
+            "updates": 5.0,
+            "rollout_seconds": 0.22,
+            "ppo_seconds": 1.01,
+            "total_seconds": 1.23,
+            "environment_decisions_s": 2132071.93,
+            "ppo_sample_visits_s": 10388360.81,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 19,
+          "busy_samples": 12,
+          "mean_busy_power_w": 117.63666666666666,
+          "peak_power_w": 167.32,
+          "peak_memory_mib": 1212.0,
+          "peak_memory_over_idle_mib": 353.5,
+          "mean_busy_utilization_percent": 78.75,
+          "peak_temperature_c": 51.0,
+          "mean_busy_sm_clock_mhz": 2908.25
+        },
+        {
+          "repeat": 3,
+          "wall_seconds": 1.4787362000006397,
+          "metrics": {
+            "gpu_environments": 4096.0,
+            "horizon": 128.0,
+            "updates": 5.0,
+            "rollout_seconds": 0.22,
+            "ppo_seconds": 1.02,
+            "total_seconds": 1.24,
+            "environment_decisions_s": 2106063.01,
+            "ppo_sample_visits_s": 10248350.8,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 19,
+          "busy_samples": 15,
+          "mean_busy_power_w": 121.96466666666666,
+          "peak_power_w": 167.32,
+          "peak_memory_mib": 1222.0,
+          "peak_memory_over_idle_mib": 363.5,
+          "mean_busy_utilization_percent": 70.66666666666667,
+          "peak_temperature_c": 51.0,
+          "mean_busy_sm_clock_mhz": 2904.6666666666665
+        },
+        {
+          "repeat": 4,
+          "wall_seconds": 1.481252299998232,
+          "metrics": {
+            "gpu_environments": 4096.0,
+            "horizon": 128.0,
+            "updates": 5.0,
+            "rollout_seconds": 0.23,
+            "ppo_seconds": 1.01,
+            "total_seconds": 1.24,
+            "environment_decisions_s": 2112003.27,
+            "ppo_sample_visits_s": 10336231.93,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 19,
+          "busy_samples": 10,
+          "mean_busy_power_w": 133.2,
+          "peak_power_w": 166.51,
+          "peak_memory_mib": 1222.0,
+          "peak_memory_over_idle_mib": 363.5,
+          "mean_busy_utilization_percent": 81.7,
+          "peak_temperature_c": 50.0,
+          "mean_busy_sm_clock_mhz": 2902.0
+        },
+        {
+          "repeat": 5,
+          "wall_seconds": 1.4845149999982823,
+          "metrics": {
+            "gpu_environments": 4096.0,
+            "horizon": 128.0,
+            "updates": 5.0,
+            "rollout_seconds": 0.22,
+            "ppo_seconds": 1.03,
+            "total_seconds": 1.25,
+            "environment_decisions_s": 2089829.57,
+            "ppo_sample_visits_s": 10137763.04,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 19,
+          "busy_samples": 9,
+          "mean_busy_power_w": 118.03,
+          "peak_power_w": 145.03,
+          "peak_memory_mib": 1203.0,
+          "peak_memory_over_idle_mib": 344.5,
+          "mean_busy_utilization_percent": 80.11111111111111,
+          "peak_temperature_c": 51.0,
+          "mean_busy_sm_clock_mhz": 2902.0
+        }
+      ],
+      "summary": {
+        "environment_decisions_s": {
+          "median": 2106063.01,
+          "min": 2089829.57,
+          "max": 2132071.93,
+          "mean": 2108728.132,
+          "cv_percent": 0.7290781773964982
+        },
+        "final_approximate_kl": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "cv_percent": 0.0
+        },
+        "final_epochs_completed": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0,
+          "mean": 4.0,
+          "cv_percent": 0.0
+        },
+        "gpu_environments": {
+          "median": 4096.0,
+          "min": 4096.0,
+          "max": 4096.0,
+          "mean": 4096.0,
+          "cv_percent": 0.0
+        },
+        "horizon": {
+          "median": 128.0,
+          "min": 128.0,
+          "max": 128.0,
+          "mean": 128.0,
+          "cv_percent": 0.0
+        },
+        "ppo_sample_visits_s": {
+          "median": 10248350.8,
+          "min": 10137763.04,
+          "max": 10388360.81,
+          "mean": 10265473.18,
+          "cv_percent": 0.9630441366882313
+        },
+        "ppo_seconds": {
+          "median": 1.02,
+          "min": 1.01,
+          "max": 1.03,
+          "mean": 1.02,
+          "cv_percent": 0.980392156862746
+        },
+        "rollout_seconds": {
+          "median": 0.22,
+          "min": 0.22,
+          "max": 0.23,
+          "mean": 0.22200000000000003,
+          "cv_percent": 2.0144756554052177
+        },
+        "total_seconds": {
+          "median": 1.24,
+          "min": 1.23,
+          "max": 1.25,
+          "mean": 1.242,
+          "cv_percent": 0.6736393128293691
+        },
+        "updates": {
+          "median": 5.0,
+          "min": 5.0,
+          "max": 5.0,
+          "mean": 5.0,
+          "cv_percent": 0.0
+        },
+        "wall_seconds": {
+          "median": 1.4787362000006397,
+          "min": 1.4621081000004779,
+          "max": 1.4845149999982823,
+          "mean": 1.4769718799994735,
+          "cv_percent": 0.5872244282265446
+        },
+        "mean_busy_power_w": {
+          "median": 118.03,
+          "min": 108.86444444444444,
+          "max": 133.2,
+          "mean": 119.93915555555554,
+          "cv_percent": 7.358201446315047
+        },
+        "peak_power_w": {
+          "median": 166.51,
+          "min": 145.03,
+          "max": 167.32,
+          "mean": 161.294,
+          "cv_percent": 5.925308084038174
+        },
+        "peak_memory_mib": {
+          "median": 1212.0,
+          "min": 1199.0,
+          "max": 1222.0,
+          "mean": 1211.6,
+          "cv_percent": 0.8746425745618326
+        },
+        "peak_memory_over_idle_mib": {
+          "median": 353.5,
+          "min": 340.5,
+          "max": 363.5,
+          "mean": 353.1,
+          "cv_percent": 3.001180808097186
+        },
+        "mean_busy_utilization_percent": {
+          "median": 80.11111111111111,
+          "min": 70.66666666666667,
+          "max": 81.7,
+          "mean": 78.57888888888888,
+          "cv_percent": 5.840693442087968
+        },
+        "peak_temperature_c": {
+          "median": 51.0,
+          "min": 49.0,
+          "max": 51.0,
+          "mean": 50.4,
+          "cv_percent": 1.774657124999833
+        },
+        "mean_busy_sm_clock_mhz": {
+          "median": 2904.6666666666665,
+          "min": 2902.0,
+          "max": 2908.25,
+          "mean": 2904.4944444444445,
+          "cv_percent": 0.09060939057434375
+        }
+      }
+    },
+    {
+      "name": "training_sustained",
+      "command": "t8_v2_training_benchmark.exe --envs 32768 --horizon 128 --updates 20 --minibatch 131072 --epochs 4 --visual",
+      "runs": [
+        {
+          "repeat": 1,
+          "wall_seconds": 31.008738200000153,
+          "metrics": {
+            "gpu_environments": 32768.0,
+            "horizon": 128.0,
+            "updates": 20.0,
+            "rollout_seconds": 2.73,
+            "ppo_seconds": 28.03,
+            "total_seconds": 30.76,
+            "environment_decisions_s": 2727166.12,
+            "ppo_sample_visits_s": 11971670.93,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 290,
+          "busy_samples": 217,
+          "mean_busy_power_w": 194.61686635944702,
+          "peak_power_w": 213.8,
+          "peak_memory_mib": 2466.0,
+          "peak_memory_over_idle_mib": 1607.5,
+          "mean_busy_utilization_percent": 89.963133640553,
+          "peak_temperature_c": 65.0,
+          "mean_busy_sm_clock_mhz": 2855.7557603686637
+        },
+        {
+          "repeat": 2,
+          "wall_seconds": 29.988253400000758,
+          "metrics": {
+            "gpu_environments": 32768.0,
+            "horizon": 128.0,
+            "updates": 20.0,
+            "rollout_seconds": 2.76,
+            "ppo_seconds": 26.96,
+            "total_seconds": 29.73,
+            "environment_decisions_s": 2822039.44,
+            "ppo_sample_visits_s": 12444707.46,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 280,
+          "busy_samples": 205,
+          "mean_busy_power_w": 201.66029268292684,
+          "peak_power_w": 215.1,
+          "peak_memory_mib": 2459.0,
+          "peak_memory_over_idle_mib": 1600.5,
+          "mean_busy_utilization_percent": 87.89268292682927,
+          "peak_temperature_c": 67.0,
+          "mean_busy_sm_clock_mhz": 2848.9121951219513
+        },
+        {
+          "repeat": 3,
+          "wall_seconds": 30.01180789999853,
+          "metrics": {
+            "gpu_environments": 32768.0,
+            "horizon": 128.0,
+            "updates": 20.0,
+            "rollout_seconds": 2.77,
+            "ppo_seconds": 26.99,
+            "total_seconds": 29.76,
+            "environment_decisions_s": 2818957.98,
+            "ppo_sample_visits_s": 12431490.88,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 281,
+          "busy_samples": 200,
+          "mean_busy_power_w": 205.19535,
+          "peak_power_w": 219.05,
+          "peak_memory_mib": 2468.0,
+          "peak_memory_over_idle_mib": 1609.5,
+          "mean_busy_utilization_percent": 90.42,
+          "peak_temperature_c": 70.0,
+          "mean_busy_sm_clock_mhz": 2842.79
+        },
+        {
+          "repeat": 4,
+          "wall_seconds": 29.867864300000292,
+          "metrics": {
+            "gpu_environments": 32768.0,
+            "horizon": 128.0,
+            "updates": 20.0,
+            "rollout_seconds": 2.76,
+            "ppo_seconds": 26.86,
+            "total_seconds": 29.62,
+            "environment_decisions_s": 2832152.83,
+            "ppo_sample_visits_s": 12493317.94,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 280,
+          "busy_samples": 208,
+          "mean_busy_power_w": 207.80038461538464,
+          "peak_power_w": 223.07,
+          "peak_memory_mib": 2468.0,
+          "peak_memory_over_idle_mib": 1609.5,
+          "mean_busy_utilization_percent": 88.95192307692308,
+          "peak_temperature_c": 70.0,
+          "mean_busy_sm_clock_mhz": 2841.076923076923
+        },
+        {
+          "repeat": 5,
+          "wall_seconds": 29.796857600000294,
+          "metrics": {
+            "gpu_environments": 32768.0,
+            "horizon": 128.0,
+            "updates": 20.0,
+            "rollout_seconds": 2.76,
+            "ppo_seconds": 26.78,
+            "total_seconds": 29.55,
+            "environment_decisions_s": 2838997.84,
+            "ppo_sample_visits_s": 12527944.08,
+            "final_approximate_kl": 0.0,
+            "final_epochs_completed": 4.0
+          },
+          "samples": 279,
+          "busy_samples": 205,
+          "mean_busy_power_w": 207.05112195121953,
+          "peak_power_w": 221.93,
+          "peak_memory_mib": 2467.0,
+          "peak_memory_over_idle_mib": 1608.5,
+          "mean_busy_utilization_percent": 91.0439024390244,
+          "peak_temperature_c": 70.0,
+          "mean_busy_sm_clock_mhz": 2841.790243902439
+        }
+      ],
+      "summary": {
+        "environment_decisions_s": {
+          "median": 2822039.44,
+          "min": 2727166.12,
+          "max": 2838997.84,
+          "mean": 2807862.842,
+          "cv_percent": 1.6316071585143188
+        },
+        "final_approximate_kl": {
+          "median": 0.0,
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "cv_percent": 0.0
+        },
+        "final_epochs_completed": {
+          "median": 4.0,
+          "min": 4.0,
+          "max": 4.0,
+          "mean": 4.0,
+          "cv_percent": 0.0
+        },
+        "gpu_environments": {
+          "median": 32768.0,
+          "min": 32768.0,
+          "max": 32768.0,
+          "mean": 32768.0,
+          "cv_percent": 0.0
+        },
+        "horizon": {
+          "median": 128.0,
+          "min": 128.0,
+          "max": 128.0,
+          "mean": 128.0,
+          "cv_percent": 0.0
+        },
+        "ppo_sample_visits_s": {
+          "median": 12444707.46,
+          "min": 11971670.93,
+          "max": 12527944.08,
+          "mean": 12373826.258,
+          "cv_percent": 1.8433645897006503
+        },
+        "ppo_seconds": {
+          "median": 26.96,
+          "min": 26.78,
+          "max": 28.03,
+          "mean": 27.124000000000002,
+          "cv_percent": 1.8922515960913995
+        },
+        "rollout_seconds": {
+          "median": 2.76,
+          "min": 2.73,
+          "max": 2.77,
+          "mean": 2.756,
+          "cv_percent": 0.5502812368687617
+        },
+        "total_seconds": {
+          "median": 29.73,
+          "min": 29.55,
+          "max": 30.76,
+          "mean": 29.884000000000004,
+          "cv_percent": 1.6628313371138976
+        },
+        "updates": {
+          "median": 20.0,
+          "min": 20.0,
+          "max": 20.0,
+          "mean": 20.0,
+          "cv_percent": 0.0
+        },
+        "wall_seconds": {
+          "median": 29.988253400000758,
+          "min": 29.796857600000294,
+          "max": 31.008738200000153,
+          "mean": 30.134704280000005,
+          "cv_percent": 1.6474195813285342
+        },
+        "mean_busy_power_w": {
+          "median": 205.19535,
+          "min": 194.61686635944702,
+          "max": 207.80038461538464,
+          "mean": 203.2648031217956,
+          "cv_percent": 2.6492887740101287
+        },
+        "peak_power_w": {
+          "median": 219.05,
+          "min": 213.8,
+          "max": 223.07,
+          "mean": 218.59,
+          "cv_percent": 1.8661744673426628
+        },
+        "peak_memory_mib": {
+          "median": 2467.0,
+          "min": 2459.0,
+          "max": 2468.0,
+          "mean": 2465.6,
+          "cv_percent": 0.1533717586079578
+        },
+        "peak_memory_over_idle_mib": {
+          "median": 1608.5,
+          "min": 1600.5,
+          "max": 1609.5,
+          "mean": 1607.1,
+          "cv_percent": 0.2353017285942261
+        },
+        "mean_busy_utilization_percent": {
+          "median": 89.963133640553,
+          "min": 87.89268292682927,
+          "max": 91.0439024390244,
+          "mean": 89.65432841666595,
+          "cv_percent": 1.3896965637772296
+        },
+        "peak_temperature_c": {
+          "median": 70.0,
+          "min": 65.0,
+          "max": 70.0,
+          "mean": 68.4,
+          "cv_percent": 3.3657498342752445
+        },
+        "mean_busy_sm_clock_mhz": {
+          "median": 2842.79,
+          "min": 2841.076923076923,
+          "max": 2855.7557603686637,
+          "mean": 2846.0650244939957,
+          "cv_percent": 0.21935355016094796
+        }
+      }
+    }
+  ]
+}

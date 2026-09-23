@@ -102,10 +102,17 @@ def main() -> int:
         learned_estimator = LearnedTemporalEstimator(args.model, device=args.device)
     else:
         learned_estimator = None
+    # Screen-only checkpoints also need this capture setup's measured
+    # uncertainty (scripts/calibrate_screen_uncertainty.py writes both keys).
+    screen_sigma = backend.config.get("screen_position_sigma")
+    screen_error = backend.config.get("screen_event_error")
     agent = (LiveVisualPpoAgent(args.ppo_checkpoint, device=args.device,
                                deterministic=not args.stochastic, player=args.player,
                                opponent_character=args.opponent_character,
-                               opponent_archetype=args.opponent_archetype)
+                               opponent_archetype=args.opponent_archetype,
+                               screen_position_sigma=None if screen_sigma is None else float(screen_sigma),
+                               screen_event_error=None if screen_error is None else float(screen_error),
+                               motion_threshold=float(backend.config.get("motion_threshold", 0.015)))
              if args.agent == "v2" else LiveVisionAgent())
     controller = None if args.dry_run else VGamepadInputBackend(
         facing=args.facing, tap_seconds=0.035, asynchronous=True, hold_timeout=args.capture_timeout)

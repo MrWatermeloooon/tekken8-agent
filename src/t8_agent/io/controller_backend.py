@@ -304,7 +304,8 @@ class VGamepadInputBackend(InputBackend):
             elif requirement == "SS":
                 stages.extend([(self._direction_buttons("u"), self.sidestep_seconds),
                                (set(), self.frame_seconds)])
-            elif requirement in {"BT", "CH"}:
+            elif requirement in {"BT", "CH"} or requirement.startswith("PARRY_SUCCESS"):
+                # A parry outcome happens by itself; only its base input is sendable.
                 raise ValueError(f"move {move_id} requires observed {requirement} state")
 
             motion = self._motion_directions(step.direction)

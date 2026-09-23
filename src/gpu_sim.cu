@@ -129,6 +129,8 @@ struct DeviceConfig {
     float wall_camping_penalty;
     float late_round_passivity_penalty;
     float whiff_penalty;
+    int screen_observations;
+    ScreenObservationNoise screen_noise;
 };
 
 struct DeviceMove {
@@ -254,6 +256,7 @@ DeviceConfig to_device_config(const Config& c) {
         static_cast<float>(c.far_spacing_penalty), static_cast<float>(c.lateral_passivity_penalty),
         static_cast<float>(c.wall_camping_penalty), static_cast<float>(c.late_round_passivity_penalty),
         static_cast<float>(c.whiff_penalty),
+        static_cast<int>(c.screen_observations), c.screen_noise,
     };
 }
 
@@ -759,6 +762,86 @@ __device__ float visual_attack_likelihood(const FighterD& fighter, float distanc
     return (active_window ? 0.6F : 0.25F) + 0.4F * proximity;
 }
 
+// True screen-visible events for one fighter; measurement error is applied by
+// the caller.
+__device__ bool screen_activity_truth(const FighterD& fighter, const FighterD& previous) {
+    return fighter.move >= 0 || fighter.hitstun > 0 || fighter.blockstun > 0 || fighter.airborne > 0 ||
+        fabsf(fighter.x - previous.x) > kScreenActivitySpeed;
+}
+
+__device__ bool screen_attack_cue_truth(const FighterD& fighter) {
+    if (fighter.move < 0) return false;
+    const DeviceMove& move = move_for(fighter);
+    return fighter.move_frame <= move.startup + move.active;
+}
+
+__device__ float screen_measured_x(const StateD& state, const DeviceConfig& config, std::size_t lane,
+                                   int fighter, float sigma) {
+    const float truth = fighter == 1 ? state.p1.x : state.p2.x;
+    return truth + sigma * screen_gaussian(screen_measurement_key(
+        config.screen_noise, lane, state.frame, state.p1.x, state.p2.x,
+        state.p1.health, state.p2.health, fighter, ScreenChannelX));
+}
+
+__device__ float screen_detection(bool truth, const StateD& state, const DeviceConfig& config,
+                                  std::size_t lane, int fighter, int channel, float error) {
+    const bool flipped = screen_uniform(screen_measurement_key(
+        config.screen_noise, lane, state.frame, state.p1.x, state.p2.x,
+        state.p1.health, state.p2.health, fighter, channel)) < error;
+    return (truth != flipped) ? 1.0F : 0.0F;
+}
+
+// Overwrites the 13 visual features with the screen-only contract: noisy
+// positions (distance and velocity derived from the noisy positions, as a
+// screen tracker would), noisy HUD health, exact health-drop hit events, and
+// flipped binary activity / attack-cue detections in place of motion and the
+// move-data-derived attack likelihood.
+__device__ void write_screen_player_outputs(
+    const StateD& state,
+    const StateD& previous,
+    const DeviceConfig& config,
+    int player,
+    std::size_t lane,
+    float* output) {
+    const int own_id = player;
+    const int opponent_id = player == 1 ? 2 : 1;
+    const FighterD& own = player == 1 ? state.p1 : state.p2;
+    const FighterD& opponent = player == 1 ? state.p2 : state.p1;
+    const FighterD& previous_own = player == 1 ? previous.p1 : previous.p2;
+    const FighterD& previous_opponent = player == 1 ? previous.p2 : previous.p1;
+    const float sigma = screen_lane_position_sigma(config.screen_noise, lane);
+    const float error = screen_lane_event_error(config.screen_noise, lane);
+    const float own_x = screen_measured_x(state, config, lane, own_id, sigma);
+    const float opponent_x = screen_measured_x(state, config, lane, opponent_id, sigma);
+    const bool has_previous = previous.frame != state.frame;
+    const float own_velocity = has_previous
+        ? own_x - screen_measured_x(previous, config, lane, own_id, sigma) : 0.0F;
+    const float opponent_velocity = has_previous
+        ? opponent_x - screen_measured_x(previous, config, lane, opponent_id, sigma) : 0.0F;
+    const auto measured_health = [&](const FighterD& fighter, int fighter_id) {
+        const float noise = config.screen_noise.health_sigma * screen_gaussian(screen_measurement_key(
+            config.screen_noise, lane, state.frame, state.p1.x, state.p2.x,
+            state.p1.health, state.p2.health, fighter_id, ScreenChannelHealth));
+        return clampf(fighter.health / config.max_health + noise, 0.0F, 1.0F);
+    };
+    output[0] = measured_health(own, own_id);
+    output[1] = measured_health(opponent, opponent_id);
+    output[2] = own_x;
+    output[3] = opponent_x;
+    output[4] = fabsf(opponent_x - own_x);
+    output[5] = own_velocity;
+    output[6] = opponent_velocity;
+    output[7] = screen_detection(screen_activity_truth(own, previous_own), state, config, lane,
+                                 own_id, ScreenChannelActivity, error);
+    output[8] = screen_detection(screen_activity_truth(opponent, previous_opponent), state, config, lane,
+                                 opponent_id, ScreenChannelActivity, error);
+    // output[9], output[10]: health-drop hit events stay exact (HUD bars).
+    output[11] = screen_detection(screen_attack_cue_truth(own), state, config, lane,
+                                  own_id, ScreenChannelAttackCue, error);
+    output[12] = screen_detection(screen_attack_cue_truth(opponent), state, config, lane,
+                                  opponent_id, ScreenChannelAttackCue, error);
+}
+
 __device__ void write_visual_player_outputs(
     const StateD& state,
     const StateD& previous,
@@ -792,6 +875,9 @@ __device__ void write_visual_player_outputs(
     observations[base + 10] = opponent_hit ? 1.0F : 0.0F;
     observations[base + 11] = visual_attack_likelihood(own, distance);
     observations[base + 12] = visual_attack_likelihood(opponent, distance);
+    if (config.screen_observations) {
+        write_screen_player_outputs(state, previous, config, player, lane, observations + base);
+    }
 }
 
 __device__ void write_all_outputs(
@@ -1169,6 +1255,15 @@ struct GpuSimulatorBatch::Impl {
     Impl(std::size_t environment_count, Config simulation_config)
         : count(environment_count), config(simulation_config), device_config(to_device_config(config)) {
         if (count == 0) throw std::invalid_argument("environment_count must be greater than zero");
+        const auto& noise = config.screen_noise;
+        const auto finite_range = [](float low, float high, float limit) {
+            return std::isfinite(low) && std::isfinite(high) && low >= 0.0F && low <= high && high <= limit;
+        };
+        if (!finite_range(noise.position_sigma_min, noise.position_sigma_max, 10.0F) ||
+            !finite_range(noise.event_error_min, noise.event_error_max, 0.5F) ||
+            !std::isfinite(noise.health_sigma) || noise.health_sigma < 0.0F || noise.health_sigma > 1.0F) {
+            throw std::invalid_argument("screen observation noise ranges are invalid");
+        }
         try {
         check_cuda(cudaMalloc(&state_f, sizeof(float) * kFloatStateFields * count), "allocate GPU float state");
         check_cuda(cudaMalloc(&state_i, sizeof(int) * kIntStateFields * count), "allocate GPU integer state");

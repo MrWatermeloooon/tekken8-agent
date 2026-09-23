@@ -10,25 +10,25 @@ Add-Type -AssemblyName System.Drawing
 $repo = Split-Path -Parent $PSScriptRoot
 $runPath = [System.IO.Path]::GetFullPath((Join-Path $repo $RunDir))
 $outputPath = [System.IO.Path]::GetFullPath((Join-Path $repo $OutputDir))
-$logPath = Join-Path $runPath "trainer.stdout.log"
-if (-not (Test-Path -LiteralPath $logPath)) {
-    throw "Missing trainer log: $logPath"
+# evaluations.csv is written by t8_v2_train at every evaluation; for runs that
+# predate it, create it with: python tools\export_evaluations.py <run-dir>
+$csvPath = Join-Path $runPath "evaluations.csv"
+if (-not (Test-Path -LiteralPath $csvPath)) {
+    throw "Missing $csvPath; backfill it with: python tools\export_evaluations.py $RunDir"
 }
 [System.IO.Directory]::CreateDirectory($outputPath) | Out-Null
 
 $evaluations = @(
-    Select-String -Path $logPath -Pattern "eval_win_rate=" | ForEach-Object {
-        if ($_.Line -match "update=(\d+).*eval_win_rate=([0-9.]+).*stochastic_eval_win_rate=([0-9.]+)") {
-            [pscustomobject]@{
-                Update = [int]$Matches[1]
-                Deterministic = [double]$Matches[2]
-                Stochastic = [double]$Matches[3]
-            }
+    Import-Csv -LiteralPath $csvPath | ForEach-Object {
+        [pscustomobject]@{
+            Update = [int]$_.update
+            Deterministic = [double]$_.win_rate
+            Stochastic = [double]$_.stochastic_win_rate
         }
     } | Where-Object { $_.Update -le $MaxUpdate }
 )
 if ($evaluations.Count -eq 0) {
-    throw "No evaluation records found in $logPath"
+    throw "No evaluation records found in $csvPath"
 }
 
 function New-Canvas {

@@ -13,6 +13,33 @@ _FRAME_RE = re.compile(r"(?P<minimum>\d+)(?:~(?P<maximum>\d+))?[fF]?$")
 _PREFIX_RE = re.compile(r"^[A-Za-z][A-Za-z0-9 +_-]*$")
 _TOKEN_CLEAN_RE = re.compile(r"\s+")
 
+# Situational requirements: they gate when a row can occur and are never
+# button inputs themselves.
+BACK_TO_WALL = "BACK_TO_WALL"
+OPPONENT_BACK_TURNED = "OPPONENT_BACK_TURNED"
+OPPONENT_LEFT_SIDE = "OPPONENT_LEFT_SIDE"
+OPPONENT_RIGHT_SIDE = "OPPONENT_RIGHT_SIDE"
+PARRY_SUCCESS = "PARRY_SUCCESS"
+SITUATIONAL_REQUIREMENTS = frozenset({
+    BACK_TO_WALL, OPPONENT_BACK_TURNED, OPPONENT_LEFT_SIDE, OPPONENT_RIGHT_SIDE,
+    PARRY_SUCCESS, f"{PARRY_SUCCESS}_HIGH", f"{PARRY_SUCCESS}_MID", f"{PARRY_SUCCESS}_LOW",
+    f"{PARRY_SUCCESS}_THROW",
+})
+
+# "Back throw" / "Left throw" / "Right throw": any throw input (1+3 or 2+4)
+# performed with the opponent's back or that side facing the player.
+_POSITIONAL_THROW_RE = re.compile(r"^(?P<side>back|left|right)\s+throw$", re.IGNORECASE)
+_POSITIONAL_THROWS = {
+    "back": OPPONENT_BACK_TURNED, "left": OPPONENT_LEFT_SIDE, "right": OPPONENT_RIGHT_SIDE,
+}
+# Leading parenthesized situations with an exact, documented meaning.
+_SITUATION_PREFIX_RE = re.compile(r"^\((?P<situation>[^)]+)\)\s*\.?\s*(?P<rest>.+)$")
+_SITUATION_PREFIXES = {"back to wall": BACK_TO_WALL}
+# TekkenDocs writes a successful parry/absorb as a "P" step, optionally with
+# the parried type: "b+1+3,P", "GEN.P (Low)". It is an event, not the punch
+# button; every roster row using it documents a parry or absorb.
+_PARRY_EVENT_RE = re.compile(r"^P(?:\s*\((?P<kind>high|mid|low|throw)\))?$", re.IGNORECASE)
+
 
 @dataclass(frozen=True)
 class InputStep:
@@ -68,11 +95,23 @@ def parse_command(command: str, known_stances: set[str] | None = None) -> Comman
     if not raw:
         return CommandSpec(raw, (), (), "invalid", ("empty command",))
 
+    throw = _POSITIONAL_THROW_RE.fullmatch(raw)
+    if throw:
+        return CommandSpec(
+            raw, (_POSITIONAL_THROWS[throw.group("side").lower()],),
+            (InputStep(raw="1+3", buttons=(1, 3)),), "parsed")
+
     known = {value.upper() for value in (known_stances or set())}
     requirements: list[str] = []
-    body = raw
-    if "." in raw:
-        prefix, body = raw.rsplit(".", 1)
+    situation = _SITUATION_PREFIX_RE.fullmatch(raw)
+    if situation and situation.group("situation").strip().lower() in _SITUATION_PREFIXES:
+        requirements.append(_SITUATION_PREFIXES[situation.group("situation").strip().lower()])
+        raw_body = situation.group("rest").strip()
+    else:
+        raw_body = raw
+    body = raw_body
+    if "." in raw_body:
+        prefix, body = raw_body.rsplit(".", 1)
         prefix_parts = [value.strip() for value in prefix.split(".") if value.strip()]
         for value in prefix_parts:
             upper = value.upper()
@@ -146,6 +185,10 @@ def _expand_transitions(fragment: str) -> list[tuple[str, bool]]:
 
 def _parse_step(fragment: str, just_frame: bool = False) -> tuple[InputStep, str | None]:
     raw = fragment.strip()
+    parry = _PARRY_EVENT_RE.fullmatch(raw)
+    if parry:
+        kind = parry.group("kind")
+        return InputStep(raw=raw, requirement=PARRY_SUCCESS + (f"_{kind.upper()}" if kind else "")), None
     token = _TOKEN_CLEAN_RE.sub("", raw)
     just_frame = just_frame or "!" in token
     release = token.startswith("[") and token.endswith("]")

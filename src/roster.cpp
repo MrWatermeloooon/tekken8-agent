@@ -522,7 +522,12 @@ void MatchupScheduler::record(
     const double batch = (static_cast<double>(wins) + 0.5 * static_cast<double>(draws)) /
         static_cast<double>(wins + losses + draws);
     value.recent_win_rate = recent_win_rate < 0.0 ? batch : recent_win_rate;
-    value.best_win_rate = std::max(value.best_win_rate, value.recent_win_rate);
+    // A handful of early episodes would otherwise set a lucky best that later
+    // reads as forgetting (and inflates regression-driven priority).
+    constexpr std::uint64_t kMinimumEpisodesForBest = 50;
+    if (value.episodes >= kMinimumEpisodesForBest) {
+        value.best_win_rate = std::max(value.best_win_rate, value.recent_win_rate);
+    }
     if (exploit_severity >= 0.0) value.exploit_severity = exploit_severity;
 }
 

@@ -44,6 +44,45 @@ class TemporalFrame:
         )
 
 
+SCREEN_POSITION_SIGMA_SCALE = 1.0
+SCREEN_EVENT_ERROR_SCALE = 0.5
+
+
+@dataclass(frozen=True)
+class ScreenTemporalFrame:
+    """Screen-only context for one decision ("screen-matchup-95-v1").
+
+    Mirrors the CUDA encoder's screen mode: observed opponent activity and
+    attack cue, the calibrated position noise and event-detection error, how
+    long the opponent has been visibly active, the health-derived outcome,
+    distance, and opponent velocity. No move identity is involved.
+    """
+
+    opponent_activity: bool = False
+    opponent_attack_cue: bool = False
+    position_sigma: float = 0.0
+    event_error: float = 0.0
+    activity_frames: int = 0
+    outcome: float = 0.0
+    distance: float = 0.0
+    side_movement: float = 0.0
+
+    def vector(self) -> np.ndarray:
+        return np.asarray(
+            [
+                1.0 if self.opponent_activity else 0.0,
+                1.0 if self.opponent_attack_cue else 0.0,
+                np.clip(self.position_sigma / SCREEN_POSITION_SIGMA_SCALE, 0.0, 1.0),
+                np.clip(self.event_error / SCREEN_EVENT_ERROR_SCALE, 0.0, 1.0),
+                np.clip(self.activity_frames / 60.0, 0.0, 1.0),
+                np.clip(self.outcome, -1.0, 1.0),
+                np.clip(self.distance / 7.2, 0.0, 1.0),
+                np.clip(self.side_movement, -1.0, 1.0),
+            ],
+            dtype=np.float32,
+        )
+
+
 class MatchupObservationEncoder:
     """Eight-decision frame stack with character and style conditioning."""
 
@@ -67,7 +106,7 @@ class MatchupObservationEncoder:
         *,
         opponent_character_id: int,
         opponent_archetype_id: int,
-        frame: TemporalFrame,
+        frame: TemporalFrame | ScreenTemporalFrame,
     ) -> np.ndarray:
         base = np.asarray(base_observation, dtype=np.float32)
         if base.shape != (self.base_size,):

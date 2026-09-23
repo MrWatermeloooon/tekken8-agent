@@ -372,25 +372,41 @@ build\Release\t8_v2_training_benchmark.exe `
   --envs 4096 --horizon 128 --updates 5 --minibatch 4096 --epochs 4 --visual
 ```
 
-Measured on 2026-09-20 with an NVIDIA GeForce RTX 5070 Ti 16 GB, an Intel Core i5-12600K,
-32 GB system memory, Windows 11 build 26200, NVIDIA driver 616.64, and CUDA 13.1. Each result is
-the median of three runs from the Release build. The overnight trainer and visualizer remained
-active, so these are concurrent-load measurements rather than isolated peak claims.
+Isolated measurements from 2026-09-23 on an NVIDIA GeForce RTX 5070 Ti 16 GB (driver 616.64,
+CUDA 13.4), an Intel Core i5-12600K, and Windows 11 build 26200, using the Release build. No
+trainer, visualizer, or live runtime was running; only desktop applications held GPU contexts,
+with 40 W and 858 MiB used at idle. Each benchmark ran five times while `nvidia-smi` sampled
+power, memory, utilization, temperature, and clocks every 100 ms.
 
-| Benchmark | Median result |
-|---|---:|
-| Simulator-only environment decisions/s | 210,617,647 |
-| Simulator-only simulated frames/s | 842,470,589 |
-| Visual rollout + PPO environment decisions/s | 695,790 |
-| PPO sample-visits/s | 3,367,558 |
-| Five-update end-to-end time | 3.77 s |
+| Benchmark | Median | Range over 5 runs | CV |
+|---|---:|---:|---:|
+| Simulator-only environment decisions/s | 429.2M | 428.9M – 431.2M | 0.2% |
+| Simulator-only simulated frames/s | 1.717B | 1.716B – 1.725B | 0.2% |
+| README PPO command: environment decisions/s | 2.106M | 2.090M – 2.132M | 0.7% |
+| README PPO command: PPO sample-visits/s | 10.25M | 10.14M – 10.39M | 1.0% |
+| README PPO command: five-update end-to-end time | 1.24 s | 1.23 – 1.25 s | 0.7% |
+| Sustained PPO (32,768 envs, 20 updates): environment decisions/s | 2.822M | 2.727M – 2.839M | 1.6% |
+| Sustained PPO: mean / peak board power | 205 W / 219 W | 195 – 208 W / 214 – 223 W | 2.6% / 1.9% |
+| Sustained PPO: peak GPU memory above idle | 1,608 MiB | 1,600 – 1,610 MiB | 0.2% |
+| Sustained PPO: peak temperature, mean SM clock | 70 °C, 2,843 MHz | 65 – 70 °C | 3.4% |
+| Simulator-only: mean board power, memory above idle | 122 W, 308 MiB | 114 – 129 W | 5.0% |
 
-![RTX 5070 Ti benchmark results](docs/images/v3-benchmarks.png)
+These are about 2x the earlier 2026-09-20 figures (210.6M simulator decisions/s and 696K
+visual-PPO decisions/s). Those were measured while the overnight trainer and visualizer shared
+the GPU, and the chart below still shows them.
+Full per-run data (JSON) and the summary are in
+[docs/benchmarks/isolated_2026-09-23.md](docs/benchmarks/isolated_2026-09-23.md). Reproduce with:
 
-The three simulator-only runs ranged from 208.9M to 215.6M decisions/s. The three end-to-end
-visual PPO runs ranged from 670K to 705K decisions/s. Performance depends on batch size, GPU,
-CUDA build, observation contract, opponent mix, and concurrent GPU load; record the exact commit
-and command alongside new measurements.
+```powershell
+.venv\Scripts\python tools\run_isolated_benchmarks.py --repeats 5
+```
+
+The script refuses to run while the trainer, visualizer, or live runtime is active.
+
+![RTX 5070 Ti benchmark results (2026-09-20, concurrent load)](docs/images/v3-benchmarks.png)
+
+Performance depends on batch size, GPU, CUDA build, observation contract, opponent mix, and
+concurrent GPU load; record the exact commit and command alongside new measurements.
 
 Regenerate both README figures from a saved run with:
 
@@ -418,22 +434,54 @@ validation required for promotion.
 
 ### Immediate training blockers
 
-- [ ] Diagnose repeated held-out oscillation: 97.3% peak, 30.5% trough, and 89.8% latest result.
-- [ ] Add a side-gap promotion threshold and verify the latest 87.5% P1 versus 92.2% P2 balance
-  persists across future checkpoints and seeds.
-- [ ] Audit latest-self opponent loading, frozen recurrent history, side routing, and reset state.
-- [ ] Re-evaluate why checkpoint 100 remains the best older opponent after 70 evaluations.
-- [ ] Add automatic rollback or pause when held-out score, exploitability, or side balance regresses.
-- [ ] Fix `matchup_matrix.json`, which currently remains at zero episodes despite completed evals.
-- [ ] Export evaluation curves and per-style/per-character results directly, rather than recovering
-  the summary from nested metric records and console logs.
-- [ ] Run isolated benchmarks with the trainer stopped and record power, memory, and repeatability.
+- [x] Diagnose repeated held-out oscillation: 97.3% peak, 30.5% trough, and 89.8% latest result.
+  The policy flips between near-deterministic "f2 pressure" and "dash-forward spam" strategies
+  under Jun-mirror-only self-play; see
+  [docs/selfplay_oscillation_diagnosis.md](docs/selfplay_oscillation_diagnosis.md).
+- [x] Add a side-gap promotion threshold (`--promotion-max-side-gap`, default 0.10) and verify the
+  latest 87.5% P1 versus 92.2% P2 balance persists across future checkpoints (34,700–35,600:
+  gaps of at most 6.2 points; 89.5% / 89.8% at 1,024 episodes).
+- [ ] Verify the side balance across at least four more long-run seeds.
+- [x] Audit latest-self opponent loading, frozen recurrent history, side routing, and reset state.
+  No correctness bug found. Fixed the per-update full metrics re-parse and redundant opponent
+  reloads.
+- [ ] Mix scripted roster opponents and more past checkpoints into self-play; it is currently a
+  Jun mirror against two opponents for 99.8% of updates.
+- [ ] Lengthen the curriculum: `--curriculum-updates 100` gave stages 1–3 only 75 updates.
+- [ ] Add a per-choice entropy floor or target; every checkpoint after update 100 is
+  near-deterministic (0.03–0.3 nats of a possible 3.18) and uses mostly two actions.
+- [x] Re-evaluate why checkpoint 100 remains the best older opponent after 70 evaluations.
+  1,024-episode re-probes show it was genuinely the best from update 300 to 11,700 (the dash
+  regime). The one miss was the stronger update 200, which lost by a single game to 256-episode
+  noise. Promotion now treats scores within one standard error as tied and picks the newest
+  (`--promotion-tie-band`).
+- [x] Add automatic rollback or pause when held-out score, exploitability, or side balance regresses
+  (`--regression-guard`; the weakest held-out style is the exploitability proxy). Exact resume is
+  covered across a rollback.
+- [ ] Measure true exploitability with a trained best-response exploiter instead of the
+  weakest-style proxy.
+- [x] Fix `matchup_matrix.json`, which currently remains at zero episodes despite completed evals.
+  Training outcomes were never recorded; they now feed the matrix and prioritized matchmaking.
+- [x] Export evaluation curves and per-style/per-character results directly, rather than recovering
+  the summary from nested metric records and console logs. The trainer writes `evaluations.csv`,
+  `evaluation_styles.csv`, and `evaluation_characters.csv`; `tools/export_evaluations.py` backfills
+  older runs.
+- [x] Run isolated benchmarks with the trainer stopped and record power, memory, and repeatability
+  ([docs/benchmarks/isolated_2026-09-23.md](docs/benchmarks/isolated_2026-09-23.md); 5 runs each,
+  throughput CV 0.2–1.8%).
 - [ ] Repeat long training across at least five seeds before making learning-quality claims.
+  Tooling is ready and validated on a short five-seed matrix (`scripts/run_seed_matrix.ps1`,
+  `tools/aggregate_seed_matrix.py`); the long runs themselves (about 20 h per seed) have not been
+  done.
 
 ### Move data and validation
 
 - [ ] Resolve all 254 unparsed or ambiguous command notations without generic substitutions.
+  **In progress (168 of 254 done).** Resolved: 168 (positional throws, back-to-wall prefixes,
+  parry-outcome branches); 86 remain.
 - [ ] Resolve the known Jun and Miary Zo frame-data inconsistencies against current-patch evidence.
+  **In progress (1 of 2 characters).** Jun done via `data/corrections/jun.yaml` (IZU.3
+  startup; Practice confirmation pending); Miary Zo remains.
 - [ ] Measure active frames, range, pushback, collision, axis behavior, and tracking for every move.
 - [ ] Record exact stance transitions, cancels, counter-hit properties, resource effects, armor,
   crush, parry, reversal, throw, Heat, Rage, and recoverable-health behavior.
@@ -462,6 +510,10 @@ validation required for promotion.
 ### Character rollout
 
 - [ ] Complete Jun as the vertical slice with all 149 documented moves and validated routes.
+  **In progress (early stage).** Done: 2 of 6 gate blockers cleared (0 of 8 commands awaiting
+  parser review, 0 of 1 source conflicts). Not started: 149 in-game measurements, 149
+  Practice validations, 8 scenario gates, and 4 route gates. The last two depend on the
+  full-move combat engine above.
 - [ ] Add mechanic representatives: Kazuya, King, Hwoarang, Xiaoyu, Alisa, Yoshimitsu, and Clive.
 - [ ] Add the remaining fighters in roster order: Jin, Paul, Law, Jack-8, Lars, Nina, Leroy, Asuka,
   Lili, Bryan, Claudio, Azucena, Raven, Leo, Steve, Kuma, Shaheen, Dragunov, Feng, Panda, Lee,
@@ -475,7 +527,13 @@ validation required for promotion.
 ### PPO, curriculum, and evaluation
 
 - [ ] Make the parametric move scorer the production rollout policy after Jun parity passes.
-- [ ] Train only from screen-observable features plus calibrated uncertainty, with no hidden move ID.
+- [x] Train only from screen-observable features plus calibrated uncertainty, with no hidden move ID.
+  `--observation-mode screen` (contract `screen-matchup-95-v1`); see
+  [docs/screen_only_observations.md](docs/screen_only_observations.md). Under screen-only noisy
+  inputs, visual-trained policies fall to 45–53% while the screen-trained one holds 98% (one seed).
+- [ ] Measure the live capture setup's screen uncertainty with
+  `scripts/calibrate_screen_uncertainty.py` (Practice distance readout plus a hand-labelled
+  recording), then repeat the screen/visual comparison across five seeds.
 - [ ] Add movement, punishment, throw-break, launch, carry, tornado, wall, wake-up, Heat, Rage, and
   matchup scenario curricula without adding exploitable reward shaping.
 - [ ] Validate observation and return normalization for the native PPO pipeline.

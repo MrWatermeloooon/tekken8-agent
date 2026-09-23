@@ -89,7 +89,9 @@ __global__ void encode_kernel(
     std::uint8_t* valid,
     float* output,
     std::size_t count,
-    bool advance_history) {
+    bool advance_history,
+    bool screen_only,
+    ScreenObservationNoise screen_noise) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= count) return;
     const auto profile_index = assignments[lane];
@@ -113,9 +115,15 @@ __global__ void encode_kernel(
     }
 
     const std::size_t history_base = lane * kTemporalHistoryLength * kTemporalFeaturesPerStep;
-    const std::int64_t action = valid[lane] != 0 ? opponent_actions[lane] : 0;
-    const std::int32_t next_repeated_action_frames = valid[lane] != 0 && previous_actions[lane] == action
-        ? min(60, repeated_action_frames[lane] + 4) : 0;
+    const std::int64_t action = screen_only || valid[lane] == 0 ? 0 : opponent_actions[lane];
+    // Screen mode counts how long the opponent has been visibly active instead
+    // of how long it repeated a (hidden) move.
+    const bool opponent_active = screen_only && base[input_base + 8] > 0.5F;
+    const std::int32_t next_repeated_action_frames = screen_only
+        ? (valid[lane] != 0 && opponent_active ? min(60, repeated_action_frames[lane] + 4)
+                                               : (opponent_active ? 4 : 0))
+        : (valid[lane] != 0 && previous_actions[lane] == action
+               ? min(60, repeated_action_frames[lane] + 4) : 0);
     const float own_health = base[input_base + 0];
     const float opponent_health = base[input_base + 1];
     const float distance = base_size == 13 ? base[input_base + 4] / 7.2F : base[input_base + 3];
@@ -143,7 +151,7 @@ __global__ void encode_kernel(
         }
     }
     const std::size_t newest_feature = (kTemporalHistoryLength - 1) * kTemporalFeaturesPerStep;
-    const float newest[kTemporalFeaturesPerStep] = {
+    float newest[kTemporalFeaturesPerStep] = {
         fminf(1.0F, fmaxf(0.0F, static_cast<float>(action) / 23.0F)),
         animation_phase,
         stance,
@@ -153,6 +161,12 @@ __global__ void encode_kernel(
         fminf(1.0F, fmaxf(0.0F, distance)),
         side_movement,
     };
+    if (screen_only) {
+        newest[0] = opponent_active ? 1.0F : 0.0F;
+        newest[1] = base[input_base + 12] > 0.5F ? 1.0F : 0.0F;
+        newest[2] = screen_normalized_position_sigma(screen_lane_position_sigma(screen_noise, lane));
+        newest[3] = screen_normalized_event_error(screen_lane_event_error(screen_noise, lane));
+    }
     for (std::size_t feature = 0; feature < kTemporalFeaturesPerStep; ++feature) {
         output[cursor + newest_feature + feature] = newest[feature];
         if (advance_history) {
@@ -175,6 +189,8 @@ struct GpuTemporalMatchupEncoder::Impl {
     std::size_t capacity;
     std::size_t base_size;
     std::size_t output_size;
+    bool screen_only = false;
+    ScreenObservationNoise screen_noise{};
     float* history = nullptr;
     std::int64_t* previous_actions = nullptr;
     std::int32_t* repeated_action_frames = nullptr;
@@ -215,8 +231,18 @@ struct GpuTemporalMatchupEncoder::Impl {
     ~Impl() { release(); }
 };
 
-GpuTemporalMatchupEncoder::GpuTemporalMatchupEncoder(std::size_t capacity, std::size_t base_size)
-    : impl_(std::make_unique<Impl>(capacity, base_size)) { reset(); synchronize(); }
+GpuTemporalMatchupEncoder::GpuTemporalMatchupEncoder(
+    std::size_t capacity, std::size_t base_size, std::optional<ScreenObservationNoise> screen_noise)
+    : impl_(std::make_unique<Impl>(capacity, base_size)) {
+    if (screen_noise) {
+        if (base_size != 13) throw std::invalid_argument("screen-only temporal encoding requires the 13-feature visual base");
+        impl_->screen_only = true;
+        impl_->screen_noise = *screen_noise;
+    }
+    reset();
+    synchronize();
+}
+bool GpuTemporalMatchupEncoder::screen_only() const noexcept { return impl_->screen_only; }
 GpuTemporalMatchupEncoder::~GpuTemporalMatchupEncoder() = default;
 GpuTemporalMatchupEncoder::GpuTemporalMatchupEncoder(GpuTemporalMatchupEncoder&&) noexcept = default;
 GpuTemporalMatchupEncoder& GpuTemporalMatchupEncoder::operator=(GpuTemporalMatchupEncoder&&) noexcept = default;
@@ -254,7 +280,7 @@ const float* GpuTemporalMatchupEncoder::encode(
         base, impl_->base_size, profiles, profile_count, assignments, actions,
         impl_->history, impl_->previous_actions, impl_->repeated_action_frames,
         impl_->previous_own_health, impl_->previous_opponent_health, impl_->previous_distance,
-        impl_->valid, impl_->output, count, true);
+        impl_->valid, impl_->output, count, true, impl_->screen_only, impl_->screen_noise);
     check_cuda(cudaGetLastError(), "launch temporal encode kernel");
     return impl_->output;
 }
@@ -271,7 +297,7 @@ const float* GpuTemporalMatchupEncoder::preview(
         base, impl_->base_size, profiles, profile_count, assignments, actions,
         impl_->history, impl_->previous_actions, impl_->repeated_action_frames,
         impl_->previous_own_health, impl_->previous_opponent_health, impl_->previous_distance,
-        impl_->valid, impl_->output, count, false);
+        impl_->valid, impl_->output, count, false, impl_->screen_only, impl_->screen_noise);
     check_cuda(cudaGetLastError(), "launch temporal preview kernel");
     return impl_->output;
 }

@@ -1,10 +1,12 @@
 #pragma once
 
 #include "t8_v2/roster.hpp"
+#include "t8_v2/screen_observation.hpp"
 
 #include <cstddef>
 #include <cstdint>
 #include <memory>
+#include <optional>
 #include <span>
 #include <vector>
 
@@ -33,7 +35,16 @@ struct TemporalEncoderState {
 // thread updates one lane and produces a row-major augmented observation.
 class GpuTemporalMatchupEncoder {
 public:
-    GpuTemporalMatchupEncoder(std::size_t capacity, std::size_t base_observation_size);
+    // With screen_noise (13-feature base only) the history holds only
+    // screen-observable signals: per step [opponent activity, opponent attack
+    // cue, normalized position uncertainty, normalized event-detection error,
+    // opponent activity run length, outcome, distance, opponent velocity]. The
+    // previous-opponent-action input is then ignored, so no hidden move ID,
+    // hit level, or stance enters the observation.
+    GpuTemporalMatchupEncoder(
+        std::size_t capacity,
+        std::size_t base_observation_size,
+        std::optional<ScreenObservationNoise> screen_noise = std::nullopt);
     ~GpuTemporalMatchupEncoder();
 
     GpuTemporalMatchupEncoder(GpuTemporalMatchupEncoder&&) noexcept;
@@ -44,6 +55,7 @@ public:
     [[nodiscard]] std::size_t capacity() const noexcept;
     [[nodiscard]] std::size_t base_observation_size() const noexcept;
     [[nodiscard]] std::size_t observation_size() const noexcept;
+    [[nodiscard]] bool screen_only() const noexcept;
     void reset(void* stream = nullptr);
     void reset_done(const std::uint8_t* device_done, std::size_t count, void* stream = nullptr);
     [[nodiscard]] const float* encode(

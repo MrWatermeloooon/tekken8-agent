@@ -97,6 +97,103 @@ The trainer also exposes `--reward-scale`, `--gamma`, `--gae-lambda`, `--clip-ra
 the optimizer schedule of updates that already happened. `--curriculum-updates` provides the same
 stability for curriculum stages.
 
+`--observation-norm on|off` and `--return-norm on|off` (both default `on`) control the standard
+PPO normalizers. Observation normalization keeps a running per-feature mean/variance inside the
+model (clipped to ±10). The statistics are frozen while a rollout is collected and trained on,
+then updated from that rollout, and they are saved in the checkpoint (format V4) so the live
+Python agent applies the same transform. Return normalization divides rewards by the running
+standard deviation of the discounted return, applied on top of `--reward-scale`. New networks use
+orthogonal initialization. V3 checkpoints still load, with normalization disabled. To resume a run
+that began before these options existed, pass `--observation-norm off --return-norm off`.
+
+`--promotion-max-side-gap` (default 0.10; 1 disables it) allows an older checkpoint to become the
+self-play best-older opponent only if its held-out |P1 − P2| win-rate gap is within the limit.
+Metrics now also record `decision_fraction` and `decision_entropy`. The old `entropy` averages
+in forced single-action frames, so it mostly measures how often the policy has a choice.
+`--promotion-tie-band` (default 1) treats older checkpoints scoring within that many binomial
+standard errors of the best as tied, and promotes the newest of them.
+
+The regression guard (`--regression-guard rollback|pause|off`, default `rollback`) checks every
+deterministic held-out evaluation against a reference. The reference is the best evaluation so far
+that passed every check and has a saved checkpoint. An evaluation counts as regressed when any of
+these hold:
+
+- the win rate falls more than `--regression-score-drop` (0.15) below the reference;
+- the weakest held-out style (the exploitability proxy) falls more than `--regression-style-drop`
+  (0.30) below the reference's weakest style;
+- the |P1 − P2| gap exceeds `--regression-max-side-gap` (0.20).
+
+After `--regression-patience` (3) consecutive regressed evaluations, the learner's weights and Adam
+state are restored from the reference. This happens up to `--regression-max-rollbacks` (2) times
+per reference, then the trainer pauses. In `pause` mode it pauses on the first trigger. A pause
+writes a checkpoint and exits with code 3; resume it normally. The checkpoint at the triggering
+update keeps the evaluated weights for inspection, and the trainer state records that a rollback
+happened, so resume stays exact. Each decision is logged under `regression_guard` in
+`metrics.jsonl`.
+
+`matchup_matrix.json` and the curriculum scheduler's prioritized matchmaking now receive
+learner win/loss/draw outcomes from every finished scripted-opponent training episode. Held-out
+evaluations stay separate, and self-play episodes are not counted.
+
+`--observation-mode screen` trains on the screen-only contract `screen-matchup-95-v1`, which is
+defined in `include/t8_v2/screen_observation.hpp`. Every input is something the live screen
+pipeline can measure:
+
+- health from the HUD;
+- fighter positions, with distance and velocity derived from them;
+- health-drop hit events;
+- two binary detections per fighter: activity (animating) and attack cue (an attack is visibly
+  coming out).
+
+The 8-step history drops the opponent's move ID, hit level, stance, and repeat count, and holds
+observed opponent activity and attack cue, the two uncertainty levels, how long the opponent has
+been visibly active, outcome, distance, and opponent velocity. The `visual` mode, by contrast,
+derives its attack likelihood from exact move range and active frames and puts the true move ID in
+the history. Neither exists live.
+
+Measurement error is simulated per environment lane:
+
+- Gaussian position noise with sigma drawn from [0, `--screen-position-sigma-max`] (default 1.0
+  stage units);
+- small HUD health noise;
+- detection flips at a rate drawn from [0, `--screen-event-error-max`] (default 0.30).
+
+Each lane's two levels are also inputs, so the policy learns how much to trust its measurements.
+Live, the same inputs come from `config/live_screen.yaml` (`screen_position_sigma`,
+`screen_event_error`). Measure them with `scripts/calibrate_screen_uncertainty.py`: the `distance`
+subcommand compares against the Practice-mode distance readout, and `events` compares against a
+hand-labelled recording. `live_vision_play.py` refuses a screen checkpoint until both values are
+set.
+
+Every held-out evaluation also writes three flat CSVs to the run directory:
+
+- `evaluations.csv`: one row per evaluation, with deterministic and stochastic win rate, P1/P2
+  split, draw rate, weakest style, mean damage, the self-play opponents in use, and the guard
+  action;
+- `evaluation_styles.csv`: per policy, side, and style, with episodes, wins, losses, and draws;
+- `evaluation_characters.csv`: per opponent roster character. With 256 episodes this is about 6
+  per character, so use `--probe-checkpoint` with more episodes for character-level conclusions.
+
+On resume, rows written after the resume checkpoint are dropped. For runs from before these
+exports, `python tools\export_evaluations.py <run-dir>` backfills the first two files from
+`metrics.jsonl` with identical columns (per-character data was never recorded for those runs).
+`tools\render_readme_figures.ps1` reads `evaluations.csv`.
+
+Multi-seed runs: `scripts\run_seed_matrix.ps1` trains one run per seed with identical options.
+The defaults are seeds 2027–2031, 36,000 updates, and the overnight run's shape with
+`--curriculum-updates 2000`. Seeds run one after another. Re-running the same command skips
+finished seeds and resumes partial ones, and a regression-guard pause is recorded before moving
+to the next seed. Afterwards it runs `tools\aggregate_seed_matrix.py`, which reports each seed's
+final (last-10) score, peak, minimum, maximum drawdown, fraction of evaluations at 80% or above,
+side gap, weakest style, and guard actions, plus the median, mean with a 95% CI, and range across
+seeds. The report states whether a learning-quality claim is supported: at least five seeds, all
+reaching the target, with a target of at least 10,000 updates.
+
+`--probe-checkpoint <file> [--probe-episodes N]` runs the held-out suite on one checkpoint with
+the same run-defining options and prints a JSON report of win rates, per-side choice fraction,
+per-choice entropy, and action mix. It does not write anything. See
+[selfplay_oscillation_diagnosis.md](selfplay_oscillation_diagnosis.md).
+
 ## Checkpoints and exact resume
 
 Every checkpoint interval writes two atomic artifacts:

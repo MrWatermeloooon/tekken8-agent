@@ -862,6 +862,13 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
         std::uint32_t action_feature_size = 0;
         std::uint32_t universal_action_count = 0;
     };
+    struct NormalizerLayout {
+        std::uint32_t enabled = 0;
+        std::uint32_t reserved = 0;
+        std::uint64_t count = 0;
+        float clip = 0.0F;
+        float epsilon = 0.0F;
+    };
     std::ifstream input(checkpoint, std::ios::binary);
     const std::vector<char> raw(
         (std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>());
@@ -869,9 +876,10 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
     HeaderLayout header{};
     IntegrityLayout integrity{};
     std::memcpy(&header, raw.data(), sizeof(header));
-    constexpr std::size_t integrity_offset = sizeof(HeaderLayout) + sizeof(ContractLayout);
+    constexpr std::size_t integrity_offset =
+        sizeof(HeaderLayout) + sizeof(ContractLayout) + sizeof(NormalizerLayout);
     std::memcpy(&integrity, raw.data() + integrity_offset, sizeof(integrity));
-    check(header.version == 3, "checkpoint format under test is contract-bound version 3");
+    check(header.version == 4, "checkpoint format under test is normalizer-bearing version 4");
 
     std::vector<char> mutated = raw;
     auto* payload = reinterpret_cast<float*>(mutated.data() + integrity_offset + sizeof(integrity));
@@ -907,6 +915,225 @@ void test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload() {
     std::filesystem::remove(nonfinite_checkpoint, error);
 }
 
+// Byte offsets of the V4 checkpoint blocks (header 40, contract 160,
+// normalizer 24, integrity 16).
+constexpr std::size_t kV4HeaderBytes = 40;
+constexpr std::size_t kV4ContractBytes = 160;
+constexpr std::size_t kV4NormalizerBytes = 24;
+constexpr std::size_t kV4PayloadOffset = kV4HeaderBytes + kV4ContractBytes + kV4NormalizerBytes + 16;
+
+std::vector<char> read_bytes(const std::filesystem::path& path) {
+    std::ifstream input(path, std::ios::binary);
+    return {(std::istreambuf_iterator<char>(input)), std::istreambuf_iterator<char>()};
+}
+
+void write_bytes(const std::filesystem::path& path, const std::vector<char>& bytes) {
+    std::ofstream output(path, std::ios::binary | std::ios::trunc);
+    output.write(bytes.data(), static_cast<std::streamsize>(bytes.size()));
+}
+
+std::uint64_t fnv1a(const char* bytes, std::size_t count) {
+    std::uint64_t checksum = 14695981039346656037ULL;
+    for (std::size_t index = 0; index < count; ++index) {
+        checksum ^= static_cast<unsigned char>(bytes[index]);
+        checksum *= 1099511628211ULL;
+    }
+    return checksum;
+}
+
+void test_orthogonal_initialization() {
+    t8::v2::ActorCriticConfig config{};
+    config.hidden_size = 16;
+    t8::v2::GpuActorCritic policy(8, config, 4242);
+    const auto checkpoint = std::filesystem::temp_directory_path() / "t8_v2_orthogonal.t8ppo";
+    std::error_code error;
+    std::filesystem::remove(checkpoint, error);
+    policy.save_checkpoint(checkpoint);
+    const auto raw = read_bytes(checkpoint);
+    std::filesystem::remove(checkpoint, error);
+    const int hidden = config.hidden_size;
+    const int observations = config.observation_size;
+    const int outputs = config.action_count + 1;
+    const auto* weights_1 = reinterpret_cast<const float*>(raw.data() + kV4PayloadOffset);
+    const auto* weights_2 = weights_1 + hidden * observations + hidden;
+    const auto* weights_out = weights_2 + hidden * hidden + hidden;
+    // Wide/square layers have orthonormal rows scaled by sqrt(2): W W^T = 2 I.
+    const auto gram_error = [](const float* weights, int rows, int columns) {
+        double worst = 0.0;
+        for (int left = 0; left < rows; ++left) {
+            for (int right = 0; right < rows; ++right) {
+                double dot = 0.0;
+                for (int column = 0; column < columns; ++column) {
+                    dot += static_cast<double>(weights[left * columns + column]) *
+                        weights[right * columns + column];
+                }
+                worst = std::max(worst, std::abs(dot - (left == right ? 2.0 : 0.0)));
+            }
+        }
+        return worst;
+    };
+    check(gram_error(weights_1, hidden, observations) < 1e-4, "layer-1 rows are orthogonal with gain sqrt(2)");
+    check(gram_error(weights_2, hidden, hidden) < 1e-4, "layer-2 rows are orthogonal with gain sqrt(2)");
+    // Tall output layer: orthonormal columns before per-row gains of 0.01
+    // (policy) and 1.0 (value), so undoing the gains restores W^T W = I.
+    double worst_column = 0.0;
+    float largest_policy_weight = 0.0F;
+    for (int row = 0; row + 1 < outputs; ++row) {
+        for (int column = 0; column < hidden; ++column) {
+            largest_policy_weight = std::max(largest_policy_weight,
+                                             std::abs(weights_out[row * hidden + column]));
+        }
+    }
+    for (int left = 0; left < hidden; ++left) {
+        for (int right = 0; right < hidden; ++right) {
+            double dot = 0.0;
+            for (int row = 0; row < outputs; ++row) {
+                const double gain = row + 1 < outputs ? 0.01 : 1.0;
+                dot += (weights_out[row * hidden + left] / gain) * (weights_out[row * hidden + right] / gain);
+            }
+            worst_column = std::max(worst_column, std::abs(dot - (left == right ? 1.0 : 0.0)));
+        }
+    }
+    check(worst_column < 1e-3, "output layer is orthogonal before its per-row gains");
+    check(largest_policy_weight <= 0.01F, "policy rows use the 0.01 output gain");
+}
+
+void test_observation_normalizer_and_v3_compatibility() {
+    constexpr std::size_t environments = 64;
+    constexpr std::size_t horizon = 4;
+    constexpr std::size_t samples = environments * horizon;
+    t8::v2::ActorCriticConfig config{};
+    config.hidden_size = 16;
+    config.observation_normalization = true;
+    const int width = config.observation_size;
+    t8::v2::GpuActorCritic policy(samples, config, 606);
+    t8::v2::GpuRolloutBuffer rollout(environments, horizon, config);
+    check(policy.observation_count() == 0, "normalizer starts empty");
+
+    // Heterogeneous scales: feature f ~ 10 f + noise scaled by (f + 1).
+    std::vector<float> host_observations(samples * width);
+    for (std::size_t sample = 0; sample < samples; ++sample) {
+        for (int feature = 0; feature < width; ++feature) {
+            host_observations[sample * width + feature] = 10.0F * feature +
+                static_cast<float>((sample * 7 + feature * 3) % 11) * (feature + 1);
+        }
+    }
+    std::vector<std::uint8_t> masks(environments * config.action_count, 1);
+    std::vector<float> rewards(environments, 0.5F);
+    std::vector<std::uint8_t> flags(environments, 0);
+    float* device_observations = nullptr;
+    std::uint8_t* device_masks = nullptr;
+    float* device_rewards = nullptr;
+    std::uint8_t* device_flags = nullptr;
+    cuda_check(cudaMalloc(&device_observations, sizeof(float) * host_observations.size()), "allocate observations");
+    cuda_check(cudaMalloc(&device_masks, masks.size()), "allocate masks");
+    cuda_check(cudaMalloc(&device_rewards, sizeof(float) * rewards.size()), "allocate rewards");
+    cuda_check(cudaMalloc(&device_flags, flags.size()), "allocate flags");
+    cuda_check(cudaMemcpy(device_observations, host_observations.data(),
+                          sizeof(float) * host_observations.size(), cudaMemcpyHostToDevice), "upload observations");
+    cuda_check(cudaMemcpy(device_masks, masks.data(), masks.size(), cudaMemcpyHostToDevice), "upload masks");
+    cuda_check(cudaMemcpy(device_rewards, rewards.data(), sizeof(float) * rewards.size(),
+                          cudaMemcpyHostToDevice), "upload rewards");
+    cuda_check(cudaMemcpy(device_flags, flags.data(), flags.size(), cudaMemcpyHostToDevice), "upload flags");
+    for (std::size_t step = 0; step < horizon; ++step) {
+        const float* step_observations = device_observations + step * environments * width;
+        const auto output = policy.forward(step_observations, device_masks, environments, 5, step, false);
+        rollout.record_policy_device(step, step_observations, device_masks, output.actions,
+                                     output.log_probabilities, output.values);
+        rollout.record_outcome_device(step, device_rewards, device_flags, device_flags, output.values);
+    }
+    rollout.compute_gae(0.99F, 0.95F, true);
+    t8::v2::PpoUpdateConfig update{};
+    update.epochs = 1;
+    update.minibatch_size = environments;
+    update.target_kl = 0.0F;
+    const auto metrics = policy.update_ppo(rollout.device_view(), update, 17);
+    check(std::isfinite(metrics.policy_loss) && std::isfinite(metrics.value_loss),
+          "PPO update with a normalizer stays finite");
+    check(policy.observation_count() == samples, "update merges the whole rollout into the normalizer");
+
+    const auto statistics = policy.download_observation_statistics();
+    bool statistics_match = true;
+    for (int feature = 0; feature < width; ++feature) {
+        double sum = 0.0;
+        for (std::size_t sample = 0; sample < samples; ++sample) sum += host_observations[sample * width + feature];
+        const double mean = sum / samples;
+        double squares = 0.0;
+        for (std::size_t sample = 0; sample < samples; ++sample) {
+            const double centered = host_observations[sample * width + feature] - mean;
+            squares += centered * centered;
+        }
+        const double variance = squares / samples;
+        statistics_match = statistics_match &&
+            std::abs(statistics[feature] - mean) <= 1e-4 * std::max(1.0, std::abs(mean)) &&
+            std::abs(statistics[width + feature] - variance) <= 1e-4 * std::max(1.0, variance);
+    }
+    check(statistics_match, "normalizer mean/variance match the rollout's population moments");
+
+    const auto checkpoint = std::filesystem::temp_directory_path() / "t8_v2_normalizer.t8ppo";
+    std::error_code error;
+    std::filesystem::remove(checkpoint, error);
+    policy.save_checkpoint(checkpoint);
+    static_cast<void>(policy.forward(device_observations, device_masks, environments, 1, 1, true));
+    const auto expected_actions = policy.download_actions(environments);
+    const auto expected_values = policy.download_values(environments);
+
+    t8::v2::ActorCriticConfig plain_config = config;
+    plain_config.observation_normalization = false;
+    t8::v2::GpuActorCritic restored(samples, plain_config, 707);
+    restored.load_checkpoint(checkpoint);
+    check(restored.config().observation_normalization, "loading adopts the checkpoint's normalizer");
+    check(restored.observation_count() == samples, "loading restores the normalizer sample count");
+    check(restored.download_observation_statistics() == statistics, "loading restores statistics exactly");
+    static_cast<void>(restored.forward(device_observations, device_masks, environments, 1, 1, true));
+    check(restored.download_actions(environments) == expected_actions &&
+          restored.download_values(environments) == expected_values,
+          "normalized checkpoint reproduces actions and values exactly");
+
+    // Version 3 files predate the normalizer: they must still load, raw.
+    const auto raw = read_bytes(checkpoint);
+    std::uint64_t payload_bytes = 0;
+    std::memcpy(&payload_bytes, raw.data() + kV4PayloadOffset - 16, sizeof(payload_bytes));
+    const std::size_t v3_payload_bytes = payload_bytes - 2 * sizeof(float) * width;
+    std::vector<char> v3(raw.begin(), raw.begin() + kV4HeaderBytes + kV4ContractBytes);
+    const std::uint32_t version_3 = 3;
+    std::memcpy(v3.data() + 8, &version_3, sizeof(version_3));
+    const std::uint64_t v3_integrity[2] = {
+        v3_payload_bytes, fnv1a(raw.data() + kV4PayloadOffset, v3_payload_bytes)};
+    const auto* integrity_bytes = reinterpret_cast<const char*>(v3_integrity);
+    v3.insert(v3.end(), integrity_bytes, integrity_bytes + sizeof(v3_integrity));
+    v3.insert(v3.end(), raw.begin() + kV4PayloadOffset,
+              raw.begin() + kV4PayloadOffset + static_cast<std::ptrdiff_t>(v3_payload_bytes));
+    const auto v3_checkpoint = std::filesystem::temp_directory_path() / "t8_v2_normalizer_v3.t8ppo";
+    write_bytes(v3_checkpoint, v3);
+    t8::v2::GpuActorCritic legacy(samples, config, 808);
+    legacy.load_checkpoint(v3_checkpoint);
+    check(!legacy.config().observation_normalization && legacy.observation_count() == 0,
+          "version 3 checkpoint loads with normalization disabled");
+
+    // A malformed normalizer block is rejected even with a valid checksum.
+    auto bad_block = raw;
+    const std::uint32_t invalid_flag = 2;
+    std::memcpy(bad_block.data() + kV4HeaderBytes + kV4ContractBytes, &invalid_flag, sizeof(invalid_flag));
+    const auto bad_checkpoint = std::filesystem::temp_directory_path() / "t8_v2_normalizer_bad.t8ppo";
+    write_bytes(bad_checkpoint, bad_block);
+    bool rejected_block = false;
+    try {
+        legacy.load_checkpoint(bad_checkpoint);
+    } catch (const std::runtime_error&) {
+        rejected_block = true;
+    }
+    check(rejected_block, "checkpoint load rejects an invalid normalizer block");
+
+    std::filesystem::remove(checkpoint, error);
+    std::filesystem::remove(v3_checkpoint, error);
+    std::filesystem::remove(bad_checkpoint, error);
+    cudaFree(device_flags);
+    cudaFree(device_rewards);
+    cudaFree(device_masks);
+    cudaFree(device_observations);
+}
+
 }  // namespace
 
 int main() {
@@ -927,6 +1154,8 @@ int main() {
     test_action_history_device_validation();
     test_actor_critic_and_router_reject_invalid_configuration();
     test_checkpoint_rejects_architecture_mismatch_and_nonfinite_payload();
+    test_orthogonal_initialization();
+    test_observation_normalizer_and_v3_compatibility();
     if (failures != 0) {
         std::cerr << failures << " policy assertion(s) failed\n";
         return EXIT_FAILURE;

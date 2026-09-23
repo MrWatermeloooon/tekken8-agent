@@ -83,6 +83,41 @@ try {
     if ($selfPlayResumedHash -ne $selfPlayReferenceHash) {
         throw "Resumed self-play checkpoint does not match uninterrupted checkpoint"
     }
+
+    # Regression guard: thresholds that trigger on any held-out drop. The
+    # reference run rolls back at update 3 and pauses (exit 3) at update 4; a
+    # run stopped exactly at the rollback must resume into the same update-4
+    # checkpoint.
+    $guardCommon = @(
+        '--envs', '64', '--horizon', '16', '--epochs', '1', '--minibatch', '256',
+        '--eval-interval', '1', '--eval-episodes', '32', '--checkpoint-interval', '1',
+        '--seed', '9123', '--regression-score-drop', '0', '--regression-style-drop', '1',
+        '--regression-max-side-gap', '1', '--regression-patience', '1',
+        '--regression-max-rollbacks', '1'
+    )
+    $guardReference = Join-Path $root 'guard_reference'
+    $guardResumed = Join-Path $root 'guard_resumed'
+    & $Trainer @($guardCommon + @('--updates', '30', '--run-dir', $guardReference))
+    if ($LASTEXITCODE -ne 3) { throw "Regression guard did not pause with exit code 3 (got $LASTEXITCODE)" }
+    $guardRows = Get-Content -LiteralPath (Join-Path $guardReference 'metrics.jsonl')
+    if (-not ($guardRows | Where-Object { $_ -match '"action":"rollback"' })) {
+        throw "Regression guard never rolled back before pausing"
+    }
+    $pauseRow = $guardRows[-1]
+    if ($pauseRow -notmatch '"action":"pause"') { throw "Final guard row is not a pause" }
+    $pauseUpdate = [int]([regex]::Match($pauseRow, '"update":(\d+)').Groups[1].Value)
+    $rollbackUpdate = [int]([regex]::Match(
+        ($guardRows | Where-Object { $_ -match '"action":"rollback"' } | Select-Object -First 1),
+        '"update":(\d+)').Groups[1].Value)
+    Invoke-Trainer ($guardCommon + @('--updates', "$rollbackUpdate", '--run-dir', $guardResumed))
+    & $Trainer @($guardCommon + @('--updates', '30', '--run-dir', $guardResumed, '--resume',
+                                  (Join-Path $guardResumed "checkpoints\update_$rollbackUpdate.t8ppo")))
+    if ($LASTEXITCODE -ne 3) { throw "Resumed guard run did not pause (exit $LASTEXITCODE)" }
+    $guardReferenceHash = Get-Sha256 (Join-Path $guardReference "checkpoints\update_$pauseUpdate.t8ppo")
+    $guardResumedHash = Get-Sha256 (Join-Path $guardResumed "checkpoints\update_$pauseUpdate.t8ppo")
+    if ($guardReferenceHash -ne $guardResumedHash) {
+        throw "Checkpoint after a resumed rollback does not match the uninterrupted run"
+    }
 } finally {
     if (Test-Path -LiteralPath $root) {
         Remove-Item -LiteralPath $root -Recurse -Force

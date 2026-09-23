@@ -20,6 +20,9 @@ namespace t8::v2 {
 namespace {
 
 constexpr int kThreads = 256;
+// policy loss, value loss, entropy, KL, clip fraction, gradient norm,
+// decision samples, decision entropy.
+constexpr std::size_t kMetricCount = 8;
 
 void validate_actor_config(const ActorCriticConfig& config) {
     if (config.observation_size <= 0 || config.action_count <= 1 || config.hidden_size <= 0 ||
@@ -32,6 +35,10 @@ void validate_actor_config(const ActorCriticConfig& config) {
         config.observation_contract.empty() || config.observation_contract.size() >= 32 ||
         config.action_contract.empty() || config.action_contract.size() >= 32) {
         throw std::invalid_argument("actor-critic policy contract metadata is invalid");
+    }
+    if (!std::isfinite(config.observation_clip) || config.observation_clip <= 0.0F ||
+        !std::isfinite(config.observation_epsilon) || config.observation_epsilon <= 0.0F) {
+        throw std::invalid_argument("observation normalizer clip/epsilon must be finite and positive");
     }
 }
 
@@ -117,6 +124,91 @@ __global__ void bias_kernel(
     const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
     if (index >= element_count) return;
     values[index] += bias[index % width];
+}
+
+__global__ void normalize_observations_kernel(
+    const float* input,
+    const float* mean,
+    const float* inverse_standard_deviation,
+    float* output,
+    std::size_t element_count,
+    int width,
+    float clip) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index >= element_count) return;
+    const int feature = static_cast<int>(index % width);
+    const float value = (input[index] - mean[feature]) * inverse_standard_deviation[feature];
+    output[index] = fminf(clip, fmaxf(-clip, value));
+}
+
+// One block per feature. Two passes (mean, then centered squares) in double
+// keep the variance stable for large rollouts; fixed-order shared-memory
+// reductions keep it deterministic for exact resume.
+__global__ void observation_moments_kernel(
+    const float* observations,
+    std::size_t sample_count,
+    int width,
+    double* batch_mean,
+    double* batch_m2) {
+    __shared__ double shared[kThreads];
+    const int feature = blockIdx.x;
+    if (feature >= width) return;
+    double local = 0.0;
+    for (std::size_t sample = threadIdx.x; sample < sample_count; sample += blockDim.x) {
+        local += static_cast<double>(observations[sample * width + feature]);
+    }
+    shared[threadIdx.x] = local;
+    __syncthreads();
+    for (int stride = kThreads / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) shared[threadIdx.x] += shared[threadIdx.x + stride];
+        __syncthreads();
+    }
+    const double mean = shared[0] / static_cast<double>(sample_count);
+    __syncthreads();
+    local = 0.0;
+    for (std::size_t sample = threadIdx.x; sample < sample_count; sample += blockDim.x) {
+        const double centered = static_cast<double>(observations[sample * width + feature]) - mean;
+        local += centered * centered;
+    }
+    shared[threadIdx.x] = local;
+    __syncthreads();
+    for (int stride = kThreads / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) shared[threadIdx.x] += shared[threadIdx.x + stride];
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        batch_mean[feature] = mean;
+        batch_m2[feature] = shared[0];
+    }
+}
+
+// Chan et al. parallel merge of the rollout's moments into the running ones.
+__global__ void merge_observation_moments_kernel(
+    const double* batch_mean,
+    const double* batch_m2,
+    double running_count,
+    double batch_count,
+    float* mean,
+    float* variance,
+    int width) {
+    const int feature = blockIdx.x * blockDim.x + threadIdx.x;
+    if (feature >= width) return;
+    const double total = running_count + batch_count;
+    const double delta = batch_mean[feature] - static_cast<double>(mean[feature]);
+    const double m2 = static_cast<double>(variance[feature]) * running_count + batch_m2[feature] +
+        delta * delta * running_count * batch_count / total;
+    mean[feature] = static_cast<float>(static_cast<double>(mean[feature]) + delta * batch_count / total);
+    variance[feature] = static_cast<float>(m2 / total);
+}
+
+__global__ void refresh_inverse_standard_deviation_kernel(
+    const float* variance,
+    float* inverse_standard_deviation,
+    int width,
+    float epsilon) {
+    const int feature = blockIdx.x * blockDim.x + threadIdx.x;
+    if (feature >= width) return;
+    inverse_standard_deviation[feature] = 1.0F / sqrtf(variance[feature] + epsilon);
 }
 
 __device__ __forceinline__ std::uint64_t splitmix64(std::uint64_t value) {
@@ -379,12 +471,14 @@ __global__ void ppo_output_gradient_kernel(
     const float log_probability_gradient = use_unclipped ? -advantage * ratio : 0.0F;
 
     float entropy = 0.0F;
+    int legal_count = 0;
     for (int action = 0; action < action_count; ++action) {
         const bool legal = (any_legal && masks[mask_base + action]) || (!any_legal && action == 0);
         if (!legal) {
             output_gradients[base + action] = 0.0F;
             continue;
         }
+        ++legal_count;
         const float log_probability = actor_critic_output[base + action] - log_sum;
         const float probability = expf(log_probability);
         entropy -= probability * log_probability;
@@ -424,6 +518,10 @@ __global__ void ppo_output_gradient_kernel(
     atomicAdd(metric_sums + 2, entropy);
     atomicAdd(metric_sums + 3, (ratio - 1.0F) - log_ratio);
     atomicAdd(metric_sums + 4, fabsf(ratio - 1.0F) > clip_range ? 1.0F : 0.0F);
+    if (legal_count > 1) {
+        atomicAdd(metric_sums + 6, 1.0F);
+        atomicAdd(metric_sums + 7, entropy);
+    }
 }
 
 template <typename T>
@@ -582,7 +680,7 @@ std::vector<float> debug_ppo_objective_gradient(
     ScopedDeviceBuffer<float> device_advantage(1);
     ScopedDeviceBuffer<float> device_return(1);
     ScopedDeviceBuffer<float> device_gradient(logits_and_value.size());
-    ScopedDeviceBuffer<float> device_metrics(6);
+    ScopedDeviceBuffer<float> device_metrics(kMetricCount);
     check_cuda(cudaMemcpy(device_output.pointer, logits_and_value.data(),
                           sizeof(float) * logits_and_value.size(), cudaMemcpyHostToDevice),
                "upload PPO diagnostic output");
@@ -599,7 +697,7 @@ std::vector<float> debug_ppo_objective_gradient(
                "upload PPO diagnostic advantage");
     check_cuda(cudaMemcpy(device_return.pointer, &return_value, sizeof(float), cudaMemcpyHostToDevice),
                "upload PPO diagnostic return");
-    check_cuda(cudaMemset(device_metrics.pointer, 0, sizeof(float) * 6),
+    check_cuda(cudaMemset(device_metrics.pointer, 0, sizeof(float) * kMetricCount),
                "clear PPO diagnostic metrics");
     ppo_output_gradient_kernel<<<1, 1>>>(
         device_output.pointer, device_mask.pointer, device_action.pointer,
@@ -676,6 +774,18 @@ struct GpuActorCritic::Impl {
     int* invalid_rollout = nullptr;
     std::uint64_t optimizer_step = 0;
 
+    float* observation_mean = nullptr;
+    float* observation_variance = nullptr;
+    float* observation_inverse_standard_deviation = nullptr;
+    double* observation_batch_mean = nullptr;
+    double* observation_batch_m2 = nullptr;
+    float* normalized_observations = nullptr;
+    std::uint64_t observation_count = 0;
+
+    [[nodiscard]] bool normalizing() const noexcept {
+        return config.observation_normalization && observation_count > 0;
+    }
+
     [[nodiscard]] bool parametric() const noexcept { return config.action_feature_size > 0; }
     [[nodiscard]] int network_output_size() const noexcept {
         return (parametric() ? config.action_feature_size : config.action_count) + 1;
@@ -750,13 +860,45 @@ struct GpuActorCritic::Impl {
                                   static_cast<std::size_t>(output_size) * config.hidden_size);
         allocate_optimizer_tensor(bias_out, gradient_bias_out, moment1_bias_out, moment2_bias_out, output_size);
         check_cuda(cudaMalloc(&gradient_square_sum, sizeof(float)), "allocate gradient norm accumulator");
-        check_cuda(cudaMalloc(&metric_sums, sizeof(float) * 6), "allocate PPO metric sums");
+        check_cuda(cudaMalloc(&metric_sums, sizeof(float) * kMetricCount), "allocate PPO metric sums");
         check_cuda(cudaMalloc(&invalid_rollout, sizeof(int)), "allocate PPO finite guard");
+        check_cuda(cudaMalloc(&observation_mean, sizeof(float) * config.observation_size),
+                   "allocate observation mean");
+        check_cuda(cudaMalloc(&observation_variance, sizeof(float) * config.observation_size),
+                   "allocate observation variance");
+        check_cuda(cudaMalloc(&observation_inverse_standard_deviation,
+                              sizeof(float) * config.observation_size),
+                   "allocate observation inverse standard deviation");
+        check_cuda(cudaMalloc(&observation_batch_mean, sizeof(double) * config.observation_size),
+                   "allocate observation batch mean");
+        check_cuda(cudaMalloc(&observation_batch_m2, sizeof(double) * config.observation_size),
+                   "allocate observation batch M2");
+        check_cuda(cudaMalloc(&normalized_observations,
+                              sizeof(float) * capacity * config.observation_size),
+                   "allocate normalized observations");
+        reset_observation_statistics(nullptr);
 
         std::mt19937_64 random(seed);
-        initialize_matrix(weights_1, config.hidden_size, config.observation_size, random);
-        initialize_matrix(weights_2, config.hidden_size, config.hidden_size, random);
-        initialize_matrix(weights_out, output_size, config.hidden_size, random, 0.01F);
+        if (config.orthogonal_initialization) {
+            const float hidden_gain = std::sqrt(2.0F);
+            upload_matrix(weights_1, orthogonal_matrix(
+                config.hidden_size, config.observation_size, hidden_gain, random));
+            upload_matrix(weights_2, orthogonal_matrix(
+                config.hidden_size, config.hidden_size, hidden_gain, random));
+            auto output_weights = orthogonal_matrix(output_size, config.hidden_size, 1.0F, random);
+            // Policy (or parametric query) rows start near-uniform; the value
+            // row keeps unit gain.
+            for (int row = 0; row + 1 < output_size; ++row) {
+                for (int column = 0; column < config.hidden_size; ++column) {
+                    output_weights[static_cast<std::size_t>(row) * config.hidden_size + column] *= 0.01F;
+                }
+            }
+            upload_matrix(weights_out, output_weights);
+        } else {
+            initialize_matrix(weights_1, config.hidden_size, config.observation_size, random);
+            initialize_matrix(weights_2, config.hidden_size, config.hidden_size, random);
+            initialize_matrix(weights_out, output_size, config.hidden_size, random, 0.01F);
+        }
         check_cuda(cudaMemset(bias_1, 0, sizeof(float) * config.hidden_size), "zero layer-1 bias");
         check_cuda(cudaMemset(bias_2, 0, sizeof(float) * config.hidden_size), "zero layer-2 bias");
         check_cuda(cudaMemset(bias_out, 0, sizeof(float) * output_size), "zero output bias");
@@ -796,7 +938,95 @@ struct GpuActorCritic::Impl {
                               cudaMemcpyHostToDevice), "initialize network matrix");
     }
 
+    // Row-major [rows, columns] with orthonormal rows (rows <= columns) or
+    // orthonormal columns (rows > columns), scaled by gain. Modified
+    // Gram-Schmidt with one re-orthogonalization pass, in double.
+    static std::vector<float> orthogonal_matrix(
+        int rows,
+        int columns,
+        float gain,
+        std::mt19937_64& random) {
+        const auto tall = static_cast<std::size_t>(std::max(rows, columns));
+        const auto narrow = static_cast<std::size_t>(std::min(rows, columns));
+        std::normal_distribution<double> distribution(0.0, 1.0);
+        std::vector<double> basis(tall * narrow);
+        for (double& value : basis) value = distribution(random);
+        for (std::size_t vector = 0; vector < narrow; ++vector) {
+            double* current = basis.data() + vector * tall;
+            for (int pass = 0; pass < 2; ++pass) {
+                for (std::size_t previous = 0; previous < vector; ++previous) {
+                    const double* other = basis.data() + previous * tall;
+                    double dot = 0.0;
+                    for (std::size_t index = 0; index < tall; ++index) dot += other[index] * current[index];
+                    for (std::size_t index = 0; index < tall; ++index) current[index] -= dot * other[index];
+                }
+            }
+            double norm = 0.0;
+            for (std::size_t index = 0; index < tall; ++index) norm += current[index] * current[index];
+            norm = std::sqrt(norm);
+            for (std::size_t index = 0; index < tall; ++index) current[index] /= norm;
+        }
+        std::vector<float> result(static_cast<std::size_t>(rows) * columns);
+        for (int row = 0; row < rows; ++row) {
+            for (int column = 0; column < columns; ++column) {
+                const double value = rows >= columns
+                    ? basis[static_cast<std::size_t>(column) * tall + row]
+                    : basis[static_cast<std::size_t>(row) * tall + column];
+                result[static_cast<std::size_t>(row) * columns + column] =
+                    gain * static_cast<float>(value);
+            }
+        }
+        return result;
+    }
+
+    static void upload_matrix(float* destination, const std::vector<float>& host) {
+        check_cuda(cudaMemcpy(destination, host.data(), sizeof(float) * host.size(),
+                              cudaMemcpyHostToDevice), "initialize network matrix");
+    }
+
+    void reset_observation_statistics(cudaStream_t stream) {
+        const std::vector<float> zeros(static_cast<std::size_t>(config.observation_size), 0.0F);
+        const std::vector<float> ones(static_cast<std::size_t>(config.observation_size), 1.0F);
+        upload_observation_statistics(zeros.data(), ones.data(), stream);
+        check_cuda(cudaStreamSynchronize(stream), "reset observation normalizer");
+        observation_count = 0;
+    }
+
+    // Host pointers must stay valid until the stream is synchronized.
+    void upload_observation_statistics(const float* mean, const float* variance, cudaStream_t stream) {
+        const std::size_t bytes = sizeof(float) * config.observation_size;
+        check_cuda(cudaMemcpyAsync(observation_mean, mean, bytes, cudaMemcpyHostToDevice, stream),
+                   "upload observation mean");
+        check_cuda(cudaMemcpyAsync(observation_variance, variance, bytes, cudaMemcpyHostToDevice, stream),
+                   "upload observation variance");
+        refresh_inverse_standard_deviation_kernel<<<blocks_for(config.observation_size), kThreads, 0, stream>>>(
+            observation_variance, observation_inverse_standard_deviation,
+            config.observation_size, config.observation_epsilon);
+        check_cuda(cudaGetLastError(), "refresh observation normalizer");
+    }
+
+    void merge_observation_statistics(const float* observations, std::size_t samples, cudaStream_t stream) {
+        observation_moments_kernel<<<config.observation_size, kThreads, 0, stream>>>(
+            observations, samples, config.observation_size,
+            observation_batch_mean, observation_batch_m2);
+        merge_observation_moments_kernel<<<blocks_for(config.observation_size), kThreads, 0, stream>>>(
+            observation_batch_mean, observation_batch_m2,
+            static_cast<double>(observation_count), static_cast<double>(samples),
+            observation_mean, observation_variance, config.observation_size);
+        refresh_inverse_standard_deviation_kernel<<<blocks_for(config.observation_size), kThreads, 0, stream>>>(
+            observation_variance, observation_inverse_standard_deviation,
+            config.observation_size, config.observation_epsilon);
+        check_cuda(cudaGetLastError(), "merge observation normalizer statistics");
+        observation_count += samples;
+    }
+
     void release() noexcept {
+        cudaFree(normalized_observations);
+        cudaFree(observation_batch_m2);
+        cudaFree(observation_batch_mean);
+        cudaFree(observation_inverse_standard_deviation);
+        cudaFree(observation_variance);
+        cudaFree(observation_mean);
         cudaFree(invalid_rollout);
         cudaFree(metric_sums);
         cudaFree(gradient_square_sum);
@@ -869,10 +1099,20 @@ struct GpuActorCritic::Impl {
             &beta, output, output_size), "actor-critic matrix multiply");
     }
 
-    void forward_network(const float* input, int batch, cudaStream_t stream) {
+    // Returns the layer-1 input actually used (normalized copy or the caller's
+    // buffer), which the backward pass needs for the layer-1 weight gradient.
+    const float* forward_network(const float* input, int batch, cudaStream_t stream) {
         check_cublas(cublasSetStream(cublas, stream), "set actor-critic CUDA stream");
         const int hidden = config.hidden_size;
         const int output_size = network_output_size();
+        if (normalizing()) {
+            const std::size_t input_elements = static_cast<std::size_t>(batch) * config.observation_size;
+            normalize_observations_kernel<<<blocks_for(input_elements), kThreads, 0, stream>>>(
+                input, observation_mean, observation_inverse_standard_deviation,
+                normalized_observations, input_elements, config.observation_size,
+                config.observation_clip);
+            input = normalized_observations;
+        }
         linear(input, weights_1, hidden_1, batch, config.observation_size, hidden);
         const std::size_t hidden_elements = static_cast<std::size_t>(batch) * hidden;
         bias_tanh_kernel<<<blocks_for(hidden_elements), kThreads, 0, stream>>>(
@@ -884,6 +1124,7 @@ struct GpuActorCritic::Impl {
         const std::size_t output_elements = static_cast<std::size_t>(batch) * output_size;
         bias_kernel<<<blocks_for(output_elements), kThreads, 0, stream>>>(
             actor_critic_output, bias_out, output_elements, output_size);
+        return input;
     }
 
     float* materialize_policy_output(int batch, cudaStream_t stream) {
@@ -1033,7 +1274,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     if (invalid_rollout != 0) {
         throw std::runtime_error("PPO rollout contains a non-finite value or invalid action");
     }
-    check_cuda(cudaMemsetAsync(impl_->metric_sums, 0, sizeof(float) * 6, cuda_stream),
+    check_cuda(cudaMemsetAsync(impl_->metric_sums, 0, sizeof(float) * kMetricCount, cuda_stream),
                "clear PPO metric sums");
     const int hidden = impl_->config.hidden_size;
     const int output_size = impl_->network_output_size();
@@ -1070,7 +1311,8 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
                 impl_->train_observations, impl_->train_masks, impl_->train_actions,
                 impl_->train_old_log_probabilities, impl_->train_old_values,
                 impl_->train_advantages, impl_->train_returns);
-            impl_->forward_network(impl_->train_observations, batch, cuda_stream);
+            const float* network_input =
+                impl_->forward_network(impl_->train_observations, batch, cuda_stream);
             float* policy_output = impl_->materialize_policy_output(batch, cuda_stream);
             float* policy_gradients = impl_->parametric()
                 ? impl_->parametric_policy_gradients : impl_->output_gradients;
@@ -1109,7 +1351,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
             tanh_backward_kernel<<<blocks_for(hidden_elements), kThreads, 0, cuda_stream>>>(
                 impl_->hidden_1_upstream, impl_->hidden_1, impl_->hidden_1_gradients, hidden_elements);
 
-            impl_->weight_gradient(impl_->train_observations, impl_->hidden_1_gradients,
+            impl_->weight_gradient(network_input, impl_->hidden_1_gradients,
                                    impl_->gradient_weights_1, batch,
                                    impl_->config.observation_size, hidden);
             bias_gradient_kernel<<<hidden, kThreads, 0, cuda_stream>>>(
@@ -1169,8 +1411,13 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
             }
         }
     }
+    // Merge only after optimization so this rollout was collected and trained
+    // with the same frozen statistics; the next rollout sees the new ones.
+    if (impl_->config.observation_normalization) {
+        impl_->merge_observation_statistics(rollout.observations, rollout.sample_count, cuda_stream);
+    }
     check_cuda(cudaGetLastError(), "launch PPO update kernels");
-    std::vector<float> metrics(6);
+    std::vector<float> metrics(kMetricCount);
     check_cuda(cudaMemcpyAsync(metrics.data(), impl_->metric_sums, sizeof(float) * metrics.size(),
                                cudaMemcpyDeviceToHost, cuda_stream), "download PPO metrics");
     check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize PPO update");
@@ -1183,6 +1430,8 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     return {metrics[0] / sample_visits, metrics[1] / sample_visits,
             metrics[2] / sample_visits, metrics[3] / sample_visits,
             metrics[4] / sample_visits, metrics[5] / static_cast<float>(minibatches),
+            metrics[6] / sample_visits,
+            metrics[6] > 0.0F ? metrics[7] / metrics[6] : 0.0F,
             minibatches, epochs_completed, early_stopped};
 }
 
@@ -1211,6 +1460,18 @@ struct CheckpointContract {
     std::uint32_t action_feature_size = 0;
     std::uint32_t universal_action_count = 0;
 };
+
+// Version 4+: follows the contract block. The running mean and variance
+// (observation_size floats each) are appended to the checksummed payload.
+struct CheckpointNormalizer {
+    std::uint32_t enabled = 0;
+    std::uint32_t reserved = 0;
+    std::uint64_t count = 0;
+    float clip = 0.0F;
+    float epsilon = 0.0F;
+};
+
+constexpr std::uint32_t kCheckpointVersion = 4;
 
 constexpr std::array<char, 8> kCheckpointMagic = {'T', '8', 'V', '2', 'P', 'P', 'O', '\0'};
 
@@ -1269,12 +1530,14 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
     append_tensor(impl_->moment2_weights_1, w1); append_tensor(impl_->moment2_bias_1, c.hidden_size);
     append_tensor(impl_->moment2_weights_2, w2); append_tensor(impl_->moment2_bias_2, c.hidden_size);
     append_tensor(impl_->moment2_weights_out, wo); append_tensor(impl_->moment2_bias_out, bo);
+    append_tensor(impl_->observation_mean, c.observation_size);
+    append_tensor(impl_->observation_variance, c.observation_size);
     if (!std::all_of(payload.begin(), payload.end(),
                      [](float value) { return std::isfinite(value); })) {
         throw std::runtime_error("refusing to save checkpoint with non-finite tensors: " + path.string());
     }
 
-    CheckpointHeader header{kCheckpointMagic, 3,
+    CheckpointHeader header{kCheckpointMagic, kCheckpointVersion,
                             static_cast<std::uint32_t>(c.observation_size),
                             static_cast<std::uint32_t>(c.action_count),
                             static_cast<std::uint32_t>(c.hidden_size),
@@ -1284,6 +1547,9 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
         checkpoint_text<32>(c.observation_contract), checkpoint_text<32>(c.action_contract),
         static_cast<std::uint32_t>(c.action_feature_size),
         static_cast<std::uint32_t>(c.universal_action_count)};
+    const CheckpointNormalizer normalizer{
+        c.observation_normalization ? 1U : 0U, 0U, impl_->observation_count,
+        c.observation_clip, c.observation_epsilon};
     const CheckpointIntegrity integrity{
         static_cast<std::uint64_t>(payload.size() * sizeof(float)),
         checkpoint_checksum(payload)};
@@ -1300,6 +1566,7 @@ void GpuActorCritic::save_checkpoint(const std::filesystem::path& path, void* st
         if (!output) throw std::runtime_error("could not open checkpoint for writing: " + temporary.string());
         output.write(reinterpret_cast<const char*>(&header), sizeof(header));
         output.write(reinterpret_cast<const char*>(&contract), sizeof(contract));
+        output.write(reinterpret_cast<const char*>(&normalizer), sizeof(normalizer));
         output.write(reinterpret_cast<const char*>(&integrity), sizeof(integrity));
         output.write(reinterpret_cast<const char*>(payload.data()),
                      static_cast<std::streamsize>(payload.size() * sizeof(float)));
@@ -1323,7 +1590,8 @@ void GpuActorCritic::load_checkpoint(
             "legacy fixed-action checkpoint is incompatible with the full-roster policy contract: " +
             path.string());
     }
-    if (!input || header.magic != kCheckpointMagic || header.version != 3 ||
+    if (!input || header.magic != kCheckpointMagic ||
+        (header.version != 3 && header.version != kCheckpointVersion) ||
         header.observation_size != static_cast<std::uint32_t>(c.observation_size) ||
         header.action_count != static_cast<std::uint32_t>(c.action_count) ||
         header.hidden_size != static_cast<std::uint32_t>(c.hidden_size) ||
@@ -1340,12 +1608,26 @@ void GpuActorCritic::load_checkpoint(
         contract.universal_action_count != static_cast<std::uint32_t>(c.universal_action_count)) {
         throw std::runtime_error("checkpoint catalog/roster/action contract mismatch: " + path.string());
     }
+    // Version 3 predates the normalizer: those weights were trained on raw
+    // observations, so they load with normalization disabled.
+    const bool has_normalizer = header.version >= 4;
+    CheckpointNormalizer normalizer{};
+    if (has_normalizer) {
+        input.read(reinterpret_cast<char*>(&normalizer), sizeof(normalizer));
+        if (!input || normalizer.enabled > 1 || normalizer.reserved != 0 ||
+            !std::isfinite(normalizer.clip) || normalizer.clip <= 0.0F ||
+            !std::isfinite(normalizer.epsilon) || normalizer.epsilon <= 0.0F) {
+            throw std::runtime_error("checkpoint observation normalizer block is invalid: " + path.string());
+        }
+    }
     const std::size_t w1 = static_cast<std::size_t>(c.hidden_size) * c.observation_size;
     const std::size_t w2 = static_cast<std::size_t>(c.hidden_size) * c.hidden_size;
     const std::size_t wo = static_cast<std::size_t>(impl_->network_output_size()) * c.hidden_size;
     const std::size_t bo = static_cast<std::size_t>(impl_->network_output_size());
     const std::size_t model_parameter_count = w1 + c.hidden_size + w2 + c.hidden_size + wo + bo;
-    const std::size_t payload_count = model_parameter_count * 3;
+    const std::size_t normalizer_count =
+        has_normalizer ? 2 * static_cast<std::size_t>(c.observation_size) : 0;
+    const std::size_t payload_count = model_parameter_count * 3 + normalizer_count;
     CheckpointIntegrity integrity{};
     input.read(reinterpret_cast<char*>(&integrity), sizeof(integrity));
     if (!input || integrity.payload_bytes != payload_count * sizeof(float)) {
@@ -1361,6 +1643,13 @@ void GpuActorCritic::load_checkpoint(
     if (!std::all_of(payload.begin(), payload.end(),
                      [](float value) { return std::isfinite(value); })) {
         throw std::runtime_error("checkpoint contains non-finite tensors: " + path.string());
+    }
+    if (has_normalizer) {
+        const float* variance = payload.data() + model_parameter_count * 3 + c.observation_size;
+        if (!std::all_of(variance, variance + c.observation_size,
+                         [](float value) { return value >= 0.0F; })) {
+            throw std::runtime_error("checkpoint observation variance is negative: " + path.string());
+        }
     }
 
     const auto cuda_stream = as_stream(stream);
@@ -1404,7 +1693,31 @@ void GpuActorCritic::load_checkpoint(
         check_cuda(cudaMemsetAsync(impl_->moment2_weights_out, 0, sizeof(float) * wo, cuda_stream), "reset Adam state");
         check_cuda(cudaMemsetAsync(impl_->moment2_bias_out, 0, sizeof(float) * bo, cuda_stream), "reset Adam state");
     }
+    if (has_normalizer) {
+        const float* mean = payload.data() + model_parameter_count * 3;
+        impl_->config.observation_normalization = normalizer.enabled != 0;
+        impl_->config.observation_clip = normalizer.clip;
+        impl_->config.observation_epsilon = normalizer.epsilon;
+        impl_->upload_observation_statistics(mean, mean + c.observation_size, cuda_stream);
+        impl_->observation_count = normalizer.count;
+    } else {
+        impl_->config.observation_normalization = false;
+        impl_->reset_observation_statistics(cuda_stream);
+    }
     check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize checkpoint load");
+}
+
+std::uint64_t GpuActorCritic::observation_count() const noexcept {
+    return impl_->observation_count;
+}
+
+std::vector<float> GpuActorCritic::download_observation_statistics(void* stream) const {
+    const auto size = static_cast<std::size_t>(impl_->config.observation_size);
+    auto result = download(impl_->observation_mean, size, as_stream(stream), "download observation mean");
+    const auto variance = download(
+        impl_->observation_variance, size, as_stream(stream), "download observation variance");
+    result.insert(result.end(), variance.begin(), variance.end());
+    return result;
 }
 
 void GpuActorCritic::synchronize(void* stream) const {
@@ -1544,6 +1857,35 @@ __global__ void record_outcome_kernel(
     destination_next_values[lane] = next_values[lane];
 }
 
+// Carries each environment's discounted return across rollouts (reset at
+// episode ends) and records it per sample for the variance estimate.
+__global__ void discounted_return_kernel(
+    const float* rewards,
+    const std::uint8_t* terminated,
+    const std::uint8_t* truncated,
+    std::size_t environments,
+    std::size_t horizon,
+    float gamma,
+    float* discounted_returns,
+    float* return_samples) {
+    const std::size_t environment = blockIdx.x * blockDim.x + threadIdx.x;
+    if (environment >= environments) return;
+    float running = discounted_returns[environment];
+    for (std::size_t step = 0; step < horizon; ++step) {
+        const std::size_t index = step * environments + environment;
+        running = running * gamma + rewards[index];
+        return_samples[index] = running;
+        if (terminated[index] || truncated[index]) running = 0.0F;
+    }
+    discounted_returns[environment] = running;
+}
+
+__global__ void scale_rewards_kernel(float* rewards, std::size_t count, float scale, float clip) {
+    const std::size_t index = blockIdx.x * blockDim.x + threadIdx.x;
+    if (index >= count) return;
+    rewards[index] = fminf(clip, fmaxf(-clip, rewards[index] * scale));
+}
+
 }  // namespace
 
 struct GpuRolloutBuffer::Impl {
@@ -1566,6 +1908,11 @@ struct GpuRolloutBuffer::Impl {
     double* advantage_block_sums = nullptr;
     double* advantage_block_square_sums = nullptr;
     int advantage_reduction_blocks = 0;
+    float* discounted_returns = nullptr;
+    float* return_samples = nullptr;
+    std::uint64_t return_count = 0;
+    double return_mean = 0.0;
+    double return_variance = 1.0;
 
     Impl(std::size_t environment_count, std::size_t horizon, ActorCriticConfig network_config)
         : environments(environment_count), rollout_horizon(horizon),
@@ -1597,6 +1944,12 @@ struct GpuRolloutBuffer::Impl {
                    "allocate advantage block sums");
         check_cuda(cudaMalloc(&advantage_block_square_sums, sizeof(double) * advantage_reduction_blocks),
                    "allocate advantage block square sums");
+        check_cuda(cudaMalloc(&discounted_returns, sizeof(float) * environments),
+                   "allocate running discounted returns");
+        check_cuda(cudaMemset(discounted_returns, 0, sizeof(float) * environments),
+                   "zero running discounted returns");
+        check_cuda(cudaMalloc(&return_samples, sizeof(float) * samples),
+                   "allocate discounted return samples");
         } catch (...) {
             release();
             throw;
@@ -1604,6 +1957,8 @@ struct GpuRolloutBuffer::Impl {
     }
 
     void release() noexcept {
+        cudaFree(return_samples);
+        cudaFree(discounted_returns);
         cudaFree(advantage_block_square_sums);
         cudaFree(advantage_block_sums);
         cudaFree(advantage_statistics);
@@ -1727,6 +2082,74 @@ void GpuRolloutBuffer::compute_gae(
             impl_->advantages, impl_->samples, impl_->advantage_statistics);
     }
     check_cuda(cudaGetLastError(), "launch rollout GAE kernels");
+}
+
+float GpuRolloutBuffer::normalize_rewards(float gamma, float clip, void* stream) {
+    if (!std::isfinite(gamma) || gamma < 0.0F || gamma > 1.0F) {
+        throw std::invalid_argument("return normalization gamma must be in [0, 1]");
+    }
+    if (!std::isfinite(clip) || clip <= 0.0F) {
+        throw std::invalid_argument("return normalization clip must be finite and positive");
+    }
+    const auto cuda_stream = as_stream(stream);
+    discounted_return_kernel<<<blocks_for(impl_->environments), kThreads, 0, cuda_stream>>>(
+        impl_->rewards, impl_->terminated, impl_->truncated,
+        impl_->environments, impl_->rollout_horizon, gamma,
+        impl_->discounted_returns, impl_->return_samples);
+    advantage_stats_kernel<<<impl_->advantage_reduction_blocks, kThreads, 0, cuda_stream>>>(
+        impl_->return_samples, impl_->samples,
+        impl_->advantage_block_sums, impl_->advantage_block_square_sums);
+    finalize_advantage_stats_kernel<<<1, 1, 0, cuda_stream>>>(
+        impl_->advantage_block_sums, impl_->advantage_block_square_sums,
+        impl_->advantage_reduction_blocks, impl_->advantage_statistics);
+    check_cuda(cudaGetLastError(), "launch return normalization statistics");
+    std::array<double, 2> sums{};
+    check_cuda(cudaMemcpyAsync(sums.data(), impl_->advantage_statistics, sizeof(double) * 2,
+                               cudaMemcpyDeviceToHost, cuda_stream), "download return statistics");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize return statistics");
+    const double batch_count = static_cast<double>(impl_->samples);
+    const double batch_mean = sums[0] / batch_count;
+    const double batch_m2 = std::max(0.0, sums[1] - sums[0] * batch_mean);
+    if (!std::isfinite(batch_mean) || !std::isfinite(batch_m2)) {
+        throw std::runtime_error("discounted returns became non-finite during return normalization");
+    }
+    const double running_count = static_cast<double>(impl_->return_count);
+    const double total = running_count + batch_count;
+    const double delta = batch_mean - impl_->return_mean;
+    impl_->return_variance = (impl_->return_variance * running_count + batch_m2 +
+                              delta * delta * running_count * batch_count / total) / total;
+    impl_->return_mean += delta * batch_count / total;
+    impl_->return_count += impl_->samples;
+    const float standard_deviation = static_cast<float>(std::sqrt(impl_->return_variance + 1e-8));
+    scale_rewards_kernel<<<blocks_for(impl_->samples), kThreads, 0, cuda_stream>>>(
+        impl_->rewards, impl_->samples, 1.0F / standard_deviation, clip);
+    check_cuda(cudaGetLastError(), "launch reward normalization");
+    return standard_deviation;
+}
+
+ReturnNormalizerState GpuRolloutBuffer::return_normalizer_state(void* stream) const {
+    return {impl_->return_count, impl_->return_mean, impl_->return_variance,
+            download(impl_->discounted_returns, impl_->environments, as_stream(stream),
+                     "download running discounted returns")};
+}
+
+void GpuRolloutBuffer::restore_return_normalizer_state(
+    const ReturnNormalizerState& state,
+    void* stream) {
+    if (state.discounted_returns.size() != impl_->environments ||
+        !std::isfinite(state.mean) || !std::isfinite(state.variance) || state.variance < 0.0 ||
+        !std::all_of(state.discounted_returns.begin(), state.discounted_returns.end(),
+                     [](float value) { return std::isfinite(value); })) {
+        throw std::invalid_argument("return normalizer state is invalid for this rollout buffer");
+    }
+    const auto cuda_stream = as_stream(stream);
+    check_cuda(cudaMemcpyAsync(impl_->discounted_returns, state.discounted_returns.data(),
+                               sizeof(float) * impl_->environments, cudaMemcpyHostToDevice, cuda_stream),
+               "upload running discounted returns");
+    check_cuda(cudaStreamSynchronize(cuda_stream), "synchronize return normalizer restore");
+    impl_->return_count = state.count;
+    impl_->return_mean = state.mean;
+    impl_->return_variance = state.variance;
 }
 
 void GpuRolloutBuffer::synchronize(void* stream) const {

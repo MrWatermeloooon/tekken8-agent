@@ -9,7 +9,7 @@ from typing import Any
 
 import yaml
 
-from .notation import parse_command
+from .notation import SITUATIONAL_REQUIREMENTS, parse_command
 
 
 CATALOG_SCHEMA_VERSION = 2
@@ -45,12 +45,20 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
         source_path = root / "characters" / f"{slug}.yaml"
         source = _read_yaml(source_path)
         source_moves = list(source.get("moves") or [])
+        corrections = _load_corrections(root / "corrections" / f"{slug}.yaml", source_moves)
         stances = [str(value) for value in source.get("stances") or []]
         offset = len(moves)
         parsed_count = 0
         review_count = 0
         for local_id, row in enumerate(source_moves):
+            correction = corrections.get(str(row.get("source_id") or ""))
+            if correction:
+                row = {**row, **correction["fields"]}
             compiled = _compile_move(character_id, slug, local_id, row, source, set(stances))
+            if correction:
+                compiled["validation"]["source"] = "imported+corrected"
+                compiled["corrections"] = {key: correction[key] for key in
+                                           ("fields", "reason", "evidence", "reviewer", "status")}
             stable_id = compiled["stable_id"]
             if stable_id in stable_ids:
                 raise ValueError(f"duplicate stable move ID: {stable_id}")
@@ -106,6 +114,39 @@ def load_compiled_catalog(path: str | Path) -> CompiledMoveCatalog:
     if document.get("move_count") != len(document.get("moves", [])):
         raise ValueError("full move catalog count mismatch")
     return CompiledMoveCatalog(document)
+
+
+_CORRECTABLE_FIELDS = {"command", "hit_level", "damage", "startup", "recovery", "block", "hit", "counter_hit"}
+
+
+def _load_corrections(path: Path, source_moves: list[dict[str, Any]]) -> dict[str, dict[str, Any]]:
+    """Reviewed corrections applied on top of an imported (checksum-pinned) source.
+
+    Each entry names a source_id, the replaced fields, the reason, evidence
+    URLs, and who reviewed it, so the imported file itself never changes.
+    """
+    if not path.exists():
+        return {}
+    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
+    known = {str(row.get("source_id")) for row in source_moves}
+    result: dict[str, dict[str, Any]] = {}
+    for entry in document.get("corrections") or []:
+        source_id = str(entry.get("source_id", ""))
+        fields = dict(entry.get("fields") or {})
+        if source_id not in known:
+            raise ValueError(f"correction for unknown source_id {source_id!r} in {path}")
+        if source_id in result:
+            raise ValueError(f"duplicate correction for {source_id!r} in {path}")
+        if not fields or not set(fields) <= _CORRECTABLE_FIELDS:
+            raise ValueError(f"correction for {source_id!r} must replace only {sorted(_CORRECTABLE_FIELDS)}")
+        if not entry.get("reason") or not entry.get("evidence") or not entry.get("reviewer"):
+            raise ValueError(f"correction for {source_id!r} needs reason, evidence, and reviewer")
+        result[source_id] = {
+            "fields": fields, "reason": str(entry["reason"]),
+            "evidence": [str(value) for value in entry["evidence"]],
+            "reviewer": str(entry["reviewer"]), "status": str(entry.get("status", "pending_practice")),
+        }
+    return result
 
 
 def write_catalog(catalog: CompiledMoveCatalog, path: str | Path) -> None:
@@ -190,7 +231,9 @@ def _legal_state(requirements: tuple[str, ...], mechanics: dict[str, Any]) -> di
         posture = "crouching"
     elif "WS" in requirement_set:
         posture = "while_standing"
-    stance_requirements = sorted(requirement_set - {"H", "R", "FC", "HFC", "WS", "SS", "WR"})
+    situations = sorted(requirement_set & SITUATIONAL_REQUIREMENTS)
+    stance_requirements = sorted(requirement_set - {"H", "R", "FC", "HFC", "WS", "SS", "WR"} -
+                                 SITUATIONAL_REQUIREMENTS)
     return {
         "posture": posture,
         "requires_heat": bool(mechanics["requires_heat"]),
@@ -198,6 +241,7 @@ def _legal_state(requirements: tuple[str, ...], mechanics: dict[str, Any]) -> di
         "requires_sidestep": "SS" in requirement_set,
         "requires_running": "WR" in requirement_set,
         "stances": stance_requirements,
+        "situations": situations,
         "source": "command_notation",
     }
 

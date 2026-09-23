@@ -1,5 +1,7 @@
 #pragma once
 
+#include "t8_v2/screen_observation.hpp"
+
 #include <array>
 #include <cstddef>
 #include <cstdint>
@@ -119,6 +121,10 @@ struct Config {
     double wall_camping_penalty = -0.05;
     double late_round_passivity_penalty = -0.03;
     double whiff_penalty = -0.18;
+    // Screen-only visual observations (see screen_observation.hpp). Off keeps
+    // the original exact visual features.
+    bool screen_observations = false;
+    ScreenObservationNoise screen_noise{};
 };
 
 struct MoveSpec {

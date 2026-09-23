@@ -94,6 +94,10 @@ if(T8_V2_BUILD_TESTS)
     target_link_libraries(t8_v2_policy_tests PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents)
     add_test(NAME t8_v2_gpu_policy COMMAND t8_v2_policy_tests)
 
+    add_executable(t8_v2_screen_observation_tests tests/screen_observation_tests.cpp)
+    target_link_libraries(t8_v2_screen_observation_tests PRIVATE t8_v2_gpu t8_v2_opponents)
+    add_test(NAME t8_v2_screen_observations COMMAND t8_v2_screen_observation_tests)
+
     add_executable(t8_v2_rollout_tests tests/rollout_tests.cpp)
     target_link_libraries(t8_v2_rollout_tests PRIVATE t8_v2_ppo t8_v2_gpu)
     add_test(NAME t8_v2_gpu_rollout COMMAND t8_v2_rollout_tests)
