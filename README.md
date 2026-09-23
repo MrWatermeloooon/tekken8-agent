@@ -392,8 +392,8 @@ power, memory, utilization, temperature, and clocks every 100 ms.
 | Simulator-only: mean board power, memory above idle | 122 W, 308 MiB | 114 – 129 W | 5.0% |
 
 These are about 2x the earlier 2026-09-20 figures (210.6M simulator decisions/s and 696K
-visual-PPO decisions/s). Those were measured while the overnight trainer and visualizer shared
-the GPU, and the chart below still shows them.
+visual-PPO decisions/s). Those earlier numbers were measured while the overnight trainer and
+visualizer shared the GPU.
 Full per-run data (JSON) and the summary are in
 [docs/benchmarks/isolated_2026-09-23.md](docs/benchmarks/isolated_2026-09-23.md). Reproduce with:
 
@@ -403,7 +403,7 @@ Full per-run data (JSON) and the summary are in
 
 The script refuses to run while the trainer, visualizer, or live runtime is active.
 
-![RTX 5070 Ti benchmark results (2026-09-20, concurrent load)](docs/images/v3-benchmarks.png)
+![RTX 5070 Ti benchmark results (2026-09-23, isolated)](docs/images/v3-benchmarks.png)
 
 Performance depends on batch size, GPU, CUDA build, observation contract, opponent mix, and
 concurrent GPU load; record the exact commit and command alongside new measurements.

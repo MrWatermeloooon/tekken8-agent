@@ -114,14 +114,14 @@ Save-Canvas $chart "v3-training-curve.png"
 
 $benchmark = New-Canvas
 $g = $benchmark.Graphics
-$g.DrawString("RTX 5070 Ti benchmark snapshot", (New-Font 38 Bold), $white, 72, 48)
-$g.DrawString("Release build | median of 3 runs | trainer and visualizer active", (New-Font 20), $muted, 75, 101)
+$g.DrawString("RTX 5070 Ti isolated benchmark snapshot", (New-Font 38 Bold), $white, 72, 48)
+$g.DrawString("Release build | median of 5 runs | trainer and visualizer stopped", (New-Font 20), $muted, 75, 101)
 
 $cards = @(
-    @{ X = 75; Y = 175; Label = "Simulator decisions/s"; Value = "210.6M"; Detail = "262,144 environments"; Color = "#66d296" },
-    @{ X = 720; Y = 175; Label = "Simulated frames/s"; Value = "842.5M"; Detail = "4 frames per decision"; Color = "#ed7fb2" },
-    @{ X = 75; Y = 430; Label = "Visual PPO decisions/s"; Value = "695.8K"; Detail = "4,096 envs, horizon 128"; Color = "#58a6ff" },
-    @{ X = 720; Y = 430; Label = "PPO sample-visits/s"; Value = "3.37M"; Detail = "4 epochs, minibatch 4,096"; Color = "#f4c95d" }
+    @{ X = 75; Y = 175; Label = "Simulator decisions/s"; Value = "429.2M"; Detail = "262,144 environments"; Color = "#66d296" },
+    @{ X = 720; Y = 175; Label = "Simulated frames/s"; Value = "1.717B"; Detail = "4 frames per decision"; Color = "#ed7fb2" },
+    @{ X = 75; Y = 430; Label = "README PPO decisions/s"; Value = "2.106M"; Detail = "4,096 envs, horizon 128"; Color = "#58a6ff" },
+    @{ X = 720; Y = 430; Label = "Sustained PPO visits/s"; Value = "12.44M"; Detail = "32,768 envs, 20 updates"; Color = "#f4c95d" }
 )
 foreach ($card in $cards) {
     $rect = [System.Drawing.RectangleF]::new($card.X, $card.Y, 605, 205)
@@ -138,8 +138,8 @@ foreach ($card in $cards) {
     $borderPen.Dispose()
     $accent.Dispose()
 }
-$g.DrawString("Windows 11 | CUDA 13.1 | NVIDIA 616.64 | Intel Core i5-12600K | 32 GB RAM", (New-Font 18), $muted, 75, 704)
-$g.DrawString("Concurrent-load measurements, not isolated peak claims.", (New-Font 17), $muted, 75, 745)
+$g.DrawString("Windows 11 | CUDA 13.4 driver API | NVIDIA 616.64 | Intel Core i5-12600K", (New-Font 18), $muted, 75, 704)
+$g.DrawString("Sustained PPO: 205 W mean, 219 W peak, +1.61 GiB GPU memory.", (New-Font 17), $muted, 75, 745)
 Save-Canvas $benchmark "v3-benchmarks.png"
 
 $white.Dispose()
