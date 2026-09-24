@@ -112,6 +112,7 @@ std::uint32_t parse_mechanic_flags(const std::string& value, std::size_t row) {
         {"floor_break", MoveFloorBreak}, {"balcony_break", MoveBalconyBreak},
         {"requires_heat", MoveRequiresHeat}, {"requires_rage", MoveRequiresRage},
         {"counter_hit_launcher", MoveCounterHitLauncher},
+        {"heat_burst", MoveHeatBurst},
     };
     std::uint32_t result = 0;
     std::size_t start = 0;

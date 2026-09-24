@@ -278,13 +278,20 @@ def _parse_signed_range(value: Any) -> dict[str, int] | None:
 
 def _mechanics(tags: list[str], notes: str, requirements: tuple[str, ...]) -> dict[str, Any]:
     blob = f"{' '.join(tags)} {notes}".lower()
+    # Heat roles are whole note lines ("* Heat Engager"); other lines only mention them.
+    lines = {line.strip("* ").strip().lower() for line in notes.splitlines()}
+    heat_role = {role for role in ("heat engager", "heat burst", "heat smash")
+                 if any(line == role or line.startswith(role + " ") for line in lines)}
     transition = None
     match = re.search(r"(?:transition|recovery).*?\b([A-Z]{2,5})\b", notes)
     if match:
         transition = match.group(1)
     return {
-        "requires_heat": "H" in requirements or "heat" in tags,
-        "requires_rage": "R" in requirements or "rage" in tags,
+        # Only an explicit H./R. command prefix makes a move need Heat or Rage.
+        # The source's "heat" and "rage" tags mark moves with Heat or Rage
+        # properties (engagers, Heat Burst, enhanced versions), usable without it.
+        "requires_heat": "H" in requirements,
+        "requires_rage": "R" in requirements,
         "counter_hit_launcher": "counter hit" in blob and "launch" in blob,
         "launcher": "launcher" in tags or "launch" in blob,
         "tornado": "tornado" in tags or "tornado" in blob,
@@ -293,8 +300,9 @@ def _mechanics(tags: list[str], notes: str, requirements: tuple[str, ...]) -> di
         "high_crush": "high_crush" in tags or "high crush" in blob,
         "low_crush": "low_crush" in tags or "low crush" in blob,
         "parry": "parry" in tags or "parry" in blob or "sabaki" in blob,
-        "heat_engager": "heat engager" in blob,
-        "heat_smash": "heat smash" in blob,
+        "heat_engager": "heat engager" in heat_role,
+        "heat_smash": "heat smash" in heat_role,
+        "heat_burst": "heat burst" in heat_role,
         "rage_art": "rage art" in blob,
         "chip": "chip" in tags or "chip damage" in blob,
         "wall_break": "wall break" in blob,

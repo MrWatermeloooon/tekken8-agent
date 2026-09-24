@@ -500,8 +500,11 @@ validation required for promotion.
 - [x] Bind validated Jun catalog records to the scalar full-combat oracle.
   `tools/export_full_combat_bindings.py` feeds `include/t8_v2/full_combat_binding.hpp`, which
   lists every blocker per move. Strict binding: 0 of 149 (Practice validation and measurements
-  pending). With stand-in geometry, 125 bind, and the engine reproduces the catalog's block
-  advantage exactly for 108 moves and hit advantage for 33.
+  pending). With stand-in geometry, 156 of 164 rows bind (149 moves plus 15 stance branches;
+  parry outcomes, stance entries, attack throws, situational moves, and Ki Charge included),
+  and the engine reproduces the catalog's block advantage exactly for 130 of them and hit
+  advantage for 41. The other 8 lack source frame data (3,1, MIA.1+2, UB,b, b+1+3, and the
+  back and side throws). The whole roster's 6,605 rows bind without errors.
 - [x] Implement exact hitboxes/ranges, active windows, movement, axis, collision, and pushback.
   Frame-stepped engine `include/t8_v2/full_combat_engine.hpp`. Hitboxes are modeled as reach,
   lateral tracking, and height class (not 3D volumes); exactness per move depends on the
@@ -509,10 +512,40 @@ validation required for promotion.
 - [x] Finish grounded, airborne, knockdown, wake-up, wall, floor, balcony, and stage-transition rules.
   Juggle, knockdown, tech, and wake-up timing constants are provisional until measured in
   Practice mode.
-- [ ] Finish exact launch, float, tornado, combo scaling, wall scaling, recoverable health, Heat,
+- [x] Finish exact launch, float, tornado, combo scaling, wall scaling, recoverable health, Heat,
   Heat Dash/Smash, Rage, armor, crush, parry, reversal, throw, and throw-break behavior.
+  Per-move values come from the source notes: Heat Burst/Engager/Smash roles, Heat Dash
+  advantage (+5 on block is exact), chip damage (also in Heat), self-damage, recoverable
+  restores and removal, recoverable-only damage, throw-break input (1, 2, 1+2, either, none),
+  side switches, spikes, and parry/reversal immunity. Throws hold a break window with one
+  attempt and keep exact hit advantage. Engine-wide constants stay provisional until measured:
+  combo and wall scaling, Heat duration, Rage threshold and damage bonus, recoverable regain
+  rate, throw-break window, and Heat Dash travel. Also fixed: the catalog marked 545 moves
+  (engagers, Heat Bursts, moves with Heat versions) as needing Heat; only an `H.`/`R.` prefix
+  now does. This changes the catalog hash, so older full-roster runs cannot resume against it.
 - [ ] Add character-specific stance and resource state machines, beginning with GEN, IZU, and MIA.
-- [ ] Add curated midscreen, wall, Heat, and counter-hit routes with legal execution assertions.
+  **In progress: Jun done; the engine side is generic.** Rules live in
+  `data/character_modules/<slug>/state_machine.yaml` (Jun: GEN cannot guard and auto-parries lows
+  and throws into GEN.P; MIA heals 3 recoverable health and 1 Kazama Essence every 120 frames;
+  Kazama Essence caps at 100, carries across rounds, and turns on Divine Aura at 100). The notes
+  supply stance endings ("r28 IZU"), crouched endings, on-hit/on-block transitions, 15 optional
+  stance branches ("Enter GEN +0 +11g r18 with F"), sidestep moves, zero-hit stance entries,
+  parry levels and outcomes, Heat-timer costs, Essence gains, and Divine Aura bonuses. Values
+  from the Jun guide rather than frame data, and stance guard/time limits for IZU and MIA, are
+  marked for Practice confirmation. Also from the notes: attack throws (on hit, on counter-hit,
+  front/standing only), back-turned states and "Hit vs BT" results, back-to-wall and side-throw
+  requirements, Heat-only parries (f+1+2 into H.f+1+2,P), multi-part and alternative damage,
+  partial recoverable damage, "Cannot cause a K.O.", Rage Art damage growth (formula
+  provisional), and Ki Charge. Other characters still need their state-machine files.
+- [x] Add curated midscreen, wall, Heat, and counter-hit routes with legal execution assertions.
+  `data/character_modules/jun/routes.yaml` (from the TekkenDocs Jun guide; routes assembled
+  from guide pieces are marked `derived`) runs through `include/t8_v2/full_combat_routes.hpp`,
+  which fails a route if any input is illegal when issued, a hit whiffs or is blocked, crushed,
+  or parried, the opponent can act before a later hit, or the hit count differs. All four Jun
+  routes pass in the engine with stand-in geometry. This is a simulator result: Jun's route
+  gates still need Practice confirmation. Airtime now follows the published advantage ("+29a"),
+  and juggle and wall hits keep the opponent up until the attacker recovers plus a provisional
+  window with gravity, bounded by the guide routes.
 - [ ] Mirror the validated scalar engine in CUDA and run randomized parity over every legal move.
 - [ ] Replace the six-slot compatibility rollout with variable full-move candidates on both sides.
 - [ ] Apply dynamic legal masks on GPU for stance, posture, resources, recovery, Heat, Rage, and

@@ -1,0 +1,43 @@
+schema_version: 1
+character: jun
+# Character-specific stance and resource rules for the full-combat engine
+# (tools/export_full_combat_bindings.py -> data/generated/full_combat_stances.csv
+# and full_combat_resources.csv). Per-move data (stance entries, transitions,
+# resource gains, Divine Aura bonuses) comes from the move notes; this file
+# holds what the notes do not state per move.
+#
+# status: guide = stated by the evidence below, to confirm in Practice mode;
+#         provisional = not published, a stand-in until measured.
+evidence:
+  - https://tekkendocs.com/jun/guide (Season 2 guide, retrieved 2026-09-23)
+  - data/characters/jun.yaml move notes
+resource:
+  name: Kazama Essence
+  max: 100
+  install_threshold: 100       # "fully active once you've gained 100 Kazama Essence"
+  install_name: Divine Aura
+  install_note_prefixes: [DA, Divine Aura]   # notes such as "DA: +9 damage on hit (30)"
+  persists_across_rounds: true  # "Kazama Essence stays every round"
+  consumed_on_install: false
+  status: guide
+stances:
+  GEN:
+    can_guard: false            # guide: cannot block while in Genjitsu
+    auto_parry: [low, throw]    # guide: automatic attack against a low attack or a throw
+    parry_outcomes:
+      low: GEN.P (Low)
+      throw: GEN.P (Throw)
+    max_frames: null            # not published
+    status: {can_guard: guide, auto_parry: guide, max_frames: provisional}
+  IZU:
+    can_guard: false            # not published
+    max_frames: null
+    status: {can_guard: provisional, max_frames: provisional}
+  MIA:
+    can_guard: false            # not published
+    max_frames: null
+    pulse_interval_frames: 120  # guide: 3 health takes 2 seconds
+    pulse_recoverable: 3        # notes: "Restores 3 recoverable health ... with each pulse"
+    pulse_resource: 1           # guide: 1 Essence per healing burst
+    status: {can_guard: provisional, max_frames: provisional, pulse_interval_frames: guide,
+             pulse_recoverable: guide, pulse_resource: guide}

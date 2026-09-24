@@ -53,6 +53,7 @@ enum FullMoveMechanic : std::uint32_t {
     MoveRequiresHeat = 1U << 14U,
     MoveRequiresRage = 1U << 15U,
     MoveCounterHitLauncher = 1U << 16U,
+    MoveHeatBurst = 1U << 17U,
 };
 
 struct FullMoveParameters {

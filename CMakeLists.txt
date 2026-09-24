@@ -21,7 +21,8 @@ add_library(t8_v2_cpu_oracle STATIC src/sim.cpp)
 target_include_directories(t8_v2_cpu_oracle PUBLIC include)
 target_compile_features(t8_v2_cpu_oracle PUBLIC cxx_std_20)
 
-add_library(t8_v2_full_combat STATIC src/full_combat.cpp src/full_combat_engine.cpp src/full_combat_binding.cpp)
+add_library(t8_v2_full_combat STATIC src/full_combat.cpp src/full_combat_engine.cpp src/full_combat_binding.cpp
+    src/full_combat_routes.cpp)
 target_include_directories(t8_v2_full_combat PUBLIC include)
 target_compile_features(t8_v2_full_combat PUBLIC cxx_std_20)
 
@@ -98,6 +99,11 @@ if(T8_V2_BUILD_TESTS)
     target_link_libraries(t8_v2_full_combat_binding_tests PRIVATE t8_v2_full_combat)
     add_test(NAME t8_v2_full_combat_binding COMMAND t8_v2_full_combat_binding_tests
              ${CMAKE_CURRENT_SOURCE_DIR}/data/generated/full_combat_bindings.csv)
+
+    add_executable(t8_v2_full_combat_route_tests tests/full_combat_route_tests.cpp)
+    target_link_libraries(t8_v2_full_combat_route_tests PRIVATE t8_v2_full_combat)
+    add_test(NAME t8_v2_full_combat_routes COMMAND t8_v2_full_combat_route_tests
+             ${CMAKE_CURRENT_SOURCE_DIR}/data/generated)
 
     add_executable(t8_v2_policy_tests tests/policy_tests.cpp)
     target_link_libraries(t8_v2_policy_tests PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents)

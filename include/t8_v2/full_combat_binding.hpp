@@ -48,6 +48,63 @@ struct FullBindingRow {
     std::string parry;
     std::string airborne;
     std::string invincible;
+    bool heat_burst = false;
+    bool heat_smash = false;
+    std::optional<int> heat_dash_block;
+    std::optional<int> heat_dash_hit;
+    std::string heat_dash_effect;
+    // Amounts from the notes: "" absent, "?" stated without a number, else
+    // one value or one value per hit ("2|7").
+    std::string chip_block;
+    std::string chip_block_heat;
+    bool recoverable_only = false;
+    bool removes_recoverable = false;
+    bool armor_damage_recoverable = false;
+    std::string self_damage;
+    std::string self_recoverable;
+    bool self_damage_without_heat = false;
+    std::string restore_health_hit;
+    std::string restore_recoverable_hit;
+    std::string restore_recoverable_block;
+    std::string throw_break;  // "1", "2", "1+2", "1|2", "none", "?", or "" (not stated)
+    bool side_switch_on_hit = false;
+    bool side_switch_on_break = false;
+    bool spike = false;
+    bool unparryable = false;
+    bool reversal_break = false;
+    std::string variant_of;           // an optional stance branch of this base move
+    bool result_crouching = false;
+    std::string result_stance;
+    std::string result_stance_on_hit;
+    std::string result_stance_on_block;
+    bool requires_sidestep = false;
+    bool requires_running = false;
+    std::string parry_levels;         // "high|mid", "?" when not stated, "" without a parry
+    std::vector<std::string> parry_outcomes;  // stable ids by level class (high, mid, low, throw)
+    int heat_cost_frames = 0;
+    double resource_gain_start = 0.0;
+    double resource_gain_hit = 0.0;
+    double resource_gain_airborne_hit = 0.0;
+    double resource_gain_block = 0.0;
+    double resource_gain_heat_activation = 0.0;
+    double install_damage_bonus = 0.0;
+    std::optional<double> install_chip;
+    std::optional<double> install_range;  // in the same units as measured_range
+    std::string attack_throw;         // "hit", "counter_hit", or ""
+    bool attack_throw_front_only = false;
+    bool attack_throw_standing_only = false;
+    bool attack_throw_airborne = false;
+    std::optional<double> attack_throw_damage;
+    std::optional<int> back_turned_hit_advantage;
+    std::string back_turned_hit_effect;
+    bool result_back_turned = false;
+    std::string heat_parry;
+    std::string heat_parry_levels;
+    std::string heat_parry_outcome;
+    double recoverable_damage = 0.0;
+    bool cannot_ko = false;
+    std::optional<double> rage_art_max_damage;
+    bool ki_charge = false;
     std::string practice_status;
     std::vector<int> measured_active_frames;
     std::optional<double> measured_range;
@@ -98,5 +155,17 @@ struct FullBoundMove {
     const FullBindingOptions& options = {});
 
 [[nodiscard]] FrameWindow parse_frame_window(const std::string& text);
+
+// Stance and resource rules exported next to the bindings
+// (full_combat_stances.csv, full_combat_resources.csv). Stance ids are the
+// row order; pass the names as FullBindingOptions::stance_names.
+struct FullCharacterRuleSet {
+    FullCharacterRules rules;
+    std::vector<std::string> stance_names;
+};
+[[nodiscard]] FullCharacterRuleSet load_full_combat_character_rules(
+    const std::filesystem::path& stances_csv,
+    const std::filesystem::path& resources_csv,
+    const std::string& character);
 
 }  // namespace t8::v2

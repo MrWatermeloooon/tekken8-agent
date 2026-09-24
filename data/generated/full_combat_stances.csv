@@ -1,0 +1,4 @@
+character,stance,can_guard,max_frames,auto_parry,parry_outcome_high,parry_outcome_mid,parry_outcome_low,parry_outcome_throw,pulse_interval_frames,pulse_recoverable,pulse_resource,status
+jun,GEN,0,,low|throw,,,jun:142,jun:143,0,0,0,"{""auto_parry"": ""guide"", ""can_guard"": ""guide"", ""max_frames"": ""provisional""}"
+jun,IZU,0,,,,,,,0,0,0,"{""can_guard"": ""provisional"", ""max_frames"": ""provisional""}"
+jun,MIA,0,,,,,,,120,3,1,"{""can_guard"": ""provisional"", ""max_frames"": ""provisional"", ""pulse_interval_frames"": ""guide"", ""pulse_recoverable"": ""guide"", ""pulse_resource"": ""guide""}"

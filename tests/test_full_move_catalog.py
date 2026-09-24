@@ -208,3 +208,193 @@ def test_full_combat_binding_exporter_parses_source_text():
     assert exporter.automatic_transitions("* Transitions to IZU on hit or block") == "Transitions to IZU on hit or block"
     assert exporter.automatic_transitions("* Enter GEN +0 +11g r18 with F\n* Enter MIA wiith B") == ""
     assert exporter.one_line('<div>\n\n* A\n* B\n</div>') == "<div> * A * B </div>"
+
+
+def _exporter():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location(
+        "export_bindings", REPO_ROOT / "tools" / "export_full_combat_bindings.py")
+    exporter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(exporter)
+    return exporter
+
+
+def test_full_combat_binding_exporter_parses_resource_and_throw_notes():
+    exporter = _exporter()
+    lines = exporter.note_lines
+
+    assert exporter.parse_heat_dash(lines("* Heat Engager\n* Heat Dash +5, +43d (+35)")) == {
+        "heat_dash_block": 5, "heat_dash_hit": 43, "heat_dash_effect": "knockdown"}
+    assert exporter.parse_heat_dash(lines("* Heat Dash +67a (+50), +5")) == {
+        "heat_dash_block": 5, "heat_dash_hit": 67, "heat_dash_effect": "launch"}
+    assert exporter.parse_heat_dash(lines("* Heat Dash +39a (+23a) on hit, +5 on block"))["heat_dash_block"] == 5
+    assert exporter.parse_heat_dash(lines("* Heat Dash +42a (+27)"))["heat_dash_block"] == ""
+
+    assert exporter.parse_chip(lines("* 10 chip damage on block")) == {"chip_block": "10", "chip_block_heat": ""}
+    assert exporter.parse_chip(lines("* Chip damage (2,7) on block"))["chip_block"] == "2|7"
+    assert exporter.parse_chip(lines("* Chip damage on block"))["chip_block"] == exporter.UNKNOWN
+    assert exporter.parse_chip(lines("* 6 chip damage on block in heat"))["chip_block_heat"] == "6"
+    assert exporter.parse_chip(lines("* Deals 8 (DA:11) chip damage on block"))["chip_block"] == "8"
+    # Conditional or on-hit chip is not block chip.
+    assert exporter.parse_chip(lines(
+        "* -8 frame advantage and 4 chip damage on block after absorbing an attack in power crush state\n"
+        "* 12 chip damage on hit\n* Divine Aura: 12 chip damage on block"))["chip_block"] == ""
+
+    recoverable = exporter.parse_recoverable(lines(
+        "* Deals 12 damage to self (8 recoverable)\n* Restores 32 recoverable on hit (16 on block)\n"
+        "* Removes Recoverable Health"))
+    assert (recoverable["self_damage"], recoverable["self_recoverable"]) == (12, 8)
+    assert (recoverable["restore_recoverable_hit"], recoverable["restore_recoverable_block"]) == (32, 16)
+    assert recoverable["removes_recoverable"] == 1
+    heat_only = exporter.parse_recoverable(lines("* Deal 10 recoverable damage to self without Heat"))
+    assert (heat_only["self_damage"], heat_only["self_recoverable"], heat_only["self_damage_without_heat"]) == (10, 10, 1)
+    restores = exporter.parse_recoverable(lines("* Restores 2 health and 2 recoverable on hit\n* Only deals recoverable damage"))
+    assert (restores["restore_health_hit"], restores["restore_recoverable_hit"], restores["recoverable_only"]) == (2, 2, 1)
+    assert exporter.parse_recoverable(lines("* Restores recoverable health on hit"))["restore_recoverable_hit"] == "?"
+
+    assert exporter.parse_throw_break(lines("* Homing\n* Throw break 1 or 2")) == "1|2"
+    assert exporter.parse_throw_break(lines("* Throw break: 1+2")) == "1+2"
+    assert exporter.parse_throw_break(lines("* 2 throw break.")) == "2"
+    assert exporter.parse_throw_break(lines("* Unbreakable\n* Side switch")) == "none"
+    assert exporter.parse_throw_break(lines("* 1 or 2 throw break, depending on King's input.")) == "?"
+    assert exporter.parse_throw_break(lines("* Homing")) == ""
+
+    flags = exporter.parse_flags(lines("* Side switch on break\n* Spike\n* Unparryable\n* Reversal Break"))
+    assert flags == {"side_switch_on_hit": 0, "side_switch_on_break": 1, "spike": 1, "unparryable": 1,
+                     "reversal_break": 1}
+    assert exporter.parse_flags(lines("* Side switch"))["side_switch_on_hit"] == 1
+    assert exporter.parse_flags(lines("* Can side switch on hit\n* Spike (CH)"))["side_switch_on_hit"] == 0
+
+
+
+def test_full_combat_binding_exporter_parses_character_state():
+    exporter = _exporter()
+    lines = exporter.note_lines
+    stances = {"GEN", "IZU", "MIA"}
+
+    assert exporter.result_state("r28 IZU", stances) == ("IZU", 0)
+    assert exporter.result_state("r25 FC", stances) == ("", 1)
+    assert exporter.result_state("r31", stances) == ("", 0)
+    assert exporter.result_state("r20 XYZ", stances) == ("", 0)
+
+    transitions, used = exporter.stance_transitions(lines(
+        "* Transition to r20 MIA on hit only\n* Transition to attack throw on hit"), stances)
+    assert transitions == {"result_stance_on_hit": "MIA", "result_stance_on_block": ""}
+    assert used == ["Transition to r20 MIA on hit only"]
+    both, _ = exporter.stance_transitions(lines("* Transitions to IZU on hit or block"), stances)
+    assert both == {"result_stance_on_hit": "IZU", "result_stance_on_block": "IZU"}
+
+    variants = exporter.stance_variants(lines(
+        "* Enter GEN +0 +11g r18 with F\n* Enter MIA -6, +5 r18 wiith B\n* Enter SS r16 with u_d\n"
+        "* Transition to +9, +26a (+16) GEN with F\n* Transition to r24 FC with D\n"
+        "* Transition to r22 FC with D on whiff or block"), stances)
+    assert [(v["target"], v["block"], v["hit"], v["recovery"], v["input"]) for v in variants] == [
+        ("GEN", "+0", "+11g", 18, "F"), ("MIA", "-6", "+5", 18, "B"), ("GEN", "+9", "+26a", None, "F"),
+        ("FC", None, None, 24, "D")]
+
+    resource = exporter.parse_resource(lines(
+        "* Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit"), "Kazama Essence")
+    assert (resource["resource_gain_hit"], resource["resource_gain_block"], resource["resource_gain_airborne_hit"]) == (10, 7, 7)
+    assert exporter.parse_resource(lines("* Gain 10 Kazama Essence on Heat activation"),
+                                   "Kazama Essence")["resource_gain_heat_activation"] == 10
+    assert exporter.parse_resource(lines("* Gain 20 Kazama Essence"), "Kazama Essence")["resource_gain_start"] == 20
+    generic = exporter.parse_resource(lines("* Gain 8 Kazama Essence on hit"), "Kazama Essence")
+    assert (generic["resource_gain_hit"], generic["resource_gain_airborne_hit"], generic["resource_gain_block"]) == (8, 8, "")
+    assert exporter.parse_resource(lines("* Gain 8 Kazama Essence on hit"), "")["resource_gain_hit"] == ""
+
+    install = exporter.parse_install(lines(
+        "* DA: +9 damage on hit (30)\n* Divine Aura: 12 chip damage on block\n* DA: Range increases to 4.0"),
+        ["DA", "Divine Aura"])
+    assert install == {"install_damage_bonus": 9, "install_chip": 12, "install_range": 4.0}
+    assert exporter.parse_install(lines("* Deals 8 (DA:11) chip damage on block"), ["DA"])["install_chip"] == 11
+
+    assert exporter.parse_parry_levels(lines("* Parries low punches or kicks\n* Parries throws")) == "low|throw"
+    assert exporter.parse_parry_levels(lines("* Sabaki, parries mid or high punches or kicks")) == "high|mid"
+    assert exporter.parse_parry_levels(lines("* Punch sabaki\n* Parry state 4~15")) == exporter.UNKNOWN
+
+
+
+def test_full_combat_binding_exporter_parses_skipped_mechanics():
+    exporter = _exporter()
+    lines = exporter.note_lines
+
+    throw, used = exporter.parse_attack_throw(lines("* Transition to attack throw on front standing or airborne hit"))
+    assert (throw["attack_throw"], throw["attack_throw_front_only"], throw["attack_throw_standing_only"],
+            throw["attack_throw_airborne"]) == ("hit", 1, 1, 1) and len(used) == 1
+    counter, _ = exporter.parse_attack_throw(lines("* Transition to attack throw on CH, +22 damage, total 44"))
+    assert (counter["attack_throw"], counter["attack_throw_damage"]) == ("counter_hit", 22)
+    standing, _ = exporter.parse_attack_throw(lines("* Transition to attack throw on standing front hit"))
+    assert (standing["attack_throw_standing_only"], standing["attack_throw_airborne"]) == (1, 0)
+    timed, used = exporter.parse_attack_throw(lines("* Transition to attack throw after 2nd hit"))
+    assert timed["attack_throw"] == "" and used == []
+
+    assert exporter.parse_back_turned_hit(lines("* Hit vs BT +12a (+2)")) == {
+        "back_turned_hit_advantage": 12, "back_turned_hit_effect": "launch"}
+    assert exporter.parse_back_turned_hit(lines("* +10a (+1) and Balcony Break on BT hit"))["back_turned_hit_advantage"] == 10
+
+    rules = exporter.parse_damage_rules(lines(
+        "* Deals 5 recoverable damage\n* Cannot cause a K.O.\n* Power up in Heat (ps5~12)"), "Inner Peace", "f+1+2")
+    assert (rules["recoverable_damage"], rules["cannot_ko"], rules["heat_parry"]) == (5, 1, "5~12")
+    assert exporter.parse_damage_rules(lines("* Damage increases with lower health, maximum 82"), "", "")[
+        "rage_art_max_damage"] == 82
+    assert exporter.parse_damage_rules([], "Ki Charge", "1+2+3+4")["ki_charge"] == 1
+
+    assert exporter.damage_parts("[12;12]", [12.0, 12.0]) == [12.0]
+    assert exporter.damage_parts("15,15,15", [15.0, 15.0, 15.0]) == [15.0, 15.0, 15.0]
+    assert exporter.result_state("r20 BT", {"GEN"}) == ("BT", 0)
+
+def test_full_combat_bindings_link_jun_state():
+    import csv
+
+    bindings = REPO_ROOT / "data" / "generated" / "full_combat_bindings.csv"
+    rows = {row["stable_id"]: row for row in csv.DictReader(bindings.open(encoding="utf-8"))
+            if row["character"] == "jun"}
+    assert rows["jun:7"]["result_stance"] == "IZU"
+    assert rows["jun:65"]["parry_outcomes"] == "jun:147|jun:147|jun:147|jun:147"
+    assert rows["jun:67~GEN"]["variant_of"] == "jun:67" and rows["jun:67~GEN"]["recovery"] == "18"
+    assert rows["jun:2"]["heat_cost_frames"] == "450"
+    stances = list(csv.DictReader((bindings.parent / "full_combat_stances.csv").open(encoding="utf-8")))
+    gen = next(row for row in stances if row["character"] == "jun" and row["stance"] == "GEN")
+    assert (gen["can_guard"], gen["auto_parry"], gen["parry_outcome_low"], gen["parry_outcome_throw"]) == (
+        "0", "low|throw", "jun:142", "jun:143")
+
+
+
+def test_full_combat_routes_resolve_to_stable_ids():
+    import csv
+
+    routes = REPO_ROOT / "data" / "generated" / "full_combat_routes.csv"
+    rows = [row for row in csv.DictReader(routes.open(encoding="utf-8")) if row["character"] == "jun"]
+    assert {row["category"] for row in rows} == {"midscreen", "wall", "heat", "counter_hit"}
+    assert all(row["input"].startswith(("jun:", "@")) for row in rows)
+    midscreen = [row["input"] for row in rows if row["route"] == "df2_beginner"]
+    assert midscreen == ["jun:43", "jun:20", "jun:7", "jun:124", "jun:30", "jun:124"]
+
+
+def test_route_export_rejects_unknown_commands(tmp_path):
+    import shutil
+
+    exporter = _exporter()
+    data_root = tmp_path / "data"
+    shutil.copytree(REPO_ROOT / "data" / "characters", data_root / "characters")
+    module = data_root / "character_modules" / "jun"
+    module.mkdir(parents=True)
+    (module / "routes.yaml").write_text(
+        "routes:\n  - name: bad\n    category: midscreen\n    steps: [\"df+2\", \"not-a-move\"]\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="not in the catalog"):
+        exporter.export(REPO_ROOT / "data" / "generated" / "full_move_catalog.json", data_root,
+                        tmp_path / "out" / "bindings.csv", ["jun"])
+
+def test_heat_and_rage_requirements_come_from_command_prefixes():
+    catalog = load_compiled_catalog(REPO_ROOT / "data" / "generated" / "full_move_catalog.json")
+    jun = {move["stable_id"]: move for move in catalog.moves if move["stable_id"].startswith("jun:")}
+    # Heat Engager, Heat Burst, and Heat Smash roles; only H./R. prefixes require Heat or Rage.
+    assert jun["jun:21"]["mechanics"]["heat_engager"] and not jun["jun:21"]["legal_state"]["requires_heat"]
+    assert jun["jun:1"]["mechanics"]["heat_burst"] and not jun["jun:1"]["legal_state"]["requires_heat"]
+    assert jun["jun:4"]["mechanics"]["heat_smash"] and jun["jun:4"]["legal_state"]["requires_heat"]
+    assert jun["jun:5"]["legal_state"]["requires_rage"]
+    for move in catalog.moves:
+        requirements = move["mechanics"]["requirements"]
+        assert move["legal_state"]["requires_heat"] == ("H" in requirements)
+        assert move["legal_state"]["requires_rage"] == ("R" in requirements)
