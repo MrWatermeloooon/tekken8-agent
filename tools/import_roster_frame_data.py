@@ -104,7 +104,9 @@ def _convert_move(row: dict[str, Any]) -> dict[str, Any]:
     command = str(row.get("command") or "")
     hit_level = str(row.get("hitLevel") or "")
     notes = str(row.get("notes") or "")
-    tags = [str(value) for value in (row.get("tags") or [])]
+    # The API has returned tags as a list of keys and, later, as {key: value}; keep the keys.
+    raw_tags = row.get("tags") or []
+    tags = [str(value) for value in (raw_tags.keys() if isinstance(raw_tags, dict) else raw_tags)]
     for derived in _derived_tags(command, hit_level, notes):
         if derived not in tags:
             tags.append(derived)
@@ -117,14 +119,27 @@ def _convert_move(row: dict[str, Any]) -> dict[str, Any]:
         "hit_level": hit_level,
         "damage": str(row.get("damage") or ""),
         "startup": str(row.get("startup") or ""),
-        "recovery": str(row.get("recovery") or ""),
+        "recovery": _recovery_text(row),
         "block": str(row.get("block") or ""),
         "hit": str(row.get("hit") or ""),
         "counter_hit": str(row.get("counterHit") or ""),
         "tier": "core" if command in CORE_COMMANDS else "specialist",
         "tags": tags,
         "notes": notes,
+        **({"transitions": [str(value) for value in row["transitions"]]} if row.get("transitions") else {}),
     }
+
+
+def _recovery_text(row: dict[str, Any]) -> str:
+    """The saved format "r28 IZU": the API has written it that way and, later, as
+    recovery "28" plus recoveryState "IZU"."""
+    text = str(row.get("recovery") or "").strip()
+    state = str(row.get("recoveryState") or "").strip()
+    if text and re.fullmatch(r"\d+(?:~\d+)?", text):
+        text = f"r{text}"
+    if state and not re.search(rf"(?:^|\s){re.escape(state)}$", text):
+        text = f"{text} {state}".strip()
+    return text
 
 
 def _command_to_id(command: str) -> str:

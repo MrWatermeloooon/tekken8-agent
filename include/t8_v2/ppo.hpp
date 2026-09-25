@@ -74,6 +74,9 @@ struct PpoUpdateMetrics {
     // a choice" from "how random it is when it does".
     float decision_fraction = 0.0F;
     float decision_entropy = 0.0F;
+    // The rollout policy's entropy at choice decisions (first epoch, before the update),
+    // reduced in a fixed order: bit-reproducible, so it can steer training.
+    float rollout_decision_entropy = 0.0F;
     std::size_t minibatches = 0;
     int epochs_completed = 0;
     bool early_stopped = false;

@@ -61,7 +61,7 @@ void test_device_rollout_and_gae() {
     }
 
     const auto final_state = simulator.device_view();
-    const auto bootstrap = learner.forward(
+    [[maybe_unused]] const auto bootstrap = learner.forward(  // computes the bootstrap values
         final_state.observations_p1, final_state.action_masks_p1,
         environments, 1000, horizon, true);
     const auto values_before_update = learner.download_values(environments);

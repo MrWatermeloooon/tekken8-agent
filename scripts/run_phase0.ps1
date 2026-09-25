@@ -1,3 +1,4 @@
+# Windows wrapper: python scripts/training.py phase0 --help
 param(
     [int]$Updates = 100,
     [int]$AnnealUpdates = 100,
@@ -14,65 +15,15 @@ param(
     [string]$BuildDirectory = 'build',
     [bool]$ResumeIncomplete = $true
 )
-
 $ErrorActionPreference = 'Stop'
-$root = Split-Path -Parent $PSScriptRoot
-$trainer = Join-Path $root "$BuildDirectory\Release\t8_v2_train.exe"
-if (-not (Test-Path -LiteralPath $trainer)) {
-    throw "Trainer not built: $trainer"
-}
-
-$seedValues = $Seeds.Split(',') | ForEach-Object { [int]$_.Trim() }
-foreach ($seed in $seedValues) {
-    foreach ($reward in @('shaped', 'sparse')) {
-        $runDir = Join-Path $root "runs\${Label}_${reward}_seed${seed}"
-        $resumeCheckpoint = $null
-        if (Test-Path -LiteralPath $runDir) {
-            $artifacts = Get-ChildItem -LiteralPath $runDir -Force -ErrorAction SilentlyContinue
-            if ($artifacts) {
-                $metricsPath = Join-Path $runDir 'metrics.jsonl'
-                if (-not $ResumeIncomplete -or -not (Test-Path -LiteralPath $metricsPath)) {
-                    throw "Refusing to reuse ambiguous/non-empty Phase 0 run directory: $runDir"
-                }
-                $lastMetric = Get-Content -LiteralPath $metricsPath -Tail 1 | ConvertFrom-Json
-                $completedUpdate = [int]$lastMetric.update
-                if ($completedUpdate -eq $Updates) {
-                    Write-Host "Phase 0 run already complete: reward=$reward seed=$seed"
-                    continue
-                }
-                if ($completedUpdate -le 0 -or $completedUpdate -gt $Updates) {
-                    throw "Invalid completed update $completedUpdate in $metricsPath"
-                }
-                $resumeCheckpoint = Join-Path $runDir "checkpoints\update_${completedUpdate}.t8ppo"
-                $resumeState = Join-Path $runDir "checkpoints\update_${completedUpdate}.t8state"
-                if (-not (Test-Path -LiteralPath $resumeCheckpoint) -or
-                    -not (Test-Path -LiteralPath $resumeState)) {
-                    throw "Incomplete Phase 0 run is missing exact-resume artifacts: $runDir"
-                }
-            }
-        }
-        $trainerArgs = @(
-            '--envs', $Envs, '--horizon', $Horizon, '--updates', $Updates,
-            '--anneal-updates', $AnnealUpdates,
-            '--epochs', $Epochs, '--minibatch', $Minibatch, '--seed', $seed,
-            '--eval-interval', $EvalInterval, '--eval-episodes', $EvalEpisodes,
-            '--observation-mode', $ObservationMode, '--reward', $reward,
-            '--run-dir', $runDir
-        )
-        if ($resumeCheckpoint) {
-            $trainerArgs += @('--resume', $resumeCheckpoint)
-            Write-Host "Resuming Phase 0 run: reward=$reward seed=$seed update=$completedUpdate"
-        }
-        & $trainer @trainerArgs
-        if ($LASTEXITCODE -ne 0) {
-            throw "Phase 0 run failed: reward=$reward seed=$seed"
-        }
-    }
-}
-
-& python (Join-Path $root 'tools\analyze_phase0.py') `
-    --runs-root (Join-Path $root 'runs') --label $Label `
-    --output (Join-Path $root "docs\${Label}_report.md")
-if ($LASTEXITCODE -ne 0) {
-    throw "Phase 0 analysis failed for label=$Label"
-}
+$repo = Split-Path -Parent $PSScriptRoot
+$python = Join-Path $repo ".venv\Scripts\python.exe"
+if (-not (Test-Path -LiteralPath $python)) { $python = "python" }
+$arguments = @("phase0", "--seeds") + ($Seeds.Split(',') | ForEach-Object { $_.Trim() }) + @(
+    "--label", $Label, "--updates", $Updates, "--anneal-updates", $AnnealUpdates, "--envs", $Envs,
+    "--horizon", $Horizon, "--epochs", $Epochs, "--minibatch", $Minibatch, "--eval-interval", $EvalInterval,
+    "--eval-episodes", $EvalEpisodes, "--observation-mode", $ObservationMode,
+    "--trainer", (Join-Path $repo "$BuildDirectory\Release\t8_v2_train.exe"))
+if (-not $ResumeIncomplete) { $arguments += "--no-resume-incomplete" }
+& $python (Join-Path $repo "scripts\training.py") @arguments
+exit $LASTEXITCODE

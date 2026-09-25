@@ -39,6 +39,8 @@ std::vector<FullMoveSpec> jun_moves(const std::filesystem::path& directory, cons
     return moves;
 }
 
+bool trace_all = false;  // --trace: print every route's trace, not only failures
+
 void test_jun_routes(const std::filesystem::path& directory) {
     const auto rules = load_full_combat_character_rules(directory / "full_combat_stances.csv",
                                                         directory / "full_combat_resources.csv", "jun");
@@ -54,7 +56,7 @@ void test_jun_routes(const std::filesystem::path& directory) {
                   << route.source << "): " << result.hits << " hits, " << result.damage << " damage, "
                   << result.frames << " frames\n";
         for (const auto& failure : result.failures) std::cout << "    " << failure << '\n';
-        if (!result.passed() || std::getenv("T8_ROUTE_TRACE")) {
+        if (!result.passed() || trace_all) {
             for (const auto& line : result.trace) std::cout << "      " << line << '\n';
         }
         check(result.passed(), route.name + " executes as a legal true combo");
@@ -94,10 +96,11 @@ void test_runner_catches_broken_routes(const std::filesystem::path& directory) {
 }  // namespace
 
 int main(int argc, char** argv) {
-    if (argc != 2) {
-        std::cerr << "usage: full_combat_route_tests <data/generated directory>\n";
+    if (argc < 2 || argc > 3 || (argc == 3 && std::string_view(argv[2]) != "--trace")) {
+        std::cerr << "usage: full_combat_route_tests <data/generated directory> [--trace]\n";
         return EXIT_FAILURE;
     }
+    trace_all = argc == 3;
     try {
         test_jun_routes(argv[1]);
         test_runner_catches_broken_routes(argv[1]);

@@ -4,8 +4,8 @@ game: tekken_8
 source_url: https://tekkendocs.com/api/t8/jun/framedata
 source_note: Full raw frame-data table imported from TekkenDocs; data reuse credited
   per its public repository license note.
-retrieved_at: '2026-07-21'
-source_sha256: 876ef141f59968768cdfecee8e66a76e52b46708e609c42ff81d5ba971c602da
+retrieved_at: '2026-09-23'
+source_sha256: 3b2a81debc45ca1d7128908ad72271b0129c5c8ba3fa01c276e5216cc614b50e
 data_status: available
 stances:
 - H
@@ -32,6 +32,7 @@ moves:
   tier: specialist
   tags:
   - hb
+  - chp
   - pc
   - heat
   - power_crush
@@ -86,7 +87,7 @@ moves:
 
     * Restores 6 recoverable (3 on block)
 
-    * Chip damage (2,7) on block
+    * 9 chip damage on block
 
     * Consumes 450f of heat timer
 
@@ -116,6 +117,8 @@ moves:
     * Consumes 240F of remaining Heat time
 
     * Parry state 5~'
+  transitions:
+  - MIA
 - id: h_2p3
   source_id: Jun-H.2+3
   source_index: 4
@@ -132,6 +135,7 @@ moves:
   tags:
   - hs
   - bbr
+  - chp
   - heat
   - balcony_break
   - chip
@@ -208,19 +212,21 @@ moves:
   hit_level: h, m
   damage: 5, 15
   startup: i10, i25
-  recovery: r28 IZU
+  recovery: r20 IZU
   block: '-1'
   hit: '+8'
   counter_hit: '+13'
   tier: specialist
   tags:
+  - intr
+  - stance_transition
   - mid
   - high
-  notes: '* Combo from 1st hit with 1f delay
-
-    * Restores 2 health and 2 recoverable on hit
-
-    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+  notes: "* Move can be delayed by 1f\n* Input can be delayed by 2f\n* Interrupt with\
+    \ i7\n* Transition to standing with B (t64 r28) \n* Restores 2 health and 2 recoverable\
+    \ on hit\n* Gain 6 Kazama Essence on normal hit and 5 on airborne hit"
+  transitions:
+  - IZU
 - id: '1_2'
   source_id: Jun-1,2
   source_index: 8
@@ -246,6 +252,8 @@ moves:
     ** r16 when attacking in SS stance
 
     ** r30? when exiting SS stance'
+  transitions:
+  - SS
 - id: '1_2_2'
   source_id: Jun-1,2,2
   source_index: 9
@@ -267,11 +275,15 @@ moves:
 
     * Combo from 2nd hit with 9F delay
 
-    * Jail from 2nd block with 1F delay
+    * Move cannot be interrupted (Jails attack inputs with 1F delay)
+
+    * Opponent can buffer FC actions on 2nd block
 
     * Restores 2 health on hit
 
     * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+  transitions:
+  - IZU
 - id: '1_2_4'
   source_id: Jun-1,2,4
   source_index: 10
@@ -286,12 +298,21 @@ moves:
   counter_hit: +15a (+6)
   tier: specialist
   tags:
+  - wc
+  - intr
   - balcony_break
+  - chip
   - mid
   - high
   notes: '* Balcony Break (airborne)
 
-    * Combo from 2nd CH with 3f delay
+    * Wall Crush +17g on hit and 3 chip damage
+
+
+
+    * Not a true combo on 2nd hit or CH (bug? breaks neutral guard)
+
+    * Interrupt with i5
 
     * Input can be delayed 9f'
 - id: '1_3'
@@ -308,9 +329,12 @@ moves:
   counter_hit: +6c
   tier: specialist
   tags:
+  - intr
   - low
   - high
-  notes: '* Combo from 1st CH with 2f delay'
+  notes: '* Combo from 1st CH with 2f delay
+
+    * Interrupt with i5 from 1st block'
 - id: '2'
   source_id: Jun-2
   source_index: 12
@@ -342,11 +366,14 @@ moves:
   tier: specialist
   tags:
   - elb
+  - intr
   - mid
   - high
   notes: '* Elbow
 
     * Combo from 1st hit with 9f delay
+
+    * Interrupt with i1
 
     * Input can be delayed 10f'
 - id: '2_1_4'
@@ -368,6 +395,8 @@ moves:
   - high
   notes: '* Knee
 
+    * Jail from 2nd block
+
     * Combo from 1st hit'
 - id: '2_1_4_1'
   source_id: Jun-2,1,4,1
@@ -384,6 +413,8 @@ moves:
   tier: specialist
   tags:
   - bbr
+  - stp
+  - intr
   - chp
   - balcony_break
   - parry
@@ -392,11 +423,17 @@ moves:
   - high
   notes: '* Balcony Break
 
+    * Weapon (Projectile)
+
     * Combo from 3rd CH
 
-    * Input can be delayed 10f
+    * Move can be delayed 10f
 
-    * Chip damage (9) on block
+    * Interrupt with i10
+
+    * Whiffs vs SWL from 1st block
+
+    * 9 chip damage on block
 
     * Deals 6 damage to self (4 recoverable)
 
@@ -418,12 +455,15 @@ moves:
   tier: specialist
   tags:
   - bbr
+  - intr
   - balcony_break
   - mid
   - high
   notes: '* Balcony Break
 
-    * Combo from 3rd CH with 5f delay
+    * Combo from 3rd CH with 5F delay
+
+    * Interrupt with i5
 
     * Input can be delayed 10f'
 - id: 2_1_1p2
@@ -436,12 +476,13 @@ moves:
   startup: i12, ,i22
   recovery: r26
   block: '+2'
-  hit: +22c
+  hit: +22cg
   counter_hit: ''
   tier: specialist
   tags:
   - bbr
   - elb
+  - intr
   - balcony_break
   - mid
   - high
@@ -450,6 +491,8 @@ moves:
     * Elbow
 
     * Combo from 2nd CH with 9f delay
+
+    * Interrupt with i6 from 2nd block
 
     * Forces tech backroll on hit'
 - id: '3'
@@ -478,14 +521,15 @@ moves:
   hit_level: m, h
   damage: 14, 20
   startup: i14~15, i14~15
-  recovery: ''
+  recovery: r29
   block: '-4'
-  hit: +22d
+  hit: +22cg
   counter_hit: ''
   tier: specialist
   tags:
   - trn
   - bbr
+  - intr
   - tornado
   - balcony_break
   - mid
@@ -494,9 +538,15 @@ moves:
 
     * Balcony Break
 
-    * Combos from 1st hit
+    * Combo from 1st hit with 9F delay
 
-    * Delayable
+    * Interrupt with i4
+
+    * Forces tech back roll on hit
+
+    * Move can be delayed by 6F
+
+    * Input can be delayed by 9F
 
     * Gain 6 Kazama essence on normal hit and 5  on airborne hit'
 - id: '4'
@@ -705,6 +755,8 @@ moves:
     * Low crush 5~33
 
     * Floating state 34~36'
+  transitions:
+  - FC
 - id: fp1
   source_id: Jun-f+1
   source_index: 30
@@ -713,16 +765,17 @@ moves:
   hit_level: m
   damage: '15'
   startup: i20
-  recovery: r28 IZU
+  recovery: r19 IZU
   block: '+0'
   hit: '+9'
   counter_hit: '+14'
   tier: specialist
   tags:
   - mid
-  notes: '* Restores 2 health and 2 recoverable on hit
-
-    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+  notes: "* Restores 2 health and 2 recoverable on hit\n* Recover to standing with\
+    \ B (t48 r28) \n* Gain 6 Kazama Essence on normal hit and 5 on airborne hit"
+  transitions:
+  - IZU
 - id: fp2
   source_id: Jun-f+2
   source_index: 31
@@ -738,7 +791,11 @@ moves:
   tier: core
   tags:
   - mid
-  notes: Cancel to r26 FC with D
+  notes: '* Cancel to r26 FC with D
+
+    * Increased tracking when f2,1+2''s input is buffered late'
+  transitions:
+  - FC
 - id: fp2_1p2
   source_id: Jun-f+2,1+2
   source_index: 32
@@ -799,6 +856,8 @@ moves:
     * r21 when attacking after SS
 
     * r35 when blocking after SS'
+  transitions:
+  - SS
 - id: fp3_2
   source_id: Jun-f+3,2
   source_index: 34
@@ -814,6 +873,7 @@ moves:
   tier: specialist
   tags:
   - hom
+  - intr
   - homing
   - mid
   - high
@@ -825,9 +885,13 @@ moves:
 
     * Input can be delayed by 10F
 
+    * Interrupt with i5
+
     * Restores 2 health on hit
 
     * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+  transitions:
+  - IZU
 - id: fp3_4
   source_id: Jun-f+3,4
   source_index: 35
@@ -843,11 +907,14 @@ moves:
   tier: specialist
   tags:
   - trn
+  - intr
   - tornado
   - mid
   notes: '* Tornado
 
     * Combo from 1st hit with 10F delay
+
+    * Interrupt with i5
 
     * Move can be delayed by 5F
 
@@ -907,6 +974,8 @@ moves:
     * Unparryable
 
     * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit'
+  transitions:
+  - MIA
 - id: fp2p3
   source_id: Jun-f+2+3
   source_index: 38
@@ -952,11 +1021,16 @@ moves:
   - parry
   notes: '* Cancel to r34 FC with D on frame 16
 
+    * Stance moves can be delayed by 24F
+
     * Parries low punches or kicks
 
     * Parries throws
 
     * Parry state 1~40'
+  transitions:
+  - FC
+  - GEN
 - id: dfp1
   source_id: Jun-df+1
   source_index: 40
@@ -987,6 +1061,7 @@ moves:
   counter_hit: +13g
   tier: specialist
   tags:
+  - intr
   - mid
   notes: '* Combo from 1st hit
 
@@ -1005,6 +1080,7 @@ moves:
   counter_hit: '+11'
   tier: specialist
   tags:
+  - intr
   - mid
   - high
   notes: '* Combo from 1st hit
@@ -1025,7 +1101,9 @@ moves:
   tier: core
   tags:
   - mid
-  notes: Launches crouching opponent
+  notes: '* Launches crouching opponent
+
+    * Increased tracking when f2,1+2''s input is buffered late'
 - id: dfp2_1p2
   source_id: Jun-df+2,1+2
   source_index: 44
@@ -1043,15 +1121,10 @@ moves:
   - chp
   - chip
   - mid
-  notes: '* Combo from 1st hit
-
-    * Chip damage (4) on block
-
-    * Deals 24 damage to self (16 recoverable)
-
-    * Available only on hit or block
-
-    * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit'
+  notes: "* Combo from 1st hit\n* Chip damage (4) on block\n* First hit does 8dmg,\
+    \ 20dmg total \n* Deals 24 damage to self (16 recoverable)\n* Available only on\
+    \ hit or block\n* Gain 10 Kazama Essence on normal hit and 7 on block or airborne\
+    \ hit"
 - id: dfp3
   source_id: Jun-df+3
   source_index: 45
@@ -1164,6 +1237,8 @@ moves:
   - spk
   - mid
   notes: Spike
+  transitions:
+  - FC
 - id: dp4
   source_id: Jun-d+4
   source_index: 51
@@ -1342,7 +1417,9 @@ moves:
   - cs
   - high_crush
   - low
-  notes: '* High crush 15~'
+  notes: '* High crush 15~54'
+  transitions:
+  - FC
 - id: dbp3
   source_id: Jun-db+3
   source_index: 59
@@ -1380,6 +1457,8 @@ moves:
   notes: 'Transition to r28 FC with D
 
     * High crush 6~41'
+  transitions:
+  - FC
 - id: dbp4_4
   source_id: Jun-db+4,4
   source_index: 61
@@ -1403,6 +1482,8 @@ moves:
     * Transition to r28 FC with D
 
     * High crush 1~49'
+  transitions:
+  - FC
 - id: dbp4_4_4
   source_id: Jun-db+4,4,4
   source_index: 62
@@ -1424,6 +1505,8 @@ moves:
   notes: '* Transition to r28 FC with D
 
     * High crush 1~49'
+  transitions:
+  - FC
 - id: dbp4_1p4
   source_id: Jun-db+4,1+4
   source_index: 63
@@ -1451,6 +1534,8 @@ moves:
     ** db+4,4,4,1+2
 
     * CH advantage listed is for the last hit'
+  transitions:
+  - 1+4 extensions
 - id: bp1
   source_id: Jun-b+1
   source_index: 64
@@ -1477,6 +1562,8 @@ moves:
     * Opponent recovers FDFA on CH
 
     * High crush 6~58'
+  transitions:
+  - FC
 - id: bp1p3
   source_id: Jun-b+1+3
   source_index: 65
@@ -1540,6 +1627,9 @@ moves:
     * Move can be delayed by 5F
 
     * Input can be delayed by 15F'
+  transitions:
+  - GEN
+  - MIA
 - id: bp2_1_1
   source_id: Jun-b+2,1,1
   source_index: 68
@@ -1569,7 +1659,7 @@ moves:
   command: b+2,1,2
   name: Ryuen Saika Renken
   hit_level: m, h, M
-  damage: 10, 7, 20
+  damage: 10, 7, 22
   startup: i14~15, ,i23
   recovery: r35
   block: '-9'
@@ -1716,6 +1806,8 @@ moves:
     * Transition in r28 FC with D
 
     * High crush 1~42'
+  transitions:
+  - db+4 extensions
 - id: bp4
   source_id: Jun-b+4
   source_index: 75
@@ -1769,7 +1861,12 @@ moves:
 
     * Cancel to r15 with DB
 
+    * Stays in stance indefinitely
+
     * Restores 3 recoverable health and gain Kazama Essence with each pulse'
+  transitions:
+  - SS
+  - MIA
 - id: bp3p4
   source_id: Jun-b+3+4
   source_index: 78
@@ -1833,7 +1930,11 @@ moves:
 
     * Restores 2 health and 2 recoverable on hit
 
-    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit'
+    * Gain 6 Kazama Essence on normal hit and 5 on airborne hit
+
+    * Stance moves can be delayed by 15F'
+  transitions:
+  - IZU
 - id: up4
   source_id: Jun-u+4
   source_index: 81
@@ -1901,6 +2002,7 @@ moves:
   tier: specialist
   tags:
   - trn
+  - chp
   - cs
   - high_crush
   - tornado
@@ -1999,6 +2101,8 @@ moves:
     * Low crush 1~20
 
     * Floating state 21~23'
+  transitions:
+  - MIA
 - id: ufp3p4
   source_id: Jun-uf+3+4
   source_index: 87
@@ -2020,6 +2124,8 @@ moves:
   notes: '* Spike
 
     * Low crush 9~30'
+  transitions:
+  - FC
 - id: 1p2p3p4
   source_id: Jun-1+2+3+4
   source_index: 88
@@ -2042,31 +2148,9 @@ moves:
     patch onward)''''
 
     * Attacks taken will be CH for 5 seconds'
-- id: ub_b
-  source_id: Jun-UB,b
-  source_index: 89
-  command: UB,b
-  name: Back Handspring
-  hit_level: ''
-  damage: ''
-  startup: ''
-  recovery: ''
-  block: ''
-  hit: ''
-  counter_hit: ''
-  tier: specialist
-  tags:
-  - js
-  - fs
-  - low_crush
-  notes: 'Can perform wr3 with input 3
-
-    * Low crush 10~41
-
-    * Floating state 42~44'
 - id: ffp2
   source_id: Jun-f,F+2
-  source_index: 90
+  source_index: 89
   command: f,F+2
   name: ''
   hit_level: m
@@ -2080,14 +2164,15 @@ moves:
   tags:
   - stance_transition
   - mid
-  notes: '* Enter GEN +1 +16g r18 wiith F
+  notes: '* Transition to GEN +1 +16g r18 with F on frame 21 with 10F delay
 
-    * Enter MIA +1 +16g r18 wiith B
-
-    * Stance transitions can be delayed by up to 10F (+1~-9/+16g~+6g)'
+    * Transition to MIA +1 +16g r18 with B on frame 21 with 10F delay'
+  transitions:
+  - GEN
+  - MIA
 - id: ffp2_2
   source_id: Jun-f,F+2,2
-  source_index: 91
+  source_index: 90
   command: f,F+2,2
   name: Suiei Ura Saika
   hit_level: m, m
@@ -2102,6 +2187,7 @@ moves:
   - trn
   - bbr
   - elb
+  - intr
   - tornado
   - balcony_break
   - mid
@@ -2113,10 +2199,12 @@ moves:
 
     * Combo from 1st hit with 8f delay
 
+    * Interrupt with i1
+
     * +7F crumple stun on CH'
 - id: ffp2_3
   source_id: Jun-f,F+2,3
-  source_index: 92
+  source_index: 91
   command: f,F+2,3
   name: Suiei Kagetsu
   hit_level: m, h
@@ -2133,7 +2221,7 @@ moves:
   notes: Combo from 1st hit with 8f delay
 - id: ffp3
   source_id: Jun-f,F+3
-  source_index: 93
+  source_index: 92
   command: f,F+3
   name: ''
   hit_level: m
@@ -2154,12 +2242,12 @@ moves:
     * Balcony Break (airborne)'
 - id: ffp3_3p4
   source_id: Jun-f,F+3,3+4
-  source_index: 94
+  source_index: 93
   command: f,F+3,3+4
   name: Yukimiguruma
   hit_level: m, m,m
   damage: 23, 12,15
-  startup: i18~19, i35~36 i41~42
+  startup: i18~19, i35~36 i5~6
   recovery: r25
   block: '+3'
   hit: +14a
@@ -2167,6 +2255,9 @@ moves:
   tier: specialist
   tags:
   - spk
+  - stp
+  - intr
+  - chp
   - fs
   - chip
   - mid
@@ -2176,12 +2267,16 @@ moves:
 
     * Interrupt with i11 from 1st block
 
+    * Interrupt with i5 from 1st hit
+
+    * Whiffs vs SSR from 1st block
+
     * +14d on BT hit
 
     * Floating state 25~39'
 - id: ffp1p2
   source_id: Jun-f,F+1+2
-  source_index: 95
+  source_index: 94
   command: f,F+1+2
   name: Tokkei - Misogi
   hit_level: m
@@ -2194,6 +2289,7 @@ moves:
   tier: specialist
   tags:
   - bbr
+  - chp
   - balcony_break
   - parry
   - stance_transition
@@ -2201,17 +2297,42 @@ moves:
   - mid
   notes: '* Balcony Break
 
-    * 6 chip damage on block
-
     * Transition to +9, +26a (+16) GEN with F
 
     * Transition to +9, +26a (+16) MIA with B
+
+    * 20?f hitstop on hit
+
+    * 6 chip damage on block
 
     * Deals 6 damage to self (4 recoverable)
 
     * Non-limb attack, unparryable by Asuka, Nina, etc
 
     * Gain 8 Kazama Essence on normal hit and 6 on block or airborne hit'
+  transitions:
+  - GEN
+  - MIA
+- id: ub_b
+  source_id: Jun-UB,b
+  source_index: 95
+  command: ub,b
+  name: Back Handspring
+  hit_level: sp
+  damage: ''
+  startup: ''
+  recovery: r49
+  block: ''
+  hit: ''
+  counter_hit: ''
+  tier: specialist
+  tags:
+  - js
+  - fs
+  - low_crush
+  notes: '* Low crush 9~40
+
+    * Floating state 41~43'
 - id: f_ffp3
   source_id: Jun-f,f,F+3
   source_index: 96
@@ -2227,7 +2348,9 @@ moves:
   tier: specialist
   tags:
   - bbr
+  - chp
   - js
+  - fs
   - low_crush
   - balcony_break
   - chip
@@ -2238,7 +2361,7 @@ moves:
 
     * Low crush 3~30
 
-    * Low crush 31~33'
+    * Floating state 31~33'
 - id: ws1
   source_id: Jun-ws1
   source_index: 97
@@ -2273,11 +2396,18 @@ moves:
   - high
   notes: '* Elbow
 
-    * Combo from 1st hit
+    * Combo from 1st hit with 4F delay
 
     * Enter GEN +0 +11g r18 with F
 
-    * Enter MIA +0 +11g r18 with B'
+    * Enter MIA +0 +11g r18 with B
+
+    * Move cannot be delayed
+
+    * Input can be delayed by 4F'
+  transitions:
+  - GEN
+  - MIA
 - id: ws1_1_1
   source_id: Jun-ws1,1,1
   source_index: 99
@@ -2293,6 +2423,7 @@ moves:
   tier: specialist
   tags:
   - bbr
+  - intr
   - balcony_break
   - mid
   - high
@@ -2300,7 +2431,9 @@ moves:
 
     * Combo from 2nd CH with 4f delay
 
-    * Input can be delayed 14f'
+    * Interrupt with i6
+
+    * Move can be delayed by 14f'
 - id: ws1_1_2
   source_id: Jun-ws1,1,2
   source_index: 100
@@ -2411,6 +2544,8 @@ moves:
     * Combo from 2nd CH
 
     * High crush 17~'
+  transitions:
+  - FC
 - id: ws1_4_1p2
   source_id: Jun-ws1,4,1+2
   source_index: 104
@@ -2527,6 +2662,8 @@ moves:
   notes: '* Elbow
 
     * Cancel to r39 FC with D on frame 20'
+  transitions:
+  - FC
 - id: ws3p4
   source_id: Jun-ws3+4
   source_index: 110
@@ -2627,6 +2764,8 @@ moves:
     * Jail from 1st attack
 
     * Combo from 1st or 2nd hit'
+  transitions:
+  - FC
 - id: fc_dfp1
   source_id: Jun-FC.df+1
   source_index: 114
@@ -2634,7 +2773,7 @@ moves:
   name: Divine Exile - Earth
   hit_level: sl,m
   damage: 6,30
-  startup: i10 i25~26
+  startup: i10, i25~26
   recovery: r34 FC
   block: '-19'
   hit: +26a (+11)
@@ -2653,7 +2792,9 @@ moves:
 
     * Gain 10 Kazama Essence on normal hit and 7 on block or airborne hit
 
-    * High crush 1~'
+    * High crush 1~44'
+  transitions:
+  - FC
 - id: fc_dfp2
   source_id: Jun-FC.df+2
   source_index: 115
@@ -2671,9 +2812,9 @@ moves:
   - cs
   - high_crush
   - low
-  notes: 'Only i14 or faster attacks guaranteed on CH
-
-    * High crush 1~'
+  notes: '* High crush 1~46'
+  transitions:
+  - FC
 - id: fc_dfp3
   source_id: Jun-FC.df+3
   source_index: 116
@@ -2711,14 +2852,17 @@ moves:
   tier: specialist
   tags:
   - fs
+  - is
   - js
   - low_crush
   - mid
   notes: '* Floating state 5~13
 
-    * Low crush 14~33
+    * is8~13
 
-    * Floating state 34~36'
+    * Low crush 14~46
+
+    * Floating state 47~49'
 - id: gen_1
   source_id: Jun-GEN.1
   source_index: 118
@@ -2739,6 +2883,8 @@ moves:
   notes: '* Has good left sidestep tracking
 
     * High crush 11~'
+  transitions:
+  - FC
 - id: gen_2
   source_id: Jun-GEN.2
   source_index: 119
@@ -2753,7 +2899,6 @@ moves:
   counter_hit: ''
   tier: specialist
   tags:
-  - chp
   - pc
   - throw
   - power_crush
@@ -2855,6 +3000,9 @@ moves:
   notes: 'Enter GEN -6, +5 r18 with F
 
     Enter MIA -6, +5 r18 with B'
+  transitions:
+  - GEN
+  - MIA
 - id: izu_1_1
   source_id: Jun-IZU.1,1
   source_index: 124
@@ -2999,6 +3147,8 @@ moves:
   - high_crush
   - low
   notes: '* High crush 13~'
+  transitions:
+  - FC
 - id: izu_4_1
   source_id: Jun-IZU.4,1
   source_index: 129
@@ -3105,6 +3255,7 @@ moves:
   tier: specialist
   tags:
   - trn
+  - chp
   - tornado
   - parry
   - chip
@@ -3134,6 +3285,7 @@ moves:
   tags:
   - he
   - bbr
+  - chp
   - heat
   - balcony_break
   - parry
@@ -3190,6 +3342,8 @@ moves:
     * Gain 6 Kazama Essence on normal hit and 5 on block or airborne hit
 
     * High crush 8~21'
+  transitions:
+  - IZU
 - id: mia_f
   source_id: Jun-MIA.F
   source_index: 135
@@ -3209,11 +3363,16 @@ moves:
   - parry
   notes: '* Cancel to r34 FC with D on frame 16
 
+    * Stance moves can be delayed by 24F
+
     * Parries low punches or kicks
 
     * Parries throws
 
     * Parry state 1~40'
+  transitions:
+  - FC
+  - GEN
 - id: hfc_3p4
   source_id: Jun-hFC.3+4
   source_index: 136
@@ -3240,6 +3399,8 @@ moves:
     * Low crush 5~19
 
     * Floating state 20~22'
+  transitions:
+  - FC
 - id: hfc_3p4_3
   source_id: Jun-hFC.3+4,3
   source_index: 137
@@ -3254,6 +3415,8 @@ moves:
   counter_hit: ''
   tier: specialist
   tags:
+  - stp
+  - intr
   - js21~31
   - fs
   - low_crush
@@ -3261,9 +3424,15 @@ moves:
   - mid
   notes: '* Transition to r24 FC with D
 
+    * Interrupt with i11 from 1st block
+
+    * Whiffs vs SS from 1st block
+
     * Low crush ~21~31
 
     * Floating state 32~40'
+  transitions:
+  - FC
 - id: 1p3
   source_id: Jun-1+3
   source_index: 138

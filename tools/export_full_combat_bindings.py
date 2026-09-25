@@ -298,9 +298,11 @@ def stance_variants(lines: list[str], stances: set[str]) -> list[dict[str, objec
     variants = []
     for line in lines:
         lower = line.lower()
+        # Input timing ("... with F on frame 21 with 10F delay") is not a condition.
+        lower = re.sub(r"\s+on frame \d+(?:\s+with \d+f delay)?$", "", lower)
         if " on " in lower:  # conditional ("with D on whiff or block")
             continue
-        enter = re.match(r"enter ([a-z]+)\s+([+-]\d+[a-z]*)?,?\s*([+-]\d+[a-z]*)?\s*r(\d+)\s+wi+th\s+(\S+)$", lower)
+        enter = re.match(r"(?:enter|transition to) ([a-z]+)\s+([+-]\d+[a-z]*)?,?\s*([+-]\d+[a-z]*)?\s*r(\d+)\s+wi+th\s+(\S+)$", lower)
         advantage = re.match(r"transition to ([+-]\d+[a-z]*),\s*([+-]\d+[a-z]*)(?:\s*\([^)]*\))?\s+([a-z]+)\s+wi+th\s+(\S+)$", lower)
         crouch = re.match(r"transition(?: in)? to r?(\d+)\s+([a-z]+)\s+wi+th\s+(\S+)$", lower)
         plain = re.match(r"(?:enter|transition to) ([a-z]+)\s+wi+th\s+(\S+)$", lower)
@@ -468,7 +470,9 @@ def load_measurements(path: Path) -> dict[str, dict]:
     if not path.exists():
         return {}
     document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    return {str(key): dict(value or {}) for key, value in (document.get("moves") or {}).items()}
+    # Measurements marked stale by tools/patch_update.py (the move changed) count as missing.
+    return {str(key): dict(value or {}) for key, value in (document.get("moves") or {}).items()
+            if not (value or {}).get("stale")}
 
 
 def join(values) -> str:

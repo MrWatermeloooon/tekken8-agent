@@ -99,10 +99,10 @@ action contract, and feature dimensions.
 
 Core native training:
 
-- Windows 10 or 11
+- Windows 10 or 11 (Visual Studio 2022 with Desktop development with C++), or Linux (GCC 13 or
+  newer; tested on Ubuntu 24.04 under WSL2)
 - NVIDIA GPU
-- CUDA Toolkit 13.1 or a compatible toolkit
-- Visual Studio 2022 with Desktop development with C++
+- CUDA Toolkit 13.1 or a compatible toolkit (12.8 or newer for Blackwell's architecture 120)
 - CMake 3.24 or newer
 - Python 3.10 or newer
 
@@ -121,6 +121,17 @@ cmake --build build --config Release --parallel
 For another GPU, omit `-DCMAKE_CUDA_ARCHITECTURES=120` to use the repository defaults or provide
 the architecture matching that device.
 
+On Linux (single-configuration generator; the build directory may be outside the source tree):
+
+```bash
+cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CUDA_ARCHITECTURES=120
+cmake --build build --parallel
+```
+
+With an older toolkit that predates architecture 120 (for example Ubuntu's CUDA 12.0), build
+`-DCMAKE_CUDA_ARCHITECTURES=89` (PTX, compiled for the GPU by the driver at load time) and add
+`-DCMAKE_CUDA_FLAGS=-allow-unsupported-compiler` if nvcc rejects the GCC version.
+
 Install the Python development environment:
 
 ```powershell
@@ -133,6 +144,10 @@ python -m pip install -e ".[dev]"
 ctest --test-dir build -C Release --output-on-failure
 python -m pytest tests -q
 ```
+
+Tests that need an NVIDIA GPU carry the CTest label `gpu`; on a machine without one run
+`ctest --test-dir build -LE gpu`. The pytest-based native test is registered only when the
+configured Python has pytest, numpy, and PyYAML.
 
 The native suite covers scalar behavior, CUDA parity, policy inference, PPO updates, exact resume,
 catalog loading, full-combat mechanics, and headless visualization. The Python suite covers move
@@ -212,6 +227,14 @@ powershell -NoProfile -ExecutionPolicy Bypass `
   -File scripts\start_full_training.ps1 `
   -RunDir runs\jun_visual_2027 `
   -Seed 2027
+```
+
+On any platform (the PowerShell scripts are wrappers around it):
+
+```bash
+python scripts/training.py start --run-dir runs/jun_visual_2027 --seed 2027
+python scripts/training.py run --run-dir runs/overnight --envs 32768 --minibatch 131072 --updates 12000
+python scripts/training.py status --run-dir runs/overnight
 ```
 
 Equivalent native command:
@@ -447,9 +470,22 @@ validation required for promotion.
   reloads.
 - [ ] Mix scripted roster opponents and more past checkpoints into self-play; it is currently a
   Jun mirror against two opponents for 99.8% of updates.
+  **Implemented, evaluation running:** `--league-scripted-share` (scripted roster updates in
+  contiguous blocks of `--league-block-updates`, default 50) and `--league-pool-size` (the older
+  self-play slot rotates through the top side-balanced older checkpoints). Off by default.
 - [ ] Lengthen the curriculum: `--curriculum-updates 100` gave stages 1–3 only 75 updates.
+  **Evaluation running** with `--curriculum-updates 2000` (500 updates per stage).
 - [ ] Add a per-choice entropy floor or target; every checkpoint after update 100 is
   near-deterministic (0.03–0.3 nats of a possible 3.18) and uses mostly two actions.
+  **Implemented, evaluation running:** `--entropy-target` raises the entropy bonus (up to
+  `--max-entropy-coefficient`) while the rollout policy's per-choice entropy is below the target.
+  That entropy (`rollout_decision_entropy` in the metrics) is now reduced in a fixed order on the
+  GPU: the atomic sum behind `decision_entropy` differs between runs in the last bits, which broke
+  exact resume once it steered training. Trainer state format 8 stores the controller; formats 6
+  and 7 still resume.
+  A/B test: `runs/stability_ab_2026-09-24` (curriculum 2000, scripted share 0.3, pool 4, entropy
+  target 1.0) against the baseline `runs/overnight_test_2026-09-23` (same seed and settings, which
+  the regression guard paused at update 1,100 after peaking at 92% at update 200).
 - [x] Re-evaluate why checkpoint 100 remains the best older opponent after 70 evaluations.
   1,024-episode re-probes show it was genuinely the best from update 300 to 11,700 (the dash
   regime). The one miss was the stronger update 200, which lost by a single game to 256-episode
@@ -490,21 +526,30 @@ validation required for promotion.
 - [ ] Complete offline input-history validation for all 6,393 sourced commands.
 - [ ] Collect and validate Bob's move table manually if no reusable current source appears.
 - [ ] Keep Roger Jr. disabled until the fighter is released and validated data exists.
-- [ ] Add a patch-update workflow that diffs move changes and invalidates affected validations.
-  Needed already: the saved Jun snapshot (retrieved 2026-07-21) differs from current TekkenDocs.
-  For example, the Wall Jump's low crush is 14~33 in the snapshot and 14~46 now, and it now has
-  intangibility 8~13.
+- [x] Add a patch-update workflow that diffs move changes and invalidates affected validations.
+  `tools/patch_update.py <slug> --fetch` diffs the live TekkenDocs data against the saved snapshot
+  (dry run); `--apply` archives the old snapshot, writes the new one, and marks dependents stale:
+  Practice validations and measurements of changed moves, scenario gates, route gates whose routes
+  use a changed move, and corrections whose corrected field changed upstream (`needs_review`, which
+  stops catalog compilation until reviewed, or `resolved_upstream`). Stable move IDs are now pinned
+  to source keys in `data/identity/<slug>.json`, so inserted or removed source moves never renumber
+  the others (the catalog hash is unchanged by this). The importer also handles the newer API
+  format (`recovery` + `recoveryState`, dictionary tags), which would otherwise have dropped every
+  stance ending. A dry run for Jun on 2026-09-23 found 35 changed moves (for example 1,1 recovery
+  r28 to r20, Wall Jump low crush 14~46 with intangibility 8~13, and new frame data for 3,1 and
+  UB,b); it was applied the same day (record in `data/patches/jun/2026-09-23.json`, old snapshot in
+  `data/characters/history/jun/`). TekkenDocs had renumbered 7 Jun moves; their stable IDs held.
 
 ### Full-move combat engine
 
 - [x] Bind validated Jun catalog records to the scalar full-combat oracle.
   `tools/export_full_combat_bindings.py` feeds `include/t8_v2/full_combat_binding.hpp`, which
   lists every blocker per move. Strict binding: 0 of 149 (Practice validation and measurements
-  pending). With stand-in geometry, 156 of 164 rows bind (149 moves plus 15 stance branches;
-  parry outcomes, stance entries, attack throws, situational moves, and Ki Charge included),
-  and the engine reproduces the catalog's block advantage exactly for 130 of them and hit
-  advantage for 41. The other 8 lack source frame data (3,1, MIA.1+2, UB,b, b+1+3, and the
-  back and side throws). The whole roster's 6,605 rows bind without errors.
+  pending). With stand-in geometry, 158 of 164 rows bind (149 moves plus 15 stance branches;
+  parry outcomes, stance entries, movement, attack throws, situational moves, and Ki Charge
+  included), and the engine reproduces the catalog's block advantage exactly for 131 of them and
+  hit advantage for 41. The other 6 lack source frame data (MIA.1+2, b+1+3, the back and side
+  throws). The whole roster's 6,622 rows bind without errors.
 - [x] Implement exact hitboxes/ranges, active windows, movement, axis, collision, and pushback.
   Frame-stepped engine `include/t8_v2/full_combat_engine.hpp`. Hitboxes are modeled as reach,
   lateral tracking, and height class (not 3D volumes); exactness per move depends on the
@@ -617,9 +662,20 @@ validation required for promotion.
 
 ### Later: Linux support
 
-- [ ] Add supported Linux builds for the native CUDA simulator, PPO trainer, tests, and benchmarks.
-- [ ] Replace Windows-only PowerShell and batch launchers with cross-platform orchestration.
-- [ ] Add Linux CI for compiler, CUDA, catalog, and checkpoint-contract coverage.
+- [x] Add supported Linux builds for the native CUDA simulator, PPO trainer, tests, and benchmarks.
+  Builds warning-free with GCC 13 and nvcc under WSL2 (Ubuntu 24.04); the full native suite,
+  including the GPU tests and exact resume, passes on Linux. Checkpoint files are atomically
+  replaced and flushed (`fsync`) on POSIX, and the trainer finds `data/generated` from builds
+  outside the source tree.
+- [x] Replace Windows-only PowerShell and batch launchers with cross-platform orchestration.
+  `scripts/training.py` (`run`, `start`, `stop`, `status`, `seed-matrix`, `phase0`, `visualize`)
+  prevents sleep with SetThreadExecutionState, systemd-inhibit, or caffeinate and picks the most
+  recently built trainer; the `.ps1`/`.bat` files are now thin wrappers with their old parameters.
+  The exact-resume test is `tests/resume_smoke.py` on every platform.
+- [x] Add Linux CI for compiler, CUDA, catalog, and checkpoint-contract coverage.
+  `.github/workflows/linux.yml`: CUDA 12.8 container build with warnings as errors, `ctest -LE gpu`,
+  the Python suite (including checkpoint-contract tests), and a check that the committed generated
+  data rebuilds identically. Not yet run on GitHub (it runs once pushed); GPU tests stay local.
 - [ ] Investigate Linux screen capture and virtual-controller support after native training is
   portable; the current live runtime depends on Windows-specific DXcam and ViGEm components.
 

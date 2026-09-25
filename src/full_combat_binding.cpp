@@ -250,9 +250,11 @@ std::vector<FullBoundMove> bind_full_combat_moves(
         // Parry outcomes bind as reactive moves the engine plays; they need no startup or recovery.
         const bool reactive = row.reactive;
         // Stance entries ("b+1+2", r10 MIA) have no hits: only recovery and the state they lead to.
-        const bool stance_entry = !reactive && row.hit_levels.empty() && row.damages.empty() && row.recovery &&
-            (!row.result_stance.empty() || row.result_crouching || row.result_back_turned || !row.parry.empty() ||
-             row.ki_charge);
+        // Moves without hits: stance entries ("b+1+2", r10 MIA), Ki Charge, and evasive movement
+        // ("UB,b", hit level "sp" = special, r49 with crush and floating windows).
+        const bool no_hit_levels = std::all_of(row.hit_levels.begin(), row.hit_levels.end(),
+                                               [](const std::string& level) { return level == "sp"; });
+        const bool stance_entry = !reactive && no_hit_levels && row.damages.empty() && row.recovery.has_value();
         if (row.requires_running) blockers.push_back("running state not modeled");
         if (row.parser_status != "parsed") blockers.push_back("command notation unresolved");
         if (row.source_consistency != "valid") blockers.push_back("source frame data inconsistent");
@@ -307,6 +309,7 @@ std::vector<FullBoundMove> bind_full_combat_moves(
 
         std::vector<FullHitLevel> levels;
         for (const auto& text : row.hit_levels) {
+            if (stance_entry && text == "sp") continue;
             const auto level = hit_level(text);
             if (level) levels.push_back(*level);
             else blockers.push_back("unsupported hit level: " + text);

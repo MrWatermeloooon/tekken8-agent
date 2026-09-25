@@ -55,9 +55,12 @@ def test_full_catalog_contains_every_imported_source_row(tmp_path):
     assert len(catalog.moves) == 6393
     assert sum(character["move_count"] for character in catalog.characters) == 6393
     assert len({move["stable_id"] for move in catalog.moves}) == 6393
+    # Stable IDs come from the identity registries, not the source's move numbers (which can shift).
     slugs = {character["id"]: character["slug"] for character in catalog.characters}
+    registries = {slug: json.loads((REPO_ROOT / "data" / "identity" / f"{slug}.json").read_text(encoding="utf-8"))
+                  for slug in slugs.values()}
     assert all(
-        move["stable_id"] == f'{slugs[move["character_id"]]}:{move["source_index"]}'
+        int(move["stable_id"].split(":")[1]) in registries[slugs[move["character_id"]]]["moves"].values()
         for move in catalog.moves
     )
     assert all(len(move["action_features"]) == ACTION_FEATURE_SIZE for move in catalog.moves)

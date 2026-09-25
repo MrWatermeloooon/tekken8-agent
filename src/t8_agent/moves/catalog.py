@@ -10,6 +10,7 @@ from typing import Any
 import yaml
 
 from .notation import SITUATIONAL_REQUIREMENTS, parse_command
+from .identity import load_identity, stable_numbers
 
 
 CATALOG_SCHEMA_VERSION = 2
@@ -46,6 +47,10 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
         source = _read_yaml(source_path)
         source_moves = list(source.get("moves") or [])
         corrections = _load_corrections(root / "corrections" / f"{slug}.yaml", source_moves)
+        registry = load_identity(root, slug)
+        if registry is None and source_moves:
+            raise ValueError(f"{slug}: missing move identity registry (tools/patch_update.py --bootstrap)")
+        numbers = stable_numbers(slug, source_moves, registry) if source_moves else []
         stances = [str(value) for value in source.get("stances") or []]
         offset = len(moves)
         parsed_count = 0
@@ -54,7 +59,7 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
             correction = corrections.get(str(row.get("source_id") or ""))
             if correction:
                 row = {**row, **correction["fields"]}
-            compiled = _compile_move(character_id, slug, local_id, row, source, set(stances))
+            compiled = _compile_move(character_id, slug, local_id, row, source, set(stances), numbers[local_id])
             if correction:
                 compiled["validation"]["source"] = "imported+corrected"
                 compiled["corrections"] = {key: correction[key] for key in
@@ -128,13 +133,23 @@ def _load_corrections(path: Path, source_moves: list[dict[str, Any]]) -> dict[st
     if not path.exists():
         return {}
     document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    known = {str(row.get("source_id")) for row in source_moves}
+    rows = {str(row.get("source_id")): row for row in source_moves}
     result: dict[str, dict[str, Any]] = {}
     for entry in document.get("corrections") or []:
         source_id = str(entry.get("source_id", ""))
         fields = dict(entry.get("fields") or {})
-        if source_id not in known:
+        status = str(entry.get("status", "pending_practice"))
+        if status == "resolved_upstream":
+            continue  # the source now carries the corrected value (tools/patch_update.py)
+        if status == "needs_review":
+            raise ValueError(f"correction for {source_id!r} in {path} needs review after a source update: "
+                             f"{entry.get('upstream_change', '')}")
+        if source_id not in rows:
             raise ValueError(f"correction for unknown source_id {source_id!r} in {path}")
+        for field, value in (entry.get("source_fields") or {}).items():
+            if str(rows[source_id].get(field) or "") != str(value):
+                raise ValueError(f"correction for {source_id!r} in {path} was written against {field}={value!r}, "
+                                 f"but the source now reads {rows[source_id].get(field)!r}")
         if source_id in result:
             raise ValueError(f"duplicate correction for {source_id!r} in {path}")
         if not fields or not set(fields) <= _CORRECTABLE_FIELDS:
@@ -156,12 +171,12 @@ def write_catalog(catalog: CompiledMoveCatalog, path: str | Path) -> None:
 
 
 def _compile_move(character_id: int, slug: str, local_id: int, row: dict[str, Any],
-                  source: dict[str, Any], stances: set[str]) -> dict[str, Any]:
+                  source: dict[str, Any], stances: set[str], stable_number: int) -> dict[str, Any]:
     command_raw = str(row.get("command", "")).strip()
     command = parse_command(command_raw, stances)
     source_key = str(row.get("source_id") or row.get("id") or local_id)
     source_index = int(row["source_index"]) if row.get("source_index") is not None else local_id
-    stable_id = f"{slug}:{source_index}"
+    stable_id = f"{slug}:{stable_number}"
     levels = _parse_hit_levels(row.get("hit_level"))
     damage = _parse_number_sequence(row.get("damage"))
     startup = _parse_range(row.get("startup"), "i")

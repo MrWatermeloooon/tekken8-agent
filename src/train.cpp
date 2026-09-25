@@ -36,6 +36,9 @@
 #define WIN32_LEAN_AND_MEAN
 #define NOMINMAX
 #include <windows.h>
+#else
+#include <fcntl.h>
+#include <unistd.h>
 #endif
 
 namespace {
@@ -94,6 +97,16 @@ struct Options {
     float regression_max_side_gap = 0.20F;
     std::uint32_t regression_patience = 3;
     std::uint32_t regression_max_rollbacks = 2;
+    // Self-play stability (all off by default, which reproduces earlier runs exactly):
+    // a share of league updates against scripted roster opponents, a pool of the top
+    // older checkpoints for the "older" self-play slot, and an entropy floor that raises
+    // the entropy bonus while per-choice entropy is below a target.
+    float league_scripted_share = 0.0F;
+    std::uint32_t league_block_updates = 50;
+    std::uint32_t league_pool_size = 1;
+    float entropy_target = 0.0F;          // nats per choice decision; 0 = off
+    float entropy_target_gain = 0.5F;     // multiplicative response per nat of shortfall
+    float max_entropy_coefficient = 0.1F;
     std::filesystem::path probe_checkpoint;
     std::size_t probe_episodes = 1024;
 };
@@ -227,6 +240,18 @@ Options parse_options(int argc, char** argv) {
         } else if (argument == "--regression-patience") {
             options.regression_patience = static_cast<std::uint32_t>(
                 std::min<std::size_t>(parse_size(next(), argument), 1'000'000));
+        } else if (argument == "--league-scripted-share") {
+            options.league_scripted_share = std::stof(next());
+        } else if (argument == "--league-block-updates") {
+            options.league_block_updates = static_cast<std::uint32_t>(parse_size(next(), argument));
+        } else if (argument == "--league-pool-size") {
+            options.league_pool_size = static_cast<std::uint32_t>(parse_size(next(), argument));
+        } else if (argument == "--entropy-target") {
+            options.entropy_target = std::stof(next());
+        } else if (argument == "--entropy-target-gain") {
+            options.entropy_target_gain = std::stof(next());
+        } else if (argument == "--max-entropy-coefficient") {
+            options.max_entropy_coefficient = std::stof(next());
         } else if (argument == "--regression-max-rollbacks") {
             options.regression_max_rollbacks = static_cast<std::uint32_t>(
                 std::min<unsigned long long>(std::stoull(next()), 1'000'000));
@@ -283,6 +308,18 @@ Options parse_options(int argc, char** argv) {
     if (!unit_interval(options.regression_score_drop) || !unit_interval(options.regression_style_drop) ||
         !unit_interval(options.regression_max_side_gap)) {
         throw std::invalid_argument("--regression-* drops and side gap must be in [0, 1]");
+    }
+    if (!unit_interval(options.league_scripted_share) || options.league_pool_size < 1 ||
+        options.league_pool_size > 64 || options.league_block_updates < 1) {
+        throw std::invalid_argument("--league-scripted-share must be in [0, 1], --league-pool-size in [1, 64], "
+                                    "and --league-block-updates positive");
+    }
+    if (!std::isfinite(options.entropy_target) || options.entropy_target < 0.0F || options.entropy_target > 4.0F ||
+        !std::isfinite(options.entropy_target_gain) || options.entropy_target_gain < 0.0F ||
+        options.entropy_target_gain > 10.0F || !std::isfinite(options.max_entropy_coefficient) ||
+        options.max_entropy_coefficient < std::max(options.entropy_coefficient, options.final_entropy_coefficient)) {
+        throw std::invalid_argument("--entropy-target must be in [0, 4], --entropy-target-gain in [0, 10], and "
+                                    "--max-entropy-coefficient at least the scheduled entropy coefficient");
     }
     if (options.screen_observations && !options.full_roster) {
         throw std::invalid_argument("--observation-mode screen requires --opponents roster (the temporal encoder carries the uncertainty inputs)");
@@ -449,7 +486,8 @@ std::optional<SelfPlaySelection> select_self_play_checkpoint(
     EvaluationLedger& ledger,
     std::size_t current_update,
     double max_side_gap,
-    double tie_band_standard_errors) {
+    double tie_band_standard_errors,
+    std::size_t pool_size = 1) {
     struct Candidate {
         std::filesystem::path checkpoint;
         std::size_t update = 0;
@@ -476,7 +514,7 @@ std::optional<SelfPlaySelection> select_self_play_checkpoint(
     Candidate best = latest;
     if (candidates.size() == 1) {
         return SelfPlaySelection{
-            latest.checkpoint, latest.checkpoint, latest.update, latest.update};
+            latest.checkpoint, latest.checkpoint, latest.update, latest.update, std::nullopt, false};
     }
 
     const auto& records = ledger.refresh();
@@ -523,10 +561,45 @@ std::optional<SelfPlaySelection> select_self_play_checkpoint(
     }
     if (promoted) best = *promoted;
     else best = candidates[candidates.size() - 2];
+    if (pool_size > 1 && promoted) {
+        // Rotate the older slot through the top pool_size side-balanced older checkpoints
+        // (the promoted one first), changing every 10 updates so each is loaded once per turn.
+        std::vector<std::pair<double, const Candidate*>> pool;
+        for (const auto& candidate : candidates) {
+            if (candidate.update == latest.update || candidate.update == promoted->update) continue;
+            const auto found = records.find(candidate.update);
+            if (found == records.end() || found->second.side_gap() > max_side_gap + 1e-9) continue;
+            pool.emplace_back(found->second.win_rate, &candidate);
+        }
+        std::stable_sort(pool.begin(), pool.end(), [](const auto& left, const auto& right) {
+            return left.first > right.first || (left.first == right.first && left.second->update > right.second->update);
+        });
+        std::vector<const Candidate*> members = {promoted};
+        for (const auto& [score, candidate] : pool) {
+            if (members.size() >= pool_size) break;
+            members.push_back(candidate);
+        }
+        const auto* chosen = members[(current_update / 10) % members.size()];
+        best = *chosen;
+        promoted_record = &records.find(chosen->update)->second;
+    }
     return SelfPlaySelection{
         latest.checkpoint, best.checkpoint, latest.update, best.update,
         promoted_record ? std::optional<double>(promoted_record->side_gap()) : std::nullopt,
         promoted_record != nullptr && promoted_record->side_gap() > max_side_gap + 1e-9};
+}
+
+// Whether a league update trains against scripted roster opponents instead of
+// self-play. Scripted updates come in contiguous blocks (the first share of every
+// --league-block-updates updates): switching opponents resets every lane, and
+// rounds outlast one update, so switching per update would keep rounds from ever
+// finishing. A function of the update alone, so exact resume reproduces it.
+bool league_update_is_scripted(const Options& options, std::size_t update) {
+    if (options.league_scripted_share <= 0.0F) return false;
+    const std::size_t block = options.league_block_updates;
+    const auto scripted = static_cast<std::size_t>(
+        std::lround(static_cast<double>(options.league_scripted_share) * static_cast<double>(block)));
+    return (update - 1) % block < scripted;
 }
 
 // Feeds one update's scripted-opponent outcomes ([profile][win, loss, draw])
@@ -568,9 +641,16 @@ std::filesystem::path resolve_generated_catalog(
     const std::filesystem::path& filename,
     const char* executable) {
     if (std::filesystem::exists(requested)) return requested;
+    // Multi-config generators (Visual Studio) put the executable in build/<Config>/,
+    // single-config generators (Makefiles, Ninja on Linux) in build/.
+    const auto executable_directory = std::filesystem::absolute(executable).parent_path();
     const std::array candidates = {
         std::filesystem::current_path().parent_path() / filename,
-        std::filesystem::absolute(executable).parent_path().parent_path().parent_path() / filename,
+        executable_directory.parent_path().parent_path() / filename,
+        executable_directory.parent_path() / filename,
+#ifdef T8_V2_SOURCE_DIR
+        std::filesystem::path(T8_V2_SOURCE_DIR) / filename,  // builds outside the source tree
+#endif
     };
     for (const auto& candidate : candidates) {
         if (std::filesystem::exists(candidate)) return candidate;
@@ -947,7 +1027,17 @@ void replace_file_atomically(const std::filesystem::path& temporary, const std::
             std::to_string(replace_error) + "): " + path.string());
     }
 #else
+    // rename(2) is atomic; flush the file first and the directory after, so a crash or power
+    // loss leaves either the old or the new file, never an empty one.
+    const auto sync = [](const std::filesystem::path& target, int flags) {
+        const int descriptor = ::open(target.c_str(), flags);
+        if (descriptor < 0) return;
+        ::fsync(descriptor);
+        ::close(descriptor);
+    };
+    sync(temporary, O_RDONLY);
     std::filesystem::rename(temporary, path);
+    sync(path.parent_path().empty() ? std::filesystem::path(".") : path.parent_path(), O_RDONLY | O_DIRECTORY);
 #endif
 }
 
@@ -964,7 +1054,8 @@ void append_metrics(
     const std::optional<SelfPlaySelection>& self_play_selection,
     std::optional<float> return_standard_deviation,
     std::uint64_t observation_normalizer_count,
-    const std::optional<GuardDecision>& guard_decision) {
+    const std::optional<GuardDecision>& guard_decision,
+    float entropy_coefficient) {
     std::ostringstream row;
     row << std::setprecision(9)
            << "{\"update\":" << update
@@ -984,6 +1075,8 @@ void append_metrics(
            << ",\"kl_early_stop\":" << (metrics.early_stopped ? "true" : "false")
            << ",\"decision_fraction\":" << metrics.decision_fraction
            << ",\"decision_entropy\":" << metrics.decision_entropy
+           << ",\"rollout_decision_entropy\":" << metrics.rollout_decision_entropy
+           << ",\"entropy_coefficient\":" << entropy_coefficient
            << ",\"training_opponent\":\""
            << (self_play_selection ? "self_play_80_latest_20_best" : "scripted")
            << '"'
@@ -1225,6 +1318,7 @@ struct ResumeState {
     std::optional<t8::v2::TemporalEncoderState> self_play_temporal_state;
     std::optional<t8::v2::ReturnNormalizerState> return_normalizer;
     RegressionGuardState guard;
+    float entropy_boost = 1.0F;
 };
 
 template <typename T>
@@ -1336,7 +1430,8 @@ void save_trainer_state(
     bool self_play_active = false,
     const t8::v2::TemporalEncoderState* self_play_temporal_state = nullptr,
     const t8::v2::ReturnNormalizerState* return_normalizer = nullptr,
-    const RegressionGuardState& guard = {}) {
+    const RegressionGuardState& guard = {},
+    float entropy_boost = 1.0F) {
     if (options.return_normalization && return_normalizer == nullptr) {
         throw std::invalid_argument("return-normalized trainer state is missing normalizer statistics");
     }
@@ -1351,7 +1446,7 @@ void save_trainer_state(
     if (!output) throw std::runtime_error("could not write trainer state: " + temporary.string());
     constexpr std::array<char, 8> magic = {'T', '8', 'R', 'U', 'N', 'V', '2', '\0'};
     output.write(magic.data(), static_cast<std::streamsize>(magic.size()));
-    write_value(output, std::uint32_t{7});
+    write_value(output, std::uint32_t{8});
     write_value(output, static_cast<std::uint64_t>(completed_update));
     write_value(output, environment_steps);
     write_value(output, elapsed_seconds);
@@ -1462,6 +1557,13 @@ void save_trainer_state(
         write_value(output, return_normalizer->variance);
         write_vector(output, std::span<const float>(return_normalizer->discounted_returns));
     }
+    write_value(output, options.league_scripted_share);
+    write_value(output, options.league_block_updates);
+    write_value(output, options.league_pool_size);
+    write_value(output, options.entropy_target);
+    write_value(output, options.entropy_target_gain);
+    write_value(output, options.max_entropy_coefficient);
+    write_value(output, entropy_boost);
     output.flush();
     if (!output) throw std::runtime_error("trainer-state write failed: " + temporary.string());
     output.close();
@@ -1480,7 +1582,7 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
             "legacy trainer state is incompatible with the full-roster move contract: " +
             path.string());
     }
-    if (!input || magic != expected_magic || (version != 6 && version != 7)) {
+    if (!input || magic != expected_magic || version < 6 || version > 8) {
         throw std::runtime_error("unsupported trainer state: " + path.string());
     }
     ResumeState result{};
@@ -1526,7 +1628,7 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     const auto state_count = read_value<std::uint64_t>(input, path);
     const auto current_catalog = options.full_roster
         ? t8::v2::load_full_move_catalog_csv(options.full_move_catalog)
-        : t8::v2::FullMoveCatalog{0, std::string(64, '0'), "compatibility"};
+        : t8::v2::FullMoveCatalog{0, std::string(64, '0'), "compatibility", {}, {}, {}};
     const bool extended_ppo_mismatch = version >= 4 &&
         (final_learning_rate != options.final_learning_rate ||
          anneal_updates != options.anneal_updates ||
@@ -1680,6 +1782,32 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
             throw std::runtime_error("trainer-state return normalizer lane count mismatch: " + path.string());
         }
         result.return_normalizer = std::move(normalizer);
+    }
+    // Versions 6 and 7 predate the stability options (all off).
+    if (version >= 8) {
+        const float scripted_share = read_value<float>(input, path);
+        const std::uint32_t block_updates = read_value<std::uint32_t>(input, path);
+        const std::uint32_t pool_size = read_value<std::uint32_t>(input, path);
+        const float entropy_target = read_value<float>(input, path);
+        const float entropy_gain = read_value<float>(input, path);
+        const float max_entropy = read_value<float>(input, path);
+        result.entropy_boost = read_value<float>(input, path);
+        if (scripted_share != options.league_scripted_share || block_updates != options.league_block_updates ||
+            pool_size != options.league_pool_size ||
+            entropy_target != options.entropy_target || entropy_gain != options.entropy_target_gain ||
+            max_entropy != options.max_entropy_coefficient) {
+            throw std::runtime_error(
+                "resume options do not match saved trainer state (saved: --league-scripted-share " +
+                std::to_string(scripted_share) + " --league-block-updates " + std::to_string(block_updates) +
+                " --league-pool-size " + std::to_string(pool_size) +
+                " --entropy-target " + std::to_string(entropy_target) + " --entropy-target-gain " +
+                std::to_string(entropy_gain) + " --max-entropy-coefficient " + std::to_string(max_entropy) +
+                "): " + path.string());
+        }
+    } else if (options.league_scripted_share != 0.0F || options.league_pool_size != 1 ||
+               options.entropy_target != 0.0F || options.league_block_updates != 50) {
+        throw std::runtime_error("this trainer state predates the self-play stability options; resume without them: " +
+                                 path.string());
     }
     char trailing = 0;
     if (input.read(&trailing, 1)) {
@@ -1966,6 +2094,9 @@ int main(int argc, char** argv) {
         const std::size_t first_update = resume_state ? resume_state->completed_update + 1 : 1;
         EvaluationLedger evaluation_ledger(metrics_path);
         RegressionGuardState regression_guard = resume_state ? resume_state->guard : RegressionGuardState{};
+        // Entropy floor: multiplier on the scheduled entropy coefficient, raised while
+        // per-choice entropy is below --entropy-target and relaxed back toward 1 above it.
+        float entropy_boost = resume_state ? resume_state->entropy_boost : 1.0F;
         // Opponent weights only change when a new checkpoint is selected;
         // reloading identical files each update is pure overhead.
         std::filesystem::path loaded_latest_checkpoint;
@@ -1978,10 +2109,11 @@ int main(int argc, char** argv) {
             if (options.full_roster) {
                 const auto [stage, group_mask] = curriculum_for_update(options, update);
                 matchup_scheduler->set_stage(stage, group_mask);
-                if (stage == t8::v2::CurriculumStage::AdversarialLeague) {
+                if (stage == t8::v2::CurriculumStage::AdversarialLeague &&
+                    !league_update_is_scripted(options, update)) {
                     self_play_selection = select_self_play_checkpoint(
                         options.run_directory / "checkpoints", evaluation_ledger, update,
-                        options.promotion_max_side_gap, options.promotion_tie_band);
+                        options.promotion_max_side_gap, options.promotion_tie_band, options.league_pool_size);
                     use_self_play = self_play_selection.has_value();
                 }
                 if (use_self_play) {
@@ -2135,10 +2267,18 @@ int main(int argc, char** argv) {
                                    static_cast<float>(options.anneal_updates - 1));
             update_config.learning_rate = options.learning_rate +
                 (options.final_learning_rate - options.learning_rate) * schedule_progress;
-            update_config.entropy_coefficient = options.entropy_coefficient +
+            // The schedule is a floor; the entropy target can only raise it.
+            const float scheduled_entropy = options.entropy_coefficient +
                 (options.final_entropy_coefficient - options.entropy_coefficient) * schedule_progress;
+            update_config.entropy_coefficient = std::min(options.max_entropy_coefficient, entropy_boost * scheduled_entropy);
             const auto metrics = learner.update_ppo(
                 rollout.device_view(), update_config, options.seed + update * 10'000);
+            if (options.entropy_target > 0.0F && std::isfinite(metrics.rollout_decision_entropy)) {
+                entropy_boost *= std::exp(options.entropy_target_gain *
+                                          (options.entropy_target - metrics.rollout_decision_entropy));
+                const float ceiling = options.max_entropy_coefficient / std::max(scheduled_entropy, 1e-8F);
+                entropy_boost = std::clamp(entropy_boost, 1.0F, std::max(1.0F, ceiling));
+            }
             if (options.full_roster && !use_self_play) {
                 record_training_outcomes(
                     *matchup_scheduler, side_router.take_outcome_tally(opponent.profile_count()));
@@ -2181,7 +2321,7 @@ int main(int argc, char** argv) {
             append_metrics(metrics_path, update, environment_steps, reward_mode, observation_mode,
                            metrics, elapsed, deterministic_evaluation, stochastic_evaluation,
                            self_play_selection, return_standard_deviation,
-                           learner.observation_count(), guard_decision);
+                           learner.observation_count(), guard_decision, update_config.entropy_coefficient);
             if (deterministic_evaluation) {
                 export_evaluation(options.run_directory, update, environment_steps, elapsed,
                                   *deterministic_evaluation, *stochastic_evaluation,
@@ -2208,12 +2348,13 @@ int main(int argc, char** argv) {
                         matchup_scheduler->all_stats(), matchup_scheduler->random_state(),
                         &temporal_state, learner_actions, self_play_active,
                         opponent_temporal_state ? &*opponent_temporal_state : nullptr,
-                        return_normalizer ? &*return_normalizer : nullptr, regression_guard);
+                        return_normalizer ? &*return_normalizer : nullptr, regression_guard, entropy_boost);
                 } else {
                     save_trainer_state(
                         trainer_state_path(checkpoint), options, update, environment_steps,
                         elapsed, simulator.download_states(), {}, {}, {}, 0, nullptr, {}, false,
-                        nullptr, return_normalizer ? &*return_normalizer : nullptr, regression_guard);
+                        nullptr, return_normalizer ? &*return_normalizer : nullptr, regression_guard,
+                        entropy_boost);
                 }
             }
             if (guard_decision && guard_decision->action != GuardAction::None) {

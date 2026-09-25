@@ -4,6 +4,8 @@ corrections:
 - source_id: Jun-IZU.3
   fields:
     startup: i15~16 i14~15
+  source_fields:  # the imported values replaced, so a source update that changes them is detected
+    startup: i16~15 i14~15
   reason: >-
     Both TekkenDocs and Wavu list the first hit as "i16~15" (endpoints 15 and
     16 written in descending order), which the importer rejects as a

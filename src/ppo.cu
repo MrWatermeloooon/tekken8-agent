@@ -434,7 +434,11 @@ __global__ void ppo_output_gradient_kernel(
     float value_coefficient,
     float entropy_coefficient,
     float* output_gradients,
-    float* metric_sums) {
+    float* metric_sums,
+    float* sample_entropy = nullptr,           // [rollout sample] entropy, first epoch only
+    std::uint8_t* sample_decision = nullptr,   // [rollout sample] 1 if more than one action was legal
+    const std::size_t* permutation = nullptr,  // minibatch lane -> rollout sample
+    std::size_t batch_offset = 0) {
     const std::size_t lane = blockIdx.x * blockDim.x + threadIdx.x;
     if (lane >= batch_size) return;
     const int width = action_count + 1;
@@ -521,6 +525,45 @@ __global__ void ppo_output_gradient_kernel(
     if (legal_count > 1) {
         atomicAdd(metric_sums + 6, 1.0F);
         atomicAdd(metric_sums + 7, entropy);
+    }
+    if (sample_entropy != nullptr) {
+        const std::size_t sample = permutation[batch_offset + lane];
+        sample_entropy[sample] = entropy;
+        sample_decision[sample] = legal_count > 1 ? 1 : 0;
+    }
+}
+
+// Sums the per-sample entropy of decision samples in a fixed order (one block,
+// strided per thread, then a fixed tree), so the result is bit-reproducible;
+// atomicAdd order is not, and this value feeds back into training (the entropy target).
+__global__ void deterministic_decision_entropy_kernel(
+    const float* sample_entropy,
+    const std::uint8_t* sample_decision,
+    std::size_t count,
+    float* result) {  // [entropy sum, decision count]
+    __shared__ double entropy_sums[kThreads];
+    __shared__ double decision_counts[kThreads];
+    double entropy_sum = 0.0;
+    double decisions = 0.0;
+    for (std::size_t index = threadIdx.x; index < count; index += blockDim.x) {
+        if (sample_decision[index]) {
+            entropy_sum += sample_entropy[index];
+            decisions += 1.0;
+        }
+    }
+    entropy_sums[threadIdx.x] = entropy_sum;
+    decision_counts[threadIdx.x] = decisions;
+    __syncthreads();
+    for (unsigned stride = blockDim.x / 2; stride > 0; stride /= 2) {
+        if (threadIdx.x < stride) {
+            entropy_sums[threadIdx.x] += entropy_sums[threadIdx.x + stride];
+            decision_counts[threadIdx.x] += decision_counts[threadIdx.x + stride];
+        }
+        __syncthreads();
+    }
+    if (threadIdx.x == 0) {
+        result[0] = static_cast<float>(entropy_sums[0]);
+        result[1] = static_cast<float>(decision_counts[0]);
     }
 }
 
@@ -1285,6 +1328,9 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     int epochs_completed = 0;
     bool early_stopped = false;
     ScopedDeviceBuffer<std::size_t> device_permutation(rollout.sample_count);
+    ScopedDeviceBuffer<float> sample_entropy(rollout.sample_count);
+    ScopedDeviceBuffer<std::uint8_t> sample_decision(rollout.sample_count);
+    ScopedDeviceBuffer<float> rollout_entropy(2);
     std::vector<std::size_t> host_permutation(rollout.sample_count);
     std::iota(host_permutation.begin(), host_permutation.end(), std::size_t{0});
     std::mt19937_64 shuffle_random(shuffle_seed);
@@ -1323,7 +1369,10 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
                 batch_size, impl_->config.action_count, update_config.clip_range,
                 update_config.value_clip_range,
                 update_config.value_coefficient, update_config.entropy_coefficient,
-                policy_gradients, impl_->metric_sums);
+                policy_gradients, impl_->metric_sums,
+                epoch == 0 ? sample_entropy.pointer : nullptr,
+                epoch == 0 ? sample_decision.pointer : nullptr,
+                device_permutation.pointer, batch_offset);
             if (impl_->parametric()) {
                 const std::size_t query_elements = batch_size * output_size;
                 parametric_policy_gradient_kernel<<<blocks_for(query_elements), kThreads, 0, cuda_stream>>>(
@@ -1416,6 +1465,13 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
     if (impl_->config.observation_normalization) {
         impl_->merge_observation_statistics(rollout.observations, rollout.sample_count, cuda_stream);
     }
+    // Every sample is visited once in the first epoch (before the policy changed), so this
+    // is the rollout policy's entropy at its choice decisions.
+    deterministic_decision_entropy_kernel<<<1, kThreads, 0, cuda_stream>>>(
+        sample_entropy.pointer, sample_decision.pointer, rollout.sample_count, rollout_entropy.pointer);
+    std::array<float, 2> rollout_entropy_host{};
+    check_cuda(cudaMemcpyAsync(rollout_entropy_host.data(), rollout_entropy.pointer, sizeof(float) * 2,
+                               cudaMemcpyDeviceToHost, cuda_stream), "download rollout decision entropy");
     check_cuda(cudaGetLastError(), "launch PPO update kernels");
     std::vector<float> metrics(kMetricCount);
     check_cuda(cudaMemcpyAsync(metrics.data(), impl_->metric_sums, sizeof(float) * metrics.size(),
@@ -1432,6 +1488,7 @@ PpoUpdateMetrics GpuActorCritic::update_ppo(
             metrics[4] / sample_visits, metrics[5] / static_cast<float>(minibatches),
             metrics[6] / sample_visits,
             metrics[6] > 0.0F ? metrics[7] / metrics[6] : 0.0F,
+            rollout_entropy_host[1] > 0.0F ? rollout_entropy_host[0] / rollout_entropy_host[1] : 0.0F,
             minibatches, epochs_completed, early_stopped};
 }
 

@@ -97,7 +97,9 @@ void test_strict_binding_blocks_everything_honestly(const std::vector<FullBindin
         const auto& move = bound[index];
         unvalidated += has_blocker(move, "Practice validation");
         // Every move with hitboxes needs its geometry measured; stance entries and outcomes have none.
-        if (!rows[index].reactive && !rows[index].hit_levels.empty()) {
+        const bool attacks = std::any_of(rows[index].hit_levels.begin(), rows[index].hit_levels.end(),
+                                         [](const std::string& level) { return level != "sp"; });
+        if (!rows[index].reactive && attacks) {
             check(has_blocker(move, "missing measurement"), move.stable_id + ": awaits measurement");
         }
         check(!move.provisional, "strict binding never marks a move provisional");

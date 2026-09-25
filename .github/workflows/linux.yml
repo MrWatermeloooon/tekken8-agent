@@ -1,0 +1,53 @@
+name: linux
+
+# Linux CI on GitHub-hosted runners (no GPU): compiles everything, including the
+# CUDA simulator and PPO trainer, with GCC and CUDA 12.8 (sm_120 plus PTX), runs
+# every test that does not need a GPU (`ctest -LE gpu`), runs the Python suite,
+# and checks that the committed generated data is reproducible from its sources
+# (catalog, full-combat bindings, stance/resource rules, routes).
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+    container: nvidia/cuda:12.8.1-devel-ubuntu24.04
+    env:
+      DEBIAN_FRONTEND: noninteractive
+    steps:
+      - name: Install toolchain
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git g++ cmake ninja-build python3 python3-venv
+      - uses: actions/checkout@v4
+      - name: Mark the checkout safe for git
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
+      - name: Python environment (before configuring, so CMake finds pytest)
+        run: |
+          python3 -m venv .venv
+          .venv/bin/pip install --upgrade pip
+          .venv/bin/pip install -e ".[dev]"
+      - name: Configure
+        run: >
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_CUDA_ARCHITECTURES="89-real;120"
+      - name: Build (warnings are errors)
+        run: |
+          cmake --build build --parallel 2>&1 | tee build.log
+          if grep -E "warning|error" build.log; then echo "::error::the build has warnings"; exit 1; fi
+
+      - name: Native tests without a GPU
+        run: ctest --test-dir build -LE gpu --output-on-failure
+
+      - name: Python tests
+        run: .venv/bin/python -m pytest -q
+
+      - name: Generated data is reproducible
+        run: |
+          .venv/bin/python tools/compile_full_move_catalog.py
+          .venv/bin/python tools/export_full_combat_bindings.py
+          git diff --exit-code -- data/generated

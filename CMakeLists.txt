@@ -158,35 +158,46 @@ endif()
 
 add_executable(t8_v2_train src/train.cpp)
 target_link_libraries(t8_v2_train PRIVATE t8_v2_ppo t8_v2_gpu t8_v2_opponents t8_v2_roster)
-
-if(T8_V2_BUILD_TESTS AND WIN32)
-    add_test(
-        NAME t8_v2_exact_resume
-        COMMAND powershell -NoProfile -ExecutionPolicy Bypass
-                -File ${CMAKE_CURRENT_SOURCE_DIR}/tests/resume_smoke.ps1
-                $<TARGET_FILE:t8_v2_train>
-    )
-endif()
+# Last-resort location of data/generated for builds outside the source tree.
+target_compile_definitions(t8_v2_train PRIVATE T8_V2_SOURCE_DIR="${CMAKE_CURRENT_SOURCE_DIR}")
 
 if(T8_V2_BUILD_TESTS)
+    # Prefer the repository virtual environment (Windows or POSIX layout).
     if(WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.venv/Scripts/python.exe")
         set(Python3_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/.venv/Scripts/python.exe")
+    elseif(NOT WIN32 AND EXISTS "${CMAKE_CURRENT_SOURCE_DIR}/.venv/bin/python")
+        set(Python3_EXECUTABLE "${CMAKE_CURRENT_SOURCE_DIR}/.venv/bin/python")
     endif()
     find_package(Python3 COMPONENTS Interpreter)
     if(Python3_Interpreter_FOUND)
+        execute_process(COMMAND ${Python3_EXECUTABLE} -c "import pytest, numpy, yaml"
+                        RESULT_VARIABLE T8_V2_PYTEST_MISSING OUTPUT_QUIET ERROR_QUIET)
+        if(T8_V2_PYTEST_MISSING)
+            message(STATUS "pytest, numpy, or pyyaml not found for ${Python3_EXECUTABLE}: skipping t8_v2_live_policy")
+        endif()
+        add_test(
+            NAME t8_v2_exact_resume
+            COMMAND ${Python3_EXECUTABLE} ${CMAKE_CURRENT_SOURCE_DIR}/tests/resume_smoke.py
+                    $<TARGET_FILE:t8_v2_train>
+        )
+        set_tests_properties(t8_v2_exact_resume PROPERTIES WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        if(NOT T8_V2_PYTEST_MISSING)
         add_test(
             NAME t8_v2_live_policy
             COMMAND ${CMAKE_COMMAND} -E env
                     PYTHONPATH=${CMAKE_CURRENT_SOURCE_DIR}/src
                     ${Python3_EXECUTABLE} -m pytest -q
-                    -p no:cacheprovider --basetemp=${CMAKE_CURRENT_BINARY_DIR}/pytest-tmp-venv
+                    -p no:cacheprovider --basetemp=${CMAKE_CURRENT_BINARY_DIR}/pytest-tmp-live-policy
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_v2_live_policy.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_live_backends.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_live_runtime.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_vision.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_roster_system.py
                     ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_full_move_catalog.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_patch_update.py
+                    ${CMAKE_CURRENT_SOURCE_DIR}/tests/test_training_cli.py
         )
+        endif()
         add_test(
             NAME t8_v2_visualizer_headless
             COMMAND ${Python3_EXECUTABLE}
@@ -196,6 +207,17 @@ if(T8_V2_BUILD_TESTS)
                     --opponent-character reina
         )
     endif()
+endif()
+
+# Tests that need an NVIDIA GPU at run time; CPU-only machines (CI) run `ctest -LE gpu`.
+if(T8_V2_BUILD_TESTS)
+    set(T8_V2_GPU_TESTS
+        t8_v2_gpu_parity t8_v2_gpu_policy t8_v2_screen_observations t8_v2_gpu_rollout t8_v2_ppo_math
+        t8_v2_visualizer_feed)
+    if(TARGET t8_v2_train AND Python3_Interpreter_FOUND)
+        list(APPEND T8_V2_GPU_TESTS t8_v2_exact_resume t8_v2_visualizer_headless)
+    endif()
+    set_tests_properties(${T8_V2_GPU_TESTS} PROPERTIES LABELS gpu)
 endif()
 
 function(t8_v2_enable_warnings target)
@@ -210,7 +232,8 @@ function(t8_v2_enable_warnings target)
     else()
         target_compile_options(${target} PRIVATE
             $<$<COMPILE_LANGUAGE:CXX>:-Wall;-Wextra;-Wpedantic>
-            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-Wall,-Wextra,-Wpedantic>
+            # Not -Wpedantic for CUDA: nvcc's generated host code uses GCC line directives.
+            $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-Wall,-Wextra>
         )
     endif()
 endfunction()
@@ -224,6 +247,9 @@ if(T8_V2_BUILD_TESTS)
         t8_v2_rollout_tests t8_v2_ppo_math_tests t8_v2_full_combat_tests)
     list(APPEND T8_V2_WARNING_TARGETS t8_v2_roster_tests)
     list(APPEND T8_V2_WARNING_TARGETS t8_v2_full_move_catalog_tests)
+    list(APPEND T8_V2_WARNING_TARGETS
+        t8_v2_full_combat_engine_tests t8_v2_full_combat_binding_tests t8_v2_full_combat_route_tests
+        t8_v2_screen_observation_tests t8_v2_roster_scheduler_tests)
 endif()
 if(T8_V2_BUILD_BENCHMARKS)
     list(APPEND T8_V2_WARNING_TARGETS

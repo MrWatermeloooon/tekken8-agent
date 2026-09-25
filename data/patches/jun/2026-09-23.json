@@ -1,0 +1,417 @@
+{
+  "applied_on": "2026-09-23",
+  "archived_snapshot": "characters/history/jun/2026-07-21_876ef141f599.yaml",
+  "character": "jun",
+  "diff": {
+    "added": [],
+    "changed": {
+      "Jun-(Back to wall).b,b,UB": {
+        "notes": {
+          "added": [
+            "is8~13",
+            "Low crush 14~46",
+            "Floating state 47~49"
+          ],
+          "removed": [
+            "Low crush 14~33",
+            "Floating state 34~36"
+          ]
+        }
+      },
+      "Jun-1,1": {
+        "notes": {
+          "added": [
+            "Move can be delayed by 1f",
+            "Input can be delayed by 2f",
+            "Interrupt with i7",
+            "Transition to standing with B (t64 r28)"
+          ],
+          "removed": [
+            "Combo from 1st hit with 1f delay"
+          ]
+        },
+        "recovery": {
+          "new": "r20 IZU",
+          "old": "r28 IZU"
+        }
+      },
+      "Jun-1,2,2": {
+        "notes": {
+          "added": [
+            "Move cannot be interrupted (Jails attack inputs with 1F delay)",
+            "Opponent can buffer FC actions on 2nd block"
+          ],
+          "removed": [
+            "Jail from 2nd block with 1F delay"
+          ]
+        }
+      },
+      "Jun-1,2,4": {
+        "notes": {
+          "added": [
+            "Wall Crush +17g on hit and 3 chip damage",
+            "Not a true combo on 2nd hit or CH (bug? breaks neutral guard)",
+            "Interrupt with i5"
+          ],
+          "removed": [
+            "Combo from 2nd CH with 3f delay"
+          ]
+        }
+      },
+      "Jun-1,3": {
+        "notes": {
+          "added": [
+            "Interrupt with i5 from 1st block"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-2,1": {
+        "notes": {
+          "added": [
+            "Interrupt with i1"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-2,1,1+2": {
+        "hit": {
+          "new": "+22cg",
+          "old": "+22c"
+        },
+        "notes": {
+          "added": [
+            "Interrupt with i6 from 2nd block"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-2,1,4": {
+        "notes": {
+          "added": [
+            "Jail from 2nd block"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-2,1,4,1": {
+        "notes": {
+          "added": [
+            "Weapon (Projectile)",
+            "Move can be delayed 10f",
+            "Interrupt with i10",
+            "Whiffs vs SWL from 1st block",
+            "9 chip damage on block"
+          ],
+          "removed": [
+            "Input can be delayed 10f",
+            "Chip damage (9) on block"
+          ]
+        }
+      },
+      "Jun-2,1,4,3": {
+        "notes": {
+          "added": [
+            "Combo from 3rd CH with 5F delay",
+            "Interrupt with i5"
+          ],
+          "removed": [
+            "Combo from 3rd CH with 5f delay"
+          ]
+        }
+      },
+      "Jun-3,1": {
+        "hit": {
+          "new": "+22cg",
+          "old": "+22d"
+        },
+        "notes": {
+          "added": [
+            "Combo from 1st hit with 9F delay",
+            "Interrupt with i4",
+            "Forces tech back roll on hit",
+            "Move can be delayed by 6F",
+            "Input can be delayed by 9F"
+          ],
+          "removed": [
+            "Combos from 1st hit",
+            "Delayable"
+          ]
+        },
+        "recovery": {
+          "new": "r29",
+          "old": ""
+        }
+      },
+      "Jun-FC.df+1": {
+        "notes": {
+          "added": [
+            "High crush 1~44"
+          ],
+          "removed": [
+            "High crush 1~"
+          ]
+        },
+        "startup": {
+          "new": "i10, i25~26",
+          "old": "i10 i25~26"
+        }
+      },
+      "Jun-FC.df+2": {
+        "notes": {
+          "added": [
+            "High crush 1~46"
+          ],
+          "removed": [
+            "Only i14 or faster attacks guaranteed on CH",
+            "High crush 1~"
+          ]
+        }
+      },
+      "Jun-H.GEN.1,1+2": {
+        "notes": {
+          "added": [
+            "9 chip damage on block"
+          ],
+          "removed": [
+            "Chip damage (2,7) on block"
+          ]
+        }
+      },
+      "Jun-MIA.F": {
+        "notes": {
+          "added": [
+            "Stance moves can be delayed by 24F"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-UB,b": {
+        "command": {
+          "new": "ub,b",
+          "old": "UB,b"
+        },
+        "hit_level": {
+          "new": "sp",
+          "old": ""
+        },
+        "notes": {
+          "added": [
+            "Low crush 9~40",
+            "Floating state 41~43"
+          ],
+          "removed": [
+            "Can perform wr3 with input 3",
+            "Low crush 10~41",
+            "Floating state 42~44"
+          ]
+        },
+        "recovery": {
+          "new": "r49",
+          "old": ""
+        }
+      },
+      "Jun-b+1+2": {
+        "notes": {
+          "added": [
+            "Stays in stance indefinitely"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-b+2,1,2": {
+        "damage": {
+          "new": "10, 7, 22",
+          "old": "10, 7, 20"
+        }
+      },
+      "Jun-db+2": {
+        "notes": {
+          "added": [
+            "High crush 15~54"
+          ],
+          "removed": [
+            "High crush 15~"
+          ]
+        }
+      },
+      "Jun-df+2": {
+        "notes": {
+          "added": [
+            "Increased tracking when f2,1+2's input is buffered late"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-df+2,1+2": {
+        "notes": {
+          "added": [
+            "First hit does 8dmg, 20dmg total"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f+1": {
+        "notes": {
+          "added": [
+            "Recover to standing with B (t48 r28)"
+          ],
+          "removed": []
+        },
+        "recovery": {
+          "new": "r19 IZU",
+          "old": "r28 IZU"
+        }
+      },
+      "Jun-f+2": {
+        "notes": {
+          "added": [
+            "Increased tracking when f2,1+2's input is buffered late"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f+3+4": {
+        "notes": {
+          "added": [
+            "Stance moves can be delayed by 24F"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f+3,2": {
+        "notes": {
+          "added": [
+            "Interrupt with i5"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f+3,4": {
+        "notes": {
+          "added": [
+            "Interrupt with i5"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f,F+1+2": {
+        "notes": {
+          "added": [
+            "20?f hitstop on hit"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f,F+2": {
+        "notes": {
+          "added": [
+            "Transition to GEN +1 +16g r18 with F on frame 21 with 10F delay",
+            "Transition to MIA +1 +16g r18 with B on frame 21 with 10F delay"
+          ],
+          "removed": [
+            "Enter GEN +1 +16g r18 wiith F",
+            "Enter MIA +1 +16g r18 wiith B",
+            "Stance transitions can be delayed by up to 10F (+1~-9/+16g~+6g)"
+          ]
+        }
+      },
+      "Jun-f,F+2,2": {
+        "notes": {
+          "added": [
+            "Interrupt with i1"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-f,F+3,3+4": {
+        "notes": {
+          "added": [
+            "Interrupt with i5 from 1st hit",
+            "Whiffs vs SSR from 1st block"
+          ],
+          "removed": []
+        },
+        "startup": {
+          "new": "i18~19, i35~36 i5~6",
+          "old": "i18~19, i35~36 i41~42"
+        }
+      },
+      "Jun-f,f,F+3": {
+        "notes": {
+          "added": [
+            "Floating state 31~33"
+          ],
+          "removed": [
+            "Low crush 31~33"
+          ]
+        }
+      },
+      "Jun-hFC.3+4,3": {
+        "notes": {
+          "added": [
+            "Interrupt with i11 from 1st block",
+            "Whiffs vs SS from 1st block"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-u+2": {
+        "notes": {
+          "added": [
+            "Stance moves can be delayed by 15F"
+          ],
+          "removed": []
+        }
+      },
+      "Jun-ws1,1": {
+        "notes": {
+          "added": [
+            "Combo from 1st hit with 4F delay",
+            "Move cannot be delayed",
+            "Input can be delayed by 4F"
+          ],
+          "removed": [
+            "Combo from 1st hit"
+          ]
+        }
+      },
+      "Jun-ws1,1,1": {
+        "notes": {
+          "added": [
+            "Interrupt with i6",
+            "Move can be delayed by 14f"
+          ],
+          "removed": [
+            "Input can be delayed 14f"
+          ]
+        }
+      }
+    },
+    "new_retrieved_at": "2026-09-23",
+    "new_sha256": "3b2a81debc45ca1d7128908ad72271b0129c5c8ba3fa01c276e5216cc614b50e",
+    "old_retrieved_at": "2026-07-21",
+    "old_sha256": "876ef141f59968768cdfecee8e66a76e52b46708e609c42ff81d5ba971c602da",
+    "removed": [],
+    "source_renumbered": [
+      "Jun-UB,b",
+      "Jun-f,F+1+2",
+      "Jun-f,F+2",
+      "Jun-f,F+2,2",
+      "Jun-f,F+2,3",
+      "Jun-f,F+3",
+      "Jun-f,F+3,3+4"
+    ]
+  },
+  "identity": {
+    "added": {},
+    "retired": {}
+  },
+  "invalidated": {
+    "corrections": {},
+    "measurements": [],
+    "routes": [],
+    "scenarios": [],
+    "validations": []
+  }
+}
