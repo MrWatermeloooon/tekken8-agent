@@ -32,7 +32,7 @@ def main() -> int:
         writer = csv.DictWriter(handle, fieldnames=[
             "character_id", "character", "data_status", "moves", "parsed", "needs_review",
             "practice_validation", "training_enabled", "source_url",
-        ])
+        ], lineterminator="\n")
         writer.writeheader()
         for character in catalog.characters:
             writer.writerow({
@@ -52,7 +52,7 @@ def main() -> int:
             "recovery_min", "recovery_max", "block_min", "block_max", "source_consistency",
             "validation_issues", "mechanic_flags",
         ] + feature_columns
-        writer = csv.DictWriter(handle, fieldnames=fields)
+        writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
         writer.writeheader()
         for move in catalog.moves:
             mechanics = move["mechanics"]
