@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from pathlib import Path
+import sys
 from time import perf_counter
 from typing import Any
 
@@ -56,9 +57,26 @@ class DxcamScreenStateBackend(StateBackend):
         self.position_sample_stride = max(1, int(self.config.get("position_sample_stride", 4)))
         self.position_distance_scale = max(0.05, min(4.0, float(self.config.get("position_distance_scale", 1.0))))
         self.position_distance_calibration = _load_distance_calibration(self.config)
+        # position_source: pose finds the fighters with a pose model (t8_agent.io.pose_tracker);
+        # the default pixel heuristic averages colourful pixels per screen half.
+        self.pose = None
+        if str(self.config.get("position_source", "pixels")) == "pose":
+            from t8_agent.io.pose_tracker import PoseFighterTracker
+            self.pose = PoseFighterTracker(self.config)
+        # Pose distance in metres = slope * (gap between the fighters / their mean on-screen
+        # height) + intercept: dividing by the height cancels Tekken's distance-dependent camera
+        # zoom (scripts/record_distance_calibration.py measures it against Practice mode's
+        # "Distance from Opponent"; 0.24 m RMS over 0.9-7 m on the first calibration).
+        self.pose_distance_fit = None
+        if "pose_distance_slope" in self.config:
+            self.pose_distance_fit = (float(self.config["pose_distance_slope"]),
+                                      float(self.config.get("pose_distance_intercept", 0.0)))
         self.last_frame: np.ndarray | None = None
         self.last_capture_at: float | None = None
         self.frame_id = 0
+        if camera is None and sys.platform != "win32":
+            from t8_agent.io.linux_backends import MssCamera
+            camera = MssCamera(output_idx=output_idx, fps=self.capture_fps)
         if camera is None:
             try:
                 import dxcam
@@ -114,21 +132,34 @@ class DxcamScreenStateBackend(StateBackend):
         self.last_frame = frame
         p1_ratio = _estimate_health_ratio(frame, self.p1_health_region)
         p2_ratio = _estimate_health_ratio(frame, self.p2_health_region)
-        left_x, right_x = _estimate_fighter_positions(
-            frame,
-            self.stage_half_width,
-            p1_region=self.p1_body_region,
-            p2_region=self.p2_body_region,
-            sample_stride=self.position_sample_stride,
-        )
+        pair = self.pose.update(frame) if self.pose is not None else None
+        postures = ("unknown", "unknown")
+        if pair is not None:
+            width = max(1, frame.shape[1] - 1)
+            left_x, right_x = (((fighter.x / width) * 2.0 - 1.0) * self.stage_half_width for fighter in pair)
+            postures = (pair[0].posture, pair[1].posture)
+        else:
+            left_x, right_x = _estimate_fighter_positions(
+                frame,
+                self.stage_half_width,
+                p1_region=self.p1_body_region,
+                p2_region=self.p2_body_region,
+                sample_stride=self.position_sample_stride,
+            )
         center_x = (left_x + right_x) / 2.0
         raw_distance = right_x - left_x
-        calibrated_distance = _calibrate_distance(
-            raw_distance,
-            self.position_distance_scale,
-            self.position_distance_calibration,
-            self.stage_half_width * 2.0,
-        )
+        if pair is not None and self.pose_distance_fit is not None:
+            heights = [fighter.box[3] - fighter.box[1] for fighter in pair]
+            ratio = (pair[1].x - pair[0].x) / max(1.0, sum(heights) / 2.0)
+            slope, intercept = self.pose_distance_fit
+            calibrated_distance = max(0.0, min(self.stage_half_width * 2.0, slope * ratio + intercept))
+        else:
+            calibrated_distance = _calibrate_distance(
+                raw_distance,
+                self.position_distance_scale,
+                self.position_distance_calibration,
+                self.stage_half_width * 2.0,
+            )
         half_distance = calibrated_distance / 2.0
         left_x = center_x - half_distance
         right_x = center_x + half_distance
@@ -155,6 +186,9 @@ class DxcamScreenStateBackend(StateBackend):
                 "p2_x": float(p2_x),
                 "position_distance_scale": self.position_distance_scale,
                 "raw_position_distance": float(raw_distance),
+                "position_source": "pose" if pair is not None else "pixels",
+                "p1_posture": postures[0] if self.p1_on_left else postures[1],
+                "p2_posture": postures[1] if self.p1_on_left else postures[0],
                 "position_distance_calibrated": self.position_distance_calibration is not None,
                 "has_health_calibration": bool(self.p1_health_region and self.p2_health_region),
                 "has_position_calibration": bool(self.p1_body_region and self.p2_body_region),

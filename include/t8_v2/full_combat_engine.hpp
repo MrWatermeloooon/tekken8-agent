@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <memory>
 #include <optional>
 #include <string>
 #include <vector>
@@ -394,6 +395,8 @@ struct FullFrameEvents {
     std::array<bool, 2> rage_activated{};
 };
 
+struct FullCompiledTables;  // full_combat_core.hpp
+
 class FullCombatEngine {
 public:
     FullCombatEngine(std::array<std::vector<FullMoveSpec>, 2> movesets, FullEngineConfig config = {},
@@ -418,23 +421,16 @@ public:
     FullFrameEvents step(const FullInput& p1, const FullInput& p2);
 
 private:
-    // move_index and defense_move are the moves at the time the contact was
-    // decided, so a same-frame trade applies both hits.
-    void apply_contact(int attacker, std::size_t move_index, std::optional<std::size_t> defense_move,
-                       std::size_t hit_index, FullContact contact, int elapsed, FullFrameEvents& events);
-    void deal_damage(int target, double damage, bool recoverable, bool can_ko, FullFrameEvents& events);
-    void activate_heat(int player, FullFrameEvents& events);
-    void break_throw(int thrower, FullFrameEvents& events);
-    void release_throw(int thrower);
-    void gain_resource(int player, double amount);
-    void apply_parry_outcome(int parrier, std::size_t outcome, int attacker, FullFrameEvents& events);
-    [[nodiscard]] const FullStanceRule* stance_rule(int player) const;
-    [[nodiscard]] std::optional<std::size_t> find_move(int player, const std::string& stable_id) const;
-
     std::array<std::vector<FullMoveSpec>, 2> movesets_;
     FullEngineConfig config_;
     std::array<FullCharacterRules, 2> rules_;
+    // The same movesets as plain tables for the shared frame step
+    // (full_combat_core.hpp), which the CUDA batch simulator also runs.
+    std::shared_ptr<const FullCompiledTables> compiled_;
     FullEngineState state_{};
+
+public:
+    [[nodiscard]] const FullCompiledTables& compiled() const noexcept { return *compiled_; }
 };
 
 [[nodiscard]] std::string_view to_string(FullContact contact) noexcept;

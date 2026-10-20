@@ -1,0 +1,24 @@
+# Reviewed corrections applied on top of data/characters/miary-zo.yaml (the
+# checksum-pinned TekkenDocs import). See src/t8_agent/moves/catalog.py.
+corrections:
+- source_id: Miary Zo-uf+3+4
+  fields:
+    startup: i25~26
+  source_fields:  # the imported values replaced, so a source update that changes them is detected
+    startup: i25~16
+  reason: >-
+    TekkenDocs (retrieved 2026-10-07) and Wavu both list "i25~16", a
+    descending range. Wavu also lists the total as t55 with r29, so the last
+    active frame is 55 - 29 = 26: the range is i25~26 and "16" is a typo for
+    "26". Reading it as the ascending i16~25 (as was done for Jun's IZU.3)
+    would contradict that total. Confirm the startup in Practice mode.
+  evidence:
+  - https://tekkendocs.com/api/t8/miary-zo/framedata
+  - https://wavu.wiki/t/Miary_Zo_movelist
+  reviewer: automated review (needs human confirmation)
+  status: pending_practice
+  patch: unknown
+  recorded_at: '2026-10-07'
+  method: derived
+  confidence: medium
+  review_status: unreviewed

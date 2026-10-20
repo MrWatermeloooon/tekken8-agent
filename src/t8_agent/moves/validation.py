@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from .catalog import CompiledMoveCatalog
+from .provenance import provenance_issues
 
 
 REQUIRED_ROUTE_CATEGORIES = ("midscreen", "wall", "heat", "counter_hit")
@@ -25,6 +26,7 @@ class CharacterGateReport:
     source_conflicts: int
     measurement_pending: int
     practice_pending: int
+    measurement_issues: tuple[str, ...]
     scenario_pending: tuple[str, ...]
     route_pending: tuple[str, ...]
 
@@ -60,9 +62,11 @@ def evaluate_character_gate(
     measurement_pending = sum(
         any(value is None for value in move["measurements"].values()) for move in moves
     )
+    # A pass only counts when the record says on which patch, by whom, and how.
     practice_pending = sum(
-        (practice.get(move["stable_id"]) or {}).get("status") != "pass" for move in moves
+        not _practice_passed(practice.get(move["stable_id"])) for move in moves
     )
+    measurement_issues = tuple(character_row.get("measurement_issues") or ())
     scenario_pending = tuple(name for name in REQUIRED_SCENARIOS if scenarios.get(name) != "pass")
     route_pending = tuple(name for name in REQUIRED_ROUTE_CATEGORIES if routes.get(name) != "pass")
     blockers: list[str] = []
@@ -74,6 +78,8 @@ def evaluate_character_gate(
         blockers.append(f"{source_conflicts} source frame records are inconsistent")
     if measurement_pending:
         blockers.append(f"{measurement_pending} moves lack measured combat fields")
+    if measurement_issues:
+        blockers.append(f"{len(measurement_issues)} measured fields were rejected (see measurement_issues)")
     if practice_pending:
         blockers.append(f"{practice_pending} moves need offline Practice validation")
     if scenario_pending:
@@ -89,6 +95,12 @@ def evaluate_character_gate(
         source_conflicts=source_conflicts,
         measurement_pending=measurement_pending,
         practice_pending=practice_pending,
+        measurement_issues=measurement_issues,
         scenario_pending=scenario_pending,
         route_pending=route_pending,
     )
+
+
+def _practice_passed(record: dict[str, Any] | None) -> bool:
+    record = record or {}
+    return record.get("status") == "pass" and not provenance_issues(record.get("provenance"))

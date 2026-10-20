@@ -136,7 +136,12 @@ def test_catalog_command_executor_prepares_while_standing() -> None:
 def test_catalog_command_executor_rejects_unvalidated_notation() -> None:
     backend = VGamepadInputBackend(gamepad=FakeGamepad(), tap_seconds=0.0)
     with np.testing.assert_raises_regex(ValueError, "no validated executable command"):
-        backend.send_command(parse_command("b+1+3,P.2"), move_id="bryan:example")
+        backend.send_command(parse_command("(Tackle reverse)"), move_id="yoshimitsu:304")
+    # Mid-string stances and outcome qualifiers are observed, never sent blindly.
+    with np.testing.assert_raises_regex(ValueError, "requires observed NSS"):
+        backend.send_command(parse_command("1,NSS.1"), move_id="yoshimitsu:8")
+    with np.testing.assert_raises_regex(ValueError, "requires observed OPPONENT_WALL_STUN"):
+        backend.send_command(parse_command("d+3,1(wall stun)"), move_id="lars:44")
     # Parsed, but gated on situations the live runtime cannot observe yet.
     with np.testing.assert_raises_regex(ValueError, "unresolved state"):
         backend.send_command(parse_command("Back throw"), move_id="jun:140")
@@ -343,3 +348,66 @@ def test_capture_owns_frame_instead_of_aliasing_camera_buffer() -> None:
     backend.read()
     camera.frame[:] = 255
     assert not backend.last_frame.any()
+
+
+def test_linux_capture_and_uinput_gamepad_backends() -> None:
+    from types import SimpleNamespace
+
+    from t8_agent.io.linux_backends import MssCamera, UinputGamepad
+
+    class Grabber:
+        monitors = [{"left": 0, "top": 0, "width": 4, "height": 2}, {"left": 0, "top": 0, "width": 4, "height": 2}]
+        closed = False
+
+        def grab(self, monitor):
+            frame = np.zeros((monitor["height"], monitor["width"], 4), dtype=np.uint8)
+            frame[..., 0], frame[..., 1], frame[..., 2] = 10, 20, 30  # BGRA
+            return frame
+
+        def close(self):
+            self.closed = True
+
+    grabber = Grabber()
+    camera = MssCamera(grabber=grabber, fps=1)
+    frame = camera.grab()
+    assert frame.shape == (2, 4, 3) and tuple(frame[0, 0]) == (30, 20, 10), "BGRA becomes RGB"
+    assert camera.grab() is None, "no new frame faster than the capture rate"
+    camera.stop()
+    assert grabber.closed
+
+    codes = SimpleNamespace(EV_KEY=1, EV_ABS=3, BTN_A=304, BTN_B=305, BTN_X=307, BTN_Y=308,
+                            ABS_HAT0X=16, ABS_HAT0Y=17)
+
+    class Device:
+        def __init__(self):
+            self.events, self.syns = [], 0
+
+        def write(self, kind, code, value):
+            self.events.append((kind, code, value))
+
+        def syn(self):
+            self.syns += 1
+
+    device = Device()
+    pad = UinputGamepad(device=device, ecodes=codes)
+    backend = VGamepadInputBackend(gamepad=pad, tap_seconds=0.0, dash_gap_seconds=0.0, frame_seconds=0.0)
+    pad.press_button(button="down")
+    pad.press_button(button="right")
+    pad.press_button(button="x")
+    pad.update()
+    assert (3, 17, 1) in device.events and (3, 16, 1) in device.events and (1, 307, 1) in device.events
+    device.events.clear()
+    pad.update()
+    assert device.events == [], "unchanged state writes nothing but a sync"
+    pad.press_button(button="left")
+    pad.update()
+    assert (3, 16, 0) in device.events, "opposite directions cancel"
+    for name in ("down", "right", "left", "x"):
+        pad.release_button(button=name)
+    pad.update()
+    device.events.clear()
+    backend.set_enabled(True)
+    backend.send_action(SimAction.WALK_FORWARD)  # facing right: hold right on the D-pad
+    assert (3, 16, 1) in device.events
+    backend.release_all()
+    assert device.events[-1] == (3, 16, 0), "release_all lets go of the D-pad"

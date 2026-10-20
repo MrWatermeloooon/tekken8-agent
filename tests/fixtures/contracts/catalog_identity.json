@@ -1,0 +1,24 @@
+{
+  "_comment": "Catalog identity that existing full-roster checkpoints and trainer states are bound to. A change here means older full-roster runs cannot resume; record why below and in data/patches when it is a game patch.",
+  "schema_version": 2,
+  "catalog_sha256": "7aea04c6acc9d97e20b51700e39b9247c9a292955ba76bd8a2d44d283d053297",
+  "roster_as_of": "2026-07-21",
+  "move_count": 6393,
+  "history": [
+    {
+      "catalog_sha256": "6c58f2ad4a093054c4baf33a7625b4367d80a53c7bdf5f6e2ab822568a63a220",
+      "date": "2026-09-24",
+      "reason": "catalog of commit 550efbb; runs/stability_ab_2026-09-24 and earlier full-roster runs are bound to it"
+    },
+    {
+      "catalog_sha256": "f6e8bd3289514dd3198cbf9fbeb9fbe714d897870b1af61b778bd9d10e146867",
+      "date": "2026-10-07",
+      "reason": "parser resolves 65 more commands, measurement/correction provenance, Miary Zo uf+3+4 correction"
+    },
+    {
+      "catalog_sha256": "7aea04c6acc9d97e20b51700e39b9247c9a292955ba76bd8a2d44d283d053297",
+      "date": "2026-10-08",
+      "reason": "moves whose first input carries ws/ss/wr/BT (\"ws1\", \"ss2\", \"wr4\", \"BT+1\") are gated on that state; 330 were legal from neutral"
+    }
+  ]
+}

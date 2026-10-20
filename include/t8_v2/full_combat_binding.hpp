@@ -121,7 +121,11 @@ struct FullBindingRow {
 struct FullProvisionalGeometry {
     int active_frames = 2;
     double range = 1.2;
-    double tracking = 0.1;
+    // Lateral tracking to each side. A sidestep covers 0.5 m in 18 frames, so 0.3 m
+    // lets one evade only from about its 11th frame: anticipated slow linear moves,
+    // not everything (0.1 m made every sidestep near-invincible after 4 frames, and
+    // self-play learned to sidestep forever). Measured tracking replaces it per move.
+    double tracking = 0.3;
     double pushback = 0.2;
     double travel = 0.0;
     int string_gap = 12;  // frames between successive hits of a string
@@ -163,6 +167,17 @@ struct FullCharacterRuleSet {
     FullCharacterRules rules;
     std::vector<std::string> stance_names;
 };
+// The stance a "Transition to X ..." note leads to ("" when none).
+[[nodiscard]] std::string automatic_transition_target(const std::string& text);
+// Fills the gaps in a row's published data with stand-in values (stand-in geometry runs only);
+// true when anything was filled.
+bool fill_provisional_gaps(FullBindingRow& row);
+// Stances a character's moves use (required, resulting, or an automatic transition's target) but
+// its stance table lacks get stand-in rules (guard, back to neutral after 60 frames), appended to
+// rules.stances and stance_names, so those moves bind (stand-in geometry runs only).
+void add_provisional_stances(const std::vector<FullBindingRow>& rows, FullCharacterRules& rules,
+                             std::vector<std::string>& stance_names);
+
 [[nodiscard]] FullCharacterRuleSet load_full_combat_character_rules(
     const std::filesystem::path& stances_csv,
     const std::filesystem::path& resources_csv,

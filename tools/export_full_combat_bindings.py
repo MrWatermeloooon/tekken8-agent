@@ -45,6 +45,8 @@ REPO_ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(REPO_ROOT / "src"))
 
 from t8_agent.moves.catalog import load_compiled_catalog  # noqa: E402
+from t8_agent.moves import provenance  # noqa: E402
+from t8_agent.moves.candidates import CANDIDATE_FIELDS, CANDIDATES_FILE, candidate_rows  # noqa: E402
 from t8_agent.moves.validation import load_validation_ledger  # noqa: E402
 
 MEASUREMENT_KEYS = ("active_frames", "range", "tracking_left", "tracking_right", "pushback", "travel", "hit_frames")
@@ -467,12 +469,9 @@ def outcome_kind(command: str) -> str:
 
 
 def load_measurements(path: Path) -> dict[str, dict]:
-    if not path.exists():
-        return {}
-    document = yaml.safe_load(path.read_text(encoding="utf-8")) or {}
-    # Measurements marked stale by tools/patch_update.py (the move changed) count as missing.
-    return {str(key): dict(value or {}) for key, value in (document.get("moves") or {}).items()
-            if not (value or {}).get("stale")}
+    # Measurements marked stale by tools/patch_update.py (the move changed), and
+    # fields without complete provenance, count as missing.
+    return provenance.load_measurements(path).values
 
 
 def join(values) -> str:
@@ -613,7 +612,17 @@ def export(catalog_path: Path, data_root: Path, output: Path, characters: list[s
         writer.writeheader()
         writer.writerows(rows)
     write_character_rules(rows, source_cache, output.parent)
+    write_candidates(rows, catalog, output.parent)
     return len(rows)
+
+
+def write_candidates(rows: list[dict], catalog, directory: Path) -> None:
+    """Per-character policy candidates (universal actions, then engine rows)."""
+    entries = candidate_rows([{key: str(value) for key, value in row.items()} for row in rows], catalog)
+    with (directory / CANDIDATES_FILE).open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, fieldnames=CANDIDATE_FIELDS, lineterminator="\n")
+        writer.writeheader()
+        writer.writerows(entries)
 
 
 def link_parry_outcomes(rows: list[dict]) -> None:

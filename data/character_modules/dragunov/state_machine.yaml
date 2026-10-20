@@ -1,0 +1,21 @@
+# generated skeleton by tools/generate_state_machines.py: every value is a provisional
+# stand-in (cannot guard, no time limit), as for Jun's undocumented stances. Replace
+# them with guide or Practice-mode evidence and change the status; a reviewed file is
+# never regenerated. Add parry outcomes, pulses, and a resource gauge here too.
+schema_version: 1
+character: dragunov
+evidence:
+- data/characters/dragunov.yaml stance list and move notes (generated skeleton, tools/generate_state_machines.py)
+stances:
+  PGR:
+    can_guard: false
+    max_frames: null
+    status:
+      can_guard: provisional
+      max_frames: provisional
+  SNK:
+    can_guard: false
+    max_frames: null
+    status:
+      can_guard: provisional
+      max_frames: provisional

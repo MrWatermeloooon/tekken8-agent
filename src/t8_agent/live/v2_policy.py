@@ -6,6 +6,7 @@ from pathlib import Path
 
 import numpy as np
 
+from t8_agent.moves.candidates import FULL_MOVE_ACTION_CONTRACT
 from t8_agent.roster.catalog import load_catalog
 from t8_agent.roster.temporal import MatchupObservationEncoder, ScreenTemporalFrame, TemporalFrame
 from t8_agent.sim.action_space import action_count, index_to_action
@@ -187,7 +188,11 @@ class LiveV2GpuAgent:
         loaded = V2Checkpoint.load(checkpoint)
         if player not in (1, 2):
             raise ValueError(f"player must be 1 or 2, got {player}")
-        if loaded.observation_size not in (13, 95) or loaded.action_count != action_count():
+        # Full-move checkpoints score a per-character candidate list instead
+        # (t8_agent.live.full_move); this agent then only builds observations.
+        self.full_move = loaded.action_contract == FULL_MOVE_ACTION_CONTRACT
+        if loaded.observation_size not in (13, 95) or (
+                not self.full_move and loaded.action_count != action_count()):
             raise ValueError(
                 "live V2 checkpoint must have 13 visual or 95 visual-matchup observations and "
                 f"{action_count()} actions; got {loaded.observation_size}/{loaded.action_count}"
@@ -262,6 +267,8 @@ class LiveV2GpuAgent:
 
     def act(self, estimate: VisualEstimate, *, temporal_frame: TemporalFrame | None = None,
             action_mask: np.ndarray | None = None) -> SimAction:
+        if self.full_move:
+            raise ValueError("a full-move checkpoint chooses candidates through FullMovePolicy")
         torch = self._torch
         logits = self._logits_tensor(self.observation(estimate, temporal_frame=temporal_frame))
         if not torch.isfinite(logits).all():

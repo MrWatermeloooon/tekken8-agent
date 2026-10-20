@@ -4,6 +4,7 @@ import json
 from pathlib import Path
 
 import pytest
+import yaml
 
 from t8_agent.moves.catalog import ACTION_FEATURE_SIZE, compile_catalog, load_compiled_catalog, write_catalog
 from t8_agent.moves.notation import parse_command
@@ -93,13 +94,19 @@ def test_every_move_has_provenance_and_explicit_measurement_gaps():
 
 
 def test_impossible_source_frames_are_preserved_but_blocked():
+    from t8_agent.moves.catalog import _compile_move
+
+    # Both known roster conflicts are corrected now, so check the rule directly.
+    row = {"source_id": "X-1", "source_index": 1, "command": "uf+3+4", "name": "x",
+           "hit_level": "m", "damage": "18", "startup": "i25~16", "recovery": "r29", "block": "-5"}
+    move = _compile_move(0, "x", 0, row, {}, set(), 1)
+    assert move["validation"]["source_consistency"] == "blocked"
+    assert move["validation"]["issues"] == ["startup_range_descends"]
+    assert move["startup"] == {"min": 25, "max": 16}, "the source value is preserved, not reordered"
     catalog = compile_catalog(REPO_ROOT / "data")
-    inconsistent = [move for move in catalog.moves
-                    if move["validation"]["source_consistency"] == "blocked"]
-    assert inconsistent
-    assert any("startup_range_descends" in move["validation"]["issues"]
-               for move in inconsistent)
-    assert all(not move["validation"]["issues"] == [] for move in inconsistent)
+    corrected = next(move for move in catalog.moves if move["stable_id"] == "miary-zo:77")
+    assert corrected["startup"] == {"min": 25, "max": 26}
+    assert corrected["validation"]["source"] == "imported+corrected"
 
 
 def test_every_move_has_an_explicit_legal_state_rule():
@@ -155,9 +162,55 @@ def test_notation_parses_positional_throws_wall_prefix_and_parry_outcomes():
     assert parry.steps[1].requirement == "PARRY_SUCCESS" and parry.steps[1].buttons == ()
     stance = parse_command("GEN.P (Low)", {"GEN"})
     assert stance.requirements == ("GEN",) and stance.steps[0].requirement == "PARRY_SUCCESS_LOW"
-    # Unknown parenthesized situations and unhandled continuations stay unresolved.
-    assert parse_command("(During Enemy wall stun) 1+3").parser_status != "parsed"
-    assert parse_command("b+1+3,P.2").parser_status != "parsed"
+    # Unknown parenthesized situations and undocumented inputs stay unresolved.
+    assert parse_command("(Tackle reverse)").parser_status != "parsed"
+    assert parse_command("f,(even numbers frames).n").parser_status != "parsed"
+    assert parse_command("db+3, ... 1+2").parser_status != "parsed"
+    assert parse_command("SNK", {"SNK"}).parser_status != "parsed"
+
+
+def test_notation_parses_mid_string_states_situations_and_alternatives():
+    from t8_agent.moves.notation import parse_command
+
+    def summary(spec):
+        return [(step.direction, step.buttons, step.requirement, step.just_frame) for step in spec.steps]
+
+    parry = parse_command("b+1+3,P.2")
+    assert parry.parser_status == "parsed"
+    assert summary(parry) == [("b", (1, 3), None, False), ("n", (), "PARRY_SUCCESS", False),
+                              ("n", (2,), None, False)]
+    stance = parse_command("4,4,2,2,NSS.1~1")
+    assert stance.parser_status == "parsed"
+    assert [step.requirement for step in stance.steps] == [None] * 4 + ["NSS", "NSS"]
+    heat = parse_command("df+1+3:H.qcf+2")
+    assert summary(heat) == [("df", (1, 3), None, False), ("qcf", (2,), "H", True)]
+    # The chord before a just-frame stance input is an input, not a prefix.
+    orb = parse_command("b+1:ORB.1+2")
+    assert orb.requirements == () and summary(orb) == [("b", (1,), None, False), ("n", (1, 2), "ORB", True)]
+
+    assert parse_command("(During Enemy wall stun) 1+3").requirements == ("OPPONENT_WALL_STUN",)
+    assert parse_command("(Wall Splat).1+3").requirements == ("OPPONENT_WALL_SPLAT",)
+    assert parse_command("While landing 4").requirements == ("LANDING",)
+    assert parse_command("d+4 (counterhit)").requirements == ("COUNTER_HIT",)
+    wall_hit = parse_command("d+3,1(wall stun)")
+    assert wall_hit.requirements == () and wall_hit.steps[-1].requirement == "OPPONENT_WALL_STUN"
+    assert parse_command("(2 steps or more) wr4").requirements == ("RUN_TWO_STEPS",)
+
+    behind = parse_command("(Behind 2 throw)")
+    assert behind.requirements == ("OPPONENT_BACK_TURNED",) and behind.steps[0].buttons == (2, 4)
+    assert parse_command("Back Throw 2+4").steps[0].buttons == (2, 4)
+    assert parse_command("(Left Side Throw)").requirements == ("OPPONENT_LEFT_SIDE",)
+
+    alternative = parse_command("AIR.2+4 / AIR.f+2+4")
+    assert alternative.parser_status == "parsed" and alternative.requirements == ("AIR",)
+    assert alternative.alternatives == ("AIR.f+2+4",) and alternative.steps[0].buttons == (2, 4)
+    assert parse_command("ss2+4,b/db").steps[1].direction == "b"
+    assert parse_command("BT+1").steps[0].requirement == "BT"
+    assert parse_command("CLK(Two spins).3").requirements == ("CLK(TWO SPINS)",)
+    # A bare named state opening a string is its prefix only when it is known.
+    assert parse_command("UT,1+2", {"UT"}).requirements == ("UT",)
+    assert parse_command("UT,1+2").parser_status != "parsed"
+    assert parse_command("uf+1+3&lt;d").raw == "uf+1+3<d"
 
 
 def test_corrections_are_applied_with_provenance():
@@ -401,3 +454,74 @@ def test_heat_and_rage_requirements_come_from_command_prefixes():
         requirements = move["mechanics"]["requirements"]
         assert move["legal_state"]["requires_heat"] == ("H" in requirements)
         assert move["legal_state"]["requires_rage"] == ("R" in requirements)
+
+
+def test_measurements_require_complete_provenance(tmp_path):
+    from t8_agent.moves.provenance import load_measurements, provenance_issues
+
+    complete = {"patch": "2.01.01", "recorded_at": "2026-09-30", "method": "practice_mode",
+                "confidence": "high", "reviewer": "tester", "review_status": "self_checked"}
+    assert provenance_issues(complete) == []
+    assert "missing reviewer" in provenance_issues({**complete, "reviewer": ""})
+    assert any("unknown method" in issue for issue in provenance_issues({**complete, "method": "guess"}))
+    path = tmp_path / "jun.yaml"
+    path.write_text(yaml.safe_dump({
+        "provenance": {key: value for key, value in complete.items() if key != "confidence"},
+        "moves": {
+            # Field-level provenance completes the file-level block.
+            "jun:1": {"range": {"value": 1.4, "confidence": "medium"}},
+            # Missing confidence: rejected rather than trusted.
+            "jun:2": {"range": 1.2},
+            "jun:3": {"provenance": {"confidence": "low"}, "pushback": 0.3, "spin": 2},
+            "jun:4": {"range": 0.9, "stale": "source changed"},
+        }}), encoding="utf-8")
+    measured = load_measurements(path)
+    assert measured.values == {"jun:1": {"range": 1.4}, "jun:3": {"pushback": 0.3}}
+    assert measured.provenance["jun:1"]["range"]["confidence"] == "medium"
+    assert measured.provenance["jun:3"]["pushback"]["confidence"] == "low"
+    assert any(issue.startswith("jun:2.range: missing confidence") for issue in measured.issues)
+    assert any(issue.startswith("jun:3.spin") for issue in measured.issues)
+    assert measured.stale == {"jun:4"}
+
+
+def test_corrections_and_practice_records_require_provenance(tmp_path):
+    import pytest
+    from t8_agent.moves.catalog import _load_corrections
+    from t8_agent.moves.validation import _practice_passed
+
+    path = tmp_path / "corrections.yaml"
+    path.write_text("corrections:\n- {source_id: X-1, fields: {startup: i10}, reason: r, evidence: [u], "
+                    "reviewer: me}\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="incomplete provenance"):
+        _load_corrections(path, [{"source_id": "X-1"}])
+    catalog = compile_catalog(REPO_ROOT / "data")
+    izumo_3 = next(move for move in catalog.moves if move["stable_id"] == "jun:127")
+    assert izumo_3["corrections"]["provenance"]["method"] == "source_document"
+
+    provenance = {"patch": "2.01.01", "recorded_at": "2026-09-30", "method": "input_history",
+                  "confidence": "high", "reviewer": "tester", "review_status": "self_checked"}
+    assert _practice_passed({"status": "pass", "provenance": provenance})
+    assert not _practice_passed({"status": "pass"})
+    assert not _practice_passed({"status": "fail", "provenance": provenance})
+
+
+def test_measurement_files_accept_every_field_the_binder_reads():
+    import importlib.util
+    from t8_agent.moves.provenance import ACCEPTED_FIELDS, MEASURED_FIELDS
+
+    spec = importlib.util.spec_from_file_location(
+        "export_bindings", REPO_ROOT / "tools" / "export_full_combat_bindings.py")
+    exporter = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(exporter)
+    assert set(exporter.MEASUREMENT_KEYS) | set(exporter.NOTE_MEASUREMENT_KEYS) <= set(ACCEPTED_FIELDS)
+    catalog = compile_catalog(REPO_ROOT / "data")
+    assert set(catalog.moves[0]["measurements"]) == set(MEASURED_FIELDS)
+
+
+def test_first_step_states_gate_the_whole_move():
+    catalog = compile_catalog(REPO_ROOT / "data")
+    moves = {move["stable_id"]: move for move in catalog.moves}
+    assert moves["jun:104"]["command"]["raw"] == "ws1,4,1+2"
+    assert moves["jun:104"]["legal_state"]["posture"] == "while_standing", "ws1 is not a move from neutral"
+    sidestep = next(move for move in catalog.moves if move["command"]["raw"] == "ss2+4,b/db")
+    assert sidestep["legal_state"]["requires_sidestep"]

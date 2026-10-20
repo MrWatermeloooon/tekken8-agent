@@ -47,12 +47,25 @@ def main() -> int:
         train(common + ["--updates", "1", "--run-dir", str(resumed)])
         checkpoint = resumed / "checkpoints" / "update_1.t8ppo"
 
+        # Stopped after the metrics append but before a checkpoint (here: a complete row for
+        # update 2 and a torn one for update 3): the resume drops both rows and continues.
+        stopped = root / "stopped"
+        shutil.copytree(resumed, stopped)
+        first_row = (stopped / "metrics.jsonl").read_text(encoding="utf-8").splitlines()[0]
+        with (stopped / "metrics.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write(first_row.replace('"update":1', '"update":2', 1) + "\n" + '{"update":3')
+        train(common + ["--updates", "2", "--run-dir", str(stopped), "--resume",
+                        str(stopped / "checkpoints" / "update_1.t8ppo")])
+        updates = [row.split('"update":')[1].split(",")[0]
+                   for row in (stopped / "metrics.jsonl").read_text(encoding="utf-8").splitlines()]
+        if updates != ["1", "2"]:
+            raise RuntimeError(f"resume after an unsaved update left metrics rows {updates}")
+        # A damaged row before the checkpoint is still refused.
         shutil.copytree(resumed, corrupt)
-        with (corrupt / "metrics.jsonl").open("a", encoding="utf-8") as handle:
-            handle.write('{"update":2')
+        (corrupt / "metrics.jsonl").write_text('{"update":1\n', encoding="utf-8")
         must_fail(common + ["--updates", "2", "--run-dir", str(corrupt), "--resume",
                             str(corrupt / "checkpoints" / "update_1.t8ppo")],
-                  "trainer accepted an incomplete metrics row")
+                  "trainer accepted an incomplete metrics row before the checkpoint")
         must_fail(common + ["--updates", "1", "--learning-rate", "NaN", "--run-dir", str(root / "invalid_nan")],
                   "trainer accepted a non-finite learning rate")
 
@@ -60,6 +73,8 @@ def main() -> int:
         train(common + ["--updates", "2", "--run-dir", str(reference)])
         if sha256(resumed / "checkpoints" / "update_2.t8ppo") != sha256(reference / "checkpoints" / "update_2.t8ppo"):
             raise RuntimeError("resumed checkpoint does not match the uninterrupted checkpoint")
+        if sha256(stopped / "checkpoints" / "update_2.t8ppo") != sha256(reference / "checkpoints" / "update_2.t8ppo"):
+            raise RuntimeError("resume after an unsaved update does not match the uninterrupted checkpoint")
 
         self_play = ["--envs", "32", "--horizon", "8", "--epochs", "1", "--minibatch", "128",
                      "--eval-interval", "1", "--eval-episodes", "16", "--checkpoint-interval", "1",

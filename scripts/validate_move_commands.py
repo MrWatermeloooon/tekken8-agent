@@ -28,9 +28,13 @@ def main() -> int:
     parser.add_argument("--between-seconds", type=float, default=1.0)
     parser.add_argument("--facing", type=int, choices=(-1, 1), default=1)
     parser.add_argument("--dry-run", action="store_true")
+    parser.add_argument("--patch", help="In-game version shown in Tekken 8's settings, e.g. 2.01.01.")
+    parser.add_argument("--reviewer", help="Who is judging the input history.")
     args = parser.parse_args()
     if not args.dry_run and not args.confirm_offline:
         parser.error("--confirm-offline is required before sending controller inputs")
+    if not args.dry_run and (not args.patch or not args.reviewer):
+        parser.error("--patch and --reviewer are required so each record carries its provenance")
     catalog = load_compiled_catalog(args.catalog)
     character = next((row for row in catalog.characters if row["slug"] == args.character), None)
     if character is None:
@@ -80,10 +84,16 @@ def main() -> int:
                     status = "skip"
                     break
                 time.sleep(0.03)
+            now = datetime.now(timezone.utc)
             ledger["moves"][stable_id] = {
                 "status": status,
-                "validated_at": datetime.now(timezone.utc).isoformat(),
+                "validated_at": now.isoformat(),
                 "command": move["command"]["raw"],
+                "provenance": {
+                    "patch": args.patch, "recorded_at": now.date().isoformat(),
+                    "method": "input_history", "confidence": "high",
+                    "reviewer": args.reviewer, "review_status": "self_checked",
+                },
             }
             temporary = ledger_path.with_suffix(".json.tmp")
             temporary.write_text(json.dumps(ledger, indent=2) + "\n", encoding="utf-8")

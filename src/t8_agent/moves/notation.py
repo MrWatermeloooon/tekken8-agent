@@ -1,6 +1,7 @@
 from __future__ import annotations
 
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, replace
+import html
 import re
 
 
@@ -20,21 +21,55 @@ OPPONENT_BACK_TURNED = "OPPONENT_BACK_TURNED"
 OPPONENT_LEFT_SIDE = "OPPONENT_LEFT_SIDE"
 OPPONENT_RIGHT_SIDE = "OPPONENT_RIGHT_SIDE"
 PARRY_SUCCESS = "PARRY_SUCCESS"
+OPPONENT_WALL_STUN = "OPPONENT_WALL_STUN"
+OPPONENT_WALL_SPLAT = "OPPONENT_WALL_SPLAT"
+GROUNDED_FACE_UP = "GROUNDED_FACE_UP"
+AIRBORNE = "AIRBORNE"
+LANDING = "LANDING"
+COUNTER_HIT = "COUNTER_HIT"
+RUN_TWO_STEPS = "RUN_TWO_STEPS"
 SITUATIONAL_REQUIREMENTS = frozenset({
     BACK_TO_WALL, OPPONENT_BACK_TURNED, OPPONENT_LEFT_SIDE, OPPONENT_RIGHT_SIDE,
     PARRY_SUCCESS, f"{PARRY_SUCCESS}_HIGH", f"{PARRY_SUCCESS}_MID", f"{PARRY_SUCCESS}_LOW",
-    f"{PARRY_SUCCESS}_THROW",
+    f"{PARRY_SUCCESS}_THROW", OPPONENT_WALL_STUN, OPPONENT_WALL_SPLAT, GROUNDED_FACE_UP,
+    AIRBORNE, LANDING, COUNTER_HIT, RUN_TWO_STEPS,
 })
 
-# "Back throw" / "Left throw" / "Right throw": any throw input (1+3 or 2+4)
-# performed with the opponent's back or that side facing the player.
-_POSITIONAL_THROW_RE = re.compile(r"^(?P<side>back|left|right)\s+throw$", re.IGNORECASE)
+# "Back throw", "(Left Side Throw)", "(Behind 2 throw)", "Back Throw 2+4": a
+# throw performed with the opponent's back or that side facing the player.
+# Without a documented button it is any throw input, written as 1+3; "Behind
+# 1/2" and an explicit trailing chord name the throw input exactly.
+_POSITIONAL_THROW_RE = re.compile(
+    r"^\(?(?P<side>back|behind|left|right)(?:\s+side)?\s+(?:(?P<button>[12])\s+)?throw\)?"
+    r"(?:\s+(?P<chord>1\+3|2\+4))?$", re.IGNORECASE)
 _POSITIONAL_THROWS = {
-    "back": OPPONENT_BACK_TURNED, "left": OPPONENT_LEFT_SIDE, "right": OPPONENT_RIGHT_SIDE,
+    "back": OPPONENT_BACK_TURNED, "behind": OPPONENT_BACK_TURNED,
+    "left": OPPONENT_LEFT_SIDE, "right": OPPONENT_RIGHT_SIDE,
 }
-# Leading parenthesized situations with an exact, documented meaning.
+# Leading situations with an exact, documented meaning, parenthesized or as a
+# plain "While ..." phrase ("While landing 3").
 _SITUATION_PREFIX_RE = re.compile(r"^\((?P<situation>[^)]+)\)\s*\.?\s*(?P<rest>.+)$")
-_SITUATION_PREFIXES = {"back to wall": BACK_TO_WALL}
+_WHILE_PREFIX_RE = re.compile(r"^(?P<situation>while (?:in the air|landing))\s+(?P<rest>.+)$",
+                              re.IGNORECASE)
+_SITUATION_PREFIXES = {
+    "back to wall": BACK_TO_WALL,
+    "during enemy wall stun": OPPONENT_WALL_STUN,
+    "wall splat": OPPONENT_WALL_SPLAT,
+    "while down, facing up": GROUNDED_FACE_UP,
+    "while in the air": AIRBORNE,
+    "while landing": LANDING,
+    "2 steps or more": RUN_TWO_STEPS,
+}
+# Trailing outcome qualifiers: "d+4 (counterhit)" applies to the whole
+# command, "d+3,1(wall stun)" (no space) to the step it is attached to.
+_SITUATION_SUFFIX_RE = re.compile(r"^(?P<rest>.+?)(?P<space>\s*)\((?P<situation>counterhit|wall stun)\)$",
+                                  re.IGNORECASE)
+_SITUATION_SUFFIXES = {"counterhit": COUNTER_HIT, "wall stun": OPPONENT_WALL_STUN}
+# Documented alternative inputs for one row ("AIR.1+3 / AIR.f+1+3"): the
+# first is the canonical command, the others are kept for validation.
+_ALTERNATIVE_SPLIT_RE = re.compile(r"\s*/\s+|\s+/\s*")
+# A stance prefix with a documented qualifier: "CLK(Two spins)".
+_QUALIFIED_PREFIX_RE = re.compile(r"^(?P<name>[A-Za-z][A-Za-z0-9_-]*)\((?P<qualifier>[A-Za-z0-9 ]+)\)$")
 # TekkenDocs writes a successful parry/absorb as a "P" step, optionally with
 # the parried type: "b+1+3,P", "GEN.P (Low)". It is an event, not the punch
 # button; every roster row using it documents a parry or absorb.
@@ -67,6 +102,7 @@ class CommandSpec:
     steps: tuple[InputStep, ...]
     parser_status: str
     warnings: tuple[str, ...] = ()
+    alternatives: tuple[str, ...] = ()
 
     @property
     def executable(self) -> bool:
@@ -79,6 +115,7 @@ class CommandSpec:
             "steps": [step.to_dict() for step in self.steps],
             "parser_status": self.parser_status,
             "warnings": list(self.warnings),
+            "alternatives": list(self.alternatives),
         }
 
 
@@ -91,48 +128,132 @@ def parse_command(command: str, known_stances: set[str] | None = None) -> Comman
     non-executable until its per-character validation record resolves them.
     """
 
-    raw = str(command or "").strip()
+    raw = html.unescape(str(command or "")).strip()
     if not raw:
         return CommandSpec(raw, (), (), "invalid", ("empty command",))
 
+    alternatives = [value.strip() for value in _ALTERNATIVE_SPLIT_RE.split(raw) if value.strip()]
+    if len(alternatives) > 1:
+        primary = parse_command(alternatives[0], known_stances)
+        status = primary.parser_status
+        if status == "parsed" and any(
+                parse_command(value, known_stances).parser_status != "parsed" for value in alternatives[1:]):
+            status = "needs_review"
+        return CommandSpec(
+            raw, primary.requirements, primary.steps, status,
+            primary.warnings + (f"alternative inputs: {' / '.join(alternatives[1:])}",),
+            tuple(alternatives[1:]))
+
     throw = _POSITIONAL_THROW_RE.fullmatch(raw)
     if throw:
+        chord = throw.group("chord") or ("2+4" if throw.group("button") == "2" else "1+3")
         return CommandSpec(
             raw, (_POSITIONAL_THROWS[throw.group("side").lower()],),
-            (InputStep(raw="1+3", buttons=(1, 3)),), "parsed")
+            (InputStep(raw=chord, buttons=tuple(int(value) for value in chord.split("+"))),), "parsed")
 
     known = {value.upper() for value in (known_stances or set())}
     requirements: list[str] = []
-    situation = _SITUATION_PREFIX_RE.fullmatch(raw)
-    if situation and situation.group("situation").strip().lower() in _SITUATION_PREFIXES:
-        requirements.append(_SITUATION_PREFIXES[situation.group("situation").strip().lower()])
+    raw_body = raw
+    while True:
+        situation = _SITUATION_PREFIX_RE.fullmatch(raw_body) or _WHILE_PREFIX_RE.fullmatch(raw_body)
+        key = situation.group("situation").strip().lower() if situation else ""
+        if key not in _SITUATION_PREFIXES:
+            break
+        requirements.append(_SITUATION_PREFIXES[key])
         raw_body = situation.group("rest").strip()
-    else:
-        raw_body = raw
-    body = raw_body
-    if "." in raw_body:
-        prefix, body = raw_body.rsplit(".", 1)
-        prefix_parts = [value.strip() for value in prefix.split(".") if value.strip()]
-        for value in prefix_parts:
-            upper = value.upper()
-            if upper in known or upper in {"H", "R", "WS", "FC", "SS", "BT", "WR", "HFC"}:
-                requirements.append(upper)
-            elif _PREFIX_RE.fullmatch(value):
-                requirements.append(upper)
-            else:
-                return CommandSpec(raw, tuple(requirements), (), "invalid", (f"invalid prefix: {value}",))
+    step_suffix = None
+    suffix = _SITUATION_SUFFIX_RE.fullmatch(raw_body)
+    if suffix:
+        raw_body = suffix.group("rest").strip()
+        situation_name = _SITUATION_SUFFIXES[suffix.group("situation").lower()]
+        if suffix.group("space"):
+            requirements.append(situation_name)
+        else:
+            step_suffix = situation_name
 
-    fragments = _split_sequence(body)
+    fragments = _split_sequence(raw_body)
+    if fragments and "." in fragments[0] and not re.search(r"[~:]", fragments[0].rsplit(".", 1)[0]):
+        prefix, fragments[0] = fragments[0].rsplit(".", 1)
+        for value in (part.strip() for part in prefix.split(".") if part.strip()):
+            requirement = _prefix_requirement(value, known)
+            if requirement is None:
+                return CommandSpec(raw, tuple(requirements), (), "invalid", (f"invalid prefix: {value}",))
+            requirements.append(requirement)
+    elif len(fragments) > 1 and fragments[0].upper() in known and _PREFIX_RE.fullmatch(fragments[0]):
+        # A bare state name opening a string ("UT,1+2") is that state's prefix.
+        requirements.append(fragments.pop(0).upper())
+
     steps: list[InputStep] = []
     warnings: list[str] = []
     for fragment in fragments:
-        for expanded, just_frame in _expand_transitions(fragment):
+        # A stance written at the start of a fragment ("NSS.1~1") holds for
+        # each of that fragment's transitions.
+        fragment_requirement = None
+        for position, (expanded, just_frame) in enumerate(_expand_transitions(fragment)):
+            step_requirement = fragment_requirement
+            if steps:
+                expanded, prefix_requirement, event = _split_step_prefix(expanded, known)
+                if event is not None:
+                    steps.append(event)
+                if prefix_requirement:
+                    step_requirement = prefix_requirement
+                    if position == 0:
+                        fragment_requirement = prefix_requirement
+                if expanded is None:
+                    continue
             step, warning = _parse_step(expanded, just_frame)
+            if step_requirement:
+                if step.requirement:
+                    step = replace(step, uncertain=True)
+                    warning = warning or f"conflicting step requirements: {expanded}"
+                else:
+                    step = replace(step, requirement=step_requirement)
             steps.append(step)
             if warning:
                 warnings.append(warning)
+    if step_suffix and steps:
+        if steps[-1].requirement:
+            steps[-1] = replace(steps[-1], uncertain=True)
+            warnings.append(f"conflicting step requirements: {steps[-1].raw}")
+        else:
+            steps[-1] = replace(steps[-1], requirement=step_suffix)
     status = "parsed" if steps and not any(step.uncertain for step in steps) else "needs_review"
     return CommandSpec(raw, tuple(requirements), tuple(steps), status, tuple(warnings))
+
+
+def _prefix_requirement(value: str, known: set[str]) -> str | None:
+    upper = value.upper()
+    if upper in known or upper in {"H", "R", "WS", "FC", "SS", "BT", "WR", "HFC"}:
+        return upper
+    if _PREFIX_RE.fullmatch(value):
+        return upper
+    qualified = _QUALIFIED_PREFIX_RE.fullmatch(value)
+    if qualified:
+        return f"{qualified.group('name').upper()}({qualified.group('qualifier').strip().upper()})"
+    return None
+
+
+def _split_step_prefix(
+    fragment: str, known: set[str],
+) -> tuple[str | None, str | None, InputStep | None]:
+    """Split a later step's "STANCE.input" or "P.input" into its parts.
+
+    TekkenDocs writes the stance a later hit is performed in ("1,NSS.1") and a
+    parry outcome followed by its follow-up ("b+1+3,P.2") this way. Returns the
+    remaining input, the step requirement, and a parry event step, if any.
+    """
+
+    if "." not in fragment:
+        return fragment, None, None
+    prefix, rest = (value.strip() for value in fragment.split(".", 1))
+    parry = _PARRY_EVENT_RE.fullmatch(prefix)
+    if parry and rest:
+        kind = parry.group("kind")
+        return rest, None, InputStep(raw=prefix, requirement=PARRY_SUCCESS + (f"_{kind.upper()}" if kind else ""))
+    requirement = _prefix_requirement(prefix, known)
+    if requirement is None or not rest or "." in rest:
+        return fragment, None, None
+    return rest, requirement, None
 
 
 def _split_sequence(value: str) -> list[str]:
@@ -197,7 +318,7 @@ def _parse_step(fragment: str, just_frame: bool = False) -> tuple[InputStep, str
     token = token.replace("!", "")
 
     requirement = None
-    state_match = re.match(r"^(ws|ss|bt|fc|wr|ch)(?=[udfbnqhc1-4])", token, re.IGNORECASE)
+    state_match = re.match(r"^(ws|ss|bt|fc|wr|ch)\+?(?=[udfbnqhc1-4])", token, re.IGNORECASE)
     if state_match:
         requirement = state_match.group(1).upper()
         token = token[state_match.end():]
@@ -214,10 +335,17 @@ def _parse_step(fragment: str, just_frame: bool = False) -> tuple[InputStep, str
     direction = "n"
     button_parts: list[str] = []
     uncertain = False
+    direction_names = {value.lower() for value in _DIRECTIONS}
+    alternative_note = None
     for part in parts:
+        options = part.replace("*", "").split("/")
+        if len(options) > 1 and all(option.lower() in direction_names for option in options):
+            # "b/db": either direction works; the first is sent.
+            alternative_note = f"alternative directions: {part}"
+            part = options[0]
         normalized = part.replace("/", "").replace("*", "")
         direction_candidate = normalized.lower()
-        if direction_candidate in {value.lower() for value in _DIRECTIONS}:
+        if direction_candidate in direction_names:
             direction = normalized
         elif _BUTTON_RE.fullmatch(normalized):
             button_parts.extend(normalized.split("+"))
@@ -231,7 +359,7 @@ def _parse_step(fragment: str, just_frame: bool = False) -> tuple[InputStep, str
     if direction == "n" and not buttons and token.isdigit() and token in {"1", "2", "3", "4"}:
         buttons = (int(token),)
         uncertain = False
-    warning = f"unparsed input fragment: {raw}" if uncertain else None
+    warning = f"unparsed input fragment: {raw}" if uncertain else alternative_note
     return InputStep(
         raw=raw,
         direction=direction,

@@ -11,6 +11,7 @@ import yaml
 
 from .notation import SITUATIONAL_REQUIREMENTS, parse_command
 from .identity import load_identity, stable_numbers
+from .provenance import load_measurements, require_provenance
 
 
 CATALOG_SCHEMA_VERSION = 2
@@ -52,6 +53,8 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
             raise ValueError(f"{slug}: missing move identity registry (tools/patch_update.py --bootstrap)")
         numbers = stable_numbers(slug, source_moves, registry) if source_moves else []
         stances = [str(value) for value in source.get("stances") or []]
+        known_states = set(stances) | _named_state_abbreviations(source_moves)
+        measured = load_measurements(root / "measurements" / f"{slug}.yaml")
         offset = len(moves)
         parsed_count = 0
         review_count = 0
@@ -59,11 +62,13 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
             correction = corrections.get(str(row.get("source_id") or ""))
             if correction:
                 row = {**row, **correction["fields"]}
-            compiled = _compile_move(character_id, slug, local_id, row, source, set(stances), numbers[local_id])
+            compiled = _compile_move(character_id, slug, local_id, row, source, known_states, numbers[local_id])
             if correction:
                 compiled["validation"]["source"] = "imported+corrected"
                 compiled["corrections"] = {key: correction[key] for key in
-                                           ("fields", "reason", "evidence", "reviewer", "status")}
+                                           ("fields", "reason", "evidence", "reviewer", "status", "provenance")}
+            _apply_measurements(compiled, measured.values.get(compiled["stable_id"]),
+                                measured.provenance.get(compiled["stable_id"]))
             stable_id = compiled["stable_id"]
             if stable_id in stable_ids:
                 raise ValueError(f"duplicate stable move ID: {stable_id}")
@@ -82,6 +87,8 @@ def compile_catalog(data_root: str | Path) -> CompiledMoveCatalog:
             "parsed_move_count": parsed_count,
             "review_move_count": review_count,
             "stances": stances,
+            "measured_move_count": sum(1 for move in moves[offset:] if move.get("measurement_provenance")),
+            "measurement_issues": list(measured.issues),
             "practice_validation": "pending" if source_moves else "blocked_missing_source",
             "training_enabled": False,
             "source_path": source_path.relative_to(root.parent).as_posix(),
@@ -156,12 +163,26 @@ def _load_corrections(path: Path, source_moves: list[dict[str, Any]]) -> dict[st
             raise ValueError(f"correction for {source_id!r} must replace only {sorted(_CORRECTABLE_FIELDS)}")
         if not entry.get("reason") or not entry.get("evidence") or not entry.get("reviewer"):
             raise ValueError(f"correction for {source_id!r} needs reason, evidence, and reviewer")
+        provenance = require_provenance(entry, f"correction for {source_id!r} in {path}")
         result[source_id] = {
             "fields": fields, "reason": str(entry["reason"]),
             "evidence": [str(value) for value in entry["evidence"]],
             "reviewer": str(entry["reviewer"]), "status": str(entry.get("status", "pending_practice")),
+            "provenance": provenance,
         }
     return result
+
+
+def _apply_measurements(move: dict[str, Any], values: dict[str, Any] | None,
+                        provenance: dict[str, dict] | None) -> None:
+    """Fills measured combat fields; each one keeps its own provenance block."""
+
+    if not values:
+        return
+    move["measurements"].update({key: value for key, value in values.items() if key in move["measurements"]})
+    move["measurement_provenance"] = provenance
+    if all(value is not None for value in move["measurements"].values()):
+        move["validation"]["simulation"] = "ready"
 
 
 def write_catalog(catalog: CompiledMoveCatalog, path: str | Path) -> None:
@@ -225,7 +246,9 @@ def _compile_move(character_id: int, slug: str, local_id: int, row: dict[str, An
         "counter_hit_advantage": counter_hit,
         "tags": tags,
         "mechanics": mechanics,
-        "legal_state": _legal_state(command.requirements, mechanics),
+        # "ws1"/"ss2"/"BT+1"/"wr4" carry their state on the first input step, not as a "ws." prefix;
+        # it gates the whole move all the same.
+        "legal_state": _legal_state(command.requirements + _first_step_state(command), mechanics),
         "measurements": estimates,
         "action_features": _action_features(local_id, levels, damage, startup, recovery, block, tags, mechanics),
         "notes": notes,
@@ -237,6 +260,23 @@ def _compile_move(character_id: int, slug: str, local_id: int, row: dict[str, An
             "source_row": source_index,
         },
     }
+
+
+_NAMED_STATE_RE = re.compile(r"\(([A-Z][A-Z0-9]{1,5})\)\s*$")
+
+
+def _named_state_abbreviations(source_moves: list[dict[str, Any]]) -> set[str]:
+    """States a move's name defines, e.g. "Ultimate Tackle (UT)" defines UT."""
+
+    return {match.group(1) for row in source_moves
+            if (match := _NAMED_STATE_RE.search(str(row.get("name") or "")))}
+
+
+def _first_step_state(command: Any) -> tuple[str, ...]:
+    if not command.steps:
+        return ()
+    requirement = (command.steps[0].requirement or "").upper()
+    return (requirement,) if requirement in {"WS", "FC", "SS", "WR", "BT"} else ()
 
 
 def _legal_state(requirements: tuple[str, ...], mechanics: dict[str, Any]) -> dict[str, Any]:

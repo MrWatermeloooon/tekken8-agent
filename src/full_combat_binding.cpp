@@ -1,8 +1,10 @@
 #include "t8_v2/full_combat_binding.hpp"
 
 #include <algorithm>
+#include <cctype>
 #include <charconv>
 #include <fstream>
+#include <set>
 #include <stdexcept>
 #include <unordered_map>
 
@@ -225,17 +227,157 @@ std::vector<FullBindingRow> load_full_combat_bindings(const std::filesystem::pat
     return rows;
 }
 
+// Stand-in values for the gaps in a move's published data (stand-in geometry runs only). Every
+// filled move is provisional: the Practice validator (scripts/validate_moves.py) confirms or
+// corrects it in the game. The figures are medians of the moves that do publish them
+// (2026-10-11 roster): hit advantage is 15 frames above block advantage (5,820 moves); startup is
+// 12 (high), 16 (mid), 18 (low), 12 (throw); block -9, hit +7 when neither is known.
+namespace {
+
+std::optional<std::string> provisional_level(const std::string& text) {
+    // TekkenDocs abbreviations: throws by where they grab, special/odd mids and lows.
+    if (text == "th" || text == "thh" || text == "thm" || text == "thg" || text == "tg" || text == "ta" ||
+        text == "tc" || text == "tw" || text == "ts") return std::string("throw");
+    if (text == "mm" || text == "rm" || text == "ubm" || text == "m") return std::string("mid");
+    if (text == "sp" || text == "sm") return std::string("special_mid");
+    if (text == "sll" || text == "sl") return std::string("special_low");
+    if (text == "h" || text == "hh") return std::string("high");
+    if (text == "l" || text == "ll") return std::string("low");
+    return std::nullopt;
+}
+
+}  // namespace
+
+std::string automatic_transition_target(const std::string& text) {
+    // "Transition to RFF", "Transition to HAM on hit automatically": the stance is the word after "to".
+    const auto at = text.find("to ");
+    if (at == std::string::npos) return {};
+    std::string name;
+    for (std::size_t index = at + 3; index < text.size(); ++index) {
+        const char c = text[index];
+        if (std::isalnum(static_cast<unsigned char>(c)) || c == '_' || c == '.') name += c;
+        else if (!name.empty()) break;
+    }
+    return name;
+}
+
+void add_provisional_stances(const std::vector<FullBindingRow>& rows, FullCharacterRules& rules,
+                             std::vector<std::string>& stance_names) {
+    const auto add = [&](const std::string& name) {
+        if (name.empty() || name == "BT") return;  // BT is the fighter's own back-turned state
+        if (std::find(stance_names.begin(), stance_names.end(), name) != stance_names.end()) return;
+        stance_names.push_back(name);
+        FullStanceRule stance{};
+        stance.name = name;
+        stance.max_frames = 60;
+        rules.stances.push_back(stance);
+    };
+    for (const auto& row : rows) {
+        for (const auto& stance : row.stances) add(stance);
+        add(row.result_stance);
+        add(row.result_stance_on_hit);
+        add(row.result_stance_on_block);
+        add(automatic_transition_target(row.automatic_transition));
+    }
+}
+
+bool fill_provisional_gaps(FullBindingRow& row) {
+    bool filled = false;
+    if (!row.reactive) {
+        // Unknown level abbreviations.
+        for (auto& level : row.hit_levels) {
+            if (hit_level(level)) continue;
+            const bool stance_marker = level == "sp" && row.damages.empty();
+            if (stance_marker) continue;  // "sp" without damage marks a move with no hits (handled below)
+            if (const auto mapped = provisional_level(level)) {
+                level = *mapped;
+                filled = true;
+            }
+        }
+        // More damage values than hits are usually alternatives (a charge level each: Jack-8's 1+4*
+        // lists 35|45|55|199), not parts to add up: keep the first (base) value per hit. Missing
+        // ones repeat the last known. A stand-in hit never exceeds 100 damage (a charged maximum
+        // like 199 or 200 is not what the move usually does).
+        // One hit with several parts (Falling Rain's 15|15|15 throw) is the binder's own case and
+        // adds up; but a charge move (a "*" in the command, Jack-8's 1+4*: 35|45|55|199) lists one
+        // value per charge level, and parts adding to over 100 are alternatives too: keep the base.
+        if (row.hit_levels.size() == 1 && row.damages.size() > 1) {
+            double total = 0.0;
+            for (const double damage : row.damages) total += damage;
+            if (row.command.find('*') != std::string::npos || total > 100.0) {
+                row.damages.resize(1);
+                filled = true;
+            }
+        }
+        if (row.hit_levels.size() > 1 && !row.damages.empty() && row.damages.size() != row.hit_levels.size()) {
+            auto& damages = row.damages;
+            if (damages.size() > row.hit_levels.size()) damages.resize(row.hit_levels.size());
+            while (damages.size() < row.hit_levels.size()) damages.push_back(damages.back());
+            for (auto& damage : damages) damage = std::min(damage, 100.0);
+            filled = true;
+        }
+        const bool has_hits = !row.hit_levels.empty() &&
+            !std::all_of(row.hit_levels.begin(), row.hit_levels.end(), [](const std::string& l) { return l == "sp"; });
+        if (has_hits) {
+            if (!row.startup) {
+                const std::string& first = row.hit_levels.front();
+                row.startup = first == "high" ? 12 : first == "low" ? 18 : first == "throw" ? 12 :
+                              first == "special_low" ? 11 : first == "special_mid" ? 20 : 16;
+                filled = true;
+            }
+            if (!row.block_advantage && !row.hit_advantage) {
+                row.block_advantage = -9;
+                row.hit_advantage = 7;
+                filled = true;
+            } else if (!row.block_advantage) {
+                row.block_advantage = *row.hit_advantage - 15;
+                filled = true;
+            } else if (!row.hit_advantage) {
+                row.hit_advantage = *row.block_advantage + 15;
+                filled = true;
+            }
+        } else if (row.damages.empty()) {
+            // A move without hits (a stance entry, Ki Charge, crouch dash, a parry stance): it binds
+            // as a stance entry, whose recovery is estimated with the rest.
+            row.hit_levels.clear();
+            filled = true;
+        }
+        // "Transition to RFF": the move ends in that stance (on hit, if the note says so).
+        if (!row.automatic_transition.empty()) {
+            const std::string target = automatic_transition_target(row.automatic_transition);
+            if (!target.empty()) {
+                const bool on_hit = row.automatic_transition.find("on hit") != std::string::npos;
+                if (target == "BT") {
+                    // The fighter's own back-turned state, not a stance. The engine turns a move's
+                    // user around whatever the outcome, so a turn only on hit is left out.
+                    if (!on_hit) row.result_back_turned = true;
+                } else {
+                    std::string& result = on_hit ? row.result_stance_on_hit : row.result_stance;
+                    if (result.empty()) result = target;
+                }
+                row.automatic_transition.clear();
+                filled = true;
+            }
+        }
+    }
+    return filled;
+}
+
 std::vector<FullBoundMove> bind_full_combat_moves(
     const std::vector<FullBindingRow>& rows,
     const FullBindingOptions& options) {
     std::vector<FullBoundMove> result;
     result.reserve(rows.size());
-    for (const auto& row : rows) {
+    std::set<std::string> commands;  // "character command", to spot a stance chain's plain version
+    for (const auto& row : rows) commands.insert(row.character + ' ' + row.command);
+    for (const auto& source : rows) {
+        FullBindingRow row = source;
         FullBoundMove bound{};
         bound.stable_id = row.stable_id;
         bound.command = row.command;
         auto& blockers = bound.blockers;
         const auto& geometry = options.provisional;
+        if (geometry && fill_provisional_gaps(row)) bound.provisional = true;
         const auto measured = [&](const auto& value, const char* name, auto fallback) {
             using Value = std::decay_t<decltype(fallback)>;
             if (value) return static_cast<Value>(*value);
@@ -254,7 +396,8 @@ std::vector<FullBoundMove> bind_full_combat_moves(
         // ("UB,b", hit level "sp" = special, r49 with crush and floating windows).
         const bool no_hit_levels = std::all_of(row.hit_levels.begin(), row.hit_levels.end(),
                                                [](const std::string& level) { return level == "sp"; });
-        const bool stance_entry = !reactive && no_hit_levels && row.damages.empty() && row.recovery.has_value();
+        const bool stance_entry = !reactive && no_hit_levels && row.damages.empty() &&
+            (row.recovery.has_value() || geometry.has_value());
         if (row.requires_running) blockers.push_back("running state not modeled");
         if (row.parser_status != "parsed") blockers.push_back("command notation unresolved");
         if (row.source_consistency != "valid") blockers.push_back("source frame data inconsistent");
@@ -359,6 +502,19 @@ std::vector<FullBoundMove> bind_full_combat_moves(
             if (values.size() == 1 && geometry) {
                 bound.provisional = true;
                 result.back() = values.front();
+            } else if (geometry) {
+                // A count that does not match the hits: on a one-hit move the values are its
+                // versions (charged, in Heat; the first is the base move's, as for damage); on a
+                // string the values belong to its last hits, where chip comes from.
+                bound.provisional = true;
+                if (levels.size() == 1) {
+                    result.front() = values.front();
+                } else {
+                    const std::size_t count = std::min(values.size(), levels.size());
+                    for (std::size_t k = 0; k < count; ++k) {
+                        result[levels.size() - count + k] = values[values.size() - count + k];
+                    }
+                }
             } else {
                 blockers.push_back(std::string("missing measurement: ") + name + " per hit");
             }
@@ -371,7 +527,18 @@ std::vector<FullBoundMove> bind_full_combat_moves(
             blockers.push_back("damage and hit-level counts differ");
         }
         if (!row.startup && !stance_entry && !reactive) blockers.push_back("missing source startup");
-        if (!row.recovery && !reactive) blockers.push_back("missing source recovery");
+        // Missing recovery (35% of the roster's moves; 170 of Lee's) blocks a move. With stand-in
+        // geometry it gets the median recovery of the moves with a similar block advantage (from the
+        // 4,029 moves that publish one); on block the engine sets the defender's stun from the
+        // attacker's remaining frames plus the block advantage, so that stays exact and recovery only
+        // decides how long a whiff leaves the move open. Marked provisional like the geometry.
+        std::optional<int> recovery = row.recovery;
+        if (!recovery && !reactive && geometry) {
+            const int advantage = row.block_advantage.value_or(-8);
+            recovery = advantage <= -15 ? 36 : advantage <= -10 ? 32 : advantage <= -5 ? 29 : advantage <= 0 ? 25 : 30;
+            bound.provisional = true;
+        }
+        if (!recovery && !reactive) blockers.push_back("missing source recovery");
         if (!row.block_advantage && !all_throws && !stance_entry && !reactive) {
             blockers.push_back("missing source block advantage");
         }
@@ -447,11 +614,44 @@ std::vector<FullBoundMove> bind_full_combat_moves(
 
         int required_stance = -1;
         bool requires_back_turned = false;
+        std::vector<std::string> stances;
         for (const auto& stance : row.stances) {
-            if (stance == "BT") {  // the user's own back-turned state, not a character stance
-                requires_back_turned = true;
-                continue;
+            if (stance == "BT") requires_back_turned = true;  // the user's own back-turned state
+            else stances.push_back(stance);
+        }
+        // A stance chain ("NSS.KIN.f+1+2", "MD1.HSP.b+4", "LTG.KNK.4,1+2"): the move is done from the
+        // stance written right before its input; the earlier ones are a mode or the way in.
+        // Conditions written like stances (counter hit, a grounded or airborne opponent) are not
+        // modeled; a chain move that is a mode's version of a move the stance already has is left
+        // to that move (the engine has one stance at a time); any other chain binds from its
+        // last stance, provisionally.
+        if (stances.size() > 1) {
+            static const std::vector<std::string> conditions = {"CH", "OTG", "(AIRBORNE)", "AIRBORNE"};
+            std::string proximate;
+            std::size_t prefix_end = 0;
+            for (std::size_t start = 0;;) {  // the prefix tokens in command order
+                const auto dot = row.command.find('.', start);
+                if (dot == std::string::npos) break;
+                const std::string token = row.command.substr(start, dot - start);
+                if (std::find(stances.begin(), stances.end(), token) == stances.end()) break;
+                proximate = token;
+                prefix_end = dot + 1;
+                start = dot + 1;
             }
+            const auto condition = std::find_first_of(stances.begin(), stances.end(), conditions.begin(), conditions.end());
+            if (condition != stances.end()) {
+                blockers.push_back("situational requirement not modeled: " + *condition);
+            } else if (proximate.empty() || !geometry) {
+                blockers.push_back("more than one stance requirement");
+            } else if (commands.count(row.character + ' ' + proximate + '.' + row.command.substr(prefix_end))) {
+                blockers.push_back("mode version of " + proximate + "." + row.command.substr(prefix_end) +
+                                   " (one stance at a time)");
+            } else {
+                bound.provisional = true;
+                stances = {proximate};
+            }
+        }
+        for (const auto& stance : stances) {
             const auto found = std::find(options.stance_names.begin(), options.stance_names.end(), stance);
             if (found == options.stance_names.end()) {
                 blockers.push_back("unknown stance: " + stance);
@@ -459,13 +659,10 @@ std::vector<FullBoundMove> bind_full_combat_moves(
                 required_stance = static_cast<int>(found - options.stance_names.begin());
             }
         }
-        if (row.stances.size() - (requires_back_turned ? 1U : 0U) > 1) {
-            blockers.push_back("more than one stance requirement");
-        }
 
         const bool geometry_complete = stance_entry || (first_frames.size() == levels.size() &&
             active.size() == levels.size() && levels.size() == damages.size() && !levels.empty());
-        if (!geometry_complete || (!row.recovery && !reactive) || (!row.hit_advantage && !stance_entry)) {
+        if (!geometry_complete || (!recovery && !reactive) || (!row.hit_advantage && !stance_entry)) {
             result.push_back(std::move(bound));
             continue;
         }
@@ -495,7 +692,7 @@ std::vector<FullBoundMove> bind_full_combat_moves(
             spec.hits.push_back(hit);
         }
         // A parry outcome without published recovery uses the engine's default (recovery 0).
-        spec.recovery = reactive ? row.recovery.value_or(0) : row.recovery.value_or(1);
+        spec.recovery = reactive ? row.recovery.value_or(0) : recovery.value_or(1);
         spec.block_advantage = row.block_advantage.value_or(0);
         spec.hit_advantage = row.hit_advantage.value_or(0);
         spec.reactive = reactive;

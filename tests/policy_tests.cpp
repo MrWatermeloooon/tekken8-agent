@@ -1136,8 +1136,73 @@ void test_observation_normalizer_and_v3_compatibility() {
 
 }  // namespace
 
+// Configurable depth: deeper trunks and separate policy/value heads have the expected
+// parameter counts, run, round-trip through checkpoints (version 5) exactly, and refuse
+// to load into a network of another shape.
+void test_configurable_depth() {
+    {
+        t8::v2::ActorCriticConfig config{};  // the original network, as a reference
+        config.hidden_size = 32;
+        t8::v2::GpuActorCritic network(64, config, 99);
+        const double error = network.debug_backprop_relative_error(16, 78);
+        check(error < 0.02, "original network backpropagation matches finite differences");
+        std::cout << "  backprop relative error (2 shared, no heads): " << error << std::endl;
+    }
+    constexpr std::size_t environments = 256;
+    t8::v2::GpuSimulatorBatch simulator(environments);
+    const auto view = simulator.device_view();
+    struct Shape { int shared, heads; };
+    for (const Shape shape : {Shape{3, 0}, Shape{2, 1}, Shape{1, 2}}) {
+        t8::v2::ActorCriticConfig config{};
+        config.hidden_size = 32;
+        config.shared_layers = shape.shared;
+        config.head_layers = shape.heads;
+        t8::v2::GpuActorCritic original(environments, config, 4242);
+        const std::size_t hidden = 32, inputs = static_cast<std::size_t>(config.observation_size);
+        const std::size_t outputs = static_cast<std::size_t>(config.action_count) + 1;
+        std::size_t expected = hidden * inputs + hidden + (static_cast<std::size_t>(shape.shared) - 1) * (hidden * hidden + hidden);
+        if (shape.heads == 0) {
+            expected += hidden * outputs + outputs;
+        } else {
+            expected += 2 * static_cast<std::size_t>(shape.heads) * (hidden * hidden + hidden) +
+                        hidden * (outputs - 1) + (outputs - 1) + hidden + 1;
+        }
+        check(original.parameter_count() == expected, "deeper network has the expected parameter count");
+        static_cast<void>(original.forward(view.observations_p1, view.action_masks_p1, environments, 1, 1, true));
+        const auto actions = original.download_actions(environments);
+        const auto values = original.download_values(environments);
+        check(std::all_of(values.begin(), values.end(), [](float v) { return std::isfinite(v); }),
+              "deeper network values are finite");
+        const auto checkpoint = std::filesystem::temp_directory_path() /
+            ("t8_v2_depth_" + std::to_string(shape.shared) + "_" + std::to_string(shape.heads) + ".t8ppo");
+        std::error_code error;
+        std::filesystem::remove(checkpoint, error);
+        original.save_checkpoint(checkpoint);
+        t8::v2::GpuActorCritic restored(environments, config, 7);
+        restored.load_checkpoint(checkpoint);
+        static_cast<void>(restored.forward(view.observations_p1, view.action_masks_p1, environments, 9, 9, true));
+        check(restored.download_actions(environments) == actions && restored.download_values(environments) == values,
+              "deeper network checkpoints round-trip exactly");
+        t8::v2::ActorCriticConfig original_shape{};
+        original_shape.hidden_size = 32;
+        t8::v2::GpuActorCritic other(environments, original_shape, 8);
+        bool refused = false;
+        try {
+            other.load_checkpoint(checkpoint);
+        } catch (const std::runtime_error&) {
+            refused = true;
+        }
+        check(refused, "a checkpoint of another depth is refused");
+        const double backprop_error = original.debug_backprop_relative_error(16, 77);
+        check(backprop_error < 0.02, "deeper network backpropagation matches finite differences");
+        std::cout << "  backprop relative error (" << shape.shared << " shared, " << shape.heads << " heads): " << backprop_error << std::endl;
+        std::filesystem::remove(checkpoint, error);
+    }
+}
+
 int main() {
     test_policy_shapes_and_sampling();
+    test_configurable_depth();
     test_determinism_and_busy_mask();
     test_parametric_move_scorer_masks_variable_candidates();
     test_zero_copy_policy_to_simulator_chain();

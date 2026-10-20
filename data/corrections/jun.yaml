@@ -16,3 +16,10 @@ corrections:
   - https://wavu.wiki/t/Jun_movelist
   reviewer: automated review (needs human confirmation)
   status: pending_practice
+  # Provenance (src/t8_agent/moves/provenance.py). The sources do not name a
+  # game version, so the patch stays unknown until Practice confirms it.
+  patch: unknown
+  recorded_at: '2026-09-23'
+  method: source_document
+  confidence: medium
+  review_status: unreviewed

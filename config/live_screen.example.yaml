@@ -33,3 +33,14 @@ position_distance_scale: 1.0
 # Motion remaining after shared camera motion is removed must exceed this
 # amount before it is treated as an attack.
 motion_threshold: 0.015
+
+# Full-move screen checkpoints (--screen-observation): the opponent's attack likelihood at or
+# above this counts as "an attack is coming" (the simulator's opponent-attacking feature).
+attack_cue_threshold: 0.5
+
+# --live-noise checkpoints also read this setup's measured noise levels (controller output
+# refuses one until all three are set; scripts/calibrate_screen_uncertainty.py measures the
+# first two). Latency: frames from the captured frame to the controller input landing.
+# screen_position_sigma: 0.15
+# screen_event_error: 0.05
+# controller_latency_frames: 4

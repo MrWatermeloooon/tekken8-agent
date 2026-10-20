@@ -2,9 +2,10 @@ from __future__ import annotations
 
 import time
 import math
+import sys
 import threading
 from collections import deque
-from typing import Any
+from typing import Any, Callable
 
 from t8_agent.core.types import DiscreteAction
 from t8_agent.io.input_backend import InputBackend
@@ -35,6 +36,11 @@ class VGamepadInputBackend(InputBackend):
         jump_seconds: float = 0.15,
         charge_seconds: float = 0.25,
         frame_seconds: float = 1.0 / 60.0,
+        string_gap_seconds: float | None = None,
+        string_first_gap_seconds: float | None = None,
+        string_gap_growth_seconds: float = 0.0,
+        dash_button_delay_seconds: float = 0.0,
+        input_log: Callable[[float, frozenset[str], str | None], None] | None = None,
     ) -> None:
         self.facing = 1 if facing >= 0 else -1
         self.tap_seconds = tap_seconds
@@ -49,6 +55,20 @@ class VGamepadInputBackend(InputBackend):
         self.jump_seconds = jump_seconds
         self.charge_seconds = charge_seconds
         self.frame_seconds = frame_seconds
+        # Between the inputs of a string (1,2,4): Tekken drops a later input pressed long before
+        # the previous hit, so each comes this long after the last (None: dash_gap_seconds, the
+        # old tight timing that completes 2-hit strings but loses the third input).
+        self.string_gap_seconds = string_gap_seconds
+        # The first follow-up comes sooner: in Practice, Jun's 1,2 needed it within ~8 frames (later
+        # it reads as a new 2), while 2,1,4,1 needed ~12+ before its last input.
+        self.string_first_gap_seconds = string_first_gap_seconds
+        # Each later string input waits this much longer than the one before (later hits of a
+        # long string come further apart: Jun's 1+4,2,4 lost its 4th input at a flat 14 frames).
+        self.string_gap_growth_seconds = string_gap_growth_seconds
+        # A held direction with a button (f,F+2: dash, then 2): the direction alone this long
+        # first, so the game sees the dash before the button. Pressed together, Practice read
+        # Jun's f,F+2 / f,F+3 / f,F+1+2 as f+2 / f+3 / f+1+2.
+        self.dash_button_delay_seconds = dash_button_delay_seconds
         self.hold_timeout = hold_timeout
         self.layout = {
             "lp": lp_button,
@@ -57,6 +77,9 @@ class VGamepadInputBackend(InputBackend):
             "rk": rk_button,
         }
         self._vgamepad = None
+        if gamepad is None and sys.platform != "win32":
+            from t8_agent.io.linux_backends import UinputGamepad
+            gamepad = UinputGamepad()
         if gamepad is None:
             try:
                 import vgamepad as vgamepad_module
@@ -69,6 +92,10 @@ class VGamepadInputBackend(InputBackend):
             gamepad = vgamepad_module.VX360Gamepad()
         self.gamepad = gamepad
         self._buttons = self._resolve_buttons()
+        # Called as input_log(time, held logical buttons, active action) on every
+        # change of the held buttons, for replay capture and comparison.
+        self.input_log = input_log
+        self._button_names = {value: name for name, value in self._buttons.items()}
         self._condition = threading.Condition(threading.RLock())
         self._held: set[Any] = set()
         self._stages: deque[tuple[set[Any], float | None]] = deque()
@@ -167,9 +194,57 @@ class VGamepadInputBackend(InputBackend):
                 self._advance_locked(time.perf_counter())
             return True
 
+    def planned_inputs(self, *, action: ActionLike | None = None,
+                       command: CommandSpec | dict[str, Any] | None = None,
+                       move_id: str = "") -> list[frozenset[str]]:
+        """The logical buttons each stage of an action or command will hold,
+        in order, for comparison with the replay's recorded presses."""
+
+        if (action is None) == (command is None):
+            raise ValueError("pass exactly one of action or command")
+        if action is not None:
+            stages = self._timed_sequence(action.value if hasattr(action, "value") else str(action))
+        else:
+            stages = self._command_sequence(self._coerce_command(command), move_id)
+        return [frozenset(self._button_names.get(button, str(button)) for button in buttons)
+                for buttons, _ in stages]
+
     def release_all(self) -> None:
         with self._condition:
             self._cancel_locked()
+
+    def press_menu(self, seconds: float = 0.12) -> None:
+        """Taps the Menu (Start) button, for setup only: claiming the controller when the game asks
+        for one ("Press Menu on the controller") and closing the pause menu. It is not a gameplay
+        action, so no policy or command can send it."""
+        if self._vgamepad is None:
+            raise RuntimeError("press_menu needs the virtual Xbox controller (vgamepad)")
+        start = self._vgamepad.XUSB_BUTTON.XUSB_GAMEPAD_START
+        with self._condition:
+            self._cancel_locked()
+            self.gamepad.press_button(button=start)
+            self.gamepad.update()
+        time.sleep(seconds)
+        with self._condition:
+            self.gamepad.release_button(button=start)
+            self.gamepad.update()
+
+    def press_practice_restart(self, seconds: float = 0.15) -> None:
+        """Practice mode's Restart (View + A): both fighters back to the starting positions. Setup
+        only, like press_menu (calibration starts from a known position)."""
+        if self._vgamepad is None:
+            raise RuntimeError("press_practice_restart needs the virtual Xbox controller (vgamepad)")
+        buttons = (self._vgamepad.XUSB_BUTTON.XUSB_GAMEPAD_BACK, self._vgamepad.XUSB_BUTTON.XUSB_GAMEPAD_A)
+        with self._condition:
+            self._cancel_locked()
+            for button in buttons:
+                self.gamepad.press_button(button=button)
+            self.gamepad.update()
+        time.sleep(seconds)
+        with self._condition:
+            for button in buttons:
+                self.gamepad.release_button(button=button)
+            self.gamepad.update()
 
     @property
     def generation(self) -> int:
@@ -211,6 +286,10 @@ class VGamepadInputBackend(InputBackend):
             self.gamepad.press_button(button=button)
         if buttons != self._held:
             self.gamepad.update()
+            if self.input_log is not None:
+                self.input_log(time.perf_counter(),
+                               frozenset(self._button_names.get(button, str(button)) for button in buttons),
+                               self._active_action)
         self._held = buttons
 
     def _cancel_locked(self) -> None:
@@ -294,6 +373,7 @@ class VGamepadInputBackend(InputBackend):
         move_id: str,
     ) -> list[tuple[set[Any], float | None]]:
         stages: list[tuple[set[Any], float | None]] = []
+        buttons_sent = 0
         for step in command.steps:
             if step.uncertain:
                 raise ValueError(f"move {move_id} contains an unresolved input: {step.raw}")
@@ -304,8 +384,9 @@ class VGamepadInputBackend(InputBackend):
             elif requirement == "SS":
                 stages.extend([(self._direction_buttons("u"), self.sidestep_seconds),
                                (set(), self.frame_seconds)])
-            elif requirement in {"BT", "CH"} or requirement.startswith("PARRY_SUCCESS"):
-                # A parry outcome happens by itself; only its base input is sendable.
+            elif requirement:
+                # Parry outcomes, counter-hits, wall stuns, and mid-string stances
+                # or Heat happen by themselves; only their base inputs are sendable.
                 raise ValueError(f"move {move_id} requires observed {requirement} state")
 
             motion = self._motion_directions(step.direction)
@@ -319,8 +400,19 @@ class VGamepadInputBackend(InputBackend):
             duration = self.charge_seconds if step.hold and not step.buttons else self.tap_seconds
             if step.delay_min > 0:
                 stages.append((set(), step.delay_min * self.frame_seconds))
+            if step.hold and step.buttons and self.dash_button_delay_seconds > 0 and not step.release:
+                stages.append((self._direction_buttons(final_direction), self.dash_button_delay_seconds))
             stages.append((buttons, duration))
-            stages.append((set(), self.frame_seconds if step.just_frame else self.dash_gap_seconds))
+            gap = self.dash_gap_seconds
+            if step.just_frame:
+                gap = self.frame_seconds
+            elif step.buttons:
+                buttons_sent += 1
+                if buttons_sent == 1 and self.string_first_gap_seconds is not None:
+                    gap = self.string_first_gap_seconds
+                elif self.string_gap_seconds is not None:
+                    gap = self.string_gap_seconds + max(0, buttons_sent - 2) * self.string_gap_growth_seconds
+            stages.append((set(), gap))
         stages.append((set(), None))
         return stages
 

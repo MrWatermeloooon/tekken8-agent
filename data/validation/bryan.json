@@ -1,0 +1,1113 @@
+{
+ "moves": {
+  "bryan:100": {
+   "measured_damage": 2,
+   "measured_hit_advantage": -6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:101": {
+   "measured_damage": 2,
+   "measured_hit_advantage": -6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:102": {
+   "measured_damage": 2,
+   "measured_hit_advantage": -6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:110": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 3,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:111": {
+   "measured_damage": 6,
+   "measured_hit_advantage": 1,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:112": {
+   "measured_damage": 4,
+   "measured_hit_advantage": 1,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:113": {
+   "measured_damage": 4,
+   "measured_hit_advantage": 1,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:118": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 15,
+   "measured_startup": 27,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:120": {
+   "measured_damage": 22,
+   "measured_hit_advantage": -12,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:122": {
+   "measured_damage": 24,
+   "measured_hit_advantage": -5,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:123": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 14,
+   "measured_startup": 29,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:125": {
+   "measured_damage": 29,
+   "measured_hit_advantage": 9,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:126": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 28,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:128": {
+   "measured_damage": 32,
+   "measured_hit_advantage": 15,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:129": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 43,
+   "measured_startup": 14,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:132": {
+   "measured_damage": 30,
+   "measured_hit_advantage": 13,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:158": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 19,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:16": {
+   "measured_damage": 0,
+   "measured_hit_advantage": -34,
+   "measured_startup": 28,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:160": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 16,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:161": {
+   "measured_damage": 23,
+   "measured_hit_advantage": 5,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:162": {
+   "measured_damage": 23,
+   "measured_hit_advantage": 31,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:163": {
+   "measured_damage": 35,
+   "measured_hit_advantage": -2,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:17": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 7,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:19": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 7,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:21": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 2,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:23": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 0,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:24": {
+   "measured_damage": 13,
+   "measured_hit_advantage": 6,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:25": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 43,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:26": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 11,
+   "measured_startup": 28,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:27": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:28": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 7,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:29": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 2,
+   "measured_startup": 24,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:3": {
+   "measured_damage": 5,
+   "measured_hit_advantage": 8,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:30": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 14,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:33": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 6,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:34": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 6,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:34~SWA": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 7,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:35": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 51,
+   "measured_startup": 26,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:36": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 1,
+   "measured_startup": 18,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:39": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 1,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:40": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 1,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:45": {
+   "measured_damage": 18,
+   "measured_hit_advantage": 5,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:46": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 1,
+   "measured_startup": 18,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:47": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 40,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:48": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 19,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:49": {
+   "measured_damage": 8,
+   "measured_hit_advantage": 1,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:53": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 1,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:54": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 5,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:55": {
+   "measured_damage": 11,
+   "measured_hit_advantage": 5,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:55~SWA": {
+   "measured_damage": 11,
+   "measured_hit_advantage": 5,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:56": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 8,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:57": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 70,
+   "measured_startup": 29,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:58": {
+   "measured_damage": 23,
+   "measured_hit_advantage": 20,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:59": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 1,
+   "measured_startup": 14,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:60": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 16,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:61": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 0,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:62": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 35,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:63": {
+   "measured_damage": 13,
+   "measured_hit_advantage": 0,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:64": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 3,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:66": {
+   "measured_damage": 24,
+   "measured_hit_advantage": 53,
+   "measured_startup": 30,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:67": {
+   "measured_damage": 16,
+   "measured_hit_advantage": -1,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:69": {
+   "measured_damage": 13,
+   "measured_hit_advantage": 1,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:70": {
+   "measured_damage": 11,
+   "measured_hit_advantage": -1,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:71": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 61,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:72": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 7,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:75": {
+   "measured_damage": 18,
+   "measured_hit_advantage": 4,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:76": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 55,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:76~SLS": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 62,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:77": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 15,
+   "measured_startup": 24,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:79": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 40,
+   "measured_startup": 30,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:81": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 4,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:82": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 7,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:85": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 7,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:86": {
+   "measured_damage": 18,
+   "measured_hit_advantage": -1,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:95": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 4,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:95~FC": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 4,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:96": {
+   "measured_damage": 18,
+   "measured_hit_advantage": 15,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:97": {
+   "measured_damage": 26,
+   "measured_hit_advantage": 7,
+   "measured_startup": 28,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "bryan:99": {
+   "measured_damage": 2,
+   "measured_hit_advantage": -6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  }
+ },
+ "routes": {},
+ "scenarios": {},
+ "schema_version": 1
+}

@@ -33,6 +33,16 @@ struct ActorCriticConfig {
     // Orthogonal init (gain sqrt(2) hidden, 0.01 policy/query rows, 1.0 value
     // row) per "The 37 Implementation Details of PPO"; false keeps Xavier.
     bool orthogonal_initialization = true;
+    // Matrix-multiply arithmetic (runtime only, not stored in checkpoints).
+    // Storage, accumulation, and the optimizer stay FP32 in every mode; tf32 and
+    // bf16 round the multiply inputs (10- and 7-bit mantissas) to use tensor cores.
+    std::string matmul_precision = "fp32";  // fp32 | tf32 | bf16
+    // Hidden layers (all hidden_size wide, tanh): shared_layers shared by the policy and
+    // the value; with head_layers > 0 the policy (or parametric query) and the value each
+    // get head_layers more of their own (separate heads, as in many actor-critic setups).
+    // 2 and 0 is the original network and keeps checkpoint version 4.
+    int shared_layers = 2;
+    int head_layers = 0;
 };
 
 struct GpuPolicyOutputView {
@@ -74,8 +84,10 @@ struct PpoUpdateMetrics {
     // a choice" from "how random it is when it does".
     float decision_fraction = 0.0F;
     float decision_entropy = 0.0F;
-    // The rollout policy's entropy at choice decisions (first epoch, before the update),
-    // reduced in a fixed order: bit-reproducible, so it can steer training.
+    // The rollout policy's entropy at choice decisions, reduced in a fixed order
+    // (bit-reproducible, so it can steer training). Exact when the rollout recorded the
+    // acting policy's entropies (record_policy_device's `entropies`); otherwise measured
+    // during the first epoch, while the minibatch updates are already moving the policy.
     float rollout_decision_entropy = 0.0F;
     std::size_t minibatches = 0;
     int epochs_completed = 0;
@@ -118,6 +130,16 @@ public:
     // [action_count, action_feature_size] and remain fixed while PPO learns the
     // state query that scores them.
     void set_action_features(std::span<const float> action_features, void* stream = nullptr);
+    // Several candidate tables (one per character), row-major
+    // [tables, action_count, action_feature_size]. Each sample then names its
+    // table (forward's device_feature_tables, the rollout's feature_tables), so
+    // one policy can play every character.
+    void set_action_feature_tables(std::span<const float> action_features, int tables, void* stream = nullptr);
+    // Test aid: backpropagates a random output gradient G through the network for random
+    // inputs and compares parameter gradients (entries of every layer) with central finite
+    // differences of sum(G * output). Returns the largest relative error. Changes no weights.
+    [[nodiscard]] double debug_backprop_relative_error(std::size_t batch, std::uint64_t seed);
+    [[nodiscard]] int action_feature_tables() const noexcept;
 
     // observations: row-major [environment_count, observation_size]
     // action_masks: row-major [environment_count, action_count], nonzero=legal
@@ -128,7 +150,8 @@ public:
         std::uint64_t sampling_seed,
         std::uint64_t sampling_step,
         bool deterministic = false,
-        void* stream = nullptr);
+        void* stream = nullptr,
+        const std::int32_t* device_feature_tables = nullptr);  // [environment]; null = table 0
 
     [[nodiscard]] PpoUpdateMetrics update_ppo(
         const GpuRolloutView& rollout,
@@ -184,6 +207,8 @@ struct GpuRolloutView {
     std::size_t environment_count = 0;
     std::size_t horizon = 0;
     std::size_t sample_count = 0;
+    const std::int32_t* feature_tables = nullptr;  // [step, environment] candidate table per sample
+    const float* entropies = nullptr;  // [step, environment] acting policy's entropy; null unless every step recorded it
 };
 
 // Running statistics of the per-environment discounted return, used to scale
@@ -220,7 +245,9 @@ public:
         const std::int64_t* actions,
         const float* log_probabilities,
         const float* values,
-        void* stream = nullptr);
+        void* stream = nullptr,
+        const std::int32_t* feature_tables = nullptr,  // null = table 0
+        const float* entropies = nullptr);  // the acting policy's entropies (GpuPolicyOutputView::entropies)
 
     void record_outcome_device(
         std::size_t step,
@@ -243,6 +270,9 @@ public:
     // then divides every stored reward by the running return standard
     // deviation and clips to [-clip, clip]. Returns the standard deviation used.
     float normalize_rewards(float gamma, float clip = 10.0F, void* stream = nullptr);
+    // Mean raw per-sample reward of the current rollout, reduced in a fixed
+    // order (reporting only; call before normalize_rewards rescales it).
+    [[nodiscard]] double mean_reward(void* stream = nullptr);
     [[nodiscard]] ReturnNormalizerState return_normalizer_state(void* stream = nullptr) const;
     void restore_return_normalizer_state(const ReturnNormalizerState& state, void* stream = nullptr);
 

@@ -19,3 +19,25 @@ __pycache__/
 *.ilk
 *.lib
 *.exe
+
+# T8Train local settings (written on first run)
+training.ini
+
+# run_all_tests output
+test_logs/
+
+# packaged zips
+dist/
+
+# Kept local, not published
+*.md
+!/README.md
+docs/
+models/
+training.ini.*
+.git-template/
+.github/workflows/gpu.yml
+scripts/overnight_*.sh
+scripts/round2_*.sh
+scripts/round3_*.sh
+tools/render_readme_figures.ps1

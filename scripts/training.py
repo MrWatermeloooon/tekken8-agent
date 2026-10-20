@@ -2,6 +2,8 @@
 
     python scripts/training.py run --run-dir runs/overnight --envs 32768 --minibatch 131072 --updates 12000
     python scripts/training.py status --run-dir runs/overnight
+    python scripts/training.py report --run-dir runs/overnight --watch 60   # live dashboard.html
+    python scripts/training.py full-move --run-dir runs/jun_full -- --allow-provisional --envs 32768
     python scripts/training.py stop --run-dir runs/overnight
     python scripts/training.py start --run-dir runs/jun_visual_2027          # foreground, with visualizer
     python scripts/training.py seed-matrix --seeds 2027 2028 2029
@@ -270,6 +272,8 @@ def command_status(options: argparse.Namespace) -> int:
     stderr = Path(session.get("stderr") or run_path / "trainer.stderr.log")
     if stderr.exists() and stderr.stat().st_size:
         print("\nLatest stderr:\n" + "\n".join(stderr.read_text(encoding="utf-8", errors="replace").splitlines()[-10:]))
+    if write_run_report(run_path) is not None:
+        print(f"\nDashboard: {run_path / 'dashboard.html'}")
     if shutil.which("nvidia-smi"):
         print("\nGPU:", flush=True)
         subprocess.run(["nvidia-smi", "--query-gpu=name,utilization.gpu,memory.used,memory.total,temperature.gpu",
@@ -277,11 +281,35 @@ def command_status(options: argparse.Namespace) -> int:
     return 0
 
 
+def write_run_report(run_path: Path) -> dict | None:
+    """Regenerates <run>/report.json and dashboard.html (tools/run_report.py)."""
+    if not (run_path / "metrics.jsonl").exists():
+        return None
+    sys.path.insert(0, str(REPO / "tools"))
+    import run_report
+    return run_report.write_artifacts(run_path)
+
+
+def command_report(options: argparse.Namespace) -> int:
+    import time
+    run_path = run_path_of(options.run_dir)
+    while True:
+        latest = (write_run_report(run_path) or {}).get("latest")
+        status = (f"update {latest['update']}: win rate {latest['win_rate']:.3f} "
+                  f"(95% CI {latest['win_rate_ci95'][0]:.3f}-{latest['win_rate_ci95'][1]:.3f})"
+                  if latest else "no evaluations yet")
+        print(f"{run_path / 'dashboard.html'}: {status}", flush=True)
+        if not options.watch:
+            return 0
+        time.sleep(options.watch)
+
+
 def start_visualizer(follow_dir: Path | None, windowless: bool) -> subprocess.Popen:
-    command = [python_executable(windowless), str(REPO / "scripts" / "visualize_v2.py"),
-               "--opponent-character", "reina", "--opponent-archetype", "rushdown"]
+    """The visualizer (scripts/visualizer.py) on a run: its newest champion, else its newest checkpoint."""
+    command = [python_executable(windowless), str(REPO / "scripts" / "visualizer.py")]
     if follow_dir is not None:
-        command[2:2] = ["--follow-dir", str(follow_dir), "--observation-mode", "visual"]
+        run = follow_dir.parent if follow_dir.name in ("checkpoints", "champion") else follow_dir
+        command += ["--run", str(run)]
     return subprocess.Popen(command, cwd=REPO)
 
 
@@ -387,8 +415,29 @@ def command_phase0(options: argparse.Namespace) -> int:
                            "--output", str(REPO / "docs" / f"{options.label}_report.md")], cwd=REPO).returncode
 
 
+def command_full_move(options: argparse.Namespace) -> int:
+    """Supervised full-move run: t8_v2_full_move_train with the given trainer arguments."""
+    trainer = find_executable("t8_v2_full_move_train", options.trainer)
+    run_path = run_path_of(options.run_dir)
+    arguments = [*options.trainer_arguments, "--run-dir", options.run_dir]
+    suffix = ""
+    if options.resume:
+        if not (REPO / options.resume).resolve().with_suffix(".t8fmstate").exists():
+            raise SystemExit(f"missing the .t8fmstate next to {options.resume}")
+        arguments += ["--resume", options.resume]
+        suffix = f".resume_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
+    elif has_artifacts(run_path):
+        raise SystemExit(f"run directory already contains training artifacts: {run_path}")
+    print(f"trainer: {trainer}")
+    configuration = {"trainer": "t8_v2_full_move_train", "arguments": arguments}
+    code = supervise([str(trainer), *arguments], run_path, configuration, suffix)
+    if code != 0:
+        print(f"trainer exited with code {code}; see {run_path / f'trainer{suffix}.stderr.log'}", file=sys.stderr)
+    return code
+
+
 def command_visualize(options: argparse.Namespace) -> int:
-    find_executable("t8_v2_visualizer_feed")
+    find_executable("t8_v2_full_move_feed")
     return start_visualizer(Path(options.follow_dir) if options.follow_dir else None, windowless=False).wait()
 
 
@@ -432,6 +481,11 @@ def build_parser() -> argparse.ArgumentParser:
         sub.add_argument("--run-dir", required=True)
         sub.set_defaults(func=func)
 
+    report = commands.add_parser("report", help="write report.json and the dashboard.html plots for a run")
+    report.add_argument("--run-dir", required=True)
+    report.add_argument("--watch", type=float, default=0.0, help="regenerate every N seconds (live plots)")
+    report.set_defaults(func=command_report)
+
     matrix = commands.add_parser("seed-matrix", help="one long run per seed, then aggregate")
     matrix.add_argument("--seeds", type=int, nargs="+", default=[2027, 2028, 2029, 2030, 2031])
     matrix.add_argument("--prefix", default="seed_matrix")
@@ -455,6 +509,15 @@ def build_parser() -> argparse.ArgumentParser:
     phase0.add_argument("--trainer")
     phase0.set_defaults(func=command_phase0)
 
+    full_move = commands.add_parser(
+        "full-move", help="supervised full-move run (t8_v2_full_move_train); trainer options follow --")
+    full_move.add_argument("--run-dir", required=True)
+    full_move.add_argument("--resume", help="full-move checkpoint (.t8ppo with its .t8fmstate)")
+    full_move.add_argument("--trainer")
+    full_move.add_argument("trainer_arguments", nargs=argparse.REMAINDER,
+                           help="e.g. -- --learner-character jun --allow-provisional --envs 32768")
+    full_move.set_defaults(func=command_full_move)
+
     visualize = commands.add_parser("visualize", help="open the visualizer, optionally following a run")
     visualize.add_argument("--follow-dir")
     visualize.set_defaults(func=command_visualize)
@@ -463,6 +526,8 @@ def build_parser() -> argparse.ArgumentParser:
 
 def main(argv: Sequence[str] | None = None) -> int:
     options = build_parser().parse_args(argv)
+    if getattr(options, "trainer_arguments", None) and options.trainer_arguments[0] == "--":
+        options.trainer_arguments = options.trainer_arguments[1:]
     return int(options.func(options) or 0)
 
 

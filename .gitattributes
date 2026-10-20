@@ -1,0 +1,12 @@
+# Text files are stored with LF in the repository (checked out as the platform
+# prefers); after adding this, run `git add --renormalize .` once and commit the
+# normalization on its own, so later diffs show only real changes.
+* text=auto
+
+*.png binary
+*.jpg binary
+*.pdf binary
+*.zip binary
+*.exe binary
+*.t8ppo binary
+*.t8fmstate binary

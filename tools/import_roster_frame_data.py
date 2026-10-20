@@ -112,7 +112,8 @@ def _convert_move(row: dict[str, Any]) -> dict[str, Any]:
             tags.append(derived)
     return {
         "id": _command_to_id(command),
-        "source_id": str(row.get("wavuId") or ""),
+        # The stable source key ("Lee-H.2+3"): first served as wavuId, later as id.
+        "source_id": _source_key(row),
         "source_index": int(row.get("moveNumber") or 0),
         "command": command,
         "name": str(row.get("name") or ""),
@@ -128,6 +129,16 @@ def _convert_move(row: dict[str, Any]) -> dict[str, Any]:
         "notes": notes,
         **({"transitions": [str(value) for value in row["transitions"]]} if row.get("transitions") else {}),
     }
+
+
+def _source_key(row: dict[str, Any]) -> str:
+    """The "<Character>-<command>" key, from wavuId or (newer API) id. An id that
+    is not of that form (a bare number or slug) is not a stable key."""
+    for field in ("wavuId", "id"):
+        value = str(row.get(field) or "")
+        if "-" in value and not value.isdigit():
+            return value
+    return ""
 
 
 def _recovery_text(row: dict[str, Any]) -> str:

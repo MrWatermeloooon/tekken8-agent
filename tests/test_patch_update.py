@@ -134,7 +134,9 @@ def test_apply_patch_invalidates_everything_that_depended_on_changed_moves(tmp_p
 
 def test_corrections_follow_patch_statuses():
     rows = [_move("T-1", 1, "1", startup="i16~15")]
-    base = {"source_id": "T-1", "fields": {"startup": "i15~16"}, "reason": "r", "evidence": ["e"], "reviewer": "x"}
+    base = {"source_id": "T-1", "fields": {"startup": "i15~16"}, "reason": "r", "evidence": ["e"], "reviewer": "x",
+            "patch": "unknown", "recorded_at": "2026-09-23", "method": "source_document", "confidence": "medium",
+            "review_status": "unreviewed"}
 
     def load(tmp_entry, tmp_path):
         path = tmp_path / "c.yaml"
@@ -161,3 +163,13 @@ def test_importer_normalizes_the_newer_api_format():
     assert "intr" in converted["tags"] and converted["transitions"] == ["IZU"]
     assert importer._convert_move({**row, "recovery": "r28 IZU", "tags": ["he"]})["recovery"] == "r28 IZU"
     assert importer._convert_move({**row, "recovery": "", "recoveryState": "IZU"})["recovery"] == "IZU"
+
+
+def test_importer_reads_the_source_key_from_either_api_field():
+    importer = _tool("import_roster_frame_data")
+    row = {"command": "1,2", "hitLevel": "h, h", "recovery": "20", "moveNumber": 3}
+    assert importer._convert_move({**row, "wavuId": "Lee-1,2"})["source_id"] == "Lee-1,2"
+    # The newer API serves the key as "id" and drops wavuId; without this every move
+    # would look removed and re-added, retiring all stable move IDs on a patch update.
+    assert importer._convert_move({**row, "id": "Lee-1,2"})["source_id"] == "Lee-1,2"
+    assert importer._convert_move({**row, "id": "17"})["source_id"] == "", "a bare number is not a stable key"

@@ -569,7 +569,7 @@ __device__ bool finish_move_if_needed(FighterD& fighter, bool active_whiff) {
     if (fighter.move < 0) return false;
     const DeviceMove move = move_for(fighter);
     bool whiffed = false;
-    if (active_whiff && !fighter.has_hit && fighter.move_frame == move.startup + move.active) {
+    if (active_whiff && !fighter.has_hit && fighter.move_frame == move.startup + move.active - 1) {
         whiffed = true;
         ++fighter.whiffs;
     }
@@ -599,10 +599,11 @@ __device__ FrameInfoD advance_frame(
     DeviceMove p2_move_data{};
     if (p1_move >= 0) p1_move_data = move_for(p1);
     if (p2_move >= 0) p2_move_data = move_for(p2);
-    const bool p1_active = p1_move >= 0 && p1.move_frame > p1_move_data.startup &&
-                           p1.move_frame <= p1_move_data.startup + p1_move_data.active;
-    const bool p2_active = p2_move >= 0 && p2.move_frame > p2_move_data.startup &&
-                           p2.move_frame <= p2_move_data.startup + p2_move_data.active;
+    // move_frame is 1 on a move's first frame, so iN connects on frame N.
+    const bool p1_active = p1_move >= 0 && p1.move_frame >= p1_move_data.startup &&
+                           p1.move_frame < p1_move_data.startup + p1_move_data.active;
+    const bool p2_active = p2_move >= 0 && p2.move_frame >= p2_move_data.startup &&
+                           p2.move_frame < p2_move_data.startup + p2_move_data.active;
     const bool has_p1_check = p1_active && !p1.has_hit;
     const bool has_p2_check = p2_active && !p2.has_hit;
     AttackCheckD p1_check{};
@@ -611,9 +612,9 @@ __device__ FrameInfoD advance_frame(
     if (has_p2_check) p2_check = check_attack(p2, p1, p2_move_data, config);
 
     const bool p2_whiff_recovery = p2.move >= 0 && !p2.has_hit &&
-        p2.move_frame > p2_move_data.startup + p2_move_data.active;
+        p2.move_frame >= p2_move_data.startup + p2_move_data.active;
     const bool p1_whiff_recovery = p1.move >= 0 && !p1.has_hit &&
-        p1.move_frame > p1_move_data.startup + p1_move_data.active;
+        p1.move_frame >= p1_move_data.startup + p1_move_data.active;
     const bool p1_punishes = has_p1_check && p1_check.damage > 0.0F && p2_whiff_recovery;
     const bool p2_punishes = has_p2_check && p2_check.damage > 0.0F && p1_whiff_recovery;
 
@@ -658,6 +659,11 @@ __device__ FrameInfoD advance_frame(
     }
     if (!state.round_over) {
         int winner = 0;
+        if (state.p1.health <= 0.0F && state.p2.health <= 0.0F) {
+            state.round_over = 1;  // double KO: a draw
+            state.winner = 0;
+            return info;
+        }
         if (state.p1.health <= 0.0F) winner = 2;
         else if (state.p2.health <= 0.0F) winner = 1;
         else if (state.frame >= config.max_frames) {
@@ -724,7 +730,7 @@ __device__ void write_player_outputs(
     DeviceMove opponent_move{};
     if (opponent.move >= 0) opponent_move = move_for(opponent);
     const bool throw_threat = opponent.move >= 0 && opponent_move.hit_level == HitThrow &&
-        opponent.move_frame <= opponent_move.startup + opponent_move.active;
+        opponent.move_frame < opponent_move.startup + opponent_move.active;
 
     const std::size_t base = lane * kObservationSize;
     observations[base + 0] = own.health / config.max_health;
@@ -758,7 +764,7 @@ __device__ float visual_attack_likelihood(const FighterD& fighter, float distanc
     if (fighter.move < 0) return 0.0F;
     const DeviceMove& move = move_for(fighter);
     const float proximity = clampf(1.0F - distance / fmaxf(move.range + 0.8F, 0.1F), 0.0F, 1.0F);
-    const bool active_window = fighter.move_frame <= move.startup + move.active;
+    const bool active_window = fighter.move_frame < move.startup + move.active;
     return (active_window ? 0.6F : 0.25F) + 0.4F * proximity;
 }
 
@@ -772,7 +778,7 @@ __device__ bool screen_activity_truth(const FighterD& fighter, const FighterD& p
 __device__ bool screen_attack_cue_truth(const FighterD& fighter) {
     if (fighter.move < 0) return false;
     const DeviceMove& move = move_for(fighter);
-    return fighter.move_frame <= move.startup + move.active;
+    return fighter.move_frame < move.startup + move.active;
 }
 
 __device__ float screen_measured_x(const StateD& state, const DeviceConfig& config, std::size_t lane,
@@ -970,7 +976,8 @@ __global__ void step_kernel(
     const bool timed_out = state.round_over && state.frame >= config.max_frames &&
         state.p1.health > 0.0F && state.p2.health > 0.0F;
     const bool was_truncated = timed_out;
-    const bool stalemate = state.round_over && state.winner == 0;
+    const bool stalemate = state.round_over && state.winner == 0 &&
+                           state.stall_frames >= config.max_stall_frames;
     const bool no_action_timeout = state.round_over &&
         state.no_action_frames >= config.no_action_timeout_frames;
 
@@ -1016,8 +1023,8 @@ __global__ void step_kernel(
         }
     }
 
-    if (p1_action == Neutral) reward_p1 += config.idle_penalty;
-    if (p2_action == Neutral) reward_p2 += config.idle_penalty;
+    if (p1_action == Neutral && !busy(previous.p1)) reward_p1 += config.idle_penalty;
+    if (p2_action == Neutral && !busy(previous.p2)) reward_p2 += config.idle_penalty;
     const bool no_contact = info.damage_to_p1 == 0.0F && info.damage_to_p2 == 0.0F &&
         info.p1_blocks == 0 && info.p2_blocks == 0;
     if (no_contact && is_lateral(p1_action) && info.p2_whiffs == 0) reward_p1 += config.lateral_passivity_penalty;

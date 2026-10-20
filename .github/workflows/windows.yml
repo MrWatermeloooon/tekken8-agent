@@ -1,0 +1,68 @@
+name: windows
+
+# Windows CI on GitHub-hosted runners (no GPU).
+#
+# cpu-only: MSVC build with T8_V2_ENABLE_CUDA=OFF (the CPU oracle, full-combat
+#   engine, roster loaders, and their tests), the Python suite, and the
+#   generated-data reproducibility check.
+# cuda-compile: installs the CUDA toolkit and compiles every target, including
+#   the CUDA simulator and PPO trainer, with warnings treated as errors. GPU
+#   tests cannot run here; see gpu.yml for the self-hosted GPU job.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  cpu-only:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python environment (before configuring, so CMake finds pytest)
+        shell: pwsh
+        run: |
+          python -m venv .venv
+          .venv\Scripts\python -m pip install --upgrade pip
+          .venv\Scripts\python -m pip install -e ".[dev]"
+      - name: Configure (CPU only)
+        run: cmake -S . -B build -A x64 -DT8_V2_ENABLE_CUDA=OFF
+      - name: Build (warnings are errors)
+        shell: pwsh
+        run: |
+          cmake --build build --config Release --parallel 2>&1 | Tee-Object build.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if (Select-String -Path build.log -Pattern "warning C|error C") { Write-Error "the build has warnings"; exit 1 }
+      - name: Native CPU tests
+        run: ctest --test-dir build -C Release --output-on-failure
+      - name: Python tests
+        run: .venv\Scripts\python -m pytest -q
+      - name: Generated data is reproducible
+        shell: pwsh
+        run: |
+          .venv\Scripts\python tools\compile_full_move_catalog.py
+          .venv\Scripts\python tools\export_full_combat_bindings.py
+          git diff --exit-code -- data/generated
+
+  cuda-compile:
+    runs-on: windows-2022
+    steps:
+      - uses: actions/checkout@v4
+      - uses: Jimver/cuda-toolkit@v0.2.21
+        with:
+          cuda: "12.8.0"
+          method: network
+          sub-packages: '["nvcc", "cudart", "cublas", "cublas_dev", "visual_studio_integration"]'
+      - name: Configure
+        run: cmake -S . -B build -A x64 -DCMAKE_CUDA_ARCHITECTURES="89-real;120" -DT8_V2_BUILD_TESTS=ON
+      - name: Build every target (warnings are errors)
+        shell: pwsh
+        run: |
+          cmake --build build --config Release --parallel 2>&1 | Tee-Object build.log
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          if (Select-String -Path build.log -Pattern "warning C|warning #|error C") { Write-Error "the build has warnings"; exit 1 }
+      - name: Tests that need no GPU
+        run: ctest --test-dir build -C Release -LE gpu --output-on-failure

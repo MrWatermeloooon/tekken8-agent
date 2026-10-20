@@ -1,0 +1,1491 @@
+{
+ "moves": {
+  "jun:1": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 2,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:10": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 5,
+   "measured_startup": 27,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:100": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 30,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:101": {
+   "measured_damage": 24,
+   "measured_hit_advantage": 16,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:102": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 0,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:103": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 0,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:104": {
+   "measured_damage": 28,
+   "measured_hit_advantage": 16,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:105": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 5,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:106": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 19,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:107": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 25,
+   "measured_startup": 14,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:108": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 18,
+   "measured_startup": 11,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:109": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 5,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:11": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 2,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:110": {
+   "measured_damage": 23,
+   "measured_hit_advantage": 38,
+   "measured_startup": 18,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:12": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 7,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:13": {
+   "measured_damage": 9,
+   "measured_hit_advantage": 0,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:138": {
+   "measured_damage": 35,
+   "measured_hit_advantage": 0,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:14": {
+   "measured_damage": 12,
+   "measured_hit_advantage": -1,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:148": {
+   "measured_damage": 40,
+   "measured_hit_advantage": -6,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:15": {
+   "measured_damage": 30,
+   "measured_hit_advantage": 10,
+   "measured_startup": 30,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:16": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 13,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:17": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 22,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:18": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 2,
+   "measured_startup": 14,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:19": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 22,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:20": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 7,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:21": {
+   "measured_damage": 26,
+   "measured_hit_advantage": 9,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:22": {
+   "measured_damage": 8,
+   "measured_hit_advantage": -3,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:23": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 9,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:26": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 1,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:30": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 9,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:31": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 33,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:32": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 9,
+   "measured_startup": 29,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:33": {
+   "measured_damage": 13,
+   "measured_hit_advantage": 7,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:34": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 11,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:35": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 28,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:36": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 13,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:37": {
+   "measured_damage": 5,
+   "measured_hit_advantage": 26,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:38": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 25,
+   "measured_startup": 28,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:40": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 8,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:41": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 5,
+   "measured_startup": 24,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:42": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 6,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:43": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 29,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:44": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 38,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:45": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 19,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:46": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 48,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:47": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 1,
+   "measured_startup": 24,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:48": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 17,
+   "measured_startup": 33,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:49": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 4,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:50": {
+   "measured_damage": 18,
+   "measured_hit_advantage": 9,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:51": {
+   "measured_damage": 10,
+   "measured_hit_advantage": -1,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:52": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 13,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:53": {
+   "measured_damage": 28,
+   "measured_hit_advantage": 72,
+   "measured_startup": 26,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:54": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 30,
+   "measured_startup": 9,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:55": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 1,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:56": {
+   "measured_damage": 8,
+   "measured_hit_advantage": 0,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:57": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 21,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:58": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 2,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:59": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 2,
+   "measured_startup": 18,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:6": {
+   "measured_damage": 5,
+   "measured_hit_advantage": 8,
+   "measured_startup": 10,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:60": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 0,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:60~FC": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 0,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:61": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 4,
+   "measured_startup": 31,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:61~FC": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 4,
+   "measured_startup": 31,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:62": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 4,
+   "measured_startup": 31,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:62~FC": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 4,
+   "measured_startup": 31,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:63": {
+   "measured_damage": 8,
+   "measured_hit_advantage": -3,
+   "measured_startup": 17,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:64": {
+   "measured_damage": 19,
+   "measured_hit_advantage": 6,
+   "measured_startup": 29,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:66": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 2,
+   "measured_startup": 14,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:67": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 2,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:67~GEN": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 2,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:67~MIA": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 2,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:68": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 13,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:69": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 30,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:7": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 8,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:70": {
+   "measured_damage": 24,
+   "measured_hit_advantage": 16,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:71": {
+   "measured_damage": 10,
+   "measured_hit_advantage": 3,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:72": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 22,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:75": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 5,
+   "measured_startup": 13,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:76": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 12,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:78": {
+   "measured_damage": 25,
+   "measured_hit_advantage": 9,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:79": {
+   "measured_damage": 50,
+   "measured_hit_advantage": 6,
+   "measured_startup": 57,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:8": {
+   "measured_damage": 8,
+   "measured_hit_advantage": 6,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:80": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 11,
+   "measured_startup": 23,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:81": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 22,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:82": {
+   "measured_damage": 30,
+   "measured_hit_advantage": 12,
+   "measured_startup": 26,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:83": {
+   "measured_damage": 24,
+   "measured_hit_advantage": 30,
+   "measured_startup": 19,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:84": {
+   "measured_damage": 17,
+   "measured_hit_advantage": 5,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:85": {
+   "measured_damage": 10,
+   "measured_hit_advantage": -9,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:87": {
+   "measured_damage": 21,
+   "measured_hit_advantage": 18,
+   "measured_startup": 2,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:9": {
+   "measured_damage": 12,
+   "measured_hit_advantage": 11,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:90": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 3,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:90~GEN": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 16,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:90~MIA": {
+   "measured_damage": 16,
+   "measured_hit_advantage": 16,
+   "measured_startup": 16,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:91": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 8,
+   "measured_startup": 21,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:92": {
+   "measured_damage": 22,
+   "measured_hit_advantage": 29,
+   "measured_startup": 20,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:93": {
+   "measured_damage": 23,
+   "measured_hit_advantage": 2,
+   "measured_startup": 18,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:94": {
+   "measured_damage": 15,
+   "measured_hit_advantage": 14,
+   "measured_startup": 5,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:95": {
+   "measured_damage": 32,
+   "measured_hit_advantage": 23,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:95~GEN": {
+   "measured_damage": 32,
+   "measured_hit_advantage": 23,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:95~MIA": {
+   "measured_damage": 32,
+   "measured_hit_advantage": 23,
+   "measured_startup": 22,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:96": {
+   "measured_damage": 28,
+   "measured_hit_advantage": 14,
+   "measured_startup": 24,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-11",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:97": {
+   "measured_damage": 14,
+   "measured_hit_advantage": 5,
+   "measured_startup": 12,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:98": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 2,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:98~GEN": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 11,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:98~MIA": {
+   "measured_damage": 7,
+   "measured_hit_advantage": 11,
+   "measured_startup": 15,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  },
+  "jun:99": {
+   "measured_damage": 20,
+   "measured_hit_advantage": 13,
+   "measured_startup": 25,
+   "provenance": {
+    "confidence": "medium",
+    "method": "practice_mode",
+    "patch": "3.02.02",
+    "recorded_at": "2026-10-10",
+    "review_status": "unreviewed",
+    "reviewer": "auto_validator"
+   },
+   "status": "pass"
+  }
+ },
+ "routes": {},
+ "scenarios": {},
+ "schema_version": 1
+}

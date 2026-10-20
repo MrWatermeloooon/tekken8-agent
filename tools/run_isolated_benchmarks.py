@@ -22,8 +22,8 @@ import time
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
-BLOCKING_PROCESSES = ("t8_v2_train.exe", "t8_v2_visualizer_feed.exe")
-BLOCKING_COMMAND_LINES = ("live_vision_play.py", "visualize_v2.py")
+BLOCKING_PROCESSES = ("t8_v2_train.exe", "t8_v2_full_move_train.exe", "t8_v2_full_move_feed.exe")
+BLOCKING_COMMAND_LINES = ("live_vision_play.py", "visualizer.py")
 SAMPLE_FIELDS = ("power.draw", "memory.used", "utilization.gpu", "temperature.gpu", "clocks.sm")
 
 

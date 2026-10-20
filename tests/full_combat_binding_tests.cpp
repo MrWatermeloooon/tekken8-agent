@@ -104,7 +104,11 @@ void test_strict_binding_blocks_everything_honestly(const std::vector<FullBindin
         }
         check(!move.provisional, "strict binding never marks a move provisional");
     }
-    check(unvalidated == rows.size(), "every move awaits Practice validation");
+    // Moves the Practice validator passed (data/validation/jun.json, exported into the bindings)
+    // no longer wait for it; every other move does.
+    const auto validated = static_cast<std::size_t>(std::count_if(rows.begin(), rows.end(),
+        [](const auto& row) { return row.practice_status == "pass"; }));
+    check(unvalidated == rows.size() - validated, "every move not yet validated awaits Practice validation");
     std::cout << "strict: 0/" << rows.size() << " bound (" << base << " moves, " << rows.size() - base
               << " variants, " << reactive << " parry outcomes)\n";
 }
@@ -390,6 +394,54 @@ void test_windows_parse() {
 
 }  // namespace
 
+// Stand-in binding rules for rows the data leaves awkward: a transition to BT, chip values that
+// do not line up with the hits, and stance chains.
+void test_back_turned_chip_and_stance_chains(const std::vector<FullBindingRow>& roster) {
+    FullBindingOptions options{};
+    options.provisional = FullProvisionalGeometry{};
+    options.require_practice_validation = false;
+    options.allow_variable_frame_data = true;
+    FullCharacterRules rules{};
+    add_provisional_stances(roster, rules, options.stance_names);
+    std::map<std::string, FullBoundMove> by_id;
+    for (auto& move : bind_full_combat_moves(roster, options)) by_id[move.stable_id] = std::move(move);
+    const auto get = [&](const std::string& id) -> const FullBoundMove& {
+        const auto found = by_id.find(id);
+        if (found == by_id.end()) throw std::runtime_error("missing row " + id);
+        return found->second;
+    };
+    const auto stance = [&](const std::string& name) {
+        return static_cast<int>(std::find(options.stance_names.begin(), options.stance_names.end(), name) -
+                                options.stance_names.begin());
+    };
+    // "Transition to BT": the move ends back-turned (Hwoarang's Torpedo Kick).
+    const auto& torpedo = get("hwoarang:85");
+    check(torpedo.bound() && torpedo.spec->result_back_turned && torpedo.spec->result_stance < 0,
+          "a transition to BT turns the user around instead of naming a stance");
+    // Chip values per version on a one-hit move: the first (base) one.
+    const auto& charged = get("jack-8:80");  // b+2*, chip 5|3
+    check(charged.bound() && charged.spec->hits.size() == 1 && charged.spec->hits[0].chip_damage == 5.0,
+          "a one-hit move takes its base version's chip damage");
+    // Fewer chip values than hits: they belong to the last hits.
+    const auto& string = get("jack-8:32");  // f+1,2,2*: three hits, chip 0|3
+    check(string.bound() && string.spec->hits.size() == 3 && string.spec->hits[0].chip_damage == 0.0 &&
+              string.spec->hits[1].chip_damage == 0.0 && string.spec->hits[2].chip_damage == 3.0,
+          "a string's chip values go to its last hits");
+    // A chain whose last stance has no plain version of the move binds from that stance.
+    const auto& ogum = get("eddy:126");  // MD1.HSP.b+4
+    check(ogum.bound() && ogum.provisional && ogum.spec->required_stance == stance("HSP"),
+          "MD1.HSP.b+4 binds from HSP");
+    const auto& leo = get("leo:127");  // LTG.KNK.4,1+2
+    check(leo.bound() && leo.spec->required_stance == stance("KNK"), "LTG.KNK.4,1+2 binds from KNK");
+    // A mode's version of a move its stance already has stays with that move.
+    const auto& kincho = get("yoshimitsu:275");  // NSS.KIN.f+1+2, and KIN.f+1+2 exists
+    check(!kincho.bound() && has_blocker(kincho, "mode version of KIN.f+1+2"),
+          "NSS.KIN.f+1+2 is left to KIN.f+1+2");
+    // Conditions written like stances are not stances.
+    check(has_blocker(get("reina:99"), "situational requirement not modeled: CH"), "SSH.CH.3 needs a counter hit");
+    check(has_blocker(get("kazuya:113"), "situational requirement not modeled: OTG"), "DVK.OTG needs a grounded opponent");
+}
+
 int main(int argc, char** argv) {
     if (argc != 2) {
         std::cerr << "usage: full_combat_binding_tests <full_combat_bindings.csv>\n";
@@ -420,6 +472,7 @@ int main(int argc, char** argv) {
             check(false, std::string("the engine accepts every bound roster move: ") + error.what());
         }
         std::cout << "roster: " << count << "/" << roster.size() << " rows bind with stand-in geometry\n";
+        test_back_turned_chip_and_stance_chains(roster);
     } catch (const std::exception& error) {
         std::cerr << "binding test error: " << error.what() << '\n';
         return EXIT_FAILURE;

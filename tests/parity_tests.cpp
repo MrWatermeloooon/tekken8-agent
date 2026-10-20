@@ -128,7 +128,7 @@ void test_simultaneous_jab_trade_fixture() {
     near(result.state.p1.x, -0.08, "trade P1 pushback position");
     near(result.state.p2.x, 0.90, "trade P2 pushback position");
     check(result.state.frame == 80, "trade fixture frame");
-    check(result.state.no_action_frames == 52, "trade fixture no-action frames");
+    near(result.state.no_action_frames, 56, "trade fixture no-action frames (hits land a frame earlier)");
 }
 
 void test_throw_break_fixture() {
@@ -148,7 +148,7 @@ void test_throw_break_fixture() {
     check(result.state.p2.throw_break_active == 5, "throw-break timer decrements per frame");
     check(result.info.p2_blocks == 1, "throw break counts as a block in V1 metrics");
     check(result.info.p2_throw_breaks == 1, "throw break metric");
-    near(result.reward_p1, -0.30, "throw-broken attacker reward");
+    near(result.reward_p1, -0.28, "throw-broken attacker reward (no idle penalty: Neutral was forced)");
     near(result.reward_p2, 0.47, "successful throw-break reward");
 }
 
@@ -168,9 +168,56 @@ void test_timeout_fixture() {
     near(result.reward_p2, -126.71666666666667, "timeout P2 reward");
 }
 
+void test_double_ko_is_a_draw() {
+    Simulator sim;
+    State state{};
+    state.p1 = fighter(0.0, 0.0);
+    state.p2 = fighter(0.0, 0.82);
+    sim.set_state(state);
+    const auto result = sim.step(Action::Neutral, Action::Neutral);
+    check(result.state.round_over && result.state.winner == 0, "a double KO is a draw, not a P2 win");
+}
+
+void test_forced_neutral_has_no_idle_penalty() {
+    // A busy fighter may only choose Neutral; the idle penalty is for choosing to idle.
+    Simulator sim;
+    State state{};
+    state.p1 = fighter(180.0, -1.5);
+    state.p2 = fighter(180.0, 1.5);
+    state.p1.hitstun = 30;
+    sim.set_state(state);
+    const auto busy = sim.step(Action::Neutral, Action::Neutral);
+    Simulator free_sim;
+    State free_state = state;
+    free_state.p1.hitstun = 0;
+    free_sim.set_state(free_state);
+    const auto idle = free_sim.step(Action::Neutral, Action::Neutral);
+    near(busy.reward_p1 - idle.reward_p1, -sim.config().idle_penalty, "forced Neutral is not charged the idle penalty");
+}
+
+void test_move_connects_on_its_startup_frame() {
+    // iN: the first active frame is frame N of the move. A jab (i10) on move frame 6
+    // plays frames 7-10 in the next decision, so it connects there (not on frame 11).
+    const auto& jab = t8::v2::kMoves[0];
+    check(jab.key == "jab" && jab.startup == 10, "move 0 is the i10 jab");
+    Simulator sim;
+    State state{};
+    state.p1 = fighter(180.0, 0.0);
+    state.p2 = fighter(180.0, 0.6);
+    state.p2.hitstun = 30;  // so P2 cannot guard the high
+    state.p1.move = 0;
+    state.p1.move_frame = jab.startup - sim.config().decision_frames;
+    sim.set_state(state);
+    const auto result = sim.step(Action::Neutral, Action::Neutral);
+    near(result.state.p2.health, 180.0 - jab.damage, "an i10 jab connects on its 10th frame");
+}
+
 }  // namespace
 
 int main() {
+    test_double_ko_is_a_draw();
+    test_forced_neutral_has_no_idle_penalty();
+    test_move_connects_on_its_startup_frame();
     test_contract_constants();
     test_reset_and_observation();
     test_neutral_step_fixture();

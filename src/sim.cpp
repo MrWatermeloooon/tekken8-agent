@@ -215,7 +215,8 @@ const MoveSpec* Simulator::active_move(const FighterRuntime& fighter) const noex
         return nullptr;
     }
     const auto& move = kMoves[static_cast<std::size_t>(fighter.move)];
-    if (fighter.move_frame > move.startup && fighter.move_frame <= move.startup + move.active) {
+    // move_frame is 1 on a move's first frame, so iN connects on frame N.
+    if (fighter.move_frame >= move.startup && fighter.move_frame < move.startup + move.active) {
         return &move;
     }
     return nullptr;
@@ -277,7 +278,7 @@ bool Simulator::finish_move_if_needed(FighterRuntime& fighter, bool active_whiff
     }
     const auto& move = kMoves[static_cast<std::size_t>(fighter.move)];
     bool whiffed = false;
-    if (active_whiff && !fighter.has_hit && fighter.move_frame == move.startup + move.active) {
+    if (active_whiff && !fighter.has_hit && fighter.move_frame == move.startup + move.active - 1) {
         whiffed = true;
         ++fighter.whiffs;
     }
@@ -308,7 +309,11 @@ void Simulator::check_round_over(State& state) const noexcept {
         return;
     }
     int winner = 0;
-    if (state.p1.health <= 0.0) {
+    if (state.p1.health <= 0.0 && state.p2.health <= 0.0) {
+        state.round_over = true;  // double KO: a draw
+        state.winner = 0;
+        return;
+    } else if (state.p1.health <= 0.0) {
         winner = 2;
     } else if (state.p2.health <= 0.0) {
         winner = 1;
@@ -357,7 +362,7 @@ Simulator::FrameInfo Simulator::advance_frame(State& state, Action p1_action, Ac
             return false;
         }
         const auto& move = kMoves[static_cast<std::size_t>(fighter.move)];
-        return fighter.move_frame > move.startup + move.active;
+        return fighter.move_frame >= move.startup + move.active;
     };
     const bool p1_punishes = has_p1_check && p1_check.damage > 0.0 && in_whiff_recovery(p2);
     const bool p2_punishes = has_p2_check && p2_check.damage > 0.0 && in_whiff_recovery(p1);
@@ -464,7 +469,8 @@ StepResult Simulator::step(Action p1_action, Action p2_action) {
     const bool truncated = state_.frame >= config_.max_frames && !state_.round_over;
     const bool timed_out = state_.round_over && state_.frame >= config_.max_frames &&
                            state_.p1.health > 0.0 && state_.p2.health > 0.0;
-    const bool stalemate = state_.round_over && state_.winner == 0;
+    const bool stalemate = state_.round_over && state_.winner == 0 &&
+                           state_.stall_frames >= config_.max_stall_frames;
     const bool no_action_timeout =
         state_.round_over && state_.no_action_frames >= config_.no_action_timeout_frames;
 
@@ -510,8 +516,8 @@ StepResult Simulator::step(Action p1_action, Action p2_action) {
         }
     }
 
-    if (p1_action == Action::Neutral) reward_p1 += config_.idle_penalty;
-    if (p2_action == Action::Neutral) reward_p2 += config_.idle_penalty;
+    if (p1_action == Action::Neutral && !previous.p1.busy()) reward_p1 += config_.idle_penalty;
+    if (p2_action == Action::Neutral && !previous.p2.busy()) reward_p2 += config_.idle_penalty;
 
     const bool no_contact = info.damage_to_p1 == 0.0 && info.damage_to_p2 == 0.0 &&
                             info.p1_blocks == 0 && info.p2_blocks == 0;
@@ -585,7 +591,7 @@ std::array<float, kObservationSize> Simulator::observation(int player) const {
     const auto throw_threat = [](const FighterRuntime& fighter) {
         if (fighter.move < 0) return false;
         const auto& move = kMoves[static_cast<std::size_t>(fighter.move)];
-        return move.hit_level == HitLevel::Throw && fighter.move_frame <= move.startup + move.active;
+        return move.hit_level == HitLevel::Throw && fighter.move_frame < move.startup + move.active;
     };
 
     return {
@@ -640,7 +646,7 @@ std::array<float, kVisualObservationSize> Simulator::visual_observation(
         if (fighter.move < 0) return 0.0;
         const auto& move = kMoves[static_cast<std::size_t>(fighter.move)];
         const double proximity = std::clamp(1.0 - state_.distance() / std::max(move.range + 0.8, 0.1), 0.0, 1.0);
-        const bool active_window = fighter.move_frame <= move.startup + move.active;
+        const bool active_window = fighter.move_frame < move.startup + move.active;
         return (active_window ? 0.6 : 0.25) + 0.4 * proximity;
     };
 

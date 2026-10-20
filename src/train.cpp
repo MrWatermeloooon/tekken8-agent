@@ -1055,7 +1055,8 @@ void append_metrics(
     std::optional<float> return_standard_deviation,
     std::uint64_t observation_normalizer_count,
     const std::optional<GuardDecision>& guard_decision,
-    float entropy_coefficient) {
+    float entropy_coefficient,
+    double rollout_reward_mean) {
     std::ostringstream row;
     row << std::setprecision(9)
            << "{\"update\":" << update
@@ -1082,6 +1083,7 @@ void append_metrics(
            << '"'
            << ",\"observation_normalizer_count\":" << observation_normalizer_count;
     if (return_standard_deviation) row << ",\"return_std\":" << *return_standard_deviation;
+    row << ",\"rollout_reward_mean\":" << rollout_reward_mean;
     if (guard_decision) {
         row << ",\"regression_guard\":{\"reasons\":[";
         for (std::size_t index = 0; index < guard_decision->reasons.size(); ++index) {
@@ -1817,9 +1819,46 @@ ResumeState load_trainer_state(const std::filesystem::path& path, const Options&
     return result;
 }
 
+// Resumes continue from the checkpoint, so rows written after it (training stopped or
+// crashed between checkpoints, after the metrics append) are dropped, as is a torn last
+// row; everything up to the checkpoint must still be complete and contiguous.
 void validate_metrics_for_resume(const std::filesystem::path& path, std::size_t completed_update) {
     if (!std::filesystem::exists(path)) {
         throw std::runtime_error("missing metrics ledger for exact resume: " + path.string());
+    }
+    std::vector<std::string> rows;
+    {
+        std::ifstream original(path);
+        if (!original) throw std::runtime_error("could not validate metrics for resume: " + path.string());
+        bool dropped = false;
+        for (std::string row; std::getline(original, row);) {
+            if (!row.empty() && row.back() == '\r') row.pop_back();
+            const auto marker = row.find("\"update\":");
+            std::size_t update = 0;
+            if (marker != std::string::npos) {
+                auto digit = marker + 9;
+                while (digit < row.size() && std::isdigit(static_cast<unsigned char>(row[digit]))) {
+                    update = update * 10 + static_cast<std::size_t>(row[digit++] - '0');
+                }
+            }
+            const bool torn = original.peek() == std::char_traits<char>::eof() &&
+                              (row.empty() || row.back() != '}');
+            if (torn || update > completed_update) {
+                dropped = true;
+                continue;
+            }
+            rows.push_back(row);
+        }
+        if (dropped) {
+            original.close();
+            auto temporary = path;
+            temporary += ".tmp";
+            {
+                std::ofstream output(temporary, std::ios::trunc);
+                for (const auto& row : rows) output << row << '\n';
+            }
+            std::filesystem::rename(temporary, path);
+        }
     }
     std::ifstream input(path);
     if (!input) throw std::runtime_error("could not validate metrics for resume: " + path.string());
@@ -2210,7 +2249,8 @@ int main(int argc, char** argv) {
                     learner_output.actions, opponent_actions, options.environments);
                 rollout.record_policy_device(
                     step, policy_observations, routed_inputs.learner_action_masks,
-                    learner_output.actions, learner_output.log_probabilities, learner_output.values);
+                    learner_output.actions, learner_output.log_probabilities, learner_output.values, nullptr,
+                    nullptr, learner_output.entropies);
                 simulator.step_device_i64(routed_actions.p1_actions, routed_actions.p2_actions);
                 const auto after = simulator.device_view();
                 if (options.full_roster && !use_self_play) {
@@ -2257,6 +2297,7 @@ int main(int argc, char** argv) {
                 simulator.reset_done_seeded(
                     options.seed + update * options.horizon + step);
             }
+            const double rollout_reward_mean = rollout.mean_reward();
             std::optional<float> return_standard_deviation;
             if (options.return_normalization) {
                 return_standard_deviation = rollout.normalize_rewards(options.gamma);
@@ -2321,7 +2362,8 @@ int main(int argc, char** argv) {
             append_metrics(metrics_path, update, environment_steps, reward_mode, observation_mode,
                            metrics, elapsed, deterministic_evaluation, stochastic_evaluation,
                            self_play_selection, return_standard_deviation,
-                           learner.observation_count(), guard_decision, update_config.entropy_coefficient);
+                           learner.observation_count(), guard_decision, update_config.entropy_coefficient,
+                           rollout_reward_mean);
             if (deterministic_evaluation) {
                 export_evaluation(options.run_directory, update, environment_steps, elapsed,
                                   *deterministic_evaluation, *stochastic_evaluation,

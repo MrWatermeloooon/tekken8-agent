@@ -4,12 +4,20 @@ import argparse
 import time
 import threading
 
+from pathlib import Path
+
 from t8_agent.io.controller_backend import VGamepadInputBackend
+from t8_agent.live.feedback import ExecutionFeedback, ReplayRecorder, SideSwitchDetector
 from t8_agent.io.screen_backend import DxcamScreenStateBackend
 from t8_agent.live.vision_agent import LiveVisionAgent, LiveVisualPpoAgent
 from t8_agent.live.runtime import LiveActionState, RoundTracker
 from t8_agent.vision.temporal import TemporalScreenEstimator
 from t8_agent.sim.actions import SimAction
+
+
+# Compatibility actions whose outcome (hit, interrupted, ...) is tracked.
+ATTACK_ACTIONS = frozenset(LiveActionState.RECOVERY_LIMITS) | {
+    SimAction.HEAT_BURST, SimAction.HEAT_SMASH, SimAction.RAGE_ART}
 
 
 def main() -> int:
@@ -24,7 +32,7 @@ def main() -> int:
     parser.add_argument("--model", default=None)
     parser.add_argument("--device", default="cuda",
                         help="Torch device for the vision model and V2 policy (default: cuda).")
-    parser.add_argument("--agent", choices=["rule", "v2"], default="rule")
+    parser.add_argument("--agent", choices=["rule", "v2", "full-move"], default="rule")
     parser.add_argument("--ppo-checkpoint", default=None,
                         help="Native .t8ppo checkpoint trained with --observation-mode visual.")
     parser.add_argument("--player", type=int, choices=[1, 2], default=1,
@@ -33,6 +41,16 @@ def main() -> int:
                         help="Roster slug required by a 95-feature matchup checkpoint (for example reina).")
     parser.add_argument("--opponent-archetype", default=None,
                         help="Archetype required by a 95-feature checkpoint (for example rushdown or movement_specialist).")
+    parser.add_argument("--controlled-character", default=None,
+                        help="Roster slug of the fighter this runtime controls; required for --agent full-move.")
+    parser.add_argument("--validation-root", default="data/validation")
+    parser.add_argument("--allow-unvalidated", action="store_true",
+                        help="Dry run only: load a full-move checkpoint whose character gate has not passed.")
+    parser.add_argument("--auto-facing", dest="auto_facing", action="store_true", default=True,
+                        help="Detect side switches from fighter colors (default; F7 still overrides).")
+    parser.add_argument("--no-auto-facing", dest="auto_facing", action="store_false")
+    parser.add_argument("--replay", default=None,
+                        help="Write a JSONL replay of decisions, controller presses, and outcomes here.")
     parser.add_argument("--stochastic", action="store_true",
                         help="Sample actions; live V2 inference is deterministic by default.")
     parser.add_argument("--hotkey", default="f8", help="Global hotkey used to pause/resume controller output.")
@@ -52,8 +70,12 @@ def main() -> int:
     args = parser.parse_args()
     if not (0 < args.interval < args.capture_timeout < float("inf")) or not (0 < args.seconds < float("inf")):
         parser.error("require 0 < interval < capture-timeout and positive finite seconds")
-    if args.agent == "v2" and not args.ppo_checkpoint:
-        parser.error("--ppo-checkpoint is required with --agent v2")
+    if args.agent in ("v2", "full-move") and not args.ppo_checkpoint:
+        parser.error(f"--ppo-checkpoint is required with --agent {args.agent}")
+    if args.agent == "full-move" and not args.controlled_character:
+        parser.error("--controlled-character is required with --agent full-move")
+    if args.allow_unvalidated and not args.dry_run:
+        parser.error("--allow-unvalidated is only allowed with --dry-run")
 
     def p1_is_on_left(controlled_facing: int) -> bool:
         controlled_player_is_left = controlled_facing == 1
@@ -113,9 +135,64 @@ def main() -> int:
                                screen_position_sigma=None if screen_sigma is None else float(screen_sigma),
                                screen_event_error=None if screen_error is None else float(screen_error),
                                motion_threshold=float(backend.config.get("motion_threshold", 0.015)))
-             if args.agent == "v2" else LiveVisionAgent())
+             if args.agent == "v2" else LiveVisionAgent())  # full-move: FullMovePolicy below
+    full_move = None
+    move_catalog = ledger = None
+    own_tracker = heat_estimate = rage_estimate = None
+    hud_tracker = None
+    moves_by_id: dict = {}
+    if args.agent == "full-move":
+        from t8_agent.live.full_move import FullMovePolicy, verify_full_move_checkpoint
+        from t8_agent.moves.catalog import load_compiled_catalog
+        from t8_agent.moves.validation import load_validation_ledger
+        move_catalog = load_compiled_catalog(Path("data/generated/full_move_catalog.json"))
+        checkpoint, table = verify_full_move_checkpoint(
+            args.ppo_checkpoint, move_catalog, args.controlled_character,
+            validation_root=args.validation_root, allow_unvalidated=args.allow_unvalidated)
+        full_move = FullMovePolicy(checkpoint, table, deterministic=not args.stochastic)
+        ledger = load_validation_ledger(Path(args.validation_root) / f"{args.controlled_character}.json")
+        moves_by_id = {move["stable_id"]: move for move in move_catalog.moves}
+        roster_ids = {row["slug"]: int(row["id"]) for row in move_catalog.characters}
+        controlled_id = roster_ids[args.controlled_character]
+        from t8_agent.live.hud_reader import HudTracker
+        hud_tracker = HudTracker()  # health, recoverable health, Heat gauges (screen contract v4)
+        # A --live-noise checkpoint also reads this setup's calibrated noise levels: position sigma
+        # (m), detection error rate, and input latency (frames); a dry run falls back to mid values.
+        full_move_noise = None
+        if "noise" in checkpoint.observation_contract:
+            latency = backend.config.get("controller_latency_frames")
+            if (screen_sigma is None or screen_error is None or latency is None) and not args.dry_run:
+                parser.error("a --live-noise checkpoint needs screen_position_sigma, screen_event_error, and "
+                             "controller_latency_frames in the screen config")
+            full_move_noise = (float(screen_sigma if screen_sigma is not None else 0.12),
+                               float(screen_error if screen_error is not None else 0.05),
+                               float(latency if latency is not None else 4))
+        opponent_id = roster_ids.get(args.opponent_character or "")  # unknown opponent: no one-hot
+        from t8_agent.live.own_state import (
+            HeatEstimate, HudGauge, OwnStateTracker, RageEstimate, load_move_timings,
+        )
+        own_tracker = OwnStateTracker(load_move_timings(Path("data/generated/full_combat_bindings.csv"),
+                                                        args.controlled_character))
+        heat_estimate = HeatEstimate(HudGauge.from_config(backend.config, f"p{args.player}_heat_gauge"))
+        rage_estimate = RageEstimate(float(backend.config.get("rage_health_fraction", 0.25)))
+        print(f"controlled_character={args.controlled_character} candidates={len(table)} "
+              f"own_state=tracked from sent commands, heat="
+              f"{'HUD gauge' if heat_estimate.gauge else 'unknown (calibrate p' + str(args.player) + '_heat_gauge)'}, "
+              "rage=health threshold (provisional), opponent move=unknown", flush=True)
+    recorder = None
+    if args.replay:
+        recorder = ReplayRecorder(args.replay, metadata={
+            "agent": args.agent, "checkpoint": args.ppo_checkpoint, "player": args.player,
+            "controlled_character": args.controlled_character, "dry_run": args.dry_run})
     controller = None if args.dry_run else VGamepadInputBackend(
-        facing=args.facing, tap_seconds=0.035, asynchronous=True, hold_timeout=args.capture_timeout)
+        facing=args.facing, tap_seconds=0.035, asynchronous=True, hold_timeout=args.capture_timeout,
+        # String input timing validated in Practice (scripts/validate_moves.py, 2026-10-10).
+        string_gap_seconds=14 / 60, string_first_gap_seconds=8 / 60, string_gap_growth_seconds=4 / 60,
+        dash_button_delay_seconds=4 / 60,
+        input_log=None if recorder is None else recorder.controller)
+    feedback = ExecutionFeedback(player=args.player,
+                                 motion_threshold=float(backend.config.get("motion_threshold", 0.015)))
+    side_detector = SideSwitchDetector() if args.auto_facing else None
     action_state = LiveActionState(player=args.player)
     rounds = RoundTracker()
     enabled = not args.start_paused
@@ -127,6 +204,10 @@ def main() -> int:
         controller.set_enabled(enabled)
 
     def reset_history() -> None:
+        if own_tracker is not None:
+            own_tracker.reset_round()
+            heat_estimate.reset_round()
+            hud_tracker.reset_round()
         agent.reset_episode()
         estimator.reset_episode()
         if learned_estimator is not None:
@@ -152,12 +233,15 @@ def main() -> int:
             reset_requested.set()
             print(f"controller={'on' if enabled else 'off'}", flush=True)
 
-    def flip_side() -> None:
+    def flip_side(manual: bool = True) -> None:
         nonlocal side_flips
         with control_lock:
             side_flips += 1
             if controller is not None:
                 controller.release_all()
+            if manual and side_detector is not None:
+                # The manual override wins; colors are re-learned from the next frame.
+                side_detector.reset_reference()
             reset_requested.set()
 
     def request_reset() -> None:
@@ -202,6 +286,13 @@ def main() -> int:
                 generation = controller.generation if controller is not None else None
             state = backend.read()
             raw = state.raw or {}
+            # No new frame yet (about half of the grabs): poll again shortly instead of
+            # skipping this decision and sleeping a whole interval.
+            retry_until = time.perf_counter() + args.interval
+            while not raw.get("capture_fresh", False) and time.perf_counter() < retry_until:
+                time.sleep(0.002)
+                state = backend.read()
+                raw = state.raw or {}
             if not raw.get("capture_fresh", False):
                 if raw.get("frame_age_seconds", float("inf")) >= args.capture_timeout:
                     pause_for_capture()
@@ -211,6 +302,14 @@ def main() -> int:
                     if enabled and not controller.enabled:
                         pause_for_capture()
                     controller.heartbeat()
+            frame = backend.last_frame
+            left, right = backend.p1_body_region, backend.p2_body_region
+            if side_detector is not None and frame is not None and left is not None and right is not None:
+                if side_detector.update(frame[left.top:left.bottom, left.left:left.right],
+                                        frame[right.top:right.bottom, right.left:right.right]):
+                    print("side_switch=detected", flush=True)
+                    flip_side(manual=False)
+                    continue
             round_status = rounds.update(raw["p1_health_ratio"], raw["p2_health_ratio"])
             if round_status == "waiting":
                 if controller is not None:
@@ -224,25 +323,87 @@ def main() -> int:
             estimate = learned_estimator.update(backend.last_frame) if learned_estimator else estimator.update(state, backend.last_frame)
             if estimate is None:
                 continue
+            resolved = feedback.update(estimate)
+            if resolved is not None and recorder is not None:
+                recorder.outcome(resolved)
             input_busy = controller.is_busy if controller is not None else False
-            mask = action_state.action_mask(estimate, input_busy=input_busy)
-            policy_action = agent.act(estimate, action_mask=mask)
-            action = SimAction.NEUTRAL
+            if full_move is not None:
+                from t8_agent.live.full_move import dispatch_candidate, live_legal_mask
+                from t8_agent.live.own_state import screen_full_move_observation
+                now = time.perf_counter()
+                if (estimate.p1_hit_event if args.player == 1 else estimate.p2_hit_event):
+                    own_tracker.on_own_hit(now)
+                if resolved is not None and resolved.outcome == "hit":
+                    own_tracker.on_outcome("hit")
+                own_health = estimate.p1_health_ratio if args.player == 1 else estimate.p2_health_ratio
+                observed = own_tracker.observe(
+                    now, busy=input_busy,
+                    heat=heat_estimate.update(frame) if frame is not None else None,
+                    rage=rage_estimate.update(own_health))
+                candidate_mask = live_legal_mask(full_move.table, move_catalog, observed,
+                                                 ledger=ledger, require_validated=not args.allow_unvalidated)
+                own_key, other_key = ("p1_posture", "p2_posture") if args.player == 1 else ("p2_posture", "p1_posture")
+                choice = full_move.act(screen_full_move_observation(
+                    estimate, observed, player=args.player, own_character=controlled_id,
+                    opponent_character=opponent_id,
+                    attack_cue_threshold=float(backend.config.get("attack_cue_threshold", 0.5)),
+                    noise_levels=full_move_noise, own_pose=raw.get(own_key), opponent_pose=raw.get(other_key),
+                    own_move=own_tracker.move_progress(now),
+                    hud=hud_tracker.update(backend.last_frame) if backend.last_frame is not None else None),
+                    candidate_mask)
+                candidate = full_move.table.stable_ids[choice]
+                legal_count = int(candidate_mask.sum())
+            else:
+                mask = action_state.action_mask(estimate, input_busy=input_busy)
+                policy_action = agent.act(estimate, action_mask=mask)
+                candidate = policy_action.value
+                legal_count = int(mask.sum())
+            action_value = SimAction.NEUTRAL.value
+            sent = False
+            attempted = False
             with control_lock:
                 if time.perf_counter() - backend.last_capture_at >= args.capture_timeout:
                     pause_for_capture()
                 elif enabled and not reset_requested.is_set() and not input_busy:
-                    if controller is None or controller.send_action(policy_action, expected_generation=generation):
-                        action = policy_action
-                        action_state.record_executed(action)
+                    attempted = True
+                    if full_move is not None:
+                        sent = controller is None or dispatch_candidate(
+                            controller, full_move.table, choice, expected_generation=generation)
+                        if sent:
+                            own_tracker.on_dispatch(candidate, time.perf_counter())
+                    else:
+                        sent = controller is None or controller.send_action(
+                            policy_action, expected_generation=generation)
+                        if sent:
+                            action_state.record_executed(policy_action)
+                    if sent:
+                        action_value = candidate
+            expected_inputs = None
+            if sent and controller is not None:
+                if full_move is not None and not full_move.table.is_universal(choice):
+                    expected_inputs = controller.planned_inputs(
+                        command=full_move.table.commands[choice], move_id=candidate)
+                else:
+                    expected_inputs = controller.planned_inputs(action=candidate.split(":")[-1])
+            is_attack = (not full_move.table.is_universal(choice) if full_move is not None else
+                         policy_action in ATTACK_ACTIONS)
+            if attempted and is_attack:
+                startup = (moves_by_id.get(candidate) or {}).get("startup")
+                feedback.start(candidate, sent=bool(sent), startup=startup)
+            if recorder is not None:
+                recorder.decision(estimate=estimate, candidate=candidate, sent=bool(sent),
+                                  legal_count=legal_count, expected_inputs=expected_inputs)
             print(
-                f"policy={policy_action.value:<12} sent={action.value:<12} distance={estimate.distance:4.2f} "
+                f"policy={candidate:<12} sent={action_value:<12} distance={estimate.distance:4.2f} "
                 f"controller={'on' if enabled else 'off'} "
                 f"p1_motion={estimate.p1_motion:.3f} p2_motion={estimate.p2_motion:.3f} "
                 f"p2_attack={estimate.p2_attack_likelihood:.2f}",
                 flush=True,
             )
     finally:
+        if recorder is not None:
+            recorder.write("summary", outcomes=feedback.summary())
+            recorder.close()
         try:
             if controller is not None:
                 controller.close()
